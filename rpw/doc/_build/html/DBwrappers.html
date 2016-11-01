@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DB Namespace &#8212; Revit Python Wrapper 0.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Revit Python Wrapper 0.0.0 documentation" href="index.html" />
+    <link rel="prev" title="Transaction()" href="transaction.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="db-namespace">
+<h1>DB Namespace<a class="headerlink" href="#db-namespace" title="Permalink to this headline">¶</a></h1>
+<p>DB Namespace is the Largest namespace and contains over 10,000 members.</p>
+<span class="target" id="module-rpw.DBwrappers"></span><div class="section" id="db-namespace-wrappers">
+<h2>DB Namespace Wrappers<a class="headerlink" href="#db-namespace-wrappers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.DBwrappers.BaseElementWrapper">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">BaseElementWrapper</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.BaseElementWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseWrapper" title="rpw.DBwrappers.BaseWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseWrapper</span></code></a></p>
+<p>Base Element Wrapper Class
+Initializes using a Revit Element.
+This element is stored in the projected _element attribute
+:param element: Revit Element to store
+:type element: APIObject</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There might are few cases were this class is used
+on non-elements. ParameterSet for instance, does
+not inherit from Element, but uses this class
+so it can store a reference to the element and uses
+other Parameter related methods that are not store in
+Parameters such as element.get_Parameter or element.LookupParameter</p>
+</div>
+<dl class="method">
+<dt id="rpw.DBwrappers.BaseElementWrapper.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.BaseElementWrapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Child classes can use self._element to refer back to Revit Element
+Element is used loosely to refer to all Revit Elements.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers.BaseWrapper">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">BaseWrapper</code><a class="headerlink" href="#rpw.DBwrappers.BaseWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base Object Wrapper Class.
+Does not require any arguemnts.
+Allows access to all original attributes and methods of original object.</p>
+<dl class="method">
+<dt id="rpw.DBwrappers.BaseWrapper.__getattr__">
+<code class="descname">__getattr__</code><span class="sig-paren">(</span><em>attr</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.BaseWrapper.__getattr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access original methods and properties or the element.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers.Element">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseElementWrapper" title="rpw.DBwrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseElementWrapper</span></code></a></p>
+<p>Generic Revit Element Wrapper</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">RevitWallElement</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">id</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.DBwrappers.Element.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.Element.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Google Style.</p>
+<p>Extended description of function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>API Object</em>) &#8211; Revit API Object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Instance of Wrapped Element</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.DBwrappers.Element" title="rpw.DBwrappers.Element">Element</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="rpw.DBwrappers.Element.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#rpw.DBwrappers.Element.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>_ParameterSet</em> &#8211; Access Wrapped ParameterSet Class :class:&#8217;._ParameterSet&#8217;</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">parameters['ParamName']</code></dt>
+<dd><p><em>_Parameter</em> &#8211; Get Paramter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">parameters.builtins['BuiltInName']</code></dt>
+<dd><p><em>_Parameter</em> &#8211; Buit In :obj:_Parameter</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.DBwrappers.Element.id">
+<code class="descname">id</code><a class="headerlink" href="#rpw.DBwrappers.Element.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example of mapping existing properties</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers.ElementId">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">ElementId</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.ElementId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseElementWrapper" title="rpw.DBwrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseElementWrapper</span></code></a></p>
+<p>Element Id Wrapper</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ElementId</strong> (<em>DB.ElementId</em>) &#8211; Creates a Wrapped ElementId</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Intance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.DBwrappers.ElementId" title="rpw.DBwrappers.ElementId">ElementId</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers.FamilyInstance">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">FamilyInstance</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.FamilyInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseElementWrapper" title="rpw.DBwrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseElementWrapper</span></code></a></p>
+<p>Generic Family Instance Wrapper</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers.FamilyType">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">FamilyType</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers.FamilyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseElementWrapper" title="rpw.DBwrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseElementWrapper</span></code></a></p>
+<p>Generic Family Instance Wrapper</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers._Parameter">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">_Parameter</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers._Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseElementWrapper" title="rpw.DBwrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseElementWrapper</span></code></a></p>
+<p>Revit Element Parameter Wrapper.</p>
+<p>Handles the following types:</p>
+<ul class="simple">
+<li>Autodesk.Revit.DB.StorageType.String</li>
+<li>Autodesk.Revit.DB.StorageType.Double</li>
+<li>Autodesk.Revit.DB.StorageType.ElementId</li>
+<li>Autodesk.Revit.DB.StorageType.Integer</li>
+<li>Autodesk.Revit.DB.StorageType.None</li>
+</ul>
+<dl class="attribute">
+<dt id="rpw.DBwrappers._Parameter.type">
+<code class="descname">type</code><a class="headerlink" href="#rpw.DBwrappers._Parameter.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results the Python Type of the Parameter</p>
+<p>returns: python built in type</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.DBwrappers._Parameter.value">
+<code class="descname">value</code><a class="headerlink" href="#rpw.DBwrappers._Parameter.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Parameter Value
+:returns: parameter value in python type
+:rtype: type</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">3.0</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Set Parameter Value</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Certain types are automatically coerced</p>
+<ul class="last simple">
+<li>storagetype:value &gt; result</li>
+<li>str:None &gt; &#8216;&#8217;</li>
+<li>str:type &gt; str(value)</li>
+<li>ElementId:None &gt; ElemendId.InvalidElementId</li>
+<li>int:float &gt; int</li>
+<li>float:int &gt; float</li>
+</ul>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.DBwrappers._ParameterSet">
+<em class="property">class </em><code class="descclassname">rpw.DBwrappers.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers._ParameterSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.DBwrappers.BaseElementWrapper" title="rpw.DBwrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.DBwrappers.BaseElementWrapper</span></code></a></p>
+<p>Revit Element Parameter List Wrapper.
+Allows you to treat an element parameters as if it was a dictionary.</p>
+<dl class="method">
+<dt id="rpw.DBwrappers._ParameterSet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.DBwrappers._ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup element</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">DB Namespace</a><ul>
+<li><a class="reference internal" href="#db-namespace-wrappers">DB Namespace Wrappers</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="transaction.html" title="previous chapter">Transaction()</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/DBwrappers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Gui Talarico.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/DBwrappers.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

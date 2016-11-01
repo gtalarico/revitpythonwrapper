@@ -3,19 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-
-Revit Python Wrapper 2
+Revit Python Wrapper
 ==============================================
 
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   wrappers
-   enumeration
+   parameters
+   transaction
+   DBwrappers
+   UIwrappers
 
 
+Introduction
+==================
+
+.. automodule:: rpw
 
 
 Indices and tables

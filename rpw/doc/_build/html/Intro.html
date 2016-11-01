@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Revit Python Wrapper &#8212; Revit Python Wrapper 0.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Revit Python Wrapper 0.0.0 documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="revit-python-wrapper">
+<h1>Revit Python Wrapper<a class="headerlink" href="#revit-python-wrapper" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#module-rpw">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#a-python-interface-for-the-revit-api">A Python Interface For the Revit API</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+<div class="section" id="module-rpw.wrappers">
+<span id="usage"></span><h1>Usage<a class="headerlink" href="#module-rpw.wrappers" title="Permalink to this headline">¶</a></h1>
+<p>Python Wrapper For the Revit API</p>
+<dl class="class">
+<dt id="rpw.wrappers.BaseWrapper">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">BaseWrapper</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.BaseWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base Class</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.wrappers.Element">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic Revit Element Wrapper</p>
+<dl class="attribute">
+<dt id="rpw.wrappers.Element.id">
+<code class="descname">id</code><a class="headerlink" href="#rpw.wrappers.Element.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example of mapping existing properties</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.wrappers.ElementId">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">ElementId</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.ElementId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element Id Wrapper</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.wrappers.FamilyInstance">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">FamilyInstance</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.FamilyInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic Family Instance Wrapper</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.wrappers.FamilyType">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">FamilyType</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.FamilyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic Family Instance Wrapper</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.wrappers.Selection">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">Selection</code><a class="headerlink" href="#rpw.wrappers.Selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revit uidoc.Selection Wrapper
+Makes easier to manipulate Active Selection.</p>
+<p>Usage:</p>
+<p>selection = Selection()
+selection.element_ids
+selection.elements
+len(selection)</p>
+<p>selection.RevitProperty
+selection.RevitMethod()</p>
+<dl class="attribute">
+<dt id="rpw.wrappers.Selection.element_ids">
+<code class="descname">element_ids</code><a class="headerlink" href="#rpw.wrappers.Selection.element_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns: List of ElementIds Objects</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.wrappers.Selection.elements">
+<code class="descname">elements</code><a class="headerlink" href="#rpw.wrappers.Selection.elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns: List of Elements</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Revit Python Wrapper</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#module-rpw.wrappers">Usage</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Intro.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Gui Talarico.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/Intro.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

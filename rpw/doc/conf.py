@@ -21,6 +21,19 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import sys
+import os
+sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper')
+# sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper\\rpw')
+# sys.setrecursionlimit(500)
+
+autodoc_mock_imports = [
+    # 'clr',
+]
+
+napoleon_google_docstring = True
+napoleon_include_private_with_doc = True
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -31,14 +44,12 @@
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 
-import sys
-import os
-sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper')
-
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.githubpages',
+    'sphinx.ext.napoleon',
 ]
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -120,7 +131,7 @@ pygments_style = 'sphinx'
 # keep_warnings = False
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = False
+todo_include_todos = True
 
 
 # -- Options for HTML output ----------------------------------------------

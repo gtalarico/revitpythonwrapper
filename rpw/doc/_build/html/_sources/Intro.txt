@@ -9,18 +9,10 @@ Revit Python Wrapper
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   parameters
-   transaction
-   DBwrappers
-   UIwrappers
+   index.rst
 
-
-Introduction
-==================
-
-.. automodule:: rpw
 
 
 Indices and tables
@@ -29,3 +21,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+Usage
+==================
+
+.. automodule:: rpw.wrappers
+    :members:
