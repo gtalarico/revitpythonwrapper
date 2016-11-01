@@ -1,0 +1,1 @@
+Search.setIndex({envversion:50,filenames:["index"],objects:{},objnames:{},objtypes:{},terms:{content:0,index:0,modul:0,page:0,search:0},titles:["Revit Python Wrapper"],titleterms:{document:[],indice:0,python:0,revit:0,revitpythonwrapp:[],tabl:0,welcom:[],wrapper:0}})
