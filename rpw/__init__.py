@@ -29,29 +29,37 @@ __copyright__ = ''
 # See Doc style:
 # https://github.com/kennethreitz/requests/blob/master/requests/api.py
 import clr
+import sys
+from rpw.logger import logger
+
+logger.verbose(True)
 
 clr.AddReference('RevitAPI')
 clr.AddReference('RevitAPIUI')
-
-from Autodesk.Revit.DB import FilteredElementCollector, BuiltInCategory
-from Autodesk.Revit.DB import Transaction, XYZ
+clr.AddReference('System')
 
 try:
     "Running In PyRevit"
     uidoc = __revit__.ActiveUIDocument
     doc = __revit__.ActiveUIDocument.Document
+    version = __revit__.Application.VersionNumber
 
 except NameError:
-    "Running In PyRevit"
-    clr.AddReference("RevitServices")
-    import RevitServices
-    from RevitServices.Persistence import DocumentManager
+    logger.error('Could not pyRevit Document. Trying Dynamo.')
+    try:
+        "Running In PyRevit"
+        clr.AddReference("RevitServices")
+    except:
+        logger.error('Could not Revit Document')
+    else:
+        import RevitServices
+        from RevitServices.Persistence import DocumentManager
 
-    doc = DocumentManager.Instance.CurrentDBDocument
-    uiapp = DocumentManager.Instance.CurrentUIApplication
-    app = uiapp.Application
+        doc = DocumentManager.Instance.CurrentDBDocument
+        uiapp = DocumentManager.Instance.CurrentUIApplication
+        app = uiapp.Application
 
-    # Verify
-    uidoc = uiapp.ActiveUIDocument
+        # Verify
+        uidoc = uiapp.ActiveUIDocument
 
-# from rpw.wrappers import *
+from rpw.wrappers import *
