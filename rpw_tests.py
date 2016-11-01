@@ -3,8 +3,9 @@
 p = r"D:\Dropbox\Shared\dev\repos\revitpythonwrapper"
 sys.path.append(p)
 
-from rpw import doc, uidoc
-from rpw.wrappers import BaseWrapper, Selection, Element, ElementId
+from rpw.db_wrappers import Element, ElementId
+from rpw.ui_wrappers import Selection
+from rpw.transaction import Transaction
 
 print('=====================')
 selection = Selection()             # Instatiate Selection Class
@@ -21,8 +22,10 @@ print('ELEMENT')
 if len(selection) > 0:
     element = Element(selection[0])
     print(element)
+    element.id
     print(element.Id)
     print(element.id)
+    # import sys; sys.exit()
     print('=====================')
     print('PARAMETERS')
     print(element.parameters)
@@ -38,11 +41,14 @@ if len(selection) > 0:
     print(element.parameters['Base Constraint'].type)
     print('=====================')         # Element Id
     print('ELEMENT ID')
+    print(element.Id)
+    print(element.id)
     eid = element.id
     print(repr(eid))
     print(eid)
     print(int(eid))
     print('=====================')         # BuiltIn
+    print('BUILT IN PARAMETER')
     wall = element
     print(wall)
     print(wall.parameters)
@@ -51,7 +57,34 @@ if len(selection) > 0:
     print(bip.value)
     print(bip.type)
     print(wall.parameters.builtins)
-# # __window__.Close()
+    print('=====================')         # BuiltIn
+    print('UNWRAP')
+    print(wall.unwrapped)                  # Get Revit Element
+    print('=====================')         # BuiltIn
+    print('SET VARIABLE')
+
+    param = wall.parameters['Comments']
+    with Transaction('Change Parameter'):
+        param.value = 'Gui'
+        # param.value = 156
+        # param.value = None
+        # param.value = eid.Id
+
+    # Coerces Int and flots as needed for Double and Integer Type
+    param = wall.parameters['Base Offset']
+    with Transaction('Change Parameter'):
+        param.value = 0
+
+    # Sets Element Id to None
+    param = wall.parameters['Top Constraint']
+    with Transaction('Change Parameter'):
+        param.value = None
+
+    print('=====================')         # BuiltIn
+    print('SET VARIABLE')
+
+
+
 #
 # # Tests
 # # try:

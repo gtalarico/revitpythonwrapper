@@ -1,5 +1,8 @@
 """
-### A Python Interface For the Revit API
+
+************************************
+A Python Interface For the Revit API
+************************************
 
 Revit Python Wrapper allows you write Revit API Python code
 that in a way that is more natural to the language.
@@ -11,12 +14,18 @@ patterns to make your code more conscise (DRY).
 Please help improve the project by contributing with improvemnts, bugs,
 and ideas.
 
-### Disclaimer
-Please keep in mind this is my first _public API_, so if you know better,
+Disclaimer
+**********
+
+Please keep in mind this is my first *public API*, so if you know better,
 don't hesitate to enlighthen me.
 
 I hope this is just the start of project that will help Python lovers
 write better Revit API Code.
+
+
+http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
+https://github.com/kennethreitz/requests/blob/master/requests/api.py
 
 """
 
@@ -26,17 +35,23 @@ __author__ = 'Gui Talarico'
 __license__ = 'Apache 2.0'
 __copyright__ = ''
 
-# See Doc style:
-# https://github.com/kennethreitz/requests/blob/master/requests/api.py
-import clr
+
 import sys
 from rpw.logger import logger
 
 logger.verbose(True)
 
-clr.AddReference('RevitAPI')
-clr.AddReference('RevitAPIUI')
-clr.AddReference('System')
+try:
+    #  This is a workaround to fix Sphinx's autodoc
+    import clr
+    clr.AddReference('RevitAPI')
+    clr.AddReference('RevitAPIUI')
+    clr.AddReference('System')
+    from Autodesk.Revit import DB
+    from Autodesk.Revit import UI
+except:
+    print('Import Failed Using Fake Import')
+    from rpw.sphinx_compat import *
 
 try:
     "Running In PyRevit"
@@ -62,4 +77,4 @@ except NameError:
         # Verify
         uidoc = uiapp.ActiveUIDocument
 
-from rpw.wrappers import *
+# from rpw.wrappers import *
