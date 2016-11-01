@@ -41,10 +41,7 @@ class Selection(BaseElementWrapper):
         Usage:
         selection[0]
         """
-        try:
-            return self.elements[index]
-        except IndexError:
-            return None
+        return self.elements[index]
 
     def __len__(self):
         """ Number items of Selection """

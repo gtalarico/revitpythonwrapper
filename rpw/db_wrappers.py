@@ -7,7 +7,7 @@ DB Namespace Wrappers
 from rpw import doc, uidoc, version
 from rpw.logger import logger
 from rpw.enumeration import BuiltInParameterEnum
-from rpw.exceptions import RPWException, RPW_WrongStorageType
+from rpw.exceptions import RPW_Exception, RPW_WrongStorageType, RPW_ParameterNotFound
 
 from rpw import DB
 
@@ -50,10 +50,6 @@ class BaseElementWrapper(BaseWrapper):
         """
         self._element = element
 
-    @property
-    def unwrapped(self):
-        return self._element
-
 
 class ElementId(BaseElementWrapper):
     """ Element Id Wrapper
@@ -68,10 +64,6 @@ class ElementId(BaseElementWrapper):
     def __init__(self, element):
         super(ElementId, self).__init__(element)
 
-    @property
-    def empty(self):
-        return self._element.Id.InvalidElementId
-
     def __int__(self):
         return self._element.Id.IntegerValue
 
@@ -85,6 +77,8 @@ class ElementId(BaseElementWrapper):
 class Element(BaseElementWrapper):
     """
     Generic Revit Element Wrapper
+
+    self._element = DB.Element
 
     Usage:
 
@@ -130,6 +124,9 @@ class _ParameterSet(BaseElementWrapper):
     """
     Revit Element Parameter List Wrapper.
     Allows you to treat an element parameters as if it was a dictionary.
+    Keeping element store so other methods beyond Parameters can be used.
+
+    self._element = DB.Element
 
     """
 
@@ -146,7 +143,19 @@ class _ParameterSet(BaseElementWrapper):
 
         """
         parameter = self._element.LookupParameter(param_name)
-        return _Parameter(parameter) if parameter else None
+        # return _Parameter(parameter) if parameter else None
+        if not parameter:
+            raise RPW_ParameterNotFound(self, param_name)
+        return _Parameter(parameter)
+
+    def __setitem__(self, param_name, param_value):
+        """ Allows to set parameter directly to Parameter Set.
+         Usage:
+            >>> elemenet.parameters['Height'] = 3
+            >>> elemenet.parameters['Height'] = 3
+         """
+        parameter = self.__getitem__(param_name)
+        parameter.value = param_value
 
     def all(self):
         return [_Parameter(parameter) for parameter in self._element.Parameters]
@@ -167,10 +176,16 @@ class _BuiltInParameters(BaseElementWrapper):
         parameter = self._element.get_Parameter(bip_parameter)
         return _Parameter(parameter) if parameter else None
 
+    def __setitem__(self, name, param_value):
+        bip_parameter = self.__getitem__(name)
+        bip_parameter.value = param_value
+
 
 class _Parameter(BaseElementWrapper):
     """
     Revit Element Parameter Wrapper.
+
+    self._element = DB.Parameter
 
     Handles the following types:
 
@@ -235,15 +250,17 @@ class _Parameter(BaseElementWrapper):
 
     @value.setter
     def value(self, value):
-        print('TYPE: ' + str(self.type))
         # Check if value provided matches storage type
         if not isinstance(value, self.type):
-            if value is None and self.type is str:
+            # If not, try to handle
+            if self.type is str and value is None:
                 value = ''
-            if value is not None and self.type is str:
+            if self.type is str and value is not None:
                 value = str(value)
-            elif value is None and self.type is ElementId:
+            elif self.type is ElementId and value is None:
                 value = DB.ElementId.InvalidElementId
+            elif self.type is ElementId and isinstance(value, DB.ElementId):
+                value = value
             elif isinstance(value, int) and self.type is float:
                 value = float(value)
             elif isinstance(value, float) and self.type is int:

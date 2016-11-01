@@ -3,11 +3,16 @@
 p = r"D:\Dropbox\Shared\dev\repos\revitpythonwrapper"
 sys.path.append(p)
 
+from rpw import DB, UI
 from rpw.db_wrappers import Element, ElementId
 from rpw.ui_wrappers import Selection
 from rpw.transaction import Transaction
+from rpw.exceptions import RPW_ParameterNotFound
+from rpw.logger import logger
 
-print('=====================')
+import unittest
+
+logger.title('SELECTION')
 selection = Selection()             # Instatiate Selection Class
 print(selection)                    # repr
 print(selection.GetElementIds())    # original method
@@ -17,19 +22,16 @@ print(selection.elements)           # custom method
 if len(selection) > 0:
     print(selection[0])             # getitem method
 
-print('=====================')
-print('ELEMENT')
+logger.title('ELEMENT')
 if len(selection) > 0:
     element = Element(selection[0])
     print(element)
     element.id
     print(element.Id)
     print(element.id)
-    # import sys; sys.exit()
-    print('=====================')
-    print('PARAMETERS')
+
+    logger.title('PARAMETERS')
     print(element.parameters)
-    print(element.parameters['Commentss'])      # Non-existing returns None
     print(element.parameters['Comments'])
     print(element.parameters['Comments'].value)
     print(element.parameters['Comments'].type)
@@ -39,30 +41,34 @@ if len(selection) > 0:
     print(element.parameters['Base Constraint'])
     print(element.parameters['Base Constraint'].value)
     print(element.parameters['Base Constraint'].type)
-    print('=====================')         # Element Id
-    print('ELEMENT ID')
+    try:
+        print(element.parameters['Commentss'])      # Non-existing returns None
+    except RPW_ParameterNotFound:
+        logger.info('Parameter Not Found. Sweed.')
+
+    logger.title('ELEMENT ID')
     print(element.Id)
     print(element.id)
     eid = element.id
     print(repr(eid))
     print(eid)
     print(int(eid))
-    print('=====================')         # BuiltIn
-    print('BUILT IN PARAMETER')
+
+    logger.title('BUILT IN PARAMETER')
     wall = element
     print(wall)
     print(wall.parameters)
     bip = wall.parameters.builtins['WALL_KEY_REF_PARAM']
     print(bip)
     print(bip.value)
+    with Transaction('Change BIP'):
+        bip.value = 3
+        wall.parameters.builtins['WALL_KEY_REF_PARAM'] = 0
     print(bip.type)
     print(wall.parameters.builtins)
-    print('=====================')         # BuiltIn
-    print('UNWRAP')
-    print(wall.unwrapped)                  # Get Revit Element
-    print('=====================')         # BuiltIn
-    print('SET VARIABLE')
 
+
+    logger.title('SET PARAMETERS')
     param = wall.parameters['Comments']
     with Transaction('Change Parameter'):
         param.value = 'Gui'
@@ -80,16 +86,14 @@ if len(selection) > 0:
     with Transaction('Change Parameter'):
         param.value = None
 
-    print('=====================')         # BuiltIn
-    print('SET VARIABLE')
-
-
-
-#
-# # Tests
-# # try:
-# #     assert len(selection) == 0
-# # except AssertionError:
-# #     raise AssertionError('len(Selection)')
-#
-# print('Done!')
+    logger.title('INTEGRATION - SET LEVEL')
+    # Select a Wall and a Level
+    if len(selection) > 1:
+        wall = Element(selection[0])
+        level = Element(selection[1])
+        param = wall.parameters['Top Constraint']
+        print(param)
+        print(level)
+        with Transaction('Change Parameter'):
+            param.value = level.Id
+            wall.parameters['Top Constraint'] = level.Id
