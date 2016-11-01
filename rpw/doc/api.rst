@@ -3,28 +3,20 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Revit Python Wrapper
-==============================================
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-   index.rst
-
-
-
-Indices and tables
+API
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Full Api Documentation
 
-
-Usage
-==================
-
-.. automodule:: rpw.wrappers
+.. automodule:: rpw.db_wrappers
     :members:
+    :special-members:
+    :private-members:
+    :show-inheritance:
+
+.. automodule:: rpw.transaction
+    :members:
+    :special-members:
+    :private-members:
+    :show-inheritance:

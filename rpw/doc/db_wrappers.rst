@@ -4,17 +4,12 @@
    contain the root `toctree` directive.
 
 
-
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-
-Wrappers
+DB Namespace
 ==============================================
 
-.. automodule:: rpw.wrappers
+DB Namespace is the Largest namespace and contains over 10,000 members.
+
+.. automodule:: rpw.db_wrappers
     :members:
     :special-members: __init__, __getattr__
     :private-members:

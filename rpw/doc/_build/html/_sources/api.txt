@@ -4,13 +4,19 @@
    contain the root `toctree` directive.
 
 
-DB Namespace
-==============================================
+API
+==================
 
-DB Namespace is the Largest namespace and contains over 10,000 members.
+Full Api Documentation
 
-.. automodule:: rpw.DBwrappers
+.. automodule:: rpw.db_wrappers
     :members:
-    :special-members: __init__, __getattr__
+    :special-members:
+    :private-members:
+    :show-inheritance:
+
+.. automodule:: rpw.transaction
+    :members:
+    :special-members:
     :private-members:
     :show-inheritance:

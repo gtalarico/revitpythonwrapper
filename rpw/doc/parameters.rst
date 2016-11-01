@@ -10,9 +10,9 @@ Parameter Wrappers
 Wrappers for Revit Parameters and Parameter Sets
 
 ParameterSet
-==================
+*****************
 
-.. autoclass:: rpw.DBwrappers._ParameterSet
+.. autoclass:: rpw.db_wrappers._ParameterSet
     :members:
     :special-members: __init__, __getattr__
     :private-members:
@@ -20,9 +20,9 @@ ParameterSet
 
 
 Parameter
-==================
+*****************
 
-.. autoclass:: rpw.DBwrappers._Parameter
+.. autoclass:: rpw.db_wrappers._Parameter
     :members:
     :special-members: __init__, __getattr__
     :private-members:
