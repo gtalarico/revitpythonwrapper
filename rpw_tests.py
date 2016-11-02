@@ -1,7 +1,8 @@
-﻿import sys
-
-p = r"D:\Dropbox\Shared\dev\repos\revitpythonwrapper"
-sys.path.append(p)
+import sys
+import os
+repos = os.getenv('REPOS')
+path = os.path.join(repos, 'revitpythonwrapper')
+sys.path.append(path)
 
 from rpw import DB, UI
 from rpw.db_wrappers import Element, ElementId
