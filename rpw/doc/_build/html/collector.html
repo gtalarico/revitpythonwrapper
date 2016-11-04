@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Collector() &mdash; Revit Python Wrapper 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
+        <link rel="prev" title="Transaction()" href="transaction.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrappers.html">DB Namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Collector()</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#behind-the-scenes">Behind the Scenes</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Revit Python Wrapper</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Collector()</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/collector.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="collector">
+<h1>Collector()<a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h1>
+<p>Collector Wrapper</p>
+<span class="target" id="module-rpw.collector"></span><dl class="class">
+<dt id="rpw.collector.Collector">
+<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>view=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="wrappers.html#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<p>Revit FilteredElement Collector Wrapper</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">View</span><span class="p">)</span>
+</pre></div>
+</div>
+<p># Multiple Filters</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">,</span>
+<span class="go">                                is_element_type=True)</span>
+</pre></div>
+</div>
+<p># Chain Preserves Previous Results</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_element_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p># Use Enumeration member or string shortcut:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns collector Class</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.collector.Collector" title="rpw.collector.Collector">Collector</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="rpw.collector.Collector.collector.elements">
+<code class="descclassname">collector.</code><code class="descname">elements</code><a class="headerlink" href="#rpw.collector.Collector.collector.elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of all <em>collected</em> elements</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.collector.Collector.collector.first">
+<code class="descclassname">collector.</code><code class="descname">first</code><a class="headerlink" href="#rpw.collector.Collector.collector.first" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns first found element, or <cite>None</cite></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.collector.Collector.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>view=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>view</strong> (<em>Revit.DB.View</em>) &#8211; </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.collector.Collector.first">
+<code class="descname">first</code><a class="headerlink" href="#rpw.collector.Collector.first" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first element in collector, or None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.collector._Filter">
+<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_Filter</code><span class="sig-paren">(</span><em>collector</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Filter for Collector class.</p>
+<dl class="method">
+<dt id="rpw.collector._Filter.chain">
+<code class="descname">chain</code><span class="sig-paren">(</span><em>filters</em>, <em>filtered_collector=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter.chain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chain filters together.</p>
+<p>Converts this syntax: <cite>collector.filter(of_class=X, is_element=True)</cite>
+into: <cite>FilteredElementCollector.OfClass(X).WhereElementisNotElementType()</cite></p>
+<p>A copy of the filters is copied after each pass so the Function
+can be called recursevily in a queue.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.collector._Filter.coerce_filter_values">
+<code class="descname">coerce_filter_values</code><span class="sig-paren">(</span><em>filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter.coerce_filter_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows value to be either Enumerate or string.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<span class="go">and</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">WallType</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="behind-the-scenes">
+<h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
+<span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.wrappers</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BuiltInCategoryEnum</span>
+
+
+<span class="k">class</span> <span class="nc">Collector</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Revit FilteredElement Collector Wrapper</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
+<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=View)</span>
+
+<span class="sd">        # Multiple Filters</span>
+
+<span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
+<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls,</span>
+<span class="sd">                                        is_element_type=True)</span>
+
+<span class="sd">        # Chain Preserves Previous Results</span>
+
+<span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
+<span class="sd">        &gt;&gt;&gt; walls = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
+<span class="sd">        &gt;&gt;&gt; walls.filter(is_element_type=True)</span>
+
+<span class="sd">        # Use Enumeration member or string shortcut:</span>
+
+<span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;OST_Walls&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;ViewType&#39;)</span>
+
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Collector: Returns collector Class</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        collector.elements: Returns list of all *collected* elements</span>
+<span class="sd">        collector.first: Returns first found element, or `None`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            view (Revit.DB.View) = View Scope (Optional)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">collector</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">_Filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the first element in collector, or None&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">_Filter</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Filter for Collector class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MAP</span> <span class="o">=</span> <span class="p">{</span>
+             <span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="s1">&#39;OfClass&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="s1">&#39;OfCategory&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;is_element&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsNotElementType&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;is_element_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsElementType&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;is_view_independent&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsViewIndependent&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collector</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span> <span class="o">=</span> <span class="n">collector</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        collector = Collector().filter &gt; ._Filter(filters)</span>
+<span class="sd">        filters = {&#39;of_class&#39;=Wall}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coerce_filter_values</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_filters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">filtered_collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_filters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">filtered_collector</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span>
+
+    <span class="k">def</span> <span class="nf">chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">filtered_collector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Chain filters together.</span>
+
+<span class="sd">        Converts this syntax: `collector.filter(of_class=X, is_element=True)`</span>
+<span class="sd">        into: `FilteredElementCollector.OfClass(X).WhereElementisNotElementType()`</span>
+
+<span class="sd">        A copy of the filters is copied after each pass so the Function</span>
+<span class="sd">        can be called recursevily in a queue.</span>
+
+<span class="sd">        TODO:</span>
+<span class="sd">            Right now, using is_element=True is same as is_element=False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Firt Loop</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filtered_collector</span><span class="p">:</span>
+            <span class="n">filtered_collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_revit_object</span>
+
+        <span class="c1"># Stack is track filter chainning queue</span>
+        <span class="n">filter_stack</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="n">collector_filter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">filtered_collector</span><span class="p">,</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">filter_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">filtered_collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">filter_stack</span><span class="p">,</span> <span class="n">filtered_collector</span><span class="o">=</span><span class="n">filtered_collector</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">filtered_collector</span>
+
+    <span class="k">def</span> <span class="nf">coerce_filter_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Allows value to be either Enumerate or string.</span>
+
+<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
+<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=&#39;OST_Walls&#39;)</span>
+<span class="sd">        and</span>
+<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=WallType)</span>
+<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=&#39;WallType&#39;)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">category_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;of_category&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">category_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;of_category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BuiltInCategoryEnum</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="n">category_name</span><span class="p">)</span>
+
+        <span class="n">class_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;of_class&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">class_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;of_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+            <span class="c1"># filters[&#39;of_class&#39;] = reduce(getattr, class_name.split(&#39;.&#39;), DB)</span>
+            <span class="c1"># This would allow deeper members DB.Architecture.Room</span>
+
+        <span class="k">return</span> <span class="n">filters</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="transaction.html" class="btn btn-neutral" title="Transaction()" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

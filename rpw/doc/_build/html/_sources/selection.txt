@@ -4,13 +4,20 @@
    contain the root `toctree` directive.
 
 
-DB Namespace
-==============================================
+Selection()
+==================
 
-DB Namespace is the Largest namespace and contains over 10,000 members.
+Wrappers to help handle Selection.
 
-.. automodule:: rpw.db_wrappers
+.. automodule:: rpw.selection
     :members:
     :special-members: __init__, __getattr__
     :private-members:
     :show-inheritance:
+
+
+
+Behind the Scenes
+*****************
+
+.. literalinclude:: ../selection.py

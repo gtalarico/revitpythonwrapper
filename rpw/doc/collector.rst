@@ -4,19 +4,20 @@
    contain the root `toctree` directive.
 
 
-API
+Collector()
 ==================
 
-Full Api Documentation
+Collector Wrapper
 
-.. automodule:: rpw.db_wrappers
+.. automodule:: rpw.collector
     :members:
-    :special-members:
+    :special-members: __init__, __getattr__
     :private-members:
     :show-inheritance:
 
-.. automodule:: rpw.transaction
-    :members:
-    :special-members:
-    :private-members:
-    :show-inheritance:
+
+
+Behind the Scenes
+*****************
+
+.. literalinclude:: ../collector.py

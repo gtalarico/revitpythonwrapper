@@ -12,9 +12,11 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   selection
+   wrappers
    parameters
    transaction
-   db_wrappers
+   collector
 
 
 Introduction

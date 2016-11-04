@@ -35,7 +35,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
         <link rel="next" title="Transaction()" href="transaction.html"/>
-        <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
+        <link rel="prev" title="DB Namespace" href="wrappers.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,6 +85,8 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrappers.html">DB Namespace</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Parameter Wrappers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
@@ -92,7 +94,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="db_wrappers.html">DB Namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
 </ul>
 
             
@@ -143,15 +145,33 @@
 <div class="section" id="parameterset">
 <h2>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="rpw.db_wrappers._ParameterSet">
-<em class="property">class </em><code class="descclassname">rpw.db_wrappers.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db_wrappers._ParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="db_wrappers.html#rpw.db_wrappers.BaseElementWrapper" title="rpw.db_wrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.db_wrappers.BaseElementWrapper</span></code></a></p>
-<p>Revit Element Parameter List Wrapper.
-Allows you to treat an element parameters as if it was a dictionary.</p>
+<dt id="rpw.wrappers._ParameterSet">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._ParameterSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="wrappers.html#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<p>Revit Element Parameter List Wrapper.</p>
+<p>Allows you to treat an element parameters as if it was a dictionary.
+Keeping element store so other methods beyond Parameters can be used.</p>
+<p>self._revit_object = DB.Element</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;My Comment&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 <dl class="method">
-<dt id="rpw.db_wrappers._ParameterSet.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db_wrappers._ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.wrappers._ParameterSet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Setup element</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.wrappers._ParameterSet.all">
+<code class="descname">all</code><a class="headerlink" href="#rpw.wrappers._ParameterSet.all" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Returns</em> &#8211; Flat list of wrapped parameter elements</p>
 </dd></dl>
 
 </dd></dl>
@@ -160,10 +180,11 @@ Allows you to treat an element parameters as if it was a dictionary.</p>
 <div class="section" id="parameter">
 <h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="rpw.db_wrappers._Parameter">
-<em class="property">class </em><code class="descclassname">rpw.db_wrappers.</code><code class="descname">_Parameter</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db_wrappers._Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="db_wrappers.html#rpw.db_wrappers.BaseElementWrapper" title="rpw.db_wrappers.BaseElementWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.db_wrappers.BaseElementWrapper</span></code></a></p>
+<dt id="rpw.wrappers._Parameter">
+<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_Parameter</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="wrappers.html#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
 <p>Revit Element Parameter Wrapper.</p>
+<p>self._parameter = DB.Parameter</p>
 <p>Handles the following types:</p>
 <ul class="simple">
 <li>Autodesk.Revit.DB.StorageType.String</li>
@@ -173,15 +194,38 @@ Allows you to treat an element parameters as if it was a dictionary.</p>
 <li>Autodesk.Revit.DB.StorageType.None</li>
 </ul>
 <dl class="attribute">
-<dt id="rpw.db_wrappers._Parameter.type">
-<code class="descname">type</code><a class="headerlink" href="#rpw.db_wrappers._Parameter.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Results the Python Type of the Parameter</p>
+<dt id="rpw.wrappers._Parameter.builtin">
+<code class="descname">builtin</code><a class="headerlink" href="#rpw.wrappers._Parameter.builtin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the BuiltInParameter name of Parameter.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">builtin_name</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ALL_MODEL_INSTANCE_COMMENTS</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Revit.DB.BuiltInParameter</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.wrappers._Parameter.type">
+<code class="descname">type</code><a class="headerlink" href="#rpw.wrappers._Parameter.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Python Type of the Parameter</p>
 <p>returns: python built in type</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db_wrappers._Parameter.value">
-<code class="descname">value</code><a class="headerlink" href="#rpw.db_wrappers._Parameter.value" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.wrappers._Parameter.value">
+<code class="descname">value</code><a class="headerlink" href="#rpw.wrappers._Parameter.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Parameter Value
 :returns: parameter value in python type
 :rtype: type</p>
@@ -233,7 +277,7 @@ Allows you to treat an element parameters as if it was a dictionary.</p>
         <a href="transaction.html" class="btn btn-neutral float-right" title="Transaction()" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="wrappers.html" class="btn btn-neutral" title="DB Namespace" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

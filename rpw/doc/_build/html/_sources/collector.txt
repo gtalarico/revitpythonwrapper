@@ -4,29 +4,20 @@
    contain the root `toctree` directive.
 
 
-Parameter Wrappers
+Collector()
 ==================
 
-Wrappers for Revit Parameters and Parameter Sets
+Collector Wrapper
 
-ParameterSet
-*****************
-
-.. autoclass:: rpw.wrappers._ParameterSet
+.. automodule:: rpw.collector
     :members:
     :special-members: __init__, __getattr__
-    :show-inheritance:
-
-
-Parameter
-*****************
-
-.. autoclass:: rpw.wrappers._Parameter
-    :members:
-    :special-members: __init__, __getattr__
+    :private-members:
     :show-inheritance:
 
 
 
 Behind the Scenes
 *****************
+
+.. literalinclude:: ../collector.py

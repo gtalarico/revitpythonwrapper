@@ -12,20 +12,18 @@ Wrappers for Revit Parameters and Parameter Sets
 ParameterSet
 *****************
 
-.. autoclass:: rpw.db_wrappers._ParameterSet
+.. autoclass:: rpw.wrappers._ParameterSet
     :members:
     :special-members: __init__, __getattr__
-    :private-members:
     :show-inheritance:
 
 
 Parameter
 *****************
 
-.. autoclass:: rpw.db_wrappers._Parameter
+.. autoclass:: rpw.wrappers._Parameter
     :members:
     :special-members: __init__, __getattr__
-    :private-members:
     :show-inheritance:
 
 
