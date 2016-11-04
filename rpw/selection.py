@@ -1,7 +1,8 @@
-from rpw import uidoc, doc
-from rpw.db_wrappers import BaseElementWrapper
+from rpw import doc, uidoc
+from rpw.wrappers import BaseObjectWrapper
+from rpw.logger import logger
 
-class Selection(BaseElementWrapper):
+class Selection(BaseObjectWrapper):
     """
     Revit uidoc.Selection Wrapper
     Makes easier to manipulate Active Selection.
@@ -9,12 +10,15 @@ class Selection(BaseElementWrapper):
     Usage:
 
     >>> selection = Selection()
+    >>> selection[0]
     >>> selection.element_ids
     >>> selection.elements
     >>> len(selection)
 
     >>> selection.RevitProperty
     >>> selection.RevitMethod()
+
+    self._element = Revit.UI
     """
 
     def __init__(self):
@@ -23,19 +27,29 @@ class Selection(BaseElementWrapper):
 
     @property
     def element_ids(self):
-        """ returns: List of ElementIds Objects """
-        return [eid for eid in self._element.GetElementIds()]
+        """
+        List of elemend ids
+
+        Returns:
+            [DB.ElementId]: List of ElementIds Objects """
+        return [eid for eid in self._revit_object.GetElementIds()]
 
     @property
     def elements(self):
-        """ returns: List of Elements """
+        """
+        List of Elements.
+
+        Returns:
+            [DB.Element]: List of Elements """
         return [doc.GetElement(eid) for eid in self.element_ids]
 
     def __getitem__(self, index):
-        """ Retrieves element using index. If Index is out range,
+        """
+        Retrieves element using index. If Index is out range,
         None is returned
 
-        :param index: Integer representing list index.
+        Args:
+            index(int): Integer representing list index.
 
         returns: Element, None
         Usage:

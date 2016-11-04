@@ -1,4 +1,5 @@
-from rpw import DB
+from rpw import DB, doc
+from rpw.exceptions import RPW_ParameterNotFound
 
 class BuiltInParameterEnum():
     """ Enumeration Wrapper """
@@ -6,8 +7,22 @@ class BuiltInParameterEnum():
     parameters = DB.BuiltInParameter
 
     @classmethod
-    def by_name(cls, built_in_parameter_name):
+    def by_name(cls, parameter_name):
         """ Gets Built In Parameter.
-        returns: Parameter, or None
+        returns: Parameter
         """
-        return getattr(BuiltInParameterEnum.parameters, built_in_parameter_name)
+        return getattr(BuiltInParameterEnum.parameters,
+                       parameter_name)
+
+class BuiltInCategoryEnum():
+    """ Enumeration Wrapper """
+
+    categories = DB.BuiltInCategory
+
+    @classmethod
+    def by_name(cls, category_name):
+        """ Gets Built In Category.
+        returns: Category
+        """
+
+        return getattr(BuiltInCategoryEnum.categories, category_name)

@@ -5,14 +5,18 @@ class RPW_Exception(Exception):
     """ Revit Python Wrapper Base Exception """
 
 
-class RPW_ParameterNotFound(KeyError):
+class RPW_TypeError(RPW_Exception, TypeError):
+    """ Revit Python Wrapper Base Exception """
+
+
+class RPW_ParameterNotFound(RPW_Exception, KeyError):
     """ Revit Python Wrapper Base Exception """
     def __init__(self, element, param_name):
         logger.error('Parameter Not Found: [{}]:[{}]'.format(element,
-                                                            param_name))
+                                                             param_name))
 
 
-class RPW_WrongStorageType(TypeError):
+class RPW_WrongStorageType(RPW_Exception, TypeError):
     """ Wrong Storage Type """
     def __init__(self, storage_type, value):
         logger.error('Wrong Storage Type: [{}]:[{}:{}]'.format(storage_type,

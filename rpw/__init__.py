@@ -11,7 +11,13 @@ Wrapper objects not only make the interaction with Revit API objects more
 natural and consistent with Python's naming conventions, but also implement
 patterns to make your code more conscise (DRY).
 
-Please help improve the project by contributing with improvemnts, bugs,
+Goals:
+
+* Normalize API calls for different Revit Version
+* Normalize API calls for Revit Vs Dynamo to allow re-use
+*
+
+Please help improve the project by contributing with improvements, bugs,
 and ideas.
 
 Disclaimer
@@ -29,11 +35,17 @@ https://github.com/kennethreitz/requests/blob/master/requests/api.py
 
 """
 
+# TODO:
+#  - Finder/Filter Tool*
+#  - Documentation
+#  - Dynamo Doc Manager + Transaction Manager
+
+
 __title__ = 'revitpythonwrapper'
 __version__ = '0.0.1'
 __author__ = 'Gui Talarico'
-__license__ = 'Apache 2.0'
-__copyright__ = ''
+__license__ = '?'
+__copyright__ = '?'
 
 
 import sys

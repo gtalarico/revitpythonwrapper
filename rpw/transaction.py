@@ -1,5 +1,7 @@
+from rpw import doc, DB
 from rpw.logger import logger
-from rpw import DB, doc
+from rpw.wrappers import BaseObjectWrapper
+
 
 class Transaction(object):
     """ Transaction Context Manager.

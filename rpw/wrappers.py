@@ -4,34 +4,16 @@ DB Namespace Wrappers
 
 """
 
-from rpw import doc, uidoc, version
+from rpw import doc, uidoc, DB
 from rpw.logger import logger
 from rpw.enumeration import BuiltInParameterEnum
-from rpw.exceptions import RPW_Exception, RPW_WrongStorageType, RPW_ParameterNotFound
+from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
+from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 
-from rpw import DB
-
-class BaseWrapper(object):
+class BaseObjectWrapper(object):
     """ Base Object Wrapper Class.
-    Does not require any arguemnts.
-    Allows access to all original attributes and methods of original object.
 
-    """
-
-    def __getattr__(self, attr):
-        """
-        Access original methods and properties or the element.
-        """
-        return getattr(self._element, attr)
-
-    def __repr__(self, data=''):
-        return '<RPW_{}:{}>'.format(self.__class__.__name__, data)
-
-
-class BaseElementWrapper(BaseWrapper):
-    """ Base Element Wrapper Class
-    Initializes using a Revit Element.
-    This element is stored in the projected _element attribute
+    This element is stored in the projected _revit_object attribute
     Arguments:
         element(APIObject): Revit Element to store
 
@@ -42,43 +24,32 @@ class BaseElementWrapper(BaseWrapper):
         so it can store a reference to the element and uses
         other Parameter related methods that are not store in
         Parameters such as element.get_Parameter or element.LookupParameter
+    Allows access to all original attributes and methods of original object.
+
     """
-    def __init__(self, element):
+
+    def __init__(self, revit_object):
         """
-        Child classes can use self._element to refer back to Revit Element
+        Child classes can use self._revit_object to refer back to Revit Element
         Element is used loosely to refer to all Revit Elements.
         """
-        self._element = element
+        self._revit_object = revit_object
+
+    def __getattr__(self, attr):
+        """
+        Access original methods and properties or the element.
+        """
+        return getattr(self._revit_object, attr)
+
+    def __repr__(self, data=''):
+        return '<RPW_{}:{}>'.format(self.__class__.__name__, data)
 
 
-class ElementId(BaseElementWrapper):
-    """ Element Id Wrapper
-
-    Arguments:
-        ElementId(DB.ElementId): Creates a Wrapped ElementId
-
-    Returns:
-        ElementId: Intance
-    """
-
-    def __init__(self, element):
-        super(ElementId, self).__init__(element)
-
-    def __int__(self):
-        return self._element.Id.IntegerValue
-
-    def __str__(self):
-        return self._element.Id.ToString()
-
-    def __repr__(self):
-        return super(ElementId, self).__repr__(self._element.Id.IntegerValue)
-
-
-class Element(BaseElementWrapper):
+class Element(BaseObjectWrapper):
     """
     Generic Revit Element Wrapper
 
-    self._element = DB.Element
+    self._revit_object = DB.Element
 
     Usage:
 
@@ -88,9 +59,13 @@ class Element(BaseElementWrapper):
 
     """
     def __init__(self, element):
-        """Google Style.
+        """
+        Element Class Wrapper
 
-        Extended description of function.
+        Usage:
+            wall = Element(Revit.DB.Wall)
+            wall.parameters['Height']
+            wall.parameters.builtins['WALL_LOCATION_LINE']
 
         Args:
             element (API Object): Revit API Object
@@ -99,41 +74,63 @@ class Element(BaseElementWrapper):
             Element: Instance of Wrapped Element
 
         Attributes:
-            parameters (_ParameterSet): Access Wrapped ParameterSet Class :class:'._ParameterSet'
+            parameters (_ParameterSet): Access Wrapped ParameterSet Class :class:`._ParameterSet`
 
-            parameters['ParamName'] (_Parameter): Get Paramter
+            parameters['ParamName'] (_Parameter): Get Parameter
 
             parameters.builtins['BuiltInName'] (_Parameter): Buit In :obj:_Parameter
 
-
-
         """
+        if not isinstance(element, type(DB.APIObject)):
+            raise RPW_TypeError('cannot wrap non-APIObject: {}'.format(type(element)))
         super(Element, self).__init__(element)
         self.parameters = _ParameterSet(element)
 
     @property
     def id(self):
         """ Example of mapping existing properties"""
-        return ElementId(self._element)
+        return self._revit_object.Id
+
+    @property
+    def id_as_int(self):
+        """ Example of mapping existing properties"""
+        return self._revit_object.Id.IntegerValue
+
+    @classmethod
+    def by_id(cls, element_id):
+        """ Allows to retrieve element by Id
+
+        element = doc.GetElement(element_id)
+        return Element(element)
+
+        """
+        raise NotImplemented
 
     def __repr__(self):
-        return super(Element, self).__repr__(str(self._element.ToString()))
+        return super(Element, self).__repr__(str(self._revit_object.ToString()))
 
 
-class _ParameterSet(BaseElementWrapper):
+class _ParameterSet(BaseObjectWrapper):
     """
     Revit Element Parameter List Wrapper.
+
     Allows you to treat an element parameters as if it was a dictionary.
     Keeping element store so other methods beyond Parameters can be used.
 
-    self._element = DB.Element
+    self._revit_object = DB.Element
+
+    Usage:
+        >>> element.parameters.all()
+        >>> element.parameters['Comments'].value
+        >>> element.parameters['Comments'].value = 'My Comment'
+        >>> element.parameters['Comments'].type
 
     """
 
     def __init__(self, element):
         """ Setup element"""
         super(_ParameterSet, self).__init__(element)
-        self.builtins = _BuiltInParameters(self._element)
+        self.builtins = _BuiltInParameterSet(self._revit_object)
 
     def __getitem__(self, param_name):
         """ Get's parameter by name.
@@ -142,7 +139,7 @@ class _ParameterSet(BaseElementWrapper):
         or None if there is no matching parameters.
 
         """
-        parameter = self._element.LookupParameter(param_name)
+        parameter = self._revit_object.LookupParameter(param_name)
         # return _Parameter(parameter) if parameter else None
         if not parameter:
             raise RPW_ParameterNotFound(self, param_name)
@@ -157,35 +154,58 @@ class _ParameterSet(BaseElementWrapper):
         parameter = self.__getitem__(param_name)
         parameter.value = param_value
 
+    @property
     def all(self):
-        return [_Parameter(parameter) for parameter in self._element.Parameters]
+        """ Returns: Flat list of wrapped parameter elements
+        """
+        return [_Parameter(parameter) for parameter in self._revit_object.Parameters]
 
     def __len__(self):
-        return len(self.all())
+        return len(self.all)
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add Parameter List Name """
         return super(_ParameterSet, self).__repr__(len(self))
 
 
-class _BuiltInParameters(BaseElementWrapper):
+class _BuiltInParameterSet(BaseObjectWrapper):
+    """ Built In Parameter Manager
 
-    def __getitem__(self, name):
+    Usage:
+
+        location_line = element.parameters.builtins['WALL_LOCATION_LINE']
+
+    Note:
+        Item Getter can take the BuilInParameter name string, or the Enumeration.
+        >>> element.parameters.builtins['WALL_LOCATION_LINE']
+
+        or
+
+        >>>element.parameters.builtins[Revit.DB.BuiltInParameter.WALL_LOCATION_LINE]
+    """
+
+    def __getitem__(self, builtin_enum):
         """ Retrieves Built In Parameter. """
-        bip_parameter = BuiltInParameterEnum.by_name(name)
-        parameter = self._element.get_Parameter(bip_parameter)
+        if isinstance(builtin_enum, str):
+            builtin_enum = BuiltInParameterEnum.by_name(builtin_enum)
+        parameter = self._revit_object.get_Parameter(builtin_enum)
         return _Parameter(parameter) if parameter else None
 
     def __setitem__(self, name, param_value):
-        bip_parameter = self.__getitem__(name)
-        bip_parameter.value = param_value
+        """ Sets value for an element's built in parameter. """
+        builtin_parameter = self.__getitem__(name)
+        builtin_parameter.value = param_value
+
+    def __repr__(self):
+        """ Adds data to Base __repr__ to add Parameter List Name """
+        return super(_BuiltInParameterSet, self).__repr__()
 
 
-class _Parameter(BaseElementWrapper):
+class _Parameter(BaseObjectWrapper):
     """
     Revit Element Parameter Wrapper.
 
-    self._element = DB.Parameter
+    self._parameter = DB.Parameter
 
     Handles the following types:
 
@@ -199,17 +219,17 @@ class _Parameter(BaseElementWrapper):
                     'String': str,
                     'Double': float,
                     'Integer': int,
-                    'ElementId': ElementId,
+                    'ElementId': DB.ElementId,
                     'None': None,
                      }
 
     @property
     def type(self):
-        """ Results the Python Type of the Parameter
+        """ Returns the Python Type of the Parameter
 
         returns: python built in type
         """
-        storage_type_name = self._element.StorageType.ToString()
+        storage_type_name = self._revit_object.StorageType.ToString()
         return _Parameter.storage_types[storage_type_name]
 
     @property
@@ -240,13 +260,13 @@ class _Parameter(BaseElementWrapper):
             * float:int > float
         """
         if self.type is str:
-            return self._element.AsString()
+            return self._revit_object.AsString()
         if self.type is float:
-            return self._element.AsDouble()
+            return self._revit_object.AsDouble()
         if self.type is int:
-            return self._element.AsInteger()
-        if self.type is ElementId:
-            return self._element.AsElementId()
+            return self._revit_object.AsInteger()
+        if self.type is DB.ElementId:
+            return self._revit_object.AsElementId()
 
     @value.setter
     def value(self, value):
@@ -257,10 +277,8 @@ class _Parameter(BaseElementWrapper):
                 value = ''
             if self.type is str and value is not None:
                 value = str(value)
-            elif self.type is ElementId and value is None:
+            elif self.type is DB.ElementId and value is None:
                 value = DB.ElementId.InvalidElementId
-            elif self.type is ElementId and isinstance(value, DB.ElementId):
-                value = value
             elif isinstance(value, int) and self.type is float:
                 value = float(value)
             elif isinstance(value, float) and self.type is int:
@@ -268,28 +286,41 @@ class _Parameter(BaseElementWrapper):
             else:
                 raise RPW_WrongStorageType(self.type, value)
 
-        param = self._element.Set(value)
+        param = self._revit_object.Set(value)
+
+    @property
+    def builtin(self):
+        """ Returns the BuiltInParameter name of Parameter.
+
+        Usage:
+            >>> element.parameters['Comments'].builtin_name
+
+        Returns:
+            Revit.DB.BuiltInParameter: ALL_MODEL_INSTANCE_COMMENTS
+        """
+        return self._revit_object.Definition.BuiltInParameter
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
         return super(_Parameter, self).__repr__(self.value)
 
 
-class FamilyInstance(BaseElementWrapper):
-    """ Generic Family Instance Wrapper """
-    # Get Type
-    # Get Symbol
-    # Get Elements
-    # @transaction(name)
-    def move(self, translation):
-        pass
-
-
-class FamilyType(BaseElementWrapper):
-    """ Generic Family Instance Wrapper """
-    # Get Type
-    # Get Symbol
-    # Get Elements
+#
+# class FamilyInstance(BaseObjectWrapper):
+#     """ Generic Family Instance Wrapper """
+#     # Get Type
+#     # Get Symbol
+#     # Get Elements
+#     # @transaction(name)
+#     def move(self, translation):
+#         pass
+#
+#
+# class FamilyType(BaseObjectWrapper):
+#     """ Generic Family Instance Wrapper """
+#     # Get Type
+#     # Get Symbol
+#     # Get Elements
 
 # class DynamoUtils(object):
 #     # Coerce/Wrap/Unwrap
