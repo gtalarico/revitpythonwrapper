@@ -11,10 +11,13 @@ from rpw.wrappers import Element
 from rpw.selection import Selection
 from rpw.transaction import Transaction
 from rpw.collector import Collector
-from rpw.exceptions import RPW_ParameterNotFound
+from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
 
 from System.Collections.Generic import List
+
+# logger.verbose(True)
+logger.disable()
 
 ################################
 # TODO:
@@ -24,7 +27,7 @@ from System.Collections.Generic import List
 
 
 def setUpModule():
-    logger.title('SETTING UP TESTS')
+    logger.title('SETTING UP TESTS...')
     collector = Collector()
     walls = collector.filter(of_class='Wall').elements
     if walls:
@@ -40,26 +43,35 @@ def setUpModule():
         wall = DB.Wall.Create(doc, wall_line, level.Id, False)
     global wall_id
     wall_id = wall.Id.IntegerValue
-    logger.info('WALL CREATED.')
-    logger.info('TEST SETUP')
+    logger.debug('WALL CREATED.')
+    logger.debug('TEST SETUP')
 
 
 def tearDownModule():
     pass
 
 
+######################
+# COLLECTOR
+######################
+
+
 class CollectorTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING COLLECTOR...')
 
     @staticmethod
     def collector_helper(filters, view=None):
-        logger.title('{}:{}'.format(filters, view))
+        logger.debug('{}:{}'.format(filters, view))
         if not view:
             collector = Collector().filter(**filters)
         else:
             collector = Collector(view).filter(**filters)
         elements = collector.elements
-        logger.info(collector)
-        logger.info(collector.first)
+        logger.debug(collector)
+        logger.debug(collector.first)
         return collector
 
     def setUp(self):
@@ -112,11 +124,16 @@ class CollectorTests(unittest.TestCase):
     # - Add Room Tests
 
 
-logger.title('SELECTION')
+######################
+# SELECTION
+######################
 class SelectionTests(unittest.TestCase):
 
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING SELECTION...')
 
+    def setUp(self):
         collection = List[DB.ElementId]([DB.ElementId(wall_id)])
         uidoc.Selection.SetElementIds(collection)
 
@@ -129,97 +146,126 @@ class SelectionTests(unittest.TestCase):
         assert wall_id == selection[0].Id.IntegerValue
         assert len(selection) == 1
         assert isinstance(selection.elements[0], DB.Wall)
-        print('SELECTION TEST PASSED')
+        logger.debug('SELECTION TEST PASSED')
 
-
-unittest.main()
-sys.exit()
 
 ######################
 # ELEMENT
 ######################
 
-logger.title('ELEMENT')
+class ElementTests(unittest.TestCase):
 
-collector = Collector()
-walls = collector.filter(of_class='Wall').elements
+    @classmethod
+    def setUpClass(self):
+        logger.title('TESTING ELEMENT...')
 
-print(wall_id)
-# wall = doc.GetElement(wall_id)
-# wrapped_wall = Element(wall)
-# wrapped_wall = Element(None)
+    def setUp(self):
+        collector = Collector()
+        self.wall = collector.filter(of_class='Wall').first
+        self.wrapped_wall = Element(self.wall)
 
+    def tearDown(self):
+        collector = Collector()
+        levels = collector.filter(of_class=DB.Level).elements
+        with Transaction('Delete Test Levels'):
+            for level in levels[1:]:
+                doc.Delete(level.Id)
+
+    def test_element_repr(self):
+        self.wrapped_wall.__repr__()
+
+    def test_element_id(self):
+        assert isinstance(self.wrapped_wall.Id, DB.ElementId)
+        assert isinstance(self.wrapped_wall.id_as_int, int)
+        self.assertEqual(self.wrapped_wall.id_as_int, self.wall.Id.IntegerValue)
+
+    def test_element_id(self):
+        self.assertIsInstance(self.wrapped_wall, Element)
+
+    def test_element_get_parameter_type(self):
+        rv = self.wrapped_wall.parameters['Comments'].type
+        self.assertEqual(rv, str)
+        rv = self.wrapped_wall.parameters['Base Constraint'].type
+        self.assertEqual(rv, DB.ElementId)
+        rv = self.wrapped_wall.parameters['Unconnected Height'].type
+        self.assertEqual(rv, float)
+        rv = self.wrapped_wall.parameters['Room Bounding'].type
+        self.assertEqual(rv, int)
+
+    def test_element_get_parameter_name(self):
+        rv = self.wrapped_wall.parameters['Comments'].name
+        self.assertEqual(rv, 'Comments')
+
+    def test_element_get_parameter(self):
+        rv = self.wrapped_wall.parameters['Comments'].value
+        self.assertEqual(rv, None)
+
+    def tests_element_set_get_parameter_string(self):
+        with Transaction('Set String'):
+            self.wrapped_wall.parameters['Comments'].value = 'Test String'
+        rv = self.wrapped_wall.parameters['Comments'].value
+        self.assertEqual(rv, 'Test String')
+
+    def tests_element_set_get_parameter_coerce_string(self):
+        with Transaction('Set String'):
+            self.wrapped_wall.parameters['Comments'].value = 5
+        rv = self.wrapped_wall.parameters['Comments'].value
+        self.assertEqual(rv, '5')
+
+    def tests_element_set_get_parameter_float(self):
+        with Transaction('Set Integer'):
+            self.wrapped_wall.parameters['Unconnected Height'].value = 5.0
+        rv = self.wrapped_wall.parameters['Unconnected Height'].value
+        self.assertEqual(rv, 5.0)
+
+    def tests_element_set_get_parameter_coerce_int(self):
+        with Transaction('Set Coerce Int'):
+            self.wrapped_wall.parameters['Unconnected Height'].value = 5
+        rv = self.wrapped_wall.parameters['Unconnected Height'].value
+        self.assertEqual(rv, 5.0)
+
+    def tests_element_set_get_parameter_element_id(self):
+        active_view = uidoc.ActiveView
+        wrapped_view = Element(active_view)
+        with Transaction('Create and Set Level'):
+            try:
+                new_level = DB.Level.Create(doc, 10)
+            except:
+                new_level = doc.Create.NewLevel(10)
+            self.wrapped_wall.parameters['Top Constraint'].value = new_level.Id
+        self.assertEqual(self.wrapped_wall.parameters['Top Constraint'].value.IntegerValue,
+                         new_level.Id.IntegerValue)
+
+    def test_element_get_builtin_parameter_by_strin(self):
+        bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM'].value
+        self.assertIsInstance(bip, int)
+
+    def test_element_set_get_builtin_parameter_by_strin(self):
+        bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
+        with Transaction('Set Value'):
+            bip.value = 3
+        bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
+        self.assertEqual(bip.value, 3)
+
+    def test_element_get_builtin_parameter_caster(self):
+        bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM'].value
+        BIP_ENUM = DB.BuiltInParameter.WALL_KEY_REF_PARAM
+        bip2 = self.wrapped_wall.parameters.builtins[BIP_ENUM].value
+        self.assertEqual(bip, bip2)
+
+    def tests_wrong_storage_type(self):
+        with self.assertRaises(Exception) as context:
+            with Transaction('Set String'):
+                self.wrapped_wall.parameters['Unconnected Height'].value = 'Test'
+        self.assertIsInstance(context.exception, RPW_WrongStorageType)
+
+    def test_parameter_does_not_exist(self):
+        with self.assertRaises(Exception) as context:
+            self.wrapped_wall.parameters['Parameter Name']
+        self.assertIsInstance(context.exception, RPW_ParameterNotFound)
+
+
+
+# unittest.main(defaultTest='ElementTests')
+unittest.main(verbosity=0, buffer=True)
 sys.exit()
-print(wrapped_wall)
-assert wrapped_wall.id == wall.Id
-assert wrapped_wall.Id == wall.Id
-assert wrapped_wall.id_as_int == wall.Id.IntegerValue
-
-logger.title('PARAMETERS')
-print(element.parameters)
-print(element.parameters['Comments'])
-print(element.parameters['Comments'].builtin)
-print(element.parameters['Comments'].value)
-print(element.parameters['Comments'].type)
-print(element.parameters['Volume'])
-print(element.parameters['Volume'].value)
-print(element.parameters['Volume'].type)
-print(element.parameters['Base Constraint'])
-print(element.parameters['Base Constraint'].value)
-print(element.parameters['Base Constraint'].type)
-try:
-    print(element.parameters['Commentss'])      # Non-existing returns None
-except RPW_ParameterNotFound:
-    logger.info('Parameter Not Found. Sweet.')
-
-
-logger.title('SET PARAMETERS')
-wall = Element(selection[0])
-param = wall.parameters['Comments']
-with Transaction('Change Parameter'):
-    param.value = 'Gui'
-    # param.value = 156
-    # param.value = None
-    # param.value = eid.Id
-
-# Coerces Int and flots as needed for Double and Integer Type
-param = wall.parameters['Base Offset']
-with Transaction('Change Parameter'):
-    param.value = 0
-
-# Sets Element Id to None
-param = wall.parameters['Top Constraint']
-with Transaction('Change Parameter'):
-    param.value = None
-
-logger.title('INTEGRATION - SET LEVEL')
-# Select a Wall and a Level to set wall top to level
-if len(selection) > 1:
-    wall = Element(selection[0])
-    level = Element(selection[1])
-    param = wall.parameters['Top Constraint']
-    print(param)
-    print(level)
-    with Transaction('Change Parameter'):
-        param.value = level.Id
-        wall.parameters['Top Constraint'] = level.Id
-
-
-logger.title('BUILT IN PARAMETER')
-wall = Element(selection[0])
-print(wall)
-print(wall.parameters)
-bip = wall.parameters.builtins['WALL_KEY_REF_PARAM']
-print(bip)
-print(bip.value)
-with Transaction('Change BIP'):
-    bip.value = 3
-    wall.parameters.builtins['WALL_KEY_REF_PARAM'] = 0
-print(wall.parameters.builtins)
-print(bip.type)
-print(wall.parameters.builtins)
-
-bip_comments = wall.parameters['Comments'].builtin
-print(bip_comments)
-with Transaction('Comments as BIP'):
-    wall.parameters.builtins[bip_comments].value = 'BIP Commment'

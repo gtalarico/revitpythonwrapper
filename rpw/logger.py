@@ -60,6 +60,9 @@ class LoggerWrapper():
         self._logger_title = logger_title
         self.errors = []
 
+    def disable(self):
+        self._logger.setLevel(logging.CRITICAL)
+
     def verbose(self, verbose):
         if verbose:
             self._logger.setLevel(logging.DEBUG)

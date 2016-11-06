@@ -29,13 +29,13 @@ don't hesitate to enlighthen me.
 I hope this is just the start of project that will help Python lovers
 write better Revit API Code.
 
-
 http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 https://github.com/kennethreitz/requests/blob/master/requests/api.py
 
 """
 
 # TODO:
+#  - Move out Elements and Parameters
 #  - Finder/Filter Tool*
 #  - Documentation
 #  - Dynamo Doc Manager + Transaction Manager

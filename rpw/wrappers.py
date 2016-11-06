@@ -54,7 +54,7 @@ class Element(BaseObjectWrapper):
     Usage:
 
         >>> wall = Element(RevitWallElement)
-        >>> wall.id
+        >>> wall.Id
         >>> wall.parameters['Height']
 
     """
@@ -81,20 +81,20 @@ class Element(BaseObjectWrapper):
             parameters.builtins['BuiltInName'] (_Parameter): Buit In :obj:_Parameter
 
         """
-        if not isinstance(element, type(DB.APIObject)):
-            raise RPW_TypeError('cannot wrap non-APIObject: {}'.format(type(element)))
+        if not isinstance(element, DB.Element):
+            logger.error(isinstance(element, DB.Element))
+            raise RPW_TypeError('cannot wrap non-APIObject: {}'.format(
+                                                                type(element)))
         super(Element, self).__init__(element)
         self.parameters = _ParameterSet(element)
-
-    @property
-    def id(self):
-        """ Example of mapping existing properties"""
-        return self._revit_object.Id
 
     @property
     def id_as_int(self):
         """ Example of mapping existing properties"""
         return self._revit_object.Id.IntegerValue
+
+    def unwrap():
+        return self._revit_object
 
     @classmethod
     def by_id(cls, element_id):
@@ -144,15 +144,6 @@ class _ParameterSet(BaseObjectWrapper):
         if not parameter:
             raise RPW_ParameterNotFound(self, param_name)
         return _Parameter(parameter)
-
-    def __setitem__(self, param_name, param_value):
-        """ Allows to set parameter directly to Parameter Set.
-         Usage:
-            >>> elemenet.parameters['Height'] = 3
-            >>> elemenet.parameters['Height'] = 3
-         """
-        parameter = self.__getitem__(param_name)
-        parameter.value = param_value
 
     @property
     def all(self):
@@ -268,6 +259,8 @@ class _Parameter(BaseObjectWrapper):
         if self.type is DB.ElementId:
             return self._revit_object.AsElementId()
 
+        raise RPW_Exception('could not get type: {}'.format(self.type))
+
     @value.setter
     def value(self, value):
         # Check if value provided matches storage type
@@ -289,6 +282,16 @@ class _Parameter(BaseObjectWrapper):
         param = self._revit_object.Set(value)
 
     @property
+    def name(self):
+        """
+        Returns Parameter name
+
+        >>> element.parameters['Comments'].name
+        >>> 'Comments'
+        """
+        return self._revit_object.Definition.Name
+
+    @property
     def builtin(self):
         """ Returns the BuiltInParameter name of Parameter.
 
@@ -304,6 +307,14 @@ class _Parameter(BaseObjectWrapper):
         """ Adds data to Base __repr__ to add selection count"""
         return super(_Parameter, self).__repr__(self.value)
 
+
+# class Create(self):
+#     try:
+#         # API 2016:
+#         DB.Level.Create(doc, 10)
+#     except:
+#         # API 2015:
+#         doc.Create.NewLevel(10)
 
 #
 # class FamilyInstance(BaseObjectWrapper):

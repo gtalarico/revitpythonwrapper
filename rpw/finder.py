@@ -11,3 +11,15 @@ class Finder():
     """
     Find elements based on search parameters
     """"
+
+    def by_name():
+        pass
+
+    def instances():
+        pass
+
+    def types():
+        pass
+
+    def symbols():
+        pass

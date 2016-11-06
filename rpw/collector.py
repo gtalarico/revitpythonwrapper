@@ -74,6 +74,7 @@ class Collector(BaseObjectWrapper):
 
 class _Filter():
     """ Filter for Collector class.
+    Not to be confused with the Filter Class.
     """
     MAP = {
              'of_class': 'OfClass',

@@ -15,7 +15,6 @@ class RPW_ParameterNotFound(RPW_Exception, KeyError):
         logger.error('Parameter Not Found: [{}]:[{}]'.format(element,
                                                              param_name))
 
-
 class RPW_WrongStorageType(RPW_Exception, TypeError):
     """ Wrong Storage Type """
     def __init__(self, storage_type, value):
