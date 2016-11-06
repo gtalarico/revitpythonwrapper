@@ -34,7 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="#"/>
-        <link rel="next" title="Element" href="element.html"/> 
+        <link rel="next" title="Globals" href="globals.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,11 +85,14 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 </ul>
 
             
@@ -140,41 +143,78 @@
 <div class="toctree-wrapper compound">
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="module-rpw">
 <span id="introduction"></span><h1>Introduction<a class="headerlink" href="#module-rpw" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="a-python-interface-for-the-revit-api">
-<h2>A Python Interface For the Revit API<a class="headerlink" href="#a-python-interface-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-python-wrapper-for-the-revit-api">
+<h2>A Python Wrapper For the Revit API<a class="headerlink" href="#a-python-wrapper-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
 <p>Revit Python Wrapper allows you write Revit API in Python code
 that in a way that is more natural to the language.</p>
 <p>Wrapper objects makes the interaction with Revit API objects more
-consistent with Python&#8217;s naming conventions, but also implement
-patterns to make your code more conscise (DRY).</p>
+consistent with Python&#8217;s naming conventions, and also implement
+patterns to make your code more conscise.</p>
 <p>The wrapper will also normalize version specific calls so you can re-use
 your code across Revit versions.</p>
 <div class="section" id="project-goals">
 <h3>Project Goals<a class="headerlink" href="#project-goals" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Normalize API calls for different Revit Version</li>
-<li>Normalize API calls for Revit Vs Dynamo to allow re-use</li>
+<li>Normalize Document and Application handlers for Revit + Dynamo</li>
 <li>Implement Resusable patterns reduce repetitive tasks</li>
-<li>Create wrappers to make common calls feel more <strong>pythonic</strong></li>
+<li>Create wrappers to make common calls feel more pythonic</li>
+<li>Increase code re-use</li>
+<li>Add data coertion to allow for more flexibility (see <a class="reference internal" href="enumeration.html#module-rpw.enumeration" title="rpw.enumeration"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.enumeration</span></code></a> for example)</li>
 </ul>
 </div>
-<div class="section" id="code-examples">
-<h3>Code Examples<a class="headerlink" href="#code-examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="using-revitpythonwrapper">
+<h3>Using RevitPythonWrapper<a class="headerlink" href="#using-revitpythonwrapper" title="Permalink to this headline">¶</a></h3>
+<p>Globals:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handles Document Manager and namespace imports for RevitPythonShell and Dynamo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Transactions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Traditional Transaction (API)</span>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Wrapper</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Object&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># This code remains the same for RevitPythonShell, and Dynamo</span>
+</pre></div>
+</div>
+<p>In Constrast, Transactiosn usually looks something like this</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># In Dynamo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">RevitServices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">RevitServices.Persistence</span> <span class="k">import</span> <span class="n">DocumentManager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">RevitServices.Transactions</span> <span class="k">import</span> <span class="n">TransactionManager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentDBDocument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">EnsureInTransaction</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">TransactionTaskDone</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Revit Python Shell</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">Transaction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.UI.UIApplication</span> <span class="k">import</span> <span class="n">ActiveUIDocument</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
+<span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">transaction</span> <span class="o">=</span> <span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Delete Object&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">transaction</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
@@ -185,26 +225,24 @@ your code across Revit versions.</p>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">transaction</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Wrapper</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Object&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
-</pre></div>
-</div>
+</div></blockquote>
 <p>Selection:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.UI.UIApplication</span> <span class="k">import</span> <span class="n">ActiveUIDocument</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span> <span class="o">=</span> <span class="n">ActiveUIDocument</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selection_ids</span> <span class="o">=</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">GetElementIds</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElemend</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span> <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="n">selection_ids</span><span class="p">]</span>
-</pre></div>
-</div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">&lt; Autodesk.Revit.DB.Element &gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">elements</span>
 <span class="go">[&lt; Autodesk.Revit.DB.Element &gt;]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Other Features</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SomeElementID</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># In Revit Python Shell</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span> <span class="c1"># Different for Dynamo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection_ids</span> <span class="o">=</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">GetElementIds</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selected_elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElemend</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span> <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="n">selection_ids</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Element:</p>
@@ -235,10 +273,8 @@ your code across Revit versions.</p>
 </div>
 <div class="section" id="disclaimer">
 <h3>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h3>
-<p>Please keep in mind this is my first <em>public API</em>, so if you know better,
-don&#8217;t hesitate to enlighthen me.</p>
-<p>I hope this is just the start of project that to help Python lovers
-have more fun writing Revit API Code.</p>
+<p>Please keep in mind this is my first <em>public API</em>,
+so please don&#8217;t hesitate to enlighthen me.</p>
 </div>
 </div>
 </div>
@@ -258,7 +294,7 @@ have more fun writing Revit API Code.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="element.html" class="btn btn-neutral float-right" title="Element" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="globals.html" class="btn btn-neutral float-right" title="Globals" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

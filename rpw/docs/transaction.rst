@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 
-Transaction()
+Transaction
 ==================
 
 Wrappers to make Revit Transactions work with Python Context Manager.

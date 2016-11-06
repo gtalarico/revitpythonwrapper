@@ -13,11 +13,14 @@ Contents:
    :maxdepth: 1
 
    self
+   globals
    element
    selection
    transaction
    collector
+   enumeration
    dynamo
+   exceptions
 
 
 Introduction

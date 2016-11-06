@@ -4,14 +4,14 @@
    contain the root `toctree` directive.
 
 
-Collector
+Enumeration
 ==================
 
-Collector Wrapper
+Enumeration Wrappers.
 
-.. automodule:: rpw.collector
+.. automodule:: rpw.enumeration
     :members:
-    :special-members: __init__, __getattr__
+    :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
 
@@ -20,4 +20,4 @@ Collector Wrapper
 Behind the Scenes
 *****************
 
-.. literalinclude:: ../collector.py
+.. literalinclude:: ../enumeration.py

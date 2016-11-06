@@ -4,14 +4,14 @@
    contain the root `toctree` directive.
 
 
-Collector
+Exceptions
 ==================
 
-Collector Wrapper
+Revit Python Wrapper Exceptions
 
-.. automodule:: rpw.collector
+.. automodule:: rpw.exceptions
     :members:
-    :special-members: __init__, __getattr__
+    :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
 
@@ -20,4 +20,4 @@ Collector Wrapper
 Behind the Scenes
 *****************
 
-.. literalinclude:: ../collector.py
+.. literalinclude:: ../exceptions.py

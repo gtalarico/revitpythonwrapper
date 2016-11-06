@@ -85,11 +85,14 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 </ul>
 
             
@@ -140,6 +143,7 @@
  | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#I"><strong>I</strong></a>
@@ -148,6 +152,7 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  
 </div>
@@ -155,9 +160,15 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="selection.html#rpw.selection.Selection.__getitem__">__getitem__() (rpw.selection.Selection method)</a>
+  <dt><a href="element.html#rpw.parameter._ParameterSet.__getitem__">__getitem__() (rpw.parameter._ParameterSet method)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="selection.html#rpw.selection.Selection.__getitem__">(rpw.selection.Selection method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="collector.html#rpw.collector.Collector.__init__">__init__() (rpw.collector.Collector method)</a>
   </dt>
@@ -173,10 +184,6 @@
 
         
   <dt><a href="element.html#rpw.parameter.Parameter.__init__">(rpw.parameter.Parameter method)</a>
-  </dt>
-
-        
-  <dt><a href="element.html#rpw.parameter._ParameterSet.__init__">(rpw.parameter._ParameterSet method)</a>
   </dt>
 
         
@@ -202,6 +209,20 @@
   <dt><a href="element.html#rpw.parameter._ParameterSet">_ParameterSet (class in rpw.parameter)</a>
   </dt>
 
+      
+  <dt><a href="element.html#rpw.element._ParameterSet._revit_object">_revit_object (rpw.element._ParameterSet attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Element._revit_object">(rpw.element.Element attribute)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Parameter._revit_object">(rpw.element.Parameter attribute)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -228,12 +249,30 @@
   <dt><a href="element.html#rpw.parameter.Parameter.builtin">builtin (rpw.parameter.Parameter attribute)</a>
   </dt>
 
+      
+  <dt><a href="enumeration.html#rpw.enumeration.BuiltInCategoryEnum">BuiltInCategoryEnum (class in rpw.enumeration)</a>
+  </dt>
+
+      
+  <dt><a href="enumeration.html#rpw.enumeration.BuiltInParameterEnum">BuiltInParameterEnum (class in rpw.enumeration)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="element.html#rpw.element.Element.by_id">by_id() (rpw.element.Element class method)</a>
   </dt>
 
+      
+  <dt><a href="enumeration.html#rpw.enumeration.BuiltInCategoryEnum.by_name">by_name() (rpw.enumeration.BuiltInCategoryEnum class method)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="enumeration.html#rpw.enumeration.BuiltInParameterEnum.by_name">(rpw.enumeration.BuiltInParameterEnum class method)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -248,6 +287,22 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="collector.html#rpw.collector.Collector">Collector (class in rpw.collector)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="globals.html#rpw.DB">DB (in module rpw)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="globals.html#rpw.doc">doc (in module rpw)</a>
   </dt>
 
   </dl></td>
@@ -346,18 +401,42 @@
   <dt><a href="collector.html#module-rpw.collector">rpw.collector (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="element.html#module-rpw.element">rpw.element (module)</a>
   </dt>
 
+      
+  <dt><a href="enumeration.html#module-rpw.enumeration">rpw.enumeration (module)</a>
+  </dt>
+
+      
+  <dt><a href="exceptions.html#module-rpw.exceptions">rpw.exceptions (module)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="selection.html#module-rpw.selection">rpw.selection (module)</a>
   </dt>
 
       
   <dt><a href="transaction.html#module-rpw.transaction">rpw.transaction (module)</a>
+  </dt>
+
+      
+  <dt><a href="exceptions.html#rpw.exceptions.RPW_Exception">RPW_Exception</a>
+  </dt>
+
+      
+  <dt><a href="exceptions.html#rpw.exceptions.RPW_ParameterNotFound">RPW_ParameterNotFound</a>
+  </dt>
+
+      
+  <dt><a href="exceptions.html#rpw.exceptions.RPW_TypeError">RPW_TypeError</a>
+  </dt>
+
+      
+  <dt><a href="exceptions.html#rpw.exceptions.RPW_WrongStorageType">RPW_WrongStorageType</a>
   </dt>
 
   </dl></td>
@@ -384,6 +463,22 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="element.html#rpw.parameter.Parameter.type">type (rpw.parameter.Parameter attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="globals.html#rpw.UI">UI (in module rpw)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="globals.html#rpw.uidoc">uidoc (in module rpw)</a>
   </dt>
 
   </dl></td>

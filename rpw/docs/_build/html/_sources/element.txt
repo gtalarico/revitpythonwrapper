@@ -20,7 +20,7 @@ ParameterSet
 
 .. autoclass:: rpw.parameter._ParameterSet
     :members:
-    :special-members: __init__, __getattr__
+    :special-members: __getattr__, __getitem__
     :show-inheritance:
 
 

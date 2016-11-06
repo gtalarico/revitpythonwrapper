@@ -34,8 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
-        <link rel="next" title="Selection()" href="selection.html"/>
-        <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
+        <link rel="next" title="Selection" href="selection.html"/>
+        <link rel="prev" title="Globals" href="globals.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -86,17 +86,19 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Element</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#element-wrapper">Element Wrapper</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#behind-the-scenes">Behind the Scenes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 </ul>
 
             
@@ -144,18 +146,33 @@
   <div class="section" id="element">
 <h1>Element<a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h1>
 <p>DB Namespace is the Largest namespace and contains over 10,000 members.</p>
-<span class="target" id="module-rpw.element"></span><div class="section" id="element-wrapper">
-<h2>Element Wrapper<a class="headerlink" href="#element-wrapper" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-rpw.element"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt id="rpw.element.Element">
 <em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Generic Revit Element Wrapper</p>
-<p>self._revit_object = DB.Element</p>
+<dl class="attribute">
+<dt id="rpw.element.Element._revit_object">
+<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element.Element._revit_object" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>DB.Element</em></p>
+</dd></dl>
+
 <p>Usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">RevitWallElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">10.0</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;type: float&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Height&#39;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
 <dl class="method">
@@ -164,9 +181,12 @@
 <dd><p>Element Class Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd>wall = Element(Revit.DB.Wall)
-wall.parameters[&#8216;Height&#8217;]
-wall.parameters.builtins[&#8216;WALL_LOCATION_LINE&#8217;]</dd>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">Revit</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -216,7 +236,6 @@ return Element(element)</p>
 
 </dd></dl>
 
-</div>
 <div class="section" id="parameterset">
 <h2>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -226,7 +245,12 @@ return Element(element)</p>
 <p>Revit Element Parameter List Wrapper.</p>
 <p>Allows you to treat an element parameters as if it was a dictionary.
 Keeping element store so other methods beyond Parameters can be used.</p>
-<p>self._revit_object = DB.Element</p>
+<dl class="attribute">
+<dt id="rpw.element._ParameterSet._revit_object">
+<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element._ParameterSet._revit_object" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>DB.Element</em></p>
+</dd></dl>
+
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
@@ -238,9 +262,19 @@ Keeping element store so other methods beyond Parameters can be used.</p>
 </dd>
 </dl>
 <dl class="method">
-<dt id="rpw.parameter._ParameterSet.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setup element</p>
+<dt id="rpw.parameter._ParameterSet.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>param_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s parameter by name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The first parameter found with a matching name (wrapper),</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">RPW_ParameterNotFound</span></code></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -276,15 +310,23 @@ to wrap Parameter Elements.</p>
 </div>
 </dd>
 </dl>
-<p>self._revit_object = DB.Parameter</p>
-<p>Handles the following types:</p>
-<ul class="simple">
-<li>Autodesk.Revit.DB.StorageType.String</li>
-<li>Autodesk.Revit.DB.StorageType.Double</li>
-<li>Autodesk.Revit.DB.StorageType.ElementId</li>
-<li>Autodesk.Revit.DB.StorageType.Integer</li>
-<li>Autodesk.Revit.DB.StorageType.None</li>
-</ul>
+<dl class="attribute">
+<dt id="rpw.element.Parameter._revit_object">
+<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element.Parameter._revit_object" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>DB.Parameter</em></p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Parameter Wrapper handles the following types:</p>
+<div class="last line-block">
+<div class="line">Autodesk.Revit.DB.StorageType.String</div>
+<div class="line">Autodesk.Revit.DB.StorageType.Double</div>
+<div class="line">Autodesk.Revit.DB.StorageType.ElementId</div>
+<div class="line">Autodesk.Revit.DB.StorageType.Integer</div>
+<div class="line">Autodesk.Revit.DB.StorageType.None</div>
+</div>
+</div>
 <dl class="method">
 <dt id="rpw.parameter.Parameter.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>parameter</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.Parameter.__init__" title="Permalink to this definition">¶</a></dt>
@@ -310,6 +352,7 @@ to wrap Parameter Elements.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">builtin_name</span>
+<span class="go">Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS</span>
 </pre></div>
 </div>
 </dd>
@@ -318,7 +361,7 @@ to wrap Parameter Elements.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ALL_MODEL_INSTANCE_COMMENTS</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Revit.DB.BuiltInParameter</td>
 </tr>
@@ -340,7 +383,24 @@ to wrap Parameter Elements.</p>
 <dt id="rpw.parameter.Parameter.type">
 <code class="descname">type</code><a class="headerlink" href="#rpw.parameter.Parameter.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Python Type of the Parameter</p>
-<p>returns: python built in type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Python Built in type</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.parameter.Parameter.type" title="rpw.parameter.Parameter.type">type</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;type: float&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -385,9 +445,7 @@ to wrap Parameter Elements.</p>
 <div class="section" id="behind-the-scenes">
 <h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Element Wrapper</span>
-<span class="sd">==============================================</span>
-
+<span class="sd">&gt;&gt;&gt; rpw.Element()</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
@@ -404,13 +462,22 @@ to wrap Parameter Elements.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generic Revit Element Wrapper</span>
 
-<span class="sd">    self._revit_object = DB.Element</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        _revit_object (DB.Element) = Revit Reference</span>
 
 <span class="sd">    Usage:</span>
 
 <span class="sd">        &gt;&gt;&gt; wall = Element(RevitWallElement)</span>
 <span class="sd">        &gt;&gt;&gt; wall.Id</span>
-<span class="sd">        &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; wall.parameters[&#39;Height&#39;].value</span>
+<span class="sd">        10.0</span>
+
+<span class="sd">        &gt;&gt;&gt; wall.parameters[&#39;Height&#39;].type</span>
+<span class="sd">        &lt;type: float&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; with Transaction(&#39;Set Height&#39;):</span>
+<span class="sd">        &gt;&gt;&gt;     wall.parameters[&#39;Height&#39;].value = 5</span>
+
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
@@ -418,9 +485,9 @@ to wrap Parameter Elements.</p>
 <span class="sd">        Element Class Wrapper</span>
 
 <span class="sd">        Usage:</span>
-<span class="sd">            wall = Element(Revit.DB.Wall)</span>
-<span class="sd">            wall.parameters[&#39;Height&#39;]</span>
-<span class="sd">            wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; wall = Element(Revit.DB.Wall)</span>
+<span class="sd">            &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
+<span class="sd">            &gt;&gt;&gt; wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            element (API Object): Revit API Object</span>
@@ -522,10 +589,10 @@ to wrap Parameter Elements.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="selection.html" class="btn btn-neutral float-right" title="Selection()" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="globals.html" class="btn btn-neutral" title="Globals" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
