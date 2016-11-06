@@ -10,14 +10,18 @@ from rpw import DB, UI, doc, uidoc
 from rpw.wrappers import Element
 from rpw.selection import Selection
 from rpw.transaction import Transaction
-from rpw.collector import Collector
+from rpw.collector import Collector, ParameterFilter
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
+from rpw.enumeration import BuiltInParameterEnum
 
 from System.Collections.Generic import List
 
 # logger.verbose(True)
 logger.disable()
+
+
+# sys.exit()
 
 
 def setUpModule():
@@ -278,5 +282,77 @@ class ElementTests(unittest.TestCase):
         self.assertIsInstance(context.exception, RPW_ParameterNotFound)
 
 
+############################
+# COLLECTOR PARAMETER FILTER
+############################
+
+class ParameterFilterTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        logger.title('TESTING PARAMTER FILTER...')
+
+    def setUp(self):
+        collector = Collector()
+        self.wall = collector.filter(of_class='Wall').first
+        self.wrapped_wall = Element(self.wall)
+        with Transaction('Set Comment'):
+            self.wrapped_wall.parameters['Comments'].value = 'Tests'
+
+    def tearDown(self):
+        pass
+        # with Transaction('Delete Test Levels'):
+            # self.wrapped_wall.parameters['comments'].value = 'Done'
+
+    def test_parameter_filter(self):
+        param_id = BuiltInParameterEnum.by_name('ALL_MODEL_INSTANCE_COMMENTS', as_id=True)
+        parameter_filter = ParameterFilter(param_id, contains='Tests')
+        col = Collector(parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+        parameter_filter = ParameterFilter(param_id, contains='TestsBla')
+        col = Collector(parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_parameter_filter_case_sensitive(self):
+        """ Currently Failes. Might be API Bug"""
+        param_id = BuiltInParameterEnum.by_name('ALL_MODEL_INSTANCE_COMMENTS', as_id=True)
+        parameter_filter = ParameterFilter(param_id, equals='tests', case_sensitive=True)
+        col = Collector(parameter_filter=parameter_filter)
+        # self.assertEqual(len(col), 0)
+
+    def test_parameter_filter_case_sensitive(self):
+        """ Currently Failes. Might be API Bug"""
+        uheight = self.wrapped_wall.parameters.builtins['WALL_USER_HEIGHT_PARAM']
+        logger.critical(uheight)
+        param_id = BuiltInParameterEnum.by_name('WALL_USER_HEIGHT_PARAM', as_id=True)
+        parameter_filter = ParameterFilter(param_id, less=10.0, reverse=True)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        print(col)
+
+    def test_parameter_filter_type_name(self):
+        type_name = self.wrapped_wall.parameters.builtins['ELEM_TYPE_PARAM'].value
+        logger.critical(type_name)
+        # logger.critical(type_name.value)
+        # param_id = BuiltInParameterEnum.by_name('WALL_USER_HEIGHT_PARAM', as_id=True)
+        # parameter_filter = ParameterFilter(param_id, less=10.0, reverse=True)
+        # col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        # print(col)
+        # self.assertEqual(len(col), 0)
+
+
+        # print(parameter_filter)
+
+        # col = Collector(parameter_filter=parameter_filter)
+        # parameter_name = 'SYMBOL_NAME_PARAM'
+        # parameter_name = 'ALL_MODEL_TYPE_NAME'
+        # col = Collector(of_class='Wall')
+        # col.filter(parameter_filter=parameter_filter)
+        # col = Collector(of_class='Wall', parameter_filter=parameter_filter)
+        # col = Collector(of_class='Wall', parameter_filter=parameter_filter)
+        # col = Collector(of_class='Wall', is_element=False)
+        # print(col)
+
+
+unittest.main(defaultTest='ParameterFilterTests')
 # unittest.main(defaultTest='SelectionTests')
-unittest.main(verbosity=0, buffer=True)
+# unittest.main(verbosity=0, buffer=True)

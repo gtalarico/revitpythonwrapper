@@ -4,7 +4,8 @@ from functools import reduce
 from rpw import uidoc, doc, DB
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
-from rpw.enumeration import BuiltInCategoryEnum
+from rpw.exceptions import RPW_Exception
+from rpw.enumeration import BuiltInCategoryEnum, BuiltInParameterEnum
 
 from System.Collections.Generic import List
 
@@ -113,10 +114,11 @@ class _Filter():
             self._collector._filters[key] = value
 
         filtered_collector = self.chain(self._collector._filters)
+        # TODO: This should return iterator to save memory
         self._collector.elements = [element for element in filtered_collector]
         return self._collector
 
-    def chain(self, filters, filtered_collector=None):
+    def chain(self, filters, collector=None):
         """ Chain filters together.
 
         Converts this syntax: `collector.filter(of_class=X, is_element=True)`
@@ -125,27 +127,30 @@ class _Filter():
         A copy of the filters is copied after each pass so the Function
         can be called recursevily in a queue.
 
-        TODO:
-            Right now, using is_element=True is same as is_element=False
         """
-        # Firt Loop
-        if not filtered_collector:
-            filtered_collector = self._collector._revit_object
+        # First Loop
+        if not collector:
+            collector = self._collector._revit_object
 
         # Stack is track filter chainning queue
         filter_stack = copy(filters)
-        for key, value in filters.iteritems():
-            collector_filter = getattr(filtered_collector, _Filter.MAP[key])
-            if isinstance(value, bool):
-                collector_results = collector_filter()
-            elif isinstance(value, ParameterFilter):
-                collector_results = collector_filter(value._revit_object)
-            else:
-                collector_results = collector_filter(value)
-            filter_stack.pop(key)
-            filtered_collector = self.chain(filter_stack, filtered_collector=filtered_collector)
+        for filter_name, filter_value in filters.iteritems():
+            collector_filter = getattr(collector, _Filter.MAP[filter_name])
 
-        return filtered_collector
+            if filter_name not in _Filter.MAP:
+                raise RPW_Exception('collector filter rule does not exist: {}'.format(filter_name))
+
+            elif isinstance(filter_value, bool):
+                if filter_value is True:
+                    collector_results = collector_filter()
+            elif isinstance(filter_value, ParameterFilter):
+                collector_results = collector_filter(filter_value._revit_object)
+            else:
+                collector_results = collector_filter(filter_value)
+            filter_stack.pop(filter_name)
+            collector = self.chain(filter_stack, collector=collector)
+
+        return collector
 
     def coerce_filter_values(self, filters):
         """ Allows value to be either Enumerate or string.
@@ -182,26 +187,75 @@ class ParameterFilter(BaseObjectWrapper):
 
         >>> parameter_filter = ParameterFilter('Height', less_than=10)
         >>> collector = Collector(parameter_filter=parameter_filter)
+
+    ParameterFilterRuleFactory:
+        ParameterFilterRuleFactory.CreateBeginsWithRule(param_id, value, case_sensitive)
+        ParameterFilterRuleFactory.CreateContainsRule(param_id, value, case_sensitive)
+        ParameterFilterRuleFactory.CreateEndsWithRule(param_id, value, case_sensitive)
+        ParameterFilterRuleFactory.CreateEqualsRule(param_id, value)
+        ParameterFilterRuleFactory.CreateGreaterOrEqualRule(param_id, value)
+        ParameterFilterRuleFactory.CreateGreaterRule(param_id, value)
+        ParameterFilterRuleFactory.CreateLessOrEqualRule(param_id, value)
+        ParameterFilterRuleFactory.CreateLessRule(param_id, value)
+        ParameterFilterRuleFactory.CreateNotBeginsWithRule(param_id, value)
+        ParameterFilterRuleFactory.CreateNotContainsRule(param_id, value)
+        ParameterFilterRuleFactory.CreateNotEqualsRule(param_id, value)
+        ParameterFilterRuleFactory.CreateSharedParameterApplicableRule(param_name)
+
+    Returns:
+        FilterDoubleRule(provider, evaluator, rule_value, tolerance)
+        FilterElementIdRule(provider, evaluator, ElementId)
+        FilterCategoryRule(ElementId)
+        FilterStringRule(provider, evaluator, string, case_sensitive)
+        FilterIntegerRule(provider, evaluator, value)
+        SharedParameterApplicableRule(parameter_name)
+
     """
 
-    LOGICAL_FILTERS = {
-                        'equals': '', 'not_equal': '',
-                        'contains': '', 'not_contains': '',
-                        'begins': '', 'not_begins': '',
-                        'ends': '', 'not_ends': '',
-                        'greater': '', 'greater_equal': '',
-                        'less': '', 'less_equal': '',
+    RULES = {
+            'equals': 'CreateEqualsRule',
+            'contains': 'CreateContainsRule',
+            'begins': 'CreateBeginsWithRule',
+            'ends': 'CreateEndsWithRule',
+            'greater': 'CreateGreaterRule',
+            'greater_equal': 'CreateGreaterOrEqualRule',
+            'less': 'CreateLessRule',
+            'less_equal': 'CreateLessOrEqualRule',
+           }
 
-                        'or': 'LogicalAndFilter ',
-                        'and': 'LogicalOrFilter ',
-                      }
+    CASE_SENSITIVE = True
+    FLOAT_PRECISION = 0.0013020833333333
 
-    def __init__(self, parameter_name, **conditions):
-        self.parameter_name = parameter_name
+    def __init__(self, parameter_id, **conditions):
+        self.parameter_id = parameter_id
         self.conditions = conditions
+        self.case_sensitive = conditions.get('case_sensitive', ParameterFilter.CASE_SENSITIVE)
         self.reverse = conditions.get('reverse', False)
+        self.precision = conditions.get('precision', ParameterFilter.FLOAT_PRECISION)
 
-        # self.element_parameter_filter =
+        valid_rule = [x for x in conditions if x in ParameterFilter.RULES]
+        for condition_name in valid_rule:
+            condition_value = conditions[condition_name]
 
-        DB.ElementParamterFilter(FilterRule, self.reverse)
-        DB.ElementParamterFilter(IList[FilterRule](), self.reverse)
+            # Returns on of the CreateRule factory method names above
+            rule_factory_name = ParameterFilter.RULES.get(condition_name)
+            filter_value_rule = getattr(DB.ParameterFilterRuleFactory, rule_factory_name)
+
+            args = [condition_value]
+
+            if isinstance(condition_value, str):
+                args.append(self.case_sensitive)
+
+            if isinstance(condition_value, float):
+                args.append(1.0)
+
+            logger.critical('conditions: {}'.format(conditions))
+            # logger.critical('Case sensitive: {}'.format(self.case_sensitive))
+            logger.critical('ARGS: {}'.format(args))
+            logger.critical('Reverse: {}'.format(self.reverse))
+            filter_rule = filter_value_rule(parameter_id, *args)
+            logger.critical(filter_rule)
+            self._revit_object = DB.ElementParameterFilter(filter_rule, self.reverse)
+
+    def __repr__(self):
+        return super(ParameterFilter, self).__repr__(self.conditions)
