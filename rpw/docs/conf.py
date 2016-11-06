@@ -23,7 +23,14 @@
 
 import sys
 import os
-sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper')
+doc_dir = os.path.dirname(__file__)
+print('DOC_DIR: {}'.format(doc_dir))
+module_dir = os.path.dirname(doc_dir)
+print('MOD_DIR: {}'.format(module_dir))
+root_dir = os.path.dirname(module_dir)
+print('ROOT_DIR: {}'.format(root_dir))
+sys.path.append(root_dir)
+
 # sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper\\rpw')
 # sys.setrecursionlimit(500)
 # autodoc_mock_imports = ['clr']
