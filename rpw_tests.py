@@ -1,7 +1,7 @@
 import sys
-import os
 import unittest
 
+import os
 repos = os.getenv('REPOS')
 path = os.path.join(repos, 'revitpythonwrapper')
 sys.path.append(path)
@@ -298,61 +298,107 @@ class ParameterFilterTests(unittest.TestCase):
         self.wrapped_wall = Element(self.wall)
         with Transaction('Set Comment'):
             self.wrapped_wall.parameters['Comments'].value = 'Tests'
+            self.wrapped_wall.parameters['Unconnected Height'].value = 12.0
+
+        # BIP Ids
+        self.param_id_height = BuiltInParameterEnum.by_name('WALL_USER_HEIGHT_PARAM', as_id=True)
+        self.param_id_location = BuiltInParameterEnum.by_name('WALL_KEY_REF_PARAM', as_id=True)
+        self.param_id_comments = BuiltInParameterEnum.by_name('ALL_MODEL_INSTANCE_COMMENTS', as_id=True)
+        self.param_id_level_name = BuiltInParameterEnum.by_name('DATUM_TEXT', as_id=True)
+        # self.param_id_type_name = BuiltInParameterEnum.by_name('SYMBOL_NAME_PARAM', as_id=True)
+        # self.param_id_type_name = BuiltInParameterEnum.by_name('SYMBOL_FAMILY_NAME_PARAM', as_id=True)
 
     def tearDown(self):
         pass
-        # with Transaction('Delete Test Levels'):
-            # self.wrapped_wall.parameters['comments'].value = 'Done'
 
-    def test_parameter_filter(self):
-        param_id = BuiltInParameterEnum.by_name('ALL_MODEL_INSTANCE_COMMENTS', as_id=True)
-        parameter_filter = ParameterFilter(param_id, contains='Tests')
-        col = Collector(parameter_filter=parameter_filter)
-        self.assertEqual(len(col), 1)
-        parameter_filter = ParameterFilter(param_id, contains='TestsBla')
-        col = Collector(parameter_filter=parameter_filter)
+
+    def test_param_filter_float_less_no(self):
+        parameter_filter = ParameterFilter(self.param_id_height, less=10.0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 0)
 
-    def test_parameter_filter_case_sensitive(self):
-        """ Currently Failes. Might be API Bug"""
-        param_id = BuiltInParameterEnum.by_name('ALL_MODEL_INSTANCE_COMMENTS', as_id=True)
-        parameter_filter = ParameterFilter(param_id, equals='tests', case_sensitive=True)
-        col = Collector(parameter_filter=parameter_filter)
-        # self.assertEqual(len(col), 0)
-
-    def test_parameter_filter_case_sensitive(self):
-        """ Currently Failes. Might be API Bug"""
-        uheight = self.wrapped_wall.parameters.builtins['WALL_USER_HEIGHT_PARAM']
-        logger.critical(uheight)
-        param_id = BuiltInParameterEnum.by_name('WALL_USER_HEIGHT_PARAM', as_id=True)
-        parameter_filter = ParameterFilter(param_id, less=10.0, reverse=True)
+    def test_param_filter_float_less_yes(self):
+        parameter_filter = ParameterFilter(self.param_id_height, less=15.0)
         col = Collector(of_class="Wall", parameter_filter=parameter_filter)
-        print(col)
+        self.assertEqual(len(col), 1)
 
-    def test_parameter_filter_type_name(self):
-        type_name = self.wrapped_wall.parameters.builtins['ELEM_TYPE_PARAM'].value
-        logger.critical(type_name)
-        # logger.critical(type_name.value)
-        # param_id = BuiltInParameterEnum.by_name('WALL_USER_HEIGHT_PARAM', as_id=True)
-        # parameter_filter = ParameterFilter(param_id, less=10.0, reverse=True)
+    def test_param_filter_float_equal(self):
+        parameter_filter = ParameterFilter(self.param_id_height, equals=12.0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_not_equal(self):
+        parameter_filter = ParameterFilter(self.param_id_height, not_equals=12.0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_filter_float_greater(self):
+        parameter_filter = ParameterFilter(self.param_id_height, greater=10.0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_multi_filter(self):
+        parameter_filter = ParameterFilter(self.param_id_height, greater=10.0, less=14.0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_multi_filter(self):
+        parameter_filter = ParameterFilter(self.param_id_height, greater=10.0, not_less=14.0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_filter_int_equal(self):
+        parameter_filter = ParameterFilter(self.param_id_location, equals=0)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_int_less(self):
+        parameter_filter = ParameterFilter(self.param_id_location, less=3)
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_comments_equals(self):
+        parameter_filter = ParameterFilter(self.param_id_comments, equals='Tests')
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_comments_not_equals(self):
+        parameter_filter = ParameterFilter(self.param_id_comments, equals='Blaa')
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_comments_begins(self):
+        parameter_filter = ParameterFilter(self.param_id_comments, begins='Tes')
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_comments_not_begins(self):
+        parameter_filter = ParameterFilter(self.param_id_comments, equals='Bla bla')
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_comments_not_begins(self):
+        parameter_filter = ParameterFilter(self.param_id_comments, not_begins='Bla bla')
+        col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    #FAILS
+    # def test_param_comments_equal_case(self):
+        # parameter_filter = ParameterFilter(self.param_id_comments, contains='tests')
         # col = Collector(of_class="Wall", parameter_filter=parameter_filter)
-        # print(col)
         # self.assertEqual(len(col), 0)
 
+    def tests_param_name_contains(self):
+        parameter_filter = ParameterFilter(self.param_id_level_name, contains='1')
+        col = Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
 
-        # print(parameter_filter)
-
-        # col = Collector(parameter_filter=parameter_filter)
-        # parameter_name = 'SYMBOL_NAME_PARAM'
-        # parameter_name = 'ALL_MODEL_TYPE_NAME'
-        # col = Collector(of_class='Wall')
-        # col.filter(parameter_filter=parameter_filter)
-        # col = Collector(of_class='Wall', parameter_filter=parameter_filter)
-        # col = Collector(of_class='Wall', parameter_filter=parameter_filter)
-        # col = Collector(of_class='Wall', is_element=False)
-        # print(col)
+    def tests_param_name_ends(self):
+        parameter_filter = ParameterFilter(self.param_id_level_name, ends='1')
+        col = Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
 
 
-unittest.main(defaultTest='ParameterFilterTests')
+unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
 # unittest.main(defaultTest='SelectionTests')
 # unittest.main(verbosity=0, buffer=True)

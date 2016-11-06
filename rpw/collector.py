@@ -4,6 +4,7 @@ from functools import reduce
 from rpw import uidoc, doc, DB
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
+from rpw.wrappers import _Parameter
 from rpw.exceptions import RPW_Exception
 from rpw.enumeration import BuiltInCategoryEnum, BuiltInParameterEnum
 
@@ -214,26 +215,71 @@ class ParameterFilter(BaseObjectWrapper):
 
     RULES = {
             'equals': 'CreateEqualsRule',
+            'not_equals': 'CreateEqualsRule',
             'contains': 'CreateContainsRule',
+            'not_contains': 'CreateContainsRule',
             'begins': 'CreateBeginsWithRule',
+            'not_begins': 'CreateBeginsWithRule',
             'ends': 'CreateEndsWithRule',
+            'not_ends': 'CreateEndsWithRule',
             'greater': 'CreateGreaterRule',
+            'not_greater': 'CreateGreaterRule',
             'greater_equal': 'CreateGreaterOrEqualRule',
+            'not_greater_equal': 'CreateGreaterOrEqualRule',
             'less': 'CreateLessRule',
+            'not_less': 'CreateLessRule',
             'less_equal': 'CreateLessOrEqualRule',
+            'not_less_equal': 'CreateLessOrEqualRule',
            }
 
     CASE_SENSITIVE = True
     FLOAT_PRECISION = 0.0013020833333333
 
     def __init__(self, parameter_id, **conditions):
+        """ Creates Parameter Filter Rule.
+
+        parameter_filter = ParameterFilter(param_id, **conditions)
+
+        Args:
+            param_id(DB.ElementID): ElemendId of parameter
+
+            **conditions: Filter Rule Conditions
+
+        Conditions:
+            equals
+            contains
+            begins
+            ends
+            greater
+            greater_equal
+            less
+            less_equal
+
+        Negative Conditions (Reverse Rule):
+            not_equals
+            not_contains
+            not_begins
+            not_ends
+            not_greater
+            not_greater_equal
+            not_less
+            not_less_equal
+
+        Others:
+            case_sensitive: Enforces case sensitive, String only
+            reverse: Reverses result of Collector
+
+        Usage:
+        param_rul = ParameterFilter(param_id, equals=2)
+        """
         self.parameter_id = parameter_id
         self.conditions = conditions
-        self.case_sensitive = conditions.get('case_sensitive', ParameterFilter.CASE_SENSITIVE)
         self.reverse = conditions.get('reverse', False)
+        self.case_sensitive = conditions.get('case_sensitive', ParameterFilter.CASE_SENSITIVE)
         self.precision = conditions.get('precision', ParameterFilter.FLOAT_PRECISION)
 
         valid_rule = [x for x in conditions if x in ParameterFilter.RULES]
+        valid_rules = []
         for condition_name in valid_rule:
             condition_value = conditions[condition_name]
 
@@ -247,15 +293,23 @@ class ParameterFilter(BaseObjectWrapper):
                 args.append(self.case_sensitive)
 
             if isinstance(condition_value, float):
-                args.append(1.0)
+                args.append(self.precision)
 
-            logger.critical('conditions: {}'.format(conditions))
-            # logger.critical('Case sensitive: {}'.format(self.case_sensitive))
-            logger.critical('ARGS: {}'.format(args))
-            logger.critical('Reverse: {}'.format(self.reverse))
             filter_rule = filter_value_rule(parameter_id, *args)
-            logger.critical(filter_rule)
-            self._revit_object = DB.ElementParameterFilter(filter_rule, self.reverse)
+            if 'not_' in condition_name:
+                filter_rule = DB.FilterInverseRule(filter_rule)
+            # print('=================')
+            # logger.critical('Conditions: {}'.format(conditions))
+            # logger.critical('Case sensitive: {}'.format(self.case_sensitive))
+            # logger.critical('Reverse: {}'.format(self.reverse))
+            # logger.critical('ARGS: {}'.format(args))
+            # logger.critical(filter_rule)
+            # logger.critical(str(dir(filter_rule)))
+            valid_rules.append(filter_rule)
+        if not valid_rule:
+            raise RPW_Exception('malformed filter rule: {}'.format(conditions))
+        self._revit_object = DB.ElementParameterFilter(List[DB.FilterRule](valid_rules),
+                                                       self.reverse)
 
     def __repr__(self):
         return super(ParameterFilter, self).__repr__(self.conditions)

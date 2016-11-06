@@ -124,9 +124,6 @@ __copyright__ = '?'
 
 
 import sys
-from rpw.logger import logger
-
-logger.verbose(True)
 
 try:
     #  This is a workaround to fix Sphinx's autodoc
@@ -140,19 +137,20 @@ except:
     print('Import Failed Using Fake Import')
     from rpw.sphinx_compat import *
 
+
 try:
-    "Running In PyRevit"
     uidoc = __revit__.ActiveUIDocument
     doc = __revit__.ActiveUIDocument.Document
     version = __revit__.Application.VersionNumber
+    print("Running In PyRevit")
 
 except NameError:
-    logger.error('Could not pyRevit Document. Trying Dynamo.')
+    print('Could not find pyRevit Document. Trying Dynamo.')
     try:
-        "Running In PyRevit"
         clr.AddReference("RevitServices")
     except:
-        logger.error('Could not Revit Document')
+        print('Could not Revit Document')
+        raise
     else:
         import RevitServices
         from RevitServices.Persistence import DocumentManager
@@ -160,8 +158,6 @@ except NameError:
         doc = DocumentManager.Instance.CurrentDBDocument
         uiapp = DocumentManager.Instance.CurrentUIApplication
         app = uiapp.Application
-
         # Verify
         uidoc = uiapp.ActiveUIDocument
-
-# from rpw.wrappers import *
+        print('Running in Dynamo')

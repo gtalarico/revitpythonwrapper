@@ -33,8 +33,10 @@ class Selection(BaseObjectWrapper):
 
     def add(self, elements_or_ids):
         """ Adds elements to selection. Takes elements or element ids"""
+        if not isinstance(elements_or_ids, list):
+            elements_or_ids = [elements_or_ids]
         if all([isinstance(e, DB.ElementId) for e in elements_or_ids]):
-            pass
+            element_ids = elements_or_ids
         elif all([isinstance(e, DB.Element) for e in elements_or_ids]):
             element_ids = [e.Id for e in elements_or_ids]
         elif all([isinstance(e, int) for e in elements_or_ids]):
