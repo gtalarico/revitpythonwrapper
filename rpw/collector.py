@@ -3,8 +3,10 @@ from functools import reduce
 
 from rpw import uidoc, doc, DB
 from rpw.logger import logger
-from rpw.wrappers import BaseObjectWrapper
+from rpw.base import BaseObjectWrapper
 from rpw.enumeration import BuiltInCategoryEnum
+
+from System.Collections.Generic import List
 
 
 class Collector(BaseObjectWrapper):
@@ -15,23 +17,22 @@ class Collector(BaseObjectWrapper):
         >>> collector = Collector()
         >>> elements = collector.filter(of_class=View)
 
-        # Multiple Filters
+        Multiple Filters:
 
         >>> collector = Collector()
         >>> elements = collector.filter(of_category=BuiltInCategory.OST_Walls,
                                         is_element_type=True)
 
-        # Chain Preserves Previous Results
+        Chain Preserves Previous Results:
 
         >>> collector = Collector()
         >>> walls = collector.filter(of_category=BuiltInCategory.OST_Walls)
         >>> walls.filter(is_element_type=True)
 
-        # Use Enumeration member or string shortcut:
+        Use Enumeration member or string shortcut:
 
         >>> collector.filter(of_category='OST_Walls')
         >>> collector.filter(of_category='ViewType')
-
 
     Returns:
         Collector: Returns collector Class
@@ -40,22 +41,30 @@ class Collector(BaseObjectWrapper):
         collector.elements: Returns list of all *collected* elements
         collector.first: Returns first found element, or `None`
 
+    Wrapped Element:
+        self._revit_object = `Revit.DB.FilteredElementCollector`
+
     """
 
-    def __init__(self, view=None):
+    def __init__(self, **filters):
         """
         Args:
             view (Revit.DB.View) = View Scope (Optional)
         """
-        if view:
+        if 'view' in filters:
+            view = filters['view']
             collector = DB.FilteredElementCollector(doc, view.Id)
         else:
             collector = DB.FilteredElementCollector(doc)
         super(Collector, self).__init__(collector)
+
         self.elements = []
-        self._filters = {}
+        self._filters = filters
 
         self.filter = _Filter(self)
+        # Allows Class to Excecute on Construction, if filters are present.
+        if filters:
+            self.filter(**filters)
 
     @property
     def first(self):
@@ -65,7 +74,12 @@ class Collector(BaseObjectWrapper):
         except IndexError:
             return None
 
+    def __bool__(self):
+        """ Evaluates to `True` if Collector.elements is not empty [] """
+        return bool(self.elements)
+
     def __len__(self):
+        """ Returns length of collector.elements """
         return len(self.elements)
 
     def __repr__(self):
@@ -82,6 +96,7 @@ class _Filter():
              'is_element': 'WhereElementIsNotElementType',
              'is_element_type': 'WhereElementIsElementType',
              'is_view_independent': 'WhereElementIsViewIndependent',
+             'parameter_filter': 'WherePasses',
             }
 
     def __init__(self, collector):
@@ -123,6 +138,8 @@ class _Filter():
             collector_filter = getattr(filtered_collector, _Filter.MAP[key])
             if isinstance(value, bool):
                 collector_results = collector_filter()
+            elif isinstance(value, ParameterFilter):
+                collector_results = collector_filter(value._revit_object)
             else:
                 collector_results = collector_filter(value)
             filter_stack.pop(key)
@@ -133,11 +150,16 @@ class _Filter():
     def coerce_filter_values(self, filters):
         """ Allows value to be either Enumerate or string.
 
-        >>> elements = collector.filter(of_category=BuiltInCategory.OST_Walls)
-        >>> elements = collector.filter(of_category='OST_Walls')
-        and
-        >>> elements = collector.filter(of_class=WallType)
-        >>> elements = collector.filter(of_class='WallType')
+        Usage:
+            >>> elements = collector.filter(of_category=BuiltInCategory.OST_Walls)
+            >>> elements = collector.filter(of_category='OST_Walls')
+
+            >>> elements = collector.filter(of_class=WallType)
+            >>> elements = collector.filter(of_class='WallType')
+
+        Note:
+            String Connversion for `of_class` only works for the Revit.DB
+            namespace.
 
         """
         category_name = filters.get('of_category')
@@ -147,7 +169,39 @@ class _Filter():
         class_name = filters.get('of_class')
         if class_name and isinstance(class_name, str):
             filters['of_class'] = getattr(DB, class_name)
-            # filters['of_class'] = reduce(getattr, class_name.split('.'), DB)
-            # This would allow deeper members DB.Architecture.Room
 
         return filters
+
+
+class ParameterFilter(BaseObjectWrapper):
+    """ Parameter Filter Wrapper
+
+    Usage:
+        >>> parameter_filter = ParameterFilter('Type Name', equals='Wall 1')
+        >>> collector = Collector(parameter_filter=parameter_filter)
+
+        >>> parameter_filter = ParameterFilter('Height', less_than=10)
+        >>> collector = Collector(parameter_filter=parameter_filter)
+    """
+
+    LOGICAL_FILTERS = {
+                        'equals': '', 'not_equal': '',
+                        'contains': '', 'not_contains': '',
+                        'begins': '', 'not_begins': '',
+                        'ends': '', 'not_ends': '',
+                        'greater': '', 'greater_equal': '',
+                        'less': '', 'less_equal': '',
+
+                        'or': 'LogicalAndFilter ',
+                        'and': 'LogicalOrFilter ',
+                      }
+
+    def __init__(self, parameter_name, **conditions):
+        self.parameter_name = parameter_name
+        self.conditions = conditions
+        self.reverse = conditions.get('reverse', False)
+
+        # self.element_parameter_filter =
+
+        DB.ElementParamterFilter(FilterRule, self.reverse)
+        DB.ElementParamterFilter(IList[FilterRule](), self.reverse)

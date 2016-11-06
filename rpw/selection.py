@@ -1,6 +1,9 @@
-from rpw import doc, uidoc
-from rpw.wrappers import BaseObjectWrapper
+from rpw import doc, uidoc, DB
+from rpw.base import BaseObjectWrapper
 from rpw.logger import logger
+from rpw.exceptions import RPW_TypeError
+from System.Collections.Generic import List
+
 
 class Selection(BaseObjectWrapper):
     """
@@ -8,27 +11,45 @@ class Selection(BaseObjectWrapper):
     Makes easier to manipulate Active Selection.
 
     Usage:
+        >>> selection = Selection()
+        >>> selection[0]
+        >>> selection.element_ids
+        >>> selection.elements
+        >>> len(selection)
 
-    >>> selection = Selection()
-    >>> selection[0]
-    >>> selection.element_ids
-    >>> selection.elements
-    >>> len(selection)
+        >>> selection.RevitProperty
+        >>> selection.RevitMethod()
 
-    >>> selection.RevitProperty
-    >>> selection.RevitMethod()
-
-    self._element = Revit.UI
+    Wrapped Element:
+        self._revit_object = `Revit.UI.Selection`
     """
 
-    def __init__(self):
-        """ Stores uidoc.Selection in element so attributes can be accessed"""
+    def __init__(self, elements=None):
+        """ Stores uidoc.Selection in element so attributes can be accessed.
+        """
         super(Selection, self).__init__(uidoc.Selection)
+        if elements:
+            self.add(elements)
+
+    def add(self, elements_or_ids):
+        """ Adds elements to selection. Takes elements or element ids"""
+        if all([isinstance(e, DB.ElementId) for e in elements_or_ids]):
+            pass
+        elif all([isinstance(e, DB.Element) for e in elements_or_ids]):
+            element_ids = [e.Id for e in elements_or_ids]
+        elif all([isinstance(e, int) for e in elements_or_ids]):
+            element_ids = [DB.ElementId(e) for e in elements_or_ids]
+        else:
+            raise RPW_TypeError(list, type(elements_or_ids[0]))
+
+        current_selection = [e for e in uidoc.Selection.GetElementIds()]
+        all_ids = current_selection.append(element_ids)
+        uidoc.Selection.SetElementIds(List[DB.ElementId](element_ids))
 
     @property
     def element_ids(self):
         """
-        List of elemend ids
+        List of `ElemendId` objects
 
         Returns:
             [DB.ElementId]: List of ElementIds Objects """
@@ -43,19 +64,32 @@ class Selection(BaseObjectWrapper):
             [DB.Element]: List of Elements """
         return [doc.GetElement(eid) for eid in self.element_ids]
 
+    def clear(self):
+        """ Clears Selection
+        Returns:
+            None
+        """
+        uidoc.Selection.SetElementIds(List[DB.ElementId]())
+
     def __getitem__(self, index):
         """
-        Retrieves element using index. If Index is out range,
-        None is returned
+        Retrieves element using index.
+        If Index is out range, `None` is returned
 
         Args:
-            index(int): Integer representing list index.
+            int: Integer representing list index.
 
-        returns: Element, None
+        Returns:
+            `DB.Element`, `None`
+
         Usage:
-        selection[0]
+            >>> selection[0]
+            < Revit.DB.Element >
         """
         return self.elements[index]
+
+    def __bool__(self):
+        return bool(self.elements)
 
     def __len__(self):
         """ Number items of Selection """

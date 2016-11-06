@@ -7,7 +7,9 @@ class RPW_Exception(Exception):
 
 class RPW_TypeError(RPW_Exception, TypeError):
     """ Revit Python Wrapper Base Exception """
-
+    def __init__(self, type_expected, type_received):
+        logger.error('expected [{}], got [{}]'.format(type_expected,
+                                                      type_received))
 
 class RPW_ParameterNotFound(RPW_Exception, KeyError):
     """ Revit Python Wrapper Base Exception """

@@ -1,6 +1,6 @@
 from rpw import doc, DB
 from rpw.logger import logger
-from rpw.wrappers import BaseObjectWrapper
+from rpw.base import BaseObjectWrapper
 
 
 class Transaction(object):
@@ -13,6 +13,9 @@ class Transaction(object):
     Usage:
         >>> with Transaction('Move Wall'):
         >>>     wall.move()
+
+    Wrapped Element:
+        self._revit_object = `Revit.DB.Transaction`
 
     """
     def __init__(self, name):

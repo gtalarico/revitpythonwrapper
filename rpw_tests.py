@@ -19,12 +19,6 @@ from System.Collections.Generic import List
 # logger.verbose(True)
 logger.disable()
 
-################################
-# TODO:
-# Finish Tests
-# Set up elements for tests in code for consistency
-################################
-
 
 def setUpModule():
     logger.title('SETTING UP TESTS...')
@@ -63,12 +57,9 @@ class CollectorTests(unittest.TestCase):
         logger.title('TESTING COLLECTOR...')
 
     @staticmethod
-    def collector_helper(filters, view=None):
-        logger.debug('{}:{}'.format(filters, view))
-        if not view:
-            collector = Collector().filter(**filters)
-        else:
-            collector = Collector(view).filter(**filters)
+    def collector_helper(filters):
+        logger.debug('{}'.format(filters))
+        collector = Collector(**filters)
         elements = collector.elements
         logger.debug(collector)
         logger.debug(collector.first)
@@ -120,9 +111,12 @@ class CollectorTests(unittest.TestCase):
         walls_element_type = len(wall_collector)
         assert walls_category > walls_elements > walls_element_type
 
-    # TODO:
-    # - Add Room Tests
-
+    def tests_collect_rooms(self):
+        collector = Collector(of_category='OST_Rooms')
+        if collector:
+            self.assertIsInstance(collector.first, DB.SpatialElement)
+            collector = Collector(of_class='SpatialElement')
+            self.assertIsInstance(collector.first, DB.Architecture.Room)
 
 ######################
 # SELECTION
@@ -134,19 +128,38 @@ class SelectionTests(unittest.TestCase):
         logger.title('TESTING SELECTION...')
 
     def setUp(self):
-        collection = List[DB.ElementId]([DB.ElementId(wall_id)])
-        uidoc.Selection.SetElementIds(collection)
+        self.selection = Selection([wall_id])
 
     def tearDown(self):
-        uidoc.Selection.SetElementIds(List[DB.ElementId]())
-
-    def test_selection(self):
-        selection = Selection()             # Instatiate Selection Class
-        assert isinstance(selection.GetElementIds()[0], DB.ElementId)
-        assert wall_id == selection[0].Id.IntegerValue
-        assert len(selection) == 1
-        assert isinstance(selection.elements[0], DB.Wall)
+        self.selection.clear()
         logger.debug('SELECTION TEST PASSED')
+
+    def test_selection_element_ids(self):
+        ids = self.selection.element_ids
+        self.assertTrue(all(
+                        [isinstance(eid, DB.ElementId) for eid in ids]
+                        ))
+
+    def test_selection_elements(self):
+        elements = self.selection.elements
+        self.assertTrue(all(
+                        [isinstance(e, DB.Element) for e in elements]
+                        ))
+
+    def test_selection_by_index(self):
+        wall = self.selection[0]
+        self.assertIsInstance(wall, DB.Wall)
+
+    def test_selection_length(self):
+        self.assertEqual(len(self.selection), 1)
+
+    def test_selection_boolean(self):
+        self.assertTrue(self.selection)
+
+    def test_selection_clear(self):
+        self.selection.clear()
+        self.assertEqual(len(self.selection), 0)
+        self.selection = Selection([wall_id])
 
 
 ######################
@@ -265,7 +278,5 @@ class ElementTests(unittest.TestCase):
         self.assertIsInstance(context.exception, RPW_ParameterNotFound)
 
 
-
-# unittest.main(defaultTest='ElementTests')
+# unittest.main(defaultTest='SelectionTests')
 unittest.main(verbosity=0, buffer=True)
-sys.exit()
