@@ -4,24 +4,30 @@
    contain the root `toctree` directive.
 
 
-Parameter Wrappers
-==================
+Element
+==============================================
 
-Wrappers for Revit Parameters and Parameter Sets
+DB Namespace is the Largest namespace and contains over 10,000 members.
+
+.. automodule:: rpw.element
+    :members: Element
+    :special-members: __init__, __getattr__
+    :show-inheritance:
+
 
 ParameterSet
-*****************
+************
 
-.. autoclass:: rpw.wrappers._ParameterSet
+.. autoclass:: rpw.parameter._ParameterSet
     :members:
     :special-members: __init__, __getattr__
     :show-inheritance:
 
 
 Parameter
-*****************
+*********
 
-.. autoclass:: rpw.wrappers._Parameter
+.. autoclass:: rpw.parameter.Parameter
     :members:
     :special-members: __init__, __getattr__
     :show-inheritance:
@@ -30,3 +36,5 @@ Parameter
 
 Behind the Scenes
 *****************
+
+.. literalinclude:: ../element.py

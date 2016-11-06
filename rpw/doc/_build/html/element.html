@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Element &mdash; Revit Python Wrapper 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Selection()" href="selection.html"/>
+        <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Element</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#element-wrapper">Element Wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#behind-the-scenes">Behind the Scenes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Revit Python Wrapper</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Element</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/element.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="element">
+<h1>Element<a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h1>
+<p>DB Namespace is the Largest namespace and contains over 10,000 members.</p>
+<span class="target" id="module-rpw.element"></span><div class="section" id="element-wrapper">
+<h2>Element Wrapper<a class="headerlink" href="#element-wrapper" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.element.Element">
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<p>Generic Revit Element Wrapper</p>
+<p>self._revit_object = DB.Element</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">RevitWallElement</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.element.Element.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element Class Wrapper</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>wall = Element(Revit.DB.Wall)
+wall.parameters[&#8216;Height&#8217;]
+wall.parameters.builtins[&#8216;WALL_LOCATION_LINE&#8217;]</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>API Object</em>) &#8211; Revit API Object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Instance of Wrapped Element</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element">Element</a></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="rpw.element.Element.parameters">
+<code class="descname">parameters</code><a class="headerlink" href="#rpw.element.Element.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>_ParameterSet</em> &#8211; Access Wrapped ParameterSet Class <a class="reference internal" href="#rpw.parameter._ParameterSet" title="rpw.parameter._ParameterSet"><code class="xref py py-class docutils literal"><span class="pre">_ParameterSet</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">parameters['ParamName']</code></dt>
+<dd><p><em>_Parameter</em> &#8211; Get Parameter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">parameters.builtins['BuiltInName']</code></dt>
+<dd><p><em>_Parameter</em> &#8211; Buit In :obj:_Parameter</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.element.Element.by_id">
+<em class="property">classmethod </em><code class="descname">by_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows to retrieve element by Id</p>
+<p>element = doc.GetElement(element_id)
+return Element(element)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.element.Element.id_as_int">
+<code class="descname">id_as_int</code><a class="headerlink" href="#rpw.element.Element.id_as_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Example of mapping existing properties</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="parameterset">
+<h2>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.parameter._ParameterSet">
+<em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<p>Revit Element Parameter List Wrapper.</p>
+<p>Allows you to treat an element parameters as if it was a dictionary.
+Keeping element store so other methods beyond Parameters can be used.</p>
+<p>self._revit_object = DB.Element</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;My Comment&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="rpw.parameter._ParameterSet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup element</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.parameter._ParameterSet.all">
+<code class="descname">all</code><a class="headerlink" href="#rpw.parameter._ParameterSet.all" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Returns</em> &#8211; Flat list of wrapped parameter elements</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="parameter">
+<h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.parameter.Parameter">
+<em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>parameter</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<p>Revit Element Parameter Wrapper.</p>
+<p>This class is used heavily by the Element Wrapper, but can also be used
+to wrap Parameter Elements.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">some_revit_parameter_object</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paramter</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;type: str&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paramter</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;Some String&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paramter</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Parameter Name&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paramter</span><span class="o">.</span><span class="n">builtin</span>
+<span class="go">Revit.DB.BuiltInParameter.SOME_BUILT_IN_NAME</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>self._revit_object = DB.Parameter</p>
+<p>Handles the following types:</p>
+<ul class="simple">
+<li>Autodesk.Revit.DB.StorageType.String</li>
+<li>Autodesk.Revit.DB.StorageType.Double</li>
+<li>Autodesk.Revit.DB.StorageType.ElementId</li>
+<li>Autodesk.Revit.DB.StorageType.Integer</li>
+<li>Autodesk.Revit.DB.StorageType.None</li>
+</ul>
+<dl class="method">
+<dt id="rpw.parameter.Parameter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parameter</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.Parameter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter Wrapper Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB.Parameter</strong> &#8211; Parameter to be wrapped</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Wrapped Parameter Class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.parameter.Parameter" title="rpw.parameter.Parameter">Parameter</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.parameter.Parameter.builtin">
+<code class="descname">builtin</code><a class="headerlink" href="#rpw.parameter.Parameter.builtin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the BuiltInParameter name of Parameter.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">builtin_name</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ALL_MODEL_INSTANCE_COMMENTS</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Revit.DB.BuiltInParameter</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.parameter.Parameter.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.parameter.Parameter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Parameter name</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;Comments&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.parameter.Parameter.type">
+<code class="descname">type</code><a class="headerlink" href="#rpw.parameter.Parameter.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Python Type of the Parameter</p>
+<p>returns: python built in type</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.parameter.Parameter.value">
+<code class="descname">value</code><a class="headerlink" href="#rpw.parameter.Parameter.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Parameter Value
+:returns: parameter value in python type
+:rtype: type</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">3.0</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Set Parameter Value</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Certain types are automatically coerced</p>
+<ul class="last simple">
+<li>storagetype:value &gt; result</li>
+<li>str:None &gt; &#8216;&#8217;</li>
+<li>str:type &gt; str(value)</li>
+<li>ElementId:None &gt; ElemendId.InvalidElementId</li>
+<li>int:float &gt; int</li>
+<li>float:int &gt; float</li>
+</ul>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="behind-the-scenes">
+<h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Element Wrapper</span>
+<span class="sd">==============================================</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
+<span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">_ParameterSet</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+
+<span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BuiltInParameterEnum</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_TypeError</span>
+
+
+<span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generic Revit Element Wrapper</span>
+
+<span class="sd">    self._revit_object = DB.Element</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">        &gt;&gt;&gt; wall = Element(RevitWallElement)</span>
+<span class="sd">        &gt;&gt;&gt; wall.Id</span>
+<span class="sd">        &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Element Class Wrapper</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            wall = Element(Revit.DB.Wall)</span>
+<span class="sd">            wall.parameters[&#39;Height&#39;]</span>
+<span class="sd">            wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element (API Object): Revit API Object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Element: Instance of Wrapped Element</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            parameters (_ParameterSet): Access Wrapped ParameterSet Class :class:`._ParameterSet`</span>
+
+<span class="sd">            parameters[&#39;ParamName&#39;] (_Parameter): Get Parameter</span>
+
+<span class="sd">            parameters.builtins[&#39;BuiltInName&#39;] (_Parameter): Buit In :obj:_Parameter</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;cannot wrap non-APIObject: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                                            <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span>
+                                                            <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                                                            <span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">_ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id_as_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Example of mapping existing properties&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span>
+
+    <span class="k">def</span> <span class="nf">unwrap</span><span class="p">():</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">by_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Allows to retrieve element by Id</span>
+
+<span class="sd">        element = doc.GetElement(element_id)</span>
+<span class="sd">        return Element(element)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ToString</span><span class="p">()))</span>
+
+
+<span class="c1"># class Create(self):</span>
+<span class="c1">#     try:</span>
+<span class="c1">#         # API 2016:</span>
+<span class="c1">#         DB.Level.Create(doc, 10)</span>
+<span class="c1">#     except:</span>
+<span class="c1">#         # API 2015:</span>
+<span class="c1">#         doc.Create.NewLevel(10)</span>
+
+<span class="c1">#</span>
+<span class="c1"># class FamilyInstance(BaseObjectWrapper):</span>
+<span class="c1">#     &quot;&quot;&quot; Generic Family Instance Wrapper &quot;&quot;&quot;</span>
+<span class="c1">#     # Get Type</span>
+<span class="c1">#     # Get Symbol</span>
+<span class="c1">#     # Get Elements</span>
+<span class="c1">#     # @transaction(name)</span>
+<span class="c1">#     def move(self, translation):</span>
+<span class="c1">#         pass</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># class FamilyType(BaseObjectWrapper):</span>
+<span class="c1">#     &quot;&quot;&quot; Generic Family Instance Wrapper &quot;&quot;&quot;</span>
+<span class="c1">#     # Get Type</span>
+<span class="c1">#     # Get Symbol</span>
+<span class="c1">#     # Get Elements</span>
+
+<span class="c1"># class DynamoUtils(object):</span>
+<span class="c1">#     # Coerce/Wrap/Unwrap</span>
+<span class="c1">#     # Create object that can act as both?</span>
+<span class="c1">#     pass</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># class BoundingBox(object):</span>
+<span class="c1">#     &quot;&quot;&quot; Revit BoundingBox Wrapper &quot;&quot;&quot;</span>
+<span class="c1">#     # GetCenter</span>
+<span class="c1">#     # FromObject()</span>
+<span class="c1">#     pass</span>
+<span class="c1">#</span>
+<span class="c1"># class UI(object):</span>
+<span class="c1">#   pass</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># class Doc(object):</span>
+<span class="c1">#   pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="selection.html" class="btn btn-neutral float-right" title="Selection()" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

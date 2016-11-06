@@ -12,9 +12,8 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   element
    selection
-   wrappers
-   parameters
    transaction
    collector
 

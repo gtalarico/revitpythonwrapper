@@ -34,8 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
-        <link rel="next" title="DB Namespace" href="wrappers.html"/>
-        <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
+        <link rel="next" title="Transaction()" href="transaction.html"/>
+        <link rel="prev" title="Element" href="element.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,12 +85,11 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Selection()</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#behind-the-scenes">Behind the Scenes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="wrappers.html">DB Namespace</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
 </ul>
@@ -142,7 +141,7 @@
 <p>Wrappers to help handle Selection.</p>
 <span class="target" id="module-rpw.selection"></span><dl class="class">
 <dt id="rpw.selection.Selection">
-<em class="property">class </em><code class="descclassname">rpw.selection.</code><code class="descname">Selection</code><a class="headerlink" href="#rpw.selection.Selection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.selection.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit uidoc.Selection Wrapper
 Makes easier to manipulate Active Selection.</p>
@@ -190,8 +189,21 @@ If Index is out range, <cite>None</cite> is returned</p>
 
 <dl class="method">
 <dt id="rpw.selection.Selection.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores uidoc.Selection in element so attributes can be accessed</p>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores uidoc.Selection in element so attributes can be accessed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.selection.Selection.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>elements_or_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds elements to selection. Takes elements or element ids</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.selection.Selection.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears Selection
+:returns: None</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -230,9 +242,12 @@ If Index is out range, <cite>None</cite> is returned</p>
 
 <div class="section" id="behind-the-scenes">
 <h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_TypeError</span>
+
 
 <span class="k">class</span> <span class="nc">Selection</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -253,9 +268,29 @@ If Index is out range, <cite>None</cite> is returned</p>
 <span class="sd">        self._revit_object = `Revit.UI.Selection`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Stores uidoc.Selection in element so attributes can be accessed&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Stores uidoc.Selection in element so attributes can be accessed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Selection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">elements</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_or_ids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds elements to selection. Takes elements or element ids&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements_or_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">elements_or_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">elements_or_ids</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements_or_ids</span><span class="p">]):</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">elements_or_ids</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements_or_ids</span><span class="p">]):</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">Id</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements_or_ids</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements_or_ids</span><span class="p">]):</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements_or_ids</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">elements_or_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="n">current_selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">GetElementIds</span><span class="p">()]</span>
+        <span class="n">all_ids</span> <span class="o">=</span> <span class="n">current_selection</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element_ids</span><span class="p">)</span>
+        <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">SetElementIds</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -274,6 +309,13 @@ If Index is out range, <cite>None</cite> is returned</p>
 <span class="sd">        Returns:</span>
 <span class="sd">            [DB.Element]: List of Elements &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span> <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_ids</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Clears Selection</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">SetElementIds</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">]())</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -314,10 +356,10 @@ If Index is out range, <cite>None</cite> is returned</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="wrappers.html" class="btn btn-neutral float-right" title="DB Namespace" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="transaction.html" class="btn btn-neutral float-right" title="Transaction()" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="element.html" class="btn btn-neutral" title="Element" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
