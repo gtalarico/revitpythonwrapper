@@ -7,7 +7,7 @@ path = os.path.join(repos, 'revitpythonwrapper')
 sys.path.append(path)
 
 from rpw import DB, UI, doc, uidoc
-from rpw.wrappers import Element
+from rpw.element import Element
 from rpw.selection import Selection
 from rpw.transaction import Transaction
 from rpw.collector import Collector, ParameterFilter
@@ -260,9 +260,9 @@ class ElementTests(unittest.TestCase):
     def test_element_set_get_builtin_parameter_by_strin(self):
         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
         with Transaction('Set Value'):
-            bip.value = 3
+            bip.value = 0
         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
-        self.assertEqual(bip.value, 3)
+        self.assertEqual(bip.value, 0)
 
     def test_element_get_builtin_parameter_caster(self):
         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM'].value
@@ -355,6 +355,7 @@ class ParameterFilterTests(unittest.TestCase):
     def test_param_filter_int_less(self):
         parameter_filter = ParameterFilter(self.param_id_location, less=3)
         col = Collector(of_class="Wall", parameter_filter=parameter_filter)
+
         self.assertEqual(len(col), 1)
 
     def test_param_comments_equals(self):
@@ -399,6 +400,6 @@ class ParameterFilterTests(unittest.TestCase):
         self.assertEqual(len(col), 1)
 
 
-unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
+# unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
 # unittest.main(defaultTest='SelectionTests')
-# unittest.main(verbosity=0, buffer=True)
+unittest.main(verbosity=0, buffer=True)

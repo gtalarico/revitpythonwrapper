@@ -2,13 +2,11 @@ from copy import copy
 from functools import reduce
 
 from rpw import uidoc, doc, DB
+from rpw import List
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
-from rpw.wrappers import _Parameter
 from rpw.exceptions import RPW_Exception
 from rpw.enumeration import BuiltInCategoryEnum, BuiltInParameterEnum
-
-from System.Collections.Generic import List
 
 
 class Collector(BaseObjectWrapper):
@@ -109,17 +107,17 @@ class _Filter():
         collector = Collector().filter > ._Filter(filters)
         filters = {'of_class'=Wall}
         """
-        filters = self.coerce_filter_values(filters)
+        filters = self._coerce_filter_values(filters)
 
         for key, value in filters.iteritems():
             self._collector._filters[key] = value
 
-        filtered_collector = self.chain(self._collector._filters)
+        filtered_collector = self._chain(self._collector._filters)
         # TODO: This should return iterator to save memory
         self._collector.elements = [element for element in filtered_collector]
         return self._collector
 
-    def chain(self, filters, collector=None):
+    def _chain(self, filters, collector=None):
         """ Chain filters together.
 
         Converts this syntax: `collector.filter(of_class=X, is_element=True)`
@@ -149,11 +147,11 @@ class _Filter():
             else:
                 collector_results = collector_filter(filter_value)
             filter_stack.pop(filter_name)
-            collector = self.chain(filter_stack, collector=collector)
+            collector = self._chain(filter_stack, collector=collector)
 
         return collector
 
-    def coerce_filter_values(self, filters):
+    def _coerce_filter_values(self, filters):
         """ Allows value to be either Enumerate or string.
 
         Usage:
@@ -236,13 +234,11 @@ class ParameterFilter(BaseObjectWrapper):
     FLOAT_PRECISION = 0.0013020833333333
 
     def __init__(self, parameter_id, **conditions):
-        """ Creates Parameter Filter Rule.
-
-        parameter_filter = ParameterFilter(param_id, **conditions)
+        """
+        Creates Parameter Filter Rule
 
         Args:
             param_id(DB.ElementID): ElemendId of parameter
-
             **conditions: Filter Rule Conditions
 
         Conditions:

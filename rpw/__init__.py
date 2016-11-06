@@ -98,12 +98,6 @@ don't hesitate to enlighthen me.
 I hope this is just the start of project that to help Python lovers
 have more fun writing Revit API Code.
 
-Contribute
-**********
-
-Please help improve the project by contributing with improvements, bugs,
-and ideas.
-
 
 """
 # https://github.com/kennethreitz/requests/blob/master/requests/api.py
@@ -133,6 +127,7 @@ try:
     clr.AddReference('System')
     from Autodesk.Revit import DB
     from Autodesk.Revit import UI
+    from System.Collections.Generic import List
 except:
     print('Import Failed Using Fake Import')
     from rpw.sphinx_compat import *
@@ -150,7 +145,7 @@ except NameError:
         clr.AddReference("RevitServices")
     except:
         print('Could not Revit Document')
-        raise
+        # raise
     else:
         import RevitServices
         from RevitServices.Persistence import DocumentManager
