@@ -141,8 +141,8 @@
 <p>Collector Wrapper</p>
 <span class="target" id="module-rpw.collector"></span><dl class="class">
 <dt id="rpw.collector.Collector">
-<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>view=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="wrappers.html#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit FilteredElement Collector Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -150,19 +150,19 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">View</span><span class="p">)</span>
 </pre></div>
 </div>
-<p># Multiple Filters</p>
+<p>Multiple Filters:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">,</span>
 <span class="go">                                is_element_type=True)</span>
 </pre></div>
 </div>
-<p># Chain Preserves Previous Results</p>
+<p>Chain Preserves Previous Results:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_element_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p># Use Enumeration member or string shortcut:</p>
+<p>Use Enumeration member or string shortcut:</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
 </pre></div>
@@ -191,9 +191,13 @@
 <dd><p>Returns first found element, or <cite>None</cite></p>
 </dd></dl>
 
+<dl class="docutils">
+<dt>Wrapped Element:</dt>
+<dd>self._revit_object = <cite>Revit.DB.FilteredElementCollector</cite></dd>
+</dl>
 <dl class="method">
 <dt id="rpw.collector.Collector.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>view=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -216,7 +220,8 @@
 <dt id="rpw.collector._Filter">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_Filter</code><span class="sig-paren">(</span><em>collector</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Filter for Collector class.</p>
+<p>Filter for Collector class.
+Not to be confused with the Filter Class.</p>
 <dl class="method">
 <dt id="rpw.collector._Filter.chain">
 <code class="descname">chain</code><span class="sig-paren">(</span><em>filters</em>, <em>filtered_collector=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter.chain" title="Permalink to this definition">¶</a></dt>
@@ -231,12 +236,22 @@ can be called recursevily in a queue.</p>
 <dt id="rpw.collector._Filter.coerce_filter_values">
 <code class="descname">coerce_filter_values</code><span class="sig-paren">(</span><em>filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter.coerce_filter_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows value to be either Enumerate or string.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
-<span class="go">and</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">WallType</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">WallType</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">String Connversion for <cite>of_class</cite> only works for the Revit.DB
+namespace.</p>
 </div>
 </dd></dl>
 
@@ -249,7 +264,7 @@ can be called recursevily in a queue.</p>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">rpw.wrappers</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BuiltInCategoryEnum</span>
 
 
@@ -261,23 +276,22 @@ can be called recursevily in a queue.</p>
 <span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
 <span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=View)</span>
 
-<span class="sd">        # Multiple Filters</span>
+<span class="sd">        Multiple Filters:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
 <span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls,</span>
 <span class="sd">                                        is_element_type=True)</span>
 
-<span class="sd">        # Chain Preserves Previous Results</span>
+<span class="sd">        Chain Preserves Previous Results:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
 <span class="sd">        &gt;&gt;&gt; walls = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
 <span class="sd">        &gt;&gt;&gt; walls.filter(is_element_type=True)</span>
 
-<span class="sd">        # Use Enumeration member or string shortcut:</span>
+<span class="sd">        Use Enumeration member or string shortcut:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;OST_Walls&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;ViewType&#39;)</span>
-
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Collector: Returns collector Class</span>
@@ -286,22 +300,30 @@ can be called recursevily in a queue.</p>
 <span class="sd">        collector.elements: Returns list of all *collected* elements</span>
 <span class="sd">        collector.first: Returns first found element, or `None`</span>
 
+<span class="sd">    Wrapped Element:</span>
+<span class="sd">        self._revit_object = `Revit.DB.FilteredElementCollector`</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            view (Revit.DB.View) = View Scope (Optional)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">view</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;view&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="n">view</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">collector</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">filters</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">_Filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Allows Class to Excecute on Construction, if filters are present.</span>
+        <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">filters</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -311,7 +333,12 @@ can be called recursevily in a queue.</p>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Evaluates to `True` if Collector.elements is not empty [] &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns length of collector.elements &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -320,6 +347,7 @@ can be called recursevily in a queue.</p>
 
 <span class="k">class</span> <span class="nc">_Filter</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Filter for Collector class.</span>
+<span class="sd">    Not to be confused with the Filter Class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">MAP</span> <span class="o">=</span> <span class="p">{</span>
              <span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="s1">&#39;OfClass&#39;</span><span class="p">,</span>
@@ -378,11 +406,16 @@ can be called recursevily in a queue.</p>
     <span class="k">def</span> <span class="nf">coerce_filter_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Allows value to be either Enumerate or string.</span>
 
-<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
-<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=&#39;OST_Walls&#39;)</span>
-<span class="sd">        and</span>
-<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=WallType)</span>
-<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=&#39;WallType&#39;)</span>
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
+<span class="sd">            &gt;&gt;&gt; elements = collector.filter(of_category=&#39;OST_Walls&#39;)</span>
+
+<span class="sd">            &gt;&gt;&gt; elements = collector.filter(of_class=WallType)</span>
+<span class="sd">            &gt;&gt;&gt; elements = collector.filter(of_class=&#39;WallType&#39;)</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            String Connversion for `of_class` only works for the Revit.DB</span>
+<span class="sd">            namespace.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">category_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;of_category&#39;</span><span class="p">)</span>
@@ -392,8 +425,6 @@ can be called recursevily in a queue.</p>
         <span class="n">class_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;of_class&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">class_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;of_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
-            <span class="c1"># filters[&#39;of_class&#39;] = reduce(getattr, class_name.split(&#39;.&#39;), DB)</span>
-            <span class="c1"># This would allow deeper members DB.Architecture.Room</span>
 
         <span class="k">return</span> <span class="n">filters</span>
 </pre></div>

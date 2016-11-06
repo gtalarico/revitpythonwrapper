@@ -11,7 +11,7 @@ Wrappers to help handle Selection.
 
 .. automodule:: rpw.selection
     :members:
-    :special-members: __init__, __getattr__
+    :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
 

@@ -147,7 +147,7 @@
 <dl class="class">
 <dt id="rpw.wrappers._ParameterSet">
 <em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._ParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="wrappers.html#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit Element Parameter List Wrapper.</p>
 <p>Allows you to treat an element parameters as if it was a dictionary.
 Keeping element store so other methods beyond Parameters can be used.</p>
@@ -182,7 +182,7 @@ Keeping element store so other methods beyond Parameters can be used.</p>
 <dl class="class">
 <dt id="rpw.wrappers._Parameter">
 <em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_Parameter</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="wrappers.html#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit Element Parameter Wrapper.</p>
 <p>self._parameter = DB.Parameter</p>
 <p>Handles the following types:</p>
@@ -214,6 +214,16 @@ Keeping element store so other methods beyond Parameters can be used.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.wrappers._Parameter.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.wrappers._Parameter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Parameter name</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;Comments&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">

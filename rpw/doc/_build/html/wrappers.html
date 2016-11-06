@@ -143,47 +143,14 @@
 <span class="target" id="module-rpw.wrappers"></span><div class="section" id="db-namespace-wrappers">
 <h2>DB Namespace Wrappers<a class="headerlink" href="#db-namespace-wrappers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="rpw.wrappers.BaseObjectWrapper">
-<em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">BaseObjectWrapper</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.BaseObjectWrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Base Object Wrapper Class.</p>
-<p>This element is stored in the projected _revit_object attribute
-:param element: Revit Element to store
-:type element: APIObject</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There might are few cases were this class is used
-on non-elements. ParameterSet for instance, does
-not inherit from Element, but uses this class
-so it can store a reference to the element and uses
-other Parameter related methods that are not store in
-Parameters such as element.get_Parameter or element.LookupParameter</p>
-</div>
-<p>Allows access to all original attributes and methods of original object.</p>
-<dl class="method">
-<dt id="rpw.wrappers.BaseObjectWrapper.__getattr__">
-<code class="descname">__getattr__</code><span class="sig-paren">(</span><em>attr</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.BaseObjectWrapper.__getattr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Access original methods and properties or the element.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rpw.wrappers.BaseObjectWrapper.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.BaseObjectWrapper.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Child classes can use self._revit_object to refer back to Revit Element
-Element is used loosely to refer to all Revit Elements.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="rpw.wrappers.Element">
 <em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers.Element" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Generic Revit Element Wrapper</p>
 <p>self._revit_object = DB.Element</p>
 <p>Usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">RevitWallElement</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">id</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -238,12 +205,6 @@ return Element(element)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.wrappers.Element.id">
-<code class="descname">id</code><a class="headerlink" href="#rpw.wrappers.Element.id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Example of mapping existing properties</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="rpw.wrappers.Element.id_as_int">
 <code class="descname">id_as_int</code><a class="headerlink" href="#rpw.wrappers.Element.id_as_int" title="Permalink to this definition">¶</a></dt>
 <dd><p>Example of mapping existing properties</p>
@@ -254,7 +215,7 @@ return Element(element)</p>
 <dl class="class">
 <dt id="rpw.wrappers._BuiltInParameterSet">
 <em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_BuiltInParameterSet</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._BuiltInParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Built In Parameter Manager</p>
 <p>Usage:</p>
 <blockquote>
@@ -271,7 +232,7 @@ return Element(element)</p>
 <dl class="class">
 <dt id="rpw.wrappers._Parameter">
 <em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_Parameter</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit Element Parameter Wrapper.</p>
 <p>self._parameter = DB.Parameter</p>
 <p>Handles the following types:</p>
@@ -303,6 +264,16 @@ return Element(element)</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.wrappers._Parameter.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.wrappers._Parameter.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Parameter name</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;Comments&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -353,7 +324,7 @@ return Element(element)</p>
 <dl class="class">
 <dt id="rpw.wrappers._ParameterSet">
 <em class="property">class </em><code class="descclassname">rpw.wrappers.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.wrappers._ParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#rpw.wrappers.BaseObjectWrapper" title="rpw.wrappers.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.wrappers.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit Element Parameter List Wrapper.</p>
 <p>Allows you to treat an element parameters as if it was a dictionary.
 Keeping element store so other methods beyond Parameters can be used.</p>

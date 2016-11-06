@@ -155,6 +155,8 @@ Automatically rolls back if exception is raised.</p>
 </pre></div>
 </div>
 </dd>
+<dt>Wrapped Element:</dt>
+<dd>self._revit_object = <cite>Revit.DB.Transaction</cite></dd>
 </dl>
 </dd></dl>
 
@@ -162,7 +164,7 @@ Automatically rolls back if exception is raised.</p>
 <h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">rpw.wrappers</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 
 
 <span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -175,6 +177,9 @@ Automatically rolls back if exception is raised.</p>
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; with Transaction(&#39;Move Wall&#39;):</span>
 <span class="sd">        &gt;&gt;&gt;     wall.move()</span>
+
+<span class="sd">    Wrapped Element:</span>
+<span class="sd">        self._revit_object = `Revit.DB.Transaction`</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
