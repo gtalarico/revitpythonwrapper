@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; Revit Python Wrapper 0.0.1 documentation</title>
+  <title>Using With Dynamo &mdash; Revit Python Wrapper 0.0.1 documentation</title>
   
 
   
@@ -34,9 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
- 
-
-
+        <link rel="prev" title="Collector()" href="collector.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,13 +83,13 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector()</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using With Dynamo</a></li>
 </ul>
 
             
@@ -114,7 +112,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -122,9 +120,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Using With Dynamo</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+            <a href="_sources/dynamo.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -134,49 +134,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-r"><strong>r</strong></a>
-   </div>
-
-   <table class="indextable modindextable" cellspacing="0" cellpadding="2">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-r"><td></td><td>
-       <strong>r</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <a href="index.html#module-rpw"><code class="xref">rpw</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="collector.html#module-rpw.collector"><code class="xref">rpw.collector</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="element.html#module-rpw.element"><code class="xref">rpw.element</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="selection.html#module-rpw.selection"><code class="xref">rpw.selection</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="transaction.html#module-rpw.transaction"><code class="xref">rpw.transaction</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  <div class="section" id="using-with-dynamo">
+<h1>Using With Dynamo<a class="headerlink" href="#using-with-dynamo" title="Permalink to this headline">¶</a></h1>
+<p>The Revit Python Wrapper can easily be used within dynamo.
+Eventually I hope to deploy it as a Package for convenient install,
+in the meantime, here is a quick way to get started:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Clone the revitpythonwrapper <a class="reference external" href="https://github.com/gtalarico/revitpythonwrapper">repo</a>.</p>
+</li>
+<li><p class="first">Insert the following line at the top of your python script:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c:\Documents\path</span><span class="se">\t</span><span class="s1">o</span><span class="se">\r</span><span class="s1">epo</span><span class="se">\r</span><span class="s1">evitpythonwrapper&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">revitpythonwrapper is ready to use.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="collector.html" class="btn btn-neutral" title="Collector()" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

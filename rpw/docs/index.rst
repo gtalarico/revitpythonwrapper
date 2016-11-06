@@ -12,10 +12,12 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   self
    element
    selection
    transaction
    collector
+   dynamo
 
 
 Introduction

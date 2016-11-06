@@ -34,6 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Using With Dynamo" href="dynamo.html"/>
         <link rel="prev" title="Transaction()" href="transaction.html"/> 
 
   
@@ -84,6 +85,7 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection()</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction()</a></li>
@@ -91,6 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#behind-the-scenes">Behind the Scenes</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 </ul>
 
             
@@ -346,10 +349,7 @@ namespace.</p>
 
 <div class="section" id="behind-the-scenes">
 <h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
-
-<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
@@ -480,7 +480,7 @@ namespace.</p>
             <span class="n">collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_revit_object</span>
 
         <span class="c1"># Stack is track filter chainning queue</span>
-        <span class="n">filter_stack</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
+        <span class="n">filter_stack</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">filter_name</span><span class="p">,</span> <span class="n">filter_value</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
             <span class="n">collector_filter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">collector</span><span class="p">,</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">[</span><span class="n">filter_name</span><span class="p">])</span>
 
@@ -668,6 +668,8 @@ namespace.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dynamo.html" class="btn btn-neutral float-right" title="Using With Dynamo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="transaction.html" class="btn btn-neutral" title="Transaction()" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
