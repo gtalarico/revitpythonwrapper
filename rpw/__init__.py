@@ -25,6 +25,13 @@ Project Goals
 * Increase code re-use
 * Handle data coercion for more flexibility (see :any:`rpw.enumeration` for example)
 
+When should I Use RPW
+*********************
+
+* Non-mission critical work
+* When you are working in the RevitPythonShell, pyRevit, or Dynamo Python Nodes
+* When you want your code to work with no change in the aforementioned platforms
+
 
 Using RevitPythonWrapper
 ************************
@@ -49,7 +56,7 @@ Using RevitPythonWrapper
     >>>     doc.Remove(SomeElementId)
     >>> # This code remains the same for RevitPythonShell, and Dynamo
 
-    In Constrast, Transactiosn usually looks something like this
+    In constrast, Transactions usually looks something like this
 
     >>> # In Dynamo
     >>> import clr
@@ -117,10 +124,11 @@ Using RevitPythonWrapper
 ****************
 
     >>> import rpw
-    >>> walls = rpw.Collector(of_class='WallType').elements
+    >>> walls = rpw.Collector(of_class='Wall').elements
+    [< instance DB.Wall>, < instance DB.Wall>, < instance DB.Wall>, etc]
 
     >>> aview = rpw.Collector(of_category='OST_Views', is_element_type=True).first
-
+    < instance DB.View>
 
     >>> # Typical API Example:
     >>> from Autodesk.Revit.DB import FilteredElementCollector, WallType

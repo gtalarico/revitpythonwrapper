@@ -151,7 +151,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Transaction Context Manager.</p>
 <p>Simplifies transactions by applying <code class="docutils literal"><span class="pre">Transaction.Start()</span></code> and
-<code class="docutils literal"><span class="pre">Transaction.Commit</span></code> before and after the context.
+<code class="docutils literal"><span class="pre">Transaction.Commit()</span></code> before and after the context.
 Automatically rolls back if exception is raised.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -167,7 +167,7 @@ Automatically rolls back if exception is raised.</p>
 <dt id="rpw.transaction.Transaction.ensure">
 <em class="property">static </em><code class="descname">ensure</code><span class="sig-paren">(</span><em>transaction_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction.ensure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transaction Manager Decorator</p>
-<p>Decorate any function with <cite>&#64;Transaction.ensure(&#8216;Transaction Name&#8217;)</cite>
+<p>Decorate any function with <code class="docutils literal"><span class="pre">&#64;Transaction.ensure('Transaction</span> <span class="pre">Name')</span></code>
 and the funciton will run withing a Transaction Context.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -201,7 +201,7 @@ and the funciton will run withing a Transaction Context.</p>
     <span class="sd">&quot;&quot;&quot; Transaction Context Manager.</span>
 
 <span class="sd">    Simplifies transactions by applying ``Transaction.Start()`` and</span>
-<span class="sd">    ``Transaction.Commit`` before and after the context.</span>
+<span class="sd">    ``Transaction.Commit()`` before and after the context.</span>
 <span class="sd">    Automatically rolls back if exception is raised.</span>
 
 <span class="sd">    Usage:</span>
@@ -234,7 +234,7 @@ and the funciton will run withing a Transaction Context.</p>
     <span class="k">def</span> <span class="nf">ensure</span><span class="p">(</span><span class="n">transaction_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Transaction Manager Decorator</span>
 
-<span class="sd">        Decorate any function with `@Transaction.ensure(&#39;Transaction Name&#39;)`</span>
+<span class="sd">        Decorate any function with ``@Transaction.ensure(&#39;Transaction Name&#39;)``</span>
 <span class="sd">        and the funciton will run withing a Transaction Context.</span>
 
 <span class="sd">        Args:</span>
@@ -248,9 +248,8 @@ and the funciton will run withing a Transaction Context.</p>
 <span class="sd">            &gt;&gt;&gt;</span>
 <span class="sd">            &gt;&gt;&gt; set_some_parameter(wall, value)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>  <span class="c1"># Move import up once Tested In Dynamo</span>
 
-        <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
-        <span class="c1"># Move Once Tested In Dynamo</span>
         <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
             <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
             <span class="k">def</span> <span class="nf">wrapped_f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>

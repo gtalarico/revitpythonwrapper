@@ -162,6 +162,14 @@ your code across Revit versions.</p>
 <li>Handle data coercion for more flexibility (see <a class="reference internal" href="enumeration.html#module-rpw.enumeration" title="rpw.enumeration"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.enumeration</span></code></a> for example)</li>
 </ul>
 </div>
+<div class="section" id="when-should-i-use-rpw">
+<h3>When should I Use RPW<a class="headerlink" href="#when-should-i-use-rpw" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Non-mission critical work</li>
+<li>When you are working in the RevitPythonShell, pyRevit, or Dynamo Python Nodes</li>
+<li>When you want your code to work with no change on the platforms listed above</li>
+</ul>
+</div>
 <div class="section" id="using-revitpythonwrapper">
 <h3>Using RevitPythonWrapper<a class="headerlink" href="#using-revitpythonwrapper" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -185,7 +193,7 @@ your code across Revit versions.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># This code remains the same for RevitPythonShell, and Dynamo</span>
 </pre></div>
 </div>
-<p>In Constrast, Transactiosn usually looks something like this</p>
+<p>In constrast, Transactions usually looks something like this</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># In Dynamo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
@@ -256,10 +264,12 @@ your code across Revit versions.</p>
 <div class="section" id="collector">
 <h3><a class="reference internal" href="collector.html"><span class="doc">Collector</span></a><a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+<span class="go">[&lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, etc]</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aview</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Views&#39;</span><span class="p">,</span> <span class="n">is_element_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="go">&lt; instance DB.View&gt;</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical API Example:</span>

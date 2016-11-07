@@ -8,7 +8,7 @@ class Transaction(object):
     """ Transaction Context Manager.
 
     Simplifies transactions by applying ``Transaction.Start()`` and
-    ``Transaction.Commit`` before and after the context.
+    ``Transaction.Commit()`` before and after the context.
     Automatically rolls back if exception is raised.
 
     Usage:
@@ -41,7 +41,7 @@ class Transaction(object):
     def ensure(transaction_name):
         """ Transaction Manager Decorator
 
-        Decorate any function with `@Transaction.ensure('Transaction Name')`
+        Decorate any function with ``@Transaction.ensure('Transaction Name')``
         and the funciton will run withing a Transaction Context.
 
         Args:
