@@ -33,8 +33,7 @@ Parameter
     :show-inheritance:
 
 
-
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../element.py

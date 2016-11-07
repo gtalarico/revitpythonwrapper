@@ -17,7 +17,7 @@ Enumeration Wrappers.
 
 
 
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../enumeration.py

@@ -18,7 +18,8 @@ class _ParameterSet(BaseObjectWrapper):
     Allows you to treat an element parameters as if it was a dictionary.
     Keeping element store so other methods beyond Parameters can be used.
 
-    self._revit_object = DB.Element
+    Attributes:
+        _revit_object (DB.Element) = Revit Reference
 
     Usage:
         >>> element.parameters.all()
@@ -36,14 +37,17 @@ class _ParameterSet(BaseObjectWrapper):
     def __getitem__(self, param_name):
         """ Get's parameter by name.
 
-        returns: the first parameter found with a matching name (wrapper),
-        or None if there is no matching parameters.
+        Returns:
+            The first parameter found with a matching name (wrapper),
+
+        Raises:
+            :class:`RPW_ParameterNotFound`
 
         """
         parameter = self._revit_object.LookupParameter(param_name)
         # return _Parameter(parameter) if parameter else None
         if not parameter:
-            raise RPW_ParameterNotFound(self, param_name)
+            raise RPW_ParameterNotFound(self._revit_object, param_name)
         return Parameter(parameter)
 
     @property
@@ -74,6 +78,10 @@ class _BuiltInParameterSet(BaseObjectWrapper):
         or
 
         >>>element.parameters.builtins[Revit.DB.BuiltInParameter.WALL_LOCATION_LINE]
+
+    Attributes:
+        _revit_object (DB.Element) = Revit Reference
+
     """
 
     def __getitem__(self, builtin_enum):
@@ -81,7 +89,9 @@ class _BuiltInParameterSet(BaseObjectWrapper):
         if isinstance(builtin_enum, str):
             builtin_enum = BuiltInParameterEnum.by_name(builtin_enum)
         parameter = self._revit_object.get_Parameter(builtin_enum)
-        return Parameter(parameter) if parameter else None
+        if not parameter:
+            raise RPW_ParameterNotFound(self._revit_object, builtin_enum)
+        return Parameter(parameter)
 
     def __setitem__(self, name, param_value):
         """ Sets value for an element's built in parameter. """
@@ -111,17 +121,20 @@ class Parameter(BaseObjectWrapper):
         >>> paramter.builtin
         Revit.DB.BuiltInParameter.SOME_BUILT_IN_NAME
 
+    Attributes:
+        _revit_object (DB.Parameter) = Revit Reference
+
+    Note:
+
+        Parameter Wrapper handles the following types:
+
+        | Autodesk.Revit.DB.StorageType.String
+        | Autodesk.Revit.DB.StorageType.Double
+        | Autodesk.Revit.DB.StorageType.ElementId
+        | Autodesk.Revit.DB.StorageType.Integer
+        | Autodesk.Revit.DB.StorageType.None
 
 
-    self._revit_object = DB.Parameter
-
-    Handles the following types:
-
-    * Autodesk.Revit.DB.StorageType.String
-    * Autodesk.Revit.DB.StorageType.Double
-    * Autodesk.Revit.DB.StorageType.ElementId
-    * Autodesk.Revit.DB.StorageType.Integer
-    * Autodesk.Revit.DB.StorageType.None
     """
     storage_types = {
                     'String': str,
@@ -148,10 +161,19 @@ class Parameter(BaseObjectWrapper):
     def type(self):
         """ Returns the Python Type of the Parameter
 
-        returns: python built in type
+        Returns:
+            type: Python Built in type
+
+        Usage:
+            >>> element.parameters['Height'].type
+            <type: float>
         """
         storage_type_name = self._revit_object.StorageType.ToString()
         return Parameter.storage_types[storage_type_name]
+
+    @property
+    def id(self):
+        return self._revit_object.Id
 
     @property
     def value(self):
@@ -189,7 +211,7 @@ class Parameter(BaseObjectWrapper):
         if self.type is DB.ElementId:
             return self._revit_object.AsElementId()
 
-        raise RPW_Exception('could not get type: {}'.format(self.type))
+        raise RPW_Exception('could not get storage type: {}'.format(self.type))
 
     @value.setter
     def value(self, value):
@@ -227,9 +249,10 @@ class Parameter(BaseObjectWrapper):
 
         Usage:
             >>> element.parameters['Comments'].builtin_name
+            Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS
 
         Returns:
-            Revit.DB.BuiltInParameter: ALL_MODEL_INSTANCE_COMMENTS
+            Revit.DB.BuiltInParameter: BuiltInParameter Enumeration Member
         """
         return self._revit_object.Definition.BuiltInParameter
 

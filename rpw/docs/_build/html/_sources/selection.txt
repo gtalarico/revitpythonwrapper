@@ -16,8 +16,7 @@ Wrappers to help handle Selection.
     :show-inheritance:
 
 
-
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../selection.py

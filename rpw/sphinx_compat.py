@@ -6,5 +6,6 @@ class DB():
 doc = None
 uidoc = None
 version = None
+platform = None
 DB = DB()
 List = None

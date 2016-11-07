@@ -1,5 +1,15 @@
-import logging
 import sys
+
+
+class mockLoggerWrapper():
+    def __init__(*args, **kwargs):
+        pass
+
+    def __getattr__(self, *args, **kwargs):
+        return mockLoggerWrapper(*args, **kwargs)
+
+    def __call__(self, *args, **kwargs):
+        pass
 
 
 class LoggerWrapper():
@@ -93,4 +103,11 @@ class LoggerWrapper():
     def setLevel(self, level):
         self._logger.setLevel(level)
 
-logger = LoggerWrapper()
+try:
+    import logging
+except ImportError:
+    # In Dynamo, Use Mock Logger
+    logger = mockLoggerWrapper()
+else:
+    # In PyRevit, Use Logger
+    logger = LoggerWrapper()

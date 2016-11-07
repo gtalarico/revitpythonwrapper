@@ -16,8 +16,7 @@ Revit Python Wrapper Exceptions
     :show-inheritance:
 
 
-
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../exceptions.py

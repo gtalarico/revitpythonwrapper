@@ -26,9 +26,8 @@ Global variables help normalize imports across platforms.
     :annotation: Revit.DB Namespace
 
 
-
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../__init__.py
     :start-after: import sys

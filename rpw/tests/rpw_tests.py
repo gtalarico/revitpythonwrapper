@@ -1,13 +1,23 @@
+""" Revit Python Wrapper Tests
+
+Passes:
+
+    * Revit:
+        * Revit 2015
+        * Revit 2016
+"""
+
 import sys
 import unittest
-
 import os
 repos = os.getenv('REPOS')
 path = os.path.join(repos, 'revitpythonwrapper')
 sys.path.append(path)
 
-from rpw import DB, UI, doc, uidoc
+from rpw import DB, UI, doc, uidoc, version
+from rpw import List
 from rpw.element import Element
+from rpw.parameter import Parameter
 from rpw.selection import Selection
 from rpw.transaction import Transaction
 from rpw.collector import Collector, ParameterFilter
@@ -15,17 +25,15 @@ from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
 from rpw.enumeration import BuiltInParameterEnum
 
-from System.Collections.Generic import List
-
 # logger.verbose(True)
 logger.disable()
-
 
 # sys.exit()
 
 
 def setUpModule():
     logger.title('SETTING UP TESTS...')
+    logger.title('REVIT {}'.format(version))
     collector = Collector()
     walls = collector.filter(of_class='Wall').elements
     if walls:
@@ -271,15 +279,17 @@ class ElementTests(unittest.TestCase):
         self.assertEqual(bip, bip2)
 
     def tests_wrong_storage_type(self):
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(RPW_WrongStorageType) as context:
             with Transaction('Set String'):
                 self.wrapped_wall.parameters['Unconnected Height'].value = 'Test'
-        self.assertIsInstance(context.exception, RPW_WrongStorageType)
 
     def test_parameter_does_not_exist(self):
-        with self.assertRaises(Exception) as context:
+        with self.assertRaises(RPW_ParameterNotFound) as context:
             self.wrapped_wall.parameters['Parameter Name']
-        self.assertIsInstance(context.exception, RPW_ParameterNotFound)
+
+    def test_built_in_parameter_exception_raised(self):
+        with self.assertRaises(RPW_ParameterNotFound) as context:
+            self.wrapped_wall.parameters.builtins['PARAMETERD_DOES_NOT_EXIST']
 
 
 ############################
@@ -398,8 +408,9 @@ class ParameterFilterTests(unittest.TestCase):
         parameter_filter = ParameterFilter(self.param_id_level_name, ends='1')
         col = Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
+        raise Exception('Expe')
 
-
-# unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
-# unittest.main(defaultTest='SelectionTests')
-unittest.main(verbosity=0, buffer=True)
+if __name__ == '__main__':
+    unittest.main(verbosity=0, buffer=True)
+    unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
+    unittest.main(defaultTest='SelectionTests')

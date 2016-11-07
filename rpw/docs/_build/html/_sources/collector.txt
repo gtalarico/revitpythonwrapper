@@ -17,7 +17,7 @@ Collector Wrapper
 
 
 
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../collector.py

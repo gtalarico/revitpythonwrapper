@@ -1,4 +1,5 @@
 from rpw import DB, doc
+from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_ParameterNotFound
 
 
@@ -20,11 +21,15 @@ class BuiltInParameterEnum():
             >>> builtin_parameter = BuiltInParameterEnum.by_name('Commnets')
             Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS
         """
-        enum = getattr(BuiltInParameterEnum.parameters, parameter_name)
-        if not as_id:
-            return enum
-        return DB.ElementId(enum)
 
+        try:
+            enum = getattr(BuiltInParameterEnum.parameters, parameter_name)
+        except AttributeError:
+            raise RPW_ParameterNotFound(BuiltInParameterEnum.parameters, parameter_name)
+        else:
+            if not as_id:
+                return enum
+            return DB.ElementId(enum)
 
 
 class BuiltInCategoryEnum():
@@ -45,8 +50,11 @@ class BuiltInCategoryEnum():
             >>> builtin_category = BuiltInCategoryEnum.by_name('OST_Room')
             Revit.DB.BuiltInCategory.OST_Room
         """
-
-        enum = getattr(BuiltInCategoryEnum.categories, category_name)
-        if not as_id:
-            return enum
-        return DB.ElementId(enum)
+        try:
+            enum = getattr(BuiltInCategoryEnum.categories, category_name)
+        except AttributeError:
+            raise RPW_ParameterNotFound(BuiltInCategoryEnum.categories, category_name)
+        else:
+            if not as_id:
+                return enum
+            return DB.ElementId(enum)

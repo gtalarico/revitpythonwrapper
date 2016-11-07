@@ -1,6 +1,3 @@
-from copy import copy
-from functools import reduce
-
 from rpw import uidoc, doc, DB
 from rpw import List
 from rpw.logger import logger
@@ -132,7 +129,7 @@ class _Filter():
             collector = self._collector._revit_object
 
         # Stack is track filter chainning queue
-        filter_stack = copy(filters)
+        filter_stack = filters.copy()
         for filter_name, filter_value in filters.iteritems():
             collector_filter = getattr(collector, _Filter.MAP[filter_name])
 
@@ -187,27 +184,34 @@ class ParameterFilter(BaseObjectWrapper):
         >>> parameter_filter = ParameterFilter('Height', less_than=10)
         >>> collector = Collector(parameter_filter=parameter_filter)
 
-    ParameterFilterRuleFactory:
-        ParameterFilterRuleFactory.CreateBeginsWithRule(param_id, value, case_sensitive)
-        ParameterFilterRuleFactory.CreateContainsRule(param_id, value, case_sensitive)
-        ParameterFilterRuleFactory.CreateEndsWithRule(param_id, value, case_sensitive)
-        ParameterFilterRuleFactory.CreateEqualsRule(param_id, value)
-        ParameterFilterRuleFactory.CreateGreaterOrEqualRule(param_id, value)
-        ParameterFilterRuleFactory.CreateGreaterRule(param_id, value)
-        ParameterFilterRuleFactory.CreateLessOrEqualRule(param_id, value)
-        ParameterFilterRuleFactory.CreateLessRule(param_id, value)
-        ParameterFilterRuleFactory.CreateNotBeginsWithRule(param_id, value)
-        ParameterFilterRuleFactory.CreateNotContainsRule(param_id, value)
-        ParameterFilterRuleFactory.CreateNotEqualsRule(param_id, value)
-        ParameterFilterRuleFactory.CreateSharedParameterApplicableRule(param_name)
-
     Returns:
-        FilterDoubleRule(provider, evaluator, rule_value, tolerance)
-        FilterElementIdRule(provider, evaluator, ElementId)
-        FilterCategoryRule(ElementId)
-        FilterStringRule(provider, evaluator, string, case_sensitive)
-        FilterIntegerRule(provider, evaluator, value)
-        SharedParameterApplicableRule(parameter_name)
+        FilterRule: A filter rule object, depending on arguments.
+
+    Note:
+
+        The FilterRule returned will be one of the following:
+
+            * FilterDoubleRule
+            * FilterElementIdRule
+            * FilterCategoryRule
+            * FilterStringRule
+            * FilterIntegerRule
+            * SharedParameterApplicableRule
+
+        Internally, the class uses the ParameterFilterRuleFactory Class:
+
+            * ParameterFilterRuleFactory.CreateBeginsWithRule(param_id, value, case_sensitive)
+            * ParameterFilterRuleFactory.CreateContainsRule(param_id, value, case_sensitive)
+            * ParameterFilterRuleFactory.CreateEndsWithRule(param_id, value, case_sensitive)
+            * ParameterFilterRuleFactory.CreateEqualsRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateGreaterOrEqualRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateGreaterRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateLessOrEqualRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateLessRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateNotBeginsWithRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateNotContainsRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateNotEqualsRule(param_id, value)
+            * ParameterFilterRuleFactory.CreateSharedParameterApplicableRule(param_name)
 
     """
 
@@ -241,32 +245,33 @@ class ParameterFilter(BaseObjectWrapper):
             param_id(DB.ElementID): ElemendId of parameter
             **conditions: Filter Rule Conditions
 
-        Conditions:
-            equals
-            contains
-            begins
-            ends
-            greater
-            greater_equal
-            less
-            less_equal
+            conditions:
+                | equals
+                | contains
+                | begins
+                | ends
+                | greater
+                | greater_equal
+                | less
+                | less_equal
+                | not_equals
+                | not_contains
+                | not_begins
+                | not_ends
+                | not_greater
+                | not_greater_equal
+                | not_less
+                | not_less_equal
 
-        Negative Conditions (Reverse Rule):
-            not_equals
-            not_contains
-            not_begins
-            not_ends
-            not_greater
-            not_greater_equal
-            not_less
-            not_less_equal
-
-        Others:
-            case_sensitive: Enforces case sensitive, String only
-            reverse: Reverses result of Collector
+            options:
+                case_sensitive: Enforces case sensitive, String only
+                reverse: Reverses result of Collector
 
         Usage:
-        param_rul = ParameterFilter(param_id, equals=2)
+            >>> param_rule = ParameterFilter(param_id, equals=2)
+            >>> param_rule = ParameterFilter(param_id, not_equals='a', case_sensitive=True)
+            >>> param_rule = ParameterFilter(param_id, not_equals=3, reverse=True)
+
         """
         self.parameter_id = parameter_id
         self.conditions = conditions
@@ -294,7 +299,7 @@ class ParameterFilter(BaseObjectWrapper):
             filter_rule = filter_value_rule(parameter_id, *args)
             if 'not_' in condition_name:
                 filter_rule = DB.FilterInverseRule(filter_rule)
-            # print('=================')
+            # DEBUG INFO:
             # logger.critical('Conditions: {}'.format(conditions))
             # logger.critical('Case sensitive: {}'.format(self.case_sensitive))
             # logger.critical('Reverse: {}'.format(self.reverse))

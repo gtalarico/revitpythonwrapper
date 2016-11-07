@@ -1,7 +1,5 @@
 """
-Element Wrapper
-==============================================
-
+>>> rpw.Element()
 """
 
 from rpw import doc, uidoc, DB
@@ -18,13 +16,22 @@ class Element(BaseObjectWrapper):
     """
     Generic Revit Element Wrapper
 
-    self._revit_object = DB.Element
+    Attributes:
+        _revit_object (DB.Element) = Revit Reference
 
     Usage:
 
         >>> wall = Element(RevitWallElement)
         >>> wall.Id
-        >>> wall.parameters['Height']
+        >>> wall.parameters['Height'].value
+        10.0
+
+        >>> wall.parameters['Height'].type
+        <type: float>
+
+        >>> with Transaction('Set Height'):
+        >>>     wall.parameters['Height'].value = 5
+
 
     """
     def __init__(self, element):
@@ -32,9 +39,9 @@ class Element(BaseObjectWrapper):
         Element Class Wrapper
 
         Usage:
-            wall = Element(Revit.DB.Wall)
-            wall.parameters['Height']
-            wall.parameters.builtins['WALL_LOCATION_LINE']
+            >>> wall = Element(Revit.DB.Wall)
+            >>> wall.parameters['Height']
+            >>> wall.parameters.builtins['WALL_LOCATION_LINE']
 
         Args:
             element (API Object): Revit API Object

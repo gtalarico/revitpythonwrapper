@@ -16,8 +16,7 @@ Wrappers to make Revit Transactions work with Python Context Manager.
     :show-inheritance:
 
 
-
-Behind the Scenes
-*****************
+Implementation
+**************
 
 .. literalinclude:: ../transaction.py

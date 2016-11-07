@@ -1,15 +1,15 @@
 """
 
 ************************************
-A Python Interface For the Revit API
+A Python Wrapper For the Revit API
 ************************************
 
 Revit Python Wrapper allows you write Revit API in Python code
 that in a way that is more natural to the language.
 
 Wrapper objects makes the interaction with Revit API objects more
-consistent with Python's naming conventions, but also implement
-patterns to make your code more conscise (DRY).
+consistent with Python's naming conventions, and also implement
+patterns to make your code more conscise.
 
 The wrapper will also normalize version specific calls so you can re-use
 your code across Revit versions.
@@ -19,20 +19,52 @@ Project Goals
 *************
 
 * Normalize API calls for different Revit Version
-* Normalize API calls for Revit Vs Dynamo to allow re-use
+* Normalize Document and Application handlers for Revit + Dynamo
 * Implement Resusable patterns reduce repetitive tasks
-* Create wrappers to make common calls feel more **pythonic**
+* Create wrappers to make common calls feel more pythonic
+* Increase code re-use
+* Add data coertion to allow for more flexibility (see :any:`rpw.enumeration` for example)
 
 
-Code Examples
-*************
+Using RevitPythonWrapper
+************************
+
+Globals:
+
+    >>> # Handles Document Manager and namespace imports for RevitPythonShell and Dynamo
+    >>> from rpw import doc, uidoc, DB, UI
+    >>> uidoc.ActiveView
+    >>> doc.Delete()
+    >>> DB.ElementId(20000)
 
 Transactions:
 
-    >>> # Traditional Transaction (API)
+    >>> # Using Wrapper
+    >>> from rpw.transaction import Transaction
+    >>> from rpw import doc
+    >>> with Transaction('Delete Object')
+    >>>     doc.Remove(SomeElementId)
+    >>> # This code remains the same for RevitPythonShell, and Dynamo
+
+    In Constrast, Transactiosn usually looks something like this
+
+    >>> # In Dynamo
+    >>> import clr
+    >>> clr.AddReference("RevitServices")
+    >>> import RevitServices
+    >>> from RevitServices.Persistence import DocumentManager
+    >>> from RevitServices.Transactions import TransactionManager
+    >>> doc = DocumentManager.Instance.CurrentDBDocument
+    >>> TransactionManager.Instance.EnsureInTransaction(doc)
+    >>> doc.Remove(SomeElementId)
+    >>> TransactionManager.Instance.TransactionTaskDone()
+
+    >>> # Revit Python Shell
+    >>> import clr
+    >>> clr.AddReference('RevitAPI')
     >>> from Autodesk.Revit.DB import Transaction
-    >>> from Autodesk.Revit.UI.UIApplication import ActiveUIDocument
-    >>> doc = ActiveUIDocument.Document
+    >>> doc = __revit__.ActiveUIDocument.Document
+    >>>
     >>> transaction = Transaction(doc, 'Delete Object')
     >>> transaction.Start()
     >>> try:
@@ -42,19 +74,9 @@ Transactions:
     >>> else:
     >>>     transaction.Commit()
 
-    >>> # Using Wrapper
-    >>> from rpw.transaction import Transaction
-    >>> from rpw import doc
-    >>> with Transaction('Delete Object')
-    >>>     doc.Remove(SomeElementId)
 
 
 Selection:
-
-    >>> from Autodesk.Revit.UI.UIApplication import ActiveUIDocument
-    >>> uidoc = ActiveUIDocument
-    >>> selection_ids = uidoc.Selection.GetElementIds()
-    >>> selected = [doc.GetElemend(eid) for eid in selection_ids]
 
     >>> from rpw.selection import Selection
     >>> selection = Selection()
@@ -62,6 +84,16 @@ Selection:
     < Autodesk.Revit.DB.Element >
     >>> selection.elements
     [< Autodesk.Revit.DB.Element >]
+
+    >>> # Other Features
+    >>> selection.add(SomeElementID)
+
+    >>> # In Revit Python Shell
+    >>> uidoc = __revit__.ActiveUIDocument # Different for Dynamo
+    >>> selection_ids = uidoc.Selection.GetElementIds()
+    >>> selected_elements = [doc.GetElemend(eid) for eid in selection_ids]
+
+
 
 
 Element:
@@ -92,12 +124,8 @@ FilteredElementCollector:
 Disclaimer
 **********
 
-Please keep in mind this is my first *public API*, so if you know better,
-don't hesitate to enlighthen me.
-
-I hope this is just the start of project that to help Python lovers
-have more fun writing Revit API Code.
-
+Please keep in mind this is my first *public API*,
+so please don't hesitate to enlighthen me.
 
 """
 # https://github.com/kennethreitz/requests/blob/master/requests/api.py
@@ -132,11 +160,11 @@ except:
     print('Import Failed Using Fake Import')
     from rpw.sphinx_compat import *
 
-
 try:
     uidoc = __revit__.ActiveUIDocument
     doc = __revit__.ActiveUIDocument.Document
-    version = __revit__.Application.VersionNumber
+    version = __revit__.Application.VersionNumber.ToString()
+    platform = {'revit': version}
     print("Running In PyRevit")
 
 except NameError:
@@ -145,14 +173,22 @@ except NameError:
         clr.AddReference("RevitServices")
     except:
         print('Could not Revit Document')
-        # raise
     else:
+
         import RevitServices
         from RevitServices.Persistence import DocumentManager
+        from RevitServices.Transactions import TransactionManager
 
         doc = DocumentManager.Instance.CurrentDBDocument
         uiapp = DocumentManager.Instance.CurrentUIApplication
         app = uiapp.Application
-        # Verify
-        uidoc = uiapp.ActiveUIDocument
+        uidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+        version = app.VersionNumber.ToString()
+        platform = {'dynamo': version}
         print('Running in Dynamo')
+
+
+# from rpw.selection import Selection
+# from rpw.collector import Collector, ParameterFilter
+# from rpw.transaction import Transaction
+# from rpw.element import Element, Parameter
