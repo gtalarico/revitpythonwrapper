@@ -16,14 +16,18 @@ import unittest
 import traceback
 
 rpw_module_path = IN[0]  # Path to RPW Module
-sys.path.append(rpw_module_path)
+if isinstance(rpw_module_path, list):
+    sys.path = rpw_module_path
+else:
+    sys.path.insert(0, rpw_module_path)
 
 from StringIO import StringIO
 result = StringIO()
 sys.stdout = result
-print('IMPORT TESTS...')
 
+print('IMPORT TESTS...')
 from tests import tests_rpw
+print('TESTS RUNNER: {}'.format(tests_rpw.__file__))
 
 testsuite = unittest.TestLoader().loadTestsFromModule(tests_rpw)
 test_result = unittest.TextTestRunner(verbosity=3, buffer=True).run(testsuite)

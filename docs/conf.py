@@ -44,10 +44,11 @@ project = 'Revit Python Wrapper'
 copyright = '2016, Gui Talarico'
 author = 'Gui Talarico'
 
+from rpw import __version__
 # The short X.Y version.
-version = '0.0.3'
+version = __version__
 # The full version, including alpha/beta/rc tags.
-release = '0.0.3'
+release = __version__
 
 
 # -- General configuration ------------------------------------------------

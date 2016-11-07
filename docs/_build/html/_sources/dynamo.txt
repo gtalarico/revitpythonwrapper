@@ -11,15 +11,13 @@ The Revit Python Wrapper can easily be used within dynamo.
 Eventually I hope to deploy it as a Package for convenient install,
 in the meantime, here is a quick way to get started:
 
-    1. Clone the revitpythonwrapper `repo <https://github.com/gtalarico/revitpythonwrapper>`_.
-    2. Insert the following line at the top of your python script:
-
-        >>> import sys
-        >>> sys.path.append('c:\Documents\path\to\repo\revitpythonwrapper')
-
+    1. Install RevitPythonWrapper Package
+    2. Find the Package Directory, and open the Getting Started File
     3. revitpythonwrapper is ready to use.
 
         >>> from rpw import doc, uidoc
         >>> from rpw.collector import Collector
 
-.. note:: A Dynamo Package it's on it's way.
+To Do:
+    * Adjust Test Runner to run out-of-the-box
+    * Improve Getting Started

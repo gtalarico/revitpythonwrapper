@@ -20,8 +20,11 @@ dynamo_path = os.path.join(appdata_path, 'Dynamo')
 folders = []
 for root, subfolders, files in os.walk(dynamo_path):
 	if 'RevitPythonWrapper' in subfolders:
-		module_path = os.path.join(root, 'extra')
-		folders.append(root)
+		extra_path = os.path.join(root, 'RevitPythonWrapper', 'extra')
+		module_path = os.path.join(extra_path, 'rpw.zip')
+		tests_path = os.path.join(extra_path, 'tests.zip')
+		folders.append(module_path)
+		folders.append(tests_path)
 
 OUT = folders or 'Could Not Find Module. Make sure it\'s installed properly'</Script>
     </PythonNodeModels.PythonNode>
