@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; Revit Python Wrapper 0.0.1 documentation</title>
+  <title>Known Issues &mdash; Revit Python Wrapper 0.0.1 documentation</title>
   
 
   
@@ -34,9 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
- 
-
-
+        <link rel="prev" title="Exceptions" href="exceptions.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +83,7 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
@@ -95,7 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Known Issues</a></li>
 </ul>
 
             
@@ -118,7 +116,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -126,9 +124,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Known Issues</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+            <a href="_sources/known_issues.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -138,59 +138,69 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-
-   <h1>Python Module Index</h1>
-
-   <div class="modindex-jumpbox">
-   <a href="#cap-r"><strong>r</strong></a>
-   </div>
-
-   <table class="indextable modindextable" cellspacing="0" cellpadding="2">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-r"><td></td><td>
-       <strong>r</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <a href="index.html#module-rpw"><code class="xref">rpw</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="collector.html#module-rpw.collector"><code class="xref">rpw.collector</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="element.html#module-rpw.element"><code class="xref">rpw.element</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="enumeration.html#module-rpw.enumeration"><code class="xref">rpw.enumeration</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="exceptions.html#module-rpw.exceptions"><code class="xref">rpw.exceptions</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="selection.html#module-rpw.selection"><code class="xref">rpw.selection</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="transaction.html#module-rpw.transaction"><code class="xref">rpw.transaction</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+  <div class="section" id="known-issues">
+<h1>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">Case Sensitive ElementParameterFilter</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">The boolean argument for case_sensitive string comparison has no effect</div>
+<div class="line">I achieved the same result using the RevitPythonShell, so this could</div>
+<div class="line">be either a RevitAPI bug, or a IronPython/API issue.</div>
+</div>
+<p>To Reproduce:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Assumes</span> <span class="n">an</span> <span class="n">element</span> <span class="k">with</span> <span class="n">a</span> <span class="n">parameter</span> <span class="k">with</span> <span class="n">string</span> <span class="n">value</span><span class="p">:</span> <span class="s2">&quot;Test&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">param_id</span> <span class="o">=</span> <span class="n">SomeElementId</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">case_sensitive</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ParameterFilterRuleFactory</span><span class="o">.</span><span class="n">CreateBeginsWithRule</span><span class="p">(</span><span class="n">param_id</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filter_rule</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementParameterFilter</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">col</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">WherePasses</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Expected:</p>
+<blockquote>
+<div><p><cite>col</cite> would not include element with parameter with value &#8216;Test&#8217; with
+case_sensitive is True.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>Result:</dt>
+<dd><p class="first last"><cite>col</cite> always is always case insensitive.</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p class="first">Namespace Conflicts</p>
+<blockquote>
+<div><p>Using the same name as the Revit API namespace can be confusing.</p>
+<p>Solutions:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Always use native Elements prefixed with UI or DB namespace</li>
+<li>Rename Elements to differentiate:</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Element</span> <span class="o">&gt;</span> <span class="n">RPW_Element</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+</li>
+</ul>
+</div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="exceptions.html" class="btn btn-neutral" title="Exceptions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

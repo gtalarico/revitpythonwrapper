@@ -22,6 +22,8 @@ Contents:
    dynamo
    exceptions
 
+   known_issues
+
 
 Introduction
 ==================

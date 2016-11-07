@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 
             
@@ -201,8 +202,8 @@
         <span class="n">doc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentDBDocument</span>
         <span class="n">uiapp</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span>
         <span class="n">app</span> <span class="o">=</span> <span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span>
-        <span class="c1"># Verify</span>
-        <span class="n">uidoc</span> <span class="o">=</span> <span class="n">uiapp</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+        <span class="n">uidoc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">VersionNumber</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running in Dynamo&#39;</span><span class="p">)</span>
 </pre></div>
 </div>

@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 
             
@@ -161,6 +162,13 @@ Automatically rolls back if exception is raised.</p>
 </dd>
 <dt>Wrapped Element:</dt>
 <dd>self._revit_object = <cite>Revit.DB.Transaction</cite></dd>
+<dt>Dynamo:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">EnsureInTransaction</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Do Stuff</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">TransactionTaskDone</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
 </dl>
 </dd></dl>
 
@@ -184,6 +192,11 @@ Automatically rolls back if exception is raised.</p>
 
 <span class="sd">    Wrapped Element:</span>
 <span class="sd">        self._revit_object = `Revit.DB.Transaction`</span>
+
+<span class="sd">    Dynamo:</span>
+<span class="sd">        &gt;&gt;&gt; TransactionManager.Instance.EnsureInTransaction(doc)</span>
+<span class="sd">        &gt;&gt;&gt; # Do Stuff</span>
+<span class="sd">        &gt;&gt;&gt; TransactionManager.Instance.TransactionTaskDone()</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>

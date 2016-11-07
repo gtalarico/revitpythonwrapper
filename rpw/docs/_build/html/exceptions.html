@@ -34,6 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Known Issues" href="known_issues.html"/>
         <link rel="prev" title="Using With Dynamo" href="dynamo.html"/> 
 
   
@@ -96,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#behind-the-scenes">Behind the Scenes</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 
             
@@ -159,8 +161,8 @@
 
 <dl class="exception">
 <dt id="rpw.exceptions.RPW_TypeError">
-<em class="property">exception </em><code class="descclassname">rpw.exceptions.</code><code class="descname">RPW_TypeError</code><span class="sig-paren">(</span><em>type_expected</em>, <em>type_received</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.exceptions.RPW_TypeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#rpw.exceptions.RPW_Exception" title="rpw.exceptions.RPW_Exception"><code class="xref py py-class docutils literal"><span class="pre">rpw.exceptions.RPW_Exception</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">TypeError</span></code></p>
+<em class="property">exception </em><code class="descclassname">rpw.exceptions.</code><code class="descname">RPW_TypeError</code><span class="sig-paren">(</span><em>type_expected</em>, <em>type_received=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.exceptions.RPW_TypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">TypeError</span></code></p>
 <p>Revit Python Wrapper Base Exception</p>
 </dd></dl>
 
@@ -175,30 +177,31 @@
 <h2>Behind the Scenes<a class="headerlink" href="#behind-the-scenes" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
-
 <span class="k">class</span> <span class="nc">RPW_Exception</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Revit Python Wrapper Base Exception &quot;&quot;&quot;</span>
 
 
-<span class="k">class</span> <span class="nc">RPW_TypeError</span><span class="p">(</span><span class="n">RPW_Exception</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">RPW_TypeError</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Revit Python Wrapper Base Exception &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_expected</span><span class="p">,</span> <span class="n">type_received</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;expected [</span><span class="si">{}</span><span class="s1">], got [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">type_expected</span><span class="p">,</span>
-                                                      <span class="n">type_received</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_expected</span><span class="p">,</span> <span class="n">type_received</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">type_received</span> <span class="o">=</span> <span class="n">type_received</span> <span class="ow">or</span> <span class="s1">&#39;not reported&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;expected [</span><span class="si">{}</span><span class="s1">], got [</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">type_expected</span><span class="p">,</span> <span class="n">type_received</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RPW_TypeError</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
 
 <span class="k">class</span> <span class="nc">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">RPW_Exception</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Revit Python Wrapper Base Exception &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">param_name</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Parameter Not Found: [</span><span class="si">{}</span><span class="s1">]:[</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element</span><span class="p">,</span>
-                                                             <span class="n">param_name</span><span class="p">))</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;parameter not found [element:</span><span class="si">{}</span><span class="s1">]:[param_name:</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">param_name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
 
 <span class="k">class</span> <span class="nc">RPW_WrongStorageType</span><span class="p">(</span><span class="n">RPW_Exception</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Wrong Storage Type &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">storage_type</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Wrong Storage Type: [</span><span class="si">{}</span><span class="s1">]:[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">storage_type</span><span class="p">,</span>
-                                                               <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span>
-                                                               <span class="n">value</span>
-                                                               <span class="p">))</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Wrong Storage Type: [</span><span class="si">{}</span><span class="s1">]:[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">storage_type</span><span class="p">,</span>
+                                                        <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RPW_WrongStorageType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -210,6 +213,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="known_issues.html" class="btn btn-neutral float-right" title="Known Issues" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="dynamo.html" class="btn btn-neutral" title="Using With Dynamo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
