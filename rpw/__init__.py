@@ -4,26 +4,16 @@
 A Python Wrapper For the Revit API
 ************************************
 
-Revit Python Wrapper allows you write Revit API in Python code
-that in a way that is more natural to the language.
+Revit Python Wrapper helps write Revit API code in Python.
 
-Wrapper objects makes the interaction with Revit API objects more
-consistent with Python's naming conventions, and also implement
+The Wrappers make the interaction with API objects more
+consistent with Python's conventions, and also implement
 patterns to make your code more conscise.
 
-The wrapper will also normalize version specific calls so you can re-use
-your code across Revit versions.
+The wrapper will also normalize application and document handler, as well
+as some  API version-specific calls so you can re-use your code across
+platforms and Revit API versions.
 
-
-Project Goals
-*************
-
-* Normalize API calls for different Revit Version
-* Normalize Document and Application handlers for Revit + Dynamo
-* Implement Resusable patterns to reduce repetitive tasks
-* Create wrappers to make common calls feel more pythonic
-* Increase code re-use
-* Handle data coercion for more flexibility (see :any:`rpw.enumeration` for example)
 
 When should I Use RPW
 *********************
@@ -31,6 +21,18 @@ When should I Use RPW
 * Non-mission critical work
 * When you are working in the RevitPythonShell, pyRevit, or Dynamo Python Nodes
 * When you want your code to work with no change in the aforementioned platforms
+
+
+Project Goals
+*************
+
+* Normalize Document and Application handlers for Revit + Dynamo
+* Normalize API calls for different Revit Versions
+* Implement Resusable patterns to reduce repetitive tasks
+* Create wrappers to make common calls more natural to Python
+* Increase code re-use
+* Handle data coercion for more flexibility (see :any:`rpw.enumeration` for example)
+
 
 
 Using RevitPythonWrapper

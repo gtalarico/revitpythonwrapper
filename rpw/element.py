@@ -1,5 +1,5 @@
 """
->>> rpw.Element()
+>>> rpw.Element(SomeRevitElement)
 """
 
 from rpw import doc, uidoc, DB
@@ -79,6 +79,8 @@ class Element(BaseObjectWrapper):
 
         element = doc.GetElement(element_id)
         return Element(element)
+
+        Todo: Just move this to __init__
 
         """
         raise NotImplemented

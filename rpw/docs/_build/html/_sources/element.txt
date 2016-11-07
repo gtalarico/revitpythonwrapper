@@ -7,7 +7,7 @@
 Element
 ==============================================
 
-DB Namespace is the Largest namespace and contains over 10,000 members.
+Element Wrapper
 
 .. automodule:: rpw.element
     :members: Element

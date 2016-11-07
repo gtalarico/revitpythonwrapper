@@ -146,8 +146,8 @@
             
   <div class="section" id="element">
 <h1>Element<a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h1>
-<p>DB Namespace is the Largest namespace and contains over 10,000 members.</p>
-<span class="target" id="module-rpw.element"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">()</span>
+<p>Element Wrapper</p>
+<span class="target" id="module-rpw.element"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeRevitElement</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="class">
@@ -227,6 +227,7 @@
 <dd><p>Allows to retrieve element by Id</p>
 <p>element = doc.GetElement(element_id)
 return Element(element)</p>
+<p>Todo: Just move this to __init__</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -446,7 +447,7 @@ to wrap Parameter Elements.</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">&gt;&gt;&gt; rpw.Element()</span>
+<span class="sd">&gt;&gt;&gt; rpw.Element(SomeRevitElement)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
@@ -526,6 +527,8 @@ to wrap Parameter Elements.</p>
 
 <span class="sd">        element = doc.GetElement(element_id)</span>
 <span class="sd">        return Element(element)</span>
+
+<span class="sd">        Todo: Just move this to __init__</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="bp">NotImplemented</span>
