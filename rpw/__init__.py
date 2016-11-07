@@ -165,7 +165,7 @@ Using RevitPythonWrapper
 
 
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.1'
+__version__ = '0.0.3'
 __author__ = 'Gui Talarico'
 __license__ = '?'
 __copyright__ = '?'
