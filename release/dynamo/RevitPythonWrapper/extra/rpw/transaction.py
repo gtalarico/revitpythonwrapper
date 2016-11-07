@@ -1,7 +1,6 @@
 from rpw import doc, DB, platform
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
-from rpw.exceptions import RPW_Exception
 
 
 class Transaction(object):
@@ -24,9 +23,7 @@ class Transaction(object):
         >>> TransactionManager.Instance.TransactionTaskDone()
 
     """
-    def __init__(self, name=None):
-        if name is None:
-            name = 'RPW Transaction'
+    def __init__(self, name):
         self.transaction = DB.Transaction(doc, name)
 
     def __enter__(self):

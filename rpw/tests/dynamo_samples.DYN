@@ -1,4 +1,4 @@
-<Workspace Version="1.2.0.2690" X="240.877449174764" Y="113.851398570513" zoom="0.509228422110196" Name="Home" Description="" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+<Workspace Version="1.2.0.2690" X="501.639378291705" Y="351.636828291266" zoom="1.00693338659567" Name="Home" Description="" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <CoreNodeModels.Watch guid="ba32ee45-838c-4155-abde-0b82521715f5" type="CoreNodeModels.Watch" nickname="Watch" x="141.502224302065" y="-201.137391842644" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
@@ -38,10 +38,10 @@ col = Collector(of_category='OST_Levels')
 OUT = col.first</Script>
     </PythonNodeModels.PythonNode>
     <Dynamo.Graph.Nodes.CodeBlockNodeModel guid="12517f7a-c636-4237-9679-7d38f0b73003" type="Dynamo.Graph.Nodes.CodeBlockNodeModel" nickname="Code Block" x="546.893267413833" y="81.3397871260298" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" CodeText="&quot;&#xA;import sys&#xA;sys.path.append(r'D:\Dropbox\Shared\dev\repos\revitpythonwrapper')&#xA;&#xA;from rpw.collector import Collector&#xA;col = Collector(of_category='OST_Levels')&#xA;OUT = col.first&#xA;&quot;;" ShouldFocus="false" />
-    <CoreNodeModels.Watch guid="ae6d3a6c-28c0-405d-8de9-099444f2157c" type="CoreNodeModels.Watch" nickname="Watch" x="400.871070231507" y="654.841930751269" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+    <CoreNodeModels.Watch guid="ae6d3a6c-28c0-405d-8de9-099444f2157c" type="CoreNodeModels.Watch" nickname="Watch" x="174.52413861027" y="673.496897643129" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
       <PortInfo index="0" default="False" />
     </CoreNodeModels.Watch>
-    <PythonNodeModels.PythonNode guid="6a59614b-5de4-4df5-aefb-0e72c7511ec6" type="PythonNodeModels.PythonNode" nickname="Python Script" x="127.876047229046" y="654.252058764578" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
+    <PythonNodeModels.PythonNode guid="6a59614b-5de4-4df5-aefb-0e72c7511ec6" type="PythonNodeModels.PythonNode" nickname="Python Script" x="30.8702193913729" y="674.150690115896" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
       <PortInfo index="0" default="False" />
       <Script>import sys
 sys.path.append(r'D:\Dropbox\Shared\dev\repos\revitpythonwrapper')
@@ -94,10 +94,10 @@ raise RPW_Exception('Base Exception Test')
 
 </Script>
     </PythonNodeModels.PythonNode>
-    <CoreNodeModels.Watch guid="99fb467d-3f63-4d2d-b939-ab22f17aecd3" type="CoreNodeModels.Watch" nickname="Watch" x="391.623688659748" y="839.214344356967" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+    <CoreNodeModels.Watch guid="99fb467d-3f63-4d2d-b939-ab22f17aecd3" type="CoreNodeModels.Watch" nickname="Watch" x="183.931723930371" y="803.148075032704" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
       <PortInfo index="0" default="False" />
     </CoreNodeModels.Watch>
-    <PythonNodeModels.PythonNode guid="29df0d35-3431-4ad9-b398-a162057aa766" type="PythonNodeModels.PythonNode" nickname="Python Script" x="135.34632462065" y="842.423940316494" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
+    <PythonNodeModels.PythonNode guid="29df0d35-3431-4ad9-b398-a162057aa766" type="PythonNodeModels.PythonNode" nickname="Python Script" x="28.3911811073179" y="803.870342073316" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
       <PortInfo index="0" default="False" />
       <Script>import sys
 sys.path.append(r'D:\Dropbox\Shared\dev\repos\revitpythonwrapper')
@@ -108,7 +108,7 @@ OUT = version
 
 </Script>
     </PythonNodeModels.PythonNode>
-    <PythonNodeModels.PythonNode guid="b6063077-37dd-4ec4-8df1-08691df64bd4" type="PythonNodeModels.PythonNode" nickname="Transaction" x="362.842694703412" y="1068.06177549466" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
+    <PythonNodeModels.PythonNode guid="b6063077-37dd-4ec4-8df1-08691df64bd4" type="PythonNodeModels.PythonNode" nickname="Transaction" x="27.053290649928" y="926.284027116522" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="1">
       <PortInfo index="0" default="False" />
       <Script>import sys
 sys.path.append(r'D:\Dropbox\Shared\dev\repos\revitpythonwrapper')
@@ -123,15 +123,15 @@ wall = Element(wall)
 with Transaction('Add Comment'):
 	wall.parameters['Comments'].value = IN[0]</Script>
     </PythonNodeModels.PythonNode>
-    <CoreNodeModels.Watch guid="bcc95c49-5b4f-4503-80d2-1d068b75caef" type="CoreNodeModels.Watch" nickname="Watch" x="619.866356512627" y="1061.45211824529" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
+    <CoreNodeModels.Watch guid="bcc95c49-5b4f-4503-80d2-1d068b75caef" type="CoreNodeModels.Watch" nickname="Watch" x="182.09646678364" y="927.136356623896" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false">
       <PortInfo index="0" default="False" />
     </CoreNodeModels.Watch>
-    <CoreNodeModels.Input.DoubleSlider guid="1242a692-a9b3-46d1-aa18-4ac556ca5c98" type="CoreNodeModels.Input.DoubleSlider" nickname="Number Slider" x="38.2064444084859" y="1067.85552392591" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
-      <System.Double>22.3</System.Double>
+    <CoreNodeModels.Input.DoubleSlider guid="1242a692-a9b3-46d1-aa18-4ac556ca5c98" type="CoreNodeModels.Input.DoubleSlider" nickname="Number Slider" x="-298.826624104455" y="924.834111088315" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.Double>31.6</System.Double>
       <Range min="0" max="100" step="0.1" />
     </CoreNodeModels.Input.DoubleSlider>
     <CoreNodeModels.Input.DoubleSlider guid="16871a65-9f16-486c-b8c2-b51b3a881d29" type="CoreNodeModels.Input.DoubleSlider" nickname="Number Slider" x="-362.173280095383" y="-199.991354335261" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
-      <System.Double>0</System.Double>
+      <System.Double>9.3</System.Double>
       <Range min="0" max="100" step="0.1" />
     </CoreNodeModels.Input.DoubleSlider>
   </Elements>
@@ -152,7 +152,7 @@ with Transaction('Add Comment'):
       <Models ModelGuid="322eb969-d866-44ba-b7e4-e2689c5af391" />
       <Models ModelGuid="9c9eafae-b512-4fd7-9edd-d3e991828c53" />
     </Dynamo.Graph.Annotations.AnnotationModel>
-    <Dynamo.Graph.Annotations.AnnotationModel guid="d09e3fc8-0d3d-42ad-ada1-9c6ad8e554ee" annotationText="Selection" left="-372.173280095383" top="-231.137391842644" width="674.675504397447" height="259" fontSize="14" InitialTop="-201.137391842644" InitialHeight="259" TextblockHeight="20" backgrouund="#FFC1D676">
+    <Dynamo.Graph.Annotations.AnnotationModel guid="d09e3fc8-0d3d-42ad-ada1-9c6ad8e554ee" annotationText="Selection" left="-372.173280095383" top="-231.137391842644" width="674.675504397448" height="183" fontSize="14" InitialTop="-201.137391842644" InitialHeight="259" TextblockHeight="20" backgrouund="#FFC1D676">
       <Models ModelGuid="ba32ee45-838c-4155-abde-0b82521715f5" />
       <Models ModelGuid="d67cefe8-13d8-44e9-bc5b-bd4904d22372" />
       <Models ModelGuid="16871a65-9f16-486c-b8c2-b51b3a881d29" />

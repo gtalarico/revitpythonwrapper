@@ -153,15 +153,11 @@
 Makes easier to manipulate Active Selection.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">element_ids</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">elements</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">RevitProperty</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">RevitMethod</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
@@ -183,33 +179,61 @@ If Index is out range, <cite>None</cite> is returned</p>
 </tr>
 </tbody>
 </table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">&lt; Revit.DB.Element &gt;</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="rpw.selection.Selection.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores uidoc.Selection in element so attributes can be accessed.</p>
+<dd><p>Initializes Selection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB.ElementID)</strong> (<em>(DB.Element,</em>) &#8211; Elements or ElementIds</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="n">SomeElement</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">([</span><span class="n">Element</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="rpw.selection.Selection.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>elements_or_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds elements to selection. Takes elements or element ids</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB.ElementID)</strong> (<em>(DB.Element,</em>) &#8211; Elements or ElementIds</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SomeElement</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="rpw.selection.Selection.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears Selection
-:returns: None</p>
+<dd><p>Clears Selection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -267,22 +291,35 @@ If Index is out range, <cite>None</cite> is returned</p>
 <span class="sd">        &gt;&gt;&gt; selection.elements</span>
 <span class="sd">        &gt;&gt;&gt; len(selection)</span>
 
-<span class="sd">        &gt;&gt;&gt; selection.RevitProperty</span>
-<span class="sd">        &gt;&gt;&gt; selection.RevitMethod()</span>
-
 <span class="sd">    Wrapped Element:</span>
 <span class="sd">        self._revit_object = `Revit.UI.Selection`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Stores uidoc.Selection in element so attributes can be accessed.</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes Selection.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            (DB.Element, DB.ElementID): Elements or ElementIds</span>
+
+<span class="sd">        &gt;&gt;&gt; selection = Selection(SomeElement)</span>
+<span class="sd">        &gt;&gt;&gt; selection = Selection(SomeElementId)</span>
+<span class="sd">        &gt;&gt;&gt; selection = Selection([Element, Element, Element, ...])</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Selection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">elements</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_or_ids</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Adds elements to selection. Takes elements or element ids&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Adds elements to selection. Takes elements or element ids</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            (DB.Element, DB.ElementID): Elements or ElementIds</span>
+
+<span class="sd">        &gt;&gt;&gt; selection = Selection()</span>
+<span class="sd">        &gt;&gt;&gt; selection.add(SomeElement)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements_or_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">elements_or_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">elements_or_ids</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements_or_ids</span><span class="p">]):</span>
@@ -318,6 +355,7 @@ If Index is out range, <cite>None</cite> is returned</p>
 
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Clears Selection</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -334,9 +372,8 @@ If Index is out range, <cite>None</cite> is returned</p>
 <span class="sd">        Returns:</span>
 <span class="sd">            `DB.Element`, `None`</span>
 
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; selection[0]</span>
-<span class="sd">            &lt; Revit.DB.Element &gt;</span>
+<span class="sd">        &gt;&gt;&gt; selection[0]</span>
+<span class="sd">        &lt; Revit.DB.Element &gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 

@@ -155,12 +155,6 @@
 <em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Generic Revit Element Wrapper</p>
-<dl class="attribute">
-<dt id="rpw.element.Element._revit_object">
-<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element.Element._revit_object" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>DB.Element</em></p>
-</dd></dl>
-
 <p>Usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">RevitWallElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span>
@@ -176,6 +170,12 @@
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
+<dl class="attribute">
+<dt id="rpw.element.Element._revit_object">
+<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element.Element._revit_object" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>DB.Element</em></p>
+</dd></dl>
+
 <dl class="method">
 <dt id="rpw.element.Element.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.__init__" title="Permalink to this definition">¶</a></dt>
@@ -463,9 +463,6 @@ to wrap Parameter Elements.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generic Revit Element Wrapper</span>
 
-<span class="sd">    Attributes:</span>
-<span class="sd">        _revit_object (DB.Element) = Revit Reference</span>
-
 <span class="sd">    Usage:</span>
 
 <span class="sd">        &gt;&gt;&gt; wall = Element(RevitWallElement)</span>
@@ -479,6 +476,8 @@ to wrap Parameter Elements.</p>
 <span class="sd">        &gt;&gt;&gt; with Transaction(&#39;Set Height&#39;):</span>
 <span class="sd">        &gt;&gt;&gt;     wall.parameters[&#39;Height&#39;].value = 5</span>
 
+<span class="sd">    Attributes:</span>
+<span class="sd">        _revit_object (DB.Element) = Revit Reference</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>

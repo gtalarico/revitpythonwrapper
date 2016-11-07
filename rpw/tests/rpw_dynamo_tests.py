@@ -10,6 +10,7 @@ Passes:
 import sys
 sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
 import unittest
+import traceback
 
 import os
 repos = os.getenv('REPOS')
@@ -38,5 +39,9 @@ print('Failed: {}'.format(len(failed)))
 for fail_test in failed:
     print('Test: {}'.format(fail_test[0]))
     print('Traceback: {}'.format(fail_test[1]))
+if failed:
+    print('===========================')
+    traceback.print_exc()
+    print('===========================')
 
 OUT = result.getvalue()

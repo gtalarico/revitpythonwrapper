@@ -21,3 +21,5 @@ in the meantime, here is a quick way to get started:
 
         >>> from rpw import doc, uidoc
         >>> from rpw.collector import Collector
+
+.. note:: A Dynamo Package it's on it's way.

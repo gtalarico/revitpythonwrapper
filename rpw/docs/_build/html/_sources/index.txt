@@ -7,10 +7,10 @@
 Revit Python Wrapper
 ==============================================
 
-Contents:
 
 .. toctree::
    :maxdepth: 1
+   :hidden:
 
    self
    globals
@@ -24,9 +24,6 @@ Contents:
 
    known_issues
 
-
-Introduction
-==================
 
 .. automodule:: rpw
 

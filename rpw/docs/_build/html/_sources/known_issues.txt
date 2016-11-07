@@ -43,3 +43,5 @@ Known Issues
         * Rename Elements to differentiate:
 
         >>> Element > RPW_Element
+        >>> # or always use
+        >>> rpw.Element

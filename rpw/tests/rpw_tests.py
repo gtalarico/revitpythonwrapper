@@ -300,7 +300,7 @@ class ParameterFilterTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
-        logger.title('TESTING PARAMTER FILTER...')
+        logger.title('TESTING PARAMETER FILTER...')
 
     def setUp(self):
         collector = Collector()
@@ -408,7 +408,6 @@ class ParameterFilterTests(unittest.TestCase):
         parameter_filter = ParameterFilter(self.param_id_level_name, ends='1')
         col = Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
-        raise Exception('Expe')
 
 if __name__ == '__main__':
     unittest.main(verbosity=0, buffer=True)
