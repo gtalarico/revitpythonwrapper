@@ -13,15 +13,10 @@ class Transaction(object):
 
     Usage:
         >>> with Transaction('Move Wall'):
-        >>>     wall.move()
+        >>>     wall.DoSomething()
 
     Wrapped Element:
         self._revit_object = `Revit.DB.Transaction`
-
-    Dynamo:
-        >>> TransactionManager.Instance.EnsureInTransaction(doc)
-        >>> # Do Stuff
-        >>> TransactionManager.Instance.TransactionTaskDone()
 
     """
     def __init__(self, name=None):
@@ -41,6 +36,36 @@ class Transaction(object):
                 self.transaction.Commit()
             except:
                 self.transaction.RollBack()
+
+    @staticmethod
+    def ensure(transaction_name):
+        """ Transaction Manager Decorator
+
+        Decorate any function with `@Transaction.ensure('Transaction Name')`
+        and the funciton will run withing a Transaction Context.
+
+        Args:
+            transaction_name (str): Name of the Transaction
+
+        Usage:
+
+            >>> @Transaction.ensure('Do Something')
+            >>> def set_some_parameter(wall, value):
+            >>>     wall.parameters['Comments'].value = value
+            >>>
+            >>> set_some_parameter(wall, value)
+        """
+        from functools import wraps  # Move import up once Tested In Dynamo
+
+        def wrap(f):
+            @wraps(f)
+            def wrapped_f(*args, **kwargs):
+                with Transaction(transaction_name):
+                    return_value = f(*args, **kwargs)
+                return return_value
+            return wrapped_f
+        return wrap
+
 
 
 class DynamoTransaction(object):

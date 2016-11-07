@@ -25,8 +25,18 @@ from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
 from rpw.enumeration import BuiltInParameterEnum
 
-# logger.verbose(True)
+# logger.verbose(True)z
 logger.disable()
+
+
+# TODO: Add Transaction Decorator Tests
+# @Transaction.wrap('Do Something')
+# def decorated_transaction():
+#     wall = Collector(of_class='Wall').first
+#     wall = Element(wall)
+#     wall.parameters['Comments'].value = 'Peido'
+#     print('Done')
+# decorated_transaction()
 
 # sys.exit()
 
@@ -393,7 +403,7 @@ class ParameterFilterTests(unittest.TestCase):
         col = Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
-    #FAILS
+    #FAILS - CASE SENSITIVE FLAG IS NOT WORKING
     # def test_param_comments_equal_case(self):
         # parameter_filter = ParameterFilter(self.param_id_comments, contains='tests')
         # col = Collector(of_class="Wall", parameter_filter=parameter_filter)

@@ -147,7 +147,7 @@
 <p>Wrappers to make Revit Transactions work with Python Context Manager.</p>
 <span class="target" id="module-rpw.transaction"></span><dl class="class">
 <dt id="rpw.transaction.Transaction">
-<em class="property">class </em><code class="descclassname">rpw.transaction.</code><code class="descname">Transaction</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.transaction.</code><code class="descname">Transaction</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Transaction Context Manager.</p>
 <p>Simplifies transactions by applying <code class="docutils literal"><span class="pre">Transaction.Start()</span></code> and
@@ -156,20 +156,37 @@ Automatically rolls back if exception is raised.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Move Wall&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">DoSomething</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd>
 <dt>Wrapped Element:</dt>
 <dd>self._revit_object = <cite>Revit.DB.Transaction</cite></dd>
-<dt>Dynamo:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">EnsureInTransaction</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Do Stuff</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">TransactionTaskDone</span><span class="p">()</span>
+</dl>
+<dl class="staticmethod">
+<dt id="rpw.transaction.Transaction.ensure">
+<em class="property">static </em><code class="descname">ensure</code><span class="sig-paren">(</span><em>transaction_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction.ensure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transaction Manager Decorator</p>
+<p>Decorate any function with <cite>&#64;Transaction.ensure(&#8216;Transaction Name&#8217;)</cite>
+and the funciton will run withing a Transaction Context.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>transaction_name</strong> (<em>str</em>) &#8211; Name of the Transaction</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@Transaction</span><span class="o">.</span><span class="n">ensure</span><span class="p">(</span><span class="s1">&#39;Do Something&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">set_some_parameter</span><span class="p">(</span><span class="n">wall</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">set_some_parameter</span><span class="p">(</span><span class="n">wall</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
+</dd></dl>
+
 </dd></dl>
 
 <div class="section" id="implementation">
@@ -177,6 +194,7 @@ Automatically rolls back if exception is raised.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">platform</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
 
 
 <span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -188,18 +206,15 @@ Automatically rolls back if exception is raised.</p>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; with Transaction(&#39;Move Wall&#39;):</span>
-<span class="sd">        &gt;&gt;&gt;     wall.move()</span>
+<span class="sd">        &gt;&gt;&gt;     wall.DoSomething()</span>
 
 <span class="sd">    Wrapped Element:</span>
 <span class="sd">        self._revit_object = `Revit.DB.Transaction`</span>
 
-<span class="sd">    Dynamo:</span>
-<span class="sd">        &gt;&gt;&gt; TransactionManager.Instance.EnsureInTransaction(doc)</span>
-<span class="sd">        &gt;&gt;&gt; # Do Stuff</span>
-<span class="sd">        &gt;&gt;&gt; TransactionManager.Instance.TransactionTaskDone()</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;RPW Transaction&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -214,6 +229,37 @@ Automatically rolls back if exception is raised.</p>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">ensure</span><span class="p">(</span><span class="n">transaction_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Transaction Manager Decorator</span>
+
+<span class="sd">        Decorate any function with `@Transaction.ensure(&#39;Transaction Name&#39;)`</span>
+<span class="sd">        and the funciton will run withing a Transaction Context.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            transaction_name (str): Name of the Transaction</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">            &gt;&gt;&gt; @Transaction.ensure(&#39;Do Something&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; def set_some_parameter(wall, value):</span>
+<span class="sd">            &gt;&gt;&gt;     wall.parameters[&#39;Comments&#39;].value = value</span>
+<span class="sd">            &gt;&gt;&gt;</span>
+<span class="sd">            &gt;&gt;&gt; set_some_parameter(wall, value)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
+        <span class="c1"># Move Once Tested In Dynamo</span>
+        <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">wrapped_f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="n">transaction_name</span><span class="p">):</span>
+                    <span class="n">return_value</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">return_value</span>
+            <span class="k">return</span> <span class="n">wrapped_f</span>
+        <span class="k">return</span> <span class="n">wrap</span>
+
 
 
 <span class="k">class</span> <span class="nc">DynamoTransaction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
