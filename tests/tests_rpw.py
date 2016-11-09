@@ -95,6 +95,10 @@ class CollectorTests(unittest.TestCase):
         x = self.collector_helper({'of_class': DB.View})
         assert isinstance(x.elements[0], DB.View)
 
+    # def test_collector_elements_view(self):
+        # x = self.collector_helper({'of_class': DB.View, 'view': uidoc.ActiveView})
+        # assert isinstance(x.first, DB.View)
+
     def test_collector_len(self):
         x = self.collector_helper({'of_class': DB.View})
         assert len(x) > 1

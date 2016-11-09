@@ -103,6 +103,7 @@ class Selection(BaseObjectWrapper):
         """
         return self.elements[index]
 
+
     def __bool__(self):
         return bool(self.elements)
 

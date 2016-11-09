@@ -51,17 +51,27 @@ class Collector(BaseObjectWrapper):
         if 'view' in filters:
             view = filters['view']
             collector = DB.FilteredElementCollector(doc, view.Id)
+            filters.pop('view')
         else:
             collector = DB.FilteredElementCollector(doc)
         super(Collector, self).__init__(collector)
 
         self.elements = []
-        self._filters = filters
+        valid_filters = {k: v for k, v in filters.iteritems() if k in _Filter.MAP}
+        self._filters = valid_filters
 
         self.filter = _Filter(self)
         # Allows Class to Excecute on Construction, if filters are present.
         if filters:
-            self.filter(**filters)
+            self.filter(**valid_filters)  # Call
+
+    def __iter__(self):
+        """ Collector Iterator
+        for wall in Collector(of_class='Wall'):
+            wall
+        """
+        for element in self._revit_object:
+            yield element
 
     @property
     def first(self):
