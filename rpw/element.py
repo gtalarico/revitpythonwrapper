@@ -100,6 +100,7 @@ class Element(BaseObjectWrapper):
 #
 # class FamilyInstance(BaseObjectWrapper):
 #     """ Generic Family Instance Wrapper """
+    ## Help with Family name, symbol name, etc
 #     # Get Type
 #     # Get Symbol
 #     # Get Elements

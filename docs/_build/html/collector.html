@@ -212,6 +212,14 @@
 </tr>
 </tbody>
 </table>
+<dl class="docutils">
+<dt>Scope Options:</dt>
+<dd>view (DB.View) = View Scope (Optional)
+element_ids ([ElementId]) = List of Element Ids to limit Collector Scope
+elements ([Element]) = List of Elements to limit Collector Scope</dd>
+<dt>Filter Options:</dt>
+<dd><a href="#id1"><span class="problematic" id="id2">is_</span></a></dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -375,6 +383,7 @@ namespace.</p>
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">elements_to_element_ids</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
@@ -422,21 +431,49 @@ namespace.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            view (Revit.DB.View) = View Scope (Optional)</span>
+
+<span class="sd">        Scope Options:</span>
+<span class="sd">            view (DB.View) = View Scope (Optional)</span>
+<span class="sd">            element_ids ([ElementId]) = List of Element Ids to limit Collector Scope</span>
+<span class="sd">            elements ([Element]) = List of Elements to limit Collector Scope</span>
+
+<span class="sd">        Filter Options:</span>
+<span class="sd">            is_</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;view&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
             <span class="n">view</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;elements&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;elements&#39;</span><span class="p">]</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">elements_to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;elements&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;element_ids&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;element_ids&#39;</span><span class="p">]</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;element_ids&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">collector</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">filters</span>
+        <span class="n">valid_filters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">valid_filters</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">_Filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># Allows Class to Excecute on Construction, if filters are present.</span>
         <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">filters</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">valid_filters</span><span class="p">)</span>  <span class="c1"># Call</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collector Iterator</span>
+<span class="sd">        for wall in Collector(of_class=&#39;Wall&#39;):</span>
+<span class="sd">            wall</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">element</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">first</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

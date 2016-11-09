@@ -55,7 +55,12 @@ class Collector(BaseObjectWrapper):
             elements ([Element]) = List of Elements to limit Collector Scope
 
         Filter Options:
-            is_
+            is_element (bool) = Must be not be ElementType ``WhereElementIsNotElementType``
+            is_element_type (bool) = Must be ElementType ``WhereElementIsElementType``
+            of_class (Type) = Type can be DB Type String: DB.Wall or 'Wall'
+            of_category (BuiltInCategory Enum) = Type can be Enum member or String: DB.BuiltInCategory.OST_Wall or 'OST_Wall'
+            is_view_independent (bool) = ``WhereElementIsViewIndependent(True)``
+            parameter_filter (:any:`ParameterFilter`) = ParameterFilter Class
 
         """
         if 'view' in filters:
