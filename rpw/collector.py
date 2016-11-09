@@ -1,5 +1,6 @@
 from rpw import uidoc, doc, DB
 from rpw import List
+from rpw.coerce import elements_to_element_ids
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
@@ -47,11 +48,29 @@ class Collector(BaseObjectWrapper):
         """
         Args:
             view (Revit.DB.View) = View Scope (Optional)
+
+        Scope Options:
+            view (DB.View) = View Scope (Optional)
+            element_ids ([ElementId]) = List of Element Ids to limit Collector Scope
+            elements ([Element]) = List of Elements to limit Collector Scope
+
+        Filter Options:
+            is_
+
         """
         if 'view' in filters:
             view = filters['view']
             collector = DB.FilteredElementCollector(doc, view.Id)
             filters.pop('view')
+        elif 'elements' in filters:
+            elements = filters['elements']
+            element_ids = elements_to_element_ids(elements)
+            collector = DB.FilteredElementCollector(doc, List[DB.ElementId](element_ids))
+            filters.pop('elements')
+        elif 'element_ids' in filters:
+            element_ids = filters['element_ids']
+            collector = DB.FilteredElementCollector(doc, List[DB.ElementId](element_ids))
+            filters.pop('element_ids')
         else:
             collector = DB.FilteredElementCollector(doc)
         super(Collector, self).__init__(collector)

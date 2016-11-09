@@ -22,6 +22,7 @@ from rpw.parameter import Parameter
 from rpw.selection import Selection
 from rpw.transaction import Transaction
 from rpw.collector import Collector, ParameterFilter
+from rpw.coerce import elements_to_element_ids
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
 from rpw.enumeration import BuiltInParameterEnum
@@ -95,9 +96,14 @@ class CollectorTests(unittest.TestCase):
         x = self.collector_helper({'of_class': DB.View})
         assert isinstance(x.elements[0], DB.View)
 
+    def test_collector_elements_view(self):
+        x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView})
+        assert isinstance(x.first, DB.Wall)
+
+    # Need Test Setup for active view collector
     # def test_collector_elements_view(self):
-        # x = self.collector_helper({'of_class': DB.View, 'view': uidoc.ActiveView})
-        # assert isinstance(x.first, DB.View)
+    #     x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView})
+    #     assert isinstance(x.first, DB.Wall)
 
     def test_collector_len(self):
         x = self.collector_helper({'of_class': DB.View})
@@ -145,9 +151,21 @@ class CollectorTests(unittest.TestCase):
             collector = Collector(of_class='SpatialElement')
             self.assertIsInstance(collector.first, DB.Architecture.Room)
 
+    def test_collector_scope_elements(self):
+        """ If Collector scope is list of elements, should not find View"""
+        wall = Collector(of_class='Wall').first
+        collector = Collector(elements=[wall], of_class='View')
+        self.assertEqual(len(collector), 0)
+
+    def test_collector_scope_element_ids(self):
+        wall = Collector(of_class='Wall').first
+        collector = Collector(element_ids=[wall.Id], of_class='View')
+        self.assertEqual(len(collector), 0)
+
 ######################
 # SELECTION
 ######################
+
 class SelectionTests(unittest.TestCase):
 
     @classmethod
@@ -188,6 +206,10 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(len(self.selection), 0)
         self.selection = Selection([wall_id])
 
+    def test_selection_add(self):
+        selection = Selection()
+        selection.add([wall_id])
+        self.assertIsInstance(selection[0], DB.Wall)
 
 ######################
 # ELEMENT
@@ -423,6 +445,31 @@ class ParameterFilterTests(unittest.TestCase):
         parameter_filter = ParameterFilter(self.param_id_level_name, ends='1')
         col = Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
+
+######################
+# CORCE
+######################
+
+class CoerceTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        logger.title('TESTING COERCE FUNCITONS...')
+
+    def setUp(self):
+        collector = Collector()
+        self.wall = collector.filter(of_class='Wall').first
+
+    def tearDown(self):
+        pass
+
+    def test_corce_into_ides(self):
+        ids = elements_to_element_ids([self.wall])
+        all_id = all([isinstance(i, DB.ElementId) for i in ids])
+        self.assertTrue(all_id)
+
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=0, buffer=True)
