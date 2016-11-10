@@ -229,13 +229,15 @@ except NameError:
         platform = {'dynamo': version}
         logger.info('Running in Dynamo')
 
+
 # FIXME: Test this on test suite and dynamo
 # IDEA: Re-think namespace imports: ie import forms only if wpf is found.
 # TODO: Refactor this page
 
+# Loads Modules into main rpw namespace
 from rpw.selection import Selection
 from rpw.collector import Collector, ParameterFilter
 from rpw.transaction import Transaction
 from rpw.element import Element, Parameter
 from rpw.coerce import elements_to_element_ids
-from rpw.forms import SelectFromList
+from rpw.forms import SelectFromList, TextInput
