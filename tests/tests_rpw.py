@@ -166,6 +166,7 @@ class CollectorTests(unittest.TestCase):
 # SELECTION
 ######################
 
+
 class SelectionTests(unittest.TestCase):
 
     @classmethod
@@ -214,6 +215,7 @@ class SelectionTests(unittest.TestCase):
 ######################
 # ELEMENT
 ######################
+
 
 class ElementTests(unittest.TestCase):
 
@@ -358,7 +360,6 @@ class ParameterFilterTests(unittest.TestCase):
     def tearDown(self):
         pass
 
-
     def test_param_filter_float_less_no(self):
         parameter_filter = ParameterFilter(self.param_id_height, less=10.0)
         col = Collector(of_class="Wall", parameter_filter=parameter_filter)
@@ -430,7 +431,7 @@ class ParameterFilterTests(unittest.TestCase):
         col = Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
-    #FAILS - CASE SENSITIVE FLAG IS NOT WORKING
+    # FAILS - CASE SENSITIVE FLAG IS NOT WORKING
     # def test_param_comments_equal_case(self):
         # parameter_filter = ParameterFilter(self.param_id_comments, contains='tests')
         # col = Collector(of_class="Wall", parameter_filter=parameter_filter)
@@ -447,8 +448,9 @@ class ParameterFilterTests(unittest.TestCase):
         self.assertEqual(len(col), 1)
 
 ######################
-# CORCE
+# COERCE
 ######################
+
 
 class CoerceTests(unittest.TestCase):
 
@@ -467,8 +469,6 @@ class CoerceTests(unittest.TestCase):
         ids = elements_to_element_ids([self.wall])
         all_id = all([isinstance(i, DB.ElementId) for i in ids])
         self.assertTrue(all_id)
-
-
 
 
 if __name__ == '__main__':

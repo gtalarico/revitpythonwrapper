@@ -7,6 +7,8 @@
 RevitPythonWrapper
 ==================
 Gui Talarico
+https://github.com/gtalarico/revitpythonwrapper
+http://revitpythonwrapper.readthedocs.io/en/latest/index.html
 """
 
 import clr
@@ -40,6 +42,6 @@ OUT = folders or 'Could Not Find Module. Make sure it\'s installed properly'</Sc
   <Annotations />
   <Presets />
   <Cameras>
-    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+    <Camera Name="Background Preview" eyeX="13.8111686188712" eyeY="78.6804317680261" eyeZ="44.1187656972779" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
   </Cameras>
 </Workspace>

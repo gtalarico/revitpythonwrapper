@@ -1,13 +1,23 @@
-import os
+# TODO: Clean up + handle imports
+
 import sys
+sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
+
+import os
+# Remove these depenencies?
+cwd = os.path.dirname(__file__)
+sys.path.append(cwd)
+
+import clr
+# clr.AddReference('PresentationCore')
+clr.AddReference("PresentationFramework")
+clr.AddReference('IronPython.Wpf')
 
 try:
     from System.Windows import Application, Window
     import wpf
 except ImportError:
     from ..sphinx_compat import *
-
-cwd = os.path.dirname(__file__)
 
 
 class SelectFromList(Window):

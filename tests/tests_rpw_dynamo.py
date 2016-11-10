@@ -8,8 +8,8 @@ Passes:
 
     * Dynamo
         * 1.2
-"""
 
+"""
 import sys
 sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
 import unittest
@@ -30,7 +30,7 @@ from tests import tests_rpw
 print('TESTS RUNNER: {}'.format(tests_rpw.__file__))
 
 testsuite = unittest.TestLoader().loadTestsFromModule(tests_rpw)
-test_result = unittest.TextTestRunner(verbosity=3, buffer=True).run(testsuite)
+test_result = unittest.TextTestRunner(verbosity=3, buffer=False).run(testsuite)
 
 success = test_result.wasSuccessful()
 ran = test_result.testsRun

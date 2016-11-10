@@ -191,7 +191,6 @@
     <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Import Failed Using Fake Import&#39;</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
@@ -206,6 +205,7 @@
         <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could not Revit Document&#39;</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
     <span class="k">else</span><span class="p">:</span>
 
         <span class="kn">import</span> <span class="nn">RevitServices</span>
@@ -225,7 +225,7 @@
 <span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>
 <span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span>
 <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Parameter</span>
-<span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">elements_to_element_ids</span>
 </pre></div>
 </div>
 </div>

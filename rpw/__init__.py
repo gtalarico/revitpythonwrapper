@@ -179,8 +179,8 @@ Using RevitPythonWrapper
 __title__ = 'revitpythonwrapper'
 __version__ = '0.0.7'
 __author__ = 'Gui Talarico'
-__license__ = '?'
-__copyright__ = '?'
+__license__ = 'MIT'
+__copyright__ = 'Gui Talarico'
 
 
 import sys
@@ -197,12 +197,9 @@ try:
     from Autodesk.Revit import UI
     from System.Collections.Generic import List
 
-    # clr.AddReference('PresentationCore')
-    clr.AddReference("PresentationFramework")
-    clr.AddReference('IronPython.Wpf')
-except:
+except Exception as errmsg:
+    logger.error(errmsg)
     logger.error('Import Failed Using Fake Import')
-    from rpw.sphinx_compat import *
 
 try:
     uidoc = __revit__.ActiveUIDocument
@@ -217,6 +214,7 @@ except NameError:
         clr.AddReference("RevitServices")
     except:
         print('Could not Revit Document')
+        from rpw.sphinx_compat import *
     else:
 
         import RevitServices
@@ -231,9 +229,13 @@ except NameError:
         platform = {'dynamo': version}
         logger.info('Running in Dynamo')
 
+# FIXME: Test this on test suite and dynamo
+# IDEA: Re-think namespace imports: ie import forms only if wpf is found.
+# TODO: Refactor this page
 
 from rpw.selection import Selection
 from rpw.collector import Collector, ParameterFilter
 from rpw.transaction import Transaction
 from rpw.element import Element, Parameter
-from rpw.forms import forms
+from rpw.coerce import elements_to_element_ids
+from rpw.forms import SelectFromList
