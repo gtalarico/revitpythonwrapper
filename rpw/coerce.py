@@ -1,11 +1,10 @@
 from rpw import uidoc, doc, DB
 from rpw import List
 
-
 def elements_to_element_ids(elements):
     """ Coerces list of elements into element ids.
     Args:
-        elements ([DB.Element]) = List of DB.Elements
+        elements ([DB.Element]) = Iterable list of DB.Elements
     """
     element_ids = []
     for element in elements:

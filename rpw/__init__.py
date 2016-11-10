@@ -4,7 +4,7 @@
 A Python Wrapper For the Revit API
 ************************************
 
-Revit Python Wrapper helps write Revit API code in Python.
+Revit Python Wrapper helps lazy programmers write Revit API code in Python.
 
 The Wrappers make the interaction with API objects more
 consistent with Python's conventions, and also implement
@@ -14,13 +14,16 @@ The wrapper will also normalize application and document handler, as well
 as some  API version-specific calls so you can re-use your code across
 platforms and Revit API versions.
 
+This library should not be used in complex applications, and it's not guaranteed
+it will be maintained at all.
 
-When should I Use RPW
-*********************
+When to Use RPW
+****************
 
-* Non-mission critical work
 * When you are working in the RevitPythonShell, pyRevit, or Dynamo Python Nodes
 * When you want your code to work with no change in the aforementioned platforms
+* Short scripts and other non-mission-critical work
+* Testing, and educational purporses
 
 
 Project Goals
@@ -31,7 +34,11 @@ Project Goals
 * Implement Resusable patterns to reduce repetitive tasks
 * Create wrappers to make common calls more natural to Python
 * Increase code re-use
-* Handle data coercion for more flexibility (see :any:`rpw.enumeration` for example)
+* Handle data coercion for more flexibility (see :any:`rpw.selection` for example)
+
+License
+^^^^^^^
+`MIT License <https://opensource.org/licenses/MIT>`_
 
 
 
@@ -153,15 +160,20 @@ Using RevitPythonWrapper
     >>> filter_rule = ElementParameterFilter(rule)
     >>> collector = FilteredElementCollector.OfClass(WallType).WherePasses(filter_rule)
 
-"""
-# https://github.com/kennethreitz/requests/blob/master/requests/api.py
-# http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 
-# TODO:
-#  - Move out Elements and Parameters
-#  - Finder/Filter Tool*
-#  - Documentation
-#  - Dynamo Doc Manager + Transaction Manager
+:doc:`forms`
+****************
+
+    >>> options = ['Option 1','Option 2','Option 3']
+    >>> form = SelectFromList('Window Title', options)
+    >>> # Form shows on screen
+    >>> form_ok = form.show()
+    >>> if not form_ok:
+    >>>     sys.exit() # User Canceld
+    >>> selected_item = form.selected
+
+
+"""
 
 
 __title__ = 'revitpythonwrapper'
@@ -172,6 +184,7 @@ __copyright__ = '?'
 
 
 import sys
+from rpw.logger import logger
 
 try:
     #  This is a workaround to fix Sphinx's autodoc
@@ -179,11 +192,16 @@ try:
     clr.AddReference('RevitAPI')
     clr.AddReference('RevitAPIUI')
     clr.AddReference('System')
+
     from Autodesk.Revit import DB
     from Autodesk.Revit import UI
     from System.Collections.Generic import List
+
+    # clr.AddReference('PresentationCore')
+    clr.AddReference("PresentationFramework")
+    clr.AddReference('IronPython.Wpf')
 except:
-    print('Import Failed Using Fake Import')
+    logger.error('Import Failed Using Fake Import')
     from rpw.sphinx_compat import *
 
 try:
@@ -191,7 +209,7 @@ try:
     doc = __revit__.ActiveUIDocument.Document
     version = __revit__.Application.VersionNumber.ToString()
     platform = {'revit': version}
-    print("Running In PyRevit")
+    logger.info("Running In Revit")
 
 except NameError:
     print('Could not find pyRevit Document. Trying Dynamo.')
@@ -211,10 +229,11 @@ except NameError:
         uidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
         version = app.VersionNumber.ToString()
         platform = {'dynamo': version}
-        print('Running in Dynamo')
+        logger.info('Running in Dynamo')
 
 
 from rpw.selection import Selection
 from rpw.collector import Collector, ParameterFilter
 from rpw.transaction import Transaction
 from rpw.element import Element, Parameter
+from rpw.forms import forms

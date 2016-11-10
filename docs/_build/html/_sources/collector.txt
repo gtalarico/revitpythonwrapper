@@ -7,7 +7,7 @@
 Collector
 ==================
 
-Collector Wrapper
+FilteredElementCollector Wrapper
 
 .. automodule:: rpw.collector
     :members:

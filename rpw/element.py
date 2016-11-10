@@ -89,6 +89,15 @@ class Element(BaseObjectWrapper):
         return super(Element, self).__repr__(str(self._revit_object.ToString()))
 
 
+
+# Get ElementType Name
+# >>> element_type.FamilyName
+# 'Floor'
+# Element.Name.GetValue(element_type)
+# 'Floor 1'
+# http://forums.autodesk.com/t5/revit-api-forum/extracting-family-name-and-type-from-object/td-p/3093998
+
+
 # class Create(self):
 #     try:
 #         # API 2016:

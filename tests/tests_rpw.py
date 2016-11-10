@@ -121,12 +121,12 @@ class CollectorTests(unittest.TestCase):
 
     def test_collector_is_element(self):
         walls = self.collector_helper({'of_category': 'OST_Walls',
-                                       'is_element': True})
+                                       'is_not_type': True})
         assert all([isinstance(x, DB.Wall) for x in walls.elements])
 
     def test_collector_is_element_type(self):
         walls = self.collector_helper({'of_category': 'OST_Walls',
-                                       'is_element_type': True})
+                                       'is_type': True})
         assert all([isinstance(x, DB.WallType) for x in walls.elements])
 
     def test_collector_is_view_dependent(self):
@@ -138,9 +138,9 @@ class CollectorTests(unittest.TestCase):
     def test_collector_chained_calls(self):
         wall_collector = self.collector_helper({'of_category': DB.BuiltInCategory.OST_Walls})
         walls_category = len(wall_collector)
-        wall_collector.filter(is_element=True)
+        wall_collector.filter(is_not_type=True)
         walls_elements = len(wall_collector)
-        wall_collector.filter(is_element_type=True)
+        wall_collector.filter(is_type=True)
         walls_element_type = len(wall_collector)
         assert walls_category > walls_elements > walls_element_type
 

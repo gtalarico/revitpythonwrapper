@@ -19,6 +19,7 @@ Revit Python Wrapper
    transaction
    collector
    enumeration
+   forms
    dynamo
    exceptions
 

@@ -247,6 +247,7 @@ return Element(element)</p>
 <p>Revit Element Parameter List Wrapper.</p>
 <p>Allows you to treat an element parameters as if it was a dictionary.
 Keeping element store so other methods beyond Parameters can be used.</p>
+<p>This class lives at an elemnt&#8217;s .parameters attribute.</p>
 <dl class="attribute">
 <dt id="rpw.element._ParameterSet._revit_object">
 <code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element._ParameterSet._revit_object" title="Permalink to this definition">¶</a></dt>
@@ -350,7 +351,8 @@ to wrap Parameter Elements.</p>
 <dl class="attribute">
 <dt id="rpw.parameter.Parameter.builtin">
 <code class="descname">builtin</code><a class="headerlink" href="#rpw.parameter.Parameter.builtin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the BuiltInParameter name of Parameter.</p>
+<dd><p>Returns the BuiltInParameter name of Parameter.
+Same as DB.Parameter.Definition.BuiltIn</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">builtin_name</span>
@@ -537,6 +539,15 @@ to wrap Parameter Elements.</p>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ToString</span><span class="p">()))</span>
 
 
+
+<span class="c1"># Get ElementType Name</span>
+<span class="c1"># &gt;&gt;&gt; element_type.FamilyName</span>
+<span class="c1"># &#39;Floor&#39;</span>
+<span class="c1"># Element.Name.GetValue(element_type)</span>
+<span class="c1"># &#39;Floor 1&#39;</span>
+<span class="c1"># http://forums.autodesk.com/t5/revit-api-forum/extracting-family-name-and-type-from-object/td-p/3093998</span>
+
+
 <span class="c1"># class Create(self):</span>
 <span class="c1">#     try:</span>
 <span class="c1">#         # API 2016:</span>
@@ -548,6 +559,7 @@ to wrap Parameter Elements.</p>
 <span class="c1">#</span>
 <span class="c1"># class FamilyInstance(BaseObjectWrapper):</span>
 <span class="c1">#     &quot;&quot;&quot; Generic Family Instance Wrapper &quot;&quot;&quot;</span>
+    <span class="c1">## Help with Family name, symbol name, etc</span>
 <span class="c1">#     # Get Type</span>
 <span class="c1">#     # Get Symbol</span>
 <span class="c1">#     # Get Elements</span>

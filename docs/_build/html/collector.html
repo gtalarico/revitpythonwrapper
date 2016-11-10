@@ -95,6 +95,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
@@ -144,8 +145,13 @@
             
   <div class="section" id="collector">
 <h1>Collector<a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h1>
-<p>Collector Wrapper</p>
-<span class="target" id="module-rpw.collector"></span><dl class="class">
+<p>FilteredElementCollector Wrapper</p>
+<span class="target" id="module-rpw.collector"></span><p>Comparison:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Levels&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Levels</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="class">
 <dt id="rpw.collector.Collector">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
@@ -159,32 +165,22 @@
 <p>Multiple Filters:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">,</span>
-<span class="go">                                is_element_type=True)</span>
+<span class="go">                                is_type=True)</span>
 </pre></div>
 </div>
 <p>Chain Preserves Previous Results:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_element_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Use Enumeration member or string shortcut:</p>
+<p>Use Enumeration member or name as string:</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns collector Class</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.collector.Collector" title="rpw.collector.Collector">Collector</a></td>
-</tr>
-</tbody>
-</table>
 <dl class="attribute">
 <dt id="rpw.collector.Collector.collector.elements">
 <code class="descclassname">collector.</code><code class="descname">elements</code><a class="headerlink" href="#rpw.collector.Collector.collector.elements" title="Permalink to this definition">¶</a></dt>
@@ -208,18 +204,43 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>view</strong> (<em>Revit.DB.View</em>) &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>view</strong> (<em>Revit.DB.View</em>) &#8211; </li>
+<li><strong>**filters</strong> (<em>dict</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>Collector</strong> &#8211; Collector Instance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#"><span class="doc">Collector</span></a></p>
+</td>
 </tr>
 </tbody>
 </table>
 <dl class="docutils">
 <dt>Scope Options:</dt>
-<dd>view (DB.View) = View Scope (Optional)
-element_ids ([ElementId]) = List of Element Ids to limit Collector Scope
-elements ([Element]) = List of Elements to limit Collector Scope</dd>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">view</span></code> <cite>(DB.View)</cite>: View Scope (Optional)</li>
+<li><code class="docutils literal"><span class="pre">element_ids</span></code> <cite>([ElementId])</cite>: List of Element Ids to limit Collector Scope</li>
+<li><code class="docutils literal"><span class="pre">elements</span></code> <cite>([Element])</cite>: List of Elements to limit Collector Scope</li>
+</ul>
+</dd>
 <dt>Filter Options:</dt>
-<dd><a href="#id1"><span class="problematic" id="id2">is_</span></a></dd>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">is_not_type</span></code> <cite>(bool)</cite>: Same as <code class="docutils literal"><span class="pre">WhereElementIsNotElementType</span></code></li>
+<li><code class="docutils literal"><span class="pre">is_type</span></code> <cite>(bool)</cite>: Same as <code class="docutils literal"><span class="pre">WhereElementIsElementType</span></code></li>
+<li><code class="docutils literal"><span class="pre">of_class</span></code> <cite>(Type)</cite>: Same as <code class="docutils literal"><span class="pre">OfClass</span></code>. Type can be DB Type String: DB.Wall or &#8216;Wall&#8217;</li>
+<li><code class="docutils literal"><span class="pre">of_category</span></code> <cite>(BuiltInCategory Enum)</cite>: Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Type can be Enum member or String: <cite>DB.BuiltInCategory.OST_Wall</cite> or &#8216;OST_Wall&#8217;</li>
+<li><code class="docutils literal"><span class="pre">is_view_independent</span></code> <cite>(bool)</cite>: <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
+<li><code class="docutils literal"><span class="pre">parameter_filter</span></code> <cite>(:any:`ParameterFilter</cite>)`: Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
+</ul>
+</dd>
 </dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only one scope filter should be used per query.</p>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -257,37 +278,6 @@ elements ([Element]) = List of Elements to limit Collector Scope</dd>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>The FilterRule returned will be one of the following:</p>
-<blockquote>
-<div><ul class="simple">
-<li>FilterDoubleRule</li>
-<li>FilterElementIdRule</li>
-<li>FilterCategoryRule</li>
-<li>FilterStringRule</li>
-<li>FilterIntegerRule</li>
-<li>SharedParameterApplicableRule</li>
-</ul>
-</div></blockquote>
-<p>Internally, the class uses the ParameterFilterRuleFactory Class:</p>
-<blockquote class="last">
-<div><ul class="simple">
-<li>ParameterFilterRuleFactory.CreateBeginsWithRule(param_id, value, case_sensitive)</li>
-<li>ParameterFilterRuleFactory.CreateContainsRule(param_id, value, case_sensitive)</li>
-<li>ParameterFilterRuleFactory.CreateEndsWithRule(param_id, value, case_sensitive)</li>
-<li>ParameterFilterRuleFactory.CreateEqualsRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateGreaterOrEqualRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateGreaterRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateLessOrEqualRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateLessRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateNotBeginsWithRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateNotContainsRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateNotEqualsRule(param_id, value)</li>
-<li>ParameterFilterRuleFactory.CreateSharedParameterApplicableRule(param_name)</li>
-</ul>
-</div></blockquote>
-</div>
 <dl class="method">
 <dt id="rpw.collector.ParameterFilter.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.ParameterFilter.__init__" title="Permalink to this definition">¶</a></dt>
@@ -298,28 +288,31 @@ elements ([Element]) = List of Elements to limit Collector Scope</dd>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>param_id</strong> (<em>DB.ElementID</em>) &#8211; ElemendId of parameter</li>
-<li><strong>**conditions</strong> &#8211; Filter Rule Conditions</li>
+<li><strong>**conditions</strong> &#8211; Filter Rule Conditions and options.</li>
 <li><strong>conditions</strong> &#8211; <div class="line-block">
-<div class="line">equals</div>
-<div class="line">contains</div>
-<div class="line">begins</div>
-<div class="line">ends</div>
-<div class="line">greater</div>
-<div class="line">greater_equal</div>
-<div class="line">less</div>
-<div class="line">less_equal</div>
-<div class="line">not_equals</div>
-<div class="line">not_contains</div>
-<div class="line">not_begins</div>
-<div class="line">not_ends</div>
-<div class="line">not_greater</div>
-<div class="line">not_greater_equal</div>
-<div class="line">not_less</div>
-<div class="line">not_less_equal</div>
+<div class="line"><code class="docutils literal"><span class="pre">equals</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">contains</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">begins</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ends</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">greater</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">greater_equal</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">less</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">less_equal</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_equals</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_contains</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_begins</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_ends</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_greater</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_greater_equal</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_less</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">not_less_equal</span></code></div>
 </div>
 </li>
-<li><strong>options</strong> &#8211; case_sensitive: Enforces case sensitive, String only
-reverse: Reverses result of Collector</li>
+<li><strong>options</strong> &#8211; <div class="line-block">
+<div class="line"><code class="docutils literal"><span class="pre">case_sensitive</span></code>: Enforces case sensitive, String only</div>
+<div class="line"><code class="docutils literal"><span class="pre">reverse</span></code>: Reverses result of Collector</div>
+</div>
+</li>
 </ul>
 </td>
 </tr>
@@ -348,7 +341,7 @@ Not to be confused with the Filter Class.</p>
 <dt id="rpw.collector._Filter._chain">
 <code class="descname">_chain</code><span class="sig-paren">(</span><em>filters</em>, <em>collector=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter._chain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Chain filters together.</p>
-<p>Converts this syntax: <cite>collector.filter(of_class=X, is_element=True)</cite>
+<p>Converts this syntax: <cite>collector.filter(of_class=X, is_not_type=True)</cite>
 into: <cite>FilteredElementCollector.OfClass(X).WhereElementisNotElementType()</cite></p>
 <p>A copy of the filters is copied after each pass so the Function
 can be called recursevily in a queue.</p>
@@ -381,7 +374,15 @@ namespace.</p>
 
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Comparison:</span>
+
+<span class="sd">    &gt;&gt;&gt; levels = rpw.Collector(of_category=&#39;OST_Levels&#39;, is_type=True)</span>
+<span class="sd">    &gt;&gt;&gt; levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">elements_to_element_ids</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -402,21 +403,18 @@ namespace.</p>
 
 <span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
 <span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls,</span>
-<span class="sd">                                        is_element_type=True)</span>
+<span class="sd">                                        is_type=True)</span>
 
 <span class="sd">        Chain Preserves Previous Results:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
 <span class="sd">        &gt;&gt;&gt; walls = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
-<span class="sd">        &gt;&gt;&gt; walls.filter(is_element_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; walls.filter(is_type=True)</span>
 
-<span class="sd">        Use Enumeration member or string shortcut:</span>
+<span class="sd">        Use Enumeration member or name as string:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;OST_Walls&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;ViewType&#39;)</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Collector: Returns collector Class</span>
+<span class="sd">        &gt;&gt;&gt; collector.filter(of_class=&#39;ViewType&#39;)</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        collector.elements: Returns list of all *collected* elements</span>
@@ -431,14 +429,26 @@ namespace.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            view (Revit.DB.View) = View Scope (Optional)</span>
+<span class="sd">            **filters (dict) = Scope and filters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Collector (:any:`collector`): Collector Instance</span>
 
 <span class="sd">        Scope Options:</span>
-<span class="sd">            view (DB.View) = View Scope (Optional)</span>
-<span class="sd">            element_ids ([ElementId]) = List of Element Ids to limit Collector Scope</span>
-<span class="sd">            elements ([Element]) = List of Elements to limit Collector Scope</span>
+<span class="sd">            * ``view`` `(DB.View)`: View Scope (Optional)</span>
+<span class="sd">            * ``element_ids`` `([ElementId])`: List of Element Ids to limit Collector Scope</span>
+<span class="sd">            * ``elements`` `([Element])`: List of Elements to limit Collector Scope</span>
 
 <span class="sd">        Filter Options:</span>
-<span class="sd">            is_</span>
+<span class="sd">            * ``is_not_type`` `(bool)`: Same as ``WhereElementIsNotElementType``</span>
+<span class="sd">            * ``is_type`` `(bool)`: Same as ``WhereElementIsElementType``</span>
+<span class="sd">            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be DB Type String: DB.Wall or &#39;Wall&#39;</span>
+<span class="sd">            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: `DB.BuiltInCategory.OST_Wall` or &#39;OST_Wall&#39;</span>
+<span class="sd">            * ``is_view_independent`` `(bool)`: ``WhereElementIsViewIndependent(True)``</span>
+<span class="sd">            * ``parameter_filter`` `(:any:`ParameterFilter`)`: Similar to ``ElementParameterFilter`` Class</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Only one scope filter should be used per query.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;view&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
@@ -459,13 +469,17 @@ namespace.</p>
         <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">collector</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">valid_filters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">valid_filters</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Collector Filter not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">filters</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">_Filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># Allows Class to Excecute on Construction, if filters are present.</span>
         <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">valid_filters</span><span class="p">)</span>  <span class="c1"># Call</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">filters</span><span class="p">)</span>  <span class="c1"># Call</span>
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Collector Iterator</span>
@@ -502,8 +516,8 @@ namespace.</p>
     <span class="n">MAP</span> <span class="o">=</span> <span class="p">{</span>
              <span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="s1">&#39;OfClass&#39;</span><span class="p">,</span>
              <span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="s1">&#39;OfCategory&#39;</span><span class="p">,</span>
-             <span class="s1">&#39;is_element&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsNotElementType&#39;</span><span class="p">,</span>
-             <span class="s1">&#39;is_element_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsElementType&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsNotElementType&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsElementType&#39;</span><span class="p">,</span>
              <span class="s1">&#39;is_view_independent&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsViewIndependent&#39;</span><span class="p">,</span>
              <span class="s1">&#39;parameter_filter&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
             <span class="p">}</span>
@@ -529,7 +543,7 @@ namespace.</p>
     <span class="k">def</span> <span class="nf">_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">collector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Chain filters together.</span>
 
-<span class="sd">        Converts this syntax: `collector.filter(of_class=X, is_element=True)`</span>
+<span class="sd">        Converts this syntax: `collector.filter(of_class=X, is_not_type=True)`</span>
 <span class="sd">        into: `FilteredElementCollector.OfClass(X).WhereElementisNotElementType()`</span>
 
 <span class="sd">        A copy of the filters is copied after each pass so the Function</span>
@@ -599,32 +613,6 @@ namespace.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        FilterRule: A filter rule object, depending on arguments.</span>
 
-<span class="sd">    Note:</span>
-
-<span class="sd">        The FilterRule returned will be one of the following:</span>
-
-<span class="sd">            * FilterDoubleRule</span>
-<span class="sd">            * FilterElementIdRule</span>
-<span class="sd">            * FilterCategoryRule</span>
-<span class="sd">            * FilterStringRule</span>
-<span class="sd">            * FilterIntegerRule</span>
-<span class="sd">            * SharedParameterApplicableRule</span>
-
-<span class="sd">        Internally, the class uses the ParameterFilterRuleFactory Class:</span>
-
-<span class="sd">            * ParameterFilterRuleFactory.CreateBeginsWithRule(param_id, value, case_sensitive)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateContainsRule(param_id, value, case_sensitive)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateEndsWithRule(param_id, value, case_sensitive)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateEqualsRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateGreaterOrEqualRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateGreaterRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateLessOrEqualRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateLessRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateNotBeginsWithRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateNotContainsRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateNotEqualsRule(param_id, value)</span>
-<span class="sd">            * ParameterFilterRuleFactory.CreateSharedParameterApplicableRule(param_name)</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">RULES</span> <span class="o">=</span> <span class="p">{</span>
@@ -655,29 +643,29 @@ namespace.</p>
 
 <span class="sd">        Args:</span>
 <span class="sd">            param_id(DB.ElementID): ElemendId of parameter</span>
-<span class="sd">            **conditions: Filter Rule Conditions</span>
+<span class="sd">            **conditions: Filter Rule Conditions and options.</span>
 
 <span class="sd">            conditions:</span>
-<span class="sd">                | equals</span>
-<span class="sd">                | contains</span>
-<span class="sd">                | begins</span>
-<span class="sd">                | ends</span>
-<span class="sd">                | greater</span>
-<span class="sd">                | greater_equal</span>
-<span class="sd">                | less</span>
-<span class="sd">                | less_equal</span>
-<span class="sd">                | not_equals</span>
-<span class="sd">                | not_contains</span>
-<span class="sd">                | not_begins</span>
-<span class="sd">                | not_ends</span>
-<span class="sd">                | not_greater</span>
-<span class="sd">                | not_greater_equal</span>
-<span class="sd">                | not_less</span>
-<span class="sd">                | not_less_equal</span>
+<span class="sd">                | ``equals``</span>
+<span class="sd">                | ``contains``</span>
+<span class="sd">                | ``begins``</span>
+<span class="sd">                | ``ends``</span>
+<span class="sd">                | ``greater``</span>
+<span class="sd">                | ``greater_equal``</span>
+<span class="sd">                | ``less``</span>
+<span class="sd">                | ``less_equal``</span>
+<span class="sd">                | ``not_equals``</span>
+<span class="sd">                | ``not_contains``</span>
+<span class="sd">                | ``not_begins``</span>
+<span class="sd">                | ``not_ends``</span>
+<span class="sd">                | ``not_greater``</span>
+<span class="sd">                | ``not_greater_equal``</span>
+<span class="sd">                | ``not_less``</span>
+<span class="sd">                | ``not_less_equal``</span>
 
 <span class="sd">            options:</span>
-<span class="sd">                case_sensitive: Enforces case sensitive, String only</span>
-<span class="sd">                reverse: Reverses result of Collector</span>
+<span class="sd">                | ``case_sensitive``: Enforces case sensitive, String only</span>
+<span class="sd">                | ``reverse``: Reverses result of Collector</span>
 
 <span class="sd">        Usage:</span>
 <span class="sd">            &gt;&gt;&gt; param_rule = ParameterFilter(param_id, equals=2)</span>
@@ -691,10 +679,12 @@ namespace.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">case_sensitive</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;case_sensitive&#39;</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">CASE_SENSITIVE</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">FLOAT_PRECISION</span><span class="p">)</span>
 
-        <span class="n">valid_rule</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">conditions</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">RULES</span><span class="p">]</span>
-        <span class="n">valid_rules</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">condition_name</span> <span class="ow">in</span> <span class="n">valid_rule</span><span class="p">:</span>
-            <span class="n">condition_value</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">condition_name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">condition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">RULES</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Rule not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+        <span class="n">rules</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_value</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
 
             <span class="c1"># Returns on of the CreateRule factory method names above</span>
             <span class="n">rule_factory_name</span> <span class="o">=</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">RULES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">condition_name</span><span class="p">)</span>
@@ -718,10 +708,10 @@ namespace.</p>
             <span class="c1"># logger.critical(&#39;ARGS: {}&#39;.format(args))</span>
             <span class="c1"># logger.critical(filter_rule)</span>
             <span class="c1"># logger.critical(str(dir(filter_rule)))</span>
-            <span class="n">valid_rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_rule</span><span class="p">:</span>
+            <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rules</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;malformed filter rule: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conditions</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementParameterFilter</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">FilterRule</span><span class="p">](</span><span class="n">valid_rules</span><span class="p">),</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementParameterFilter</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">FilterRule</span><span class="p">](</span><span class="n">rules</span><span class="p">),</span>
                                                        <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

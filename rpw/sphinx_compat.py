@@ -9,3 +9,7 @@ version = None
 platform = None
 DB = DB()
 List = None
+
+wpf = None
+Application = None
+Window = object

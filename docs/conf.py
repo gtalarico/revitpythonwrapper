@@ -31,7 +31,7 @@ sys.path.append(root_dir)
 
 # sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper\\rpw')
 # sys.setrecursionlimit(500)
-# autodoc_mock_imports = ['clr']
+autodoc_mock_imports = ['wpf']
 
 napoleon_google_docstring = True
 napoleon_include_private_with_doc = True

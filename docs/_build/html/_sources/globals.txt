@@ -9,6 +9,10 @@ Globals
 
 Global variables help normalize imports across platforms.
 
+    >>> from rpw import doc, uidoc, DB, UI
+    >>> uidoc.ActiveView
+    >>> DB.ElementId(00000)
+
 .. data:: doc
     :module: rpw
     :annotation: Application Document handler

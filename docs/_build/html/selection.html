@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
@@ -165,6 +166,25 @@ Makes easier to manipulate Active Selection.</p>
 <dd>self._revit_object = <cite>Revit.UI.Selection</cite></dd>
 </dl>
 <dl class="method">
+<dt id="rpw.selection.Selection.__bool__">
+<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__bool__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><cite>False</cite> if selection  is empty, <cite>True</cite> otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">Selection</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Evaluates to True if selection is not empty</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="rpw.selection.Selection.__getitem__">
 <code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves element using index.
@@ -175,7 +195,9 @@ If Index is out range, <cite>None</cite> is returned</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>int</strong> &#8211; Integer representing list index.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><cite>DB.Element</cite>, <cite>None</cite></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Item at Index, or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><cite>DB.Element</cite>, <cite>None</cite></td>
 </tr>
 </tbody>
 </table>
@@ -193,13 +215,24 @@ If Index is out range, <cite>None</cite> is returned</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB.ElementID)</strong> (<em>(DB.Element,</em>) &#8211; Elements or ElementIds</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elements</strong> (<em>[DB.Element or DB.ElementID]</em>) &#8211; Elements or ElementIds</td>
 </tr>
 </tbody>
 </table>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="n">SomeElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">([</span><span class="n">Element</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Element</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.selection.Selection.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number items of Selection</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="n">OneElement</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
+<span class="go">1</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -212,12 +245,14 @@ If Index is out range, <cite>None</cite> is returned</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB.ElementID)</strong> (<em>(DB.Element,</em>) &#8211; Elements or ElementIds</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elements</strong> (<em>[DB.Element or DB.ElementID]</em>) &#8211; Elements or ElementIds</td>
 </tr>
 </tbody>
 </table>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">SomeElement</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">elements</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">element_ids</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -226,6 +261,10 @@ If Index is out range, <cite>None</cite> is returned</p>
 <dt id="rpw.selection.Selection.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears Selection</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -300,7 +339,7 @@ If Index is out range, <cite>None</cite> is returned</p>
 <span class="sd">        Initializes Selection.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            (DB.Element, DB.ElementID): Elements or ElementIds</span>
+<span class="sd">            elements ([DB.Element or DB.ElementID]): Elements or ElementIds</span>
 
 <span class="sd">        &gt;&gt;&gt; selection = Selection(SomeElement)</span>
 <span class="sd">        &gt;&gt;&gt; selection = Selection(SomeElementId)</span>
@@ -315,10 +354,12 @@ If Index is out range, <cite>None</cite> is returned</p>
         <span class="sd">&quot;&quot;&quot; Adds elements to selection. Takes elements or element ids</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            (DB.Element, DB.ElementID): Elements or ElementIds</span>
+<span class="sd">            elements ([DB.Element or DB.ElementID]): Elements or ElementIds</span>
 
 <span class="sd">        &gt;&gt;&gt; selection = Selection()</span>
 <span class="sd">        &gt;&gt;&gt; selection.add(SomeElement)</span>
+<span class="sd">        &gt;&gt;&gt; selection.add([elements])</span>
+<span class="sd">        &gt;&gt;&gt; selection.add([element_ids])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elements_or_ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">elements_or_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">elements_or_ids</span><span class="p">]</span>
@@ -356,6 +397,9 @@ If Index is out range, <cite>None</cite> is returned</p>
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Clears Selection</span>
 
+<span class="sd">        &gt;&gt;&gt; selection = Selection()</span>
+<span class="sd">        &gt;&gt;&gt; selection.clear()</span>
+
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -370,7 +414,7 @@ If Index is out range, <cite>None</cite> is returned</p>
 <span class="sd">            int: Integer representing list index.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            `DB.Element`, `None`</span>
+<span class="sd">            `DB.Element`, `None`: Item at Index, or None</span>
 
 <span class="sd">        &gt;&gt;&gt; selection[0]</span>
 <span class="sd">        &lt; Revit.DB.Element &gt;</span>
@@ -379,10 +423,22 @@ If Index is out range, <cite>None</cite> is returned</p>
 
 
     <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: `False` if selection  is empty, `True` otherwise</span>
+
+<span class="sd">        &gt;&gt;&gt; if Selection():</span>
+<span class="sd">        &gt;&gt;&gt; # Evaluates to True if selection is not empty</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Number items of Selection &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Number items of Selection</span>
+
+<span class="sd">        &gt;&gt;&gt; selection = Selection(OneElement)</span>
+<span class="sd">        &gt;&gt;&gt; len(selection)</span>
+<span class="sd">        1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_ids</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

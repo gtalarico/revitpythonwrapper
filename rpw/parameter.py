@@ -11,12 +11,15 @@ from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 from rpw.base import BaseObjectWrapper
 
+
 class _ParameterSet(BaseObjectWrapper):
     """
     Revit Element Parameter List Wrapper.
 
     Allows you to treat an element parameters as if it was a dictionary.
     Keeping element store so other methods beyond Parameters can be used.
+
+    This class lives at an elemnt's .parameters attribute.
 
     Attributes:
         _revit_object (DB.Element) = Revit Reference
@@ -49,6 +52,14 @@ class _ParameterSet(BaseObjectWrapper):
         if not parameter:
             raise RPW_ParameterNotFound(self._revit_object, param_name)
         return Parameter(parameter)
+
+    def __setitem__(self, param_name, value):
+        """ Sets value to element's parameter
+
+        >>> element.parameter['Height'] = value
+        """
+        parameter = self.__getitem__(param_name)
+        parameter.value = value
 
     @property
     def all(self):
@@ -246,6 +257,7 @@ class Parameter(BaseObjectWrapper):
     @property
     def builtin(self):
         """ Returns the BuiltInParameter name of Parameter.
+        Same as DB.Parameter.Definition.BuiltIn
 
         Usage:
             >>> element.parameters['Comments'].builtin_name

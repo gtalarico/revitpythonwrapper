@@ -1,3 +1,11 @@
+"""
+Comparison:
+
+    >>> levels = rpw.Collector(of_category='OST_Levels', is_type=True)
+    >>> levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
+
+"""
+
 from rpw import uidoc, doc, DB
 from rpw import List
 from rpw.coerce import elements_to_element_ids
@@ -19,21 +27,18 @@ class Collector(BaseObjectWrapper):
 
         >>> collector = Collector()
         >>> elements = collector.filter(of_category=BuiltInCategory.OST_Walls,
-                                        is_element_type=True)
+                                        is_type=True)
 
         Chain Preserves Previous Results:
 
         >>> collector = Collector()
         >>> walls = collector.filter(of_category=BuiltInCategory.OST_Walls)
-        >>> walls.filter(is_element_type=True)
+        >>> walls.filter(is_type=True)
 
-        Use Enumeration member or string shortcut:
+        Use Enumeration member or name as string:
 
         >>> collector.filter(of_category='OST_Walls')
-        >>> collector.filter(of_category='ViewType')
-
-    Returns:
-        Collector: Returns collector Class
+        >>> collector.filter(of_class='ViewType')
 
     Attributes:
         collector.elements: Returns list of all *collected* elements
@@ -48,19 +53,26 @@ class Collector(BaseObjectWrapper):
         """
         Args:
             view (Revit.DB.View) = View Scope (Optional)
+            **filters (dict) = Scope and filters
+
+        Returns:
+            Collector (:any:`collector`): Collector Instance
 
         Scope Options:
-            view (DB.View) = View Scope (Optional)
-            element_ids ([ElementId]) = List of Element Ids to limit Collector Scope
-            elements ([Element]) = List of Elements to limit Collector Scope
+            * ``view`` `(DB.View)`: View Scope (Optional)
+            * ``element_ids`` `([ElementId])`: List of Element Ids to limit Collector Scope
+            * ``elements`` `([Element])`: List of Elements to limit Collector Scope
 
         Filter Options:
-            is_element (bool) = Must be not be ElementType ``WhereElementIsNotElementType``
-            is_element_type (bool) = Must be ElementType ``WhereElementIsElementType``
-            of_class (Type) = Type can be DB Type String: DB.Wall or 'Wall'
-            of_category (BuiltInCategory Enum) = Type can be Enum member or String: DB.BuiltInCategory.OST_Wall or 'OST_Wall'
-            is_view_independent (bool) = ``WhereElementIsViewIndependent(True)``
-            parameter_filter (:any:`ParameterFilter`) = ParameterFilter Class
+            * ``is_not_type`` `(bool)`: Same as ``WhereElementIsNotElementType``
+            * ``is_type`` `(bool)`: Same as ``WhereElementIsElementType``
+            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be DB Type String: DB.Wall or 'Wall'
+            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: `DB.BuiltInCategory.OST_Wall` or 'OST_Wall'
+            * ``is_view_independent`` `(bool)`: ``WhereElementIsViewIndependent(True)``
+            * ``parameter_filter`` `(:any:`ParameterFilter`)`: Similar to ``ElementParameterFilter`` Class
+
+        Note:
+            Only one scope filter should be used per query.
 
         """
         if 'view' in filters:
@@ -81,13 +93,17 @@ class Collector(BaseObjectWrapper):
         super(Collector, self).__init__(collector)
 
         self.elements = []
-        valid_filters = {k: v for k, v in filters.iteritems() if k in _Filter.MAP}
-        self._filters = valid_filters
+
+        for key in filters.keys():
+            if key not in _Filter.MAP:
+                raise RPW_Exception('Collector Filter not valid: {}'.format(key))
+
+        self._filters = filters
 
         self.filter = _Filter(self)
         # Allows Class to Excecute on Construction, if filters are present.
         if filters:
-            self.filter(**valid_filters)  # Call
+            self.filter(**filters)  # Call
 
     def __iter__(self):
         """ Collector Iterator
@@ -124,8 +140,8 @@ class _Filter():
     MAP = {
              'of_class': 'OfClass',
              'of_category': 'OfCategory',
-             'is_element': 'WhereElementIsNotElementType',
-             'is_element_type': 'WhereElementIsElementType',
+             'is_not_type': 'WhereElementIsNotElementType',
+             'is_type': 'WhereElementIsElementType',
              'is_view_independent': 'WhereElementIsViewIndependent',
              'parameter_filter': 'WherePasses',
             }
@@ -151,7 +167,7 @@ class _Filter():
     def _chain(self, filters, collector=None):
         """ Chain filters together.
 
-        Converts this syntax: `collector.filter(of_class=X, is_element=True)`
+        Converts this syntax: `collector.filter(of_class=X, is_not_type=True)`
         into: `FilteredElementCollector.OfClass(X).WhereElementisNotElementType()`
 
         A copy of the filters is copied after each pass so the Function
@@ -221,32 +237,6 @@ class ParameterFilter(BaseObjectWrapper):
     Returns:
         FilterRule: A filter rule object, depending on arguments.
 
-    Note:
-
-        The FilterRule returned will be one of the following:
-
-            * FilterDoubleRule
-            * FilterElementIdRule
-            * FilterCategoryRule
-            * FilterStringRule
-            * FilterIntegerRule
-            * SharedParameterApplicableRule
-
-        Internally, the class uses the ParameterFilterRuleFactory Class:
-
-            * ParameterFilterRuleFactory.CreateBeginsWithRule(param_id, value, case_sensitive)
-            * ParameterFilterRuleFactory.CreateContainsRule(param_id, value, case_sensitive)
-            * ParameterFilterRuleFactory.CreateEndsWithRule(param_id, value, case_sensitive)
-            * ParameterFilterRuleFactory.CreateEqualsRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateGreaterOrEqualRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateGreaterRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateLessOrEqualRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateLessRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateNotBeginsWithRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateNotContainsRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateNotEqualsRule(param_id, value)
-            * ParameterFilterRuleFactory.CreateSharedParameterApplicableRule(param_name)
-
     """
 
     RULES = {
@@ -277,29 +267,29 @@ class ParameterFilter(BaseObjectWrapper):
 
         Args:
             param_id(DB.ElementID): ElemendId of parameter
-            **conditions: Filter Rule Conditions
+            **conditions: Filter Rule Conditions and options.
 
             conditions:
-                | equals
-                | contains
-                | begins
-                | ends
-                | greater
-                | greater_equal
-                | less
-                | less_equal
-                | not_equals
-                | not_contains
-                | not_begins
-                | not_ends
-                | not_greater
-                | not_greater_equal
-                | not_less
-                | not_less_equal
+                | ``equals``
+                | ``contains``
+                | ``begins``
+                | ``ends``
+                | ``greater``
+                | ``greater_equal``
+                | ``less``
+                | ``less_equal``
+                | ``not_equals``
+                | ``not_contains``
+                | ``not_begins``
+                | ``not_ends``
+                | ``not_greater``
+                | ``not_greater_equal``
+                | ``not_less``
+                | ``not_less_equal``
 
             options:
-                case_sensitive: Enforces case sensitive, String only
-                reverse: Reverses result of Collector
+                | ``case_sensitive``: Enforces case sensitive, String only
+                | ``reverse``: Reverses result of Collector
 
         Usage:
             >>> param_rule = ParameterFilter(param_id, equals=2)
@@ -313,10 +303,12 @@ class ParameterFilter(BaseObjectWrapper):
         self.case_sensitive = conditions.get('case_sensitive', ParameterFilter.CASE_SENSITIVE)
         self.precision = conditions.get('precision', ParameterFilter.FLOAT_PRECISION)
 
-        valid_rule = [x for x in conditions if x in ParameterFilter.RULES]
-        valid_rules = []
-        for condition_name in valid_rule:
-            condition_value = conditions[condition_name]
+        for condition in conditions.keys():
+            if condition not in ParameterFilter.RULES:
+                raise RPW_Exception('Rule not valid: {}'.format(key))
+
+        rules = []
+        for condition_name, condition_value in conditions.iteritems():
 
             # Returns on of the CreateRule factory method names above
             rule_factory_name = ParameterFilter.RULES.get(condition_name)
@@ -340,10 +332,10 @@ class ParameterFilter(BaseObjectWrapper):
             # logger.critical('ARGS: {}'.format(args))
             # logger.critical(filter_rule)
             # logger.critical(str(dir(filter_rule)))
-            valid_rules.append(filter_rule)
-        if not valid_rule:
+            rules.append(filter_rule)
+        if not rules:
             raise RPW_Exception('malformed filter rule: {}'.format(conditions))
-        self._revit_object = DB.ElementParameterFilter(List[DB.FilterRule](valid_rules),
+        self._revit_object = DB.ElementParameterFilter(List[DB.FilterRule](rules),
                                                        self.reverse)
 
     def __repr__(self):

@@ -4,19 +4,22 @@
    contain the root `toctree` directive.
 
 
-Selection
+Forms
 ==================
 
-Wrappers to help handle Selection.
+Forms are provided to facilitate user input.
 
-.. automodule:: rpw.selection
+.. automodule:: rpw.forms.forms
     :members:
-    :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
+    :special-members: __init__
     :private-members:
     :show-inheritance:
 
 
+.. image:: _static/forms.png
+
 Implementation
 **************
 
-.. literalinclude:: ../rpw/selection.py
+.. literalinclude:: ../rpw/forms/forms.py
+    :start-after: cwd

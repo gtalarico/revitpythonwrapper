@@ -26,7 +26,7 @@ class Selection(BaseObjectWrapper):
         Initializes Selection.
 
         Args:
-            (DB.Element, DB.ElementID): Elements or ElementIds
+            elements ([DB.Element or DB.ElementID]): Elements or ElementIds
 
         >>> selection = Selection(SomeElement)
         >>> selection = Selection(SomeElementId)
@@ -41,10 +41,12 @@ class Selection(BaseObjectWrapper):
         """ Adds elements to selection. Takes elements or element ids
 
         Args:
-            (DB.Element, DB.ElementID): Elements or ElementIds
+            elements ([DB.Element or DB.ElementID]): Elements or ElementIds
 
         >>> selection = Selection()
         >>> selection.add(SomeElement)
+        >>> selection.add([elements])
+        >>> selection.add([element_ids])
         """
         if not isinstance(elements_or_ids, list):
             elements_or_ids = [elements_or_ids]
@@ -82,6 +84,9 @@ class Selection(BaseObjectWrapper):
     def clear(self):
         """ Clears Selection
 
+        >>> selection = Selection()
+        >>> selection.clear()
+
         Returns:
             None
         """
@@ -96,7 +101,7 @@ class Selection(BaseObjectWrapper):
             int: Integer representing list index.
 
         Returns:
-            `DB.Element`, `None`
+            `DB.Element`, `None`: Item at Index, or None
 
         >>> selection[0]
         < Revit.DB.Element >
@@ -105,10 +110,22 @@ class Selection(BaseObjectWrapper):
 
 
     def __bool__(self):
+        """
+        Returns:
+            bool: `False` if selection  is empty, `True` otherwise
+
+        >>> if Selection():
+        >>> # Evaluates to True if selection is not empty
+        """
         return bool(self.elements)
 
     def __len__(self):
-        """ Number items of Selection """
+        """ Number items of Selection
+
+        >>> selection = Selection(OneElement)
+        >>> len(selection)
+        1
+        """
         return len(self.element_ids)
 
     def __repr__(self):

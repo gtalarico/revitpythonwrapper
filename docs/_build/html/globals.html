@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
@@ -145,6 +146,11 @@
   <div class="section" id="globals">
 <h1>Globals<a class="headerlink" href="#globals" title="Permalink to this headline">¶</a></h1>
 <p>Global variables help normalize imports across platforms.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="mi">00000</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="data">
 <dt id="rpw.doc">
 <code class="descclassname">rpw.</code><code class="descname">doc</code><em class="property"> Application Document handler</em><a class="headerlink" href="#rpw.doc" title="Permalink to this definition">¶</a></dt>
@@ -167,18 +173,24 @@
 
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="c1">#  This is a workaround to fix Sphinx&#39;s autodoc</span>
     <span class="kn">import</span> <span class="nn">clr</span>
     <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
     <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPIUI&#39;</span><span class="p">)</span>
     <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;System&#39;</span><span class="p">)</span>
+
     <span class="kn">from</span> <span class="nn">Autodesk.Revit</span> <span class="k">import</span> <span class="n">DB</span>
     <span class="kn">from</span> <span class="nn">Autodesk.Revit</span> <span class="k">import</span> <span class="n">UI</span>
     <span class="kn">from</span> <span class="nn">System.Collections.Generic</span> <span class="k">import</span> <span class="n">List</span>
+
+    <span class="c1"># clr.AddReference(&#39;PresentationCore&#39;)</span>
+    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;PresentationFramework&quot;</span><span class="p">)</span>
+    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Import Failed Using Fake Import&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Import Failed Using Fake Import&#39;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -186,7 +198,7 @@
     <span class="n">doc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
     <span class="n">version</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
     <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;revit&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running In PyRevit&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running In Revit&quot;</span><span class="p">)</span>
 
 <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could not find pyRevit Document. Trying Dynamo.&#39;</span><span class="p">)</span>
@@ -206,13 +218,14 @@
         <span class="n">uidoc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
         <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dynamo&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running in Dynamo&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running in Dynamo&#39;</span><span class="p">)</span>
 
 
 <span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
 <span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>
 <span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span>
 <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">forms</span>
 </pre></div>
 </div>
 </div>

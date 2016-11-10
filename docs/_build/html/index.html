@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
@@ -144,19 +145,22 @@
 </div>
 <span class="target" id="module-rpw"></span><div class="section" id="a-python-wrapper-for-the-revit-api">
 <h2>A Python Wrapper For the Revit API<a class="headerlink" href="#a-python-wrapper-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
-<p>Revit Python Wrapper helps write Revit API code in Python.</p>
+<p>Revit Python Wrapper helps lazy programmers write Revit API code in Python.</p>
 <p>The Wrappers make the interaction with API objects more
 consistent with Python&#8217;s conventions, and also implement
 patterns to make your code more conscise.</p>
 <p>The wrapper will also normalize application and document handler, as well
 as some  API version-specific calls so you can re-use your code across
 platforms and Revit API versions.</p>
-<div class="section" id="when-should-i-use-rpw">
-<h3>When should I Use RPW<a class="headerlink" href="#when-should-i-use-rpw" title="Permalink to this headline">¶</a></h3>
+<p>This library should not be used in complex applications, and it&#8217;s not guaranteed
+it will be maintained at all.</p>
+<div class="section" id="when-to-use-rpw">
+<h3>When to Use RPW<a class="headerlink" href="#when-to-use-rpw" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Non-mission critical work</li>
 <li>When you are working in the RevitPythonShell, pyRevit, or Dynamo Python Nodes</li>
 <li>When you want your code to work with no change in the aforementioned platforms</li>
+<li>Short scripts and other non-mission-critical work</li>
+<li>Testing, and educational purporses</li>
 </ul>
 </div>
 <div class="section" id="project-goals">
@@ -167,8 +171,12 @@ platforms and Revit API versions.</p>
 <li>Implement Resusable patterns to reduce repetitive tasks</li>
 <li>Create wrappers to make common calls more natural to Python</li>
 <li>Increase code re-use</li>
-<li>Handle data coercion for more flexibility (see <a class="reference internal" href="enumeration.html#module-rpw.enumeration" title="rpw.enumeration"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.enumeration</span></code></a> for example)</li>
+<li>Handle data coercion for more flexibility (see <a class="reference internal" href="selection.html#module-rpw.selection" title="rpw.selection"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.selection</span></code></a> for example)</li>
 </ul>
+<div class="section" id="license">
+<h4>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="https://opensource.org/licenses/MIT">MIT License</a></p>
+</div>
 </div>
 <div class="section" id="using-revitpythonwrapper">
 <h3>Using RevitPythonWrapper<a class="headerlink" href="#using-revitpythonwrapper" title="Permalink to this headline">¶</a></h3>
@@ -294,6 +302,18 @@ platforms and Revit API versions.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">WallType</span><span class="p">)</span><span class="o">.</span><span class="n">WherePasses</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="forms">
+<h3><a class="reference internal" href="forms.html"><span class="doc">Forms</span></a><a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Option 1&#39;</span><span class="p">,</span><span class="s1">&#39;Option 2&#39;</span><span class="p">,</span><span class="s1">&#39;Option 3&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Window Title&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Form shows on screen</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">form_ok</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span> <span class="c1"># User Canceld</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selected_item</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+</pre></div>
 </div>
 </div>
 </div>

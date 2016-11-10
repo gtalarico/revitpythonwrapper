@@ -18,17 +18,29 @@ class SelectFromList(Form):
 
     """
     form = SelectFromList(floor_types.keys())
-    form.ShowDialog()
+    form.show()
 
     if form.DialogResult == DialogResult.OK:
         chosen_type_name = form.selected
 
     """
 
-    def __init__(self, options):
+    def __init__(self, title, options, sort=True):
+        """
+
+        Args:
+            title (str): Title of Prompt
+            options (dict): Name:Object
+            **sort (bool): Sort Entries
+
+        """
+
+        self.selected = None
+        if sort:
+            options = sorted(options)
 
         #  Window Settings
-        self.Text = 'Select View Type'
+        self.Text = title or 'Select View Type'
         self.MinimizeBox = False
         self.MaximizeBox = False
         self.BackgroundColor = Color.White
@@ -58,3 +70,15 @@ class SelectFromList(Form):
         self.selected = self.combobox.SelectedValue
         self.DialogResult = DialogResult.OK
         self.Close()
+
+    def show(self):
+        """ Show Dialog """
+        self.ShowDialog()
+
+    # @property
+    # def result(self):
+    #     """ Get Form Selection """
+    #     if self.DialogResult == DialogResult.OK:
+    #         return self.selected
+    #     else:
+    #         return None
