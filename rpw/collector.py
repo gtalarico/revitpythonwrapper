@@ -166,11 +166,11 @@ class _Filter():
     def _chain(self, filters, collector=None):
         """ Chain filters together.
 
-        Converts this syntax: `collector.filter(of_class=X, is_not_type=True)`
-        into: `FilteredElementCollector.OfClass(X).WhereElementisNotElementType()`
+        Builts API syntax, by converting ```collector.filter(of_class=X, is_not_type=True)``
+        into: ```FilteredElementCollector.OfClass(X).WhereElementisNotElementType()``
 
-        A copy of the filters is copied after each pass so the Function
-        can be called recursevily in a queue.
+        Iteration happens over a copy of filter dictionary, so applied filter
+        can be poppped before chain enters deeper recursion level.
         """
         #TODO: parameter_filter should accept list so multiple filters can be applied
         # First Loop
@@ -191,23 +191,26 @@ class _Filter():
             elif isinstance(filter_value, ParameterFilter):
                 # Same as WherePasses(ParameterFilter)
                 collector_results = collector_filter(filter_value._revit_object)
-            else:
-                # Same as OfCategory(filter_value)
+            elif filter_name == 'of_class' or filter_name == 'of_category':
+                # Same as OfCategory(filter_value) and OfClass(filter_value)
                 collector_results = collector_filter(filter_value)
+            else:
+                raise RPW_Exception('unknown parameter filter error: {}:{}'.format(
+                                    filter_name, filter_value))
             filter_stack.pop(filter_name)
             collector = self._chain(filter_stack, collector=collector)
 
         return collector
 
     def _coerce_filter_values(self, filters):
-        """ Allows value to be either Enumerate or string.
+        """ Allows filter values to be either Enumerate or string
 
         Usage:
-            >>> elements = collector.filter(of_category=BuiltInCategory.OST_Walls)
-            >>> elements = collector.filter(of_category='OST_Walls')
+            >>> elements = Collector(of_category=BuiltInCategory.OST_Walls)
+            >>> elements = Collector(of_category='OST_Walls')
 
-            >>> elements = collector.filter(of_class=WallType)
-            >>> elements = collector.filter(of_class='WallType')
+            >>> elements = Collector(of_class=WallType)
+            >>> elements = Collector(of_class='WallType')
 
         Note:
             String Connversion for `of_class` only works for the Revit.DB
@@ -229,16 +232,17 @@ class ParameterFilter(BaseObjectWrapper):
     """ Parameter Filter Wrapper
 
     Usage:
+        >>> param_id = DB.ElemendId(DB.BuiltInParameter.SOME_PARAMETER)
         >>> parameter_filter = ParameterFilter('Type Name', equals='Wall 1')
-        >>> collector = Collector(parameter_filter=parameter_filter)
-
-        >>> parameter_filter = ParameterFilter('Height', less_than=10)
         >>> collector = Collector(parameter_filter=parameter_filter)
 
     Returns:
         FilterRule: A filter rule object, depending on arguments.
-
     """
+    # TODO: parameter_filter from object+param name to skip having to get param_id
+    #       basically an alternative constructor that takes elemement + parameter name
+    #       instead of param_id, which is a pain in the ass
+    #       >>> parameter_filter = ParameterFilter.from_element(element,param_name, less_than=10)
 
     RULES = {
             'equals': 'CreateEqualsRule',
@@ -266,6 +270,10 @@ class ParameterFilter(BaseObjectWrapper):
         """
         Creates Parameter Filter Rule
 
+        >>> param_rule = ParameterFilter(param_id, equals=2)
+        >>> param_rule = ParameterFilter(param_id, not_equals='a', case_sensitive=True)
+        >>> param_rule = ParameterFilter(param_id, not_equals=3, reverse=True)
+
         Args:
             param_id(DB.ElementID): ElemendId of parameter
             **conditions: Filter Rule Conditions and options.
@@ -291,11 +299,6 @@ class ParameterFilter(BaseObjectWrapper):
             options:
                 | ``case_sensitive``: Enforces case sensitive, String only
                 | ``reverse``: Reverses result of Collector
-
-        Usage:
-            >>> param_rule = ParameterFilter(param_id, equals=2)
-            >>> param_rule = ParameterFilter(param_id, not_equals='a', case_sensitive=True)
-            >>> param_rule = ParameterFilter(param_id, not_equals=3, reverse=True)
 
         """
         self.parameter_id = parameter_id
@@ -326,13 +329,16 @@ class ParameterFilter(BaseObjectWrapper):
             filter_rule = filter_value_rule(parameter_id, *args)
             if 'not_' in condition_name:
                 filter_rule = DB.FilterInverseRule(filter_rule)
-            # DEBUG INFO:
+            ##################################################################
+            # FILTER DEBUG INFO - TODO: MOVE TO FUNCTION
+            ##################################################################
             # logger.critical('Conditions: {}'.format(conditions))
             # logger.critical('Case sensitive: {}'.format(self.case_sensitive))
             # logger.critical('Reverse: {}'.format(self.reverse))
             # logger.critical('ARGS: {}'.format(args))
             # logger.critical(filter_rule)
             # logger.critical(str(dir(filter_rule)))
+            ##################################################################
             rules.append(filter_rule)
         if not rules:
             raise RPW_Exception('malformed filter rule: {}'.format(conditions))
