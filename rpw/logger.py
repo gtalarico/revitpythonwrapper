@@ -54,7 +54,7 @@ class LoggerWrapper():
         formatter = logging.Formatter("[%(levelname)s] %(message)s")
         handler.setFormatter(formatter)
 
-        logger = logging.getLogger('pyrevitloader')
+        logger = logging.getLogger('rpw_logger')
         logger.addHandler(handler)
         logger.setLevel(logging.INFO)
 
@@ -62,7 +62,7 @@ class LoggerWrapper():
         formatter_title = logging.Formatter("%(message)s")
         handler_title.setFormatter(formatter_title)
 
-        logger_title = logging.getLogger('pyrevitloader_title')
+        logger_title = logging.getLogger('rpw_logger_title')
         logger_title.addHandler(handler_title)
         logger_title.setLevel(logging.INFO)
 

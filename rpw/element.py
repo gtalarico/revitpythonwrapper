@@ -68,16 +68,21 @@ class Element(BaseObjectWrapper):
         return self._revit_object.Id.IntegerValue
 
     @classmethod
-    def by_id(cls, element_id):
-        """ Allows to retrieve element by Id
+    def from_id(cls, element_id):
+        """
+        Allows to create ``rpw.Element`` from an
+        element by Id (``int`` or ``DB.ElementId``)
+
+        Args:
+            element_id (int, DB.ElementId): ElementId or Integer of element to wrap.
+        """
+        # IDEA: Just move this to __init__
+
+        if isinstance(element_id, int):
+            element_id = DB.ElementId(element_id)
 
         element = doc.GetElement(element_id)
         return Element(element)
-
-        Todo: Just move this to __init__
-
-        """
-        raise NotImplemented
 
     def __repr__(self):
         return super(Element, self).__repr__(str(self._revit_object.ToString()))

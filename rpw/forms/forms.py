@@ -64,7 +64,8 @@ class SelectFromList(Window):
             """
 
     def __init__(self, title, options, description=None):
-        # TODO: Validate options type
+        # TODO: Validate options type, and handle dictionary input
+        # So user can feed a list or a dictionary
         self.selected = None
         self.ui = wpf.LoadComponent(self, StringReader(SelectFromList.LAYOUT))
         # self.ui = wpf.LoadComponent(self, os.path.join(cwd, 'form_select_list.xaml'))

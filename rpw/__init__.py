@@ -62,6 +62,7 @@ if platform is not None:
     from rpw.enumeration import BipEnum, BicEnum
     from rpw.element import Element, Parameter
     from rpw.coerce import elements_to_element_ids
+    from rpw.logger import logger
 
     try:
         from rpw.forms import forms  # Adds forms to rpw namespace

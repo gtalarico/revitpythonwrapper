@@ -3,22 +3,23 @@ from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
 
-from contextlib import contextmanager
-
 # TODO: Add Transaction Group
 # TODO: Use Dynamo Transaction when platform='dynamo'
 
 
 class Transaction(object):
-    """ Transaction Context Manager.
-
+    """
     Simplifies transactions by applying ``Transaction.Start()`` and
     ``Transaction.Commit()`` before and after the context.
     Automatically rolls back if exception is raised.
 
-    Usage:
-        >>> with Transaction('Move Wall'):
-        >>>     wall.DoSomething()
+    >>> with Transaction('Move Wall'):
+    >>>     wall.DoSomething()
+
+    >>> with Transaction('Move Wall') as t:
+    >>>     wall.DoSomething()
+    >>>     assert t == DB.TransactionStatus.Started  # True
+    >>> assert t == DB.TransactionStatus.Committed    # True
 
     Wrapped Element:
         self._revit_object = `Revit.DB.Transaction`
@@ -31,41 +32,44 @@ class Transaction(object):
 
     def __enter__(self):
         self.transaction.Start()
+        return self.transaction
 
     def __exit__(self, exception, exception_value, traceback):
         if exception:
             self.transaction.RollBack()
-            logger.warning('Transaction has rolled back.')
+            logger.error('Error in Transactio Context: has rolled back.')
+            logger.error('{}:{}'.format(exception, exception_value))
         else:
             try:
                 self.transaction.Commit()
-            except:
+            except Exception as errmsg:
                 self.transaction.RollBack()
+                logger.error('Error in Transactio Commit: has rolled back.')
+                logger.error('Error: {}'.format(errmsg))
 
     @staticmethod
-    def ensure(transaction_name):
+    def ensure(name):
         """ Transaction Manager Decorator
 
         Decorate any function with ``@Transaction.ensure('Transaction Name')``
-        and the funciton will run withing a Transaction Context.
+        and the funciton will run within a Transaction Context.
 
         Args:
-            transaction_name (str): Name of the Transaction
+            name (str): Name of the Transaction
 
-        Usage:
-
-            >>> @Transaction.ensure('Do Something')
-            >>> def set_some_parameter(wall, value):
-            >>>     wall.parameters['Comments'].value = value
-            >>>
-            >>> set_some_parameter(wall, value)
+        >>> @Transaction.ensure('Do Something')
+        >>> def set_some_parameter(wall, value):
+        >>>     wall.parameters['Comments'].value = value
+        >>>
+        >>> set_some_parameter(wall, value)
         """
-        from functools import wraps  # Move import up once Tested In Dynamo
+        # TODO: Test in Dynamo
+        from functools import wraps
 
         def wrap(f):
             @wraps(f)
             def wrapped_f(*args, **kwargs):
-                with Transaction(transaction_name):
+                with Transaction(name):
                     return_value = f(*args, **kwargs)
                 return return_value
             return wrapped_f
@@ -73,26 +77,50 @@ class Transaction(object):
 
 
 class TransactionGroup(object):
-    """ Transaction Group Context Manager """
-    # def __init__(self, name=None):
-    #     if name is None:
-    #         name = 'RPW Transaction Group'
-    #     self.transaction = DB.TransactionGroup(doc, name)
-    #
-    # def __enter__(self):
-    #     self.transaction.Start()
-    #
-    # def __exit__(self, exception, exception_value, traceback):
-    #     if exception:
-    #         self.transaction.RollBack()
-    #         logger.warning('Transaction has rolled back.')
-    #     else:
-    #         try:
-    #             self.transaction.Commit()
-    #         except:
-    #             self.transaction.RollBack()
-    #         else:
-    #             self.transaction.Assimilate()
+    """
+    Similar to Transaction, but for ``DB.Transaction Group``
+
+    >>> with TransacationGroup('Do Major Task'):
+    >>>     with Transaction('Do Task'):
+    >>>         # Do Stuff
+
+    >>> with TransacationGroup('Do Major Task', assimilate=False):
+    >>>     with Transaction('Do Task'):
+    >>>         # Do Stuff
+
+
+    """
+    def __init__(self, name=None, assimilate=True):
+        """
+            Args:
+                name (str): Name of the Transaction
+                assimilate (bool): If assimilates is ``True``, transaction history is `squashed`.
+        """
+        if name is None:
+            name = 'RPW Transaction Group'
+        self.transaction_group = DB.TransactionGroup(doc, name)
+        self.assimilate = assimilate
+
+    def __enter__(self):
+        self.transaction_group.Start()
+        return self.transaction_group
+
+    def __exit__(self, exception, exception_value, traceback):
+        if exception:
+            self.transaction_group.RollBack()
+            logger.error('Error in TransactionGroup Context: has rolled back.')
+            logger.error('{}:{}'.format(exception, exception_value))
+        else:
+            try:
+                if self.assimilate:
+                    self.transaction_group.Assimilate()
+                else:
+                    self.transaction_group.Commit()
+            except Exception as errmsg:
+                self.transaction_group.RollBack()
+                logger.error('Error in TransactionGroup Commit: has rolled back.')
+                logger.error('Error: {}'.format(errmsg))
+
 
 class DynamoTransaction(object):
     def __init__(self, name):

@@ -223,12 +223,18 @@
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="rpw.element.Element.by_id">
-<em class="property">classmethod </em><code class="descname">by_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.by_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows to retrieve element by Id</p>
-<p>element = doc.GetElement(element_id)
-return Element(element)</p>
-<p>Todo: Just move this to __init__</p>
+<dt id="rpw.element.Element.from_id">
+<em class="property">classmethod </em><code class="descname">from_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.from_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows to create <code class="docutils literal"><span class="pre">rpw.Element</span></code> from an
+element by Id (<code class="docutils literal"><span class="pre">int</span></code> or <code class="docutils literal"><span class="pre">DB.ElementId</span></code>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<em>int, DB.ElementId</em>) &#8211; ElementId or Integer of element to wrap.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -544,16 +550,21 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">by_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Allows to retrieve element by Id</span>
+    <span class="k">def</span> <span class="nf">from_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows to create ``rpw.Element`` from an</span>
+<span class="sd">        element by Id (``int`` or ``DB.ElementId``)</span>
 
-<span class="sd">        element = doc.GetElement(element_id)</span>
-<span class="sd">        return Element(element)</span>
-
-<span class="sd">        Todo: Just move this to __init__</span>
-
+<span class="sd">        Args:</span>
+<span class="sd">            element_id (int, DB.ElementId): ElementId or Integer of element to wrap.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+        <span class="c1"># IDEA: Just move this to __init__</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">element_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
+
+        <span class="n">element</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ToString</span><span class="p">()))</span>
@@ -852,6 +863,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
                 <span class="k">raise</span> <span class="n">RPW_WrongStorageType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
         <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">param</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

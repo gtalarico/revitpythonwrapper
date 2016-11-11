@@ -12,7 +12,7 @@ Wrappers to make Revit Transactions work with Python Context Manager.
 
 .. automodule:: rpw.transaction
     :members:
-    :special-members: __init__, __getattr__
+    :special-members: __init__, __getattr__, __enter__, __exit__
     :private-members:
     :show-inheritance:
 

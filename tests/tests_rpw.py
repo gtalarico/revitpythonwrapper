@@ -20,7 +20,7 @@ from rpw import List
 from rpw.element import Element
 from rpw.parameter import Parameter
 from rpw.selection import Selection
-from rpw.transaction import Transaction
+from rpw.transaction import Transaction, TransactionGroup
 from rpw.collector import Collector, ParameterFilter
 from rpw.coerce import elements_to_element_ids
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
@@ -52,6 +52,7 @@ def setUpModule():
     pt1 = DB.XYZ(0, 0, 0)
     pt2 = DB.XYZ(20, 20, 0)
     wall_line = DB.Line.CreateBound(pt1, pt2)
+
     with Transaction('Add Wall'):
         wall = DB.Wall.Create(doc, wall_line, level.Id, False)
     global wall_id
@@ -63,6 +64,70 @@ def setUpModule():
 def tearDownModule():
     pass
 
+
+######################
+# TRANSACTIONS
+######################
+
+
+class TransactionsTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING TRANSACTIONS...')
+
+    def setUp(self):
+        self.wall = Element.from_id(wall_id)
+        with Transaction('Reset Comment') as t:
+            self.wall.parameters['Comments'] = ''
+
+    def test_transaction_instance(self):
+        with Transaction('Test Is Instance') as t:
+            self.wall.parameters['Comments'].value = ''
+            self.assertIsInstance(t, DB.Transaction)
+
+    def test_transaction_started(self):
+        with Transaction('Has Started') as t:
+            self.wall.parameters['Comments'].value = ''
+            self.assertTrue(t.HasStarted())
+
+    def test_transaction_has_ended(self):
+        with Transaction('Add Comment') as t:
+            self.wall.parameters['Comments'].value = ''
+            self.assertFalse(t.HasEnded())
+
+    def test_transaction_get_name(self):
+        with Transaction('Named Transaction') as t:
+            self.assertEqual(t.GetName(), 'Named Transaction')
+
+    def test_transaction_commit_status_success(self):
+        with Transaction('Set String') as t:
+            self.wall.parameters['Comments'].value = ''
+            self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
+        self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
+
+    # Rollback Works but fails on exception
+    # def test_transaction_commit_status_rollback(self):
+    #     with Transaction('Set String') as t:
+    #         with self.assertRaises(Exception):
+    #         self.wall.parameters['Top Constraint'].value = DB.ElementId('a')
+    #     logger.critical('>>>' + str(t.GetStatus()))
+    #     self.assertEqual(t.GetStatus(), DB.TransactionStatus.RolledBack)
+
+    def test_transaction_group(self):
+        with TransactionGroup('Multiple Transactions') as tg:
+            self.assertEqual(tg.GetStatus(), DB.TransactionStatus.Started)
+            with Transaction('Set String') as t:
+                self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
+                self.wall.parameters['Comments'].value = '1'
+            self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
+        self.assertEqual(tg.GetStatus(), DB.TransactionStatus.Committed)
+
+    def test_transaction_decorator(self):
+        @Transaction.ensure('Transaction Name')
+        def somefunction():
+            param = self.wall.parameters['Comments'].value = '1'
+            return param
+        self.assertTrue(somefunction())
 
 ######################
 # COLLECTOR
@@ -232,6 +297,10 @@ class ElementTests(unittest.TestCase):
         assert isinstance(self.wrapped_wall.Id, DB.ElementId)
         assert isinstance(self.wrapped_wall.id_as_int, int)
         self.assertEqual(self.wrapped_wall.id_as_int, self.wall.Id.IntegerValue)
+
+    def test_element_from_id(self):
+        element = Element.from_id(wall_id)
+        self.assertIsInstance(element, Element)
 
     def test_element_id(self):
         self.assertIsInstance(self.wrapped_wall, Element)

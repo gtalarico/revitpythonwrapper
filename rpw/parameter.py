@@ -236,6 +236,7 @@ class Parameter(BaseObjectWrapper):
                 raise RPW_WrongStorageType(self.type, value)
 
         param = self._revit_object.Set(value)
+        return param
 
     @property
     def name(self):
