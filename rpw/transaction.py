@@ -3,6 +3,11 @@ from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
 
+from contextlib import contextmanager
+
+# TODO: Add Transaction Group
+# TODO: Use Dynamo Transaction when platform='dynamo'
+
 
 class Transaction(object):
     """ Transaction Context Manager.
@@ -67,6 +72,27 @@ class Transaction(object):
         return wrap
 
 
+class TransactionGroup(object):
+    """ Transaction Group Context Manager """
+    # def __init__(self, name=None):
+    #     if name is None:
+    #         name = 'RPW Transaction Group'
+    #     self.transaction = DB.TransactionGroup(doc, name)
+    #
+    # def __enter__(self):
+    #     self.transaction.Start()
+    #
+    # def __exit__(self, exception, exception_value, traceback):
+    #     if exception:
+    #         self.transaction.RollBack()
+    #         logger.warning('Transaction has rolled back.')
+    #     else:
+    #         try:
+    #             self.transaction.Commit()
+    #         except:
+    #             self.transaction.RollBack()
+    #         else:
+    #             self.transaction.Assimilate()
 
 class DynamoTransaction(object):
     def __init__(self, name):

@@ -45,7 +45,7 @@ It also provide a few convenient shortcuts:
       document handling variables, so you can
       reuse code across platforms with no change to your import code.
 
-    - Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPI.dll`` assemblies.
+    - Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies.
 
     - Adds the IronPython Standard Library to your ``sys.path`` (for :doc:`dynamo`).
 
@@ -73,10 +73,10 @@ Benefits
 ^^^^^^^^
 
     * Normalizes Document and Application handlers for Revit + Dynamo
-    * Normalizes API calls for different Revit Versions
     * Increase code re-use across platforms (ie. :doc:`globals`)
     * Implements patterns to reduce repetitive tasks (ie. :any:`rpw.transaction`)
     * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.parameter.Parameter.value`)
+    * Normalizes API calls for different Revit Versions (not yet implemented)
 
 Contribute
 ^^^^^^^^^^

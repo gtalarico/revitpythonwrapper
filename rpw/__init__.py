@@ -58,7 +58,7 @@ else:
 if platform is not None:
     from rpw.selection import Selection
     from rpw.collector import Collector, ParameterFilter
-    from rpw.transaction import Transaction
+    from rpw.transaction import Transaction, TransactionGroup
     from rpw.enumeration import BipEnum, BicEnum
     from rpw.element import Element, Parameter
     from rpw.coerce import elements_to_element_ids

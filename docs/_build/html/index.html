@@ -157,7 +157,7 @@ and more consistent with Python&#8217;s conventions.</p>
 <li>Initializes a <code class="docutils literal"><span class="pre">doc</span></code> and <code class="docutils literal"><span class="pre">uidoc</span></code>
 document handling variables, so you can
 reuse code across platforms with no change to your import code.</li>
-<li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> assemblies.</li>
+<li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPIUI.dll</span></code> assemblies.</li>
 <li>Adds the IronPython Standard Library to your <code class="docutils literal"><span class="pre">sys.path</span></code> (for <a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>).</li>
 <li>Provides easy to use WPF <a class="reference internal" href="forms.html"><span class="doc">Forms</span></a> so you can request additional user input
 with little effort.</li>
@@ -185,10 +185,10 @@ with little effort.</li>
 <blockquote>
 <div><ul class="simple">
 <li>Normalizes Document and Application handlers for Revit + Dynamo</li>
-<li>Normalizes API calls for different Revit Versions</li>
 <li>Increase code re-use across platforms (ie. <a class="reference internal" href="globals.html"><span class="doc">Globals</span></a>)</li>
 <li>Implements patterns to reduce repetitive tasks (ie. <a class="reference internal" href="transaction.html#module-rpw.transaction" title="rpw.transaction"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.transaction</span></code></a>)</li>
 <li>Handles some data-type casting for speed and flexibility (ie. <a class="reference internal" href="element.html#rpw.parameter.Parameter.value" title="rpw.parameter.Parameter.value"><code class="xref any py py-attr docutils literal"><span class="pre">rpw.parameter.Parameter.value</span></code></a>)</li>
+<li>Normalizes API calls for different Revit Versions (not yet implemented)</li>
 </ul>
 </div></blockquote>
 </div>
