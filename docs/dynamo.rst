@@ -16,8 +16,8 @@ has everything you need to use it.
     2. Find the Package Directory, and open the Getting Started File in the `extra` folder
 
 The package includes a Node that helps you find the location of the RPW library (see image below).
-Once you have the location, just added to your ``sys.path``, and you should be able to import the library.
-You can always manually add the library path, the node is only included for convenience.
+Once you have the location, just add it to your ``sys.path``, and you should be able to import the library.
+You can always manually add the library path; the node is only included for convenience.
 
 >>> rpw_path = IN[0] # Assumes output of RPW_GetFilePath node is plugged into IN[0]
 >>> import sys

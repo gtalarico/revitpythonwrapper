@@ -153,8 +153,8 @@ has everything you need to use it.</p>
 </ol>
 </div></blockquote>
 <p>The package includes a Node that helps you find the location of the RPW library (see image below).
-Once you have the location, just added to your <code class="docutils literal"><span class="pre">sys.path</span></code>, and you should be able to import the library.
-You can always manually add the library path, the node is only included for convenience.</p>
+Once you have the location, just add it to your <code class="docutils literal"><span class="pre">sys.path</span></code>, and you should be able to import the library.
+You can always manually add the library path; the node is only included for convenience.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw_path</span> <span class="o">=</span> <span class="n">IN</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Assumes output of RPW_GetFilePath node is plugged into IN[0]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rpw_path</span><span class="p">)</span>
