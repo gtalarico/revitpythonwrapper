@@ -34,7 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
-        <link rel="next" title="Using With Dynamo" href="dynamo.html"/>
+        <link rel="next" title="Dynamo" href="dynamo.html"/>
         <link rel="prev" title="Enumeration" href="enumeration.html"/> 
 
   
@@ -96,7 +96,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -146,7 +147,13 @@
   <div class="section" id="forms">
 <h1>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h1>
 <p>Forms are provided to facilitate user input.</p>
-<span class="target" id="module-rpw.forms.forms"></span><dl class="class">
+<span class="target" id="module-rpw.forms.forms"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;1&#39;</span>
+</pre></div>
+</div>
+<dl class="class">
 <dt id="rpw.forms.forms.SelectFromList">
 <em class="property">class </em><code class="descclassname">rpw.forms.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -206,10 +213,57 @@
 </dl>
 </dd></dl>
 
-<img alt="_images/forms.png" src="_images/forms.png" />
+<img alt="_images/select-from-list.png" src="_images/select-from-list.png" />
+<img alt="_images/text-input.png" src="_images/text-input.png" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">title</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+
+<span class="k">class</span> <span class="nc">SelectFromList</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    WPF form with ComboBox dropdown.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        title (str): Title of form</span>
+<span class="sd">        options ([str]): List of Options as stings</span>
+<span class="sd">        description (str): Description of input requested</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; form = SelectFromList(&#39;Test Window&#39;, [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])</span>
+<span class="sd">        &gt;&gt;&gt; form_ok = form.show()</span>
+<span class="sd">        &gt;&gt;&gt; if not form_ok:</span>
+<span class="sd">        &gt;&gt;&gt;     sys.exit() # User Canceld</span>
+<span class="sd">        &gt;&gt;&gt; selected_item = form.selected</span>
+
+<span class="sd">    .. note: XAML is embeded instead loaded from file so that package can be</span>
+<span class="sd">             kept as .zip for dynamo.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">LAYOUT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;Window</span>
+<span class="s2">                xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span>
+<span class="s2">                xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
+<span class="s2">                xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span>
+<span class="s2">                xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span>
+<span class="s2">                xmlns:local=&quot;clr-namespace:WpfApplication1&quot;</span>
+<span class="s2">                mc:Ignorable=&quot;d&quot; Height=&quot;140.139&quot; Width=&quot;325&quot; ResizeMode=&quot;NoResize&quot;</span>
+<span class="s2">                Title=&quot;&quot; WindowStartupLocation=&quot;CenterScreen&quot; Topmost=&quot;True&quot; SizeToContent=&quot;WidthAndHeight&quot;&gt;</span>
+<span class="s2">                &lt;Grid Margin=&quot;10,0,10,10&quot;&gt;</span>
+<span class="s2">                    &lt;Label x:Name=&quot;selection_label&quot; Content=&quot;Select Item&quot; HorizontalAlignment=&quot;Left&quot; Height=&quot;30&quot;</span>
+<span class="s2">                        VerticalAlignment=&quot;Top&quot; Width=&quot;299&quot;/&gt;</span>
+<span class="s2">                    &lt;ComboBox x:Name=&quot;combo_data&quot; HorizontalAlignment=&quot;Left&quot; Margin=&quot;0,30,0,0&quot;</span>
+<span class="s2">                        VerticalAlignment=&quot;Top&quot; Width=&quot;299&quot;/&gt;</span>
+<span class="s2">                    &lt;Button x:Name=&quot;button_select&quot; Content=&quot;Select&quot; HorizontalAlignment=&quot;Left&quot; Height=&quot;26&quot;</span>
+<span class="s2">                    Margin=&quot;0,63,0,0&quot; VerticalAlignment=&quot;Top&quot; Width=&quot;299&quot;/&gt;</span>
+<span class="s2">                &lt;/Grid&gt;</span>
+<span class="s2">            &lt;/Window&gt;</span>
+<span class="s2">            &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">SelectFromList</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
+        <span class="c1"># self.ui = wpf.LoadComponent(self, os.path.join(cwd, &#39;form_select_list.xaml&#39;))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">title</span>
 
         <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">selection_label</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">description</span>
@@ -304,7 +358,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dynamo.html" class="btn btn-neutral float-right" title="Using With Dynamo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dynamo.html" class="btn btn-neutral float-right" title="Dynamo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="enumeration.html" class="btn btn-neutral" title="Enumeration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

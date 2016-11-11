@@ -92,7 +92,8 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -143,46 +144,65 @@
 <h1>Revit Python Wrapper<a class="headerlink" href="#revit-python-wrapper" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<span class="target" id="module-rpw"></span><div class="section" id="a-python-wrapper-for-the-revit-api">
-<h2>A Python Wrapper For the Revit API<a class="headerlink" href="#a-python-wrapper-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
-<p>Revit Python Wrapper helps lazy programmers write Revit API code in Python.</p>
-<p>The Wrappers make the interaction with API objects more
-consistent with Python&#8217;s conventions, and also implement
-patterns to make your code more conscise.</p>
-<p>The wrapper will also normalize application and document handler, as well
-as some  API version-specific calls so you can re-use your code across
-platforms and Revit API versions.</p>
-<p>This library should not be used in complex applications, and it&#8217;s not guaranteed
-it will be maintained at all.</p>
-<div class="section" id="when-to-use-rpw">
-<h3>When to Use RPW<a class="headerlink" href="#when-to-use-rpw" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-rpw"></span><div class="section" id="content">
+<h2>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>When you are working in the RevitPythonShell, pyRevit, or Dynamo Python Nodes</li>
-<li>When you want your code to work with no change in the aforementioned platforms</li>
-<li>Short scripts and other non-mission-critical work</li>
-<li>Testing, and educational purporses</li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
 </ul>
 </div>
-<div class="section" id="project-goals">
-<h3>Project Goals<a class="headerlink" href="#project-goals" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Normalize Document and Application handlers for Revit + Dynamo</li>
-<li>Normalize API calls for different Revit Versions</li>
-<li>Implement Resusable patterns to reduce repetitive tasks</li>
-<li>Create wrappers to make common calls more natural to Python</li>
-<li>Increase code re-use</li>
-<li>Handle data coercion for more flexibility (see <a class="reference internal" href="selection.html#module-rpw.selection" title="rpw.selection"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.selection</span></code></a> for example)</li>
+<div class="section" id="a-python-wrapper-for-the-revit-api">
+<h2>A Python Wrapper For the Revit API<a class="headerlink" href="#a-python-wrapper-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
+<p>Revit Python Wrapper was created to help Python programmers write Revit API code.</p>
+<p>Wrapper classes make the interaction with API objects less repetitive,
+and more consistent with Python&#8217;s conventions.</p>
+<p>It also handles the creation of global <code class="docutils literal"><span class="pre">doc</span></code> and <code class="docutils literal"><span class="pre">uidoc</span></code> variables so you can
+reuse code across platforms with no change
+application and document handlers (<span class="xref std std-ref">globals</span>), as well as
+imports to common API namespaces, so you can
+so you can re-use your code across platforms without having to change your imports.</p>
+<p>Lastly, it provides some</p>
+<p>I started this library primary to bootstrapping scripts, testing and educational purposes,</p>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">This library should not be used in complex applications or mission-critical work.</p>
+</div>
+<div class="section" id="where-to-use-rwp">
+<h3>Where To Use RWP<a class="headerlink" href="#where-to-use-rwp" title="Permalink to this headline">¶</a></h3>
+<p>There are several ways to use RevitPythonWrapper:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Import Library into <a class="reference internal" href="revitpythonshell.html"><span class="doc">RevitPythonShell</span></a> interactive interpreter</li>
+<li><a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>: Install through <a class="reference external" href="https://dynamopackages.com/">Dynamo Package Manager</a></li>
+<li><a class="reference external" href="https://opensource.org/licenses/MIT">MIT License</a></li>
+<li><a class="reference external" href="http://eirannejad.github.io/pyRevit/">pyRevit</a> : import it into your scripts</li>
+<li>Macros: import library into your Python Macros</li>
 </ul>
+</div></blockquote>
+</div>
+<div class="section" id="why-use-it">
+<h3>Why Use it<a class="headerlink" href="#why-use-it" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Normalizes Document and Application handlers for Revit + Dynamo</li>
+<li>Normalizes API calls for different Revit Versions</li>
+<li>Increase code re-use across platforms</li>
+<li>Implements patterns to reduce repetitive tasks</li>
+<li>Make some calls feel more natural to Python</li>
+<li>Handle data coercion for speed and flexibility (see <a class="reference internal" href="selection.html#module-rpw.selection" title="rpw.selection"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.selection</span></code></a> for example)</li>
+<li><cite>Might</cite> help new users get started with the API</li>
+</ul>
+</div></blockquote>
 <div class="section" id="license">
 <h4>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="https://opensource.org/licenses/MIT">MIT License</a></p>
+<blockquote>
+<div><a class="reference external" href="https://opensource.org/licenses/MIT">MIT License</a></div></blockquote>
 </div>
 </div>
-<div class="section" id="using-revitpythonwrapper">
-<h3>Using RevitPythonWrapper<a class="headerlink" href="#using-revitpythonwrapper" title="Permalink to this headline">¶</a></h3>
-</div>
+<div class="section" id="basic-components">
+<h3>Basic Components<a class="headerlink" href="#basic-components" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="globals">
-<h3><a class="reference internal" href="globals.html"><span class="doc">Globals</span></a><a class="headerlink" href="#globals" title="Permalink to this headline">¶</a></h3>
+<h4><a class="reference internal" href="globals.html"><span class="doc">Globals</span></a><a class="headerlink" href="#globals" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handles Document Manager and namespace imports for RevitPythonShell and Dynamo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
@@ -192,7 +212,7 @@ it will be maintained at all.</p>
 </div>
 </div>
 <div class="section" id="transaction">
-<h3><a class="reference internal" href="transaction.html"><span class="doc">Transaction</span></a><a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h3>
+<h4><a class="reference internal" href="transaction.html"><span class="doc">Transaction</span></a><a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Wrapper</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">Transaction</span><span class="p">,</span> <span class="n">doc</span>
@@ -233,7 +253,7 @@ it will be maintained at all.</p>
 </div></blockquote>
 </div>
 <div class="section" id="selection">
-<h3><a class="reference internal" href="selection.html"><span class="doc">Selection</span></a><a class="headerlink" href="#selection" title="Permalink to this headline">¶</a></h3>
+<h4><a class="reference internal" href="selection.html"><span class="doc">Selection</span></a><a class="headerlink" href="#selection" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -254,7 +274,7 @@ it will be maintained at all.</p>
 </div>
 </div>
 <div class="section" id="element">
-<h3><a class="reference internal" href="element.html"><span class="doc">Element</span></a><a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h3>
+<h4><a class="reference internal" href="element.html"><span class="doc">Element</span></a><a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeRevitElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Comment Parameter&#39;</span><span class="p">):</span>
@@ -270,7 +290,7 @@ it will be maintained at all.</p>
 </div>
 </div>
 <div class="section" id="collector">
-<h3><a class="reference internal" href="collector.html"><span class="doc">Collector</span></a><a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h3>
+<h4><a class="reference internal" href="collector.html"><span class="doc">Collector</span></a><a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
 <span class="go">[&lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, etc]</span>
@@ -285,6 +305,7 @@ it will be maintained at all.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">WallType</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()</span>
 </pre></div>
+</div>
 </div>
 <div class="section" id="parameterfilter">
 <h4><a class="reference internal" href="collector.html#rpw.collector.ParameterFilter" title="rpw.collector.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h4>
@@ -303,9 +324,8 @@ it will be maintained at all.</p>
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="forms">
-<h3><a class="reference internal" href="forms.html"><span class="doc">Forms</span></a><a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h3>
+<h4><a class="reference internal" href="forms.html"><span class="doc">Forms</span></a><a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h4>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Option 1&#39;</span><span class="p">,</span><span class="s1">&#39;Option 2&#39;</span><span class="p">,</span><span class="s1">&#39;Option 3&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Window Title&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Form shows on screen</span>
@@ -318,13 +338,6 @@ it will be maintained at all.</p>
 </div>
 </div>
 </div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
 </div>
 
 

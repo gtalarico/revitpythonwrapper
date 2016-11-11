@@ -1,4 +1,10 @@
-# TODO: Clean up + handle imports
+"""
+>>> form = rpw.forms.SelectFromList('Test Window', ['1','2','3'])
+>>> form.show()
+>>> print(form.selected)
+>>> '1'
+
+"""
 
 import sys
 try:

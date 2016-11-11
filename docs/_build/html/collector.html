@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">Using With RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -146,8 +147,10 @@
   <div class="section" id="collector">
 <h1>Collector<a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h1>
 <p>FilteredElementCollector Wrapper</p>
-<span class="target" id="module-rpw.collector"></span><p>Comparison:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Levels&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="target" id="module-rpw.collector"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Levels&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Traditional</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Levels</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -375,10 +378,10 @@ namespace.</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Comparison:</span>
+<span class="sd">&gt;&gt;&gt; levels = rpw.Collector(of_category=&#39;OST_Levels&#39;, is_type=True)</span>
 
-<span class="sd">    &gt;&gt;&gt; levels = rpw.Collector(of_category=&#39;OST_Levels&#39;, is_type=True)</span>
-<span class="sd">    &gt;&gt;&gt; levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()</span>
+<span class="sd">&gt;&gt;&gt; # Traditional</span>
+<span class="sd">&gt;&gt;&gt; levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 

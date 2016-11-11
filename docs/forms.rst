@@ -16,10 +16,11 @@ Forms are provided to facilitate user input.
     :show-inheritance:
 
 
-.. image:: _static/forms.png
+.. image:: _static/forms/select-from-list.png
+.. image:: _static/forms/text-input.png
 
 Implementation
 **************
 
 .. literalinclude:: ../rpw/forms/forms.py
-    :start-after: cwd
+    :start-after: sphinx_compat

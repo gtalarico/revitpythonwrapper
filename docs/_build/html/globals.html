@@ -87,6 +87,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Globals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#traditional-method">Traditional Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
@@ -96,7 +97,8 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -145,7 +147,7 @@
             
   <div class="section" id="globals">
 <h1>Globals<a class="headerlink" href="#globals" title="Permalink to this headline">¶</a></h1>
-<p>Global variables help normalize imports across platforms.</p>
+<p>Global variables normalize imports across platforms.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="mi">00000</span><span class="p">)</span>
@@ -168,9 +170,53 @@
 
 <dl class="data">
 <dt id="rpw.DB">
-<code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Stores Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Besides creating these global variables, the initializer also adds the path
+to the Ironpython Library to your sys.path, so you can import standard python
+libraries right away, and skip the typical:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">r&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="traditional-method">
+<h2>Traditional Method<a class="headerlink" href="#traditional-method" title="Permalink to this headline">¶</a></h2>
+<p>When RPW is not used, import code ends up being different for each platform:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># RevitPythonShell / pyRevit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPIUI&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.UI</span> <span class="k">import</span> <span class="o">*</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Dynamo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPIUI&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.UI</span> <span class="k">import</span> <span class="o">*</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">RevitServices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">RevitServices.Persistence</span> <span class="k">import</span> <span class="n">DocumentManager</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">RevitServices.Transactions</span> <span class="k">import</span> <span class="n">TransactionManager</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentDBDocument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uiapp</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">app</span> <span class="o">=</span> <span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -192,6 +238,7 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could not Revit Document. Will Import Sphinx Compat Vars&#39;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
 
+<span class="c1"># Imported Revit&#39;s Assemblies</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
@@ -205,7 +252,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could Not Find Dynamo Services&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Could Not Find Dynamo Services&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Adds Built in Library for Dynamo</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">r&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>

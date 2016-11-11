@@ -31,17 +31,3 @@ Known Issues
 
     Result:
         `col` always is always case insensitive.
-
-
-* Namespace Conflicts
-
-    Using the same name as the Revit API namespace can be confusing.
-
-    Solutions:
-
-        * Always use native Elements prefixed with UI or DB namespace
-        * Rename Elements to differentiate:
-
-        >>> Element > RPW_Element
-        >>> # or always use
-        >>> rpw.Element

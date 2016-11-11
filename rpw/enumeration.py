@@ -1,3 +1,18 @@
+"""
+
+Enumeration Wrappers
+
+>>> BipEnum.get('WALL_LOCATION_LINE')
+Revit.DB.BuiltInParameter.WALL_LOCATION_LINE
+>>> BipEnum.get_id('WALL_LOCATION_LINE')
+Revit.DB.ElementId
+
+Note:
+    These classes were originally create to be used internally,
+    but the :func:`get_id()` is often helpful.
+
+"""
+
 from rpw import DB, doc
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_ParameterNotFound

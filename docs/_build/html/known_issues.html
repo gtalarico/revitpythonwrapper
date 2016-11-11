@@ -92,7 +92,8 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Known Issues</a></li>
 </ul>
@@ -171,23 +172,6 @@ case_sensitive is True.</p>
 <dd><p class="first last"><cite>col</cite> always is always case insensitive.</p>
 </dd>
 </dl>
-</div></blockquote>
-</li>
-<li><p class="first">Namespace Conflicts</p>
-<blockquote>
-<div><p>Using the same name as the Revit API namespace can be confusing.</p>
-<p>Solutions:</p>
-<blockquote>
-<div><ul class="simple">
-<li>Always use native Elements prefixed with UI or DB namespace</li>
-<li>Rename Elements to differentiate:</li>
-</ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Element</span> <span class="o">&gt;</span> <span class="n">RPW_Element</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or always use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">Element</span>
-</pre></div>
-</div>
-</div></blockquote>
 </div></blockquote>
 </li>
 </ul>

@@ -7,14 +7,11 @@
 Enumeration
 ==================
 
-Enumeration Wrappers.
-
 .. automodule:: rpw.enumeration
     :members:
     :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
-
 
 
 Implementation

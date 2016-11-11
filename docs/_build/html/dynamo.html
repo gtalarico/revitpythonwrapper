@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using With Dynamo &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Dynamo &mdash; Revit Python Wrapper 0.0.8 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
-        <link rel="next" title="Exceptions" href="exceptions.html"/>
+        <link rel="next" title="RevitPythonShell" href="revitpythonshell.html"/>
         <link rel="prev" title="Forms" href="forms.html"/> 
 
   
@@ -93,7 +93,8 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using With Dynamo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -126,7 +127,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Using With Dynamo</li>
+    <li>Dynamo</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -140,33 +141,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="using-with-dynamo">
-<h1>Using With Dynamo<a class="headerlink" href="#using-with-dynamo" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="dynamo">
+<h1>Dynamo<a class="headerlink" href="#dynamo" title="Permalink to this headline">¶</a></h1>
 <p>The Revit Python Wrapper can easily be used within dynamo.
-Eventually I hope to deploy it as a Package for convenient install,
-in the meantime, here is a quick way to get started:</p>
+The package distributed through Dynamo&#8217;s Package Manager
+has everything you need to use it.</p>
 <blockquote>
-<div><ol class="arabic">
-<li><p class="first">Install RevitPythonWrapper Package</p>
-</li>
-<li><p class="first">Find the Package Directory, and open the Getting Started File</p>
-</li>
-<li><p class="first">revitpythonwrapper is ready to use.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span>
+<div><ol class="arabic simple">
+<li>Install the RevitPythonWrapper Dynamo Package</li>
+<li>Find the Package Directory, and open the Getting Started File in the <cite>extra</cite> folder</li>
+</ol>
+</div></blockquote>
+<p>The package includes a Node that helps you find the location of the RPW library (see image below).
+Once you have the location, just added to your <code class="docutils literal"><span class="pre">sys.path</span></code>, and you should be able to import the library.
+You can always manually add the library path, the node is only included for convenience.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw_path</span> <span class="o">=</span> <span class="n">IN</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Assumes output of RPW_GetFilePath node is plugged into IN[0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rpw_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span>
 </pre></div>
 </div>
-</li>
-</ol>
-</div></blockquote>
-<dl class="docutils">
-<dt>To Do:</dt>
-<dd><ul class="first last simple">
-<li>Adjust Test Runner to run out-of-the-box</li>
-<li>Improve Getting Started</li>
-</ul>
-</dd>
-</dl>
+<img alt="_images/package.png" src="_images/package.png" />
+<img alt="_images/intro.png" src="_images/intro.png" />
 </div>
 
 
@@ -176,7 +173,7 @@ in the meantime, here is a quick way to get started:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="revitpythonshell.html" class="btn btn-neutral float-right" title="RevitPythonShell" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="forms.html" class="btn btn-neutral" title="Forms" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

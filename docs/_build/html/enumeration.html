@@ -96,7 +96,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Using With Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -143,10 +144,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="enumeration">
-<h1>Enumeration<a class="headerlink" href="#enumeration" title="Permalink to this headline">¶</a></h1>
-<p>Enumeration Wrappers.</p>
-<span class="target" id="module-rpw.enumeration"></span><dl class="class">
+  <div class="section" id="module-rpw.enumeration">
+<span id="enumeration"></span><h1>Enumeration<a class="headerlink" href="#module-rpw.enumeration" title="Permalink to this headline">¶</a></h1>
+<p>Enumeration Wrappers</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.ElementId</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These classes were originally create to be used internally,
+but the <code class="xref py py-func docutils literal"><span class="pre">get_id()</span></code> is often helpful.</p>
+</div>
+<dl class="class">
 <dt id="rpw.enumeration.BicEnum">
 <em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BicEnum</code><a class="headerlink" href="#rpw.enumeration.BicEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -264,7 +276,22 @@
 
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">doc</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Enumeration Wrappers</span>
+
+<span class="sd">&gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
+<span class="sd">&gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">Revit.DB.ElementId</span>
+
+<span class="sd">Note:</span>
+<span class="sd">    These classes were originally create to be used internally,</span>
+<span class="sd">    but the :func:`get_id()` is often helpful.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">doc</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span>
 
