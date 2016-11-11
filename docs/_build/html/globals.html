@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Globals &mdash; Revit Python Wrapper 0.0.7 documentation</title>
+  <title>Globals &mdash; Revit Python Wrapper 0.0.8 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.7 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
         <link rel="next" title="Element" href="element.html"/>
         <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.7
+                0.0.8
               </div>
             
           
@@ -186,46 +186,60 @@
     <span class="kn">from</span> <span class="nn">Autodesk.Revit</span> <span class="k">import</span> <span class="n">UI</span>
     <span class="kn">from</span> <span class="nn">System.Collections.Generic</span> <span class="k">import</span> <span class="n">List</span>
 
-    <span class="c1"># clr.AddReference(&#39;PresentationCore&#39;)</span>
-    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;PresentationFramework&quot;</span><span class="p">)</span>
-    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Import Failed Using Fake Import&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
+    <span class="n">platform</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could not Revit Document. Will Import Sphinx Compat Vars&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
-    <span class="n">doc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
-    <span class="n">version</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
-    <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;revit&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running In Revit&quot;</span><span class="p">)</span>
-
-<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could not find pyRevit Document. Trying Dynamo.&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could not Revit Document&#39;</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
-    <span class="k">else</span><span class="p">:</span>
+        <span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
+        <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;revit&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running In Revit&quot;</span><span class="p">)</span>
 
-        <span class="kn">import</span> <span class="nn">RevitServices</span>
-        <span class="kn">from</span> <span class="nn">RevitServices.Persistence</span> <span class="k">import</span> <span class="n">DocumentManager</span>
-        <span class="kn">from</span> <span class="nn">RevitServices.Transactions</span> <span class="k">import</span> <span class="n">TransactionManager</span>
+    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Could not find pyRevit Document. Trying Dynamo.&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Could Not Find Dynamo Services&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Adds Built in Library for Dynamo</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">r&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
 
-        <span class="n">doc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentDBDocument</span>
-        <span class="n">uiapp</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span>
-        <span class="n">app</span> <span class="o">=</span> <span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span>
-        <span class="n">uidoc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
-        <span class="n">version</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
-        <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dynamo&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running in Dynamo&#39;</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">RevitServices</span>
+            <span class="kn">from</span> <span class="nn">RevitServices.Persistence</span> <span class="k">import</span> <span class="n">DocumentManager</span>
+            <span class="kn">from</span> <span class="nn">RevitServices.Transactions</span> <span class="k">import</span> <span class="n">TransactionManager</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentDBDocument</span>
+            <span class="n">uiapp</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span>
+            <span class="n">app</span> <span class="o">=</span> <span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span>
+            <span class="n">uidoc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
+            <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dynamo&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running in Dynamo&#39;</span><span class="p">)</span>
 
 
-<span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
-<span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>
-<span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span>
-<span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Parameter</span>
-<span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">elements_to_element_ids</span>
+<span class="k">if</span> <span class="n">platform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
+    <span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>
+    <span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span>
+    <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Parameter</span>
+    <span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">elements_to_element_ids</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">forms</span>  <span class="c1"># Adds forms to rpw namespace</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could Not load Forms dependencies&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
+
+<span class="c1"># FIXME: Test this on test suite and dynamo</span>
+<span class="c1"># IDEA: Re-think namespace imports: ie import forms only if wpf is found.</span>
+<span class="c1"># TODO: Refactor this page</span>
+
+<span class="c1"># Loads Modules into main rpw namespace</span>
 </pre></div>
 </div>
 </div>
@@ -272,7 +286,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.7',
+            VERSION:'0.0.8',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

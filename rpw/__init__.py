@@ -177,10 +177,10 @@ Using RevitPythonWrapper
 
 
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 __author__ = 'Gui Talarico'
 __license__ = 'MIT'
-__copyright__ = 'Gui Talarico'
+__copyright__ = __author__
 
 
 import sys
@@ -199,45 +199,55 @@ try:
 
 except Exception as errmsg:
     logger.error(errmsg)
-    logger.error('Import Failed Using Fake Import')
+    platform = None
+    logger.warning('Could not Revit Document. Will Import Sphinx Compat Vars')
+    from rpw.sphinx_compat import *
 
-try:
-    uidoc = __revit__.ActiveUIDocument
-    doc = __revit__.ActiveUIDocument.Document
-    version = __revit__.Application.VersionNumber.ToString()
-    platform = {'revit': version}
-    logger.info("Running In Revit")
-
-except NameError:
-    print('Could not find pyRevit Document. Trying Dynamo.')
+else:
     try:
-        clr.AddReference("RevitServices")
-    except:
-        print('Could not Revit Document')
-        from rpw.sphinx_compat import *
-    else:
+        uidoc = __revit__.ActiveUIDocument
+        doc = __revit__.ActiveUIDocument.Document
+        version = __revit__.Application.VersionNumber.ToString()
+        platform = {'revit': version}
+        logger.info("Running In Revit")
 
-        import RevitServices
-        from RevitServices.Persistence import DocumentManager
-        from RevitServices.Transactions import TransactionManager
+    except NameError:
+        logger.debug('Could not find pyRevit Document. Trying Dynamo.')
+        try:
+            clr.AddReference("RevitServices")
+        except:
+            print('Could Not Find Dynamo Services')
+        else:
+            # Adds Built in Library for Dynamo
+            sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
 
-        doc = DocumentManager.Instance.CurrentDBDocument
-        uiapp = DocumentManager.Instance.CurrentUIApplication
-        app = uiapp.Application
-        uidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
-        version = app.VersionNumber.ToString()
-        platform = {'dynamo': version}
-        logger.info('Running in Dynamo')
+            import RevitServices
+            from RevitServices.Persistence import DocumentManager
+            from RevitServices.Transactions import TransactionManager
+            doc = DocumentManager.Instance.CurrentDBDocument
+            uiapp = DocumentManager.Instance.CurrentUIApplication
+            app = uiapp.Application
+            uidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+            version = app.VersionNumber.ToString()
+            platform = {'dynamo': version}
+            logger.info('Running in Dynamo')
 
+
+if platform is not None:
+    from rpw.selection import Selection
+    from rpw.collector import Collector, ParameterFilter
+    from rpw.transaction import Transaction
+    from rpw.element import Element, Parameter
+    from rpw.coerce import elements_to_element_ids
+
+    try:
+        from rpw.forms import forms  # Adds forms to rpw namespace
+    except ImportError as errmsg:
+        logger.warning('Could Not load Forms dependencies')
+        logger.warning(errmsg)
 
 # FIXME: Test this on test suite and dynamo
 # IDEA: Re-think namespace imports: ie import forms only if wpf is found.
 # TODO: Refactor this page
 
 # Loads Modules into main rpw namespace
-from rpw.selection import Selection
-from rpw.collector import Collector, ParameterFilter
-from rpw.transaction import Transaction
-from rpw.element import Element, Parameter
-from rpw.coerce import elements_to_element_ids
-from rpw.forms import SelectFromList, TextInput

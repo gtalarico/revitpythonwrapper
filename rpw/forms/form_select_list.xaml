@@ -7,7 +7,7 @@
     <Grid Margin="10,0,10,10">
         <Label x:Name="selection_label" Content="Select Item" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="299"/>
 
-        <ComboBox x:Name="combo_data" HorizontalAlignment="Left" SelectionChanged="combo_SelectionChanged" Margin="0,30,0,0" VerticalAlignment="Top" Width="299"/>
+        <ComboBox x:Name="combo_data" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="299"/>
 
         <Button x:Name="button_select" Content="Select" HorizontalAlignment="Left" Height="26" Margin="0,63,0,0" VerticalAlignment="Top" Width="299"/>
 

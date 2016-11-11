@@ -27,10 +27,7 @@ from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
 from rpw.enumeration import BuiltInParameterEnum
 
-# logger.verbose(True)z
-logger.disable()
-
-
+# TODO: Add Forms Tests
 # TODO: Add Transaction Decorator Tests
 # @Transaction.wrap('Do Something')
 # def decorated_transaction():
@@ -39,9 +36,7 @@ logger.disable()
 #     wall.parameters['Comments'].value = 'Peido'
 #     print('Done')
 # decorated_transaction()
-
 # sys.exit()
-
 
 def setUpModule():
     logger.title('SETTING UP TESTS...')
@@ -98,12 +93,7 @@ class CollectorTests(unittest.TestCase):
 
     def test_collector_elements_view(self):
         x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView})
-        assert isinstance(x.first, DB.Wall)
-
-    # Need Test Setup for active view collector
-    # def test_collector_elements_view(self):
-    #     x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView})
-    #     assert isinstance(x.first, DB.Wall)
+        self.assertEqual(len(x), 1)
 
     def test_collector_len(self):
         x = self.collector_helper({'of_class': DB.View})
@@ -472,6 +462,9 @@ class CoerceTests(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(verbosity=0, buffer=True)
-    unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
-    unittest.main(defaultTest='SelectionTests')
+    logger.verbose(False)
+    # logger.disable()
+    unittest.main(verbosity=3, buffer=False)
+    # unittest.main(verbosity=0, buffer=True)
+    # unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
+    # unittest.main(defaultTest='SelectionTests')

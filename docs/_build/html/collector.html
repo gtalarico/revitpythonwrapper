@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Collector &mdash; Revit Python Wrapper 0.0.7 documentation</title>
+  <title>Collector &mdash; Revit Python Wrapper 0.0.8 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.7 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
         <link rel="next" title="Enumeration" href="enumeration.html"/>
         <link rel="prev" title="Transaction" href="transaction.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.7
+                0.0.8
               </div>
             
           
@@ -213,7 +213,7 @@
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>Collector</strong> &#8211; Collector Instance</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#"><span class="doc">Collector</span></a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#rpw.collector.Collector" title="rpw.collector.Collector"><code class="xref any py py-class docutils literal"><span class="pre">Collector</span></code></a></p>
 </td>
 </tr>
 </tbody>
@@ -432,7 +432,7 @@ namespace.</p>
 <span class="sd">            **filters (dict) = Scope and filters</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Collector (:any:`collector`): Collector Instance</span>
+<span class="sd">            Collector (:any:`Collector`): Collector Instance</span>
 
 <span class="sd">        Scope Options:</span>
 <span class="sd">            * ``view`` `(DB.View)`: View Scope (Optional)</span>
@@ -548,8 +548,8 @@ namespace.</p>
 
 <span class="sd">        A copy of the filters is copied after each pass so the Function</span>
 <span class="sd">        can be called recursevily in a queue.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#TODO: parameter_filter should accept list so multiple filters can be applied</span>
         <span class="c1"># First Loop</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">collector</span><span class="p">:</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_revit_object</span>
@@ -561,13 +561,15 @@ namespace.</p>
 
             <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;collector filter rule does not exist: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filter_name</span><span class="p">))</span>
-
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                <span class="c1"># Same as WhereIsElementType(bool)</span>
                 <span class="k">if</span> <span class="n">filter_value</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">()</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="p">):</span>
+                <span class="c1"># Same as WherePasses(ParameterFilter)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Same as OfCategory(filter_value)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span>
             <span class="n">filter_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chain</span><span class="p">(</span><span class="n">filter_stack</span><span class="p">,</span> <span class="n">collector</span><span class="o">=</span><span class="n">collector</span><span class="p">)</span>
@@ -762,7 +764,7 @@ namespace.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.7',
+            VERSION:'0.0.8',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

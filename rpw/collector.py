@@ -56,7 +56,7 @@ class Collector(BaseObjectWrapper):
             **filters (dict) = Scope and filters
 
         Returns:
-            Collector (:any:`collector`): Collector Instance
+            Collector (:any:`Collector`): Collector Instance
 
         Scope Options:
             * ``view`` `(DB.View)`: View Scope (Optional)
@@ -172,8 +172,8 @@ class _Filter():
 
         A copy of the filters is copied after each pass so the Function
         can be called recursevily in a queue.
-
         """
+        #TODO: parameter_filter should accept list so multiple filters can be applied
         # First Loop
         if not collector:
             collector = self._collector._revit_object
@@ -185,13 +185,15 @@ class _Filter():
 
             if filter_name not in _Filter.MAP:
                 raise RPW_Exception('collector filter rule does not exist: {}'.format(filter_name))
-
             elif isinstance(filter_value, bool):
+                # Same as WhereIsElementType(bool)
                 if filter_value is True:
                     collector_results = collector_filter()
             elif isinstance(filter_value, ParameterFilter):
+                # Same as WherePasses(ParameterFilter)
                 collector_results = collector_filter(filter_value._revit_object)
             else:
+                # Same as OfCategory(filter_value)
                 collector_results = collector_filter(filter_value)
             filter_stack.pop(filter_name)
             collector = self._chain(filter_stack, collector=collector)
