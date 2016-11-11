@@ -12,7 +12,7 @@ from rpw.coerce import elements_to_element_ids
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
-from rpw.enumeration import BuiltInCategoryEnum, BuiltInParameterEnum
+from rpw.enumeration import BicEnum, BipEnum
 
 
 class Collector(BaseObjectWrapper):
@@ -217,7 +217,7 @@ class _Filter():
         """
         category_name = filters.get('of_category')
         if category_name and isinstance(category_name, str):
-            filters['of_category'] = BuiltInCategoryEnum.by_name(category_name)
+            filters['of_category'] = BicEnum.get(category_name)
 
         class_name = filters.get('of_class')
         if class_name and isinstance(class_name, str):

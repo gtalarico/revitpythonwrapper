@@ -7,7 +7,6 @@ from rpw.parameter import Parameter, _ParameterSet
 from rpw.base import BaseObjectWrapper
 
 from rpw.logger import logger
-from rpw.enumeration import BuiltInParameterEnum
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 

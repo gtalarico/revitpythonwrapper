@@ -4,9 +4,8 @@ import sys
 try:
     import clr
     import os
-    cwd = os.path.dirname(__file__)
     # Path is Adde so IronPython.Wpf can be found
-    sys.path.append(os.path.join(cwd, 'forms'))
+    sys.path.append(os.path.dirname(__file__))
     clr.AddReference("PresentationFramework")
     clr.AddReference('IronPython.Wpf')
     import wpf

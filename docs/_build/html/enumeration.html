@@ -147,13 +147,37 @@
 <h1>Enumeration<a class="headerlink" href="#enumeration" title="Permalink to this headline">¶</a></h1>
 <p>Enumeration Wrappers.</p>
 <span class="target" id="module-rpw.enumeration"></span><dl class="class">
-<dt id="rpw.enumeration.BuiltInCategoryEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BuiltInCategoryEnum</code><a class="headerlink" href="#rpw.enumeration.BuiltInCategoryEnum" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration.BicEnum">
+<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BicEnum</code><a class="headerlink" href="#rpw.enumeration.BicEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Allows access to __getattr__ of class</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.enumeration.BipEnum">
+<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BipEnum</code><a class="headerlink" href="#rpw.enumeration.BipEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Allows access to __getattr__ of class</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.enumeration._MetaBicEnum">
+<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">_MetaBicEnum</code><a class="headerlink" href="#rpw.enumeration._MetaBicEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
 <p>Enumeration Wrapper</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.BuiltInCategory.OST_Room</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.ElementId</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 <dl class="classmethod">
-<dt id="rpw.enumeration.BuiltInCategoryEnum.by_name">
-<em class="property">classmethod </em><code class="descname">by_name</code><span class="sig-paren">(</span><em>category_name</em>, <em>as_id=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BuiltInCategoryEnum.by_name" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration._MetaBicEnum.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Built In Category by Name
 :param str: Name of Category</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -166,31 +190,45 @@
 </tr>
 </tbody>
 </table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builtin_category</span> <span class="o">=</span> <span class="n">BuiltInCategoryEnum</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.BuiltInCategory.OST_Room</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Although this can be used, it&#8217;s primary purpose is to be help
-<a class="reference internal" href="element.html#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper locate the Enumeration member.</p>
-</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.enumeration._MetaBicEnum.get_id">
+<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets ElementId of Category by name
+:param str: Name of Category</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DB.BuiltInCategory</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="rpw.enumeration.BuiltInParameterEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BuiltInParameterEnum</code><a class="headerlink" href="#rpw.enumeration.BuiltInParameterEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dt id="rpw.enumeration._MetaBipEnum">
+<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">_MetaBipEnum</code><a class="headerlink" href="#rpw.enumeration._MetaBipEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
 <p>Enumeration Wrapper</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.ElementId</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 <dl class="classmethod">
-<dt id="rpw.enumeration.BuiltInParameterEnum.by_name">
-<em class="property">classmethod </em><code class="descname">by_name</code><span class="sig-paren">(</span><em>parameter_name</em>, <em>as_id=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BuiltInParameterEnum.by_name" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration._MetaBipEnum.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBipEnum.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Built In Parameter by Name
 :param str: Name of Parameter</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -203,19 +241,23 @@
 </tr>
 </tbody>
 </table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builtin_parameter</span> <span class="o">=</span> <span class="n">BuiltInParameterEnum</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s1">&#39;Commnets&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Although this can be used, it&#8217;s primary purpose is to be help
-<a class="reference internal" href="element.html#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper locate the Enumeration member.</p>
-</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.enumeration._MetaBipEnum.get_id">
+<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBipEnum.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets ElementId of Category by name
+:param str: Name of Built In Parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DB.BuitInParameter</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -227,13 +269,19 @@
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span>
 
 
-<span class="k">class</span> <span class="nc">BuiltInParameterEnum</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; Enumeration Wrapper &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">_MetaBipEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enumeration Wrapper</span>
 
-    <span class="n">parameters</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span>
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">        Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
+<span class="sd">        &gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">        Revit.DB.ElementId</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">by_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">as_id</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets Built In Parameter by Name</span>
 <span class="sd">        Args:</span>
 <span class="sd">            str: Name of Parameter</span>
@@ -241,56 +289,72 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            DB.BuiltInParameter: BuiltInParameter Enumeration Member</span>
 
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; builtin_parameter = BuiltInParameterEnum.by_name(&#39;Commnets&#39;)</span>
-<span class="sd">            Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS</span>
-
-<span class="sd">        Note:</span>
-<span class="sd">            Although this can be used, it&#39;s primary purpose is to be help</span>
-<span class="sd">            :any:`Element` wrapper locate the Enumeration member.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">BuiltInParameterEnum</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">)</span>
+            <span class="n">enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">BuiltInParameterEnum</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">as_id</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">enum</span>
-            <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">BuiltInCategoryEnum</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; Enumeration Wrapper &quot;&quot;&quot;</span>
-
-    <span class="n">categories</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span>
+            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">enum</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">by_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_name</span><span class="p">,</span> <span class="n">as_id</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Gets ElementId of Category by name</span>
+<span class="sd">        Args:</span>
+<span class="sd">            str: Name of Built In Parameter</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DB.BuitInParameter: BuiltInParameter Enumeration Member</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">enum</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">BipEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Allows access to __getattr__ of class &quot;&quot;&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">_MetaBipEnum</span>
+
+
+<span class="k">class</span> <span class="nc">_MetaBicEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enumeration Wrapper</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">        &gt;&gt;&gt; BicEnum.get(&#39;OST_Room&#39;)</span>
+<span class="sd">        Revit.DB.BuiltInCategory.OST_Room</span>
+<span class="sd">        &gt;&gt;&gt; BicEnum.get_id(&#39;OST_Room&#39;)</span>
+<span class="sd">        Revit.DB.ElementId</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets Built In Category by Name</span>
 <span class="sd">        Args:</span>
 <span class="sd">            str: Name of Category</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            DB.BuiltInCategory: BuiltInCategory Enumeration Member</span>
-
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; builtin_category = BuiltInCategoryEnum.by_name(&#39;OST_Room&#39;)</span>
-<span class="sd">            Revit.DB.BuiltInCategory.OST_Room</span>
-
-<span class="sd">        Note:</span>
-<span class="sd">            Although this can be used, it&#39;s primary purpose is to be help</span>
-<span class="sd">            :any:`Element` wrapper locate the Enumeration member.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">BuiltInCategoryEnum</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
+            <span class="n">enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">BuiltInCategoryEnum</span><span class="o">.</span><span class="n">categories</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">as_id</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">enum</span>
-            <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">enum</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Gets ElementId of Category by name</span>
+<span class="sd">        Args:</span>
+<span class="sd">            str: Name of Category</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DB.BuiltInCategory: BuiltInCategory Enumeration Member</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">enum</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BicEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Allows access to __getattr__ of class &quot;&quot;&quot;</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">_MetaBicEnum</span>
 </pre></div>
 </div>
 </div>

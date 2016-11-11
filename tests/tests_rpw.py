@@ -25,7 +25,7 @@ from rpw.collector import Collector, ParameterFilter
 from rpw.coerce import elements_to_element_ids
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
-from rpw.enumeration import BuiltInParameterEnum
+from rpw.enumeration import BipEnum
 
 # TODO: Add Forms Tests
 # TODO: Add Transaction Decorator Tests
@@ -340,12 +340,10 @@ class ParameterFilterTests(unittest.TestCase):
             self.wrapped_wall.parameters['Unconnected Height'].value = 12.0
 
         # BIP Ids
-        self.param_id_height = BuiltInParameterEnum.by_name('WALL_USER_HEIGHT_PARAM', as_id=True)
-        self.param_id_location = BuiltInParameterEnum.by_name('WALL_KEY_REF_PARAM', as_id=True)
-        self.param_id_comments = BuiltInParameterEnum.by_name('ALL_MODEL_INSTANCE_COMMENTS', as_id=True)
-        self.param_id_level_name = BuiltInParameterEnum.by_name('DATUM_TEXT', as_id=True)
-        # self.param_id_type_name = BuiltInParameterEnum.by_name('SYMBOL_NAME_PARAM', as_id=True)
-        # self.param_id_type_name = BuiltInParameterEnum.by_name('SYMBOL_FAMILY_NAME_PARAM', as_id=True)
+        self.param_id_height = BipEnum.get_id('WALL_USER_HEIGHT_PARAM')
+        self.param_id_location = BipEnum.get_id('WALL_KEY_REF_PARAM')
+        self.param_id_comments = BipEnum.get_id('ALL_MODEL_INSTANCE_COMMENTS')
+        self.param_id_level_name = BipEnum.get_id('DATUM_TEXT')
 
     def tearDown(self):
         pass

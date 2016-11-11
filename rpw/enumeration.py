@@ -3,13 +3,19 @@ from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_ParameterNotFound
 
 
-class BuiltInParameterEnum():
-    """ Enumeration Wrapper """
+class _MetaBipEnum(type):
+    """
+    Enumeration Wrapper
 
-    parameters = DB.BuiltInParameter
+    Usage:
+        >>> BipEnum.get('WALL_LOCATION_LINE')
+        Revit.DB.BuiltInParameter.WALL_LOCATION_LINE
+        >>> BipEnum.get_id('WALL_LOCATION_LINE')
+        Revit.DB.ElementId
+    """
 
     @classmethod
-    def by_name(cls, parameter_name, as_id=False):
+    def get(cls, parameter_name):
         """ Gets Built In Parameter by Name
         Args:
             str: Name of Parameter
@@ -17,53 +23,69 @@ class BuiltInParameterEnum():
         Returns:
             DB.BuiltInParameter: BuiltInParameter Enumeration Member
 
-        Usage:
-            >>> builtin_parameter = BuiltInParameterEnum.by_name('Commnets')
-            Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS
-
-        Note:
-            Although this can be used, it's primary purpose is to be help
-            :any:`Element` wrapper locate the Enumeration member.
-
         """
-
         try:
-            enum = getattr(BuiltInParameterEnum.parameters, parameter_name)
+            enum = getattr(DB.BuiltInParameter, parameter_name)
         except AttributeError:
-            raise RPW_ParameterNotFound(BuiltInParameterEnum.parameters, parameter_name)
-        else:
-            if not as_id:
-                return enum
-            return DB.ElementId(enum)
-
-
-class BuiltInCategoryEnum():
-    """ Enumeration Wrapper """
-
-    categories = DB.BuiltInCategory
+            raise RPW_ParameterNotFound(DB.BuiltInParameter, parameter_name)
+        return enum
 
     @classmethod
-    def by_name(cls, category_name, as_id=False):
+    def get_id(cls, parameter_name):
+        """ Gets ElementId of Category by name
+        Args:
+            str: Name of Built In Parameter
+
+        Returns:
+            DB.BuitInParameter: BuiltInParameter Enumeration Member
+        """
+        enum = cls.get(parameter_name)
+        return DB.ElementId(enum)
+
+
+class BipEnum(object):
+    """ Allows access to __getattr__ of class """
+    __metaclass__ = _MetaBipEnum
+
+
+class _MetaBicEnum(type):
+    """
+    Enumeration Wrapper
+
+    Usage:
+        >>> BicEnum.get('OST_Room')
+        Revit.DB.BuiltInCategory.OST_Room
+        >>> BicEnum.get_id('OST_Room')
+        Revit.DB.ElementId
+        """
+
+    @classmethod
+    def get(cls, category_name):
         """ Gets Built In Category by Name
         Args:
             str: Name of Category
 
         Returns:
             DB.BuiltInCategory: BuiltInCategory Enumeration Member
-
-        Usage:
-            >>> builtin_category = BuiltInCategoryEnum.by_name('OST_Room')
-            Revit.DB.BuiltInCategory.OST_Room
-
-        Note:
-            Although this can be used, it's primary purpose is to be help
-            :any:`Element` wrapper locate the Enumeration member.
         """
         try:
-            enum = getattr(BuiltInCategoryEnum.categories, category_name)
+            enum = getattr(DB.BuiltInCategory, category_name)
         except AttributeError:
-            raise RPW_ParameterNotFound(BuiltInCategoryEnum.categories, category_name)
-        else:
-            if not as_id:
-                return enum
-            return DB.ElementId(enum)
+            raise RPW_ParameterNotFound(DB.BuiltInCategory, category_name)
+        return enum
+
+    @classmethod
+    def get_id(cls, category_name):
+        """ Gets ElementId of Category by name
+        Args:
+            str: Name of Category
+
+        Returns:
+            DB.BuiltInCategory: BuiltInCategory Enumeration Member
+        """
+        enum = cls.get(category_name)
+        return DB.ElementId(enum)
+
+class BicEnum(object):
+    """ Allows access to __getattr__ of class """
+    __metaclass__ = _MetaBicEnum

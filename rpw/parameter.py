@@ -6,7 +6,7 @@ Parameter Wrapper
 
 from rpw import DB
 from rpw.logger import logger
-from rpw.enumeration import BuiltInParameterEnum
+from rpw.enumeration import BipEnum
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 from rpw.base import BaseObjectWrapper
@@ -98,7 +98,7 @@ class _BuiltInParameterSet(BaseObjectWrapper):
     def __getitem__(self, builtin_enum):
         """ Retrieves Built In Parameter. """
         if isinstance(builtin_enum, str):
-            builtin_enum = BuiltInParameterEnum.by_name(builtin_enum)
+            builtin_enum = BipEnum.get(builtin_enum)
         parameter = self._revit_object.get_Parameter(builtin_enum)
         if not parameter:
             raise RPW_ParameterNotFound(self._revit_object, builtin_enum)

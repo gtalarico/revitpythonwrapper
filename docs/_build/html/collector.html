@@ -388,7 +388,7 @@ namespace.</p>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
-<span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BuiltInCategoryEnum</span><span class="p">,</span> <span class="n">BuiltInParameterEnum</span>
+<span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
 
 
 <span class="k">class</span> <span class="nc">Collector</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -593,7 +593,7 @@ namespace.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">category_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;of_category&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">category_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">category_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;of_category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BuiltInCategoryEnum</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="n">category_name</span><span class="p">)</span>
+            <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;of_category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category_name</span><span class="p">)</span>
 
         <span class="n">class_name</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;of_class&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">class_name</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
