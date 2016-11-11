@@ -5,6 +5,8 @@
 >>> '1'
 
 """
+# TODO: Move to __init__.py to avoid rpw.forms.forms
+#       or import class into forms namespaces (failed sphinx build earlier)
 
 import sys
 try:
@@ -62,6 +64,7 @@ class SelectFromList(Window):
             """
 
     def __init__(self, title, options, description=None):
+        # TODO: Validate options type
         self.selected = None
         self.ui = wpf.LoadComponent(self, StringReader(SelectFromList.LAYOUT))
         # self.ui = wpf.LoadComponent(self, os.path.join(cwd, 'form_select_list.xaml'))
