@@ -20,25 +20,24 @@ class Collector(BaseObjectWrapper):
     Revit FilteredElement Collector Wrapper
 
     Usage:
-        >>> collector = Collector()
-        >>> elements = collector.filter(of_class=View)
+        >>> collector = Collector(of_class=View)
+        >>> elements = collector.elements
 
         Multiple Filters:
 
-        >>> collector = Collector()
-        >>> elements = collector.filter(of_category=BuiltInCategory.OST_Walls,
-                                        is_type=True)
+        >>> collector = Collector(of_category=BuiltInCategory.OST_Walls,
+                                  is_type=True)
 
         Chain Preserves Previous Results:
 
-        >>> collector = Collector()
-        >>> walls = collector.filter(of_category=BuiltInCategory.OST_Walls)
-        >>> walls.filter(is_type=True)
+        >>> collector = Collector(of_category=BuiltInCategory.OST_Walls)
+        >>> wall_types = colelctor(is_type=True)
+        >>> wall_types = collector.elements
 
         Use Enumeration member or name as string:
 
-        >>> collector.filter(of_category='OST_Walls')
-        >>> collector.filter(of_class='ViewType')
+        >>> Collector(of_category='OST_Walls')
+        >>> Collector(of_class='ViewType')
 
     Attributes:
         collector.elements: Returns list of all *collected* elements

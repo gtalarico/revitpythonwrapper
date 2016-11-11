@@ -161,25 +161,24 @@
 <p>Revit FilteredElement Collector Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">View</span><span class="p">)</span>
+<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">View</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>
 </pre></div>
 </div>
 <p>Multiple Filters:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">,</span>
-<span class="go">                                is_type=True)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">,</span>
+<span class="go">                          is_type=True)</span>
 </pre></div>
 </div>
 <p>Chain Preserves Previous Results:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">colelctor</span><span class="p">(</span><span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>
 </pre></div>
 </div>
 <p>Use Enumeration member or name as string:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -400,25 +399,24 @@ namespace.</p>
 <span class="sd">    Revit FilteredElement Collector Wrapper</span>
 
 <span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
-<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_class=View)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_class=View)</span>
+<span class="sd">        &gt;&gt;&gt; elements = collector.elements</span>
 
 <span class="sd">        Multiple Filters:</span>
 
-<span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
-<span class="sd">        &gt;&gt;&gt; elements = collector.filter(of_category=BuiltInCategory.OST_Walls,</span>
-<span class="sd">                                        is_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=BuiltInCategory.OST_Walls,</span>
+<span class="sd">                                  is_type=True)</span>
 
 <span class="sd">        Chain Preserves Previous Results:</span>
 
-<span class="sd">        &gt;&gt;&gt; collector = Collector()</span>
-<span class="sd">        &gt;&gt;&gt; walls = collector.filter(of_category=BuiltInCategory.OST_Walls)</span>
-<span class="sd">        &gt;&gt;&gt; walls.filter(is_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=BuiltInCategory.OST_Walls)</span>
+<span class="sd">        &gt;&gt;&gt; wall_types = colelctor(is_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; wall_types = collector.elements</span>
 
 <span class="sd">        Use Enumeration member or name as string:</span>
 
-<span class="sd">        &gt;&gt;&gt; collector.filter(of_category=&#39;OST_Walls&#39;)</span>
-<span class="sd">        &gt;&gt;&gt; collector.filter(of_class=&#39;ViewType&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_class=&#39;ViewType&#39;)</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        collector.elements: Returns list of all *collected* elements</span>
