@@ -4,10 +4,14 @@
    contain the root `toctree` directive.
 
 
+==================
 Forms
 ==================
 
 Forms are provided to facilitate user input.
+
+.. image:: _static/forms/select-from-list.png
+.. image:: _static/forms/text-input.png
 
 .. automodule:: rpw.forms.forms
     :members:
@@ -15,9 +19,7 @@ Forms are provided to facilitate user input.
     :private-members:
     :show-inheritance:
 
-
-.. image:: _static/forms/select-from-list.png
-.. image:: _static/forms/text-input.png
+----------------------------------------------
 
 Implementation
 **************

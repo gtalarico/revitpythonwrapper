@@ -87,7 +87,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Globals</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#traditional-method">Traditional Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typical-methods">Typical Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
@@ -170,21 +170,21 @@
 
 <dl class="data">
 <dt id="rpw.DB">
-<code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Stores Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>Besides creating these global variables, the initializer also adds the path
-to the Ironpython Library to your sys.path, so you can import standard python
+<p>Besides creating these global variables, the module&#8217;s global variable initializer
+also adds the path to the Ironpython Library to your sys.path, so you can import standard python
 libraries right away, and skip the typical:</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">r&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="traditional-method">
-<h2>Traditional Method<a class="headerlink" href="#traditional-method" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="typical-methods">
+<h2>Typical Methods<a class="headerlink" href="#typical-methods" title="Permalink to this headline">¶</a></h2>
 <p>When RPW is not used, import code ends up being different for each platform:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># RevitPythonShell / pyRevit</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
@@ -217,6 +217,7 @@ libraries right away, and skip the typical:</p>
 </pre></div>
 </div>
 </div>
+<hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>

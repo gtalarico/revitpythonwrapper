@@ -4,6 +4,7 @@
    contain the root `toctree` directive.
 
 
+==================
 Collector
 ==================
 
@@ -15,7 +16,7 @@ FilteredElementCollector Wrapper
     :private-members:
     :show-inheritance:
 
-
+----------------------------------------------
 
 Implementation
 **************

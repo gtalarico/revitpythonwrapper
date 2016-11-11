@@ -4,8 +4,9 @@
    contain the root `toctree` directive.
 
 
+===============
 Dynamo
-======
+===============
 
 The Revit Python Wrapper can easily be used within dynamo.
 The package distributed through Dynamo's Package Manager

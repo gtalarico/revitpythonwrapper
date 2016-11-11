@@ -4,6 +4,7 @@
    contain the root `toctree` directive.
 
 
+==================
 Enumeration
 ==================
 
@@ -13,6 +14,7 @@ Enumeration
     :private-members:
     :show-inheritance:
 
+----------------------------------------------
 
 Implementation
 **************

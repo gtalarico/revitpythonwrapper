@@ -4,6 +4,7 @@
    contain the root `toctree` directive.
 
 
+==================
 Exceptions
 ==================
 
@@ -15,6 +16,7 @@ Revit Python Wrapper Exceptions
     :private-members:
     :show-inheritance:
 
+----------------------------------------------
 
 Implementation
 **************

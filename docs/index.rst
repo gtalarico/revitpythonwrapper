@@ -3,10 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-
+====================
 Revit Python Wrapper
-==============================================
-
+====================
 
 .. toctree::
    :maxdepth: 1
@@ -26,71 +25,75 @@ Revit Python Wrapper
 
    known_issues
 
+Version: |version|
 
-.. automodule:: rpw
+:ref:`modindex` | :ref:`genindex`
 
-************************************
-Content
-************************************
 
-* :ref:`modindex`
-* :ref:`genindex`
-
-************************************
+**********************************
 A Python Wrapper For the Revit API
-************************************
+**********************************
 
 Revit Python Wrapper was created to help Python programmers write Revit API code.
 
 Wrapper classes make the interaction with API objects less repetitive,
 and more consistent with Python's conventions.
 
-It also handles the creation of global ``doc`` and ``uidoc`` variables so you can
-reuse code across platforms with no change
-application and document handlers (:ref:`globals`), as well as
-imports to common API namespaces, so you can
-so you can re-use your code across platforms without having to change your imports.
+It also provide a few convenient shortcuts:
 
-Lastly, it provides some
+    - Initializes a ``doc`` and ``uidoc``
+      document handling variables, so you can
+      reuse code across platforms with no change to your import code.
 
-I started this library primary to bootstrapping scripts, testing and educational purposes,
+    - Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPI.dll`` assemblies.
+
+    - Adds the IronPython Standard Library to your ``sys.path`` (for :doc:`dynamo`).
+
+    - Provides easy to use WPF :doc:`forms` so you can request additional user input
+      with little effort.
 
 
 .. caution::
     This library should not be used in complex applications or mission-critical work.
 
+-------------------------------------------------------------------
 
-Where To Use RWP
-****************
+**********************************
+Using RPW
+**********************************
 
 There are several ways to use RevitPythonWrapper:
 
-    * Import Library into :doc:`revitpythonshell` interactive interpreter
+    * :doc:`revitpythonshell`: import the library directly into the interactive interpreter
     * :doc:`dynamo`: Install through `Dynamo Package Manager <https://dynamopackages.com/>`_
-    * `MIT License <https://opensource.org/licenses/MIT>`_
     * `pyRevit <http://eirannejad.github.io/pyRevit/>`_ : import it into your scripts
-    * Macros: import library into your Python Macros
+    * Macros: import library into your Python Macros (untested).
 
-Why Use it
-**********
+Benefits
+^^^^^^^^
 
     * Normalizes Document and Application handlers for Revit + Dynamo
     * Normalizes API calls for different Revit Versions
-    * Increase code re-use across platforms
-    * Implements patterns to reduce repetitive tasks
-    * Make some calls feel more natural to Python
-    * Handle data coercion for speed and flexibility (see :any:`rpw.selection` for example)
-    * `Might` help new users get started with the API
+    * Increase code re-use across platforms (ie. :doc:`globals`)
+    * Implements patterns to reduce repetitive tasks (ie. :any:`rpw.transaction`)
+    * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.parameter.Parameter.value`)
 
+Contribute
+^^^^^^^^^^
+    https://www.github.com/gtalarico/revitpythonwrapper
 
 License
 ^^^^^^^
     `MIT License <https://opensource.org/licenses/MIT>`_
 
+---------------------------------------------------------------------------------
 
+**********************************
 Basic Components
-****************
+**********************************
 
+The examples below give a basic overview of how the library is used,
+paired with an example sans-rpw.
 
 :doc:`globals`
 ^^^^^^^^^^^^^^
@@ -98,22 +101,36 @@ Basic Components
     >>> # Handles Document Manager and namespace imports for RevitPythonShell and Dynamo
     >>> from rpw import doc, uidoc, DB, UI
     >>> uidoc.ActiveView
-    >>> doc.Delete()
-    >>> DB.ElementId(20000)
+
+    >>> # Dynamo Example
+    >>> import clr
+    >>> clr.AddReference('RevitAPI')
+    >>> clr.AddReference('RevitAPIUI')
+    >>> from Autodesk.Revit.DB import *
+    >>> from Autodesk.Revit.UI import *
+    >>>
+    >>> clr.AddReference("RevitServices")
+    >>> import RevitServices
+    >>> from RevitServices.Persistence import DocumentManager
+    >>> from RevitServices.Transactions import TransactionManager
+    >>>
+    >>> doc = DocumentManager.Instance.CurrentDBDocument
+    >>> uiapp = DocumentManager.Instance.CurrentUIApplication
+    >>> app = uiapp.Application
+    >>> uidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
 
 
 :doc:`transaction`
 ^^^^^^^^^^^^^^^^^^
 
     >>> # Using Wrapper
-    >>> from rpw import Transaction, doc
+    >>> import rpw
+    >>> from rpw import doc
     >>> with rpw.Transaction('Delete Object')
     >>>     doc.Remove(SomeElementId)
     >>> # This code remains the same for RevitPythonShell, and Dynamo
 
-    In constrast, Transactions usually looks something like this
-
-    >>> # In Dynamo
+    >>> # Transactions In Dynamo
     >>> import clr
     >>> clr.AddReference("RevitServices")
     >>> import RevitServices
@@ -124,7 +141,7 @@ Basic Components
     >>> doc.Remove(SomeElementId)
     >>> TransactionManager.Instance.TransactionTaskDone()
 
-    >>> # Revit Python Shell
+    >>> # Transactions in Revit Python Shell
     >>> import clr
     >>> clr.AddReference('RevitAPI')
     >>> from Autodesk.Revit.DB import Transaction
@@ -151,7 +168,8 @@ Basic Components
     [< Autodesk.Revit.DB.Element >]
 
     >>> # Other Features
-    >>> selection.add(SomeElementID)
+    >>> selection.clear()
+    >>> selection.add(DB.Element or DB.ElementId)
 
     >>> # In Revit Python Shell
     >>> uidoc = __revit__.ActiveUIDocument # Different for Dynamo
@@ -166,13 +184,15 @@ Basic Components
     >>> element = rpw.Element(SomeRevitElement)
     >>> with rpw.Transaction('Set Comment Parameter'):
     >>>     element.parameters['Comments'].value = 'Some String'
-    'Some String' set as parameter value
+    >>>
+    >>> # Parameters
     >>> element.parameters['some value'].type
-    `<type: string>`
+    <type: string>
     >>> element.parameters['some value'].value
     'Some String'
     >>> element.parameters.builtins['WALL_LOCATION_LINE'].value
     1
+
 
 :doc:`collector`
 ^^^^^^^^^^^^^^^^^^^

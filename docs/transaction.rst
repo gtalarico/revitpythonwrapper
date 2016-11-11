@@ -4,6 +4,7 @@
    contain the root `toctree` directive.
 
 
+==================
 Transaction
 ==================
 
@@ -15,6 +16,7 @@ Wrappers to make Revit Transactions work with Python Context Manager.
     :private-members:
     :show-inheritance:
 
+----------------------------------------------
 
 Implementation
 **************

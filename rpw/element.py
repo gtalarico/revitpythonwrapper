@@ -1,5 +1,8 @@
 """
+Element Wrappers
+
 >>> rpw.Element(SomeRevitElement)
+
 """
 
 from rpw import doc, uidoc, DB
@@ -29,30 +32,25 @@ class Element(BaseObjectWrapper):
         >>>     wall.parameters['Height'].value = 5
 
     Attributes:
-        _revit_object (DB.Element) = Revit Reference
+
+        parameters (_ParameterSet): Access :class:`._ParameterSet` class.
+        parameters['ParamName'] (_Parameter): Returns :class:`_Parameter` class instance if match is found.
+        parameters.builtins['BuiltInName'] (_Parameter): Buit In :obj:_Parameter
+        _revit_object (DB.Element) = Wrapped Revit Reference
 
     """
     def __init__(self, element):
         """
-        Element Class Wrapper
-
-        Usage:
-            >>> wall = Element(Revit.DB.Wall)
-            >>> wall.parameters['Height']
-            >>> wall.parameters.builtins['WALL_LOCATION_LINE']
-
         Args:
             element (API Object): Revit API Object
 
         Returns:
             Element: Instance of Wrapped Element
 
-        Attributes:
-            parameters (_ParameterSet): Access Wrapped ParameterSet Class :class:`._ParameterSet`
-
-            parameters['ParamName'] (_Parameter): Get Parameter
-
-            parameters.builtins['BuiltInName'] (_Parameter): Buit In :obj:_Parameter
+        Usage:
+            >>> wall = Element(Revit.DB.Wall)
+            >>> wall.parameters['Height']
+            >>> wall.parameters.builtins['WALL_LOCATION_LINE']
 
         """
         if not isinstance(element, DB.Element):
@@ -68,9 +66,6 @@ class Element(BaseObjectWrapper):
     def id_as_int(self):
         """ Example of mapping existing properties"""
         return self._revit_object.Id.IntegerValue
-
-    def unwrap():
-        return self._revit_object
 
     @classmethod
     def by_id(cls, element_id):

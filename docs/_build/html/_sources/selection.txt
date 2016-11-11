@@ -4,6 +4,7 @@
    contain the root `toctree` directive.
 
 
+==================
 Selection
 ==================
 
@@ -15,6 +16,7 @@ Wrappers to help handle Selection.
     :private-members:
     :show-inheritance:
 
+----------------------------------------------
 
 Implementation
 **************

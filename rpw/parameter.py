@@ -13,26 +13,25 @@ from rpw.base import BaseObjectWrapper
 
 class _ParameterSet(BaseObjectWrapper):
     """
-    Revit Element Parameter List Wrapper.
+    Allows you to treat an element parameters as a dictionary.
 
-    Allows you to treat an element parameters as if it was a dictionary.
-    Keeping element store so other methods beyond Parameters can be used.
+    Instance of this class is returned on an element's ``parameters`` attribute.
 
-    This class lives at an elemnt's .parameters attribute.
+    >>> element.parameters.all()
+    >>> element.parameters['Comments'].value
+    >>> element.parameters['Comments'].value = 'My Comment'
+    >>> element.parameters['Comments'].type
 
     Attributes:
         _revit_object (DB.Element) = Revit Reference
 
-    Usage:
-        >>> element.parameters.all()
-        >>> element.parameters['Comments'].value
-        >>> element.parameters['Comments'].value = 'My Comment'
-        >>> element.parameters['Comments'].type
-
     """
 
     def __init__(self, element):
-        """ Setup element"""
+        """
+        Args:
+            element(DB.Element): Element to create ParameterSet
+        """
         super(_ParameterSet, self).__init__(element)
         self.builtins = _BuiltInParameterSet(self._revit_object)
 
@@ -115,21 +114,17 @@ class _BuiltInParameterSet(BaseObjectWrapper):
 
 class Parameter(BaseObjectWrapper):
     """
-    Revit Element Parameter Wrapper.
+    Primarily for internal use by :any:`rpw.element.Element`, but can be used on it's own.
 
-    This class is used heavily by the Element Wrapper, but can also be used
-    to wrap Parameter Elements.
-
-    Usage:
-        >>> parameter = Parameter(some_revit_parameter_object)
-        >>> paramter.type
-        <type: str>
-        >>> paramter.type
-        'Some String'
-        >>> paramter.name
-        'Parameter Name'
-        >>> paramter.builtin
-        Revit.DB.BuiltInParameter.SOME_BUILT_IN_NAME
+    >>> parameter = Parameter(DB.Parameter)
+    >>> parameter.type
+    <type: str>
+    >>> parameter.value
+    'Some String'
+    >>> parameter.name
+    'Parameter Name'
+    >>> parameter.builtin
+    Revit.DB.BuiltInParameter.SOME_BUILT_IN_NAME
 
     Attributes:
         _revit_object (DB.Parameter) = Revit Reference
@@ -188,29 +183,28 @@ class Parameter(BaseObjectWrapper):
     @property
     def value(self):
         """
-        Get Parameter Value
+        Gets Parameter Value:
+
         Returns:
             type: parameter value in python type
 
-        Usage:
-            >>> desk.parameter['Height'].value
-            >>> 3.0
+        >>> desk.parameter['Height'].value
+        >>> 3.0
 
-        Set Parameter Value
+        Sets Parameter Value (must be in Transaction Context):
 
-        Usage:
-            >>> desk.parameter['Height'].value = 3
+        >>> desk.parameter['Height'].value = 3
 
         Note:
 
-            Certain types are automatically coerced
+            `Parameter` value setter automatically handles a few type csatings:
 
-            * storagetype:value > result
-            * str:None > ''
-            * str:type > str(value)
-            * ElementId:None > ElemendId.InvalidElementId
-            * int:float > int
-            * float:int > float
+            * Storage is ``str`` and value is ``None``; value is converted to ``blank_string``
+            * Storage is ``str`` and value is ``any``; value is converted to ``string``
+            * Storage is ``ElementId`` and value is ``None``; value is converted to ``ElemendId.InvalidElementId``
+            * Storage is ``int`` and value is ``float``; value is converted to ``int``
+            * Storage is ``float`` and value is ``int``; value is converted to ``float``
+
         """
         if self.type is str:
             return self._revit_object.AsString()

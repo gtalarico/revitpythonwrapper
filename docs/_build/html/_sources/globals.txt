@@ -4,8 +4,9 @@
    contain the root `toctree` directive.
 
 
+==================
 Globals
-=======
+==================
 
 Global variables normalize imports across platforms.
 
@@ -27,17 +28,17 @@ Global variables normalize imports across platforms.
 
 .. data:: DB
     :module: rpw
-    :annotation:  Stores Revit.DB Namespace
+    :annotation:  Revit.DB Namespace
 
 .. note::
-    Besides creating these global variables, the initializer also adds the path
-    to the Ironpython Library to your sys.path, so you can import standard python
+    Besides creating these global variables, the module's global variable initializer
+    also adds the path to the Ironpython Library to your sys.path, so you can import standard python
     libraries right away, and skip the typical:
 
     >>> import sys
     >>> sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
 
-Traditional Method
+Typical Methods
 ******************
 
 When RPW is not used, import code ends up being different for each platform:
@@ -52,7 +53,6 @@ When RPW is not used, import code ends up being different for each platform:
     >>>
     >>> doc = __revit__.ActiveUIDocument.Document
     >>> uidoc = __revit__.ActiveUIDocument
-
 
     >>> # Dynamo
     >>> import clr
@@ -70,6 +70,8 @@ When RPW is not used, import code ends up being different for each platform:
     >>> uiapp = DocumentManager.Instance.CurrentUIApplication
     >>> app = uiapp.Application
     >>> uidoc = DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument
+
+----------------------------------------------
 
 Implementation
 **************

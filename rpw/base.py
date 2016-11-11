@@ -15,7 +15,8 @@ class BaseObjectWrapper(object):
         so it can store a reference to the element and uses
         other Parameter related methods that are not store in
         Parameters such as element.get_Parameter or element.LookupParameter
-    Allows access to all original attributes and methods of original object.
+
+        Allows access to all original attributes and methods of original object.
 
     """
 
@@ -31,6 +32,9 @@ class BaseObjectWrapper(object):
         Access original methods and properties or the element.
         """
         return getattr(self._revit_object, attr)
+
+    def unwrap():
+        return self._revit_object
 
     def __repr__(self, data=''):
         return '<RPW_{}:{}>'.format(self.__class__.__name__, data)

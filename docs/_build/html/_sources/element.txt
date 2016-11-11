@@ -4,23 +4,23 @@
    contain the root `toctree` directive.
 
 
+==============================================
 Element
 ==============================================
-
-Element Wrapper
 
 .. automodule:: rpw.element
     :members: Element
     :special-members: __init__, __getattr__
     :show-inheritance:
 
+----------------------------------------------
 
 ParameterSet
 ************
 
 .. autoclass:: rpw.parameter._ParameterSet
     :members:
-    :special-members: __getattr__, __getitem__
+    :special-members: __init__, __getitem__, __setitem__, __len__
     :show-inheritance:
 
 
@@ -29,11 +29,13 @@ Parameter
 
 .. autoclass:: rpw.parameter.Parameter
     :members:
-    :special-members: __init__, __getattr__
+    :special-members: __init__, __getattr__, __setitem__
     :show-inheritance:
 
+----------------------------------------------
 
 Implementation
 **************
 
 .. literalinclude:: ../rpw/element.py
+.. literalinclude:: ../rpw/parameter.py
