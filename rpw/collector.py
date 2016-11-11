@@ -217,7 +217,7 @@ class _Filter():
         """
         category_name = filters.get('of_category')
         if category_name and isinstance(category_name, str):
-            filters['of_category'] = BicEnum.get(category_name)
+            filters['of_category'] = BicEnum.by_name(category_name)
 
         class_name = filters.get('of_class')
         if class_name and isinstance(class_name, str):

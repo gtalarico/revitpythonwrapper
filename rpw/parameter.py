@@ -268,6 +268,16 @@ class Parameter(BaseObjectWrapper):
         """
         return self._revit_object.Definition.BuiltInParameter
 
+    @property
+    def builtin_id(self):
+        """ ElementId of BuiltIn
+
+        Usage:
+            >>> wall.parameters['Unconnected Height'].builtin_id
+            Revit.DB.BuiltInParameter.WALL_USER_HEIGHT_PARAM
+        """
+        return DB.ElementId(self.builtin)
+
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
         return super(Parameter, self).__repr__(self.value)
