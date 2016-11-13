@@ -15,6 +15,7 @@ test_dir = os.path.dirname(__file__)
 root_dir = os.path.dirname(test_dir)
 sys.path.append(root_dir)
 
+import rpw
 from rpw import DB, UI, doc, uidoc, version
 from rpw import List
 from rpw.element import Element
@@ -28,15 +29,14 @@ from rpw.logger import logger
 from rpw.enumeration import BipEnum
 
 # TODO: Add Forms Tests
-# TODO: Add Transaction Decorator Tests
-# @Transaction.wrap('Do Something')
-# def decorated_transaction():
-#     wall = Collector(of_class='Wall').first
-#     wall = Element(wall)
-#     wall.parameters['Comments'].value = 'Peido'
-#     print('Done')
-# decorated_transaction()
-# sys.exit()
+# TODO: Add independent complex Collector Tests.
+
+selection = Selection
+
+
+
+
+sys.exit()
 
 def setUpModule():
     logger.title('SETTING UP TESTS...')
@@ -55,8 +55,8 @@ def setUpModule():
 
     with Transaction('Add Wall'):
         wall = DB.Wall.Create(doc, wall_line, level.Id, False)
-    global wall_id
-    wall_id = wall.Id.IntegerValue
+    global wall_int
+    wall_int = wall.Id.IntegerValue
     logger.debug('WALL CREATED.')
     logger.debug('TEST SETUP')
 
@@ -76,7 +76,7 @@ class TransactionsTest(unittest.TestCase):
         logger.title('TESTING TRANSACTIONS...')
 
     def setUp(self):
-        self.wall = Element.from_id(wall_id)
+        self.wall = Element(wall_int)
         with Transaction('Reset Comment') as t:
             self.wall.parameters['Comments'] = ''
 
@@ -229,7 +229,7 @@ class SelectionTests(unittest.TestCase):
         logger.title('TESTING SELECTION...')
 
     def setUp(self):
-        self.selection = Selection([wall_id])
+        self.selection = Selection([wall_int])
 
     def tearDown(self):
         self.selection.clear()
@@ -260,11 +260,11 @@ class SelectionTests(unittest.TestCase):
     def test_selection_clear(self):
         self.selection.clear()
         self.assertEqual(len(self.selection), 0)
-        self.selection = Selection([wall_id])
+        self.selection = Selection([wall_int])
 
     def test_selection_add(self):
         selection = Selection()
-        selection.add([wall_id])
+        selection.add([wall_int])
         self.assertIsInstance(selection[0], DB.Wall)
 
 ######################
@@ -279,13 +279,12 @@ class ElementTests(unittest.TestCase):
         logger.title('TESTING ELEMENT...')
 
     def setUp(self):
-        collector = Collector()
-        self.wall = collector.filter(of_class='Wall').first
+        self.wall = Collector(of_class='Wall').first
         self.wrapped_wall = Element(self.wall)
 
     def tearDown(self):
         collector = Collector()
-        levels = collector.filter(of_class=DB.Level).elements
+        levels = Collector(of_class=DB.Level).elements
         with Transaction('Delete Test Levels'):
             for level in levels[1:]:
                 doc.Delete(level.Id)
@@ -299,7 +298,11 @@ class ElementTests(unittest.TestCase):
         self.assertEqual(self.wrapped_wall.id_as_int, self.wall.Id.IntegerValue)
 
     def test_element_from_id(self):
-        element = Element.from_id(wall_id)
+        element = Element(DB.ElementId(wall_int))
+        self.assertIsInstance(element, Element)
+
+    def test_element_from_int(self):
+        element = Element(wall_int)
         self.assertIsInstance(element, Element)
 
     def test_element_id(self):

@@ -15,12 +15,15 @@ class ParameterSet(BaseObjectWrapper):
     """
     Allows you to treat an element parameters as a dictionary.
 
-    Instance of this class is returned on an element's ``parameters`` attribute.
+    This is used internally byt the Element Wrapper: and instance of This
+    class is returned on an warpped element ``parameters`` attribute,
+    but can also be used on it's own
 
     >>> element.parameters.all()
     >>> element.parameters['Comments'].value
-    >>> element.parameters['Comments'].value = 'My Comment'
     >>> element.parameters['Comments'].type
+
+    >>> paramters = ParameterSet(Element)
 
     Attributes:
         _revit_object (DB.Element) = Revit Reference

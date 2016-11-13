@@ -8,6 +8,7 @@ Element Wrappers
 from rpw import doc, uidoc, DB
 from rpw.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
+from rpw.coerce import element_reference_to_element_ids
 
 from rpw.logger import logger
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
@@ -39,26 +40,23 @@ class Element(BaseObjectWrapper):
         _revit_object (DB.Element) = Wrapped Revit Reference
 
     """
-    def __init__(self, element):
+    def __init__(self, element_reference):
         """
         Args:
-            element (API Object): Revit API Object
+            element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
 
         Returns:
-            Element: Instance of Wrapped Element
+            rpw.Element: Instance of Wrapped Element
 
         Usage:
-            >>> wall = Element(Revit.DB.Wall)
+            >>> wall = Element(SomeElementId)
             >>> wall.parameters['Height']
             >>> wall.parameters.builtins['WALL_LOCATION_LINE']
-
         """
-        if not isinstance(element, DB.Element):
-            logger.error(isinstance(element, DB.Element))
-            raise RPW_TypeError('cannot wrap non-APIObject: {}'.format(
-                                                            DB.Element,
-                                                            type(element)
-                                                            ))
+        # This class isn't very useful right now, except for adding the .parameters attribute.
+        # Consider removing.
+
+        element = element_reference_to_element_ids(element_reference)
         super(Element, self).__init__(element)
         self.parameters = ParameterSet(element)
 
@@ -67,26 +65,8 @@ class Element(BaseObjectWrapper):
         """ Example of mapping existing properties"""
         return self._revit_object.Id.IntegerValue
 
-    @classmethod
-    def from_id(cls, element_id):
-        """
-        Allows to create ``rpw.Element`` from an
-        element by Id (``int`` or ``DB.ElementId``)
-
-        Args:
-            element_id (int, DB.ElementId): ElementId or Integer of element to wrap.
-        """
-        # IDEA: Just move this to __init__
-
-        if isinstance(element_id, int):
-            element_id = DB.ElementId(element_id)
-
-        element = doc.GetElement(element_id)
-        return Element(element)
-
     def __repr__(self):
         return super(Element, self).__repr__(str(self._revit_object.ToString()))
-
 
 
 # Get ElementType Name
@@ -108,7 +88,7 @@ class Element(BaseObjectWrapper):
 #
 # class FamilyInstance(BaseObjectWrapper):
 #     """ Generic Family Instance Wrapper """
-    ## Help with Family name, symbol name, etc
+#  Help with Family name, symbol name, etc
 #     # Get Type
 #     # Get Symbol
 #     # Get Elements

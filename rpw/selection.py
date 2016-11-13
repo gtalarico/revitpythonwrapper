@@ -110,7 +110,6 @@ class Selection(BaseObjectWrapper):
         """
         return self.elements[index]
 
-
     def __bool__(self):
         """
         Returns:
