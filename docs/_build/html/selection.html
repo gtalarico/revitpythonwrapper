@@ -144,25 +144,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="selection">
-<h1>Selection<a class="headerlink" href="#selection" title="Permalink to this headline">¶</a></h1>
-<p>Wrappers to help handle Selection.</p>
-<span class="target" id="module-rpw.selection"></span><dl class="class">
+  <div class="section" id="module-rpw.selection">
+<span id="selection"></span><h1>Selection<a class="headerlink" href="#module-rpw.selection" title="Permalink to this headline">¶</a></h1>
+<p><cite>uidoc.Selection</cite> Wrapper</p>
+<dl class="class">
 <dt id="rpw.selection.Selection">
 <em class="property">class </em><code class="descclassname">rpw.selection.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
-<p>Revit uidoc.Selection Wrapper
-Makes easier to manipulate Active Selection.</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">element_ids</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">elements</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
+<dl class="docutils">
 <dt>Wrapped Element:</dt>
 <dd>self._revit_object = <cite>Revit.UI.Selection</cite></dd>
 </dl>
@@ -188,17 +184,17 @@ Makes easier to manipulate Active Selection.</p>
 <dl class="method">
 <dt id="rpw.selection.Selection.__getitem__">
 <code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieves element using index.
-If Index is out range, <cite>None</cite> is returned</p>
+<dd><p>Retrieves element in seleciton using index.
+If Index is out range, <code class="docutils literal"><span class="pre">None</span></code> is returned</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>int</strong> &#8211; Integer representing list index.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>int</strong> &#8211; Integer representing item index in <code class="docutils literal"><span class="pre">selection.elements</span></code></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Item at Index, or None</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><cite>DB.Element</cite>, <cite>None</cite></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.Element</span></code>, <code class="docutils literal"><span class="pre">None</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -211,7 +207,9 @@ If Index is out range, <cite>None</cite> is returned</p>
 <dl class="method">
 <dt id="rpw.selection.Selection.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes Selection.</p>
+<dd><p>Initializes Selection. Elements or ElementIds are optional.
+If no elements are provided on intiialization,
+selection handler will be created with selected elements.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -241,7 +239,7 @@ If Index is out range, <cite>None</cite> is returned</p>
 <dl class="method">
 <dt id="rpw.selection.Selection.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>elements_or_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds elements to selection. Takes elements or element ids</p>
+<dd><p>Adds elements to selection.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -279,7 +277,7 @@ If Index is out range, <cite>None</cite> is returned</p>
 <dl class="attribute">
 <dt id="rpw.selection.Selection.element_ids">
 <code class="descname">element_ids</code><a class="headerlink" href="#rpw.selection.Selection.element_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of <cite>ElemendId</cite> objects</p>
+<dd><p>Gets list of <code class="docutils literal"><span class="pre">`ElemendId</span></code> in selection</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -295,7 +293,7 @@ If Index is out range, <cite>None</cite> is returned</p>
 <dl class="attribute">
 <dt id="rpw.selection.Selection.elements">
 <code class="descname">elements</code><a class="headerlink" href="#rpw.selection.Selection.elements" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of Elements.</p>
+<dd><p>Gets list of <code class="docutils literal"><span class="pre">`Elemend</span></code> in selection</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -313,7 +311,11 @@ If Index is out range, <cite>None</cite> is returned</p>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">`uidoc.Selection` Wrapper</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -322,15 +324,11 @@ If Index is out range, <cite>None</cite> is returned</p>
 
 <span class="k">class</span> <span class="nc">Selection</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Revit uidoc.Selection Wrapper</span>
-<span class="sd">    Makes easier to manipulate Active Selection.</span>
-
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; selection = Selection()</span>
-<span class="sd">        &gt;&gt;&gt; selection[0]</span>
-<span class="sd">        &gt;&gt;&gt; selection.element_ids</span>
-<span class="sd">        &gt;&gt;&gt; selection.elements</span>
-<span class="sd">        &gt;&gt;&gt; len(selection)</span>
+<span class="sd">    &gt;&gt;&gt; selection = Selection()</span>
+<span class="sd">    &gt;&gt;&gt; selection[0]</span>
+<span class="sd">    &gt;&gt;&gt; selection.element_ids</span>
+<span class="sd">    &gt;&gt;&gt; selection.elements</span>
+<span class="sd">    &gt;&gt;&gt; len(selection)</span>
 
 <span class="sd">    Wrapped Element:</span>
 <span class="sd">        self._revit_object = `Revit.UI.Selection`</span>
@@ -338,7 +336,9 @@ If Index is out range, <cite>None</cite> is returned</p>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes Selection.</span>
+<span class="sd">        Initializes Selection. Elements or ElementIds are optional.</span>
+<span class="sd">        If no elements are provided on intiialization,</span>
+<span class="sd">        selection handler will be created with selected elements.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            elements ([DB.Element or DB.ElementID]): Elements or ElementIds</span>
@@ -353,7 +353,7 @@ If Index is out range, <cite>None</cite> is returned</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements_or_ids</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Adds elements to selection. Takes elements or element ids</span>
+        <span class="sd">&quot;&quot;&quot; Adds elements to selection.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            elements ([DB.Element or DB.ElementID]): Elements or ElementIds</span>
@@ -381,7 +381,7 @@ If Index is out range, <cite>None</cite> is returned</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List of `ElemendId` objects</span>
+<span class="sd">        Gets list of ```ElemendId`` in selection</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            [DB.ElementId]: List of ElementIds Objects &quot;&quot;&quot;</span>
@@ -390,7 +390,7 @@ If Index is out range, <cite>None</cite> is returned</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List of Elements.</span>
+<span class="sd">        Gets list of ```Elemend`` in selection</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            [DB.Element]: List of Elements &quot;&quot;&quot;</span>
@@ -409,14 +409,14 @@ If Index is out range, <cite>None</cite> is returned</p>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieves element using index.</span>
-<span class="sd">        If Index is out range, `None` is returned</span>
+<span class="sd">        Retrieves element in seleciton using index.</span>
+<span class="sd">        If Index is out range, ``None`` is returned</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            int: Integer representing list index.</span>
+<span class="sd">            int: Integer representing item index in ``selection.elements``</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            `DB.Element`, `None`: Item at Index, or None</span>
+<span class="sd">            ``DB.Element``, ``None``: Item at Index, or None</span>
 
 <span class="sd">        &gt;&gt;&gt; selection[0]</span>
 <span class="sd">        &lt; Revit.DB.Element &gt;</span>

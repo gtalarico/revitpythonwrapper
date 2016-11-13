@@ -3,9 +3,6 @@ from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
 
-# TODO: Add Transaction Group
-# TODO: Use Dynamo Transaction when platform='dynamo'
-
 
 class Transaction(object):
     """
@@ -123,6 +120,9 @@ class TransactionGroup(object):
 
 
 class DynamoTransaction(object):
+
+    # TODO: Use Dynamo Transaction when platform='dynamo'
+
     def __init__(self, name):
         raise NotImplemented
     #     from rpw import TransactionManager

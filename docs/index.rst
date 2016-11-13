@@ -78,6 +78,15 @@ Benefits
     * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.parameter.Parameter.value`)
     * Normalizes API calls for different Revit Versions (not yet implemented)
 
+Compatibility
+^^^^^^^^^^^^^
+
+    RevitPythonWrapper has been tested on the following platoforms:
+
+    * RevitPythonShell + Revit: 2015, 2016, 2017
+    * pyRevit: 2015, 2016
+    * Dynamo: 1.2
+
 Contribute
 ^^^^^^^^^^
     https://www.github.com/gtalarico/revitpythonwrapper

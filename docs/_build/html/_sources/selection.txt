@@ -8,8 +8,6 @@
 Selection
 ==================
 
-Wrappers to help handle Selection.
-
 .. automodule:: rpw.selection
     :members:
     :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
