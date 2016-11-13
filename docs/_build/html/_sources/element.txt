@@ -18,7 +18,7 @@ Element
 ParameterSet
 ************
 
-.. autoclass:: rpw.parameter._ParameterSet
+.. autoclass:: rpw.parameter.ParameterSet
     :members:
     :special-members: __init__, __getitem__, __setitem__, __len__
     :show-inheritance:

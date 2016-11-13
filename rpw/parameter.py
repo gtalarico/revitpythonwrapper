@@ -11,7 +11,7 @@ from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 from rpw.base import BaseObjectWrapper
 
 
-class _ParameterSet(BaseObjectWrapper):
+class ParameterSet(BaseObjectWrapper):
     """
     Allows you to treat an element parameters as a dictionary.
 
@@ -32,7 +32,7 @@ class _ParameterSet(BaseObjectWrapper):
         Args:
             element(DB.Element): Element to create ParameterSet
         """
-        super(_ParameterSet, self).__init__(element)
+        super(ParameterSet, self).__init__(element)
         self.builtins = _BuiltInParameterSet(self._revit_object)
 
     def __getitem__(self, param_name):
@@ -70,7 +70,7 @@ class _ParameterSet(BaseObjectWrapper):
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add Parameter List Name """
-        return super(_ParameterSet, self).__repr__(len(self))
+        return super(ParameterSet, self).__repr__(len(self))
 
 
 class _BuiltInParameterSet(BaseObjectWrapper):

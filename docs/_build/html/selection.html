@@ -376,7 +376,7 @@ selection handler will be created with selected elements.</p>
 
         <span class="n">current_selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">GetElementIds</span><span class="p">()]</span>
         <span class="n">all_ids</span> <span class="o">=</span> <span class="n">current_selection</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element_ids</span><span class="p">)</span>
-        <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">SetElementIds</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
+        <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">SetElementIds</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">all_ids</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

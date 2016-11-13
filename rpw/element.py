@@ -6,7 +6,7 @@ Element Wrappers
 """
 
 from rpw import doc, uidoc, DB
-from rpw.parameter import Parameter, _ParameterSet
+from rpw.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
 
 from rpw.logger import logger
@@ -33,7 +33,7 @@ class Element(BaseObjectWrapper):
 
     Attributes:
 
-        parameters (_ParameterSet): Access :class:`._ParameterSet` class.
+        parameters (ParameterSet): Access :class:`.ParameterSet` class.
         parameters['ParamName'] (_Parameter): Returns :class:`_Parameter` class instance if match is found.
         parameters.builtins['BuiltInName'] (_Parameter): Buit In :obj:_Parameter
         _revit_object (DB.Element) = Wrapped Revit Reference
@@ -60,7 +60,7 @@ class Element(BaseObjectWrapper):
                                                             type(element)
                                                             ))
         super(Element, self).__init__(element)
-        self.parameters = _ParameterSet(element)
+        self.parameters = ParameterSet(element)
 
     @property
     def id_as_int(self):

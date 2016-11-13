@@ -175,7 +175,7 @@
 <dl class="attribute">
 <dt id="rpw.element.Element.parameters">
 <code class="descname">parameters</code><a class="headerlink" href="#rpw.element.Element.parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>_ParameterSet</em> &#8211; Access <a class="reference internal" href="#rpw.parameter._ParameterSet" title="rpw.parameter._ParameterSet"><code class="xref py py-class docutils literal"><span class="pre">_ParameterSet</span></code></a> class.</p>
+<dd><p><em>ParameterSet</em> &#8211; Access <a class="reference internal" href="#rpw.parameter.ParameterSet" title="rpw.parameter.ParameterSet"><code class="xref py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> class.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -249,8 +249,8 @@ element by Id (<code class="docutils literal"><span class="pre">int</span></code
 <div class="section" id="parameterset">
 <h2>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="rpw.parameter._ParameterSet">
-<em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">_ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.parameter.ParameterSet">
+<em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Allows you to treat an element parameters as a dictionary.</p>
 <p>Instance of this class is returned on an element&#8217;s <code class="docutils literal"><span class="pre">parameters</span></code> attribute.</p>
@@ -261,14 +261,14 @@ element by Id (<code class="docutils literal"><span class="pre">int</span></code
 </pre></div>
 </div>
 <dl class="attribute">
-<dt id="rpw.element._ParameterSet._revit_object">
-<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element._ParameterSet._revit_object" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.element.ParameterSet._revit_object">
+<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element.ParameterSet._revit_object" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>DB.Element</em></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.parameter._ParameterSet.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>param_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.parameter.ParameterSet.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>param_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get&#8217;s parameter by name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -283,8 +283,8 @@ element by Id (<code class="docutils literal"><span class="pre">int</span></code
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.parameter._ParameterSet.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.parameter.ParameterSet.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -296,8 +296,8 @@ element by Id (<code class="docutils literal"><span class="pre">int</span></code
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.parameter._ParameterSet.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>param_name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter._ParameterSet.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.parameter.ParameterSet.__setitem__">
+<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>param_name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets value to element&#8217;s parameter</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 </pre></div>
@@ -305,8 +305,8 @@ element by Id (<code class="docutils literal"><span class="pre">int</span></code
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.parameter._ParameterSet.all">
-<code class="descname">all</code><a class="headerlink" href="#rpw.parameter._ParameterSet.all" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.parameter.ParameterSet.all">
+<code class="descname">all</code><a class="headerlink" href="#rpw.parameter.ParameterSet.all" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> &#8211; Flat list of wrapped parameter elements</p>
 </dd></dl>
 
@@ -488,7 +488,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
-<span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">_ParameterSet</span>
+<span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">ParameterSet</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -515,7 +515,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">    Attributes:</span>
 
-<span class="sd">        parameters (_ParameterSet): Access :class:`._ParameterSet` class.</span>
+<span class="sd">        parameters (ParameterSet): Access :class:`.ParameterSet` class.</span>
 <span class="sd">        parameters[&#39;ParamName&#39;] (_Parameter): Returns :class:`_Parameter` class instance if match is found.</span>
 <span class="sd">        parameters.builtins[&#39;BuiltInName&#39;] (_Parameter): Buit In :obj:_Parameter</span>
 <span class="sd">        _revit_object (DB.Element) = Wrapped Revit Reference</span>
@@ -542,7 +542,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
                                                             <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
                                                             <span class="p">))</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">_ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">id_as_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -638,7 +638,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 
 
-<span class="k">class</span> <span class="nc">_ParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Allows you to treat an element parameters as a dictionary.</span>
 
@@ -659,7 +659,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Args:</span>
 <span class="sd">            element(DB.Element): Element to create ParameterSet</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">_ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">builtins</span> <span class="o">=</span> <span class="n">_BuiltInParameterSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">):</span>
@@ -697,7 +697,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add Parameter List Name &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">_BuiltInParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
