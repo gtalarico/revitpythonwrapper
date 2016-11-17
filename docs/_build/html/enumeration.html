@@ -188,6 +188,18 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 </dd>
 </dl>
 <dl class="classmethod">
+<dt id="rpw.enumeration._MetaBicEnum.from_category">
+<em class="property">classmethod </em><code class="descname">from_category</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.from_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get&#8217;s BuiltInCategory Enumeration member from 11DB.Category``</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.enumeration._MetaBicEnum.from_id">
+<em class="property">classmethod </em><code class="descname">from_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.from_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets <code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> Enumeration member from <code class="docutils literal"><span class="pre">DB.ElementId</span></code></p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="rpw.enumeration._MetaBicEnum.get">
 <em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Built In Category by Name
@@ -339,6 +351,7 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 
 <span class="k">class</span> <span class="nc">BipEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Allows access to __getattr__ of class &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Remove this, no longer needed since getattr is not used.</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">_MetaBipEnum</span>
 
 
@@ -380,8 +393,23 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
         <span class="n">enum</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
 
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Gets ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">bic_name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">element_id</span> <span class="o">==</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">bic</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bic</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_category</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get&#39;s BuiltInCategory Enumeration member from 11DB.Category`` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+
 <span class="k">class</span> <span class="nc">BicEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Allows access to __getattr__ of class &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Remove this, no longer needed since getattr is not used.</span>
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">_MetaBicEnum</span>
 </pre></div>
 </div>

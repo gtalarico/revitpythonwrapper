@@ -61,7 +61,7 @@ if platform is not None:
     from rpw.transaction import Transaction, TransactionGroup
     from rpw.enumeration import BipEnum, BicEnum
     from rpw.element import Element, Parameter
-    from rpw.coerce import elements_to_element_ids
+    from rpw.coerce import to_element_ids, to_elements
     from rpw.logger import logger
 
     try:

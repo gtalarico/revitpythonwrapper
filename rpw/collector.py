@@ -8,7 +8,7 @@
 
 from rpw import uidoc, doc, DB
 from rpw import List
-from rpw.coerce import elements_to_element_ids
+from rpw.coerce import to_element_ids
 from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
@@ -38,6 +38,10 @@ class Collector(BaseObjectWrapper):
 
         >>> Collector(of_category='OST_Walls')
         >>> Collector(of_class='ViewType')
+
+        Search list of elements
+
+        >>> Collector(elements=[Element1, Element2,...], of_category='OST_Walls')
 
     Attributes:
         collector.elements: Returns list of all *collected* elements
@@ -80,7 +84,7 @@ class Collector(BaseObjectWrapper):
             filters.pop('view')
         elif 'elements' in filters:
             elements = filters['elements']
-            element_ids = elements_to_element_ids(elements)
+            element_ids = to_element_ids(elements)
             collector = DB.FilteredElementCollector(doc, List[DB.ElementId](element_ids))
             filters.pop('elements')
         elif 'element_ids' in filters:
@@ -142,6 +146,7 @@ class _Filter():
              'is_not_type': 'WhereElementIsNotElementType',
              'is_type': 'WhereElementIsElementType',
              'is_view_independent': 'WhereElementIsViewIndependent',
+             'symbol': 'WherePasses',
              'parameter_filter': 'WherePasses',
             }
 
@@ -191,6 +196,9 @@ class _Filter():
             elif isinstance(filter_value, ParameterFilter):
                 # Same as WherePasses(ParameterFilter)
                 collector_results = collector_filter(filter_value._revit_object)
+            elif filter_name == 'symbol':
+                # Same as WherePasses(FamilyInstanceFilter)
+                collector_results = collector_filter(_FamilyInstanceFilter(filter_value)._revit_object)
             elif filter_name == 'of_class' or filter_name == 'of_category':
                 # Same as OfCategory(filter_value) and OfClass(filter_value)
                 collector_results = collector_filter(filter_value)
@@ -226,6 +234,28 @@ class _Filter():
             filters['of_class'] = getattr(DB, class_name)
 
         return filters
+
+
+class _FamilyInstanceFilter(BaseObjectWrapper):
+    """
+    Used internally by Collector to provide the ``symbol`` keyword filter.
+    It returns a ``DB.FamilyInstanceFilter`` which is then used by the
+    FilterElementCollector.WherePasses() method to filter the symbol types
+    """
+    def __init__(self, symbol_or_id):
+        """
+        Args:
+            symbol_or_id(``FamilySymbol``, ``ElementId``): FamilySymbol or ElementId
+
+        Returns:
+            DB.FamilyInstanceFilter: FamilyInstanceFilter
+        """
+        if isinstance(symbol_or_id, DB.ElementId):
+            symbol_id = symbol_or_id
+        else:
+            symbol_id = symbol_or_id.Id
+
+        super(_FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
 
 
 class ParameterFilter(BaseObjectWrapper):

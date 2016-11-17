@@ -1,5 +1,7 @@
 """ Base Wrappers """
 
+from rpw.exceptions import RPW_Exception
+
 
 class BaseObjectWrapper(object):
     """ Base Object Wrapper Class.
@@ -25,6 +27,7 @@ class BaseObjectWrapper(object):
         Child classes can use self._revit_object to refer back to Revit Element
         Element is used loosely to refer to all Revit Elements.
         """
+
         self._revit_object = revit_object
 
     def __getattr__(self, attr):
@@ -33,7 +36,7 @@ class BaseObjectWrapper(object):
         """
         return getattr(self._revit_object, attr)
 
-    def unwrap():
+    def unwrap(self):
         return self._revit_object
 
     def __repr__(self, data=''):

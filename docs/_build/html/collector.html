@@ -177,8 +177,12 @@
 </pre></div>
 </div>
 <p>Use Enumeration member or name as string:</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Search list of elements</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">Element1</span><span class="p">,</span> <span class="n">Element2</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -327,6 +331,32 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="rpw.collector._FamilyInstanceFilter">
+<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_FamilyInstanceFilter</code><span class="sig-paren">(</span><em>symbol_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<p>Used internally by Collector to provide the <code class="docutils literal"><span class="pre">symbol</span></code> keyword filter.
+It returns a <code class="docutils literal"><span class="pre">DB.FamilyInstanceFilter</span></code> which is then used by the
+FilterElementCollector.WherePasses() method to filter the symbol types</p>
+<dl class="method">
+<dt id="rpw.collector._FamilyInstanceFilter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symbol_or_id</strong> (<code class="docutils literal"><span class="pre">FamilySymbol</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>) &#8211; FamilySymbol or ElementId</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">FamilyInstanceFilter</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DB.FamilyInstanceFilter</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="rpw.collector._Filter">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_Filter</code><span class="sig-paren">(</span><em>collector</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -380,7 +410,7 @@ namespace.</p>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">elements_to_element_ids</span>
+<span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
 <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
@@ -410,6 +440,10 @@ namespace.</p>
 
 <span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; Collector(of_class=&#39;ViewType&#39;)</span>
+
+<span class="sd">        Search list of elements</span>
+
+<span class="sd">        &gt;&gt;&gt; Collector(elements=[Element1, Element2,...], of_category=&#39;OST_Walls&#39;)</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        collector.elements: Returns list of all *collected* elements</span>
@@ -452,7 +486,7 @@ namespace.</p>
             <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="s1">&#39;elements&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
             <span class="n">elements</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;elements&#39;</span><span class="p">]</span>
-            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">elements_to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
             <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;elements&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="s1">&#39;element_ids&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
@@ -514,6 +548,7 @@ namespace.</p>
              <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsNotElementType&#39;</span><span class="p">,</span>
              <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsElementType&#39;</span><span class="p">,</span>
              <span class="s1">&#39;is_view_independent&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsViewIndependent&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
              <span class="s1">&#39;parameter_filter&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
             <span class="p">}</span>
 
@@ -563,6 +598,9 @@ namespace.</p>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="p">):</span>
                 <span class="c1"># Same as WherePasses(ParameterFilter)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;symbol&#39;</span><span class="p">:</span>
+                <span class="c1"># Same as WherePasses(FamilyInstanceFilter)</span>
+                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_class&#39;</span> <span class="ow">or</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_category&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as OfCategory(filter_value) and OfClass(filter_value)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span>
@@ -598,6 +636,28 @@ namespace.</p>
             <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;of_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">filters</span>
+
+
+<span class="k">class</span> <span class="nc">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used internally by Collector to provide the ``symbol`` keyword filter.</span>
+<span class="sd">    It returns a ``DB.FamilyInstanceFilter`` which is then used by the</span>
+<span class="sd">    FilterElementCollector.WherePasses() method to filter the symbol types</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_or_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            symbol_or_id(``FamilySymbol``, ``ElementId``): FamilySymbol or ElementId</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DB.FamilyInstanceFilter: FamilyInstanceFilter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">):</span>
+            <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span><span class="o">.</span><span class="n">Id</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstanceFilter</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">symbol_id</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">ParameterFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>

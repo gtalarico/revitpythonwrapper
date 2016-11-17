@@ -2,11 +2,17 @@ from rpw import uidoc, doc, DB
 from rpw import List
 
 
-def elements_to_element_ids(elements):
+def to_element_ids(elements):
     """ Coerces list of elements into element ids.
     Args:
-        elements ([DB.Element]) = Iterable list of DB.Elements
+        elements ([``DB.Element``]) = Iterable list or single ``DB.Element``
+
+    Returns:
+        []``DB.ElementId``]: List of Element Ids.
     """
+    if not isinstance(elements, list):
+        elements = [elements]
+
     element_ids = []
     for element in elements:
         if isinstance(element, DB.Element):
@@ -18,20 +24,35 @@ def elements_to_element_ids(elements):
     return element_ids
 
 
-def element_reference_to_element_ids(element_reference):
+def to_elements(element_references):
     """ Coerces element reference (``int``, or ``ElementId``) into ``DB.Element``.
-    Remains unchanged if it's already ``DB.Element``.
+    Remains unchanged if it's already ``DB.Element``. Accepts single object or lists
+
+    Args:
+        element_references ([``DB.ElementId``, ``int``, ``DB.Element``]): Element Reference, single or list
+
+    Returns:
+        [``DB.Element``]: Elements
     """
-    if isinstance(element_reference, DB.ElementId):
-        element = doc.GetElement(element_reference)
+    if not isinstance(element_references, list):
+        element_references = [element_references]
 
-    if isinstance(element_reference, DB.Element):
-        element = element_reference
+    elements = []
 
-    if isinstance(element_reference, int):
-        element = doc.GetElement(DB.ElementId(element_reference))
+    for element_reference in element_references:
 
-    if not isinstance(element, DB.Element):
-        raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
+        if isinstance(element_reference, DB.ElementId):
+            element = doc.GetElement(element_reference)
 
-    return element
+        elif isinstance(element_reference, int):
+            element = doc.GetElement(DB.ElementId(element_reference))
+
+        elif isinstance(element_reference, DB.Element):
+            element = element_reference
+
+        else:
+            raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
+
+        elements.append(element)
+
+    return elements

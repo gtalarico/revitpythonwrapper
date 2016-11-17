@@ -87,7 +87,6 @@ class SelectFromList(Window):
     def show(self):
         return super(SelectFromList, self).ShowDialog()
 
-
 class TextInput(Window):
     """
     WPF form with TextInput.

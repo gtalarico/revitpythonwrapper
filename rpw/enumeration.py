@@ -60,6 +60,7 @@ class _MetaBipEnum(type):
 
 class BipEnum(object):
     """ Allows access to __getattr__ of class """
+    # TODO: Remove this, no longer needed since getattr is not used.
     __metaclass__ = _MetaBipEnum
 
 
@@ -101,6 +102,21 @@ class _MetaBicEnum(type):
         enum = cls.get(category_name)
         return DB.ElementId(enum)
 
+    @classmethod
+    def from_id(cls, element_id):
+        """ Gets ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` """
+        for bic_name in dir(DB.BuiltInCategory):
+            if element_id == DB.ElementId(bic):
+                return cls.get(bic)
+        else:
+            raise RPW_ParameterNotFound(element_id, category_name)
+
+    @classmethod
+    def from_category(cls, category):
+        """ Get's BuiltInCategory Enumeration member from 11DB.Category`` """
+        return cls.from_id(category.Id)
+
 class BicEnum(object):
     """ Allows access to __getattr__ of class """
+    # TODO: Remove this, no longer needed since getattr is not used.
     __metaclass__ = _MetaBicEnum

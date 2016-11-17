@@ -8,7 +8,6 @@ Element Wrappers
 from rpw import doc, uidoc, DB
 from rpw.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
-from rpw.coerce import element_reference_to_element_ids
 
 from rpw.logger import logger
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
@@ -40,7 +39,7 @@ class Element(BaseObjectWrapper):
         _revit_object (DB.Element) = Wrapped Revit Reference
 
     """
-    def __init__(self, element_reference):
+    def __init__(self, element, enforce_type=None):
         """
         Args:
             element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
@@ -54,9 +53,10 @@ class Element(BaseObjectWrapper):
             >>> wall.parameters.builtins['WALL_LOCATION_LINE']
         """
         # This class isn't very useful right now, except for adding the .parameters attribute.
-        # Consider removing.
+        # The parameter could be used along: Consider removing if a use is not found.
+        if enforce_type and not isinstance(element, enforce_type):
+            raise RPW_TypeError(enforce_type, type(element))
 
-        element = element_reference_to_element_ids(element_reference)
         super(Element, self).__init__(element)
         self.parameters = ParameterSet(element)
 
@@ -65,17 +65,19 @@ class Element(BaseObjectWrapper):
         """ Example of mapping existing properties"""
         return self._revit_object.Id.IntegerValue
 
-    def __repr__(self):
-        return super(Element, self).__repr__(str(self._revit_object.ToString()))
+    @classmethod
+    def from_int(cls, id_int):
+        element = doc.GetElement(DB.ElementId(id_int))
+        return Element(element)
 
+    @classmethod
+    def from_id(cls, element_id):
+        element = doc.GetElement(element_id)
+        return Element(element)
 
-# Get ElementType Name
-# >>> element_type.FamilyName
-# 'Floor'
-# Element.Name.GetValue(element_type)
-# 'Floor 1'
-# http://forums.autodesk.com/t5/revit-api-forum/extracting-family-name-and-type-from-object/td-p/3093998
-
+    def __repr__(self, data=None):
+        data = data if data else self._revit_object
+        return super(Element, self).__repr__(str(data))
 
 # class Create(self):
 #     try:

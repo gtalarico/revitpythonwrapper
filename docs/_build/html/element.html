@@ -154,7 +154,7 @@
 </div>
 <dl class="class">
 <dt id="rpw.element.Element">
-<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Generic Revit Element Wrapper</p>
 <p>Usage:</p>
@@ -198,43 +198,28 @@
 
 <dl class="method">
 <dt id="rpw.element.Element.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>API Object</em>) &#8211; Revit API Object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>Element Reference</em>) &#8211; Can be <code class="docutils literal"><span class="pre">DB.Element</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>, or <code class="docutils literal"><span class="pre">int</span></code>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Instance of Wrapped Element</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element">Element</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">rpw.Element</td>
 </tr>
 </tbody>
 </table>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">Revit</span><span class="o">.</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="rpw.element.Element.from_id">
-<em class="property">classmethod </em><code class="descname">from_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.from_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows to create <code class="docutils literal"><span class="pre">rpw.Element</span></code> from an
-element by Id (<code class="docutils literal"><span class="pre">int</span></code> or <code class="docutils literal"><span class="pre">DB.ElementId</span></code>)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<em>int, DB.ElementId</em>) &#8211; ElementId or Integer of element to wrap.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -253,11 +238,15 @@ element by Id (<code class="docutils literal"><span class="pre">int</span></code
 <em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Allows you to treat an element parameters as a dictionary.</p>
-<p>Instance of this class is returned on an element&#8217;s <code class="docutils literal"><span class="pre">parameters</span></code> attribute.</p>
+<p>This is used internally byt the Element Wrapper: and instance of This
+class is returned on an warpped element <code class="docutils literal"><span class="pre">parameters</span></code> attribute,
+but can also be used on it&#8217;s own</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;My Comment&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">paramters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">Element</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -521,26 +510,24 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        _revit_object (DB.Element) = Wrapped Revit Reference</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            element (API Object): Revit API Object</span>
+<span class="sd">            element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Element: Instance of Wrapped Element</span>
+<span class="sd">            rpw.Element: Instance of Wrapped Element</span>
 
 <span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; wall = Element(Revit.DB.Wall)</span>
+<span class="sd">            &gt;&gt;&gt; wall = Element(SomeElementId)</span>
 <span class="sd">            &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
 <span class="sd">            &gt;&gt;&gt; wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">):</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">))</span>
-            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;cannot wrap non-APIObject: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                                            <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span>
-                                                            <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-                                                            <span class="p">))</span>
+        <span class="c1"># This class isn&#39;t very useful right now, except for adding the .parameters attribute.</span>
+        <span class="c1"># The parameter could be used along: Consider removing if a use is not found.</span>
+        <span class="k">if</span> <span class="n">enforce_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="n">enforce_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+
         <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
@@ -550,34 +537,18 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span>
 
     <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">id_int</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">id_int</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Allows to create ``rpw.Element`` from an</span>
-<span class="sd">        element by Id (``int`` or ``DB.ElementId``)</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            element_id (int, DB.ElementId): ElementId or Integer of element to wrap.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># IDEA: Just move this to __init__</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">element_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
-
         <span class="n">element</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ToString</span><span class="p">()))</span>
-
-
-
-<span class="c1"># Get ElementType Name</span>
-<span class="c1"># &gt;&gt;&gt; element_type.FamilyName</span>
-<span class="c1"># &#39;Floor&#39;</span>
-<span class="c1"># Element.Name.GetValue(element_type)</span>
-<span class="c1"># &#39;Floor 1&#39;</span>
-<span class="c1"># http://forums.autodesk.com/t5/revit-api-forum/extracting-family-name-and-type-from-object/td-p/3093998</span>
-
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 
 <span class="c1"># class Create(self):</span>
 <span class="c1">#     try:</span>
@@ -590,7 +561,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="c1">#</span>
 <span class="c1"># class FamilyInstance(BaseObjectWrapper):</span>
 <span class="c1">#     &quot;&quot;&quot; Generic Family Instance Wrapper &quot;&quot;&quot;</span>
-    <span class="c1">## Help with Family name, symbol name, etc</span>
+<span class="c1">#  Help with Family name, symbol name, etc</span>
 <span class="c1">#     # Get Type</span>
 <span class="c1">#     # Get Symbol</span>
 <span class="c1">#     # Get Elements</span>
@@ -642,12 +613,15 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Allows you to treat an element parameters as a dictionary.</span>
 
-<span class="sd">    Instance of this class is returned on an element&#39;s ``parameters`` attribute.</span>
+<span class="sd">    This is used internally byt the Element Wrapper: and instance of This</span>
+<span class="sd">    class is returned on an warpped element ``parameters`` attribute,</span>
+<span class="sd">    but can also be used on it&#39;s own</span>
 
 <span class="sd">    &gt;&gt;&gt; element.parameters.all()</span>
 <span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value</span>
-<span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value = &#39;My Comment&#39;</span>
 <span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].type</span>
+
+<span class="sd">    &gt;&gt;&gt; paramters = ParameterSet(Element)</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        _revit_object (DB.Element) = Revit Reference</span>

@@ -25,42 +25,6 @@ from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.logger import logger
 
 
-# TODO: Finish wall specific handler
-# TODO: Add tests to symbol collector
-# TODO: Instance Tests
-# TODO: Symbols Tests
-# TODO: Family Tests
-# TODO: Category Tests
-
-# from rpw.instance import Instance
-#
-# for element in rpw.Selection():
-#     instance = Instance(element)
-#     print(element)
-#
-#     logger.title('Instance:')
-#     print(instance)
-#     logger.title('Symbol:')
-#     print(instance.symbol)
-#     logger.title('Instances:')
-#     print(instance.symbol.instances)
-#     logger.title('Symbol Name:')
-#     print(instance.symbol.name)
-#     logger.title('Family:')
-#     print(instance.symbol.family)
-#     logger.title('Family Name:')
-#     print(instance.symbol.family.name)
-#     logger.title('Symbol Siblings:')
-#     print(instance.symbol.siblings)
-#     logger.title('Familly Siblings (Other Symbols):')
-#     print(instance.symbol.family.symbols)
-#     logger.title('Category:')
-#     print(instance.symbol.family.category)
-#     logger.title('Category Name:')
-#     print(instance.symbol.family.category.name)
-#
-# sys.exit()
-
 def setUpModule():
     logger.title('SETTING UP TESTS...')
     logger.title('REVIT {}'.format(version))
@@ -560,29 +524,19 @@ class CoerceTests(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_corce_into_id(self):
-        ids = rpw.coerce.to_element_ids(self.wall)
-        all_id = all([isinstance(i, DB.ElementId) for i in ids])
-        self.assertTrue(all_id)
-
-    def test_corce_into_ids(self):
-        ids = rpw.coerce.to_element_ids([self.wall])
+    def test_corce_into_ides(self):
+        ids = rpw.coerce.elements_to_element_ids([self.wall])
         all_id = all([isinstance(i, DB.ElementId) for i in ids])
         self.assertTrue(all_id)
 
     def test_corce_element_ref_int(self):
-        element = rpw.coerce.to_elements(wall_int)[0]
+        element = rpw.coerce.element_reference_to_element(wall_int)
         self.assertIsInstance(element, DB.Element)
 
     def test_corce_element_ref_id(self):
         wall_id = DB.ElementId(wall_int)
-        elements = rpw.coerce.to_elements(wall_id)
-        self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
-
-    def test_corce_to_element_diverse(self):
-        wall_id = DB.ElementId(wall_int)
-        elements = rpw.coerce.to_elements([wall_id, wall_int, self.wall])
-        self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
+        element = rpw.coerce.element_reference_to_element(wall_id)
+        self.assertIsInstance(element, DB.Element)
 
 
 if __name__ == '__main__':
