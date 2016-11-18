@@ -27,6 +27,7 @@ data = ['A', 'B', 'C']
 # FORMS
 ######################
 
+
 class FormSelectFromListTests(unittest.TestCase):
 
     def test_get_value(self):
@@ -43,10 +44,11 @@ class FormSelectFromListTests(unittest.TestCase):
         self.assertFalse(form_ok)
         self.assertFalse(form.selected)
 
+
 class FormTextInputTests(unittest.TestCase):
 
     def test_get_value(self):
-        form = rpw.forms.TextInput('Text Input',default='A',
+        form = rpw.forms.TextInput('Text Input', default='A',
                                    description='select with letter A')
         form_ok = form.show()
         self.assertTrue(form_ok)
@@ -60,10 +62,9 @@ class FormTextInputTests(unittest.TestCase):
         self.assertFalse(form.selected)
 
 
-if __name__ == '__main__':
-    logger.verbose(False)
-    # logger.disable()
+def run():
+    # logger.verbose(False)
     unittest.main(verbosity=3, buffer=True)
-    # unittest.main(verbosity=0, buffer=True)
-    # unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
-    # unittest.main(defaultTest='SelectionTests')
+
+if __name__ == '__main__':
+    run()

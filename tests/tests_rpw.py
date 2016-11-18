@@ -19,7 +19,7 @@ root_dir = os.path.dirname(test_dir)
 sys.path.append(root_dir)
 
 import rpw
-from rpw import DB, UI, doc, uidoc, version
+from rpw import DB, UI, doc, uidoc, version, clr
 from rpw import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.utils.logger import logger
@@ -85,8 +85,39 @@ def setUpModule():
     global wall_int
     wall_int = wall.Id.IntegerValue
     logger.debug('WALL CREATED.')
-    logger.debug('TEST SETUP')
 
+    collector = DB.FilteredElementCollector(doc)
+    desk = collector.OfCategory(DB.BuiltInCategory.OST_Furniture).FirstElement()
+    if desk:
+        with rpw.Transaction('Delete Desk'):
+            f = desk.Family
+            doc.Delete(f.Id)
+
+    ##################################################
+    # Load Fixture Family and Place Instances
+    ##################################################
+    logger.debug('LOADING SYMBOl')
+    test_dir = r'C:\Users\gtalarico\Dropbox\Shared\dev\repos\revitpythonwrapper\tests'
+    family_path = os.path.join(test_dir, 'fixtures', 'desk.rfa')
+    if not os.path.exists(family_path):
+        raise Exception('Could not find fixture: {}'.format(family_path))
+
+    logger.debug('LOADING SYMBOl')
+    family = clr.Reference[DB.Family]()
+    with rpw.Transaction('Load Family'):
+        doc.LoadFamily(family_path, family)
+        family = family.Value
+        symbols = []
+        for family_symbol in family.Symbols:
+            symbols.append(family_symbol)
+    with rpw.Transaction('Place Instances'):
+        level = DB.FilteredElementCollector(doc).OfClass(DB.Level).WhereElementIsNotElementType().FirstElement()
+        doc.Create.NewFamilyInstance(DB.XYZ(5, 0, 0), symbols[0], level,
+                                     DB.Structure.StructuralType.NonStructural)
+        doc.Create.NewFamilyInstance(DB.XYZ(10, 4, 0), symbols[0], level,
+                                     DB.Structure.StructuralType.NonStructural)
+        doc.Create.NewFamilyInstance(DB.XYZ(15, 8, 0), symbols[1], level,
+                                     DB.Structure.StructuralType.NonStructural)
 
 def tearDownModule():
     pass
@@ -132,13 +163,11 @@ class TransactionsTest(unittest.TestCase):
             self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
         self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
 
-    # Rollback Works but fails on exception
-    # def test_transaction_commit_status_rollback(self):
-    #     with rpw.Transaction('Set String') as t:
-    #         with self.assertRaises(Exception):
-    #         self.wall.parameters['Top Constraint'].value = DB.ElementId('a')
-    #     logger.critical('>>>' + str(t.GetStatus()))
-    #     self.assertEqual(t.GetStatus(), DB.TransactionStatus.RolledBack)
+    def test_transaction_commit_status_rollback(self):
+        with self.assertRaises(Exception):
+            with rpw.Transaction('Set String') as t:
+                self.wall.parameters['Top Constraint'].value = DB.ElementId('a')
+        self.assertEqual(t.GetStatus(), DB.TransactionStatus.RolledBack)
 
     def test_transaction_group(self):
         with rpw.TransactionGroup('Multiple Transactions') as tg:
@@ -166,6 +195,9 @@ class CollectorTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         logger.title('TESTING COLLECTOR...')
+        collector = DB.FilteredElementCollector(doc)
+        cls.family_loaded = collector.OfCategory(DB.BuiltInCategory.OST_Furniture).ToElements()
+
 
     @staticmethod
     def collector_helper(filters):
@@ -247,6 +279,24 @@ class CollectorTests(unittest.TestCase):
         wall = rpw.Collector(of_class='Wall').first
         collector = rpw.Collector(element_ids=[wall.Id], of_class='View')
         self.assertEqual(len(collector), 0)
+
+    def test_collector_symbol_filter(self):
+        desk_types = rpw.Collector(of_class='FamilySymbol',
+                                   of_category="OST_Furniture").elements
+        self.assertEqual(len(desk_types), 3)
+        
+        all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+        self.assertGreater(len(all_symbols), 3)
+        all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+
+        #Placed Twice
+        first_symbol = rpw.Collector(symbol=desk_types[0]).elements
+        self.assertEqual(len(first_symbol), 2)
+
+        #Placed Once
+        second_symbol = rpw.Collector(symbol=desk_types[1]).elements
+        self.assertEqual(len(second_symbol), 1)
+
 
 ######################
 # SELECTION
@@ -593,10 +643,12 @@ class CoerceTests(unittest.TestCase):
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
 
-if __name__ == '__main__':
-    logger.verbose(False)
+def run():
     # logger.disable()
-    unittest.main(verbosity=3, buffer=False)
-    # unittest.main(verbosity=0, buffer=True)
+    logger.verbose(False)
+    unittest.main(verbosity=3, buffer=True)
     # unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
-    # unittest.main(defaultTest='SelectionTests')
+
+
+if __name__ == '__main__':
+    run()
