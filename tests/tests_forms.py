@@ -19,7 +19,7 @@ import rpw
 from rpw import DB, UI, doc, uidoc, version
 from rpw import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
-from rpw.logger import logger
+from rpw.utils.logger import logger
 
 data = ['A', 'B', 'C']
 

@@ -38,8 +38,10 @@ class Collector(BaseObjectWrapper):
         >>> Collector(of_category='OST_Walls')
         >>> Collector(of_class='ViewType')
 
-        Search list of elements
+        Search Document, View, or list of elements
 
+        >>> Collector(of_category='OST_Walls') # Doc is default
+        >>> Collector(view=SomeView, of_category='OST_Walls') # Doc is default
         >>> Collector(elements=[Element1, Element2,...], of_category='OST_Walls')
 
     Attributes:
@@ -54,8 +56,7 @@ class Collector(BaseObjectWrapper):
     def __init__(self, **filters):
         """
         Args:
-            view (Revit.DB.View): View Scope (Optional)
-            # **filters (dict): Scope and filters
+            **filters (``keyword args``): Scope and filters
 
         Returns:
             Collector (:any:`Collector`): Collector Instance
@@ -65,22 +66,30 @@ class Collector(BaseObjectWrapper):
             * ``element_ids`` `([ElementId])`: List of Element Ids to limit Collector Scope
             * ``elements`` `([Element])`: List of Elements to limit Collector Scope
 
-        Note:
-            Only one scope filter should be used per query.
+        Warning:
+            Only one scope filter should be used per query. If more then one is used,
+            only one will be applied, in this order ``view`` > ``elements`` > ``element_ids``
 
         Filter Options:
-            * ``is_not_type`` `(bool)`: Same as ``WhereElementIsNotElementType``
-            * ``is_type`` `(bool)`: Same as ``WhereElementIsElementType``
-            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``'Wall'``
-            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``
-            * ``is_view_independent`` `(bool)`: ``WhereElementIsViewIndependent(True)``
-            * ``parameter_filter`` `(:any:`ParameterFilter`)`: Similar to ``ElementParameterFilter`` Class
+            * ``is_not_type`` (``bool``): Same as ``WhereElementIsNotElementType``
+            * ``is_type`` (``bool``): Same as ``WhereElementIsElementType``
+            * ``of_class`` (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``'Wall'``
+            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``
+            * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``
+            * ``symbol`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Symbol
+            * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class
 
         """
+        # Pick Scope Filter, Default is doc
         if 'view' in filters:
             view = filters['view']
-            collector = DB.FilteredElementCollector(doc, view.Id)
+            view_id = view if isinstance(view, DB.ElementId) else view.Id
+            collector = DB.FilteredElementCollector(doc, view_id)
             filters.pop('view')
+        elif 'view_id' in filters:
+            view_id = filters['view_id']
+            collector = DB.FilteredElementCollector(doc, view_id)
+            filters.pop('view_id')
         elif 'elements' in filters:
             elements = filters['elements']
             element_ids = to_element_ids(elements)
@@ -92,6 +101,7 @@ class Collector(BaseObjectWrapper):
             filters.pop('element_ids')
         else:
             collector = DB.FilteredElementCollector(doc)
+
         super(Collector, self).__init__(collector)
 
         self.elements = []
@@ -100,8 +110,10 @@ class Collector(BaseObjectWrapper):
             if key not in _Filter.MAP:
                 raise RPW_Exception('Collector Filter not valid: {}'.format(key))
 
+        # Stores filters for chained calls
         self._filters = filters
 
+        # Instantiates Filter class on attribute filter
         self.filter = _Filter(self)
         # Allows Class to Excecute on Construction, if filters are present.
         if filters:
@@ -109,8 +121,8 @@ class Collector(BaseObjectWrapper):
 
     def __iter__(self):
         """ Collector Iterator
-        for wall in Collector(of_class='Wall'):
-            wall
+        >> for wall in Collector(of_class='Wall'):
+        >>     wall
         """
         for element in self._revit_object:
             yield element

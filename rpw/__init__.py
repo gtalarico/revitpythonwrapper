@@ -66,7 +66,7 @@ if platform is not None:
     from rpw.utils.logger import logger
 
     try:
-        from rpw.forms import forms  # Adds forms to rpw namespace
+        from rpw.forms import SelectFromList, TextInput
     except ImportError as errmsg:
         logger.warning('Could Not load Forms dependencies')
         logger.warning(errmsg)

@@ -64,20 +64,24 @@ from rpw.utils.logger import logger
 def setUpModule():
     logger.title('SETTING UP TESTS...')
     logger.title('REVIT {}'.format(version))
-    collector = rpw.Collector()
-    walls = collector.filter(of_class='Wall').elements
+    collector = DB.FilteredElementCollector(doc)
+    walls = collector.OfClass(DB.Wall).ToElements()
     if walls:
-        with rpw.Transaction('Delete Walls'):
-            for wall in walls:
-                doc.Delete(wall.Id)
-    collector = rpw.Collector()
-    level = collector.filter(of_class='Level').first
+        t = DB.Transaction(doc, 'Delete Walls')
+        t.Start()
+        for wall in walls:
+            doc.Delete(wall.Id)
+        t.Commit()
+    collector = DB.FilteredElementCollector(doc)
+    level = collector.OfClass(DB.Level).FirstElement()
     pt1 = DB.XYZ(0, 0, 0)
     pt2 = DB.XYZ(20, 20, 0)
     wall_line = DB.Line.CreateBound(pt1, pt2)
 
-    with rpw.Transaction('Add Wall'):
-        wall = DB.Wall.Create(doc, wall_line, level.Id, False)
+    t = DB.Transaction(doc, 'Add Wall')
+    t.Start()
+    wall = DB.Wall.Create(doc, wall_line, level.Id, False)
+    t.Commit()
     global wall_int
     wall_int = wall.Id.IntegerValue
     logger.debug('WALL CREATED.')
@@ -179,8 +183,12 @@ class CollectorTests(unittest.TestCase):
         x = self.collector_helper({'of_class': DB.View})
         assert isinstance(x.elements[0], DB.View)
 
-    def test_collector_elements_view(self):
+    def test_collector_elements_view_element(self):
         x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView})
+        self.assertEqual(len(x), 1)
+
+    def test_collector_elements_view_id(self):
+        x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView.Id})
         self.assertEqual(len(x), 1)
 
     def test_collector_len(self):
