@@ -1,14 +1,16 @@
 from rpw import uidoc, doc, DB
 from rpw import List
+from rpw.exceptions import RPW_TypeError
 
 
 def to_element_ids(elements):
-    """ Coerces list of elements into element ids.
+    """ Coerces list of elements into element ids
+
     Args:
-        elements ([``DB.Element``]) = Iterable list or single ``DB.Element``
+        elements (``DB.Element``): Iterable list or single of Elements
 
     Returns:
-        []``DB.ElementId``]: List of Element Ids.
+        [``DB.ElementId``, ... ]: List of Element Ids.
     """
     if not isinstance(elements, list):
         elements = [elements]
@@ -17,9 +19,14 @@ def to_element_ids(elements):
     for element in elements:
         if isinstance(element, DB.Element):
             element_ids.append(element.Id)
-        elif (isinstance(element, DB.ElementId) or
-              isinstance(element, DB.ElementId.InvalidElementId)):
+        elif isinstance(element, int):
+            element_ids.append(DB.ElementId(element))
+        elif isinstance(element, DB.ElementId):
             element_ids.append(element)
+        elif isinstance(element, DB.ElementId.InvalidElementId):
+            element_ids.append(element)
+        else:
+            raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
 
     return element_ids
 

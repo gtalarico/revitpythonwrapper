@@ -96,6 +96,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
@@ -166,14 +167,13 @@
 </pre></div>
 </div>
 <p>Multiple Filters:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">,</span>
-<span class="go">                          is_type=True)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Chain Preserves Previous Results:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">colelctor</span><span class="p">(</span><span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>
+<p>Chain Preserves Previous Results using <code class="docutils literal"><span class="pre">filter</span></code> method</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>  <span class="c1"># Both filters applied</span>
 </pre></div>
 </div>
 <p>Use Enumeration member or name as string:</p>
@@ -190,18 +190,18 @@
 <dl class="attribute">
 <dt id="rpw.collector.Collector.collector.elements">
 <code class="descclassname">collector.</code><code class="descname">elements</code><a class="headerlink" href="#rpw.collector.Collector.collector.elements" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns list of all <em>collected</em> elements</p>
+<dd><p>Returns list of all <cite>collected</cite> elements</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rpw.collector.Collector.collector.first">
 <code class="descclassname">collector.</code><code class="descname">first</code><a class="headerlink" href="#rpw.collector.Collector.collector.first" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns first found element, or <cite>None</cite></p>
+<dd><p>Returns first found element, or <code class="docutils literal"><span class="pre">None</span></code></p>
 </dd></dl>
 
 <dl class="docutils">
 <dt>Wrapped Element:</dt>
-<dd>self._revit_object = <cite>Revit.DB.FilteredElementCollector</cite></dd>
+<dd>self._revit_object = <code class="docutils literal"><span class="pre">Revit.DB.FilteredElementCollector</span></code></dd>
 </dl>
 <dl class="method">
 <dt id="rpw.collector.Collector.__init__">
@@ -211,8 +211,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>view</strong> (<em>Revit.DB.View</em>) &#8211; </li>
-<li><strong>**filters</strong> (<em>dict</em>) &#8211; </li>
+<li><strong>view</strong> (<em>Revit.DB.View</em>) &#8211; View Scope (Optional)</li>
+<li><strong>**filters</strong> (<em>#</em>) &#8211; <p>Scope and filters</p>
+</li>
 </ul>
 </td>
 </tr>
@@ -232,21 +233,23 @@
 <li><code class="docutils literal"><span class="pre">elements</span></code> <cite>([Element])</cite>: List of Elements to limit Collector Scope</li>
 </ul>
 </dd>
-<dt>Filter Options:</dt>
-<dd><ul class="first last simple">
-<li><code class="docutils literal"><span class="pre">is_not_type</span></code> <cite>(bool)</cite>: Same as <code class="docutils literal"><span class="pre">WhereElementIsNotElementType</span></code></li>
-<li><code class="docutils literal"><span class="pre">is_type</span></code> <cite>(bool)</cite>: Same as <code class="docutils literal"><span class="pre">WhereElementIsElementType</span></code></li>
-<li><code class="docutils literal"><span class="pre">of_class</span></code> <cite>(Type)</cite>: Same as <code class="docutils literal"><span class="pre">OfClass</span></code>. Type can be DB Type String: DB.Wall or &#8216;Wall&#8217;</li>
-<li><code class="docutils literal"><span class="pre">of_category</span></code> <cite>(BuiltInCategory Enum)</cite>: Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Type can be Enum member or String: <cite>DB.BuiltInCategory.OST_Wall</cite> or &#8216;OST_Wall&#8217;</li>
-<li><code class="docutils literal"><span class="pre">is_view_independent</span></code> <cite>(bool)</cite>: <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
-<li><code class="docutils literal"><span class="pre">parameter_filter</span></code> <cite>(:any:`ParameterFilter</cite>)`: Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
-</ul>
-</dd>
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Only one scope filter should be used per query.</p>
 </div>
+<dl class="docutils">
+<dt>Filter Options:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">is_not_type</span></code> <cite>(bool)</cite>: Same as <code class="docutils literal"><span class="pre">WhereElementIsNotElementType</span></code></li>
+<li><code class="docutils literal"><span class="pre">is_type</span></code> <cite>(bool)</cite>: Same as <code class="docutils literal"><span class="pre">WhereElementIsElementType</span></code></li>
+<li><code class="docutils literal"><span class="pre">of_class</span></code> <cite>(Type)</cite>: Same as <code class="docutils literal"><span class="pre">OfClass</span></code>. Type can be <code class="docutils literal"><span class="pre">DB.SomeType</span></code> or string: <code class="docutils literal"><span class="pre">DB.Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></li>
+<li><code class="docutils literal"><span class="pre">of_category</span></code> <cite>(BuiltInCategory Enum)</cite>: Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Type can be Enum member or String: <code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">OST_Wall</span></code></li>
+<li><code class="docutils literal"><span class="pre">is_view_independent</span></code> <cite>(bool)</cite>: <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
+<li><code class="docutils literal"><span class="pre">parameter_filter</span></code> <cite>(:any:`ParameterFilter</cite>)`: Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -344,7 +347,7 @@ FilterElementCollector.WherePasses() method to filter the symbol types</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symbol_or_id</strong> (<code class="docutils literal"><span class="pre">FamilySymbol</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>) &#8211; FamilySymbol or ElementId</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symbol_or_id</strong> (<code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>) &#8211; FamilySymbol or ElementId</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">FamilyInstanceFilter</td>
 </tr>
@@ -390,7 +393,7 @@ can be poppped before chain enters deeper recursion level.</p>
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">String Connversion for <cite>of_class</cite> only works for the Revit.DB
+<p class="last">String Connversion for <code class="docutils literal"><span class="pre">of_class</span></code> only works for the <code class="docutils literal"><span class="pre">Revit.DB</span></code>
 namespace.</p>
 </div>
 </dd></dl>
@@ -410,11 +413,11 @@ namespace.</p>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
-<span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 
 <span class="k">class</span> <span class="nc">Collector</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -427,14 +430,13 @@ namespace.</p>
 
 <span class="sd">        Multiple Filters:</span>
 
-<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=BuiltInCategory.OST_Walls,</span>
-<span class="sd">                                  is_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=&#39;OST_Walls&#39;, is_type=True)</span>
 
-<span class="sd">        Chain Preserves Previous Results:</span>
+<span class="sd">        Chain Preserves Previous Results using ``filter`` method</span>
 
-<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=BuiltInCategory.OST_Walls)</span>
-<span class="sd">        &gt;&gt;&gt; wall_types = colelctor(is_type=True)</span>
-<span class="sd">        &gt;&gt;&gt; wall_types = collector.elements</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=&#39;OST_Walls&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; wall_types = collector.filter(is_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; wall_types = collector.elements  # Both filters applied</span>
 
 <span class="sd">        Use Enumeration member or name as string:</span>
 
@@ -446,19 +448,19 @@ namespace.</p>
 <span class="sd">        &gt;&gt;&gt; Collector(elements=[Element1, Element2,...], of_category=&#39;OST_Walls&#39;)</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        collector.elements: Returns list of all *collected* elements</span>
-<span class="sd">        collector.first: Returns first found element, or `None`</span>
+<span class="sd">        collector.elements: Returns list of all `collected` elements</span>
+<span class="sd">        collector.first: Returns first found element, or ``None``</span>
 
 <span class="sd">    Wrapped Element:</span>
-<span class="sd">        self._revit_object = `Revit.DB.FilteredElementCollector`</span>
+<span class="sd">        self._revit_object = ``Revit.DB.FilteredElementCollector``</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            view (Revit.DB.View) = View Scope (Optional)</span>
-<span class="sd">            **filters (dict) = Scope and filters</span>
+<span class="sd">            view (Revit.DB.View): View Scope (Optional)</span>
+<span class="sd">            # **filters (dict): Scope and filters</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Collector (:any:`Collector`): Collector Instance</span>
@@ -468,16 +470,16 @@ namespace.</p>
 <span class="sd">            * ``element_ids`` `([ElementId])`: List of Element Ids to limit Collector Scope</span>
 <span class="sd">            * ``elements`` `([Element])`: List of Elements to limit Collector Scope</span>
 
+<span class="sd">        Note:</span>
+<span class="sd">            Only one scope filter should be used per query.</span>
+
 <span class="sd">        Filter Options:</span>
 <span class="sd">            * ``is_not_type`` `(bool)`: Same as ``WhereElementIsNotElementType``</span>
 <span class="sd">            * ``is_type`` `(bool)`: Same as ``WhereElementIsElementType``</span>
-<span class="sd">            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be DB Type String: DB.Wall or &#39;Wall&#39;</span>
-<span class="sd">            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: `DB.BuiltInCategory.OST_Wall` or &#39;OST_Wall&#39;</span>
+<span class="sd">            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``&#39;Wall&#39;``</span>
+<span class="sd">            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``</span>
 <span class="sd">            * ``is_view_independent`` `(bool)`: ``WhereElementIsViewIndependent(True)``</span>
 <span class="sd">            * ``parameter_filter`` `(:any:`ParameterFilter`)`: Similar to ``ElementParameterFilter`` Class</span>
-
-<span class="sd">        Note:</span>
-<span class="sd">            Only one scope filter should be used per query.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s1">&#39;view&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
@@ -623,7 +625,7 @@ namespace.</p>
 <span class="sd">            &gt;&gt;&gt; elements = Collector(of_class=&#39;WallType&#39;)</span>
 
 <span class="sd">        Note:</span>
-<span class="sd">            String Connversion for `of_class` only works for the Revit.DB</span>
+<span class="sd">            String Connversion for ``of_class`` only works for the ``Revit.DB``</span>
 <span class="sd">            namespace.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -643,11 +645,12 @@ namespace.</p>
 <span class="sd">    Used internally by Collector to provide the ``symbol`` keyword filter.</span>
 <span class="sd">    It returns a ``DB.FamilyInstanceFilter`` which is then used by the</span>
 <span class="sd">    FilterElementCollector.WherePasses() method to filter the symbol types</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_or_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            symbol_or_id(``FamilySymbol``, ``ElementId``): FamilySymbol or ElementId</span>
+<span class="sd">            symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            DB.FamilyInstanceFilter: FamilyInstanceFilter</span>

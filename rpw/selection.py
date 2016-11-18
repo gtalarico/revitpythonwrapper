@@ -5,8 +5,8 @@
 from rpw import doc, uidoc, DB
 from rpw import List
 from rpw.base import BaseObjectWrapper
-from rpw.logger import logger
 from rpw.exceptions import RPW_TypeError
+from rpw.utils.logger import logger
 
 
 class Selection(BaseObjectWrapper):

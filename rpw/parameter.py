@@ -4,11 +4,11 @@ Parameter Wrapper
 """
 
 from rpw import DB
-from rpw.logger import logger
 from rpw.enumeration import BipEnum
+from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
-from rpw.base import BaseObjectWrapper
+from rpw.utils.logger import logger
 
 
 class ParameterSet(BaseObjectWrapper):
@@ -42,7 +42,7 @@ class ParameterSet(BaseObjectWrapper):
         """ Get's parameter by name.
 
         Returns:
-            The first parameter found with a matching name (wrapper),
+            :any:`Parameter`: The first parameter found with a matching name (wrapper),
 
         Raises:
             :class:`RPW_ParameterNotFound`
@@ -200,7 +200,7 @@ class Parameter(BaseObjectWrapper):
 
         Note:
 
-            `Parameter` value setter automatically handles a few type csatings:
+            `Parameter` value setter automatically handles a few type castings:
 
             * Storage is ``str`` and value is ``None``; value is converted to ``blank_string``
             * Storage is ``str`` and value is ``any``; value is converted to ``string``

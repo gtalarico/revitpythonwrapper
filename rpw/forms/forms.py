@@ -20,7 +20,7 @@ try:
     from System.Windows import Application, Window
     from System.IO import StringReader
 except ImportError:
-    from ..sphinx_compat import *
+    from rpw.utils.sphinx_compat import *
 
 
 class SelectFromList(Window):

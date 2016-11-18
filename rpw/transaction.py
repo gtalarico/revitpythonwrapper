@@ -1,7 +1,7 @@
 from rpw import doc, DB, platform
-from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
+from rpw.utils.logger import logger
 
 
 class Transaction(object):

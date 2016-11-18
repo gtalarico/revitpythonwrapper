@@ -220,7 +220,7 @@ libraries right away, and skip the typical:</p>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c1">#  This is a workaround to fix Sphinx&#39;s autodoc</span>
@@ -237,7 +237,7 @@ libraries right away, and skip the typical:</p>
     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
     <span class="n">platform</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could not Revit Document. Will Import Sphinx Compat Vars&#39;</span><span class="p">)</span>
-    <span class="kn">from</span> <span class="nn">rpw.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">rpw.utils.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="c1"># Imported Revit&#39;s Assemblies</span>
 <span class="k">else</span><span class="p">:</span>
@@ -271,13 +271,14 @@ libraries right away, and skip the typical:</p>
 
 
 <span class="k">if</span> <span class="n">platform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Family</span>
+    <span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">ParameterSet</span><span class="p">,</span> <span class="n">Parameter</span>
     <span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
     <span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>
     <span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span><span class="p">,</span> <span class="n">TransactionGroup</span>
     <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BipEnum</span><span class="p">,</span> <span class="n">BicEnum</span>
-    <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Parameter</span>
-    <span class="kn">from</span> <span class="nn">rpw.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span><span class="p">,</span> <span class="n">to_elements</span>
-    <span class="kn">from</span> <span class="nn">rpw.logger</span> <span class="k">import</span> <span class="n">logger</span>
+    <span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span><span class="p">,</span> <span class="n">to_elements</span>
+    <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">forms</span>  <span class="c1"># Adds forms to rpw namespace</span>

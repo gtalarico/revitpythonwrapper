@@ -22,9 +22,9 @@ import rpw
 from rpw import DB, UI, doc, uidoc, version
 from rpw import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
-from rpw.logger import logger
+from rpw.utils.logger import logger
 
-
+# sys.exit()rr
 # TODO: Finish wall specific handler
 # TODO: Add tests to symbol collector
 # TODO: Instance Tests
@@ -561,27 +561,27 @@ class CoerceTests(unittest.TestCase):
         pass
 
     def test_corce_into_id(self):
-        ids = rpw.coerce.to_element_ids(self.wall)
+        ids = rpw.utils.coerce.to_element_ids(self.wall)
         all_id = all([isinstance(i, DB.ElementId) for i in ids])
         self.assertTrue(all_id)
 
     def test_corce_into_ids(self):
-        ids = rpw.coerce.to_element_ids([self.wall])
+        ids = rpw.utils.coerce.to_element_ids([self.wall])
         all_id = all([isinstance(i, DB.ElementId) for i in ids])
         self.assertTrue(all_id)
 
     def test_corce_element_ref_int(self):
-        element = rpw.coerce.to_elements(wall_int)[0]
+        element = rpw.utils.coerce.to_elements(wall_int)[0]
         self.assertIsInstance(element, DB.Element)
 
     def test_corce_element_ref_id(self):
         wall_id = DB.ElementId(wall_int)
-        elements = rpw.coerce.to_elements(wall_id)
+        elements = rpw.utils.coerce.to_elements(wall_id)
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
     def test_corce_to_element_diverse(self):
         wall_id = DB.ElementId(wall_int)
-        elements = rpw.coerce.to_elements([wall_id, wall_int, self.wall])
+        elements = rpw.utils.coerce.to_elements([wall_id, wall_int, self.wall])
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
 

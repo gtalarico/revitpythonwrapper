@@ -5,7 +5,7 @@ __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 
 import sys
-from rpw.logger import logger
+from rpw.utils.logger import logger
 
 try:
     #  This is a workaround to fix Sphinx's autodoc
@@ -22,7 +22,7 @@ except Exception as errmsg:
     logger.error(errmsg)
     platform = None
     logger.warning('Could not Revit Document. Will Import Sphinx Compat Vars')
-    from rpw.sphinx_compat import *
+    from rpw.utils.sphinx_compat import *
 
 # Imported Revit's Assemblies
 else:
@@ -56,13 +56,14 @@ else:
 
 
 if platform is not None:
+    from rpw.element import Element, Instance, Symbol, Family
+    from rpw.parameter import ParameterSet, Parameter
     from rpw.selection import Selection
     from rpw.collector import Collector, ParameterFilter
     from rpw.transaction import Transaction, TransactionGroup
     from rpw.enumeration import BipEnum, BicEnum
-    from rpw.element import Element, Parameter
-    from rpw.coerce import to_element_ids, to_elements
-    from rpw.logger import logger
+    from rpw.utils.coerce import to_element_ids, to_elements
+    from rpw.utils.logger import logger
 
     try:
         from rpw.forms import forms  # Adds forms to rpw namespace

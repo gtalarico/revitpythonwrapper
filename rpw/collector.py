@@ -8,11 +8,11 @@
 
 from rpw import uidoc, doc, DB
 from rpw import List
-from rpw.coerce import to_element_ids
-from rpw.logger import logger
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
 from rpw.enumeration import BicEnum, BipEnum
+from rpw.utils.coerce import to_element_ids
+from rpw.utils.logger import logger
 
 
 class Collector(BaseObjectWrapper):
@@ -25,14 +25,13 @@ class Collector(BaseObjectWrapper):
 
         Multiple Filters:
 
-        >>> collector = Collector(of_category=BuiltInCategory.OST_Walls,
-                                  is_type=True)
+        >>> collector = Collector(of_category='OST_Walls', is_type=True)
 
-        Chain Preserves Previous Results:
+        Chain Preserves Previous Results using ``filter`` method
 
-        >>> collector = Collector(of_category=BuiltInCategory.OST_Walls)
-        >>> wall_types = colelctor(is_type=True)
-        >>> wall_types = collector.elements
+        >>> collector = Collector(of_category='OST_Walls')
+        >>> wall_types = collector.filter(is_type=True)
+        >>> wall_types = collector.elements  # Both filters applied
 
         Use Enumeration member or name as string:
 
@@ -44,19 +43,19 @@ class Collector(BaseObjectWrapper):
         >>> Collector(elements=[Element1, Element2,...], of_category='OST_Walls')
 
     Attributes:
-        collector.elements: Returns list of all *collected* elements
-        collector.first: Returns first found element, or `None`
+        collector.elements: Returns list of all `collected` elements
+        collector.first: Returns first found element, or ``None``
 
     Wrapped Element:
-        self._revit_object = `Revit.DB.FilteredElementCollector`
+        self._revit_object = ``Revit.DB.FilteredElementCollector``
 
     """
 
     def __init__(self, **filters):
         """
         Args:
-            view (Revit.DB.View) = View Scope (Optional)
-            **filters (dict) = Scope and filters
+            view (Revit.DB.View): View Scope (Optional)
+            # **filters (dict): Scope and filters
 
         Returns:
             Collector (:any:`Collector`): Collector Instance
@@ -66,16 +65,16 @@ class Collector(BaseObjectWrapper):
             * ``element_ids`` `([ElementId])`: List of Element Ids to limit Collector Scope
             * ``elements`` `([Element])`: List of Elements to limit Collector Scope
 
+        Note:
+            Only one scope filter should be used per query.
+
         Filter Options:
             * ``is_not_type`` `(bool)`: Same as ``WhereElementIsNotElementType``
             * ``is_type`` `(bool)`: Same as ``WhereElementIsElementType``
-            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be DB Type String: DB.Wall or 'Wall'
-            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: `DB.BuiltInCategory.OST_Wall` or 'OST_Wall'
+            * ``of_class`` `(Type)`: Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``'Wall'``
+            * ``of_category`` `(BuiltInCategory Enum)`: Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``
             * ``is_view_independent`` `(bool)`: ``WhereElementIsViewIndependent(True)``
             * ``parameter_filter`` `(:any:`ParameterFilter`)`: Similar to ``ElementParameterFilter`` Class
-
-        Note:
-            Only one scope filter should be used per query.
 
         """
         if 'view' in filters:
@@ -221,7 +220,7 @@ class _Filter():
             >>> elements = Collector(of_class='WallType')
 
         Note:
-            String Connversion for `of_class` only works for the Revit.DB
+            String Connversion for ``of_class`` only works for the ``Revit.DB``
             namespace.
 
         """
@@ -241,11 +240,12 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
     Used internally by Collector to provide the ``symbol`` keyword filter.
     It returns a ``DB.FamilyInstanceFilter`` which is then used by the
     FilterElementCollector.WherePasses() method to filter the symbol types
+
     """
     def __init__(self, symbol_or_id):
         """
         Args:
-            symbol_or_id(``FamilySymbol``, ``ElementId``): FamilySymbol or ElementId
+            symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId
 
         Returns:
             DB.FamilyInstanceFilter: FamilyInstanceFilter

@@ -1,4 +1,4 @@
-from rpw.logger import logger
+from rpw.utils.logger import logger
 
 class RPW_Exception(Exception):
     """ Revit Python Wrapper Base Exception """

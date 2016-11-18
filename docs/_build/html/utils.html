@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Utilities &mdash; Revit Python Wrapper 0.0.8 documentation</title>
   
 
   
@@ -34,9 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
- 
-
-
+        <link rel="next" title="Dynamo" href="dynamo.html"/>
+        <link rel="prev" title="Forms" href="forms.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,7 +84,7 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
@@ -94,7 +93,10 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
@@ -121,7 +123,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -129,9 +131,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Utilities</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+            <a href="_sources/utils.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -141,69 +145,68 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
+<p>Coerce / Type Casting Tools</p>
+<span class="target" id="module-rpw.utils.coerce"></span><dl class="function">
+<dt id="rpw.utils.coerce.to_element_ids">
+<code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_element_ids</code><span class="sig-paren">(</span><em>elements</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_element_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces list of elements into element ids</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elements</strong> (<code class="docutils literal"><span class="pre">DB.Element</span></code>) &#8211; Iterable list or single of Elements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of Element Ids.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, ... ]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-   <h1>Python Module Index</h1>
+<dl class="function">
+<dt id="rpw.utils.coerce.to_elements">
+<code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_elements</code><span class="sig-paren">(</span><em>element_references</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces element reference (<code class="docutils literal"><span class="pre">int</span></code>, or <code class="docutils literal"><span class="pre">ElementId</span></code>) into <code class="docutils literal"><span class="pre">DB.Element</span></code>.
+Remains unchanged if it&#8217;s already <code class="docutils literal"><span class="pre">DB.Element</span></code>. Accepts single object or lists</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_references</strong> ([<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">int</span></code>, <code class="docutils literal"><span class="pre">DB.Element</span></code>]) &#8211; Element Reference, single or list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Elements</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[<code class="docutils literal"><span class="pre">DB.Element</span></code>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-   <div class="modindex-jumpbox">
-   <a href="#cap-r"><strong>r</strong></a>
-   </div>
-
-   <table class="indextable modindextable" cellspacing="0" cellpadding="2">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-r"><td></td><td>
-       <strong>r</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <code class="xref">rpw</code></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="collector.html#module-rpw.collector"><code class="xref">rpw.collector</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="element.html#module-rpw.element"><code class="xref">rpw.element</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="enumeration.html#module-rpw.enumeration"><code class="xref">rpw.enumeration</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="exceptions.html#module-rpw.exceptions"><code class="xref">rpw.exceptions</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="forms.html#module-rpw.forms.forms"><code class="xref">rpw.forms.forms</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="selection.html#module-rpw.selection"><code class="xref">rpw.selection</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="transaction.html#module-rpw.transaction"><code class="xref">rpw.transaction</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="utils.html#module-rpw.utils.coerce"><code class="xref">rpw.utils.coerce</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+<hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dynamo.html" class="btn btn-neutral float-right" title="Dynamo" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="forms.html" class="btn btn-neutral" title="Forms" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

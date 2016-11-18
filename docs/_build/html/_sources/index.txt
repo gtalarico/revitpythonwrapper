@@ -19,6 +19,7 @@ Revit Python Wrapper
    collector
    enumeration
    forms
+   utils
    dynamo
    revitpythonshell
    exceptions
