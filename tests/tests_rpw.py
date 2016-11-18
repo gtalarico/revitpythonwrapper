@@ -24,41 +24,9 @@ from rpw import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.utils.logger import logger
 
-# sys.exit()rr
 # TODO: Finish wall specific handler
-# TODO: Add tests to symbol collector
-# TODO: Instance Tests
-# TODO: Symbols Tests
-# TODO: Family Tests
-# TODO: Category Tests
+# TODO: Ensure 100% coverage for Instance, Symbol, Family and Category
 
-# from rpw.instance import Instance
-#
-# for element in rpw.Selection():
-#     instance = Instance(element)
-#     print(element)
-#
-#     logger.title('Instance:')
-#     print(instance)
-#     logger.title('Symbol:')
-#     print(instance.symbol)
-#     logger.title('Instances:')
-#     print(instance.symbol.instances)
-#     logger.title('Symbol Name:')
-#     print(instance.symbol.name)
-#     logger.title('Family:')
-#     print(instance.symbol.family)
-#     logger.title('Family Name:')
-#     print(instance.symbol.family.name)
-#     logger.title('Symbol Siblings:')
-#     print(instance.symbol.siblings)
-#     logger.title('Familly Siblings (Other Symbols):')
-#     print(instance.symbol.family.symbols)
-#     logger.title('Category:')
-#     print(instance.symbol.family.category)
-#     logger.title('Category Name:')
-#     print(instance.symbol.family.category.name)
-#
 # sys.exit()
 
 def setUpModule():
@@ -97,7 +65,6 @@ def setUpModule():
     # Load Fixture Family and Place Instances
     ##################################################
     logger.debug('LOADING SYMBOl')
-    test_dir = r'C:\Users\gtalarico\Dropbox\Shared\dev\repos\revitpythonwrapper\tests'
     family_path = os.path.join(test_dir, 'fixtures', 'desk.rfa')
     if not os.path.exists(family_path):
         raise Exception('Could not find fixture: {}'.format(family_path))
@@ -198,7 +165,6 @@ class CollectorTests(unittest.TestCase):
         collector = DB.FilteredElementCollector(doc)
         cls.family_loaded = collector.OfCategory(DB.BuiltInCategory.OST_Furniture).ToElements()
 
-
     @staticmethod
     def collector_helper(filters):
         logger.debug('{}'.format(filters))
@@ -284,7 +250,7 @@ class CollectorTests(unittest.TestCase):
         desk_types = rpw.Collector(of_class='FamilySymbol',
                                    of_category="OST_Furniture").elements
         self.assertEqual(len(desk_types), 3)
-        
+
         all_symbols = rpw.Collector(of_class='FamilySymbol').elements
         self.assertGreater(len(all_symbols), 3)
         all_symbols = rpw.Collector(of_class='FamilySymbol').elements
@@ -296,6 +262,9 @@ class CollectorTests(unittest.TestCase):
         #Placed Once
         second_symbol = rpw.Collector(symbol=desk_types[1]).elements
         self.assertEqual(len(second_symbol), 1)
+
+        second_symbol = rpw.Collector(of_class='Wall', symbol=desk_types[1]).elements
+        self.assertEqual(len(second_symbol), 0)
 
 
 ######################
@@ -371,7 +340,11 @@ class ElementTests(unittest.TestCase):
                 doc.Delete(level.Id)
 
     def test_element_repr(self):
-        self.wrapped_wall.__repr__()
+        self.assertIn('<RPW_Element:<Autodesk.Revit.DB.Wall', self.wrapped_wall.__repr__())
+
+    def test_element_repr(self):
+        self.assertIsInstance(self.wrapped_wall, rpw.Element)
+        self.assertIsInstance(self.wrapped_wall.unwrap(), DB.Wall)
 
     def test_element_id(self):
         assert isinstance(self.wrapped_wall.Id, DB.ElementId)
@@ -641,6 +614,54 @@ class CoerceTests(unittest.TestCase):
         wall_id = DB.ElementId(wall_int)
         elements = rpw.utils.coerce.to_elements([wall_id, wall_int, self.wall])
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
+
+
+######################
+# INSTANCES
+######################
+
+class InstanceTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING INSTANCES...')
+
+    def setUp(self):
+        instance = rpw.Collector(of_category='OST_Furniture', is_not_type=True).first
+        self.instance = rpw.Instance(instance)
+
+    def tearDown(self):
+        logger.debug('SELECTION TEST PASSED')
+
+    def test_instance_wrap(self):
+        self.assertIsInstance(self.instance, rpw.Instance)
+        self.assertIsInstance(self.instance.unwrap(), DB.FamilyInstance)
+
+    def test_instance_symbol(self):
+        symbol = self.instance.symbol
+        self.assertIsInstance(symbol, rpw.Symbol)
+        self.assertIsInstance(symbol.unwrap(), DB.FamilySymbol)
+        self.assertEqual(symbol.name, '60" x 30"')
+        self.assertEqual(len(symbol.instances), 2)
+        self.assertEqual(len(symbol.siblings), 3)
+
+    def test_instance_family(self):
+        family = self.instance.symbol.family
+        self.assertIsInstance(family, rpw.Family)
+        self.assertEqual(family.name, 'desk')
+        self.assertIsInstance(family.unwrap(), DB.Family)
+        self.assertEqual(len(family.instances), 3)
+        self.assertEqual(len(family.siblings), 1)
+        self.assertEqual(len(family.symbols), 3)
+
+    def test_instance_category(self):
+        category = self.instance.symbol.family.category
+        self.assertIsInstance(category, rpw.Category)
+        self.assertIsInstance(category.unwrap(), DB.Category)
+        self.assertEqual(category.name, 'Furniture')
+        self.assertEqual(len(category.instances), 3)
+        self.assertEqual(len(category.symbols), 3)
+        self.assertEqual(len(category.families), 1)
 
 
 def run():

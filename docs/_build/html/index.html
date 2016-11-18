@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Revit Python Wrapper &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Revit Python Wrapper &mdash; Revit Python Wrapper 0.0.9 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="#"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="#"/>
         <link rel="next" title="Globals" href="globals.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.0.9
               </div>
             
           
@@ -86,7 +86,8 @@
                 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
@@ -145,7 +146,7 @@
 <h1>Revit Python Wrapper<a class="headerlink" href="#revit-python-wrapper" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>Version: 0.0.8</p>
+<p>Version: 0.0.9</p>
 <p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a> | <a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p>
 <div class="section" id="a-python-wrapper-for-the-revit-api">
 <h2>A Python Wrapper For the Revit API<a class="headerlink" href="#a-python-wrapper-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
@@ -187,7 +188,7 @@ with little effort.</li>
 <div><ul class="simple">
 <li>Normalizes Document and Application handlers for Revit + Dynamo</li>
 <li>Increase code re-use across platforms (ie. <a class="reference internal" href="globals.html"><span class="doc">Globals</span></a>)</li>
-<li>Implements patterns to reduce repetitive tasks (ie. <a class="reference internal" href="transaction.html#module-rpw.transaction" title="rpw.transaction"><code class="xref any py py-mod docutils literal"><span class="pre">rpw.transaction</span></code></a>)</li>
+<li>Implements patterns to reduce repetitive tasks (ie. <a class="reference internal" href="transaction.html#module-rpw.transaction" title="rpw.transaction"><code class="xref py py-class docutils literal"><span class="pre">rpw.transaction</span></code></a>)</li>
 <li>Handles some data-type casting for speed and flexibility (ie. <a class="reference internal" href="element.html#rpw.parameter.Parameter.value" title="rpw.parameter.Parameter.value"><code class="xref any py py-attr docutils literal"><span class="pre">rpw.parameter.Parameter.value</span></code></a>)</li>
 <li>Normalizes API calls for different Revit Versions (not yet implemented)</li>
 </ul>
@@ -308,8 +309,9 @@ paired with an example sans-rpw.</p>
 </div>
 </div>
 <div class="section" id="element">
-<h3><a class="reference internal" href="element.html"><span class="doc">Element</span></a><a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
+<h3><a class="reference internal" href="element.html"><span class="doc">Element Wrappers</span></a><a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeRevitElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Comment Parameter&#39;</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Some String&#39;</span>
@@ -323,6 +325,29 @@ paired with an example sans-rpw.</p>
 <span class="go">1</span>
 </pre></div>
 </div>
+<p>Access to original attributes, and parameters are provided
+by the <a class="reference internal" href="element.html#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper. More Specialized Wrappers
+also provide additional features based on its type:
+<code class="docutils literal"><span class="pre">DB.FamilyInstace</span></code> (<a class="reference internal" href="element.html#rpw.element.Instance" title="rpw.element.Instance"><code class="xref any py py-class docutils literal"><span class="pre">Instance</span></code></a>), <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> (<a class="reference internal" href="element.html#rpw.element.Symbol" title="rpw.element.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a>),
+<code class="docutils literal"><span class="pre">DB.Family</span></code> (<a class="reference internal" href="element.html#rpw.element.Family" title="rpw.element.Family"><code class="xref any py py-class docutils literal"><span class="pre">Family</span></code></a>), and <code class="docutils literal"><span class="pre">DB.Category</span></code> (<a class="reference internal" href="element.html#rpw.element.Category" title="rpw.element.Category"><code class="xref any py py-class docutils literal"><span class="pre">Category</span></code></a>).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span>
+<span class="go">&#39;Comment&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Your Comment&#39;</span>
+<span class="go"># Comment set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SOME_BUILT_IN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<span class="go">&#39;Parameter Value&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span>
+<span class="go">&lt;Symbol&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
+<span class="go">&lt;Family&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">category</span>
+<span class="go">&lt;category&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">instances</span>
+<span class="go">[&lt;DB.FamilyInstance&gt;, &lt;...&gt;]</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 <div class="section" id="collector">
 <h3><a class="reference internal" href="collector.html"><span class="doc">Collector</span></a><a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h3>
@@ -343,7 +368,7 @@ paired with an example sans-rpw.</p>
 </div>
 </div>
 <div class="section" id="parameterfilter">
-<h3><a class="reference internal" href="collector.html#rpw.collector.ParameterFilter" title="rpw.collector.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
+<h3><code class="xref py py-class docutils literal"><span class="pre">ParameterFilter</span></code><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filter_rule</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ParameterFilter</span><span class="p">(</span><span class="n">some_param_id</span><span class="p">,</span> <span class="n">greater</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">,</span> <span class="n">paramter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
@@ -413,7 +438,7 @@ paired with an example sans-rpw.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.8',
+            VERSION:'0.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

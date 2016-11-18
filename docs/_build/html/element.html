@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Element &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Element Wrappers &mdash; Revit Python Wrapper 0.0.9 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
         <link rel="next" title="Selection" href="selection.html"/>
-        <link rel="prev" title="Globals" href="globals.html"/> 
+        <link rel="prev" title="Base Wrapper" href="base.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.0.9
               </div>
             
           
@@ -87,7 +87,13 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Element</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Element Wrappers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-rpw.element">Element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#instance">Instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbol">Symbol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#family">Family</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#category">Category</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
@@ -133,7 +139,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Element</li>
+    <li>Element Wrappers</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -147,17 +153,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rpw.element">
-<span id="element"></span><h1>Element<a class="headerlink" href="#module-rpw.element" title="Permalink to this headline">¶</a></h1>
-<p>Element Wrappers</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeRevitElement</span><span class="p">)</span>
-</pre></div>
-</div>
+  <div class="section" id="element-wrappers">
+<h1>Element Wrappers<a class="headerlink" href="#element-wrappers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-rpw.element">
+<span id="element"></span><h2>Element<a class="headerlink" href="#module-rpw.element" title="Permalink to this headline">¶</a></h2>
+<p>Something</p>
 <dl class="class">
 <dt id="rpw.element.Element">
 <em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
-<p>Generic Revit Element Wrapper</p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<p>Generic Revit Element Wrapper. All Element Base Objects inherit from this
+class and have the attributes and methods listed below.</p>
 <p>Usage:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">RevitWallElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span>
@@ -176,68 +182,94 @@
 <dl class="attribute">
 <dt id="rpw.element.Element.parameters">
 <code class="descname">parameters</code><a class="headerlink" href="#rpw.element.Element.parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>ParameterSet</em> &#8211; Access <a class="reference internal" href="#rpw.parameter.ParameterSet" title="rpw.parameter.ParameterSet"><code class="xref py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> class.</p>
+<dd><p><a class="reference internal" href="#rpw.parameter.ParameterSet" title="rpw.parameter.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> &#8211; Access <a class="reference internal" href="#rpw.parameter.ParameterSet" title="rpw.parameter.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> class.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
 <code class="descname">parameters['ParamName']</code></dt>
-<dd><p><em>_Parameter</em> &#8211; Returns <code class="xref py py-class docutils literal"><span class="pre">_Parameter</span></code> class instance if match is found.</p>
+<dd><p><a class="reference internal" href="#rpw.parameter.Parameter" title="rpw.parameter.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">Parameter</span></code></a> &#8211; Returns <a class="reference internal" href="#rpw.parameter.Parameter" title="rpw.parameter.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">Parameter</span></code></a> class instance if match is found.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt>
 <code class="descname">parameters.builtins['BuiltInName']</code></dt>
-<dd><p><em>_Parameter</em> &#8211; Buit In :obj:_Parameter</p>
+<dd><p><a class="reference internal" href="#rpw.parameter.Parameter" title="rpw.parameter.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">Parameter</span></code></a> &#8211; BuitIn <a class="reference internal" href="#rpw.parameter.Parameter" title="rpw.parameter.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">Parameter</span></code></a> object</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.element.Element._revit_object">
-<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.element.Element._revit_object" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>DB.Element</em></p>
+<dt id="rpw.element.Element.unwrap">
+<code class="descname">unwrap</code><a class="headerlink" href="#rpw.element.Element.unwrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapped Revit Reference</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="rpw.element.Element.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>Element Reference</em>) &#8211; Can be <code class="docutils literal"><span class="pre">DB.Element</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>, or <code class="docutils literal"><span class="pre">int</span></code>.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Instance of Wrapped Element</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">]</span>
-</pre></div>
+</dd></dl>
+
 </div>
-</dd>
+<div class="section" id="instance">
+<h2>Instance<a class="headerlink" href="#instance" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.element.Instance">
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code> Wrapper</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.FamilyInstance): Wrapped <code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code> or
+other placeable such as DB.Wall</dd>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="rpw.element.Element.id_as_int">
-<code class="descname">id_as_int</code><a class="headerlink" href="#rpw.element.Element.id_as_int" title="Permalink to this definition">¶</a></dt>
-<dd><p>Example of mapping existing properties</p>
+</div>
+<div class="section" id="symbol">
+<h2>Symbol<a class="headerlink" href="#symbol" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.element.Symbol">
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Symbol</code><span class="sig-paren">(</span><em>symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> Wrapper</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.FamilySymbol): Wrapped <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code></dd>
+</dl>
 </dd></dl>
 
+</div>
+<div class="section" id="family">
+<h2>Family<a class="headerlink" href="#family" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.element.Family">
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Family</code><span class="sig-paren">(</span><em>family</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">DB.Family</span></code> Wrapper</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.Family): Wrapped <code class="docutils literal"><span class="pre">DB.Family</span></code></dd>
+</dl>
 </dd></dl>
 
+</div>
+<div class="section" id="category">
+<h2>Category<a class="headerlink" href="#category" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.element.Category">
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Category</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<p><code class="docutils literal"><span class="pre">DB.Category</span></code> Wrapper</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.Family): Wrapped <code class="docutils literal"><span class="pre">DB.Category</span></code></dd>
+</dl>
+</dd></dl>
+
+</div>
 <hr class="docutils" />
 <div class="section" id="parameterset">
 <h2>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="rpw.parameter.ParameterSet">
 <em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Allows you to treat an element parameters as a dictionary.</p>
 <p>This is used internally byt the Element Wrapper: and instance of This
 class is returned on an warpped element <code class="docutils literal"><span class="pre">parameters</span></code> attribute,
@@ -310,7 +342,7 @@ but can also be used on it&#8217;s own</p>
 <dl class="class">
 <dt id="rpw.parameter.Parameter">
 <em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>parameter</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Primarily for internal use by <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a>, but can be used on it&#8217;s own.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span><span class="o">.</span><span class="n">type</span>
@@ -473,13 +505,10 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Element Wrappers</span>
-
-<span class="sd">&gt;&gt;&gt; rpw.Element(SomeRevitElement)</span>
-
+<span class="sd">Something</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-
+<span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">ParameterSet</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
@@ -490,12 +519,11 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span>
 
-<span class="c1"># TODO: Decide if should return wrapped</span>
-
 
 <span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generic Revit Element Wrapper</span>
+<span class="sd">    Generic Revit Element Wrapper. All Element Base Objects inherit from this</span>
+<span class="sd">    class and have the attributes and methods listed below.</span>
 
 <span class="sd">    Usage:</span>
 
@@ -512,10 +540,11 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">    Attributes:</span>
 
-<span class="sd">        parameters (ParameterSet): Access :class:`.ParameterSet` class.</span>
-<span class="sd">        parameters[&#39;ParamName&#39;] (_Parameter): Returns :class:`_Parameter` class instance if match is found.</span>
-<span class="sd">        parameters.builtins[&#39;BuiltInName&#39;] (_Parameter): Buit In :obj:_Parameter</span>
-<span class="sd">        _revit_object (DB.Element) = Wrapped Revit Reference</span>
+<span class="sd">        parameters (:any:`ParameterSet`): Access :any:`ParameterSet` class.</span>
+<span class="sd">        parameters[&#39;ParamName&#39;] (:any:`Parameter`): Returns :any:`Parameter` class instance if match is found.</span>
+<span class="sd">        parameters.builtins[&#39;BuiltInName&#39;] (:any:`Parameter`): BuitIn :any:`Parameter` object</span>
+
+<span class="sd">        unwrap(): Wrapped Revit Reference</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -524,15 +553,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">            element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            :any:`Element`: Instance of Wrapped Element</span>
+<span class="sd">            :class:`Element`: Instance of Wrapped Element</span>
 
 <span class="sd">        Usage:</span>
 <span class="sd">            &gt;&gt;&gt; wall = Element(SomeElementId)</span>
 <span class="sd">            &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
 <span class="sd">            &gt;&gt;&gt; wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># This class isn&#39;t very useful right now, except for adding the .parameters attribute.</span>
-        <span class="c1"># The parameter could be used along: Consider removing if a use is not found.</span>
         <span class="k">if</span> <span class="n">enforce_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="n">enforce_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
 
@@ -560,28 +587,31 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 
 <span class="k">class</span> <span class="nc">Instance</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; ``DB.FamilyInstance`` Wrapper</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``DB.FamilyInstance`` Wrapper</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilyInstance): Wrapped ``DB.FamilyInstance`` or</span>
 <span class="sd">        other placeable such as DB.Wall</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstance</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstance</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance``</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance`` &quot;&quot;&quot;</span>
         <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Symbol</span>
         <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Wrapped ``DB.Family`` of the ``DB.FamilyInstance``</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Symbol</span>
-        <span class="k">return</span> <span class="n">Family</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">family</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot; Wrapped ``DB.Family`` of the ``DB.FamilyInstance`` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">family</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Wrapped ``DB.Family`` of the ``DB.Symbol`` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">category</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">siblings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -593,14 +623,27 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 
 <span class="k">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; ``DB.FamilySymbol`` Wrapper</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``DB.FamilySymbol`` Wrapper</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilySymbol</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; symbol = Symbol(SomeFamilySymbol)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilySymbol</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">Autodesk.Revit</span> <span class="k">import</span> <span class="n">DB</span>
+        <span class="c1"># FIXME: Bug requires re-importing it</span>
+        <span class="c1"># https://github.com/IronLanguages/main/issues/1540#issuecomment-260426990</span>
+        <span class="c1"># http://stackoverflow.com/questions/40580471/net-assembly-loses-some-methods-when-imported-from-one-python-file-into-another</span>
+        <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -608,17 +651,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="n">Family</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">Autodesk.Revit</span> <span class="k">import</span> <span class="n">DB</span>
-        <span class="c1"># FIXME: But requires re-importing it</span>
-        <span class="c1"># https://github.com/IronLanguages/main/issues/1540#issuecomment-260426990</span>
-        <span class="c1"># http://stackoverflow.com/questions/40580471/net-assembly-loses-some-methods-when-imported-from-one-python-file-into-another</span>
-        <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Wrapped ``DB.Family`` of the ``DB.Symbol`` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">category</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Gets instances of the ``DB.FamilySymbol`` &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Getting instances: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">))</span>
+        <span class="sd">&quot;&quot;&quot; Returns ``DB.FamilyInstance`` instances in of this Symbol &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
 
     <span class="nd">@property</span>
@@ -634,34 +673,40 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="k">class</span> <span class="nc">Family</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``DB.Family`` Wrapper</span>
+
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.Family): Wrapped ``DB.Family``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Family</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Family</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns name of the Family &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Name</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Gets Symbols of the ``DB.Family`` &quot;&quot;&quot;</span>
-        <span class="n">symbols_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetFamilySymbolIds</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">symbols_ids</span><span class="p">]</span>
-
-    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">instances</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot; Returns ``DB.FamilyInstace`` instances of this Family &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span>
                              <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns ``DB.FamilySymbol`` symbols in family &quot;&quot;&quot;</span>
+        <span class="n">symbols_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetFamilySymbolIds</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">symbols_ids</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns ``DB.Category`` of this Family &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Category</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">FamilyCategory</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">siblings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns ``DB.Family`` in the same category &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">families</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -670,29 +715,35 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``DB.Category`` Wrapper</span>
+
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.Family): Wrapped ``DB.Category``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Category</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns name of the Category &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Name</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">families</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span>
-                             <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+        <span class="sd">&quot;&quot;&quot; Returns ``DB.Family`` family elements in the category &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_builtin_enum</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">bic</span> <span class="o">=</span> <span class="n">Bic</span>
-        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span>
-                             <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_builtin_enum</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">instances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span>
-                             <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_builtin_enum</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_builtin_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -743,6 +794,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Parameter Wrapper</span>
+
+<span class="sd">&gt;&gt;&gt; #TODO</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1036,7 +1089,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="globals.html" class="btn btn-neutral" title="Globals" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral" title="Base Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1067,7 +1120,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.8',
+            VERSION:'0.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

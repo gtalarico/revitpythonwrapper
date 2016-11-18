@@ -4,19 +4,21 @@
    contain the root `toctree` directive.
 
 
-API
+==================
+Base Wrapper
 ==================
 
-Full Api Documentation
+Base Wrapper
 
-.. automodule:: rpw.db_wrappers
+.. automodule:: rpw.base
     :members:
-    :special-members:
+    :special-members: __init__
     :private-members:
     :show-inheritance:
 
-.. automodule:: rpw.transaction
-    :members:
-    :special-members:
-    :private-members:
-    :show-inheritance:
+----------------------------------------------
+
+Implementation
+**************
+
+.. literalinclude:: ../rpw/base.py

@@ -1,5 +1,5 @@
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.8'
+__version__ = '0.0.9'
 __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
@@ -17,6 +17,7 @@ try:
     from Autodesk.Revit import DB
     from Autodesk.Revit import UI
     from System.Collections.Generic import List
+    from System import Enum
 
 except Exception as errmsg:
     logger.error(errmsg)
@@ -56,7 +57,7 @@ else:
 
 
 if platform is not None:
-    from rpw.element import Element, Instance, Symbol, Family
+    from rpw.element import Element, Instance, Symbol, Family, Category
     from rpw.parameter import ParameterSet, Parameter
     from rpw.selection import Selection
     from rpw.collector import Collector, ParameterFilter

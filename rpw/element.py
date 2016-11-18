@@ -1,11 +1,8 @@
 """
-Element Wrappers
-
->>> rpw.Element(SomeRevitElement)
-
+Something
 """
 
-
+import rpw
 from rpw import doc, uidoc, DB
 from rpw.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
@@ -16,12 +13,10 @@ from rpw.utils.logger import logger
 
 from rpw.enumeration import BicEnum
 
-# TODO: Decide if should return wrapped
-
 
 class Element(BaseObjectWrapper):
     """
-    Generic Revit Element Wrapper
+    All Element Base Objects inherit from this class and have the attributes and methods listed below.
 
     Usage:
 
@@ -38,10 +33,11 @@ class Element(BaseObjectWrapper):
 
     Attributes:
 
-        parameters (ParameterSet): Access :class:`.ParameterSet` class.
-        parameters['ParamName'] (_Parameter): Returns :class:`_Parameter` class instance if match is found.
-        parameters.builtins['BuiltInName'] (_Parameter): Buit In :obj:_Parameter
-        _revit_object (DB.Element) = Wrapped Revit Reference
+        parameters (:any:`ParameterSet`): Access :any:`ParameterSet` class.
+        parameters['ParamName'] (:any:`Parameter`): Returns :any:`Parameter` class instance if match is found.
+        parameters.builtins['BuiltInName'] (:any:`Parameter`): BuitIn :any:`Parameter` object
+
+        unwrap(): Wrapped Revit Reference
 
     """
     def __init__(self, element, enforce_type=None):
@@ -50,19 +46,14 @@ class Element(BaseObjectWrapper):
             element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
 
         Returns:
-            :any:`Element`: Instance of Wrapped Element
+            :class:`Element`: Instance of Wrapped Element
 
         Usage:
             >>> wall = Element(SomeElementId)
             >>> wall.parameters['Height']
             >>> wall.parameters.builtins['WALL_LOCATION_LINE']
         """
-        # This class isn't very useful right now, except for adding the .parameters attribute.
-        # The parameter could be used along: Consider removing if a use is not found.
-        if enforce_type and not isinstance(element, enforce_type):
-            raise RPW_TypeError(enforce_type, type(element))
-
-        super(Element, self).__init__(element)
+        super(Element, self).__init__(element, enforce_type=enforce_type)
         self.parameters = ParameterSet(element)
 
     @property
@@ -86,28 +77,31 @@ class Element(BaseObjectWrapper):
 
 
 class Instance(Element):
-    """ ``DB.FamilyInstance`` Wrapper
+    """
+    ``DB.FamilyInstance`` Wrapper
 
     Attribute:
         _revit_object (DB.FamilyInstance): Wrapped ``DB.FamilyInstance`` or
         other placeable such as DB.Wall
     """
-    def __init__(self, family):
-        super(Instance, self).__init__(family, enforce_type=DB.FamilyInstance)
+    def __init__(self, instance):
+        super(Instance, self).__init__(instance, enforce_type=DB.FamilyInstance)
 
     @property
     def symbol(self):
-        """ Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance``
-        """
+        """ Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance`` """
         symbol = self._revit_object.Symbol
         return Symbol(symbol)
 
     @property
     def family(self):
-        """ Wrapped ``DB.Family`` of the ``DB.FamilyInstance``
-        """
-        symbol = self._revit_object.Symbol
-        return Family(self.symbol.family)
+        """ Wrapped ``DB.Family`` of the ``DB.FamilyInstance`` """
+        return self.symbol.family
+
+    @property
+    def category(self):
+        """ Wrapped ``DB.Family`` of the ``DB.Symbol`` """
+        return self.family.category
 
     @property
     def siblings(self):
@@ -119,14 +113,24 @@ class Instance(Element):
 
 
 class Symbol(Element):
-    """ ``DB.FamilySymbol`` Wrapper
+    """
+    ``DB.FamilySymbol`` Wrapper
 
     Attribute:
         _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``
     """
 
-    def __init__(self, family):
-        super(Symbol, self).__init__(family, enforce_type=DB.FamilySymbol)
+    def __init__(self, symbol):
+        """
+        Usage:
+            >>> symbol = Symbol(SomeFamilySymbol)
+        """
+        super(Symbol, self).__init__(symbol, enforce_type=DB.FamilySymbol)
+
+    @property
+    def name(self):
+        return self.parameters.builtins['SYMBOL_NAME_PARAM'].value
+        # return self.parameters.builtins['ALL_MODEL_TYPE_NAME'].value
 
     @property
     def family(self):
@@ -134,17 +138,13 @@ class Symbol(Element):
         return Family(self._revit_object.Family)
 
     @property
-    def name(self):
-        from Autodesk.Revit import DB
-        # FIXME: But requires re-importing it
-        # https://github.com/IronLanguages/main/issues/1540#issuecomment-260426990
-        # http://stackoverflow.com/questions/40580471/net-assembly-loses-some-methods-when-imported-from-one-python-file-into-another
-        return DB.Element.Name.GetValue(self._revit_object)
+    def category(self):
+        """ Wrapped ``DB.Family`` of the ``DB.Symbol`` """
+        return self.family.category
 
     @property
     def instances(self):
-        """ Gets instances of the ``DB.FamilySymbol`` """
-        print('Getting instances: {}'.format(self._revit_object))
+        """ Returns ``DB.FamilyInstance`` instances in of this Symbol """
         return rpw.Collector(symbol=self._revit_object.Id).elements
 
     @property
@@ -152,7 +152,7 @@ class Symbol(Element):
         """ Gets sibling Symbols of the same``DB.Family`` """
         symbols_ids = self._revit_object.GetSimilarTypes()
         return [doc.GetElement(i) for i in symbols_ids]
-        # Same as: return self.family.symbols, but the above also works for walls
+        # Same as: return self.family.symbols
 
     def __repr__(self):
         return super(Symbol, self).__repr__(self.name)
@@ -160,34 +160,52 @@ class Symbol(Element):
 
 class Family(Element):
     """
+    ``DB.Family`` Wrapper
+
     Attribute:
         _revit_object (DB.Family): Wrapped ``DB.Family``
     """
 
     def __init__(self, family):
-        super(Family, self).__init__(family, enforce_type=None)
+        super(Family, self).__init__(family, enforce_type=DB.Family)
 
     @property
     def name(self):
-        return self._revit_object.Name
+        """ Returns name of the Family """
+        # This BIP only exist in symbols, so we retrieve a symbol first.
+        # The Alternative is to use Element.Name.GetValue(), but I am
+        # avoiding it due to the import bug in ironpython
+        try:
+            symbol = self.symbols[0]
+        except IndexError:
+            raise RPW_Exception('Family [{}] has no symbols'.format(self.name))
+        return Symbol(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        # Alternative: ALL_MODEL_FAMILY_NAME
+
+    @property
+    def instances(self):
+        """ Returns ``DB.FamilyInstace`` instances of this Family """
+        # There has to be a better way
+        instances = []
+        for symbol in self.symbols:
+            symbol_instances = Symbol(symbol).instances
+            instances.append(symbol_instances)
+        return instances
 
     @property
     def symbols(self):
-        """ Gets Symbols of the ``DB.Family`` """
+        """ Returns ``DB.FamilySymbol`` symbols in family """
         symbols_ids = self._revit_object.GetFamilySymbolIds()
         return [doc.GetElement(i) for i in symbols_ids]
 
     @property
-    def instances():
-        return rpw.Collector(of_class=self.category._revit_object,
-                             is_not_type=True).elements
-
-    @property
     def category(self):
+        """ Returns ``DB.Category`` of this Family """
         return Category(self._revit_object.FamilyCategory)
 
     @property
     def siblings(self):
+        """ Returns ``DB.Family`` in the same category """
         return self.category.families
 
     def __repr__(self):
@@ -196,29 +214,41 @@ class Family(Element):
 
 class Category(BaseObjectWrapper):
     """
+    ``DB.Category`` Wrapper
+
     Attribute:
         _revit_object (DB.Family): Wrapped ``DB.Category``
     """
+    def __init__(self, category):
+        super(Category, self).__init__(category, enforce_type=DB.Category)
 
     @property
     def name(self):
+        """ Returns name of the Category """
         return self._revit_object.Name
 
     @property
     def families(self):
-        return rpw.Collector(of_category=self._revit_object,
-                             is_type=True).elements
+        """ Returns ``DB.Family`` family elements in the category """
+        # There has to be a better way, but perhaps not: https://goo.gl/MqdzWg
+        symbols = self.symbols
+        unique_family_ids = set()
+        for symbol in symbols:
+            symbol_family = Symbol(symbol).family
+            unique_family_ids.add(symbol_family.Id)
+        return [doc.GetElement(family_id) for family_id in unique_family_ids]
 
     @property
     def symbols(self):
-        bic = Bic
-        return rpw.Collector(of_category=self._revit_object,
-                             is_type=True).elements
+        return rpw.Collector(of_category=self._builtin_enum, is_type=True).elements
 
     @property
     def instances(self):
-        return rpw.Collector(of_category=self._revit_object,
-                             is_not_type=True).elements
+        return rpw.Collector(of_category=self._builtin_enum, is_not_type=True).elements
+
+    @property
+    def _builtin_enum(self):
+        return BicEnum.from_category_id(self._revit_object.Id)
 
     def __repr__(self):
         return super(Category, self).__repr__(self.name)

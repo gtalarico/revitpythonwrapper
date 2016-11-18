@@ -1,7 +1,5 @@
 """
 
-Enumeration Wrappers
-
 >>> BipEnum.get('WALL_LOCATION_LINE')
 Revit.DB.BuiltInParameter.WALL_LOCATION_LINE
 >>> BipEnum.get_id('WALL_LOCATION_LINE')
@@ -13,12 +11,11 @@ Note:
 
 """
 
-from rpw import DB, doc
+from rpw import DB, doc, Enum
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_ParameterNotFound
 
-
-class _MetaBipEnum(type):
+class BipEnum(type):
     """
     Enumeration Wrapper
 
@@ -58,13 +55,7 @@ class _MetaBipEnum(type):
         return DB.ElementId(enum)
 
 
-class BipEnum(object):
-    """ Allows access to __getattr__ of class """
-    # TODO: Remove this, no longer needed since getattr is not used.
-    __metaclass__ = _MetaBipEnum
-
-
-class _MetaBicEnum(type):
+class BicEnum(type):
     """
     Enumeration Wrapper
 
@@ -103,20 +94,6 @@ class _MetaBicEnum(type):
         return DB.ElementId(enum)
 
     @classmethod
-    def from_id(cls, element_id):
-        """ Gets ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` """
-        for bic_name in dir(DB.BuiltInCategory):
-            if element_id == DB.ElementId(bic):
-                return cls.get(bic)
-        else:
-            raise RPW_ParameterNotFound(element_id, category_name)
-
-    @classmethod
-    def from_category(cls, category):
-        """ Get's BuiltInCategory Enumeration member from 11DB.Category`` """
-        return cls.from_id(category.Id)
-
-class BicEnum(object):
-    """ Allows access to __getattr__ of class """
-    # TODO: Remove this, no longer needed since getattr is not used.
-    __metaclass__ = _MetaBicEnum
+    def from_category_id(cls, category_id):
+        """ Casts ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` """
+        return Enum.ToObject(DB.BuiltInCategory, category_id.IntegerValue)

@@ -9,7 +9,7 @@ version = None
 platform = None
 DB = DB()
 List = None
-
+Enum = None
 wpf = None
 Application = None
 Window = object

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Selection &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Selection &mdash; Revit Python Wrapper 0.0.9 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
         <link rel="next" title="Transaction" href="transaction.html"/>
-        <link rel="prev" title="Element" href="element.html"/> 
+        <link rel="prev" title="Element Wrappers" href="element.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.0.9
               </div>
             
           
@@ -87,7 +87,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
@@ -151,7 +152,7 @@
 <dl class="class">
 <dt id="rpw.selection.Selection">
 <em class="property">class </em><code class="descclassname">rpw.selection.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">element_ids</span>
@@ -461,7 +462,7 @@ selection handler will be created with selected elements.</p>
         <a href="transaction.html" class="btn btn-neutral float-right" title="Transaction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="element.html" class="btn btn-neutral" title="Element" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="element.html" class="btn btn-neutral" title="Element Wrappers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -492,7 +493,7 @@ selection handler will be created with selected elements.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.8',
+            VERSION:'0.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

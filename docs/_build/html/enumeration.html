@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Enumeration &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Enumeration &mdash; Revit Python Wrapper 0.0.9 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
         <link rel="next" title="Forms" href="forms.html"/>
         <link rel="prev" title="Collector" href="collector.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.0.9
               </div>
             
           
@@ -87,7 +87,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
@@ -147,7 +148,6 @@
             
   <div class="section" id="module-rpw.enumeration">
 <span id="enumeration"></span><h1>Enumeration<a class="headerlink" href="#module-rpw.enumeration" title="Permalink to this headline">¶</a></h1>
-<p>Enumeration Wrappers</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
@@ -162,20 +162,6 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 <dl class="class">
 <dt id="rpw.enumeration.BicEnum">
 <em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BicEnum</code><a class="headerlink" href="#rpw.enumeration.BicEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Allows access to __getattr__ of class</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="rpw.enumeration.BipEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BipEnum</code><a class="headerlink" href="#rpw.enumeration.BipEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Allows access to __getattr__ of class</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="rpw.enumeration._MetaBicEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">_MetaBicEnum</code><a class="headerlink" href="#rpw.enumeration._MetaBicEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
 <p>Enumeration Wrapper</p>
 <dl class="docutils">
@@ -189,20 +175,14 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 </dd>
 </dl>
 <dl class="classmethod">
-<dt id="rpw.enumeration._MetaBicEnum.from_category">
-<em class="property">classmethod </em><code class="descname">from_category</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.from_category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get&#8217;s BuiltInCategory Enumeration member from 11DB.Category``</p>
+<dt id="rpw.enumeration.BicEnum.from_category_id">
+<em class="property">classmethod </em><code class="descname">from_category_id</code><span class="sig-paren">(</span><em>category_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.from_category_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Casts <code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> Enumeration member from <code class="docutils literal"><span class="pre">DB.ElementId</span></code></p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="rpw.enumeration._MetaBicEnum.from_id">
-<em class="property">classmethod </em><code class="descname">from_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.from_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets <code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> Enumeration member from <code class="docutils literal"><span class="pre">DB.ElementId</span></code></p>
-</dd></dl>
-
-<dl class="classmethod">
-<dt id="rpw.enumeration._MetaBicEnum.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.get" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration.BicEnum.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Built In Category by Name
 :param str: Name of Category</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -218,8 +198,8 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="rpw.enumeration._MetaBicEnum.get_id">
-<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBicEnum.get_id" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration.BicEnum.get_id">
+<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.get_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets ElementId of Category by name
 :param str: Name of Category</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -237,8 +217,8 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 </dd></dl>
 
 <dl class="class">
-<dt id="rpw.enumeration._MetaBipEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">_MetaBipEnum</code><a class="headerlink" href="#rpw.enumeration._MetaBipEnum" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration.BipEnum">
+<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BipEnum</code><a class="headerlink" href="#rpw.enumeration.BipEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
 <p>Enumeration Wrapper</p>
 <dl class="docutils">
@@ -252,8 +232,8 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 </dd>
 </dl>
 <dl class="classmethod">
-<dt id="rpw.enumeration._MetaBipEnum.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBipEnum.get" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration.BipEnum.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BipEnum.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets Built In Parameter by Name
 :param str: Name of Parameter</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -269,8 +249,8 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="rpw.enumeration._MetaBipEnum.get_id">
-<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration._MetaBipEnum.get_id" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.enumeration.BipEnum.get_id">
+<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BipEnum.get_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets ElementId of Category by name
 :param str: Name of Built In Parameter</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -292,8 +272,6 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">Enumeration Wrappers</span>
-
 <span class="sd">&gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
 <span class="sd">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
 <span class="sd">&gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
@@ -305,12 +283,11 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">doc</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span>
 
-
-<span class="k">class</span> <span class="nc">_MetaBipEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BipEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration Wrapper</span>
 
@@ -350,13 +327,7 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">BipEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Allows access to __getattr__ of class &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: Remove this, no longer needed since getattr is not used.</span>
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">_MetaBipEnum</span>
-
-
-<span class="k">class</span> <span class="nc">_MetaBicEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BicEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration Wrapper</span>
 
@@ -395,23 +366,9 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Gets ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">bic_name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">element_id</span> <span class="o">==</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">bic</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bic</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_category</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Get&#39;s BuiltInCategory Enumeration member from 11DB.Category`` &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">BicEnum</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Allows access to __getattr__ of class &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: Remove this, no longer needed since getattr is not used.</span>
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">_MetaBicEnum</span>
+    <span class="k">def</span> <span class="nf">from_category_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Casts ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Enum</span><span class="o">.</span><span class="n">ToObject</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -458,7 +415,7 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.8',
+            VERSION:'0.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

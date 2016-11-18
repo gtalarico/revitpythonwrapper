@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Collector &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Collector &mdash; Revit Python Wrapper 0.0.9 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
         <link rel="next" title="Enumeration" href="enumeration.html"/>
         <link rel="prev" title="Transaction" href="transaction.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.0.9
               </div>
             
           
@@ -87,7 +87,8 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Collector</a><ul>
@@ -158,7 +159,7 @@
 <dl class="class">
 <dt id="rpw.collector.Collector">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Revit FilteredElement Collector Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -181,8 +182,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Search list of elements</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">Element1</span><span class="p">,</span> <span class="n">Element2</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<p>Search Document, View, or list of elements</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># Doc is default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="n">SomeView</span><span class="p">,</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># Doc is default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">Element1</span><span class="p">,</span> <span class="n">Element2</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -210,17 +213,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>view</strong> (<code class="docutils literal"><span class="pre">DB.View</span></code>) &#8211; View Scope (Optional)</li>
-<li><strong>**filters</strong> (<code class="docutils literal"><span class="pre">keyword</span> <span class="pre">args</span></code>) &#8211; Scope and filters</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>**filters</strong> (<code class="docutils literal"><span class="pre">keyword</span> <span class="pre">args</span></code>) &#8211; Scope and filters</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>Collector</strong> &#8211; Collector Instance</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>Collector</strong> &#8211; Collector Instance</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#rpw.collector.Collector" title="rpw.collector.Collector"><code class="xref any py py-class docutils literal"><span class="pre">Collector</span></code></a></p>
-</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.collector.Collector" title="rpw.collector.Collector"><code class="xref any py py-class docutils literal"><span class="pre">Collector</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -236,7 +233,7 @@
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Only one scope filter should be used per query. If more then one is used,
-only one will be applied, in this order <code class="docutils literal"><span class="pre">view</span></code> &gt; <code class="docutils literal"><span class="pre">elemenets</span></code> &gt; <code class="docutils literal"><span class="pre">element_ids</span></code></p>
+only one will be applied, in this order <code class="docutils literal"><span class="pre">view</span></code> &gt; <code class="docutils literal"><span class="pre">elements</span></code> &gt; <code class="docutils literal"><span class="pre">element_ids</span></code></p>
 </div>
 <dl class="docutils">
 <dt>Filter Options:</dt>
@@ -264,7 +261,7 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <dl class="class">
 <dt id="rpw.collector.ParameterFilter">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">ParameterFilter</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.ParameterFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Parameter Filter Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -337,7 +334,7 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <dl class="class">
 <dt id="rpw.collector._FamilyInstanceFilter">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_FamilyInstanceFilter</code><span class="sig-paren">(</span><em>symbol_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Used internally by Collector to provide the <code class="docutils literal"><span class="pre">symbol</span></code> keyword filter.
 It returns a <code class="docutils literal"><span class="pre">DB.FamilyInstanceFilter</span></code> which is then used by the
 FilterElementCollector.WherePasses() method to filter the symbol types</p>
@@ -444,8 +441,10 @@ namespace.</p>
 <span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; Collector(of_class=&#39;ViewType&#39;)</span>
 
-<span class="sd">        Search list of elements</span>
+<span class="sd">        Search Document, View, or list of elements</span>
 
+<span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;) # Doc is default</span>
+<span class="sd">        &gt;&gt;&gt; Collector(view=SomeView, of_category=&#39;OST_Walls&#39;) # Doc is default</span>
 <span class="sd">        &gt;&gt;&gt; Collector(elements=[Element1, Element2,...], of_category=&#39;OST_Walls&#39;)</span>
 
 <span class="sd">    Attributes:</span>
@@ -460,7 +459,6 @@ namespace.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">filters</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            view (``DB.View``): View Scope (Optional)</span>
 <span class="sd">            **filters (``keyword args``): Scope and filters</span>
 
 <span class="sd">        Returns:</span>
@@ -473,7 +471,7 @@ namespace.</p>
 
 <span class="sd">        Warning:</span>
 <span class="sd">            Only one scope filter should be used per query. If more then one is used,</span>
-<span class="sd">            only one will be applied, in this order ``view`` &gt; ``elemenets`` &gt; ``element_ids`` </span>
+<span class="sd">            only one will be applied, in this order ``view`` &gt; ``elements`` &gt; ``element_ids``</span>
 
 <span class="sd">        Filter Options:</span>
 <span class="sd">            * ``is_not_type`` (``bool``): Same as ``WhereElementIsNotElementType``</span>
@@ -485,10 +483,16 @@ namespace.</p>
 <span class="sd">            * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Pick Scope Filter, Default is doc</span>
         <span class="k">if</span> <span class="s1">&#39;view&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
             <span class="n">view</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+            <span class="n">view_id</span> <span class="o">=</span> <span class="n">view</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">else</span> <span class="n">view</span><span class="o">.</span><span class="n">Id</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view_id</span><span class="p">)</span>
             <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;view_id&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="n">view_id</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;view_id&#39;</span><span class="p">]</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view_id</span><span class="p">)</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view_id&#39;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="s1">&#39;elements&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
             <span class="n">elements</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;elements&#39;</span><span class="p">]</span>
             <span class="n">element_ids</span> <span class="o">=</span> <span class="n">to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
@@ -500,6 +504,7 @@ namespace.</p>
             <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;element_ids&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
         <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">collector</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
@@ -508,8 +513,10 @@ namespace.</p>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Collector Filter not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
+        <span class="c1"># Stores filters for chained calls</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">filters</span>
 
+        <span class="c1"># Instantiates Filter class on attribute filter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">_Filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="c1"># Allows Class to Excecute on Construction, if filters are present.</span>
         <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
@@ -517,8 +524,8 @@ namespace.</p>
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Collector Iterator</span>
-<span class="sd">        for wall in Collector(of_class=&#39;Wall&#39;):</span>
-<span class="sd">            wall</span>
+<span class="sd">        &gt;&gt; for wall in Collector(of_class=&#39;Wall&#39;):</span>
+<span class="sd">        &gt;&gt;     wall</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">element</span>
@@ -831,7 +838,7 @@ namespace.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.8',
+            VERSION:'0.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

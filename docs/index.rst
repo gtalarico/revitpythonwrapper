@@ -13,6 +13,7 @@ Revit Python Wrapper
 
    self
    globals
+   base
    element
    selection
    transaction
@@ -75,7 +76,7 @@ Benefits
 
     * Normalizes Document and Application handlers for Revit + Dynamo
     * Increase code re-use across platforms (ie. :doc:`globals`)
-    * Implements patterns to reduce repetitive tasks (ie. :any:`rpw.transaction`)
+    * Implements patterns to reduce repetitive tasks (ie. :class:`rpw.transaction`)
     * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.parameter.Parameter.value`)
     * Normalizes API calls for different Revit Versions (not yet implemented)
 
@@ -203,6 +204,34 @@ paired with an example sans-rpw.
     >>> element.parameters.builtins['WALL_LOCATION_LINE'].value
     1
 
+    Access to original attributes, and parameters are provided
+    by the :any:`Element` wrapper. More Specialized Wrappers
+    also provide additional features based on its type:
+    ``DB.FamilyInstace`` (:any:`Instance`), ``DB.FamilySymbol`` (:any:`Symbol`),
+    ``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
+
+
+
+    >>> instance = rpw.Instance(SomeFamilyInstance)
+    >>> instance.parameters['Comments']
+    'Comment'
+    >>> instance.parameters['Comments'].value = 'Your Comment'
+    # Comment set
+    >>> instance.parameters.builtins['SOME_BUILT_IN'].value
+    'Parameter Value'
+    >>> instance = rpw.Instance(SomeFamilyInstance)
+    ﻿<RPW_Instance:72" x 36">
+    >>> instance.symbol
+    ﻿<RPW_Symbol:72" x 36">
+    >>> instance.family
+    ﻿<RPW_Family:desk>
+    >>> instance.category
+    ﻿<RPW_Category:Furniture>
+    >>> instance.symbol.name
+    ﻿'72" x 36"'
+    >>> instance.symbol.instances
+    [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
+
 
 :doc:`collector`
 ^^^^^^^^^^^^^^^^^^^
@@ -220,8 +249,8 @@ paired with an example sans-rpw.
     >>> walls = FilteredElementCollector.OfClass(WallType).ToElements()
 
 
-:any:`ParameterFilter`
-^^^^^^^^^^^^^^^^^^^^^^^
+:class:`ParameterFilter`
+^^^^^^^^^^^^^^^^^^^^^^^^
 
     >>> import rpw
     >>> filter_rule = rpw.ParameterFilter(some_param_id, greater=3)

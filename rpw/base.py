@@ -1,6 +1,15 @@
-""" Base Wrappers """
+"""
+All Wrappers inherit from this class. It has 4 responsibilities:
 
-from rpw.exceptions import RPW_Exception
+* Instantiate Class and store wrapped element in the private attribute ``_revit_object``
+* Provide access to all original methods and attributes of the
+  wrapped object throught the ``__getitem__`` method
+* Provide a ``unwrap()`` method, which returns the wrapped object
+* Create a ``__repr__()`` method for consistent representation
+
+"""
+
+from rpw.exceptions import RPW_TypeError
 
 
 class BaseObjectWrapper(object):
@@ -22,11 +31,14 @@ class BaseObjectWrapper(object):
 
     """
 
-    def __init__(self, revit_object):
+    def __init__(self, revit_object, enforce_type=None):
         """
         Child classes can use self._revit_object to refer back to Revit Element
         Element is used loosely to refer to all Revit Elements.
         """
+
+        if enforce_type and not isinstance(revit_object, enforce_type):
+            raise RPW_TypeError(enforce_type, type(revit_object))
 
         self._revit_object = revit_object
 

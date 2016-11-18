@@ -7,12 +7,12 @@ def to_element_ids(elements):
     """ Coerces list of elements into element ids
 
     Args:
-        elements (``DB.Element``): Iterable list or single of Elements
+        elements (``DB.Element``): Iterable list or single of Elements (``list`` or ``set``)
 
     Returns:
         [``DB.ElementId``, ... ]: List of Element Ids.
     """
-    if not isinstance(elements, list):
+    if not isinstance(elements, list) and not isinstance(elements, set):
         elements = [elements]
 
     element_ids = []

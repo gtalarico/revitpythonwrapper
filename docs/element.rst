@@ -5,12 +5,40 @@
 
 
 ==============================================
-Element
+Element Wrappers
 ==============================================
 
+Element
+************
+
 .. automodule:: rpw.element
-    :members: Element
+
+.. autoclass:: rpw.element.Element
     :special-members: __init__, __getattr__
+    :show-inheritance:
+
+Instance
+************
+
+.. autoclass:: rpw.element.Instance
+    :show-inheritance:
+
+Symbol
+************
+
+.. autoclass:: rpw.element.Symbol
+    :show-inheritance:
+
+Family
+************
+
+.. autoclass:: rpw.element.Family
+    :show-inheritance:
+
+Category
+************
+
+.. autoclass:: rpw.element.Category
     :show-inheritance:
 
 ----------------------------------------------

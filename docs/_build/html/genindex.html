@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Revit Python Wrapper 0.0.8 documentation</title>
+  <title>Index &mdash; Revit Python Wrapper 0.0.9 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.8 documentation" href="index.html"/> 
+    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.0.9
               </div>
             
           
@@ -86,7 +86,8 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="element.html">Element</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
@@ -179,7 +180,7 @@
 
       </dl></dd>
       
-  <dt><a href="collector.html#rpw.collector._FamilyInstanceFilter.__init__">__init__() (rpw.collector._FamilyInstanceFilter method)</a>
+  <dt><a href="base.html#rpw.base.BaseObjectWrapper.__init__">__init__() (rpw.base.BaseObjectWrapper method)</a>
   </dt>
 
       <dd><dl>
@@ -192,7 +193,7 @@
   </dt>
 
         
-  <dt><a href="element.html#rpw.element.Element.__init__">(rpw.element.Element method)</a>
+  <dt><a href="collector.html#rpw.collector._FamilyInstanceFilter.__init__">(rpw.collector._FamilyInstanceFilter method)</a>
   </dt>
 
         
@@ -239,22 +240,10 @@
   </dt>
 
       
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBicEnum">_MetaBicEnum (class in rpw.enumeration)</a>
-  </dt>
-
-      
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBipEnum">_MetaBipEnum (class in rpw.enumeration)</a>
-  </dt>
-
-      
-  <dt><a href="element.html#rpw.element.Element._revit_object">_revit_object (rpw.element.Element attribute)</a>
+  <dt><a href="element.html#rpw.element.Parameter._revit_object">_revit_object (rpw.element.Parameter attribute)</a>
   </dt>
 
       <dd><dl>
-        
-  <dt><a href="element.html#rpw.element.Parameter._revit_object">(rpw.element.Parameter attribute)</a>
-  </dt>
-
         
   <dt><a href="element.html#rpw.element.ParameterSet._revit_object">(rpw.element.ParameterSet attribute)</a>
   </dt>
@@ -283,15 +272,19 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="enumeration.html#rpw.enumeration.BicEnum">BicEnum (class in rpw.enumeration)</a>
+  <dt><a href="base.html#rpw.base.BaseObjectWrapper">BaseObjectWrapper (class in rpw.base)</a>
   </dt>
 
       
-  <dt><a href="enumeration.html#rpw.enumeration.BipEnum">BipEnum (class in rpw.enumeration)</a>
+  <dt><a href="enumeration.html#rpw.enumeration.BicEnum">BicEnum (class in rpw.enumeration)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="enumeration.html#rpw.enumeration.BipEnum">BipEnum (class in rpw.enumeration)</a>
+  </dt>
+
       
   <dt><a href="element.html#rpw.parameter.Parameter.builtin">builtin (rpw.parameter.Parameter attribute)</a>
   </dt>
@@ -307,11 +300,15 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="selection.html#rpw.selection.Selection.clear">clear() (rpw.selection.Selection method)</a>
+  <dt><a href="element.html#rpw.element.Category">Category (class in rpw.element)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="selection.html#rpw.selection.Selection.clear">clear() (rpw.selection.Selection method)</a>
+  </dt>
+
       
   <dt><a href="collector.html#rpw.collector.Collector">Collector (class in rpw.collector)</a>
   </dt>
@@ -369,6 +366,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="element.html#rpw.element.Family">Family (class in rpw.element)</a>
+  </dt>
+
+      
   <dt><a href="collector.html#rpw.collector.Collector.first">first (rpw.collector.Collector attribute)</a>
   </dt>
 
@@ -381,11 +382,7 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBicEnum.from_category">from_category() (rpw.enumeration._MetaBicEnum class method)</a>
-  </dt>
-
-      
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBicEnum.from_id">from_id() (rpw.enumeration._MetaBicEnum class method)</a>
+  <dt><a href="enumeration.html#rpw.enumeration.BicEnum.from_category_id">from_category_id() (rpw.enumeration.BicEnum class method)</a>
   </dt>
 
   </dl></td>
@@ -395,24 +392,24 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBicEnum.get">get() (rpw.enumeration._MetaBicEnum class method)</a>
+  <dt><a href="enumeration.html#rpw.enumeration.BicEnum.get">get() (rpw.enumeration.BicEnum class method)</a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBipEnum.get">(rpw.enumeration._MetaBipEnum class method)</a>
+  <dt><a href="enumeration.html#rpw.enumeration.BipEnum.get">(rpw.enumeration.BipEnum class method)</a>
   </dt>
 
       </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBicEnum.get_id">get_id() (rpw.enumeration._MetaBicEnum class method)</a>
+  <dt><a href="enumeration.html#rpw.enumeration.BicEnum.get_id">get_id() (rpw.enumeration.BicEnum class method)</a>
   </dt>
 
       <dd><dl>
         
-  <dt><a href="enumeration.html#rpw.enumeration._MetaBipEnum.get_id">(rpw.enumeration._MetaBipEnum class method)</a>
+  <dt><a href="enumeration.html#rpw.enumeration.BipEnum.get_id">(rpw.enumeration.BipEnum class method)</a>
   </dt>
 
       </dl></dd>
@@ -423,7 +420,7 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="element.html#rpw.element.Element.id_as_int">id_as_int (rpw.element.Element attribute)</a>
+  <dt><a href="element.html#rpw.element.Instance">Instance (class in rpw.element)</a>
   </dt>
 
   </dl></td>
@@ -467,6 +464,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="base.html#module-rpw.base">rpw.base (module)</a>
+  </dt>
+
+      
   <dt><a href="collector.html#module-rpw.collector">rpw.collector (module)</a>
   </dt>
 
@@ -486,12 +487,12 @@
   <dt><a href="forms.html#module-rpw.forms.forms">rpw.forms.forms (module)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="selection.html#module-rpw.selection">rpw.selection (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="transaction.html#module-rpw.transaction">rpw.transaction (module)</a>
   </dt>
@@ -530,6 +531,10 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="selection.html#rpw.selection.Selection">Selection (class in rpw.selection)</a>
+  </dt>
+
+      
+  <dt><a href="element.html#rpw.element.Symbol">Symbol (class in rpw.element)</a>
   </dt>
 
   </dl></td>
@@ -580,6 +585,10 @@
   <dt><a href="globals.html#rpw.uidoc">uidoc (in module rpw)</a>
   </dt>
 
+      
+  <dt><a href="element.html#rpw.element.Element.unwrap">unwrap (rpw.element.Element attribute)</a>
+  </dt>
+
   </dl></td>
 </tr></table>
 
@@ -626,7 +635,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.8',
+            VERSION:'0.0.9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
