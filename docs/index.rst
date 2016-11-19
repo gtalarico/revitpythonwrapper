@@ -3,7 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-
 ====================
 Revit Python Wrapper
 ====================
@@ -27,17 +26,16 @@ Revit Python Wrapper
    revitpythonshell
    tests
    exceptions
+
    known_issues
 
 
-.. image:: _static/logo/logo-large.png
-  :scale: 60%
-
+.. image:: _static/logo/logo-tight.png
+  :scale: 50%
 
 Version: |version|
 
 :ref:`modindex` | :ref:`genindex`
-
 
 **********************************
 A Python Wrapper For the Revit API
@@ -227,15 +225,15 @@ paired with an example sans-rpw.
     >>> instance.parameters.builtins['SOME_BUILT_IN'].value
     'Parameter Value'
     >>> instance.symbol
-    ﻿<RPW_Symbol:72" x 36">
+    <RPW_Symbol:72" x 36">
     >>> instance.symbol.name
-    ﻿'72" x 36"'
+    '72" x 36"'
     >>> instance.family
-    ﻿<RPW_Family:desk>
+    <RPW_Family:desk>
     >>> instance.family.name
-    ﻿'desk'
+    'desk'
     >>> instance.category
-    ﻿<RPW_Category:Furniture>
+    <RPW_Category:Furniture>
     >>> instance.symbol.instances
     [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
 
@@ -254,7 +252,6 @@ paired with an example sans-rpw.
     >>> from Autodesk.Revit.DB import FilteredElementCollector, WallType
     >>> collector = FilteredElementCollector()
     >>> walls = FilteredElementCollector.OfClass(WallType).ToElements()
-
 
 :any:`ParameterFilter`
 ^^^^^^^^^^^^^^^^^^^^^^^^

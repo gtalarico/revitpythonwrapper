@@ -63,7 +63,7 @@ Walls
 Wall Element Tree Wrappers
 
 .. Note::
-    These classes inherit from the classes above, but make some adjustments
+    These classes inherit from the classes listed above, but make some adjustments
     to compensate for disimilarties in in Wall Families.
 
     To go from an FamilyInstance (placed instance) to a FamilySymbol (Family Type on User Interface)

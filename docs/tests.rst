@@ -8,17 +8,19 @@
 Tests
 ==================
 
-Over 75+ tests are provide to verify functionalities, as well as to
-validate compatibility across different platforms.
+Although I have not been able to run coverage.py,
+the library has decent test coverate.
 
-Tests shown below have been execute with 100% success on
-Revit 2015, 2016, and Dynamo 1.2.
+The Test Suite below is used to verify functionalities, as well as to
+validate compatibility across different platforms. These tests below have
+been executed without failures on:
 
-The tests use original API commands to set up some base elements,
-and then use ``rpw`` wrappers as needed.
+    * Revit 2015
+    * REvit 2016
+    * Dynamo 1.2
 
-They included here to help document the intended usages.
-
+Test Suite is included because it provides a many
+examples of how the library is intended to be used.
 
 ----------------------------------------------
 

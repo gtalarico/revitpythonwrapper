@@ -120,11 +120,11 @@ class Instance(Element):
     ``DB.FamilyInstance`` Wrapper
 
     >>> instance = rpw.Instance(SomeFamilyInstance)
-    ﻿<RPW_Symbol:72" x 36">
+    <RPW_Symbol:72" x 36">
     >>> instance.symbol.name
-    ﻿'72" x 36"'
+    '72" x 36"'
     >>> instance.family
-    ﻿<RPW_Family:desk>
+    <RPW_Family:desk>
     >>> instance.siblings
     [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
 
@@ -168,13 +168,13 @@ class Symbol(Element):
     ``DB.FamilySymbol`` Wrapper
 
     >>> symbol = rpw.Symbol(SomeSymbol)
-    ﻿<RPW_Symbol:72" x 36">
+    <RPW_Symbol:72" x 36">
     >>> instance.symbol.name
-    ﻿'72" x 36"'
+    '72" x 36"'
     >>> instance.family
-    ﻿<RPW_Family:desk>
+    <RPW_Family:desk>
     >>> instance.siblings
-    [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
+    <RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
 
     Attribute:
         _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``

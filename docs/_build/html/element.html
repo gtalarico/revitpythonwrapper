@@ -270,11 +270,11 @@ generic.</p>
 <dd><p>Bases: <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a></p>
 <p><code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code> Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
-<span class="go">﻿&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="go">&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
-<span class="go">﻿&#39;72&quot; x 36&quot;&#39;</span>
+<span class="go">&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
-<span class="go">﻿&lt;RPW_Family:desk&gt;</span>
+<span class="go">&lt;RPW_Family:desk&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">siblings</span>
 <span class="go">[&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
 </pre></div>
@@ -331,13 +331,13 @@ generic.</p>
 <dd><p>Bases: <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a></p>
 <p><code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbol</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">SomeSymbol</span><span class="p">)</span>
-<span class="go">﻿&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="go">&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
-<span class="go">﻿&#39;72&quot; x 36&quot;&#39;</span>
+<span class="go">&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
-<span class="go">﻿&lt;RPW_Family:desk&gt;</span>
+<span class="go">&lt;RPW_Family:desk&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">siblings</span>
-<span class="go">[&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="go">&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
 </pre></div>
 </div>
 <dl class="docutils">
@@ -491,7 +491,7 @@ family (<code class="docutils literal"><span class="pre">DB.FamilySymbol</span><
 <p>Wall Element Tree Wrappers</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>These classes inherit from the classes above, but make some adjustments
+<p>These classes inherit from the classes listed above, but make some adjustments
 to compensate for disimilarties in in Wall Families.</p>
 <p>To go from an FamilyInstance (placed instance) to a FamilySymbol (Family Type on User Interface)
 to a Family, one would might use <code class="docutils literal"><span class="pre">instance.Symbol</span></code> and <code class="docutils literal"><span class="pre">symbol.Family</span></code>.</p>
@@ -891,11 +891,11 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    ``DB.FamilyInstance`` Wrapper</span>
 
 <span class="sd">    &gt;&gt;&gt; instance = rpw.Instance(SomeFamilyInstance)</span>
-<span class="sd">    ﻿&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="sd">    &lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.symbol.name</span>
-<span class="sd">    ﻿&#39;72&quot; x 36&quot;&#39;</span>
+<span class="sd">    &#39;72&quot; x 36&quot;&#39;</span>
 <span class="sd">    &gt;&gt;&gt; instance.family</span>
-<span class="sd">    ﻿&lt;RPW_Family:desk&gt;</span>
+<span class="sd">    &lt;RPW_Family:desk&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.siblings</span>
 <span class="sd">    [&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
 
@@ -939,13 +939,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    ``DB.FamilySymbol`` Wrapper</span>
 
 <span class="sd">    &gt;&gt;&gt; symbol = rpw.Symbol(SomeSymbol)</span>
-<span class="sd">    ﻿&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="sd">    &lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.symbol.name</span>
-<span class="sd">    ﻿&#39;72&quot; x 36&quot;&#39;</span>
+<span class="sd">    &#39;72&quot; x 36&quot;&#39;</span>
 <span class="sd">    &gt;&gt;&gt; instance.family</span>
-<span class="sd">    ﻿&lt;RPW_Family:desk&gt;</span>
+<span class="sd">    &lt;RPW_Family:desk&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.siblings</span>
-<span class="sd">    [&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="sd">    &lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``</span>
