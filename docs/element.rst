@@ -60,9 +60,30 @@ Category
 Walls
 ************
 
-These classes are the same as above, but adjusted for Wall System Families.
-They exist to handle the primary Element Tree classes when needed:
- (ie. Wall Types vs FamilySymbol, Family vs WallKind)
+Wall Element Tree Wrappers
+
+.. Note::
+    These classes inherit from the classes listed above, but make some adjustments
+    to compensate for disimilarties in in Wall Families.
+
+    To go from an FamilyInstance (placed instance) to a FamilySymbol (Family Type on User Interface)
+    to a Family, one would might use ``instance.Symbol`` and ``symbol.Family``.
+
+    Unfortunatelly, this would not be the case with Wall Elements.
+    A Wall Instance is actually a ``DB.Wall``; the `Family Type` of a wall
+    is not a ``DB.FamilySymbol`` type, but a ``DB.WallType``;
+    and instead of ``.Family``, walls use ``.Kind``.
+
+    These subclasses are used to
+    `tweak` the primary classes so navigation across the element tree is more
+    consistent.
+
+    .. ::
+        >>> wall = rpw.WallInstance(SomeWallInstance)
+        >>> wall.symbol
+        < RPW_WallType: Wall 1>
+        >>> wall.family
+        < RPW_WallKind: Basic Wall>
 
 .. autoclass:: rpw.element.WallInstance
     :show-inheritance:

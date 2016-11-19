@@ -3,12 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: _static/logo/logo-large.png
-    :scale: 65%
 
 ====================
 Revit Python Wrapper
 ====================
+
 
 .. toctree::
    :maxdepth: 1
@@ -28,8 +27,12 @@ Revit Python Wrapper
    revitpythonshell
    tests
    exceptions
-
    known_issues
+
+
+.. image:: _static/logo/logo-large.png
+  :scale: 60%
+
 
 Version: |version|
 
@@ -45,22 +48,23 @@ Revit Python Wrapper was created to help Python programmers write Revit API code
 Wrapper classes make the interaction with API objects less repetitive,
 and more consistent with Python's conventions.
 
-It also provide a few convenient shortcuts:
+It also provides a convenient shortcuts:
 
-    - Initializes a ``doc`` and ``uidoc``
+    * Initializes a ``doc`` and ``uidoc``
       document handling variables, so you can
       reuse code across platforms with no change to your import code.
 
-    - Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies.
+    * Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies.
 
-    - Adds the IronPython Standard Library to your ``sys.path`` (for :doc:`dynamo`).
+    * Adds Reference the IronPython Standard Library to your ``sys.path`` (for :doc:`dynamo`).
 
-    - Provides easy to use WPF :doc:`forms` so you can request additional user input
+    * Easy to use WPF :doc:`forms` so you can request additional user input
       with little effort.
 
 
 .. caution::
-    This library should not be used in complex applications or mission-critical work.
+    | This library should not be used in complex applications or mission-critical work.
+    | API changes are expected.
 
 -------------------------------------------------------------------
 

@@ -488,10 +488,21 @@ family (<code class="docutils literal"><span class="pre">DB.FamilySymbol</span><
 <hr class="docutils" />
 <div class="section" id="walls">
 <h2>Walls<a class="headerlink" href="#walls" title="Permalink to this headline">¶</a></h2>
-<p>These classes are the same as above, but adjusted for Wall System Families.
-They exist to handle the primary Element Tree classes when needed:</p>
-<blockquote>
-<div>(ie. Wall Types vs FamilySymbol, Family vs WallKind)</div></blockquote>
+<p>Wall Element Tree Wrappers</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>These classes inherit from the classes above, but make some adjustments
+to compensate for disimilarties in in Wall Families.</p>
+<p>To go from an FamilyInstance (placed instance) to a FamilySymbol (Family Type on User Interface)
+to a Family, one would might use <code class="docutils literal"><span class="pre">instance.Symbol</span></code> and <code class="docutils literal"><span class="pre">symbol.Family</span></code>.</p>
+<p>Unfortunatelly, this would not be the case with Wall Elements.
+A Wall Instance is actually a <code class="docutils literal"><span class="pre">DB.Wall</span></code>; the <cite>Family Type</cite> of a wall
+is not a <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> type, but a <code class="docutils literal"><span class="pre">DB.WallType</span></code>;
+and instead of <code class="docutils literal"><span class="pre">.Family</span></code>, walls use <code class="docutils literal"><span class="pre">.Kind</span></code>.</p>
+<p class="last">These subclasses are used to
+<cite>tweak</cite> the primary classes so navigation across the element tree is more
+consistent.</p>
+</div>
 <dl class="class">
 <dt id="rpw.element.WallInstance">
 <em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">WallInstance</code><span class="sig-paren">(</span><em>wall_instance</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.WallInstance" title="Permalink to this definition">¶</a></dt>

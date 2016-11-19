@@ -8,7 +8,7 @@
 Utilities
 ==================
 
-Coerce / Type Casting Tools
+Coerce / Type Casting
 
 .. automodule:: rpw.utils.coerce
     :members:

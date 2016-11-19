@@ -143,11 +143,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <a class="reference internal image-reference" href="_images/logo-large.png"><img alt="_images/logo-large.png" src="_images/logo-large.png" style="width: 315.25px; height: 131.95000000000002px;" /></a>
-<div class="section" id="revit-python-wrapper">
+  <div class="section" id="revit-python-wrapper">
 <h1>Revit Python Wrapper<a class="headerlink" href="#revit-python-wrapper" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<a class="reference internal image-reference" href="_images/logo-large.png"><img alt="_images/logo-large.png" src="_images/logo-large.png" style="width: 291.0px; height: 121.8px;" /></a>
 <p>Version: 0.0.9</p>
 <p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a> | <a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p>
 <div class="section" id="a-python-wrapper-for-the-revit-api">
@@ -155,21 +155,24 @@
 <p>Revit Python Wrapper was created to help Python programmers write Revit API code.</p>
 <p>Wrapper classes make the interaction with API objects less repetitive,
 and more consistent with Python&#8217;s conventions.</p>
-<p>It also provide a few convenient shortcuts:</p>
+<p>It also provides a convenient shortcuts:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Initializes a <code class="docutils literal"><span class="pre">doc</span></code> and <code class="docutils literal"><span class="pre">uidoc</span></code>
 document handling variables, so you can
 reuse code across platforms with no change to your import code.</li>
 <li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPIUI.dll</span></code> assemblies.</li>
-<li>Adds the IronPython Standard Library to your <code class="docutils literal"><span class="pre">sys.path</span></code> (for <a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>).</li>
-<li>Provides easy to use WPF <a class="reference internal" href="forms.html"><span class="doc">Forms</span></a> so you can request additional user input
+<li>Adds Reference the IronPython Standard Library to your <code class="docutils literal"><span class="pre">sys.path</span></code> (for <a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>).</li>
+<li>Easy to use WPF <a class="reference internal" href="forms.html"><span class="doc">Forms</span></a> so you can request additional user input
 with little effort.</li>
 </ul>
 </div></blockquote>
 <div class="admonition caution">
 <p class="first admonition-title">Caution</p>
-<p class="last">This library should not be used in complex applications or mission-critical work.</p>
+<div class="last line-block">
+<div class="line">This library should not be used in complex applications or mission-critical work.</div>
+<div class="line">API changes are expected.</div>
+</div>
 </div>
 </div>
 <hr class="docutils" />
