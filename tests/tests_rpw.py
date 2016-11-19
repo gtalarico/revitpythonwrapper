@@ -7,9 +7,6 @@ Passes:
         * Revit 2016
 """
 
-# TODO: Add Forms Tests
-# TODO: Add independent complex Collector Tests.
-
 import sys
 import unittest
 import os
@@ -23,9 +20,6 @@ from rpw import DB, UI, doc, uidoc, version, clr
 from rpw import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.utils.logger import logger
-
-# TODO: Finish wall specific handler
-# TODO: Ensure 100% coverage for Instance, Symbol, Family and Category
 
 # sys.exit()
 
@@ -129,6 +123,7 @@ class TransactionsTest(unittest.TestCase):
             self.wall.parameters['Comments'].value = ''
             self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
         self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
+
 
     def test_transaction_commit_status_rollback(self):
         with self.assertRaises(Exception):
@@ -663,12 +658,78 @@ class InstanceTests(unittest.TestCase):
         self.assertEqual(len(category.symbols), 3)
         self.assertEqual(len(category.families), 1)
 
+    def test_element_factory_class(self):
+        instance = self.instance
+        symbol = instance.symbol
+        family = instance.family
+        category = instance.category
+        self.assertIsInstance(rpw.Element.Factory(instance.unwrap()), rpw.Instance)
+        self.assertIsInstance(rpw.Element.Factory(symbol.unwrap()), rpw.Symbol)
+        self.assertIsInstance(rpw.Element.Factory(family.unwrap()), rpw.Family)
+        self.assertIsInstance(rpw.Element.Factory(category.unwrap()), rpw.Category)
+
+
+class WallTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING WALL...')
+
+    def setUp(self):
+        wall = rpw.Collector(of_class='Wall', is_not_type=True).first
+        self.wall = rpw.WallInstance(wall)
+
+    def test_wall_instance_wrap(self):
+        self.assertIsInstance(self.wall, rpw.WallInstance)
+        self.assertIsInstance(self.wall.unwrap(), DB.Wall)
+
+    def test_wall_factory(self):
+        wrapped = rpw.Element.Factory(self.wall.unwrap())
+        self.assertIsInstance(wrapped, rpw.WallInstance)
+        wrapped = rpw.Element.Factory(self.wall.symbol.unwrap())
+        self.assertIsInstance(wrapped, rpw.WallSymbol)
+        wrapped = rpw.Element.Factory(self.wall.family.unwrap())
+        self.assertIsInstance(wrapped, rpw.WallFamily)
+
+    def test_wall_instance_symbol(self):
+        wall_symbol = self.wall.symbol
+        self.assertIsInstance(wall_symbol, rpw.WallSymbol)
+        self.assertIsInstance(wall_symbol.unwrap(), DB.WallType)
+        self.assertEqual(wall_symbol.name, 'Wall 1')
+        self.assertEqual(len(wall_symbol.instances), 1)
+        self.assertEqual(len(wall_symbol.siblings), 1)
+
+    def test_wall_instance_family(self):
+        wall_family = self.wall.family
+        self.assertIsInstance(wall_family, rpw.WallFamily)
+        self.assertEqual(wall_family.unwrap(), DB.WallKind.Basic)
+        self.assertEqual(wall_family.name, 'Basic Wall')
+        self.assertEqual(len(wall_family.instances), 1)
+        self.assertEqual(len(wall_family.symbols), 1)
+        self.assertEqual(len(wall_family.siblings), 4)
+
+    def test_wall_instance_category(self):
+        wall_category = self.wall.category
+        self.assertIsInstance(wall_category, rpw.WallCategory)
+        self.assertIsInstance(wall_category.unwrap(), DB.Category)
+        self.assertEqual(wall_category.name, 'Walls')
+
 
 def run():
-    # logger.disable()
-    logger.verbose(False)
-    unittest.main(verbosity=3, buffer=True)
+    logger.disable()
+    # logger.verbose(False)
+
+    from tests.tests_forms import *
+    suite = unittest.TestLoader().discover('tests')
+    # unittest.TextTestRunner(verbosity=2).run(suite)
+    
+    # suite = unittest.TestLoader().loadTestsFromTestCase(FormSelectFromListTests)
+    # suite.addTest(unittest.TestLoader().loadTestsFromTestCase(FormTextInputTests))
+
+    unittest.main(verbosity=3, buffer=False)
     # unittest.main(verbosity=0, defaultTest='ParameterFilterTests')
+    # unittest.main(defaultTest=suite())
+
 
 
 if __name__ == '__main__':

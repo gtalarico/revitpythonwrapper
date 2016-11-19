@@ -61,7 +61,6 @@ class FormTextInputTests(unittest.TestCase):
         self.assertFalse(form_ok)
         self.assertFalse(form.selected)
 
-
 def run():
     # logger.verbose(False)
     unittest.main(verbosity=3, buffer=True)

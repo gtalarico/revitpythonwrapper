@@ -15,6 +15,7 @@ from rpw import DB, doc, Enum
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_ParameterNotFound
 
+
 class BipEnum(type):
     """
     Enumeration Wrapper

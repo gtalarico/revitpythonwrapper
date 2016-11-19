@@ -11,7 +11,7 @@ from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 from rpw.utils.logger import logger
 
-from rpw.enumeration import BicEnum
+from rpw.enumeration import BicEnum, BipEnum
 
 
 class Element(BaseObjectWrapper):
@@ -40,6 +40,7 @@ class Element(BaseObjectWrapper):
         unwrap(): Wrapped Revit Reference
 
     """
+
     def __init__(self, element, enforce_type=None):
         """
         Args:
@@ -61,15 +62,37 @@ class Element(BaseObjectWrapper):
         """ Example of mapping existing properties"""
         return self._revit_object.Id.IntegerValue
 
-    @classmethod
-    def from_int(cls, id_int):
+    @staticmethod
+    def from_int(id_int):
         element = doc.GetElement(DB.ElementId(id_int))
         return Element(element)
 
-    @classmethod
-    def from_id(cls, element_id):
+    @staticmethod
+    def from_id(element_id):
         element = doc.GetElement(element_id)
         return Element(element)
+
+    @staticmethod
+    def Factory(element):
+        """
+        This Factory function is used to Classes can be instantiated
+        generically, without knowing the type will come through later.
+        This is primarily used to keep the base Instance, Symbol, and Family Classes
+        generic.
+        """
+        CLASS_MAP = {
+                      'FamilyInstance': Instance,
+                      'FamilySymbol': Symbol,
+                      'Family': Family,
+                      'Category': Category,
+                      'Wall': WallInstance,
+                      'WallType': WallSymbol,
+                      'WallKind': WallFamily,
+                      'WallKind': WallFamily,
+                    }
+
+        element_class = CLASS_MAP[element.__class__.__name__]
+        return element_class(element)
 
     def __repr__(self, data=None):
         data = data if data else self._revit_object
@@ -84,8 +107,8 @@ class Instance(Element):
         _revit_object (DB.FamilyInstance): Wrapped ``DB.FamilyInstance`` or
         other placeable such as DB.Wall
     """
-    def __init__(self, instance):
-        super(Instance, self).__init__(instance, enforce_type=DB.FamilyInstance)
+    def __init__(self, instance, enforce_type=DB.FamilyInstance):
+        super(Instance, self).__init__(instance, enforce_type=enforce_type)
 
     @property
     def symbol(self):
@@ -120,12 +143,12 @@ class Symbol(Element):
         _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``
     """
 
-    def __init__(self, symbol):
+    def __init__(self, symbol, enforce_type=DB.FamilySymbol):
         """
         Usage:
             >>> symbol = Symbol(SomeFamilySymbol)
         """
-        super(Symbol, self).__init__(symbol, enforce_type=DB.FamilySymbol)
+        super(Symbol, self).__init__(symbol, enforce_type=enforce_type)
 
     @property
     def name(self):
@@ -166,8 +189,8 @@ class Family(Element):
         _revit_object (DB.Family): Wrapped ``DB.Family``
     """
 
-    def __init__(self, family):
-        super(Family, self).__init__(family, enforce_type=DB.Family)
+    def __init__(self, family, enforce_type=DB.Family):
+        super(Family, self).__init__(family, enforce_type=enforce_type)
 
     @property
     def name(self):
@@ -179,7 +202,7 @@ class Family(Element):
             symbol = self.symbols[0]
         except IndexError:
             raise RPW_Exception('Family [{}] has no symbols'.format(self.name))
-        return Symbol(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        return Element.Factory(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
         # Alternative: ALL_MODEL_FAMILY_NAME
 
     @property
@@ -188,7 +211,7 @@ class Family(Element):
         # There has to be a better way
         instances = []
         for symbol in self.symbols:
-            symbol_instances = Symbol(symbol).instances
+            symbol_instances = Element.Factory(symbol).instances
             instances.append(symbol_instances)
         return instances
 
@@ -219,8 +242,8 @@ class Category(BaseObjectWrapper):
     Attribute:
         _revit_object (DB.Family): Wrapped ``DB.Category``
     """
-    def __init__(self, category):
-        super(Category, self).__init__(category, enforce_type=DB.Category)
+    def __init__(self, category, enforce_type=DB.Category):
+        super(Category, self).__init__(category, enforce_type=enforce_type)
 
     @property
     def name(self):
@@ -234,7 +257,7 @@ class Category(BaseObjectWrapper):
         symbols = self.symbols
         unique_family_ids = set()
         for symbol in symbols:
-            symbol_family = Symbol(symbol).family
+            symbol_family = Element.Factory(symbol).family
             unique_family_ids.add(symbol_family.Id)
         return [doc.GetElement(family_id) for family_id in unique_family_ids]
 
@@ -253,45 +276,83 @@ class Category(BaseObjectWrapper):
     def __repr__(self):
         return super(Category, self).__repr__(self.name)
 
-# class InstanceFactory(object):
-#     MAP = {
-#            'Autodesk.Revit.DB.FamilyInstance': Instance,
-#            'Autodesk.Revit.DB.Wall': Wall,
-#            'Autodesk.Revit.DB.FamilySymbol': Symbol,
-#            'Autodesk.Revit.DB.WallType': Symbol,
-#            'Autodesk.Revit.DB.Family': Family,
-#           }
-#
-# class Wall(rpw.Element):
-#     @property
-#     def symbol(self):
-#         return WallSymbol(self._revit_object.kind)
-#
-#
-# class WallSymbol(Symbol):
-#
-#     @property
-#     def family(self):
-#         """ Wrapped ``DB.Family`` of the ``DB.Symbol`` """
-#         return WallFamily(DB.Wall)
-#
-#     @property
-#     def name(self):
-#         return DB.ElementType.Name.GetValue(self._revit_object)
-#
-#
-# class WallFamily(Family):
-#
-#     @property
-#     def symbols(self):
-#         """ Gets Symbols of the ``DB.Wall`` """
-#         return rpw.Collector(of_class=DB.WallType, is_type=True).elements
-#
-#     @property
-#     def instances():
-#         return rpw.Collector(of_class=DB.Wall, is_not_type=True).elements
-#
-#     @property
-#     def category(self):
-#         return Category(BicEnum.get('OST_Walls'))
-         # category = DB.Category.GetCategory(doc, self._revit_object.Id)
+
+class WallInstance(Instance):
+
+    def __init__(self, wall_instance):
+        super(WallInstance, self).__init__(wall_instance, enforce_type=DB.Wall)
+
+    @property
+    def symbol(self):
+        wall_type_id = self._revit_object.GetTypeId()
+        wall_type = doc.GetElement(wall_type_id)
+        return WallSymbol(wall_type)
+
+
+class WallSymbol(Symbol):
+
+    def __init__(self, wall_symbol):
+        super(WallSymbol, self).__init__(wall_symbol, enforce_type=DB.WallType)
+
+    @property
+    def family(self):
+        """ Wrapped ``DB.Family`` of the ``DB.Symbol`` """
+        return WallFamily(self._revit_object.Kind)
+
+    @property
+    def instances(self):
+        """ Returns ``DB.FamilyInstance`` instances in of this Symbol """
+        bip = BipEnum.get_id('SYMBOL_NAME_PARAM')
+        param_filter = rpw.collector.ParameterFilter(bip, equals=self.name)
+        return rpw.Collector(of_class=DB.Wall, parameter_filter=param_filter,
+                             is_not_type=True).elements
+
+    @property
+    def siblings(self):
+        """ Gets sibling Symbols of the same``DB.Family``
+        """
+        return self.family.symbols
+
+
+class WallFamily(Family):
+
+    def __init__(self, wall_family):
+        super(WallFamily, self).__init__(wall_family, enforce_type=DB.WallKind)
+
+    @property
+    def symbols(self):
+        """ Gets Symbols of the ``DB.Wall`` """
+        symbols = rpw.Collector(of_class=DB.WallType, is_type=True).elements
+        return [symbol for symbol in symbols if symbol.Kind == self._revit_object]
+
+    @property
+    def instances(self):
+        """ Retrieves Instances of the family """
+        return rpw.Collector(of_class=DB.Wall, is_not_type=True).elements
+
+    @property
+    def category(self):
+        """ Retrieves Category of Wall Types """
+        wall_type = rpw.Collector(of_class=DB.WallType, is_type=True).first
+        return WallCategory(wall_type.Category)
+
+    @property
+    def siblings(self):
+        """ Gets sibling Symbols of the same``DB.Family``
+        """
+        return self.category.families
+
+
+class WallCategory(Category):
+
+    def __init__(self, wall_category):
+        super(WallCategory, self).__init__(wall_category)
+
+    @property
+    def families(self):
+        """ Returns ``DB.WallKind`` elements in the category """
+        wall_kinds = []
+        for member in dir(DB.WallKind):
+            if type(getattr(DB.WallKind, member)) is DB.WallKind:
+                wall_kinds.append(getattr(DB.WallKind, member))
+        return wall_kinds

@@ -36,6 +36,7 @@ class Transaction(object):
             self.transaction.RollBack()
             logger.error('Error in Transactio Context: has rolled back.')
             logger.error('{}:{}'.format(exception, exception_value))
+            raise exception(exception_value, '')
         else:
             try:
                 self.transaction.Commit()
@@ -43,6 +44,7 @@ class Transaction(object):
                 self.transaction.RollBack()
                 logger.error('Error in Transactio Commit: has rolled back.')
                 logger.error('Error: {}'.format(errmsg))
+                raise
 
     @staticmethod
     def ensure(name):
