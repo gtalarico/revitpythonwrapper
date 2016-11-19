@@ -1,11 +1,23 @@
 """
-All Wrappers inherit from this class. It has 4 responsibilities:
+All Wrappers inherit from this base class, which has 4 responsibilities:
 
-* Instantiate Class and store wrapped element in the private attribute ``_revit_object``
+* Instantiate Class and store wrapped element in the private attribute ``_revit_object``.
 * Provide access to all original methods and attributes of the
-  wrapped object throught the ``__getitem__`` method
+  wrapped object throught the ``__getitem__`` method.
 * Provide a ``unwrap()`` method, which returns the wrapped object
 * Create a ``__repr__()`` method for consistent representation
+
+Because access to original methods and properties is maintained, you can keep
+the elements wrapped throughout your code. You would only need to unwrap when
+when passing the element into function where the original Type is expected.
+
+>>> wrapped = BaseObjectWrapper(SomeObject)
+>>> wrapped
+<RPW_BaseOBjectWrapper:>
+>>> wrapped.unwrap()
+SomeObject
+>>> wrapped.SomeOriginalMethod()
+# Method will run.
 
 """
 
@@ -13,22 +25,9 @@ from rpw.exceptions import RPW_TypeError
 
 
 class BaseObjectWrapper(object):
-    """ Base Object Wrapper Class.
-
-    This element is stored in the projected _revit_object attribute
+    """
     Arguments:
         element(APIObject): Revit Element to store
-
-    Note:
-        There might are few cases were this class is used
-        on non-elements. ParameterSet for instance, does
-        not inherit from Element, but uses this class
-        so it can store a reference to the element and uses
-        other Parameter related methods that are not store in
-        Parameters such as element.get_Parameter or element.LookupParameter
-
-        Allows access to all original attributes and methods of original object.
-
     """
 
     def __init__(self, revit_object, enforce_type=None):

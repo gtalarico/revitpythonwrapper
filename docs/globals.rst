@@ -11,8 +11,10 @@ Globals
 Global variables normalize imports across platforms.
 
     >>> from rpw import doc, uidoc, DB, UI
+    >>> doc.Delete(SomeElementId)
     >>> uidoc.ActiveView
     >>> DB.ElementId(00000)
+    >>> UI.TaskDialog
 
 .. data:: doc
     :module: rpw
@@ -30,7 +32,7 @@ Global variables normalize imports across platforms.
     :module: rpw
     :annotation:  Revit.DB Namespace
 
-.. note::
+.. hint::
     Besides creating these global variables, the module's global variable initializer
     also adds the path to the Ironpython Library to your sys.path, so you can import standard python
     libraries right away, and skip the typical:

@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -150,18 +151,10 @@
 <h1>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h1>
 <p>Forms are provided to facilitate user input.</p>
 <img alt="_images/select-from-list.png" src="_images/select-from-list.png" />
-<img alt="_images/text-input.png" src="_images/text-input.png" />
-<span class="target" id="module-rpw.forms.forms"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;1&#39;</span>
-</pre></div>
-</div>
 <dl class="class">
-<dt id="rpw.forms.forms.SelectFromList">
-<em class="property">class </em><code class="descclassname">rpw.forms.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>WPF form with ComboBox dropdown.</p>
+<dt id="rpw.forms.SelectFromList">
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
+<dd><p>WPF form with ComboBox dropdown.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -188,11 +181,11 @@
 </dl>
 </dd></dl>
 
+<img alt="_images/text-input.png" src="_images/text-input.png" />
 <dl class="class">
-<dt id="rpw.forms.forms.TextInput">
-<em class="property">class </em><code class="descclassname">rpw.forms.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>title</em>, <em>default=None</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.forms.TextInput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>WPF form with TextInput.</p>
+<dt id="rpw.forms.TextInput">
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>title</em>, <em>default=None</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.TextInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>WPF form with TextInput.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

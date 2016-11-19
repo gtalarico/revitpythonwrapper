@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -149,35 +150,41 @@
   <div class="section" id="base-wrapper">
 <h1>Base Wrapper<a class="headerlink" href="#base-wrapper" title="Permalink to this headline">¶</a></h1>
 <p>Base Wrapper</p>
-<span class="target" id="module-rpw.base"></span><p>All Wrappers inherit from this class. It has 4 responsibilities:</p>
+<span class="target" id="module-rpw.base"></span><p>All Wrappers inherit from this base class, which has 4 responsibilities:</p>
 <ul class="simple">
-<li>Instantiate Class and store wrapped element in the private attribute <code class="docutils literal"><span class="pre">_revit_object</span></code></li>
+<li>Instantiate Class and store wrapped element in the private attribute <code class="docutils literal"><span class="pre">_revit_object</span></code>.</li>
 <li>Provide access to all original methods and attributes of the
-wrapped object throught the <code class="docutils literal"><span class="pre">__getitem__</span></code> method</li>
+wrapped object throught the <code class="docutils literal"><span class="pre">__getitem__</span></code> method.</li>
 <li>Provide a <code class="docutils literal"><span class="pre">unwrap()</span></code> method, which returns the wrapped object</li>
 <li>Create a <code class="docutils literal"><span class="pre">__repr__()</span></code> method for consistent representation</li>
 </ul>
+<p>Because access to original methods and properties is maintained, you can keep
+the elements wrapped throughout your code. You would only need to unwrap when
+when passing the element into function where the original Type is expected.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span> <span class="o">=</span> <span class="n">BaseObjectWrapper</span><span class="p">(</span><span class="n">SomeObject</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span>
+<span class="go">&lt;RPW_BaseOBjectWrapper:&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
+<span class="go">SomeObject</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span><span class="o">.</span><span class="n">SomeOriginalMethod</span><span class="p">()</span>
+<span class="go"># Method will run.</span>
+</pre></div>
+</div>
 <dl class="class">
 <dt id="rpw.base.BaseObjectWrapper">
-<em class="property">class </em><code class="descclassname">rpw.base.</code><code class="descname">BaseObjectWrapper</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.base.</code><code class="descname">BaseObjectWrapper</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Base Object Wrapper Class.</p>
-<p>This element is stored in the projected _revit_object attribute
-:param element: Revit Element to store
-:type element: APIObject</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>There might are few cases were this class is used
-on non-elements. ParameterSet for instance, does
-not inherit from Element, but uses this class
-so it can store a reference to the element and uses
-other Parameter related methods that are not store in
-Parameters such as element.get_Parameter or element.LookupParameter</p>
-<p class="last">Allows access to all original attributes and methods of original object.</p>
-</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>APIObject</em>) &#8211; Revit Element to store</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="rpw.base.BaseObjectWrapper.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>revit_object</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Child classes can use self._revit_object to refer back to Revit Element
 Element is used loosely to refer to all Revit Elements.</p>
 </dd></dl>
@@ -188,43 +195,45 @@ Element is used loosely to refer to all Revit Elements.</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">All Wrappers inherit from this class. It has 4 responsibilities:</span>
+<span class="sd">All Wrappers inherit from this base class, which has 4 responsibilities:</span>
 
-<span class="sd">* Instantiate Class and store wrapped element in the private attribute ``_revit_object``</span>
+<span class="sd">* Instantiate Class and store wrapped element in the private attribute ``_revit_object``.</span>
 <span class="sd">* Provide access to all original methods and attributes of the</span>
-<span class="sd">  wrapped object throught the ``__getitem__`` method</span>
+<span class="sd">  wrapped object throught the ``__getitem__`` method.</span>
 <span class="sd">* Provide a ``unwrap()`` method, which returns the wrapped object</span>
 <span class="sd">* Create a ``__repr__()`` method for consistent representation</span>
 
+<span class="sd">Because access to original methods and properties is maintained, you can keep</span>
+<span class="sd">the elements wrapped throughout your code. You would only need to unwrap when</span>
+<span class="sd">when passing the element into function where the original Type is expected.</span>
+
+<span class="sd">&gt;&gt;&gt; wrapped = BaseObjectWrapper(SomeObject)</span>
+<span class="sd">&gt;&gt;&gt; wrapped</span>
+<span class="sd">&lt;RPW_BaseOBjectWrapper:&gt;</span>
+<span class="sd">&gt;&gt;&gt; wrapped.unwrap()</span>
+<span class="sd">SomeObject</span>
+<span class="sd">&gt;&gt;&gt; wrapped.SomeOriginalMethod()</span>
+<span class="sd"># Method will run.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_TypeError</span>
 
 
 <span class="k">class</span> <span class="nc">BaseObjectWrapper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Base Object Wrapper Class.</span>
-
-<span class="sd">    This element is stored in the projected _revit_object attribute</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">        element(APIObject): Revit Element to store</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        There might are few cases were this class is used</span>
-<span class="sd">        on non-elements. ParameterSet for instance, does</span>
-<span class="sd">        not inherit from Element, but uses this class</span>
-<span class="sd">        so it can store a reference to the element and uses</span>
-<span class="sd">        other Parameter related methods that are not store in</span>
-<span class="sd">        Parameters such as element.get_Parameter or element.LookupParameter</span>
-
-<span class="sd">        Allows access to all original attributes and methods of original object.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revit_object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revit_object</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Child classes can use self._revit_object to refer back to Revit Element</span>
 <span class="sd">        Element is used loosely to refer to all Revit Elements.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">enforce_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">revit_object</span><span class="p">,</span> <span class="n">enforce_type</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="n">enforce_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">revit_object</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span> <span class="o">=</span> <span class="n">revit_object</span>
 

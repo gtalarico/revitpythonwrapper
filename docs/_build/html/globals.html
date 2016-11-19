@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -151,8 +152,10 @@
 <h1>Globals<a class="headerlink" href="#globals" title="Permalink to this headline">¶</a></h1>
 <p>Global variables normalize imports across platforms.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="mi">00000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">UI</span><span class="o">.</span><span class="n">TaskDialog</span>
 </pre></div>
 </div>
 <dl class="data">
@@ -175,8 +178,8 @@
 <code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
 <p>Besides creating these global variables, the module&#8217;s global variable initializer
 also adds the path to the Ironpython Library to your sys.path, so you can import standard python
 libraries right away, and skip the typical:</p>
@@ -275,6 +278,7 @@ libraries right away, and skip the typical:</p>
 
 <span class="k">if</span> <span class="n">platform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Family</span><span class="p">,</span> <span class="n">Category</span>
+    <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">WallInstance</span><span class="p">,</span> <span class="n">WallSymbol</span><span class="p">,</span> <span class="n">WallFamily</span><span class="p">,</span> <span class="n">WallCategory</span>
     <span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">ParameterSet</span><span class="p">,</span> <span class="n">Parameter</span>
     <span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
     <span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>

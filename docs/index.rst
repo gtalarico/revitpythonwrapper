@@ -3,6 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. image:: _static/logo/logo-large.png
+    :scale: 65%
+
 ====================
 Revit Python Wrapper
 ====================
@@ -23,6 +26,7 @@ Revit Python Wrapper
    utils
    dynamo
    revitpythonshell
+   tests
    exceptions
 
    known_issues
@@ -211,7 +215,6 @@ paired with an example sans-rpw.
     ``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
 
 
-
     >>> instance = rpw.Instance(SomeFamilyInstance)
     >>> instance.parameters['Comments']
     'Comment'
@@ -219,16 +222,16 @@ paired with an example sans-rpw.
     # Comment set
     >>> instance.parameters.builtins['SOME_BUILT_IN'].value
     'Parameter Value'
-    >>> instance = rpw.Instance(SomeFamilyInstance)
-    ﻿<RPW_Instance:72" x 36">
     >>> instance.symbol
     ﻿<RPW_Symbol:72" x 36">
-    >>> instance.family
-    ﻿<RPW_Family:desk>
-    >>> instance.category
-    ﻿<RPW_Category:Furniture>
     >>> instance.symbol.name
     ﻿'72" x 36"'
+    >>> instance.family
+    ﻿<RPW_Family:desk>
+    >>> instance.family.name
+    ﻿'desk'
+    >>> instance.category
+    ﻿<RPW_Category:Furniture>
     >>> instance.symbol.instances
     [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
 
@@ -249,7 +252,7 @@ paired with an example sans-rpw.
     >>> walls = FilteredElementCollector.OfClass(WallType).ToElements()
 
 
-:class:`ParameterFilter`
+:any:`ParameterFilter`
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
     >>> import rpw
@@ -275,3 +278,22 @@ paired with an example sans-rpw.
     >>> if not form_ok:
     >>>     sys.exit() # User Canceld
     >>> selected_item = form.selected
+
+
+:doc:`utils`
+^^^^^^^^^^^^^^^^^^^
+
+    >>> # Handy Batch Converters to and from Element / ElementIds
+    >>> rpw.utils.to_elements(DB.ElementId)
+    [ DB.Element ]
+    >>> rpw.utils.to_elements(20001)
+    [ DB.Element ]
+    >>> rpw.utils.to_elements([20001, 20003])
+    [ DB.Element, DB.Element ]
+
+    >>> rpw.utils.to_element_ids(DB.Element)
+    [ DB.ElementId ]
+    >>> rpw.utils.to_element_ids(20001)
+    [ DB.ElementId ]
+    >>> rpw.utils.to_element_ids([20001, 20003])
+    [ DB.ElementId, DB.ElementId ]

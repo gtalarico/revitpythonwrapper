@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -157,6 +158,12 @@ has everything you need to use it.</p>
 <p>The package includes a Node that helps you find the location of the RPW library (see image below).
 Once you have the location, just add it to your <code class="docutils literal"><span class="pre">sys.path</span></code>, and you should be able to import the library.
 You can always manually add the library path; the node is only included for convenience.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Be sure the checkout the <code class="docutils literal"><span class="pre">RPW_GetStarted.dyn</span></code> file that is installed with the Package
+for practical examples.</p>
+<p class="last"><code class="file docutils literal"><span class="pre">.../Dynamo/1.X/packages/RevitPythonWrapper/extra/RPW_GetStarted.dyn</span></code></p>
+</div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw_path</span> <span class="o">=</span> <span class="n">IN</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Assumes output of RPW_GetFilePath node is plugged into IN[0]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rpw_path</span><span class="p">)</span>

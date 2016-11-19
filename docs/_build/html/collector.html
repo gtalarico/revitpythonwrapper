@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -169,9 +170,12 @@
 </div>
 <p>Multiple Filters:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="n">SomeSymbol</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">parameter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Chain Preserves Previous Results using <code class="docutils literal"><span class="pre">filter</span></code> method</p>
+<p>Chain results using <code class="docutils literal"><span class="pre">filter</span></code> method:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>  <span class="c1"># Both filters applied</span>
@@ -179,11 +183,13 @@
 </div>
 <p>Use Enumeration member or name as string:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">ViewType</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewType&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Search Document, View, or list of elements</p>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># Doc is default</span>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># doc is default</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="n">SomeView</span><span class="p">,</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># Doc is default</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">Element1</span><span class="p">,</span> <span class="n">Element2</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 </pre></div>
@@ -337,7 +343,7 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Used internally by Collector to provide the <code class="docutils literal"><span class="pre">symbol</span></code> keyword filter.
 It returns a <code class="docutils literal"><span class="pre">DB.FamilyInstanceFilter</span></code> which is then used by the
-FilterElementCollector.WherePasses() method to filter the symbol types</p>
+<code class="docutils literal"><span class="pre">FilterElementCollector.WherePasses()</span></code> method to filter by symbol type.</p>
 <dl class="method">
 <dt id="rpw.collector._FamilyInstanceFilter.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter.__init__" title="Permalink to this definition">¶</a></dt>
@@ -360,7 +366,7 @@ FilterElementCollector.WherePasses() method to filter the symbol types</p>
 <dl class="class">
 <dt id="rpw.collector._Filter">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_Filter</code><span class="sig-paren">(</span><em>collector</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Filter for Collector class.
 Not to be confused with the Filter Class.</p>
 <dl class="method">
@@ -429,8 +435,11 @@ namespace.</p>
 <span class="sd">        Multiple Filters:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=&#39;OST_Walls&#39;, is_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_class=&#39;Wall&#39;, is_not=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(symbol=SomeSymbol)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(parameter_filter=filter_rule)</span>
 
-<span class="sd">        Chain Preserves Previous Results using ``filter`` method</span>
+<span class="sd">        Chain results using ``filter`` method:</span>
 
 <span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=&#39;OST_Walls&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; wall_types = collector.filter(is_type=True)</span>
@@ -439,11 +448,13 @@ namespace.</p>
 <span class="sd">        Use Enumeration member or name as string:</span>
 
 <span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_category=DB.BuiltInCategory.OST_Walls)</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_class=DB.ViewType)</span>
 <span class="sd">        &gt;&gt;&gt; Collector(of_class=&#39;ViewType&#39;)</span>
 
 <span class="sd">        Search Document, View, or list of elements</span>
 
-<span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;) # Doc is default</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;) # doc is default</span>
 <span class="sd">        &gt;&gt;&gt; Collector(view=SomeView, of_category=&#39;OST_Walls&#39;) # Doc is default</span>
 <span class="sd">        &gt;&gt;&gt; Collector(elements=[Element1, Element2,...], of_category=&#39;OST_Walls&#39;)</span>
 
@@ -550,7 +561,7 @@ namespace.</p>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 
-<span class="k">class</span> <span class="nc">_Filter</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">_Filter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Filter for Collector class.</span>
 <span class="sd">    Not to be confused with the Filter Class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -654,7 +665,7 @@ namespace.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Used internally by Collector to provide the ``symbol`` keyword filter.</span>
 <span class="sd">    It returns a ``DB.FamilyInstanceFilter`` which is then used by the</span>
-<span class="sd">    FilterElementCollector.WherePasses() method to filter the symbol types</span>
+<span class="sd">    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_or_id</span><span class="p">):</span>

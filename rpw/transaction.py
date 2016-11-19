@@ -4,7 +4,7 @@ from rpw.exceptions import RPW_Exception
 from rpw.utils.logger import logger
 
 
-class Transaction(object):
+class Transaction(BaseObjectWrapper):
     """
     Simplifies transactions by applying ``Transaction.Start()`` and
     ``Transaction.Commit()`` before and after the context.
@@ -75,7 +75,7 @@ class Transaction(object):
         return wrap
 
 
-class TransactionGroup(object):
+class TransactionGroup(BaseObjectWrapper):
     """
     Similar to Transaction, but for ``DB.Transaction Group``
 

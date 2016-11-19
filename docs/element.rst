@@ -14,6 +14,8 @@ Element
 .. automodule:: rpw.element
 
 .. autoclass:: rpw.element.Element
+    :members:
+    :private-members:
     :special-members: __init__, __getattr__
     :show-inheritance:
 
@@ -21,25 +23,62 @@ Instance
 ************
 
 .. autoclass:: rpw.element.Instance
+    :members:
+    :private-members:
+    :special-members: __init__
     :show-inheritance:
 
 Symbol
 ************
 
 .. autoclass:: rpw.element.Symbol
+    :members:
+    :private-members:
+    :special-members: __init__
     :show-inheritance:
 
 Family
 ************
 
 .. autoclass:: rpw.element.Family
+    :members:
+    :private-members:
+    :special-members: __init__
     :show-inheritance:
 
 Category
 ************
 
 .. autoclass:: rpw.element.Category
+    :members:
+    :private-members:
+    :special-members: __init__
     :show-inheritance:
+
+----------------------------------------------
+
+Walls
+************
+
+These classes are the same as above, but adjusted for Wall System Families.
+They exist to handle the primary Element Tree classes when needed:
+ (ie. Wall Types vs FamilySymbol, Family vs WallKind)
+
+.. autoclass:: rpw.element.WallInstance
+    :show-inheritance:
+    :special-members: __init__
+
+.. autoclass:: rpw.element.WallSymbol
+    :show-inheritance:
+    :special-members: __init__
+
+.. autoclass:: rpw.element.WallFamily
+    :show-inheritance:
+    :special-members: __init__
+
+.. autoclass:: rpw.element.WallCategory
+    :show-inheritance:
+    :special-members: __init__
 
 ----------------------------------------------
 

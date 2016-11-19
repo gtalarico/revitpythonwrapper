@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -157,41 +158,52 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">These classes were originally create to be used internally,
-but the <code class="xref py py-func docutils literal"><span class="pre">get_id()</span></code> is often helpful.</p>
+but are documented here as some it&#8217;s functionalities can be
+helpful.</p>
 </div>
+<hr class="docutils" />
 <dl class="class">
 <dt id="rpw.enumeration.BicEnum">
 <em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BicEnum</code><a class="headerlink" href="#rpw.enumeration.BicEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
 <p>Enumeration Wrapper</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.BuiltInCategory.OST_Room</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.ElementId</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="n">furniture</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+<span class="go">DB.BuiltInCategory.OST_Furniture</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 <dl class="classmethod">
 <dt id="rpw.enumeration.BicEnum.from_category_id">
 <em class="property">classmethod </em><code class="descname">from_category_id</code><span class="sig-paren">(</span><em>category_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.from_category_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Casts <code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> Enumeration member from <code class="docutils literal"><span class="pre">DB.ElementId</span></code></p>
+<dd><p>Casts <code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> Enumeration member from a Category ElementId</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>category_id</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) &#8211; ElementId reference of a category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> member</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="rpw.enumeration.BicEnum.get">
 <em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets Built In Category by Name
-:param str: Name of Category</p>
+<dd><p>Gets Built In Category by Name</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; Name of Category</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DB.BuiltInCategory</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -200,15 +212,16 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 <dl class="classmethod">
 <dt id="rpw.enumeration.BicEnum.get_id">
 <em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.get_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets ElementId of Category by name
-:param str: Name of Category</p>
+<dd><p>Gets ElementId of Category by name</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; Name of Category</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DB.BuiltInCategory</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -220,29 +233,26 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 <dt id="rpw.enumeration.BipEnum">
 <em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BipEnum</code><a class="headerlink" href="#rpw.enumeration.BipEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
-<p>Enumeration Wrapper</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<p>BuiltInParameter Wrapper</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.ElementId</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 <dl class="classmethod">
 <dt id="rpw.enumeration.BipEnum.get">
 <em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BipEnum.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets Built In Parameter by Name
-:param str: Name of Parameter</p>
+<dd><p>Gets Built In Parameter by Name</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; Name of Parameter</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DB.BuiltInParameter</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInParameter</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -251,15 +261,16 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 <dl class="classmethod">
 <dt id="rpw.enumeration.BipEnum.get_id">
 <em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BipEnum.get_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets ElementId of Category by name
-:param str: Name of Built In Parameter</p>
+<dd><p>Gets ElementId of Category by name</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameter_name</strong> (<code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of Built In Parameter</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">DB.BuitInParameter</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuitInParameter</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -270,42 +281,30 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">&gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
-<span class="sd">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
-<span class="sd">&gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
-<span class="sd">Revit.DB.ElementId</span>
-
-<span class="sd">Note:</span>
-<span class="sd">    These classes were originally create to be used internally,</span>
-<span class="sd">    but the :func:`get_id()` is often helpful.</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">Enum</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span>
 
+
 <span class="k">class</span> <span class="nc">BipEnum</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Enumeration Wrapper</span>
+<span class="sd">    BuiltInParameter Wrapper</span>
 
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
-<span class="sd">        Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
-<span class="sd">        &gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
-<span class="sd">        Revit.DB.ElementId</span>
+<span class="sd">    &gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">    Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
+<span class="sd">    &gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">    Revit.DB.ElementId</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets Built In Parameter by Name</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            str: Name of Parameter</span>
+<span class="sd">            ``str``: Name of Parameter</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            DB.BuiltInParameter: BuiltInParameter Enumeration Member</span>
+<span class="sd">            ``DB.BuiltInParameter``: BuiltInParameter Enumeration Member</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -317,11 +316,12 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets ElementId of Category by name</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            str: Name of Built In Parameter</span>
+<span class="sd">            parameter_name(``str``): Name of Built In Parameter</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            DB.BuitInParameter: BuiltInParameter Enumeration Member</span>
+<span class="sd">            ``DB.BuitInParameter``: BuiltInParameter Enumeration Member</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">enum</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
@@ -331,21 +331,23 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration Wrapper</span>
 
-<span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; BicEnum.get(&#39;OST_Room&#39;)</span>
-<span class="sd">        Revit.DB.BuiltInCategory.OST_Room</span>
-<span class="sd">        &gt;&gt;&gt; BicEnum.get_id(&#39;OST_Room&#39;)</span>
-<span class="sd">        Revit.DB.ElementId</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    &gt;&gt;&gt; BicEnum.get(&#39;OST_Room&#39;)</span>
+<span class="sd">    Revit.DB.BuiltInCategory.OST_Room</span>
+<span class="sd">    &gt;&gt;&gt; BicEnum.get_id(&#39;OST_Room&#39;)</span>
+<span class="sd">    Revit.DB.ElementId</span>
+<span class="sd">    &gt;&gt;&gt; BicEnum.from_category_id(furniture.Category.Id)</span>
+<span class="sd">    DB.BuiltInCategory.OST_Furniture</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets Built In Category by Name</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            str: Name of Category</span>
+<span class="sd">            ``str``: Name of Category</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            DB.BuiltInCategory: BuiltInCategory Enumeration Member</span>
+<span class="sd">            ``DB.BuiltInCategory``: BuiltInCategory Enumeration Member</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_name</span><span class="p">)</span>
@@ -356,18 +358,27 @@ but the <code class="xref py py-func docutils literal"><span class="pre">get_id(
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets ElementId of Category by name</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            str: Name of Category</span>
+<span class="sd">            ``str``: Name of Category</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            DB.BuiltInCategory: BuiltInCategory Enumeration Member</span>
+<span class="sd">            ``DB.BuiltInCategory``: BuiltInCategory Enumeration Member</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">enum</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_category_id</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category_id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Casts ``DB.BuiltInCategory`` Enumeration member from ``DB.ElementId`` &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Casts ``DB.BuiltInCategory`` Enumeration member from a Category ElementId</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            category_id (``DB.ElementId``): ElementId reference of a category</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ``DB.BuiltInCategory`` member</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Enum</span><span class="o">.</span><span class="n">ToObject</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
 </pre></div>
 </div>

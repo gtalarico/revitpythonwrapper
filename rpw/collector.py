@@ -26,8 +26,11 @@ class Collector(BaseObjectWrapper):
         Multiple Filters:
 
         >>> collector = Collector(of_category='OST_Walls', is_type=True)
+        >>> collector = Collector(of_class='Wall', is_not=True)
+        >>> collector = Collector(symbol=SomeSymbol)
+        >>> collector = Collector(parameter_filter=filter_rule)
 
-        Chain Preserves Previous Results using ``filter`` method
+        Chain results using ``filter`` method:
 
         >>> collector = Collector(of_category='OST_Walls')
         >>> wall_types = collector.filter(is_type=True)
@@ -36,11 +39,13 @@ class Collector(BaseObjectWrapper):
         Use Enumeration member or name as string:
 
         >>> Collector(of_category='OST_Walls')
+        >>> Collector(of_category=DB.BuiltInCategory.OST_Walls)
+        >>> Collector(of_class=DB.ViewType)
         >>> Collector(of_class='ViewType')
 
         Search Document, View, or list of elements
 
-        >>> Collector(of_category='OST_Walls') # Doc is default
+        >>> Collector(of_category='OST_Walls') # doc is default
         >>> Collector(view=SomeView, of_category='OST_Walls') # Doc is default
         >>> Collector(elements=[Element1, Element2,...], of_category='OST_Walls')
 
@@ -147,7 +152,7 @@ class Collector(BaseObjectWrapper):
         return super(Collector, self).__repr__(len(self))
 
 
-class _Filter():
+class _Filter(BaseObjectWrapper):
     """ Filter for Collector class.
     Not to be confused with the Filter Class.
     """
@@ -251,7 +256,7 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
     """
     Used internally by Collector to provide the ``symbol`` keyword filter.
     It returns a ``DB.FamilyInstanceFilter`` which is then used by the
-    FilterElementCollector.WherePasses() method to filter the symbol types
+    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
 
     """
     def __init__(self, symbol_or_id):

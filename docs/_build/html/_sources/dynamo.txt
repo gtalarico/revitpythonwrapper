@@ -19,6 +19,12 @@ The package includes a Node that helps you find the location of the RPW library 
 Once you have the location, just add it to your ``sys.path``, and you should be able to import the library.
 You can always manually add the library path; the node is only included for convenience.
 
+.. Note::
+    Be sure the checkout the ``RPW_GetStarted.dyn`` file that is installed with the Package
+    for practical examples.
+
+    :file:`.../Dynamo/1.X/packages/RevitPythonWrapper/extra/RPW_GetStarted.dyn`
+
 >>> rpw_path = IN[0] # Assumes output of RPW_GetFilePath node is plugged into IN[0]
 >>> import sys
 >>> sys.path.append(rpw_path)

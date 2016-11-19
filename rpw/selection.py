@@ -13,9 +13,13 @@ class Selection(BaseObjectWrapper):
     """
     >>> selection = Selection()
     >>> selection[0]
+    FirstElement
     >>> selection.element_ids
+    [ SomeElementId, SomeElementId, ...]
     >>> selection.elements
+    [ SomeElement, SomeElement, ...]
     >>> len(selection)
+    2
 
     Wrapped Element:
         self._revit_object = `Revit.UI.Selection`
@@ -115,8 +119,15 @@ class Selection(BaseObjectWrapper):
         Returns:
             bool: `False` if selection  is empty, `True` otherwise
 
-        >>> if Selection():
-        >>> # Evaluates to True if selection is not empty
+        >>> len(selection)
+        2
+        >>> Selection() is True
+        True
+        >>> bool(selection)
+        True
+        >>> selection.clear()
+        >>> bool(selection)
+        False
         """
         return bool(self.elements)
 

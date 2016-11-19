@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -160,6 +161,7 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -197,6 +199,22 @@
   </dt>
 
         
+  <dt><a href="element.html#rpw.element.Element.__init__">(rpw.element.Element method)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Family.__init__">(rpw.element.Family method)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Instance.__init__">(rpw.element.Instance method)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Symbol.__init__">(rpw.element.Symbol method)</a>
+  </dt>
+
+        
   <dt><a href="element.html#rpw.parameter.Parameter.__init__">(rpw.parameter.Parameter method)</a>
   </dt>
 
@@ -221,6 +239,10 @@
 
       
   <dt><a href="element.html#rpw.parameter.ParameterSet.__setitem__">__setitem__() (rpw.parameter.ParameterSet method)</a>
+  </dt>
+
+      
+  <dt><a href="element.html#rpw.element.Category._builtin_enum">_builtin_enum (rpw.element.Category attribute)</a>
   </dt>
 
       
@@ -303,6 +325,20 @@
   <dt><a href="element.html#rpw.element.Category">Category (class in rpw.element)</a>
   </dt>
 
+      
+  <dt><a href="element.html#rpw.element.Family.category">category (rpw.element.Family attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Instance.category">(rpw.element.Instance attribute)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Symbol.category">(rpw.element.Symbol attribute)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -366,9 +402,29 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="element.html#rpw.element.Element.Factory">Factory() (rpw.element.Element static method)</a>
+  </dt>
+
+      
+  <dt><a href="element.html#rpw.element.Category.families">families (rpw.element.Category attribute)</a>
+  </dt>
+
+      
   <dt><a href="element.html#rpw.element.Family">Family (class in rpw.element)</a>
   </dt>
 
+      
+  <dt><a href="element.html#rpw.element.Instance.family">family (rpw.element.Instance attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Symbol.family">(rpw.element.Symbol attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="collector.html#rpw.collector.Collector.first">first (rpw.collector.Collector attribute)</a>
   </dt>
@@ -379,8 +435,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="enumeration.html#rpw.enumeration.BicEnum.from_category_id">from_category_id() (rpw.enumeration.BicEnum class method)</a>
   </dt>
@@ -420,9 +474,29 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="element.html#rpw.element.Element.id_as_int">id_as_int (rpw.element.Element attribute)</a>
+  </dt>
+
+      
   <dt><a href="element.html#rpw.element.Instance">Instance (class in rpw.element)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="element.html#rpw.element.Category.instances">instances (rpw.element.Category attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Family.instances">(rpw.element.Family attribute)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Symbol.instances">(rpw.element.Symbol attribute)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -430,9 +504,23 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="element.html#rpw.parameter.Parameter.name">name (rpw.parameter.Parameter attribute)</a>
+  <dt><a href="element.html#rpw.element.Category.name">name (rpw.element.Category attribute)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Family.name">(rpw.element.Family attribute)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Symbol.name">(rpw.element.Symbol attribute)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.parameter.Parameter.name">(rpw.parameter.Parameter attribute)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -484,15 +572,11 @@
   </dt>
 
       
-  <dt><a href="forms.html#module-rpw.forms.forms">rpw.forms.forms (module)</a>
+  <dt><a href="selection.html#module-rpw.selection">rpw.selection (module)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="selection.html#module-rpw.selection">rpw.selection (module)</a>
-  </dt>
-
       
   <dt><a href="transaction.html#module-rpw.transaction">rpw.transaction (module)</a>
   </dt>
@@ -524,19 +608,47 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="forms.html#rpw.forms.forms.SelectFromList">SelectFromList (class in rpw.forms.forms)</a>
+  <dt><a href="forms.html#rpw.forms.SelectFromList">SelectFromList (class in rpw.forms)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="selection.html#rpw.selection.Selection">Selection (class in rpw.selection)</a>
   </dt>
 
       
+  <dt><a href="element.html#rpw.element.Family.siblings">siblings (rpw.element.Family attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Instance.siblings">(rpw.element.Instance attribute)</a>
+  </dt>
+
+        
+  <dt><a href="element.html#rpw.element.Symbol.siblings">(rpw.element.Symbol attribute)</a>
+  </dt>
+
+      </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="element.html#rpw.element.Symbol">Symbol (class in rpw.element)</a>
   </dt>
 
+      
+  <dt><a href="element.html#rpw.element.Instance.symbol">symbol (rpw.element.Instance attribute)</a>
+  </dt>
+
+      
+  <dt><a href="element.html#rpw.element.Category.symbols">symbols (rpw.element.Category attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="element.html#rpw.element.Family.symbols">(rpw.element.Family attribute)</a>
+  </dt>
+
+      </dl></dd>
   </dl></td>
 </tr></table>
 
@@ -544,7 +656,7 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="forms.html#rpw.forms.forms.TextInput">TextInput (class in rpw.forms.forms)</a>
+  <dt><a href="forms.html#rpw.forms.TextInput">TextInput (class in rpw.forms)</a>
   </dt>
 
       
@@ -586,7 +698,7 @@
   </dt>
 
       
-  <dt><a href="element.html#rpw.element.Element.unwrap">unwrap (rpw.element.Element attribute)</a>
+  <dt><a href="element.html#rpw.element.Element.unwrap">unwrap() (rpw.element.Element method)</a>
   </dt>
 
   </dl></td>
@@ -597,6 +709,30 @@
   <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="element.html#rpw.parameter.Parameter.value">value (rpw.parameter.Parameter attribute)</a>
+  </dt>
+
+  </dl></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="element.html#rpw.element.WallCategory">WallCategory (class in rpw.element)</a>
+  </dt>
+
+      
+  <dt><a href="element.html#rpw.element.WallFamily">WallFamily (class in rpw.element)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="element.html#rpw.element.WallInstance">WallInstance (class in rpw.element)</a>
+  </dt>
+
+      
+  <dt><a href="element.html#rpw.element.WallSymbol">WallSymbol (class in rpw.element)</a>
   </dt>
 
   </dl></td>

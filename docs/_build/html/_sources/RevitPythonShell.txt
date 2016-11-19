@@ -14,5 +14,5 @@ The Revit Python Wrapper works well with the RevitPythonShell
     2. Add the the repository directory to `RevitPythonShell's <https://github.com/architecture-building-systems/revitpythonshell>`_ search path
 
 
-.. image:: _static/rpw/add-path.png
-.. image:: _static/rpw/rps-use.png
+.. image:: _static/rps/add-path.png
+.. image:: _static/rps/rps-use.png

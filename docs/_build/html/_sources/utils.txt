@@ -22,4 +22,3 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/utils/coerce.py
-    :start-after: sphinx_compat

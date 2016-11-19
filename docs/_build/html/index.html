@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -142,7 +143,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="revit-python-wrapper">
+  <a class="reference internal image-reference" href="_images/logo-large.png"><img alt="_images/logo-large.png" src="_images/logo-large.png" style="width: 315.25px; height: 131.95000000000002px;" /></a>
+<div class="section" id="revit-python-wrapper">
 <h1>Revit Python Wrapper<a class="headerlink" href="#revit-python-wrapper" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
@@ -338,13 +340,17 @@ also provide additional features based on its type:
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SOME_BUILT_IN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 <span class="go">&#39;Parameter Value&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span>
-<span class="go">&lt;Symbol&gt;</span>
+<span class="go">﻿&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
+<span class="go">﻿&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
-<span class="go">&lt;Family&gt;</span>
+<span class="go">﻿&lt;RPW_Family:desk&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">name</span>
+<span class="go">﻿&#39;desk&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">category</span>
-<span class="go">&lt;category&gt;</span>
+<span class="go">﻿&lt;RPW_Category:Furniture&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">instances</span>
-<span class="go">[&lt;DB.FamilyInstance&gt;, &lt;...&gt;]</span>
+<span class="go">[&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -368,7 +374,7 @@ also provide additional features based on its type:
 </div>
 </div>
 <div class="section" id="parameterfilter">
-<h3><code class="xref py py-class docutils literal"><span class="pre">ParameterFilter</span></code><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
+<h3><a class="reference internal" href="collector.html#rpw.collector.ParameterFilter" title="rpw.collector.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filter_rule</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ParameterFilter</span><span class="p">(</span><span class="n">some_param_id</span><span class="p">,</span> <span class="n">greater</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">,</span> <span class="n">paramter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
@@ -393,6 +399,26 @@ also provide additional features based on its type:
 <span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">form_ok</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span> <span class="c1"># User Canceld</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selected_item</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="utils">
+<h3><a class="reference internal" href="utils.html"><span class="doc">Utilities</span></a><a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handy Batch Converters to and from Element / ElementIds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_elements</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
+<span class="go">[ DB.Element ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_elements</span><span class="p">(</span><span class="mi">20001</span><span class="p">)</span>
+<span class="go">[ DB.Element ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_elements</span><span class="p">([</span><span class="mi">20001</span><span class="p">,</span> <span class="mi">20003</span><span class="p">])</span>
+<span class="go">[ DB.Element, DB.Element ]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+<span class="go">[ DB.ElementId ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">(</span><span class="mi">20001</span><span class="p">)</span>
+<span class="go">[ DB.ElementId ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">([</span><span class="mi">20001</span><span class="p">,</span> <span class="mi">20003</span><span class="p">])</span>
+<span class="go">[ DB.ElementId, DB.ElementId ]</span>
 </pre></div>
 </div>
 </div>

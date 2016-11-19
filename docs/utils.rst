@@ -8,7 +8,7 @@
 Utilities
 ==================
 
-Coerce / Type Casting Tools
+Coerce / Type Casting
 
 .. automodule:: rpw.utils.coerce
     :members:
@@ -22,4 +22,3 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/utils/coerce.py
-    :start-after: sphinx_compat

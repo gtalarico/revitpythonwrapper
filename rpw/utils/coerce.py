@@ -4,10 +4,10 @@ from rpw.exceptions import RPW_TypeError
 
 
 def to_element_ids(elements):
-    """ Coerces list of elements into element ids
+    """ Coerces an element or list of elements into element ids. Elements remain unchanged.
 
     Args:
-        elements (``DB.Element``): Iterable list or single of Elements (``list`` or ``set``)
+        elements (``DB.Element``): Iterable list (``list`` or ``set``) or single of ``Element``, ``int``.
 
     Returns:
         [``DB.ElementId``, ... ]: List of Element Ids.

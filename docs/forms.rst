@@ -11,13 +11,16 @@ Forms
 Forms are provided to facilitate user input.
 
 .. image:: _static/forms/select-from-list.png
-.. image:: _static/forms/text-input.png
 
-.. automodule:: rpw.forms.forms
+.. autoclass:: rpw.forms.SelectFromList
     :members:
     :special-members: __init__
-    :private-members:
-    :show-inheritance:
+
+.. image:: _static/forms/text-input.png
+
+.. autoclass:: rpw.forms.TextInput
+    :members:
+    :special-members: __init__
 
 ----------------------------------------------
 

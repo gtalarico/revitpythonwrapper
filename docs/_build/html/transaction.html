@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
@@ -152,7 +153,7 @@
 <span class="target" id="module-rpw.transaction"></span><dl class="class">
 <dt id="rpw.transaction.Transaction">
 <em class="property">class </em><code class="descclassname">rpw.transaction.</code><code class="descname">Transaction</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Simplifies transactions by applying <code class="docutils literal"><span class="pre">Transaction.Start()</span></code> and
 <code class="docutils literal"><span class="pre">Transaction.Commit()</span></code> before and after the context.
 Automatically rolls back if exception is raised.</p>
@@ -198,7 +199,7 @@ and the funciton will run within a Transaction Context.</p>
 <dl class="class">
 <dt id="rpw.transaction.TransactionGroup">
 <em class="property">class </em><code class="descclassname">rpw.transaction.</code><code class="descname">TransactionGroup</code><span class="sig-paren">(</span><em>name=None</em>, <em>assimilate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.TransactionGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Similar to Transaction, but for <code class="docutils literal"><span class="pre">DB.Transaction</span> <span class="pre">Group</span></code></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">TransacationGroup</span><span class="p">(</span><span class="s1">&#39;Do Major Task&#39;</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Do Task&#39;</span><span class="p">):</span>
@@ -238,7 +239,7 @@ and the funciton will run within a Transaction Context.</p>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 
-<span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simplifies transactions by applying ``Transaction.Start()`` and</span>
 <span class="sd">    ``Transaction.Commit()`` before and after the context.</span>
@@ -270,6 +271,7 @@ and the funciton will run within a Transaction Context.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error in Transactio Context: has rolled back.&#39;</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">exception</span><span class="p">(</span><span class="n">exception_value</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
@@ -277,6 +279,7 @@ and the funciton will run within a Transaction Context.</p>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error in Transactio Commit: has rolled back.&#39;</span><span class="p">)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">errmsg</span><span class="p">))</span>
+                <span class="k">raise</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">ensure</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
@@ -307,7 +310,7 @@ and the funciton will run within a Transaction Context.</p>
         <span class="k">return</span> <span class="n">wrap</span>
 
 
-<span class="k">class</span> <span class="nc">TransactionGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TransactionGroup</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Similar to Transaction, but for ``DB.Transaction Group``</span>
 
