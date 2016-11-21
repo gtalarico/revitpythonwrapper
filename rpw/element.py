@@ -118,7 +118,7 @@ class Element(BaseObjectWrapper):
 
 class Instance(Element):
     """
-    ``DB.FamilyInstance`` Wrapper
+    `DB.FamilyInstance` Wrapper
 
     >>> instance = rpw.Instance(SomeFamilyInstance)
     <RPW_Symbol:72" x 36">
@@ -152,7 +152,7 @@ class Instance(Element):
 
     @property
     def category(self):
-        """ Wrapped ``DB.Family`` of the ``DB.Symbol`` """
+        """ Wrapped ``DB.Category`` of the ``DB.Symbol`` """
         return self.family.category
 
     @property
@@ -166,7 +166,7 @@ class Instance(Element):
 
 class Symbol(Element):
     """
-    ``DB.FamilySymbol`` Wrapper
+    `DB.FamilySymbol` Wrapper
 
     >>> symbol = rpw.Symbol(SomeSymbol)
     <RPW_Symbol:72" x 36">
@@ -228,7 +228,7 @@ class Symbol(Element):
 
 class Family(Element):
     """
-    ``DB.Family`` Wrapper
+    `DB.Family` Wrapper
 
     Attribute:
         _revit_object (DB.Family): Wrapped ``DB.Family``
@@ -293,7 +293,7 @@ class Family(Element):
 
 class Category(BaseObjectWrapper):
     """
-    ``DB.Category`` Wrapper
+    `DB.Category` Wrapper
 
     Attribute:
         _revit_object (DB.Family): Wrapped ``DB.Category``
@@ -359,18 +359,21 @@ class WallInstance(Instance):
 
 class WallSymbol(Symbol):
     """
-    Inherits base ``Symbol`` and overrides Instace to get `Family` equivalent of Wall `(.Kind)`
-    and uses a different method to get instances.
+    Inherits from :any:`Symbol` and overrides:
+        * :func:`family` to get the `Family` equivalent of Wall `(.Kind)`
+        * Uses a different method to get instances.
     """
     def __init__(self, wall_symbol):
         super(WallSymbol, self).__init__(wall_symbol, enforce_type=DB.WallType)
 
     @property
     def family(self):
+        """ Returns ``DB.Family`` of the Symbol """
         return WallFamily(self._revit_object.Kind)
 
     @property
     def instances(self):
+        """ Returns all Instances of this Wall Types """
         bip = BipEnum.get_id('SYMBOL_NAME_PARAM')
         param_filter = rpw.collector.ParameterFilter(bip, equals=self.name)
         return rpw.Collector(of_class=DB.Wall, parameter_filter=param_filter,
