@@ -1,10 +1,10 @@
 """
 All Wrappers inherit from this base class, which has 4 responsibilities:
 
-* Instantiate Class and store wrapped element in the private attribute ``_revit_object``.
-* Provide access to all original methods and attributes of the
-  wrapped object throught the ``__getitem__`` method.
-* Provide a ``unwrap()`` method, which returns the wrapped object
+* Instantiates Class and storing wrapped element.
+* Provides a ``unwrap()`` method, which returns the wrapped object.
+* Provides access to all original methods and attributes of the
+  wrapped object.
 * Create a ``__repr__()`` method for consistent representation
 
 Because access to original methods and properties is maintained, you can keep
@@ -51,4 +51,7 @@ class BaseObjectWrapper(object):
         return self._revit_object
 
     def __repr__(self, data=''):
-        return '<RPW_{}:{}>'.format(self.__class__.__name__, data)
+        return '<RPW_{class_name}:{optional_data} [{eid}]>'.format(
+                                            class_name=self.__class__.__name__,
+                                            optional_data=data,
+                                            eid=self._revit_object.Id.ToString())

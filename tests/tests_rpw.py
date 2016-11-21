@@ -722,7 +722,7 @@ def run():
     from tests.tests_forms import *
     suite = unittest.TestLoader().discover('tests')
     # unittest.TextTestRunner(verbosity=2).run(suite)
-    
+
     # suite = unittest.TestLoader().loadTestsFromTestCase(FormSelectFromListTests)
     # suite.addTest(unittest.TestLoader().loadTestsFromTestCase(FormTextInputTests))
 

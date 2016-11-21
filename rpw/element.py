@@ -20,22 +20,23 @@ from rpw.enumeration import BicEnum, BipEnum
 
 class Element(BaseObjectWrapper):
     """
-    Inheriting from element gives wrapped elements access to the :any:`Parameter`
-    attribute, as well as a few static methods to help wrap elements.
+    Inheriting from element extends wrapped elements with a new :class:`parameters`
+    attribute, well as the :func:`unwrap` method inherited from the :any:`BaseObjectWrapper` class.
 
-    Most importantly, all other Element-related classes inhert from this class
+    It can be created by instantiating ``rpw.Element`` , or one of the helper
+    static methods shown below.
+
+    Most importantly, all other `Element-related` classes inhert from this class
     so it can provide parameter access.
 
-    >>> wall = Element(RevitWallElement)
+    >>> element = rpw.Element(SomeElement)
+    >>> element = rpw.Element.from_id(ElementId)
+    >>> element = rpw.Element.from_int(Integer)
+
+    >>> wall = rpw.Element(RevitWallElement)
     >>> wall.Id
     >>> wall.parameters['Height'].value
     10.0
-
-    >>> wall.parameters['Height'].type
-    <type: float>
-
-    >>> with Transaction('Set Height'):
-    >>>     wall.parameters['Height'].value = 5
 
     Attributes:
 
@@ -204,7 +205,7 @@ class Symbol(Element):
         """Returns:
             [``DB.FamilyInstance``]: List of model instances of the symbol (unwrapped)
         """
-        return rpw.Collector(symbol=self._revit_object.Id).elements
+        return rpw.Collector(symbol=self._revit_object.Id, is_not_type=True).elements
 
     @property
     def siblings(self):
@@ -342,7 +343,10 @@ class Category(BaseObjectWrapper):
 
 
 class WallInstance(Instance):
-
+    """
+    Inherits base ``Instance`` and overrides symbol attribute to
+    get `Symbol` equivalent of Wall `(GetTypeId)`
+    """
     def __init__(self, wall_instance):
         super(WallInstance, self).__init__(wall_instance, enforce_type=DB.Wall)
 
@@ -354,7 +358,10 @@ class WallInstance(Instance):
 
 
 class WallSymbol(Symbol):
-
+    """
+    Inherits base ``Symbol`` and overrides Instace to get `Family` equivalent of Wall `(.Kind)`
+    and uses a different method to get instances.
+    """
     def __init__(self, wall_symbol):
         super(WallSymbol, self).__init__(wall_symbol, enforce_type=DB.WallType)
 
@@ -375,7 +382,9 @@ class WallSymbol(Symbol):
 
 
 class WallFamily(Family):
-
+    """
+    Inherits base ``Family`` and overrides methods for Wall Instance`
+    """
     def __init__(self, wall_family):
         super(WallFamily, self).__init__(wall_family, enforce_type=DB.WallKind)
 
@@ -385,17 +394,9 @@ class WallFamily(Family):
         return [symbol for symbol in symbols if symbol.Kind == self._revit_object]
 
     @property
-    def instances(self):
-        return rpw.Collector(of_class=DB.Wall, is_not_type=True).elements
-
-    @property
     def category(self):
         wall_type = rpw.Collector(of_class=DB.WallType, is_type=True).first
         return WallCategory(wall_type.Category)
-
-    @property
-    def siblings(self):
-        return self.category.families
 
 
 class WallCategory(Category):

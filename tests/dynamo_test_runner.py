@@ -27,6 +27,8 @@ sys.stdout = result
 print('IMPORT TESTS...')
 from tests import tests_rpw
 print('TESTS RUNNER: {}'.format(tests_rpw.__file__))
+from rpw import logger
+logger.disable()
 
 testsuite = unittest.TestLoader().loadTestsFromModule(tests_rpw)
 test_result = unittest.TextTestRunner(verbosity=3, buffer=False).run(testsuite)
