@@ -8,18 +8,15 @@
 Tests
 ==================
 
-Although I have not been able to run coverage.py,
-the library has decent test coverate.
-
 The Test Suite below is used to verify functionalities, as well as to
 validate compatibility across different platforms. These tests below have
 been executed without failures on:
 
     * Revit 2015
-    * REvit 2016
+    * Revit 2016
     * Dynamo 1.2
 
-Test Suite is included because it provides a many
+The Test Suite is also included because it provides a many
 examples of how the library is intended to be used.
 
 ----------------------------------------------
