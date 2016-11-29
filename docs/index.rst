@@ -46,7 +46,7 @@ Revit Python Wrapper was created to help Python programmers write Revit API code
 Wrapper classes make the interaction with API objects less repetitive,
 and more consistent with Python's conventions.
 
-It also provides a convenient shortcuts:
+It also provides a few convenient shortcuts:
 
     * Initializes a ``doc`` and ``uidoc``
       document handling variables, so you can
