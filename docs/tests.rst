@@ -14,9 +14,10 @@ been executed without failures on:
 
     * Revit 2015
     * Revit 2016
+    * Revit 2017
     * Dynamo 1.2
 
-The Test Suite is also included because it provides a many
+The Test Suite also provides a many
 examples of how the library is intended to be used.
 
 ----------------------------------------------
