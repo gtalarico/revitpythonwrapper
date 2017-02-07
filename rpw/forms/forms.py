@@ -12,11 +12,20 @@ import sys
 try:
     import clr
     import os
-    # Path is Adde so IronPython.Wpf can be found
+    # IronPython.Wpf is included with RPW: script path is added.
     sys.path.append(os.path.dirname(__file__))
+    # Standard Location Added for use in Dynamo, where script cannot reach inside
+    # Zip file shipped through package Manager
+    sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
     clr.AddReference("PresentationFramework")
-    clr.AddReference('IronPython.Wpf')
-    import wpf
+    try:
+        clr.AddReference('IronPython.Wpf')
+        import wpf
+    except IOError:
+        raise IOError('Could not find IronPython.Wpf. Path: {}'.format(str(sys.path)))
+    except ImportError:
+        raise ImportError('Could not Import IronPython.Wpf. Path: {}'.format(str(sys.path)))
+
     from System.Windows import Application, Window
     from System.IO import StringReader
 except ImportError:
@@ -141,6 +150,16 @@ class TextInput(Window):
 
     def show(self):
         return super(TextInput, self).ShowDialog()
+
+
+class Alert():
+    def __init__(self, title=None, heading=None, message=None):
+        raise NotImplemented
+        # dialog = TaskDialog(alert_title)
+        # dialog.MainInstruction = alert_heading
+        # dialog.MainContent = alert_content
+        # alert_result = dialog.Show()
+
 
 
 if __name__ == '__main__':

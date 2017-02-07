@@ -1,5 +1,5 @@
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.9'
+__version__ = '0.0.91'
 __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
@@ -68,7 +68,7 @@ if platform is not None:
     from rpw.utils.logger import logger
 
     try:
-        from rpw.forms import SelectFromList, TextInput
+        from rpw.forms import SelectFromList, TextInput, Alert
     except ImportError as errmsg:
-        logger.warning('Could Not load Forms dependencies')
+        logger.critical('Could Not load Forms dependencies')
         logger.warning(errmsg)
