@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Base Wrapper &mdash; Revit Python Wrapper 0.0.9 documentation</title>
+  <title>Base Wrapper &mdash; Revit Python Wrapper 0.0.92 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.92 documentation" href="index.html"/>
         <link rel="next" title="Element Wrappers" href="element.html"/>
         <link rel="prev" title="Globals" href="globals.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.92
               </div>
             
           
@@ -152,10 +152,10 @@
 <p>Base Wrapper</p>
 <span class="target" id="module-rpw.base"></span><p>All Wrappers inherit from this base class, which has 4 responsibilities:</p>
 <ul class="simple">
-<li>Instantiate Class and store wrapped element in the private attribute <code class="docutils literal"><span class="pre">_revit_object</span></code>.</li>
-<li>Provide access to all original methods and attributes of the
-wrapped object throught the <code class="docutils literal"><span class="pre">__getitem__</span></code> method.</li>
-<li>Provide a <code class="docutils literal"><span class="pre">unwrap()</span></code> method, which returns the wrapped object</li>
+<li>Instantiates Class and storing wrapped element.</li>
+<li>Provides a <code class="docutils literal"><span class="pre">unwrap()</span></code> method, which returns the wrapped object.</li>
+<li>Provides access to all original methods and attributes of the
+wrapped object.</li>
 <li>Create a <code class="docutils literal"><span class="pre">__repr__()</span></code> method for consistent representation</li>
 </ul>
 <p>Because access to original methods and properties is maintained, you can keep
@@ -197,10 +197,10 @@ Element is used loosely to refer to all Revit Elements.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">All Wrappers inherit from this base class, which has 4 responsibilities:</span>
 
-<span class="sd">* Instantiate Class and store wrapped element in the private attribute ``_revit_object``.</span>
-<span class="sd">* Provide access to all original methods and attributes of the</span>
-<span class="sd">  wrapped object throught the ``__getitem__`` method.</span>
-<span class="sd">* Provide a ``unwrap()`` method, which returns the wrapped object</span>
+<span class="sd">* Instantiates Class and storing wrapped element.</span>
+<span class="sd">* Provides a ``unwrap()`` method, which returns the wrapped object.</span>
+<span class="sd">* Provides access to all original methods and attributes of the</span>
+<span class="sd">  wrapped object.</span>
 <span class="sd">* Create a ``__repr__()`` method for consistent representation</span>
 
 <span class="sd">Because access to original methods and properties is maintained, you can keep</span>
@@ -243,11 +243,23 @@ Element is used loosely to refer to all Revit Elements.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
 
+    <span class="c1"># TODO: element.Pinned = True does not work without a setattr</span>
+    <span class="c1"># def __setattr__(self, attr, value):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Access original methods and properties or the element.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     try:</span>
+    <span class="c1">#         return setattr(self._revit_object, attr, value)</span>
+    <span class="c1">#     except Exception:</span>
+    <span class="c1">#         raise</span>
+
     <span class="k">def</span> <span class="nf">unwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;RPW_</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;RPW_</span><span class="si">{class_name}</span><span class="s1">:</span><span class="si">{optional_data}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                            <span class="n">class_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                                            <span class="n">optional_data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -294,7 +306,7 @@ Element is used loosely to refer to all Revit Elements.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.9',
+            VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

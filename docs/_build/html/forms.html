@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Forms &mdash; Revit Python Wrapper 0.0.9 documentation</title>
+  <title>Forms &mdash; Revit Python Wrapper 0.0.92 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.92 documentation" href="index.html"/>
         <link rel="next" title="Utilities" href="utils.html"/>
         <link rel="prev" title="Enumeration" href="enumeration.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.92
               </div>
             
           
@@ -335,6 +335,16 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">TextInput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
 
 
+<span class="k">class</span> <span class="nc">Alert</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+        <span class="c1"># dialog = TaskDialog(alert_title)</span>
+        <span class="c1"># dialog.MainInstruction = alert_heading</span>
+        <span class="c1"># dialog.MainContent = alert_content</span>
+        <span class="c1"># alert_result = dialog.Show()</span>
+
+
+
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">prompt</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your Options&quot;</span><span class="p">)</span>
     <span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -389,7 +399,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.9',
+            VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

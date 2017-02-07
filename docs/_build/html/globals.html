@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Globals &mdash; Revit Python Wrapper 0.0.9 documentation</title>
+  <title>Globals &mdash; Revit Python Wrapper 0.0.92 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.9 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.92 documentation" href="index.html"/>
         <link rel="next" title="Base Wrapper" href="base.html"/>
         <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.92
               </div>
             
           
@@ -288,9 +288,9 @@ libraries right away, and skip the typical:</p>
     <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">SelectFromList</span><span class="p">,</span> <span class="n">TextInput</span>
+        <span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">SelectFromList</span><span class="p">,</span> <span class="n">TextInput</span><span class="p">,</span> <span class="n">Alert</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could Not load Forms dependencies&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Could Not load Forms dependencies&#39;</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -338,7 +338,7 @@ libraries right away, and skip the typical:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.9',
+            VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

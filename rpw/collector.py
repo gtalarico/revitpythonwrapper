@@ -1,5 +1,5 @@
 """
->>> levels = rpw.Collector(of_category='OST_Levels', is_type=True)
+>>> levels = rpw.Collector(of_category='OST_Levels', is_no_type=True)
 
 >>> # Traditional
 >>> levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
@@ -26,7 +26,7 @@ class Collector(BaseObjectWrapper):
         Multiple Filters:
 
         >>> collector = Collector(of_category='OST_Walls', is_type=True)
-        >>> collector = Collector(of_class='Wall', is_not=True)
+        >>> collector = Collector(of_class='Wall', is_not_type=True)
         >>> collector = Collector(symbol=SomeSymbol)
         >>> collector = Collector(parameter_filter=filter_rule)
 
