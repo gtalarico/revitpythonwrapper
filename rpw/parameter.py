@@ -224,6 +224,9 @@ class Parameter(BaseObjectWrapper):
 
     @value.setter
     def value(self, value):
+        if self._revit_object.IsReadOnly:
+            raise RPW_Exception('Parameter is Read Only: {}'.format(self._revit_object.Definition.Name))
+            
         # Check if value provided matches storage type
         if not isinstance(value, self.type):
             # If not, try to handle

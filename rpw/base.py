@@ -47,11 +47,20 @@ class BaseObjectWrapper(object):
         """
         return getattr(self._revit_object, attr)
 
+    # TODO: element.Pinned = True does not work without a setattr
+    # def __setattr__(self, attr, value):
+    #     """
+    #     Access original methods and properties or the element.
+    #     """
+    #     try:
+    #         return setattr(self._revit_object, attr, value)
+    #     except Exception:
+    #         raise
+
     def unwrap(self):
         return self._revit_object
 
     def __repr__(self, data=''):
-        return '<RPW_{class_name}:{optional_data} [{eid}]>'.format(
+        return '<RPW_{class_name}:{optional_data}>'.format(
                                             class_name=self.__class__.__name__,
-                                            optional_data=data,
-                                            eid=self._revit_object.Id.ToString())
+                                            optional_data=data)

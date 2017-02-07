@@ -1,5 +1,5 @@
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.91'
+__version__ = '0.0.92'
 __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
