@@ -7,6 +7,7 @@ from rpw import List
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_TypeError
 from rpw.utils.logger import logger
+from rpw.utils.coerce import to_element_ids
 
 
 class Selection(BaseObjectWrapper):
@@ -113,6 +114,20 @@ class Selection(BaseObjectWrapper):
         < Revit.DB.Element >
         """
         return self.elements[index]
+
+    def __contains__(self, element_reference):
+        """
+        Checks if selection contains the element Reference.
+        Args:
+            Reference: Element, ElementId, or Integer
+        Returns:
+            bool: ``True`` or ``False``
+        """
+        element_ids = to_element_ids(element_reference)
+        if len(element_ids) != 1:
+            raise RPW_TypeError('element_reference', type(element_reference))
+        element_id = element_ids[0]
+        return any([e == element_id for e in self.element_ids])
 
     def __bool__(self):
         """

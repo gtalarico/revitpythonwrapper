@@ -9,6 +9,8 @@
 #       or import class into forms namespaces (failed sphinx build earlier)
 
 import sys
+from .. import UI
+
 try:
     import clr
     import os
@@ -153,12 +155,23 @@ class TextInput(Window):
 
 
 class Alert():
-    def __init__(self, title=None, heading=None, message=None):
-        raise NotImplemented
-        # dialog = TaskDialog(alert_title)
-        # dialog.MainInstruction = alert_heading
-        # dialog.MainContent = alert_content
-        # alert_result = dialog.Show()
+    def __init__(self, message, title='Alert', heading=''):
+        """
+        Creates Standard Revit Alert.
+
+        Args:
+            message (str): TaskDialog Message
+            title ([str]): TaskDialog Title
+            heading (str, optional): TaskDialog Message Heading
+
+
+        Usage:
+            >>> Alert('Message', title="Title", heading="Heading")
+        """
+        dialog = UI.TaskDialog(title)
+        dialog.MainInstruction = heading
+        dialog.MainContent = message
+        return dialog.Show()
 
 
 
