@@ -9,7 +9,6 @@
 #       or import class into forms namespaces (failed sphinx build earlier)
 
 import sys
-from .. import UI
 
 try:
     import clr
@@ -30,6 +29,7 @@ try:
 
     from System.Windows import Application, Window
     from System.IO import StringReader
+    from .. import UI
 except ImportError:
     from rpw.utils.sphinx_compat import *
 
@@ -161,12 +161,12 @@ class Alert():
 
         Args:
             message (str): TaskDialog Message
-            title ([str]): TaskDialog Title
+            title (str, optional): TaskDialog Title
             heading (str, optional): TaskDialog Message Heading
 
 
         Usage:
-            >>> Alert('Message', title="Title", heading="Heading")
+            >>> Alert('Your Message', title="Title", heading="Some Heading")
         """
         dialog = UI.TaskDialog(title)
         dialog.MainInstruction = heading
