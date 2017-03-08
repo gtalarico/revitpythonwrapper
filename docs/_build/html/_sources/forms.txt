@@ -10,15 +10,30 @@ Forms
 
 Forms are provided to facilitate user input.
 
+SelectFromList
+**************
+
 .. image:: _static/forms/select-from-list.png
 
-.. autoclass:: rpw.forms.SelectFromList
+.. autoclass:: rpw.forms.forms.SelectFromList
     :members:
     :special-members: __init__
+
+TextInput
+*********
 
 .. image:: _static/forms/text-input.png
 
 .. autoclass:: rpw.forms.TextInput
+    :members:
+    :special-members: __init__
+
+Alert
+*****
+
+.. image:: _static/forms/alert.png
+
+.. autoclass:: rpw.forms.Alert
     :members:
     :special-members: __init__
 
