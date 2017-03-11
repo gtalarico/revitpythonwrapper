@@ -106,6 +106,7 @@ class Element(BaseObjectWrapper):
                       'Wall': WallInstance,
                       'WallType': WallSymbol,
                       'WallKind': WallFamily,
+                      'Room': Room,
                     }
 
         element_class = CLASS_MAP[element.__class__.__name__]
@@ -252,6 +253,7 @@ class Family(Element):
         except IndexError:
             raise RPW_Exception('Family [{}] has no symbols'.format(self.name))
         return Element.Factory(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        # Uses generic factory so it can be inherited by others
         # Alternative: ALL_MODEL_FAMILY_NAME
 
     @property
@@ -420,3 +422,47 @@ class WallCategory(Category):
             if type(getattr(DB.WallKind, member)) is DB.WallKind:
                 wall_kinds.append(getattr(DB.WallKind, member))
         return wall_kinds
+
+
+class Room(Element):
+    """
+    `DB.Architecture.Room` Wrapper
+
+    >>> room = rpw.Room(SomeRoom)
+    <RPW_Room: Office:122>
+    >>> room.name
+    'Office'
+    >>> instance.number
+    '122'
+
+    Attribute:
+        _revit_object (DB.Architecture.Room): Wrapped ``DB.Architecture.Room``
+    """
+    def __init__(self, room, enforce_type=DB.Architecture.Room):
+        """
+        Args:
+            room (``DB.Architecture.Room``): Room to be wrapped
+        """
+        super(Room, self).__init__(room, enforce_type=enforce_type)
+
+    @property
+    def name(self):
+        """ Room Name Parameter """
+        # Note: For an unknown reason, roominstance.Name does not work on IPY
+        return self.parameters.builtins['ROOM_NAME'].value
+
+    @property
+    def number(self):
+        """ Room Number as string """
+        return self.parameters.builtins['ROOM_NUMBER'].value
+
+    @property
+    def is_placed(self):
+        return bool(self._revit_object.Location)
+
+    @property
+    def is_bounded(self):
+        return self._revit_object.Area > 0
+
+    def __repr__(self):
+        return super(Room, self).__repr__('{}:{}'.format(self.name, self.number))

@@ -59,6 +59,7 @@ else:
 if platform is not None:
     from rpw.element import Element, Instance, Symbol, Family, Category
     from rpw.element import WallInstance, WallSymbol, WallFamily, WallCategory
+    from rpw.element import Room
     from rpw.parameter import ParameterSet, Parameter
     from rpw.selection import Selection
     from rpw.collector import Collector, ParameterFilter
