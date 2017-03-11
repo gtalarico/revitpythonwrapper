@@ -9,6 +9,8 @@
 #       or import class into forms namespaces (failed sphinx build earlier)
 
 import sys
+from .. import UI
+
 try:
     import clr
     import os
@@ -87,6 +89,7 @@ class SelectFromList(Window):
         self.ui.combo_data.Items.Clear()
         self.ui.combo_data.ItemsSource = options
         self.ui.combo_data.SelectedItem = options[0]
+        self.ui.combo_data.Focus()
 
     def select_click(self, sender, e):
         self.selected = self.ui.combo_data.SelectedItem
@@ -136,6 +139,7 @@ class TextInput(Window):
         # self.ui = wpf.LoadComponent(self, os.path.join(cwd, 'form_text_input.xaml'))
         self.ui.Title = title
 
+        self.ui.text_box.Focus()
         if default is not None:
             self.ui.text_box.Text = default
 
@@ -153,12 +157,23 @@ class TextInput(Window):
 
 
 class Alert():
-    def __init__(self, title=None, heading=None, message=None):
-        raise NotImplemented
-        # dialog = TaskDialog(alert_title)
-        # dialog.MainInstruction = alert_heading
-        # dialog.MainContent = alert_content
-        # alert_result = dialog.Show()
+    def __init__(self, message, title='Alert', heading=''):
+        """
+        Creates Standard Revit Alert.
+
+        Args:
+            message (str): TaskDialog Message
+            title ([str]): TaskDialog Title
+            heading (str, optional): TaskDialog Message Heading
+
+
+        Usage:
+            >>> Alert('Message', title="Title", heading="Heading")
+        """
+        dialog = UI.TaskDialog(title)
+        dialog.MainInstruction = heading
+        dialog.MainContent = message
+        return dialog.Show()
 
 
 
