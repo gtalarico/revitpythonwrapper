@@ -86,29 +86,25 @@ class Collector(BaseObjectWrapper):
 
         """
         # Pick Scope Filter, Default is doc
+        # Override standard doc with passed doc
+        collector_doc = filters.pop('doc') if 'doc' in filters else doc
         if 'view' in filters:
-            view = filters['view']
+            view = filters.pop('view')
             view_id = view if isinstance(view, DB.ElementId) else view.Id
-            collector = DB.FilteredElementCollector(doc, view_id)
-            filters.pop('view')
-        elif 'view_id' in filters:
-            view_id = filters['view_id']
-            collector = DB.FilteredElementCollector(doc, view_id)
-            filters.pop('view_id')
+            collector = DB.FilteredElementCollector(collector_doc, view_id)
         elif 'elements' in filters:
-            elements = filters['elements']
+            elements = filters.pop('elements')
             element_ids = to_element_ids(elements)
-            collector = DB.FilteredElementCollector(doc, List[DB.ElementId](element_ids))
-            filters.pop('elements')
+            collector = DB.FilteredElementCollector(collector_doc, List[DB.ElementId](element_ids))
         elif 'element_ids' in filters:
-            element_ids = filters['element_ids']
-            collector = DB.FilteredElementCollector(doc, List[DB.ElementId](element_ids))
-            filters.pop('element_ids')
+            element_ids = filters.pop('element_ids')
+            collector = DB.FilteredElementCollector(collector_doc, List[DB.ElementId](element_ids))
         else:
-            collector = DB.FilteredElementCollector(doc)
+            collector = DB.FilteredElementCollector(collector_doc)
 
         super(Collector, self).__init__(collector)
 
+        self._collector_doc = collector_doc
         self.elements = []
 
         for key in filters.keys():
@@ -120,9 +116,11 @@ class Collector(BaseObjectWrapper):
 
         # Instantiates Filter class on attribute filter
         self.filter = _Filter(self)
+
         # Allows Class to Excecute on Construction, if filters are present.
         if filters:
             self.filter(**filters)  # Call
+
 
     def __iter__(self):
         """ Collector Iterator
@@ -214,7 +212,7 @@ class _Filter(BaseObjectWrapper):
                 collector_results = collector_filter(filter_value._revit_object)
             elif filter_name == 'symbol':
                 # Same as WherePasses(FamilyInstanceFilter)
-                collector_results = collector_filter(_FamilyInstanceFilter(filter_value)._revit_object)
+                collector_results = collector_filter(_FamilyInstanceFilter(filter_value, doc=self._collector._collector_doc)._revit_object)
             elif filter_name == 'of_class' or filter_name == 'of_category':
                 # Same as OfCategory(filter_value) and OfClass(filter_value)
                 collector_results = collector_filter(filter_value)
@@ -259,7 +257,7 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
     ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
 
     """
-    def __init__(self, symbol_or_id):
+    def __init__(self, symbol_or_id, doc=doc):
         """
         Args:
             symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId
