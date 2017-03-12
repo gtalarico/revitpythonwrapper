@@ -279,15 +279,14 @@ paired with an example sans-rpw.</p>
 </div>
 <div class="section" id="transaction">
 <h3><a class="reference internal" href="transaction.html"><span class="doc">Transaction</span></a><a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Wrapper</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Wrapper - Same code for RevitPythonShell, and Dynamo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Object&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Object&#39;</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># This code remains the same for RevitPythonShell, and Dynamo</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Transactions In Dynamo</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical Transaction In Dynamo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">RevitServices</span>
@@ -299,7 +298,7 @@ paired with an example sans-rpw.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">TransactionManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">TransactionTaskDone</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Transactions in Revit Python Shell</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical Transaction in Revit Python Shell / pyRevit</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">Transaction</span>

@@ -140,14 +140,13 @@ paired with an example sans-rpw.
 :doc:`transaction`
 ^^^^^^^^^^^^^^^^^^
 
-    >>> # Using Wrapper
+    >>> # Using Wrapper - Same code for RevitPythonShell, and Dynamo
     >>> import rpw
     >>> from rpw import doc
-    >>> with rpw.Transaction('Delete Object')
+    >>> with rpw.Transaction('Delete Object'):
     >>>     doc.Remove(SomeElementId)
-    >>> # This code remains the same for RevitPythonShell, and Dynamo
 
-    >>> # Transactions In Dynamo
+    >>> # Typical Transaction In Dynamo
     >>> import clr
     >>> clr.AddReference("RevitServices")
     >>> import RevitServices
@@ -158,7 +157,7 @@ paired with an example sans-rpw.
     >>> doc.Remove(SomeElementId)
     >>> TransactionManager.Instance.TransactionTaskDone()
 
-    >>> # Transactions in Revit Python Shell
+    >>> # Typical Transaction in Revit Python Shell / pyRevit
     >>> import clr
     >>> clr.AddReference('RevitAPI')
     >>> from Autodesk.Revit.DB import Transaction

@@ -364,14 +364,14 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 
 <dl class="class">
 <dt id="rpw.collector._FamilyInstanceFilter">
-<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_FamilyInstanceFilter</code><span class="sig-paren">(</span><em>symbol_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_FamilyInstanceFilter</code><span class="sig-paren">(</span><em>symbol_or_id</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Used internally by Collector to provide the <code class="docutils literal"><span class="pre">symbol</span></code> keyword filter.
 It returns a <code class="docutils literal"><span class="pre">DB.FamilyInstanceFilter</span></code> which is then used by the
 <code class="docutils literal"><span class="pre">FilterElementCollector.WherePasses()</span></code> method to filter by symbol type.</p>
 <dl class="method">
 <dt id="rpw.collector._FamilyInstanceFilter.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol_or_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol_or_id</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -443,6 +443,7 @@ namespace.</p>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
@@ -520,29 +521,25 @@ namespace.</p>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Pick Scope Filter, Default is doc</span>
+        <span class="c1"># Override standard doc with passed doc</span>
+        <span class="n">collector_doc</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;doc&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;doc&#39;</span> <span class="ow">in</span> <span class="n">filters</span> <span class="k">else</span> <span class="n">doc</span>
         <span class="k">if</span> <span class="s1">&#39;view&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
-            <span class="n">view</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;view&#39;</span><span class="p">]</span>
+            <span class="n">view</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
             <span class="n">view_id</span> <span class="o">=</span> <span class="n">view</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">else</span> <span class="n">view</span><span class="o">.</span><span class="n">Id</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view_id</span><span class="p">)</span>
-            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="s1">&#39;view_id&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
-            <span class="n">view_id</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;view_id&#39;</span><span class="p">]</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">view_id</span><span class="p">)</span>
-            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;view_id&#39;</span><span class="p">)</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">,</span> <span class="n">view_id</span><span class="p">)</span>
         <span class="k">elif</span> <span class="s1">&#39;elements&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
-            <span class="n">elements</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;elements&#39;</span><span class="p">]</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;elements&#39;</span><span class="p">)</span>
             <span class="n">element_ids</span> <span class="o">=</span> <span class="n">to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
-            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;elements&#39;</span><span class="p">)</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
         <span class="k">elif</span> <span class="s1">&#39;element_ids&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
-            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="s1">&#39;element_ids&#39;</span><span class="p">]</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
-            <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;element_ids&#39;</span><span class="p">)</span>
+            <span class="n">element_ids</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;element_ids&#39;</span><span class="p">)</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">collector</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collector_doc</span> <span class="o">=</span> <span class="n">collector_doc</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -554,9 +551,11 @@ namespace.</p>
 
         <span class="c1"># Instantiates Filter class on attribute filter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">_Filter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
         <span class="c1"># Allows Class to Excecute on Construction, if filters are present.</span>
         <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">filters</span><span class="p">)</span>  <span class="c1"># Call</span>
+
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Collector Iterator</span>
@@ -573,6 +572,10 @@ namespace.</p>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">wrapped_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Evaluates to `True` if Collector.elements is not empty [] &quot;&quot;&quot;</span>
@@ -648,7 +651,7 @@ namespace.</p>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;symbol&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as WherePasses(FamilyInstanceFilter)</span>
-                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_collector_doc</span><span class="p">)</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_class&#39;</span> <span class="ow">or</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_category&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as OfCategory(filter_value) and OfClass(filter_value)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span>
@@ -693,7 +696,7 @@ namespace.</p>
 <span class="sd">    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_or_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId</span>

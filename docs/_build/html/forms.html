@@ -339,6 +339,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">Items</span><span class="o">.</span><span class="n">Clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">ItemsSource</span> <span class="o">=</span> <span class="n">options</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">SelectedItem</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">select_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">SelectedItem</span>
@@ -388,6 +389,7 @@
         <span class="c1"># self.ui = wpf.LoadComponent(self, os.path.join(cwd, &#39;form_text_input.xaml&#39;))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">title</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">text_box</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">text_box</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">default</span>
 

@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#family">Family</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#category">Category</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#walls">Walls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#room">Room</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
@@ -184,9 +185,8 @@
 <h1>Element Wrappers<a class="headerlink" href="#element-wrappers" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-rpw.element">
 <span id="element"></span><h2>Element<a class="headerlink" href="#module-rpw.element" title="Permalink to this headline">¶</a></h2>
-<p>Element Wrappers provide helpful to accessing parameters and properties
-as shown below.</p>
-<p>The <code class="docutils literal"><span class="pre">Element</span></code> class is the base class for all Revit objects that inherit from Element.</p>
+<p>Element Wrappers provide a consitent interface for acccessing parameters and properties
+of commonly used elements.</p>
 <dl class="class">
 <dt id="rpw.element.Element">
 <em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
@@ -564,6 +564,74 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 
 </div>
 <hr class="docutils" />
+<div class="section" id="room">
+<h2>Room<a class="headerlink" href="#room" title="Permalink to this headline">¶</a></h2>
+<p>Room Wrapper</p>
+<dl class="class">
+<dt id="rpw.element.Room">
+<em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Room</code><span class="sig-paren">(</span><em>room</em>, <em>enforce_type=DB.Room</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Room" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></a></p>
+<p><cite>DB.Architecture.Room</cite> Wrapper
+Inherits from <a class="reference internal" href="#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">room</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Room</span><span class="p">(</span><span class="n">SomeRoom</span><span class="p">)</span>
+<span class="go">&lt;RPW_Room: Office:122&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">room</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Office&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">room</span><span class="o">.</span><span class="n">number</span>
+<span class="go">&#39;122&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">room</span><span class="o">.</span><span class="n">is_placed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">room</span><span class="o">.</span><span class="n">is_bounded</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.Architecture.Room): Wrapped <code class="docutils literal"><span class="pre">DB.Architecture.Room</span></code></dd>
+</dl>
+<dl class="method">
+<dt id="rpw.element.Room.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>room</em>, <em>enforce_type=DB.Room</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Room.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>room</strong> (<code class="docutils literal"><span class="pre">DB.Architecture.Room</span></code>) &#8211; Room to be wrapped</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.element.Room.is_bounded">
+<code class="descname">is_bounded</code><a class="headerlink" href="#rpw.element.Room.is_bounded" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">bool</span></code> for whether Room is Bounded.
+Uses result of <code class="docutils literal"><span class="pre">Room.Area</span></code> attribute to define if room is Bounded.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.element.Room.is_placed">
+<code class="descname">is_placed</code><a class="headerlink" href="#rpw.element.Room.is_placed" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal"><span class="pre">bool</span></code> for whether Room is Placed.
+Uses result of <code class="docutils literal"><span class="pre">Room.Location</span></code> attribute to define if room is Placed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.element.Room.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.element.Room.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Room Name as parameter Value</em> &#8211; <code class="docutils literal"><span class="pre">ROOM_NAME</span></code> built-in parameter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.element.Room.number">
+<code class="descname">number</code><a class="headerlink" href="#rpw.element.Room.number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Room Number as parameter Value</em> &#8211; <code class="docutils literal"><span class="pre">ROOM_NUMBER</span></code> built-in parameter</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
 <div class="section" id="parameterset">
 <h2>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -805,10 +873,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Element Wrappers provide helpful to accessing parameters and properties</span>
-<span class="sd">as shown below.</span>
-
-<span class="sd">The ``Element`` class is the base class for all Revit objects that inherit from Element.</span>
+<span class="sd">Element Wrappers provide a consitent interface for acccessing parameters and properties</span>
+<span class="sd">of commonly used elements.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -912,9 +978,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
                       <span class="s1">&#39;Wall&#39;</span><span class="p">:</span> <span class="n">WallInstance</span><span class="p">,</span>
                       <span class="s1">&#39;WallType&#39;</span><span class="p">:</span> <span class="n">WallSymbol</span><span class="p">,</span>
                       <span class="s1">&#39;WallKind&#39;</span><span class="p">:</span> <span class="n">WallFamily</span><span class="p">,</span>
+                      <span class="s1">&#39;Room&#39;</span><span class="p">:</span> <span class="n">Room</span><span class="p">,</span>
                     <span class="p">}</span>
-
-        <span class="n">element_class</span> <span class="o">=</span> <span class="n">CLASS_MAP</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">]</span>
+        <span class="n">element_class_name</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="n">element_class</span> <span class="o">=</span> <span class="n">CLASS_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element_class</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Factory does not support type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">element_class</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1058,6 +1127,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Family [</span><span class="si">{}</span><span class="s1">] has no symbols&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SYMBOL_FAMILY_NAME_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="c1"># Uses generic factory so it can be inherited by others</span>
         <span class="c1"># Alternative: ALL_MODEL_FAMILY_NAME</span>
 
     <span class="nd">@property</span>
@@ -1226,6 +1296,62 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="p">,</span> <span class="n">member</span><span class="p">))</span> <span class="ow">is</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="p">:</span>
                 <span class="n">wall_kinds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="p">,</span> <span class="n">member</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">wall_kinds</span>
+
+
+<span class="k">class</span> <span class="nc">Room</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `DB.Architecture.Room` Wrapper</span>
+<span class="sd">    Inherits from :any:`Element`</span>
+
+<span class="sd">    &gt;&gt;&gt; room = rpw.Room(SomeRoom)</span>
+<span class="sd">    &lt;RPW_Room: Office:122&gt;</span>
+<span class="sd">    &gt;&gt;&gt; room.name</span>
+<span class="sd">    &#39;Office&#39;</span>
+<span class="sd">    &gt;&gt;&gt; room.number</span>
+<span class="sd">    &#39;122&#39;</span>
+<span class="sd">    &gt;&gt;&gt; room.is_placed</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; room.is_bounded</span>
+<span class="sd">    True</span>
+
+<span class="sd">    Attribute:</span>
+<span class="sd">        _revit_object (DB.Architecture.Room): Wrapped ``DB.Architecture.Room``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Architecture</span><span class="o">.</span><span class="n">Room</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            room (``DB.Architecture.Room``): Room to be wrapped</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Room Name as parameter Value: ``ROOM_NAME`` built-in parameter&quot;&quot;&quot;</span>
+        <span class="c1"># Note: For an unknown reason, roominstance.Name does not work on IPY</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;ROOM_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Room Number as parameter Value: ``ROOM_NUMBER`` built-in parameter&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;ROOM_NUMBER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_placed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ``bool`` for whether Room is Placed.</span>
+<span class="sd">        Uses result of ``Room.Location`` attribute to define if room is Placed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Location</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_bounded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ``bool`` for whether Room is Bounded.</span>
+<span class="sd">        Uses result of ``Room.Area`` attribute to define if room is Bounded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Area</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -1456,7 +1582,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">IsReadOnly</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Parameter is Read Only: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span>
-            
+
         <span class="c1"># Check if value provided matches storage type</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>
             <span class="c1"># If not, try to handle</span>
@@ -1512,7 +1638,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add selection count&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
