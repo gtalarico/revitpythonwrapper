@@ -2,6 +2,11 @@
 Element Wrappers provide a consitent interface for acccessing parameters and properties
 of commonly used elements.
 
+Note:
+    Although the wrappers are located in the module ``rpw.elements``, they
+    are imported by into the main module so they can be accessed
+    using ``rpw.Element``, ``rpw.Instance``, etc.
+
 """
 
 import rpw
@@ -443,7 +448,7 @@ class Room(Element):
     Attribute:
         _revit_object (DB.Architecture.Room): Wrapped ``DB.Architecture.Room``
     """
-    
+
     def __init__(self, room, enforce_type=DB.Architecture.Room):
         """
         Args:
@@ -453,21 +458,27 @@ class Room(Element):
 
     @property
     def name(self):
-        """ Room Name Parameter """
+        """ Room Name as parameter Value: ``ROOM_NAME`` built-in parameter"""
         # Note: For an unknown reason, roominstance.Name does not work on IPY
         return self.parameters.builtins['ROOM_NAME'].value
 
     @property
     def number(self):
-        """ Room Number as string """
+        """ Room Number as parameter Value: ``ROOM_NUMBER`` built-in parameter"""
         return self.parameters.builtins['ROOM_NUMBER'].value
 
     @property
     def is_placed(self):
+        """ ``bool`` for whether Room is Placed.
+        Uses result of ``Room.Location`` attribute to define if room is Placed.
+        """
         return bool(self._revit_object.Location)
 
     @property
     def is_bounded(self):
+        """ ``bool`` for whether Room is Bounded.
+        Uses result of ``Room.Area`` attribute to define if room is Bounded.
+        """
         return self._revit_object.Area > 0
 
     def __repr__(self):
