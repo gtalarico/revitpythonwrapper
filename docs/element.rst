@@ -103,6 +103,19 @@ Wall Element Tree Wrappers
 
 ----------------------------------------------
 
+Room
+************
+
+Room Wrapper
+
+.. autoclass:: rpw.element.Room
+    :members:
+    :private-members:
+    :special-members: __init__
+    :show-inheritance:
+
+----------------------------------------------
+
 ParameterSet
 ************
 

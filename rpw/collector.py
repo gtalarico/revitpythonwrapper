@@ -9,6 +9,7 @@
 from rpw import uidoc, doc, DB
 from rpw import List
 from rpw.base import BaseObjectWrapper
+from rpw.element import Element
 from rpw.exceptions import RPW_Exception
 from rpw.enumeration import BicEnum, BipEnum
 from rpw.utils.coerce import to_element_ids
@@ -137,6 +138,10 @@ class Collector(BaseObjectWrapper):
             return self.elements[0]
         except IndexError:
             return None
+
+    @property
+    def wrapped_elements(self):
+        return [Element.Factory(el) for el in self.elements]
 
     def __bool__(self):
         """ Evaluates to `True` if Collector.elements is not empty [] """

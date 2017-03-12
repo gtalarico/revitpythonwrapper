@@ -1,8 +1,6 @@
 """
-Element Wrappers provide helpful to accessing parameters and properties
-as shown below.
-
-The ``Element`` class is the base class for all Revit objects that inherit from Element.
+Element Wrappers provide a consitent interface for acccessing parameters and properties
+of commonly used elements.
 
 """
 
@@ -108,8 +106,10 @@ class Element(BaseObjectWrapper):
                       'WallKind': WallFamily,
                       'Room': Room,
                     }
-
-        element_class = CLASS_MAP[element.__class__.__name__]
+        element_class_name = element.__class__.__name__
+        element_class = CLASS_MAP.get(element_class_name)
+        if not element_class:
+            raise RPW_Exception('Factory does not support type: {}'.format(element_class_name))
         return element_class(element)
 
     def __repr__(self, data=None):
@@ -427,17 +427,23 @@ class WallCategory(Category):
 class Room(Element):
     """
     `DB.Architecture.Room` Wrapper
+    Inherits from :any:`Element`
 
     >>> room = rpw.Room(SomeRoom)
     <RPW_Room: Office:122>
     >>> room.name
     'Office'
-    >>> instance.number
+    >>> room.number
     '122'
+    >>> room.is_placed
+    True
+    >>> room.is_bounded
+    True
 
     Attribute:
         _revit_object (DB.Architecture.Room): Wrapped ``DB.Architecture.Room``
     """
+    
     def __init__(self, room, enforce_type=DB.Architecture.Room):
         """
         Args:
