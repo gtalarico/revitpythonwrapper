@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -94,6 +100,9 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#selectfromlist">SelectFromList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#textinput">TextInput</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alert">Alert</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
@@ -115,8 +124,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Revit Python Wrapper</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
       </nav>
 
 
@@ -125,23 +136,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Forms</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Forms</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/forms.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -150,10 +178,12 @@
   <div class="section" id="forms">
 <h1>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h1>
 <p>Forms are provided to facilitate user input.</p>
+<div class="section" id="selectfromlist">
+<h2>SelectFromList<a class="headerlink" href="#selectfromlist" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/select-from-list.png" src="_images/select-from-list.png" />
 <dl class="class">
-<dt id="rpw.forms.SelectFromList">
-<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.forms.forms.SelectFromList">
+<em class="property">class </em><code class="descclassname">rpw.forms.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
 <dd><p>WPF form with ComboBox dropdown.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -181,6 +211,9 @@
 </dl>
 </dd></dl>
 
+</div>
+<div class="section" id="textinput">
+<h2>TextInput<a class="headerlink" href="#textinput" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/text-input.png" src="_images/text-input.png" />
 <dl class="class">
 <dt id="rpw.forms.TextInput">
@@ -210,6 +243,42 @@
 </dl>
 </dd></dl>
 
+</div>
+<div class="section" id="alert">
+<h2>Alert<a class="headerlink" href="#alert" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/alert.png" src="_images/alert.png" />
+<dl class="class">
+<dt id="rpw.forms.Alert">
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">Alert</code><span class="sig-paren">(</span><em>message</em>, <em>title='Alert'</em>, <em>heading=''</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.Alert" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rpw.forms.Alert.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>message</em>, <em>title='Alert'</em>, <em>heading=''</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.Alert.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Standard Revit Alert.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>str</em>) &#8211; TaskDialog Message</li>
+<li><strong>title</strong> (<em>str, optional</em>) &#8211; TaskDialog Title</li>
+<li><strong>heading</strong> (<em>str, optional</em>) &#8211; TaskDialog Message Heading</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;Your Message&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s2">&quot;Some Heading&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
@@ -336,12 +405,23 @@
 
 
 <span class="k">class</span> <span class="nc">Alert</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="bp">NotImplemented</span>
-        <span class="c1"># dialog = TaskDialog(alert_title)</span>
-        <span class="c1"># dialog.MainInstruction = alert_heading</span>
-        <span class="c1"># dialog.MainContent = alert_content</span>
-        <span class="c1"># alert_result = dialog.Show()</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Alert&#39;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates Standard Revit Alert.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str): TaskDialog Message</span>
+<span class="sd">            title (str, optional): TaskDialog Title</span>
+<span class="sd">            heading (str, optional): TaskDialog Message Heading</span>
+
+
+<span class="sd">        Usage:</span>
+<span class="sd">            &gt;&gt;&gt; Alert(&#39;Your Message&#39;, title=&quot;Title&quot;, heading=&quot;Some Heading&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">UI</span><span class="o">.</span><span class="n">TaskDialog</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">MainInstruction</span> <span class="o">=</span> <span class="n">heading</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">MainContent</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="k">return</span> <span class="n">dialog</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
 
 
 
@@ -360,15 +440,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="enumeration.html" class="btn btn-neutral" title="Enumeration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="enumeration.html" class="btn btn-neutral" title="Enumeration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -402,7 +485,8 @@
             VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

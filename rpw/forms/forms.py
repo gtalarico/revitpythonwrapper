@@ -30,6 +30,7 @@ try:
 
     from System.Windows import Application, Window
     from System.IO import StringReader
+    from .. import UI
 except ImportError:
     from rpw.utils.sphinx_compat import *
 
@@ -163,12 +164,20 @@ class Alert():
 
         Args:
             message (str): TaskDialog Message
+<<<<<<< HEAD
             title ([str]): TaskDialog Title
+=======
+            title (str, optional): TaskDialog Title
+>>>>>>> 80d7f54c136b9b4e3c9c18acf9b99e3784fd3959
             heading (str, optional): TaskDialog Message Heading
 
 
         Usage:
+<<<<<<< HEAD
             >>> Alert('Message', title="Title", heading="Heading")
+=======
+            >>> Alert('Your Message', title="Title", heading="Some Heading")
+>>>>>>> 80d7f54c136b9b4e3c9c18acf9b99e3784fd3959
         """
         dialog = UI.TaskDialog(title)
         dialog.MainInstruction = heading
