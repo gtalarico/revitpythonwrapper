@@ -187,6 +187,12 @@
 <span id="element"></span><h2>Element<a class="headerlink" href="#module-rpw.element" title="Permalink to this headline">¶</a></h2>
 <p>Element Wrappers provide a consitent interface for acccessing parameters and properties
 of commonly used elements.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All these wrappers are located in the module <code class="docutils literal"><span class="pre">rpw.elements</span></code>, but
+are imported by into the main module so they can be accessed
+using <code class="docutils literal"><span class="pre">rpw.Element</span></code>, <code class="docutils literal"><span class="pre">rpw.Instance</span></code>, etc.</p>
+</div>
 <dl class="class">
 <dt id="rpw.element.Element">
 <em class="property">class </em><code class="descclassname">rpw.element.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.element.Element" title="Permalink to this definition">¶</a></dt>
@@ -523,9 +529,16 @@ to a Family, one would might use <code class="docutils literal"><span class="pre
 A Wall Instance is actually a <code class="docutils literal"><span class="pre">DB.Wall</span></code>; the <cite>Family Type</cite> of a wall
 is not a <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> type, but a <code class="docutils literal"><span class="pre">DB.WallType</span></code>;
 and instead of <code class="docutils literal"><span class="pre">.Family</span></code>, walls use <code class="docutils literal"><span class="pre">.Kind</span></code>.</p>
-<p class="last">These subclasses are used to
+<p>These subclasses are used to
 <cite>tweak</cite> the primary classes so navigation across the element tree is more
 consistent.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">SomeWallInstance</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">symbol</span>
+<span class="go">&lt; RPW_WallType: Wall 1&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">family</span>
+<span class="go">&lt; RPW_WallKind: Basic Wall&gt;</span>
+</pre></div>
+</div>
 </div>
 <dl class="class">
 <dt id="rpw.element.WallInstance">
@@ -875,6 +888,11 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Element Wrappers provide a consitent interface for acccessing parameters and properties</span>
 <span class="sd">of commonly used elements.</span>
+
+<span class="sd">Note:</span>
+<span class="sd">    All these wrappers are located in the module ``rpw.elements``, but</span>
+<span class="sd">    are imported by into the main module so they can be accessed</span>
+<span class="sd">    using ``rpw.Element``, ``rpw.Instance``, etc.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 

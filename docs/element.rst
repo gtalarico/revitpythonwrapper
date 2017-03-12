@@ -78,12 +78,11 @@ Wall Element Tree Wrappers
     `tweak` the primary classes so navigation across the element tree is more
     consistent.
 
-    .. ::
-        >>> wall = rpw.WallInstance(SomeWallInstance)
-        >>> wall.symbol
-        < RPW_WallType: Wall 1>
-        >>> wall.family
-        < RPW_WallKind: Basic Wall>
+    >>> wall = rpw.WallInstance(SomeWallInstance)
+    >>> wall.symbol
+    < RPW_WallType: Wall 1>
+    >>> wall.family
+    < RPW_WallKind: Basic Wall>
 
 .. autoclass:: rpw.element.WallInstance
     :show-inheritance:
