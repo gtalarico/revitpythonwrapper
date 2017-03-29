@@ -15,6 +15,8 @@ class MockDB(object):
 
 DB = MockDB()
 DB.__class__.__name__ = 'DB'
+UI = MockDB()
+UI.__class__.__name__ = 'UI'
 
 doc = None
 uidoc = None

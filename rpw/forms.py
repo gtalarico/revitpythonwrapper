@@ -9,28 +9,31 @@
 #       or import class into forms namespaces (failed sphinx build earlier)
 
 import sys
+from rpw.utils.logger import logger
 
 try:
     import clr
     import os
-    # IronPython.Wpf is included with RPW: script path is added.
-    sys.path.append(os.path.dirname(__file__))
     # Standard Location Added for use in Dynamo, where script cannot reach inside
-    # Zip file shipped through package Manager
     sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
     clr.AddReference("PresentationFramework")
     try:
+        clr.AddReference('IronPython')
+        clr.AddReference('IronPython.Modules')
         clr.AddReference('IronPython.Wpf')
-        import wpf
-    except IOError:
+        from IronPython.Modules import Wpf as wpf
+    except IOError as errmsg:
+        logger.error(errmsg)
         raise IOError('Could not find IronPython.Wpf. Path: {}'.format(str(sys.path)))
-    except ImportError:
+    except ImportError as errmsg:
+        logger.error(errmsg)
         raise ImportError('Could not Import IronPython.Wpf. Path: {}'.format(str(sys.path)))
 
     from System.Windows import Application, Window
     from System.IO import StringReader
-    from .. import UI
-except ImportError:
+    from rpw import UI
+except ImportError as errmsg:
+    logger.error('Import Error: {}'.format(errmsg))
     from rpw.utils.sphinx_compat import *
 
 
