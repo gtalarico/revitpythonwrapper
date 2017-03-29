@@ -69,16 +69,23 @@ def setUpModule():
         doc.LoadFamily(family_path, family)
         family = family.Value
         symbols = []
-        for family_symbol in family.Symbols:
+        # for family_symbol in family.Symbols:
+        for family_symbol_id in family.GetFamilySymbolIds():
+            family_symbol = doc.GetElement(family_symbol_id)
             symbols.append(family_symbol)
-    with rpw.Transaction('Place Instances'):
-        level = DB.FilteredElementCollector(doc).OfClass(DB.Level).WhereElementIsNotElementType().FirstElement()
-        doc.Create.NewFamilyInstance(DB.XYZ(5, 0, 0), symbols[0], level,
-                                     DB.Structure.StructuralType.NonStructural)
-        doc.Create.NewFamilyInstance(DB.XYZ(10, 4, 0), symbols[0], level,
-                                     DB.Structure.StructuralType.NonStructural)
-        doc.Create.NewFamilyInstance(DB.XYZ(15, 8, 0), symbols[1], level,
-                                     DB.Structure.StructuralType.NonStructural)
+    t = DB.Transaction(doc)
+    t.Start('Place Families')
+    logger.critical('Starting Transactions')
+    logger.critical(symbols)
+    try:
+        [s.Activate() for s in symbols]
+    except:
+        pass # Revit < 2016
+    level = DB.FilteredElementCollector(doc).OfClass(DB.Level).WhereElementIsNotElementType().FirstElement()
+    doc.Create.NewFamilyInstance(DB.XYZ(5, 0, 0), symbols[0], level, DB.Structure.StructuralType.NonStructural)
+    doc.Create.NewFamilyInstance(DB.XYZ(10, 4, 0), symbols[0], level, DB.Structure.StructuralType.NonStructural)
+    doc.Create.NewFamilyInstance(DB.XYZ(15, 8, 0), symbols[1], level, DB.Structure.StructuralType.NonStructural)
+    t.Commit()
 
 def tearDownModule():
     pass
