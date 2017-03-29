@@ -18,10 +18,12 @@ try:
     sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
     clr.AddReference("PresentationFramework")
     try:
-        clr.AddReference('IronPython')
-        clr.AddReference('IronPython.Modules')
-        clr.AddReference('IronPython.Wpf')
-        from IronPython.Modules import Wpf as wpf
+        # clr.AddReference('IronPython')
+        # clr.AddReference('IronPython.Modules')
+        # clr.AddReference('IronPython.Wpf')
+        # clr.AddReference('PresentationCore')
+        import wpf
+        # from IronPython.Modules import Wpf as wpf
     except IOError as errmsg:
         logger.error(errmsg)
         raise IOError('Could not find IronPython.Wpf. Path: {}'.format(str(sys.path)))
@@ -185,6 +187,10 @@ if __name__ == '__main__':
     prompt.show()
     print(prompt.selected)
 #
+    prompt = TextInput('Title', default="3")
+    prompt.show()
+    print(prompt.selected)
+
     prompt = TextInput('Title', default="3")
     prompt.show()
     print(prompt.selected)
