@@ -15,17 +15,17 @@ from rpw.utils.logger import logger
 
 class ParameterSet(BaseObjectWrapper):
     """
-    Allows you to treat an element parameters as a dictionary.
+    Allows you to treat an element's parameters as a dictionary.
 
-    This is used internally byt the Element Wrapper: and instance of This
-    class is returned on an warpped element ``parameters`` attribute,
-    but can also be used on it's own
+    This is used internally by Element Wrapper.
+    An instance of this is returned on an warpped element ``parameters``
+    attribute, but can also be used on it's own
 
     >>> element.parameters.all()
     >>> element.parameters['Comments'].value
     >>> element.parameters['Comments'].type
 
-    >>> paramters = ParameterSet(Element)
+    >>> parameters = ParameterSet(Element)
 
     Attributes:
         _revit_object (DB.Element) = Revit Reference
@@ -57,9 +57,10 @@ class ParameterSet(BaseObjectWrapper):
         return Parameter(parameter)
 
     def __setitem__(self, param_name, value):
-        """ Sets value to element's parameter
+        """ Sets value to element's parameter.
+        This is a shorcut to using `parameters['Name'].value = value`
 
-        >>> element.parameter['Height'] = value
+        >>> element.parameters['Height'] = value
         """
         parameter = self.__getitem__(param_name)
         parameter.value = value
@@ -193,12 +194,12 @@ class Parameter(BaseObjectWrapper):
         Returns:
             type: parameter value in python type
 
-        >>> desk.parameter['Height'].value
+        >>> desk.parameters['Height'].value
         >>> 3.0
 
         Sets Parameter Value (must be in Transaction Context):
 
-        >>> desk.parameter['Height'].value = 3
+        >>> desk.parameters['Height'].value = 3
 
         Note:
 
