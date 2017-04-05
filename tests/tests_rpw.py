@@ -51,9 +51,11 @@ def setUpModule():
     collector = DB.FilteredElementCollector(doc)
     desk = collector.OfCategory(DB.BuiltInCategory.OST_Furniture).FirstElement()
     if desk:
-        with rpw.Transaction('Delete Desk'):
-            f = desk.Family
-            doc.Delete(f.Id)
+        f = desk.Family
+        t = DB.Transaction(doc, 'Delete')
+        t.Start()
+        doc.Delete(f.Id)
+        t.Commit()
 
     ##################################################
     # Load Fixture Family and Place Instances
@@ -65,14 +67,16 @@ def setUpModule():
 
     logger.debug('LOADING SYMBOl')
     family = clr.Reference[DB.Family]()
-    with rpw.Transaction('Load Family'):
-        doc.LoadFamily(family_path, family)
-        family = family.Value
-        symbols = []
-        # for family_symbol in family.Symbols:
-        for family_symbol_id in family.GetFamilySymbolIds():
-            family_symbol = doc.GetElement(family_symbol_id)
-            symbols.append(family_symbol)
+    t = DB.Transaction(doc, 'Delete')
+    t.Start()
+    doc.LoadFamily(family_path, family)
+    t.Commit()
+    family = family.Value
+    symbols = []
+    # for family_symbol in family.Symbols:
+    for family_symbol_id in family.GetFamilySymbolIds():
+        family_symbol = doc.GetElement(family_symbol_id)
+        symbols.append(family_symbol)
     t = DB.Transaction(doc)
     t.Start('Place Families')
     logger.critical('Starting Transactions')
@@ -723,14 +727,13 @@ class WallTests(unittest.TestCase):
 
 
 def run():
-    logger.disable()
-    # logger.verbose(False)
+    # logger.disable()
+    logger.verbose(False)
 
-    from tests.tests_forms import *
-    suite = unittest.TestLoader().discover('tests')
-    # unittest.TextTestRunner(verbosity=2).run(suite)
+    # from tests.tests_forms import *
+    # suite = unittest.TestLoader().discover('tests')
 
-    # suite = unittest.TestLoader().loadTestsFromTestCase(FormSelectFromListTests)
+    suite = unittest.TestLoader().loadTestsFromTestCase(WallTests)
     # suite.addTest(unittest.TestLoader().loadTestsFromTestCase(FormTextInputTests))
 
     unittest.main(verbosity=3, buffer=False)

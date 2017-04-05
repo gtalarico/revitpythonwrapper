@@ -25,7 +25,8 @@ class Transaction(BaseObjectWrapper):
     def __init__(self, name=None):
         if name is None:
             name = 'RPW Transaction'
-        self.transaction = DB.Transaction(doc, name)
+        super(Transaction, self).__init__(DB.Transaction(doc, name))
+        self.transaction = self._revit_object
 
     def __enter__(self):
         self.transaction.Start()
@@ -97,7 +98,8 @@ class TransactionGroup(BaseObjectWrapper):
         """
         if name is None:
             name = 'RPW Transaction Group'
-        self.transaction_group = DB.TransactionGroup(doc, name)
+        super(TransactionGroup, self).__init__(DB.TransactionGroup(doc, name))
+        self.transaction_group = self._revit_object
         self.assimilate = assimilate
 
     def __enter__(self):

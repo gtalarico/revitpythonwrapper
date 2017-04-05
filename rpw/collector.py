@@ -155,7 +155,9 @@ class Collector(BaseObjectWrapper):
         return super(Collector, self).__repr__(len(self))
 
 
-class _Filter(BaseObjectWrapper):
+# class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain
+# _revit_object
+class _Filter():
     """ Filter for Collector class.
     Not to be confused with the Filter Class.
     """
@@ -351,11 +353,11 @@ class ParameterFilter(BaseObjectWrapper):
                 | ``reverse``: Reverses result of Collector
 
         """
-        self.parameter_id = parameter_id
-        self.conditions = conditions
-        self.reverse = conditions.get('reverse', False)
-        self.case_sensitive = conditions.get('case_sensitive', ParameterFilter.CASE_SENSITIVE)
-        self.precision = conditions.get('precision', ParameterFilter.FLOAT_PRECISION)
+        # self.parameter_id = parameter_id
+        conditions = conditions
+        reverse = conditions.get('reverse', False)
+        case_sensitive = conditions.get('case_sensitive', ParameterFilter.CASE_SENSITIVE)
+        precision = conditions.get('precision', ParameterFilter.FLOAT_PRECISION)
 
         for condition in conditions.keys():
             if condition not in ParameterFilter.RULES:
@@ -371,10 +373,10 @@ class ParameterFilter(BaseObjectWrapper):
             args = [condition_value]
 
             if isinstance(condition_value, str):
-                args.append(self.case_sensitive)
+                args.append(case_sensitive)
 
             if isinstance(condition_value, float):
-                args.append(self.precision)
+                args.append(precision)
 
             filter_rule = filter_value_rule(parameter_id, *args)
             if 'not_' in condition_name:
@@ -383,7 +385,7 @@ class ParameterFilter(BaseObjectWrapper):
             # FILTER DEBUG INFO - TODO: MOVE TO FUNCTION
             ##################################################################
             # logger.critical('Conditions: {}'.format(conditions))
-            # logger.critical('Case sensitive: {}'.format(self.case_sensitive))
+            # logger.critical('Case sensitive: {}'.format(case_sensitive))
             # logger.critical('Reverse: {}'.format(self.reverse))
             # logger.critical('ARGS: {}'.format(args))
             # logger.critical(filter_rule)
@@ -392,8 +394,10 @@ class ParameterFilter(BaseObjectWrapper):
             rules.append(filter_rule)
         if not rules:
             raise RPW_Exception('malformed filter rule: {}'.format(conditions))
-        self._revit_object = DB.ElementParameterFilter(List[DB.FilterRule](rules),
-                                                       self.reverse)
+
+        _revit_object = DB.ElementParameterFilter(List[DB.FilterRule](rules), reverse)
+        super(ParameterFilter, self).__init__(_revit_object)
+        self.conditions = conditions
 
     def __repr__(self):
-        return super(ParameterFilter, self).__repr__(self.conditions)
+        return super(ParameterFilter, self).__repr__(conditions)
