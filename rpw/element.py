@@ -70,6 +70,7 @@ class Element(BaseObjectWrapper):
 
     @property
     def id_as_int(self):
+        # TODO: Delete this
         """ Example of mapping existing properties"""
         return self._revit_object.Id.IntegerValue
 

@@ -155,8 +155,8 @@ class Collector(BaseObjectWrapper):
         return super(Collector, self).__repr__(len(self))
 
 
-# class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain
-# _revit_object
+# class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain _revit_object
+# TODO: Create BaseObject Class, for this  type of classes to inherit from
 class _Filter():
     """ Filter for Collector class.
     Not to be confused with the Filter Class.
@@ -400,4 +400,4 @@ class ParameterFilter(BaseObjectWrapper):
         self.conditions = conditions
 
     def __repr__(self):
-        return super(ParameterFilter, self).__repr__(conditions)
+        return super(ParameterFilter, self).__repr__(self.conditions)

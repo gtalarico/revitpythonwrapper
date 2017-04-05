@@ -43,7 +43,6 @@ class BaseObjectWrapper(object):
         # __dict__ used to prevent recursion
         object.__setattr__(self, '_revit_object', revit_object)
         # self.__dict__['_revit_object'] = revit_object
-        # self._custom_attrs = {}
 
     def __getattr__(self, attr):
         """
@@ -53,7 +52,6 @@ class BaseObjectWrapper(object):
         """
         # logger.error('Get Attr Called: {}'.format(attr))
         return getattr(self.__dict__['_revit_object'], attr)
-        # return getattr(self._revit_object, attr)
 
     # import rpw; from rpw.base import BaseObjectWrapper as B; w = B(selection[0])
     # Setter allows for WrappedWall.Pinned = True
@@ -63,43 +61,13 @@ class BaseObjectWrapper(object):
             self._revit_object.__setattr__(attr, value)
         else:
             super(BaseObjectWrapper, self).__setattr__(attr, value)
-    #     """
-    #     # Setter original methods and properties or the element.
-    #     # """
-        # if attr == '_revit_object':
-            # self.__dict__['_revit_object'] = value
-            # object.__setattr__(self, '_revit_object', value)
-        # try:
-        #     _revit_object = object.__getattribute__(self, '_revit_object')
-        # except AttributeError:
-        #
-        #     if hasattr(_revit_object, attr):
-        #         logger.error('{} is in {}'.format(attr, _revit_object))
-        #         object.__setattr__(_revit_object, attr, value)
-        #     else:
-        #         logger.error('{} is not in {}'.format(attr, _revit_object))
-
-    #         object.__setattr__(self._revit_object, attr, value)
-    #     except AttributeError:
-
-        # if attr == '_revit_object':
-            # self.__dict__['_revit_object'] = value
-        # _revit_object = self.__dict__.get('_revit_object')
-        # if _revit_object:
-            # if hasattr(_revit_object, attr):
-                # try:
-                    # setattr(_revit_object, attr, value)
-                # except AttributeError:
-                    # self.__dict__[attr] = value
 
     def unwrap(self):
         return self._revit_object
     #
     def __repr__(self, data=''):
-        return 'BO'
-        # pass
-    #     if not data:
-    #         data = self._revit_object.__class__.__name__
-    #     return '<RPW_{class_name}: {optional_data}>'.format(
-    #                                         class_name=self.__class__.__name__,
-    #                                         optional_data=data)
+        if not data:
+            data = self._revit_object.__class__.__name__
+        return '<RPW_{class_name}: {optional_data}>'.format(
+                                            class_name=self.__class__.__name__,
+                                            optional_data=data)
