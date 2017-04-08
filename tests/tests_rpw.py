@@ -214,10 +214,20 @@ class CollectorTests(unittest.TestCase):
                                        'is_not_type': True})
         assert all([isinstance(x, DB.Wall) for x in walls.elements])
 
+    def test_collector_is_element_false(self):
+        walls = self.collector_helper({'of_category': 'OST_Walls',
+                                       'is_not_type': False})
+        assert all([isinstance(x, DB.WallType) for x in walls.elements])
+
     def test_collector_is_element_type(self):
         walls = self.collector_helper({'of_category': 'OST_Walls',
                                        'is_type': True})
         assert all([isinstance(x, DB.WallType) for x in walls.elements])
+
+    def test_collector_is_element_type_false(self):
+        walls = self.collector_helper({'of_category': 'OST_Walls',
+                                       'is_type': False})
+        assert all([isinstance(x, DB.Wall) for x in walls.elements])
 
     def test_collector_is_view_dependent(self):
         fregions = self.collector_helper({'of_category': 'OST_FilledRegion'})
@@ -724,6 +734,21 @@ class WallTests(unittest.TestCase):
         self.assertIsInstance(wall_category, rpw.WallCategory)
         self.assertIsInstance(wall_category.unwrap(), DB.Category)
         self.assertEqual(wall_category.name, 'Walls')
+
+
+class WallTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+
+
+    def setUp(self):
+        wall = rpw.Collector(of_class='Wall', is_not_type=True).first
+        self.wall = rpw.WallInstance(wall)
+
+    def test_wall_instance_wrap(self):
+        self.assertIsInstance(self.wall, rpw.WallInstance)
+        self.assertIsInstance(self.wall.unwrap(), DB.Wall)
 
 
 def run():

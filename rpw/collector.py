@@ -214,6 +214,14 @@ class _Filter():
                 # Same as WhereIsElementType(bool)
                 if filter_value is True:
                     collector_results = collector_filter()
+                # This allow is_type=False to set is_not_type=True
+                elif filter_value is False and filter_name == 'is_type':
+                    collector_filter = getattr(collector, _Filter.MAP['is_not_type'])
+                    collector_results = collector_filter()
+                # This allow for is_not_type=False to set is_type=True
+                elif filter_value is False and filter_name == 'is_not_type':
+                    collector_filter = getattr(collector, _Filter.MAP['is_type'])
+                    collector_results = collector_filter()
             elif isinstance(filter_value, ParameterFilter):
                 # Same as WherePasses(ParameterFilter)
                 collector_results = collector_filter(filter_value._revit_object)
