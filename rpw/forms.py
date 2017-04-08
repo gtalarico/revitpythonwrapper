@@ -1,12 +1,7 @@
 """
->>> form = rpw.forms.SelectFromList('Test Window', ['1','2','3'])
->>> form.show()
->>> print(form.selected)
->>> '1'
+Forms are provided to facilitate user input.
 
 """
-# TODO: Move to __init__.py to avoid rpw.forms.forms
-#       or import class into forms namespaces (failed sphinx build earlier)
 
 import sys
 from rpw.utils.logger import logger

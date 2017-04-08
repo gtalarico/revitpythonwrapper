@@ -10,10 +10,10 @@ class Transaction(BaseObjectWrapper):
     ``Transaction.Commit()`` before and after the context.
     Automatically rolls back if exception is raised.
 
-    >>> with Transaction('Move Wall'):
+    >>> with rpw.Transaction('Move Wall'):
     >>>     wall.DoSomething()
 
-    >>> with Transaction('Move Wall') as t:
+    >>> with rpw.Transaction('Move Wall') as t:
     >>>     wall.DoSomething()
     >>>     assert t == DB.TransactionStatus.Started  # True
     >>> assert t == DB.TransactionStatus.Committed    # True
@@ -57,7 +57,7 @@ class Transaction(BaseObjectWrapper):
         Args:
             name (str): Name of the Transaction
 
-        >>> @Transaction.ensure('Do Something')
+        >>> @rpw.Transaction.ensure('Do Something')
         >>> def set_some_parameter(wall, value):
         >>>     wall.parameters['Comments'].value = value
         >>>
@@ -80,12 +80,12 @@ class TransactionGroup(BaseObjectWrapper):
     """
     Similar to Transaction, but for ``DB.Transaction Group``
 
-    >>> with TransacationGroup('Do Major Task'):
-    >>>     with Transaction('Do Task'):
+    >>> with rpw.TransacationGroup('Do Major Task'):
+    >>>     with rpw.Transaction('Do Task'):
     >>>         # Do Stuff
 
-    >>> with TransacationGroup('Do Major Task', assimilate=False):
-    >>>     with Transaction('Do Task'):
+    >>> with rpw.TransacationGroup('Do Major Task', assimilate=False):
+    >>>     with rpw.Transaction('Do Task'):
     >>>         # Do Stuff
 
 

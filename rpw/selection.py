@@ -12,7 +12,7 @@ from rpw.utils.coerce import to_element_ids
 
 class Selection(BaseObjectWrapper):
     """
-    >>> selection = Selection()
+    >>> selection = rpw.Selection()
     >>> selection[0]
     FirstElement
     >>> selection.element_ids
@@ -23,7 +23,7 @@ class Selection(BaseObjectWrapper):
     2
 
     Wrapped Element:
-        self._revit_object = `Revit.UI.Selection`
+        _revit_object = `Revit.UI.Selection`
     """
 
     def __init__(self, elements=None):

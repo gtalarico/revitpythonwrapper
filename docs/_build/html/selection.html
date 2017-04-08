@@ -151,10 +151,10 @@
 <span id="selection"></span><h1>Selection<a class="headerlink" href="#module-rpw.selection" title="Permalink to this headline">¶</a></h1>
 <p><cite>uidoc.Selection</cite> Wrapper</p>
 <dl class="class">
-<dt id="rpw.selection.Selection">
-<em class="property">class </em><code class="descclassname">rpw.selection.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
+<dt id="rpw.Selection">
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">FirstElement</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">element_ids</span>
@@ -167,11 +167,11 @@
 </div>
 <dl class="docutils">
 <dt>Wrapped Element:</dt>
-<dd>self._revit_object = <cite>Revit.UI.Selection</cite></dd>
+<dd>_revit_object = <cite>Revit.UI.Selection</cite></dd>
 </dl>
 <dl class="method">
-<dt id="rpw.selection.Selection.__bool__">
-<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__bool__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.__bool__">
+<code class="descname">__bool__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection.__bool__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -196,8 +196,8 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.selection.Selection.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves element in seleciton using index.
 If Index is out range, <code class="docutils literal"><span class="pre">None</span></code> is returned</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -219,8 +219,8 @@ If Index is out range, <code class="docutils literal"><span class="pre">None</sp
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.selection.Selection.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>elements=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes Selection. Elements or ElementIds are optional.
 If no elements are provided on intiialization,
 selection handler will be created with selected elements.</p>
@@ -240,8 +240,8 @@ selection handler will be created with selected elements.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.selection.Selection.__len__">
-<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.__len__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection.__len__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Number items of Selection</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">(</span><span class="n">OneElement</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span>
@@ -251,8 +251,8 @@ selection handler will be created with selected elements.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.selection.Selection.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>elements_or_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.add" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>elements_or_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds elements to selection.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -271,8 +271,8 @@ selection handler will be created with selected elements.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.selection.Selection.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.selection.Selection.clear" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Selection.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears Selection</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
@@ -289,8 +289,8 @@ selection handler will be created with selected elements.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.selection.Selection.element_ids">
-<code class="descname">element_ids</code><a class="headerlink" href="#rpw.selection.Selection.element_ids" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.element_ids">
+<code class="descname">element_ids</code><a class="headerlink" href="#rpw.Selection.element_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets list of <code class="docutils literal"><span class="pre">`ElemendId</span></code> in selection</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -305,8 +305,8 @@ selection handler will be created with selected elements.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.selection.Selection.elements">
-<code class="descname">elements</code><a class="headerlink" href="#rpw.selection.Selection.elements" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Selection.elements">
+<code class="descname">elements</code><a class="headerlink" href="#rpw.Selection.elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets list of <code class="docutils literal"><span class="pre">`Elemend</span></code> in selection</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -339,7 +339,7 @@ selection handler will be created with selected elements.</p>
 
 <span class="k">class</span> <span class="nc">Selection</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    &gt;&gt;&gt; selection = Selection()</span>
+<span class="sd">    &gt;&gt;&gt; selection = rpw.Selection()</span>
 <span class="sd">    &gt;&gt;&gt; selection[0]</span>
 <span class="sd">    FirstElement</span>
 <span class="sd">    &gt;&gt;&gt; selection.element_ids</span>
@@ -350,7 +350,7 @@ selection handler will be created with selected elements.</p>
 <span class="sd">    2</span>
 
 <span class="sd">    Wrapped Element:</span>
-<span class="sd">        self._revit_object = `Revit.UI.Selection`</span>
+<span class="sd">        _revit_object = `Revit.UI.Selection`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

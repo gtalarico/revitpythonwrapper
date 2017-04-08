@@ -21,7 +21,6 @@ UI.__class__.__name__ = 'UI'
 doc = None
 uidoc = None
 version = None
-platform = None
 List = None
 Enum = None
 wpf = None

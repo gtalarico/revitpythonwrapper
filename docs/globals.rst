@@ -18,19 +18,19 @@ Global variables normalize imports across platforms.
 
 .. data:: doc
     :module: rpw
-    :annotation: Application Document handler
+    :annotation:  Application Document handler
 
 .. data:: uidoc
     :module: rpw
-    :annotation: UI Document handler
+    :annotation:  UI Document handler
 
 .. data:: UI
     :module: rpw
-    :annotation: Revit.UI Namespace
+    :annotation:  Revit.UI Namespace
 
 .. data:: DB
     :module: rpw
-    :annotation:  Revit.DB Namespace
+    :annotation:   Revit.DB Namespace
 
 .. hint::
     Besides creating these global variables, the module's global variable initializer

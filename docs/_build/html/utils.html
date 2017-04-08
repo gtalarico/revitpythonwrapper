@@ -150,10 +150,20 @@
   <div class="section" id="utilities">
 <h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
 <p>Coerce / Type Casting</p>
-<span class="target" id="module-rpw.utils.coerce"></span><dl class="function">
+<span class="target" id="module-rpw.utils.coerce"></span><p>Type Casting Utilities</p>
+<dl class="function">
 <dt id="rpw.utils.coerce.to_element_ids">
 <code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_element_ids</code><span class="sig-paren">(</span><em>elements</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_element_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces an element or list of elements into element ids. Elements remain unchanged.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_element_ids</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+<span class="go">[ DB.ElementId ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_element_ids</span><span class="p">(</span><span class="mi">20001</span><span class="p">)</span>
+<span class="go">[ DB.ElementId ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_element_ids</span><span class="p">([</span><span class="mi">20001</span><span class="p">,</span> <span class="mi">20003</span><span class="p">])</span>
+<span class="go">[ DB.ElementId, DB.ElementId ]</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -173,6 +183,15 @@
 <code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_elements</code><span class="sig-paren">(</span><em>element_references</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces element reference (<code class="docutils literal"><span class="pre">int</span></code>, or <code class="docutils literal"><span class="pre">ElementId</span></code>) into <code class="docutils literal"><span class="pre">DB.Element</span></code>.
 Remains unchanged if it&#8217;s already <code class="docutils literal"><span class="pre">DB.Element</span></code>. Accepts single object or lists</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_elements</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_elements</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
+<span class="go">[ DB.Element ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_elements</span><span class="p">(</span><span class="mi">20001</span><span class="p">)</span>
+<span class="go">[ DB.Element ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_elements</span><span class="p">([</span><span class="mi">20001</span><span class="p">,</span> <span class="mi">20003</span><span class="p">])</span>
+<span class="go">[ DB.Element, DB.Element ]</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -190,13 +209,27 @@ Remains unchanged if it&#8217;s already <code class="docutils literal"><span cla
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Type Casting Utilities</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_TypeError</span>
 
 
 <span class="k">def</span> <span class="nf">to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Coerces an element or list of elements into element ids. Elements remain unchanged.</span>
+
+<span class="sd">    &gt;&gt;&gt; from rpw.utils.coerce import to_element_ids</span>
+<span class="sd">    &gt;&gt;&gt; to_element_ids(DB.Element)</span>
+<span class="sd">    [ DB.ElementId ]</span>
+<span class="sd">    &gt;&gt;&gt; to_element_ids(20001)</span>
+<span class="sd">    [ DB.ElementId ]</span>
+<span class="sd">    &gt;&gt;&gt; to_element_ids([20001, 20003])</span>
+<span class="sd">    [ DB.ElementId, DB.ElementId ]</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        elements (``DB.Element``): Iterable list (``list`` or ``set``) or single of ``Element``, ``int``.</span>
@@ -226,6 +259,14 @@ Remains unchanged if it&#8217;s already <code class="docutils literal"><span cla
 <span class="k">def</span> <span class="nf">to_elements</span><span class="p">(</span><span class="n">element_references</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Coerces element reference (``int``, or ``ElementId``) into ``DB.Element``.</span>
 <span class="sd">    Remains unchanged if it&#39;s already ``DB.Element``. Accepts single object or lists</span>
+
+<span class="sd">    &gt;&gt;&gt; from rpw.utils.coerce import to_elements</span>
+<span class="sd">    &gt;&gt;&gt; to_elements(DB.ElementId)</span>
+<span class="sd">    [ DB.Element ]</span>
+<span class="sd">    &gt;&gt;&gt; to_elements(20001)</span>
+<span class="sd">    [ DB.Element ]</span>
+<span class="sd">    &gt;&gt;&gt; to_elements([20001, 20003])</span>
+<span class="sd">    [ DB.Element, DB.Element ]</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        element_references ([``DB.ElementId``, ``int``, ``DB.Element``]): Element Reference, single or list</span>

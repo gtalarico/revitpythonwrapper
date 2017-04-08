@@ -119,6 +119,8 @@ paired with an example sans-rpw.
     >>> from rpw import doc, uidoc, DB, UI
     >>> uidoc.ActiveView
 
+Without RPW
+
     >>> # Dynamo Example
     >>> import clr
     >>> clr.AddReference('RevitAPI')
@@ -145,6 +147,8 @@ paired with an example sans-rpw.
     >>> from rpw import doc
     >>> with rpw.Transaction('Delete Object'):
     >>>     doc.Remove(SomeElementId)
+
+Without RPW
 
     >>> # Typical Transaction In Dynamo
     >>> import clr
@@ -186,6 +190,8 @@ paired with an example sans-rpw.
     >>> # Other Features
     >>> selection.clear()
     >>> selection.add(DB.Element or DB.ElementId)
+
+Without RPW
 
     >>> # In Revit Python Shell
     >>> uidoc = __revit__.ActiveUIDocument # Different for Dynamo
@@ -247,6 +253,8 @@ paired with an example sans-rpw.
     >>> aview = rpw.Collector(of_category='OST_Views', is_element_type=True).first
     < instance DB.View>
 
+Without RPW
+
     >>> # Typical API Example:
     >>> from Autodesk.Revit.DB import FilteredElementCollector, WallType
     >>> collector = FilteredElementCollector()
@@ -258,6 +266,8 @@ paired with an example sans-rpw.
     >>> import rpw
     >>> filter_rule = rpw.ParameterFilter(some_param_id, greater=3)
     >>> collector = rpw.Collector(of_class='WallType', paramter_filter=filter_rule)
+
+Without RPW
 
     >>> # Typical API Example:
     >>> from Autodesk.Revit.DB import FilteredElementCollector, WallType

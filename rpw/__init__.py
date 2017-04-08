@@ -56,7 +56,9 @@ else:
             logger.info('Running in Dynamo')
 
 
-if platform is not None:
+if platform is not None or platform.get('testing'):
+    logger.info('Importing Modules to rpw namespace')
+    from rpw.base import BaseObjectWrapper
     from rpw.element import Element, Instance, Symbol, Family, Category
     from rpw.element import WallInstance, WallSymbol, WallFamily, WallCategory
     from rpw.element import Room

@@ -158,8 +158,8 @@
 </pre></div>
 </div>
 <dl class="class">
-<dt id="rpw.collector.Collector">
-<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Collector">
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Collector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Revit FilteredElement Collector Wrapper</p>
 <dl class="docutils">
@@ -213,8 +213,8 @@
 <dd>self._revit_object = <code class="docutils literal"><span class="pre">Revit.DB.FilteredElementCollector</span></code></dd>
 </dl>
 <dl class="method">
-<dt id="rpw.collector.Collector.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.Collector.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Collector.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Collector.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -223,7 +223,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>Collector</strong> &#8211; Collector Instance</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.collector.Collector" title="rpw.collector.Collector"><code class="xref any py py-class docutils literal"><span class="pre">Collector</span></code></a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.Collector" title="rpw.Collector"><code class="xref any py py-class docutils literal"><span class="pre">Collector</span></code></a></td>
 </tr>
 </tbody>
 </table>
@@ -250,25 +250,26 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <li><code class="docutils literal"><span class="pre">of_category</span></code> (<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>): Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Type can be Enum member or String: <code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">OST_Wall</span></code></li>
 <li><code class="docutils literal"><span class="pre">is_view_independent</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
 <li><code class="docutils literal"><span class="pre">symbol</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">DB.Element</span></code>)`: Element or ElementId of Symbol</li>
-<li><code class="docutils literal"><span class="pre">parameter_filter</span></code> (<a class="reference internal" href="#rpw.collector.ParameterFilter" title="rpw.collector.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a>): Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
+<li><code class="docutils literal"><span class="pre">parameter_filter</span></code> (<a class="reference internal" href="#rpw.ParameterFilter" title="rpw.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a>): Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.collector.Collector.first">
-<code class="descname">first</code><a class="headerlink" href="#rpw.collector.Collector.first" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Collector.first">
+<code class="descname">first</code><a class="headerlink" href="#rpw.Collector.first" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the first element in collector, or None</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="rpw.collector.ParameterFilter">
-<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">ParameterFilter</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.ParameterFilter" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.ParameterFilter">
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">ParameterFilter</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ParameterFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Parameter Filter Wrapper</p>
+<p>Parameter Filter Wrapper.
+Used to build a parameter filter to be used with the Collector.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">param_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElemendId</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">SOME_PARAMETER</span><span class="p">)</span>
@@ -289,8 +290,8 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 </tbody>
 </table>
 <dl class="method">
-<dt id="rpw.collector.ParameterFilter.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector.ParameterFilter.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.ParameterFilter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ParameterFilter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates Parameter Filter Rule</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">param_rule</span> <span class="o">=</span> <span class="n">ParameterFilter</span><span class="p">(</span><span class="n">param_id</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">param_rule</span> <span class="o">=</span> <span class="n">ParameterFilter</span><span class="p">(</span><span class="n">param_id</span><span class="p">,</span> <span class="n">not_equals</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -333,73 +334,6 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="rpw.collector._FamilyInstanceFilter">
-<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_FamilyInstanceFilter</code><span class="sig-paren">(</span><em>symbol_or_id</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Used internally by Collector to provide the <code class="docutils literal"><span class="pre">symbol</span></code> keyword filter.
-It returns a <code class="docutils literal"><span class="pre">DB.FamilyInstanceFilter</span></code> which is then used by the
-<code class="docutils literal"><span class="pre">FilterElementCollector.WherePasses()</span></code> method to filter by symbol type.</p>
-<dl class="method">
-<dt id="rpw.collector._FamilyInstanceFilter.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol_or_id</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._FamilyInstanceFilter.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symbol_or_id</strong> (<code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>) &#8211; FamilySymbol or ElementId</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">FamilyInstanceFilter</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DB.FamilyInstanceFilter</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="rpw.collector._Filter">
-<em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_Filter</code><span class="sig-paren">(</span><em>collector</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Filter for Collector class.
-Not to be confused with the Filter Class.</p>
-<dl class="method">
-<dt id="rpw.collector._Filter._chain">
-<code class="descname">_chain</code><span class="sig-paren">(</span><em>filters</em>, <em>collector=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter._chain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Chain filters together.</p>
-<p>Builts API syntax, by converting <code class="docutils literal"><span class="pre">`collector.filter(of_class=X,</span> <span class="pre">is_not_type=True)</span></code>
-into: <code class="docutils literal"><span class="pre">`FilteredElementCollector.OfClass(X).WhereElementisNotElementType()</span></code></p>
-<p>Iteration happens over a copy of filter dictionary, so applied filter
-can be poppped before chain enters deeper recursion level.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rpw.collector._Filter._coerce_filter_values">
-<code class="descname">_coerce_filter_values</code><span class="sig-paren">(</span><em>filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter._coerce_filter_values" title="Permalink to this definition">¶</a></dt>
-<dd><p>Allows filter values to be either Enumerate or string</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">WallType</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">String Connversion for <code class="docutils literal"><span class="pre">of_class</span></code> only works for the <code class="docutils literal"><span class="pre">Revit.DB</span></code>
-namespace.</p>
-</div>
 </dd></dl>
 
 </dd></dl>
@@ -628,7 +562,7 @@ namespace.</p>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;symbol&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as WherePasses(FamilyInstanceFilter)</span>
-                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_collector_doc</span><span class="p">)</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_collector_doc</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_class&#39;</span> <span class="ow">or</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_category&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as OfCategory(filter_value) and OfClass(filter_value)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span>
@@ -668,9 +602,12 @@ namespace.</p>
 
 <span class="k">class</span> <span class="nc">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Used internally by Collector to provide the ``symbol`` keyword filter.</span>
+<span class="sd">    Used by Collector to provide the ``symbol`` keyword filter.</span>
 <span class="sd">    It returns a ``DB.FamilyInstanceFilter`` which is then used by the</span>
 <span class="sd">    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.</span>
+
+<span class="sd">    Wrapped Element:</span>
+<span class="sd">        self._revit_object = ``Revit.DB.FamilyInstanceFilter``</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">):</span>
@@ -679,7 +616,7 @@ namespace.</p>
 <span class="sd">            symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            DB.FamilyInstanceFilter: FamilyInstanceFilter</span>
+<span class="sd">            DB.FamilyInstanceFilter: _FamilyInstanceFilter</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">):</span>
             <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span>
@@ -690,7 +627,8 @@ namespace.</p>
 
 
 <span class="k">class</span> <span class="nc">ParameterFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Parameter Filter Wrapper</span>
+    <span class="sd">&quot;&quot;&quot; Parameter Filter Wrapper.</span>
+<span class="sd">    Used to build a parameter filter to be used with the Collector.</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; param_id = DB.ElemendId(DB.BuiltInParameter.SOME_PARAMETER)</span>

@@ -8,7 +8,8 @@
 Forms
 ==================
 
-Forms are provided to facilitate user input.
+.. automodule:: rpw.forms
+    :undoc-members:
 
 SelectFromList
 **************

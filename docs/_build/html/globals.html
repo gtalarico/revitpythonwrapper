@@ -276,7 +276,9 @@ libraries right away, and skip the typical:</p>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Running in Dynamo&#39;</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">platform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">platform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing&#39;</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Importing Modules to rpw namespace&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
     <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Family</span><span class="p">,</span> <span class="n">Category</span>
     <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">WallInstance</span><span class="p">,</span> <span class="n">WallSymbol</span><span class="p">,</span> <span class="n">WallFamily</span><span class="p">,</span> <span class="n">WallCategory</span>
     <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Room</span>

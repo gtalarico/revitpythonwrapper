@@ -9,6 +9,9 @@ Selection
 ==================
 
 .. automodule:: rpw.selection
+    :undoc-members:
+
+.. autoclass:: rpw.Selection
     :members:
     :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
     :private-members:

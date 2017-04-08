@@ -18,11 +18,12 @@ class ParameterSet(BaseObjectWrapper):
     Allows you to treat an element's parameters as a dictionary.
 
     This is used internally by Element Wrapper.
-    An instance of this is returned on an warpped element ``parameters``
-    attribute, but can also be used on it's own
+    An instance of this class is returned on the ``parameters``
+    attribute of wrapped elements.
 
     >>> element.parameters.all()
     >>> element.parameters['Comments'].value
+    >>> element.parameters['Comments'].value = 'Something'
     >>> element.parameters['Comments'].type
 
     >>> parameters = ParameterSet(Element)
@@ -120,7 +121,7 @@ class _BuiltInParameterSet(BaseObjectWrapper):
 
 class Parameter(BaseObjectWrapper):
     """
-    Primarily for internal use by :any:`rpw.element.Element`, but can be used on it's own.
+    Primarily for internal use by :any:`rpw.Element`, but can be used on it's own.
 
     >>> parameter = Parameter(DB.Parameter)
     >>> parameter.type

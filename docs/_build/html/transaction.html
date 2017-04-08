@@ -151,17 +151,17 @@
 <h1>Transaction<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h1>
 <p>Wrappers to make Revit Transactions work with Python Context Manager.</p>
 <span class="target" id="module-rpw.transaction"></span><dl class="class">
-<dt id="rpw.transaction.Transaction">
-<em class="property">class </em><code class="descclassname">rpw.transaction.</code><code class="descname">Transaction</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<dt id="rpw.Transaction">
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Transaction</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Simplifies transactions by applying <code class="docutils literal"><span class="pre">Transaction.Start()</span></code> and
 <code class="docutils literal"><span class="pre">Transaction.Commit()</span></code> before and after the context.
 Automatically rolls back if exception is raised.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Move Wall&#39;</span><span class="p">):</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Move Wall&#39;</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">DoSomething</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Move Wall&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Move Wall&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">DoSomething</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="k">assert</span> <span class="n">t</span> <span class="o">==</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span>  <span class="c1"># True</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">t</span> <span class="o">==</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span>    <span class="c1"># True</span>
@@ -172,8 +172,8 @@ Automatically rolls back if exception is raised.</p>
 <dd>self._revit_object = <cite>Revit.DB.Transaction</cite></dd>
 </dl>
 <dl class="staticmethod">
-<dt id="rpw.transaction.Transaction.ensure">
-<em class="property">static </em><code class="descname">ensure</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.Transaction.ensure" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.Transaction.ensure">
+<em class="property">static </em><code class="descname">ensure</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Transaction.ensure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transaction Manager Decorator</p>
 <p>Decorate any function with <code class="docutils literal"><span class="pre">&#64;Transaction.ensure('Transaction</span> <span class="pre">Name')</span></code>
 and the funciton will run within a Transaction Context.</p>
@@ -185,47 +185,13 @@ and the funciton will run within a Transaction Context.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@Transaction</span><span class="o">.</span><span class="n">ensure</span><span class="p">(</span><span class="s1">&#39;Do Something&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">ensure</span><span class="p">(</span><span class="s1">&#39;Do Something&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">set_some_parameter</span><span class="p">(</span><span class="n">wall</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">set_some_parameter</span><span class="p">(</span><span class="n">wall</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="rpw.transaction.TransactionGroup">
-<em class="property">class </em><code class="descclassname">rpw.transaction.</code><code class="descname">TransactionGroup</code><span class="sig-paren">(</span><em>name=None</em>, <em>assimilate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.TransactionGroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Similar to Transaction, but for <code class="docutils literal"><span class="pre">DB.Transaction</span> <span class="pre">Group</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">TransacationGroup</span><span class="p">(</span><span class="s1">&#39;Do Major Task&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Do Task&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="c1"># Do Stuff</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">TransacationGroup</span><span class="p">(</span><span class="s1">&#39;Do Major Task&#39;</span><span class="p">,</span> <span class="n">assimilate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">with</span> <span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Do Task&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>        <span class="c1"># Do Stuff</span>
-</pre></div>
-</div>
-<dl class="method">
-<dt id="rpw.transaction.TransactionGroup.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>name=None</em>, <em>assimilate=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.transaction.TransactionGroup.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<em>str</em>) &#8211; Name of the Transaction</li>
-<li><strong>assimilate</strong> (<em>bool</em>) &#8211; If assimilates is <code class="docutils literal"><span class="pre">True</span></code>, transaction history is <cite>squashed</cite>.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -245,10 +211,10 @@ and the funciton will run within a Transaction Context.</p>
 <span class="sd">    ``Transaction.Commit()`` before and after the context.</span>
 <span class="sd">    Automatically rolls back if exception is raised.</span>
 
-<span class="sd">    &gt;&gt;&gt; with Transaction(&#39;Move Wall&#39;):</span>
+<span class="sd">    &gt;&gt;&gt; with rpw.Transaction(&#39;Move Wall&#39;):</span>
 <span class="sd">    &gt;&gt;&gt;     wall.DoSomething()</span>
 
-<span class="sd">    &gt;&gt;&gt; with Transaction(&#39;Move Wall&#39;) as t:</span>
+<span class="sd">    &gt;&gt;&gt; with rpw.Transaction(&#39;Move Wall&#39;) as t:</span>
 <span class="sd">    &gt;&gt;&gt;     wall.DoSomething()</span>
 <span class="sd">    &gt;&gt;&gt;     assert t == DB.TransactionStatus.Started  # True</span>
 <span class="sd">    &gt;&gt;&gt; assert t == DB.TransactionStatus.Committed    # True</span>
@@ -292,7 +258,7 @@ and the funciton will run within a Transaction Context.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            name (str): Name of the Transaction</span>
 
-<span class="sd">        &gt;&gt;&gt; @Transaction.ensure(&#39;Do Something&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; @rpw.Transaction.ensure(&#39;Do Something&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; def set_some_parameter(wall, value):</span>
 <span class="sd">        &gt;&gt;&gt;     wall.parameters[&#39;Comments&#39;].value = value</span>
 <span class="sd">        &gt;&gt;&gt;</span>
@@ -315,12 +281,12 @@ and the funciton will run within a Transaction Context.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Similar to Transaction, but for ``DB.Transaction Group``</span>
 
-<span class="sd">    &gt;&gt;&gt; with TransacationGroup(&#39;Do Major Task&#39;):</span>
-<span class="sd">    &gt;&gt;&gt;     with Transaction(&#39;Do Task&#39;):</span>
+<span class="sd">    &gt;&gt;&gt; with rpw.TransacationGroup(&#39;Do Major Task&#39;):</span>
+<span class="sd">    &gt;&gt;&gt;     with rpw.Transaction(&#39;Do Task&#39;):</span>
 <span class="sd">    &gt;&gt;&gt;         # Do Stuff</span>
 
-<span class="sd">    &gt;&gt;&gt; with TransacationGroup(&#39;Do Major Task&#39;, assimilate=False):</span>
-<span class="sd">    &gt;&gt;&gt;     with Transaction(&#39;Do Task&#39;):</span>
+<span class="sd">    &gt;&gt;&gt; with rpw.TransacationGroup(&#39;Do Major Task&#39;, assimilate=False):</span>
+<span class="sd">    &gt;&gt;&gt;     with rpw.Transaction(&#39;Do Task&#39;):</span>
 <span class="sd">    &gt;&gt;&gt;         # Do Stuff</span>
 
 

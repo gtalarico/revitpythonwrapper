@@ -233,6 +233,7 @@ paired with an example sans-rpw.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
 </pre></div>
 </div>
+<p>Without RPW</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Dynamo Example</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
@@ -261,6 +262,7 @@ paired with an example sans-rpw.</p>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Without RPW</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical Transaction In Dynamo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">clr</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
@@ -305,6 +307,7 @@ paired with an example sans-rpw.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Element</span> <span class="ow">or</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Without RPW</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># In Revit Python Shell</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span> <span class="c1"># Different for Dynamo</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection_ids</span> <span class="o">=</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">GetElementIds</span><span class="p">()</span>
@@ -330,10 +333,10 @@ paired with an example sans-rpw.</p>
 </pre></div>
 </div>
 <p>Access to original attributes, and parameters are provided
-by the <a class="reference internal" href="element.html#rpw.element.Element" title="rpw.element.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper. More Specialized Wrappers
+by the <a class="reference internal" href="element.html#rpw.Element" title="rpw.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper. More Specialized Wrappers
 also provide additional features based on its type:
-<code class="docutils literal"><span class="pre">DB.FamilyInstace</span></code> (<a class="reference internal" href="element.html#rpw.element.Instance" title="rpw.element.Instance"><code class="xref any py py-class docutils literal"><span class="pre">Instance</span></code></a>), <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> (<a class="reference internal" href="element.html#rpw.element.Symbol" title="rpw.element.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a>),
-<code class="docutils literal"><span class="pre">DB.Family</span></code> (<a class="reference internal" href="element.html#rpw.element.Family" title="rpw.element.Family"><code class="xref any py py-class docutils literal"><span class="pre">Family</span></code></a>), and <code class="docutils literal"><span class="pre">DB.Category</span></code> (<a class="reference internal" href="element.html#rpw.element.Category" title="rpw.element.Category"><code class="xref any py py-class docutils literal"><span class="pre">Category</span></code></a>).</p>
+<code class="docutils literal"><span class="pre">DB.FamilyInstace</span></code> (<a class="reference internal" href="element.html#rpw.Instance" title="rpw.Instance"><code class="xref any py py-class docutils literal"><span class="pre">Instance</span></code></a>), <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> (<a class="reference internal" href="element.html#rpw.Symbol" title="rpw.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a>),
+<code class="docutils literal"><span class="pre">DB.Family</span></code> (<a class="reference internal" href="element.html#rpw.Family" title="rpw.Family"><code class="xref any py py-class docutils literal"><span class="pre">Family</span></code></a>), and <code class="docutils literal"><span class="pre">DB.Category</span></code> (<a class="reference internal" href="element.html#rpw.Category" title="rpw.Category"><code class="xref any py py-class docutils literal"><span class="pre">Category</span></code></a>).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span>
 <span class="go">&#39;Comment&#39;</span>
@@ -368,6 +371,7 @@ also provide additional features based on its type:
 <span class="go">&lt; instance DB.View&gt;</span>
 </pre></div>
 </div>
+<p>Without RPW</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical API Example:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">FilteredElementCollector</span><span class="p">,</span> <span class="n">WallType</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="p">()</span>
@@ -376,12 +380,13 @@ also provide additional features based on its type:
 </div>
 </div>
 <div class="section" id="parameterfilter">
-<h3><a class="reference internal" href="collector.html#rpw.collector.ParameterFilter" title="rpw.collector.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
+<h3><a class="reference internal" href="collector.html#rpw.ParameterFilter" title="rpw.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">filter_rule</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ParameterFilter</span><span class="p">(</span><span class="n">some_param_id</span><span class="p">,</span> <span class="n">greater</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">,</span> <span class="n">paramter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Without RPW</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical API Example:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">FilteredElementCollector</span><span class="p">,</span> <span class="n">WallType</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">ParameterFilterRuleFactory</span><span class="p">,</span> <span class="n">ElementParameterFilter</span>

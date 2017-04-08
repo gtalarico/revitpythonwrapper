@@ -3,8 +3,8 @@ Element Wrappers provide a consitent interface for acccessing parameters and pro
 of commonly used elements.
 
 Note:
-    Although the wrappers are located in the module ``rpw.elements``, they
-    are imported by into the main module so they can be accessed
+    These wrappers are located in the module ``rpw.elements``,
+    but all of them are imported by into the main module so they can be accessed
     using ``rpw.Element``, ``rpw.Instance``, etc.
 
 """

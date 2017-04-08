@@ -11,6 +11,9 @@ Base Wrapper
 Base Wrapper
 
 .. automodule:: rpw.base
+    :undoc-members:
+
+.. autoclass:: rpw.BaseObjectWrapper
     :members:
     :special-members: __init__
     :private-members:

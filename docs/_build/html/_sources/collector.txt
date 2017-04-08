@@ -11,6 +11,15 @@ Collector
 FilteredElementCollector Wrapper
 
 .. automodule:: rpw.collector
+    :undoc-members:
+
+.. autoclass:: rpw.Collector
+    :members:
+    :special-members: __init__, __getattr__
+    :private-members:
+    :show-inheritance:
+
+.. autoclass:: rpw.ParameterFilter
     :members:
     :special-members: __init__, __getattr__
     :private-members:
