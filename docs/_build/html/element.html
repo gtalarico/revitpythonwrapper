@@ -13,8 +13,6 @@
 
   
   
-  
-  
 
   
 
@@ -46,7 +44,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -87,10 +84,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -130,10 +124,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Revit Python Wrapper</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Revit Python Wrapper</a>
       </nav>
 
 
@@ -142,40 +134,23 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Element Wrappers</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Element Wrappers</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/element.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -651,16 +626,16 @@ Uses result of <code class="docutils literal"><span class="pre">Room.Location</s
 <dt id="rpw.parameter.ParameterSet">
 <em class="property">class </em><code class="descclassname">rpw.parameter.</code><code class="descname">ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Allows you to treat an element parameters as a dictionary.</p>
-<p>This is used internally byt the Element Wrapper: and instance of This
-class is returned on an warpped element <code class="docutils literal"><span class="pre">parameters</span></code> attribute,
-but can also be used on it&#8217;s own</p>
+<p>Allows you to treat an element&#8217;s parameters as a dictionary.</p>
+<p>This is used internally by Element Wrapper.
+An instance of this is returned on an warpped element <code class="docutils literal"><span class="pre">parameters</span></code>
+attribute, but can also be used on it&#8217;s own</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">paramters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">Element</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">Element</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -703,8 +678,9 @@ but can also be used on it&#8217;s own</p>
 <dl class="method">
 <dt id="rpw.parameter.ParameterSet.__setitem__">
 <code class="descname">__setitem__</code><span class="sig-paren">(</span><em>param_name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.parameter.ParameterSet.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets value to element&#8217;s parameter</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+<dd><p>Sets value to element&#8217;s parameter.
+This is a shorcut to using <cite>parameters[&#8216;Name&#8217;].value = value</cite></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -858,12 +834,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mf">3.0</span>
 </pre></div>
 </div>
 <p>Sets Parameter Value (must be in Transaction Context):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -957,6 +933,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">id_as_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: Delete this</span>
         <span class="sd">&quot;&quot;&quot; Example of mapping existing properties&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span>
 
@@ -1389,17 +1366,17 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="k">class</span> <span class="nc">ParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Allows you to treat an element parameters as a dictionary.</span>
+<span class="sd">    Allows you to treat an element&#39;s parameters as a dictionary.</span>
 
-<span class="sd">    This is used internally byt the Element Wrapper: and instance of This</span>
-<span class="sd">    class is returned on an warpped element ``parameters`` attribute,</span>
-<span class="sd">    but can also be used on it&#39;s own</span>
+<span class="sd">    This is used internally by Element Wrapper.</span>
+<span class="sd">    An instance of this is returned on an warpped element ``parameters``</span>
+<span class="sd">    attribute, but can also be used on it&#39;s own</span>
 
 <span class="sd">    &gt;&gt;&gt; element.parameters.all()</span>
 <span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value</span>
 <span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].type</span>
 
-<span class="sd">    &gt;&gt;&gt; paramters = ParameterSet(Element)</span>
+<span class="sd">    &gt;&gt;&gt; parameters = ParameterSet(Element)</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        _revit_object (DB.Element) = Revit Reference</span>
@@ -1431,9 +1408,10 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Sets value to element&#39;s parameter</span>
+        <span class="sd">&quot;&quot;&quot; Sets value to element&#39;s parameter.</span>
+<span class="sd">        This is a shorcut to using `parameters[&#39;Name&#39;].value = value`</span>
 
-<span class="sd">        &gt;&gt;&gt; element.parameter[&#39;Height&#39;] = value</span>
+<span class="sd">        &gt;&gt;&gt; element.parameters[&#39;Height&#39;] = value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
         <span class="n">parameter</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
@@ -1567,12 +1545,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Returns:</span>
 <span class="sd">            type: parameter value in python type</span>
 
-<span class="sd">        &gt;&gt;&gt; desk.parameter[&#39;Height&#39;].value</span>
+<span class="sd">        &gt;&gt;&gt; desk.parameters[&#39;Height&#39;].value</span>
 <span class="sd">        &gt;&gt;&gt; 3.0</span>
 
 <span class="sd">        Sets Parameter Value (must be in Transaction Context):</span>
 
-<span class="sd">        &gt;&gt;&gt; desk.parameter[&#39;Height&#39;].value = 3</span>
+<span class="sd">        &gt;&gt;&gt; desk.parameters[&#39;Height&#39;].value = 3</span>
 
 <span class="sd">        Note:</span>
 
@@ -1664,18 +1642,15 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="base.html" class="btn btn-neutral" title="Base Wrapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral" title="Base Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1709,8 +1684,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

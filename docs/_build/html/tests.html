@@ -13,8 +13,6 @@
 
   
   
-  
-  
 
   
 
@@ -46,7 +44,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -87,10 +84,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -121,10 +115,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Revit Python Wrapper</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Revit Python Wrapper</a>
       </nav>
 
 
@@ -133,40 +125,23 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Tests</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Tests</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/tests.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -243,9 +218,11 @@ examples of how the library is intended to be used.</p>
     <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
     <span class="n">desk</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Furniture</span><span class="p">)</span><span class="o">.</span><span class="n">FirstElement</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">desk</span><span class="p">:</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Desk&#39;</span><span class="p">):</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="n">desk</span><span class="o">.</span><span class="n">Family</span>
-            <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">desk</span><span class="o">.</span><span class="n">Family</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Delete&#39;</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
 
     <span class="c1">##################################################</span>
     <span class="c1"># Load Fixture Family and Place Instances</span>
@@ -257,20 +234,29 @@ examples of how the library is intended to be used.</p>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;LOADING SYMBOl&#39;</span><span class="p">)</span>
     <span class="n">family</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">Reference</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">Family</span><span class="p">]()</span>
-    <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Load Family&#39;</span><span class="p">):</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">LoadFamily</span><span class="p">(</span><span class="n">family_path</span><span class="p">,</span> <span class="n">family</span><span class="p">)</span>
-        <span class="n">family</span> <span class="o">=</span> <span class="n">family</span><span class="o">.</span><span class="n">Value</span>
-        <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">family_symbol</span> <span class="ow">in</span> <span class="n">family</span><span class="o">.</span><span class="n">Symbols</span><span class="p">:</span>
-            <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">family_symbol</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Place Instances&#39;</span><span class="p">):</span>
-        <span class="n">level</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span><span class="o">.</span><span class="n">FirstElement</span><span class="p">()</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span>
-                                     <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span>
-                                     <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span>
-                                     <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Delete&#39;</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">LoadFamily</span><span class="p">(</span><span class="n">family_path</span><span class="p">,</span> <span class="n">family</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
+    <span class="n">family</span> <span class="o">=</span> <span class="n">family</span><span class="o">.</span><span class="n">Value</span>
+    <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># for family_symbol in family.Symbols:</span>
+    <span class="k">for</span> <span class="n">family_symbol_id</span> <span class="ow">in</span> <span class="n">family</span><span class="o">.</span><span class="n">GetFamilySymbolIds</span><span class="p">():</span>
+        <span class="n">family_symbol</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">family_symbol_id</span><span class="p">)</span>
+        <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">family_symbol</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">(</span><span class="s1">&#39;Place Families&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Starting Transactions&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">Activate</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span> <span class="c1"># Revit &lt; 2016</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span><span class="o">.</span><span class="n">FirstElement</span><span class="p">()</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
     <span class="k">pass</span>
@@ -979,18 +965,15 @@ examples of how the library is intended to be used.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="revitpythonshell.html" class="btn btn-neutral" title="RevitPythonShell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="revitpythonshell.html" class="btn btn-neutral" title="RevitPythonShell" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1024,8 +1007,7 @@ examples of how the library is intended to be used.</p>
             VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

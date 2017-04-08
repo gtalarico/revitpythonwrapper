@@ -13,8 +13,6 @@
 
   
   
-  
-  
 
   
 
@@ -46,7 +44,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -87,10 +84,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Globals</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#typical-methods">Typical Methods</a></li>
@@ -122,10 +116,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Revit Python Wrapper</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Revit Python Wrapper</a>
       </nav>
 
 
@@ -134,40 +126,23 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Globals</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Globals</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/globals.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -266,7 +241,7 @@ libraries right away, and skip the typical:</p>
 
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
-    <span class="n">platform</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;testing&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Could not Revit Document. Will Import Sphinx Compat Vars&#39;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">rpw.utils.sphinx_compat</span> <span class="k">import</span> <span class="o">*</span>
 
@@ -309,12 +284,12 @@ libraries right away, and skip the typical:</p>
     <span class="kn">from</span> <span class="nn">rpw.selection</span> <span class="k">import</span> <span class="n">Selection</span>
     <span class="kn">from</span> <span class="nn">rpw.collector</span> <span class="k">import</span> <span class="n">Collector</span><span class="p">,</span> <span class="n">ParameterFilter</span>
     <span class="kn">from</span> <span class="nn">rpw.transaction</span> <span class="k">import</span> <span class="n">Transaction</span><span class="p">,</span> <span class="n">TransactionGroup</span>
-    <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BipEnum</span><span class="p">,</span> <span class="n">BicEnum</span>
-    <span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span><span class="p">,</span> <span class="n">to_elements</span>
     <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+    <span class="c1"># from rpw.enumeration import BipEnum, BicEnum</span>
+    <span class="c1"># from rpw.utils.coerce import to_element_ids, to_elements</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">SelectFromList</span><span class="p">,</span> <span class="n">TextInput</span><span class="p">,</span> <span class="n">Alert</span>
+        <span class="kn">import</span> <span class="nn">forms</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Could Not load Forms dependencies&#39;</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
@@ -325,18 +300,15 @@ libraries right away, and skip the typical:</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="base.html" class="btn btn-neutral float-right" title="Base Wrapper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="base.html" class="btn btn-neutral float-right" title="Base Wrapper" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -370,8 +342,7 @@ libraries right away, and skip the typical:</p>
             VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
