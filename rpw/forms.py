@@ -40,6 +40,7 @@ class SelectFromList(Window):
         title (str): Title of form
         options ([str]): List of Options as stings
         description (str): Description of input requested
+        sort (bool): Sort list [default: True]
 
     Usage:
         >>> form = SelectFromList('Test Window', ['1','2','3'])
@@ -72,7 +73,7 @@ class SelectFromList(Window):
             </Window>
             """
 
-    def __init__(self, title, options, description=None):
+    def __init__(self, title, options, description=None, sort=True):
         # TODO: Validate options type, and handle dictionary input
         # So user can feed a list or a dictionary
         self.selected = None
@@ -83,6 +84,9 @@ class SelectFromList(Window):
         if description is not None:
             self.ui.selection_label.Content = description
         self.ui.button_select.Click += self.select_click
+
+        if sort:
+            options = sorted(options)
 
         self.ui.combo_data.Items.Clear()
         self.ui.combo_data.ItemsSource = options
