@@ -484,10 +484,10 @@ class ParameterFilterTests(unittest.TestCase):
             self.wrapped_wall.parameters['Unconnected Height'].value = 12.0
 
         # BIP Ids
-        self.param_id_height = rpw.BipEnum.get_id('WALL_USER_HEIGHT_PARAM')
-        self.param_id_location = rpw.BipEnum.get_id('WALL_KEY_REF_PARAM')
-        self.param_id_comments = rpw.BipEnum.get_id('ALL_MODEL_INSTANCE_COMMENTS')
-        self.param_id_level_name = rpw.BipEnum.get_id('DATUM_TEXT')
+        self.param_id_height = rpw.enumeration.BipEnum.get_id('WALL_USER_HEIGHT_PARAM')
+        self.param_id_location = rpw.enumeration.BipEnum.get_id('WALL_KEY_REF_PARAM')
+        self.param_id_comments = rpw.enumeration.BipEnum.get_id('ALL_MODEL_INSTANCE_COMMENTS')
+        self.param_id_level_name = rpw.enumeration.BipEnum.get_id('DATUM_TEXT')
 
     def tearDown(self):
         pass

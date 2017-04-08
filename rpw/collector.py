@@ -219,7 +219,7 @@ class _Filter():
                 collector_results = collector_filter(filter_value._revit_object)
             elif filter_name == 'symbol':
                 # Same as WherePasses(FamilyInstanceFilter)
-                collector_results = collector_filter(_FamilyInstanceFilter(filter_value, doc=self._collector._collector_doc)._revit_object)
+                collector_results = collector_filter(FamilyInstanceFilter(filter_value, doc=self._collector._collector_doc)._revit_object)
             elif filter_name == 'of_class' or filter_name == 'of_category':
                 # Same as OfCategory(filter_value) and OfClass(filter_value)
                 collector_results = collector_filter(filter_value)
@@ -257,9 +257,9 @@ class _Filter():
         return filters
 
 
-class _FamilyInstanceFilter(BaseObjectWrapper):
+class FamilyInstanceFilter(BaseObjectWrapper):
     """
-    Used internally by Collector to provide the ``symbol`` keyword filter.
+    Used by Collector to provide the ``symbol`` keyword filter.
     It returns a ``DB.FamilyInstanceFilter`` which is then used by the
     ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
 
@@ -277,7 +277,7 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
         else:
             symbol_id = symbol_or_id.Id
 
-        super(_FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
+        super(FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
 
 
 class ParameterFilter(BaseObjectWrapper):

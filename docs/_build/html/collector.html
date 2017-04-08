@@ -13,8 +13,6 @@
 
   
   
-  
-  
 
   
 
@@ -46,7 +44,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -87,10 +84,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -121,10 +115,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Revit Python Wrapper</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Revit Python Wrapper</a>
       </nav>
 
 
@@ -133,40 +125,23 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Collector</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Collector</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/collector.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -391,7 +366,7 @@ It returns a <code class="docutils literal"><span class="pre">DB.FamilyInstanceF
 <dl class="class">
 <dt id="rpw.collector._Filter">
 <em class="property">class </em><code class="descclassname">rpw.collector.</code><code class="descname">_Filter</code><span class="sig-paren">(</span><em>collector</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.collector._Filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Filter for Collector class.
 Not to be confused with the Filter Class.</p>
 <dl class="method">
@@ -589,7 +564,9 @@ namespace.</p>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 
-<span class="k">class</span> <span class="nc">_Filter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+<span class="c1"># class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain _revit_object</span>
+<span class="c1"># TODO: Create BaseObject Class, for this  type of classes to inherit from</span>
+<span class="k">class</span> <span class="nc">_Filter</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Filter for Collector class.</span>
 <span class="sd">    Not to be confused with the Filter Class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -785,11 +762,11 @@ namespace.</p>
 <span class="sd">                | ``reverse``: Reverses result of Collector</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameter_id</span> <span class="o">=</span> <span class="n">parameter_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="n">conditions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">case_sensitive</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;case_sensitive&#39;</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">CASE_SENSITIVE</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">FLOAT_PRECISION</span><span class="p">)</span>
+        <span class="c1"># self.parameter_id = parameter_id</span>
+        <span class="n">conditions</span> <span class="o">=</span> <span class="n">conditions</span>
+        <span class="n">reverse</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reverse&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">case_sensitive</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;case_sensitive&#39;</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">CASE_SENSITIVE</span><span class="p">)</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">FLOAT_PRECISION</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">condition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">RULES</span><span class="p">:</span>
@@ -805,10 +782,10 @@ namespace.</p>
             <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">condition_value</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">condition_value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">case_sensitive</span><span class="p">)</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">case_sensitive</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">condition_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
-                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">)</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
 
             <span class="n">filter_rule</span> <span class="o">=</span> <span class="n">filter_value_rule</span><span class="p">(</span><span class="n">parameter_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
             <span class="k">if</span> <span class="s1">&#39;not_&#39;</span> <span class="ow">in</span> <span class="n">condition_name</span><span class="p">:</span>
@@ -817,7 +794,7 @@ namespace.</p>
             <span class="c1"># FILTER DEBUG INFO - TODO: MOVE TO FUNCTION</span>
             <span class="c1">##################################################################</span>
             <span class="c1"># logger.critical(&#39;Conditions: {}&#39;.format(conditions))</span>
-            <span class="c1"># logger.critical(&#39;Case sensitive: {}&#39;.format(self.case_sensitive))</span>
+            <span class="c1"># logger.critical(&#39;Case sensitive: {}&#39;.format(case_sensitive))</span>
             <span class="c1"># logger.critical(&#39;Reverse: {}&#39;.format(self.reverse))</span>
             <span class="c1"># logger.critical(&#39;ARGS: {}&#39;.format(args))</span>
             <span class="c1"># logger.critical(filter_rule)</span>
@@ -826,8 +803,10 @@ namespace.</p>
             <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">rules</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;malformed filter rule: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conditions</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementParameterFilter</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">FilterRule</span><span class="p">](</span><span class="n">rules</span><span class="p">),</span>
-                                                       <span class="bp">self</span><span class="o">.</span><span class="n">reverse</span><span class="p">)</span>
+
+        <span class="n">_revit_object</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementParameterFilter</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">FilterRule</span><span class="p">](</span><span class="n">rules</span><span class="p">),</span> <span class="n">reverse</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ParameterFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">_revit_object</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions</span> <span class="o">=</span> <span class="n">conditions</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParameterFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions</span><span class="p">)</span>
@@ -838,18 +817,15 @@ namespace.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="enumeration.html" class="btn btn-neutral float-right" title="Enumeration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="enumeration.html" class="btn btn-neutral float-right" title="Enumeration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="transaction.html" class="btn btn-neutral" title="Transaction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="transaction.html" class="btn btn-neutral" title="Transaction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -883,8 +859,7 @@ namespace.</p>
             VERSION:'0.0.92',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: ''
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

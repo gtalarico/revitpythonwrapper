@@ -21,7 +21,7 @@ try:
 
 except Exception as errmsg:
     logger.error(errmsg)
-    platform = None
+    platform = {'testing': True}
     logger.warning('Could not Revit Document. Will Import Sphinx Compat Vars')
     from rpw.utils.sphinx_compat import *
 
@@ -64,9 +64,9 @@ if platform is not None:
     from rpw.selection import Selection
     from rpw.collector import Collector, ParameterFilter
     from rpw.transaction import Transaction, TransactionGroup
-    from rpw.enumeration import BipEnum, BicEnum
-    from rpw.utils.coerce import to_element_ids, to_elements
     from rpw.utils.logger import logger
+    # from rpw.enumeration import BipEnum, BicEnum
+    # from rpw.utils.coerce import to_element_ids, to_elements
 
     try:
         import forms

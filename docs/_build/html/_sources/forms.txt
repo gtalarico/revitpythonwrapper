@@ -15,7 +15,7 @@ SelectFromList
 
 .. image:: _static/forms/select-from-list.png
 
-.. autoclass:: rpw.forms.forms.SelectFromList
+.. autoclass:: rpw.forms.SelectFromList
     :members:
     :special-members: __init__
 
@@ -42,5 +42,5 @@ Alert
 Implementation
 **************
 
-.. literalinclude:: ../rpw/forms/forms.py
+.. literalinclude:: ../rpw/forms.py
     :start-after: sphinx_compat
