@@ -16,3 +16,5 @@ The Revit Python Wrapper works well with the RevitPythonShell
 
 .. image:: _static/rps/add-path.png
 .. image:: _static/rps/rps-use.png
+
+.. disqus::

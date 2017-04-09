@@ -25,3 +25,5 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/transaction.py
+
+.. disqus::

@@ -23,3 +23,5 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/selection.py
+
+.. disqus::

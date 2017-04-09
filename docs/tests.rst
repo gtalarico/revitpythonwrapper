@@ -30,3 +30,5 @@ Test Suite
 
 .. literalinclude:: ../tests/tests_forms.py
     :end-before: run()
+
+.. disqus::
