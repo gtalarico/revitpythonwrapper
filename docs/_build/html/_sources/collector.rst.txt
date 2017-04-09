@@ -5,14 +5,23 @@
 
 
 ==================
-Utilities
+Collector
 ==================
 
-Coerce / Type Casting
+FilteredElementCollector Wrapper
 
-.. automodule:: rpw.utils.coerce
+.. automodule:: rpw.collector
+    :undoc-members:
+
+.. autoclass:: rpw.Collector
     :members:
-    :special-members: __init__
+    :special-members: __init__, __getattr__
+    :private-members:
+    :show-inheritance:
+
+.. autoclass:: rpw.ParameterFilter
+    :members:
+    :special-members: __init__, __getattr__
     :private-members:
     :show-inheritance:
 
@@ -21,4 +30,6 @@ Coerce / Type Casting
 Implementation
 **************
 
-.. literalinclude:: ../rpw/utils/coerce.py
+.. literalinclude:: ../rpw/collector.py
+
+.. disqus::

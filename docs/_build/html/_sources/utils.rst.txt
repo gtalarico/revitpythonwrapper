@@ -5,12 +5,14 @@
 
 
 ==================
-Enumeration
+Utilities
 ==================
 
-.. automodule:: rpw.enumeration
+Coerce / Type Casting
+
+.. automodule:: rpw.utils.coerce
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__
     :private-members:
     :show-inheritance:
 
@@ -19,5 +21,7 @@ Enumeration
 Implementation
 **************
 
-.. literalinclude:: ../rpw/enumeration.py
-    :start-after: ###
+.. literalinclude:: ../rpw/utils/coerce.py
+
+
+.. disqus::

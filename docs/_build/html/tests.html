@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -115,8 +121,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Revit Python Wrapper</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
       </nav>
 
 
@@ -125,23 +133,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Tests</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tests</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/tests.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/tests.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -178,7 +203,7 @@ examples of how the library is intended to be used.</p>
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">test_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+<span class="n">test_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 <span class="n">root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">test_dir</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
 
@@ -269,7 +294,7 @@ examples of how the library is intended to be used.</p>
 
 <span class="k">class</span> <span class="nc">TransactionsTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING TRANSACTIONS...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -333,10 +358,10 @@ examples of how the library is intended to be used.</p>
 <span class="k">class</span> <span class="nc">CollectorTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING COLLECTOR...&#39;</span><span class="p">)</span>
         <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">family_loaded</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Furniture</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">family_loaded</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Furniture</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">collector_helper</span><span class="p">(</span><span class="n">filters</span><span class="p">):</span>
@@ -458,7 +483,7 @@ examples of how the library is intended to be used.</p>
 <span class="k">class</span> <span class="nc">SelectionTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING SELECTION...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -523,7 +548,7 @@ examples of how the library is intended to be used.</p>
                 <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_element_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;&lt;RPW_Element:&lt;Autodesk.Revit.DB.Wall&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">__repr__</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;&lt;RPW_Element:&lt;Autodesk.Revit.DB.Wall&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">test_element_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
@@ -806,7 +831,7 @@ examples of how the library is intended to be used.</p>
 <span class="k">class</span> <span class="nc">InstanceTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING INSTANCES...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -860,7 +885,7 @@ examples of how the library is intended to be used.</p>
 <span class="k">class</span> <span class="nc">WallTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING WALL...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -906,7 +931,7 @@ examples of how the library is intended to be used.</p>
 <span class="k">class</span> <span class="nc">WallTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -933,7 +958,7 @@ examples of how the library is intended to be used.</p>
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">test_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+<span class="n">test_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 <span class="n">root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">test_dir</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
 
@@ -985,20 +1010,23 @@ examples of how the library is intended to be used.</p>
 
 </pre></div>
 </div>
-</div>
+<div data-disqus-identifier="Tests" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="revitpythonshell.html" class="btn btn-neutral" title="RevitPythonShell" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="revitpythonshell.html" class="btn btn-neutral" title="RevitPythonShell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1032,12 +1060,14 @@ examples of how the library is intended to be used.</p>
             VERSION:'0.0.96',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/disqus.js"></script>
 
   
 

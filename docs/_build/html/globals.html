@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Globals</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#typical-methods">Typical Methods</a></li>
@@ -116,8 +122,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Revit Python Wrapper</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
       </nav>
 
 
@@ -126,23 +134,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Globals</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Globals</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/globals.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/globals.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -184,7 +209,7 @@
 also adds the path to the Ironpython Library to your sys.path, so you can import standard python
 libraries right away, and skip the typical:</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">r&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -262,7 +287,7 @@ libraries right away, and skip the typical:</p>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Could Not Find Dynamo Services&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Adds Built in Library for Dynamo</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">r&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
 
             <span class="kn">import</span> <span class="nn">RevitServices</span>
             <span class="kn">from</span> <span class="nn">RevitServices.Persistence</span> <span class="k">import</span> <span class="n">DocumentManager</span>
@@ -296,20 +321,23 @@ libraries right away, and skip the typical:</p>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
+<div data-disqus-identifier="Globals" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="base.html" class="btn btn-neutral float-right" title="Base Wrapper" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="base.html" class="btn btn-neutral float-right" title="Base Wrapper" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Revit Python Wrapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -343,12 +371,14 @@ libraries right away, and skip the typical:</p>
             VERSION:'0.0.96',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/disqus.js"></script>
 
   
 

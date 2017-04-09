@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -84,7 +87,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="globals.html">Globals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -127,8 +133,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Revit Python Wrapper</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
       </nav>
 
 
@@ -137,23 +145,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Element Wrappers</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Element Wrappers</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/element.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/element.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -940,7 +965,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">            &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
 <span class="sd">            &gt;&gt;&gt; wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -987,7 +1012,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
                       <span class="s1">&#39;WallKind&#39;</span><span class="p">:</span> <span class="n">WallFamily</span><span class="p">,</span>
                       <span class="s1">&#39;Room&#39;</span><span class="p">:</span> <span class="n">Room</span><span class="p">,</span>
                     <span class="p">}</span>
-        <span class="n">element_class_name</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="n">element_class_name</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">element_class</span> <span class="o">=</span> <span class="n">CLASS_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">element_class</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Factory does not support type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">))</span>
@@ -995,7 +1020,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">Instance</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
@@ -1019,7 +1044,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Args:</span>
 <span class="sd">            instance (``DB.FamilyInstance``): Instance of FamilyInstance to be wrapped</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1043,7 +1068,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">instances</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
@@ -1068,7 +1093,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Args:</span>
 <span class="sd">            symbol (``DB.FamilySymbol``): Instance of FamilySymbol to be wrapped</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1105,7 +1130,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">category</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Family</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
@@ -1120,7 +1145,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="sd">&quot;&quot;&quot;Args:</span>
 <span class="sd">            family (``DB.FamilySymbol``): Instance of FamilySymbol to be wrapped</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Family</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Family</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1171,7 +1196,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="o">.</span><span class="n">families</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Family</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Family</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -1182,7 +1207,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        _revit_object (DB.Family): Wrapped ``DB.Category``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Category</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1222,7 +1247,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">WallInstance</span><span class="p">(</span><span class="n">Instance</span><span class="p">):</span>
@@ -1231,7 +1256,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    get `Symbol` equivalent of Wall `(GetTypeId)`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_instance</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">wall_instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1247,7 +1272,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        * Uses a different method to get instances.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_symbol</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallSymbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallSymbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1272,7 +1297,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    Inherits base ``Family`` and overrides methods for Wall Instance`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_family</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallFamily</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">wall_family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallFamily</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1288,7 +1313,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="k">class</span> <span class="nc">WallCategory</span><span class="p">(</span><span class="n">Category</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_category</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallCategory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">wall_category</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallCategory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_category</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ``DB.Category`` Wall Category Wrapper</span>
 
@@ -1330,7 +1355,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Args:</span>
 <span class="sd">            room (``DB.Architecture.Room``): Room to be wrapped</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1358,7 +1383,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Area</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -1401,7 +1426,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Args:</span>
 <span class="sd">            element(DB.Element): Element to create ParameterSet</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">builtins</span> <span class="o">=</span> <span class="n">_BuiltInParameterSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">):</span>
@@ -1426,7 +1451,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">        &gt;&gt;&gt; element.parameters[&#39;Height&#39;] = value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
         <span class="n">parameter</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
@@ -1440,7 +1465,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add Parameter List Name &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">_BuiltInParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -1474,12 +1499,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param_value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Sets value for an element&#39;s built in parameter. &quot;&quot;&quot;</span>
-        <span class="n">builtin_parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">builtin_parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="n">builtin_parameter</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">param_value</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add Parameter List Name &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BuiltInParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BuiltInParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -1530,7 +1555,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">parameter</span><span class="p">))</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1647,23 +1672,26 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add selection count&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__repr__</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
+<div data-disqus-identifier="Element Wrappers" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="base.html" class="btn btn-neutral" title="Base Wrapper" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="base.html" class="btn btn-neutral" title="Base Wrapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1697,12 +1725,14 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             VERSION:'0.0.96',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/disqus.js"></script>
 
   
 

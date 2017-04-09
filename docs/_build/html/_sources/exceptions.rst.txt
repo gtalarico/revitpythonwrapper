@@ -5,17 +5,14 @@
 
 
 ==================
-Transaction
+Exceptions
 ==================
 
-Wrappers to make Revit Transactions work with Python Context Manager.
+Revit Python Wrapper Exceptions
 
-.. automodule:: rpw.transaction
-    :undoc-members:
-
-.. autoclass:: rpw.Transaction
+.. automodule:: rpw.exceptions
     :members:
-    :special-members: __init__, __getattr__, __enter__, __exit__
+    :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
 
@@ -24,4 +21,6 @@ Wrappers to make Revit Transactions work with Python Context Manager.
 Implementation
 **************
 
-.. literalinclude:: ../rpw/transaction.py
+.. literalinclude:: ../rpw/exceptions.py
+
+.. disqus::

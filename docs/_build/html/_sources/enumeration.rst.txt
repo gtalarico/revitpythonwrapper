@@ -5,15 +5,12 @@
 
 
 ==================
-Selection
+Enumeration
 ==================
 
-.. automodule:: rpw.selection
-    :undoc-members:
-
-.. autoclass:: rpw.Selection
+.. automodule:: rpw.enumeration
     :members:
-    :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
+    :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
 
@@ -22,4 +19,7 @@ Selection
 Implementation
 **************
 
-.. literalinclude:: ../rpw/selection.py
+.. literalinclude:: ../rpw/enumeration.py
+    :start-after: ###
+
+.. disqus::

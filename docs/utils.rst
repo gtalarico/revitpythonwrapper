@@ -22,3 +22,6 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/utils/coerce.py
+
+
+.. disqus::

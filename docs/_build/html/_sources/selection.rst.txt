@@ -5,14 +5,15 @@
 
 
 ==================
-Exceptions
+Selection
 ==================
 
-Revit Python Wrapper Exceptions
+.. automodule:: rpw.selection
+    :undoc-members:
 
-.. automodule:: rpw.exceptions
+.. autoclass:: rpw.Selection
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
     :private-members:
     :show-inheritance:
 
@@ -21,4 +22,7 @@ Revit Python Wrapper Exceptions
 Implementation
 **************
 
-.. literalinclude:: ../rpw/exceptions.py
+.. literalinclude:: ../rpw/selection.py
+
+
+.. disqus::

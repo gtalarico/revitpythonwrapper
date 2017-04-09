@@ -45,3 +45,5 @@ Implementation
 
 .. literalinclude:: ../rpw/forms.py
     :start-after: sphinx_compat
+
+.. disqus::

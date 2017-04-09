@@ -22,3 +22,5 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/exceptions.py
+
+.. disqus::

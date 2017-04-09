@@ -32,3 +32,5 @@ Known Issues
 
     Result:
         `col` always is always case insensitive.
+
+.. disqus::
