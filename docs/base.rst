@@ -25,3 +25,5 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/base.py
+
+.. disqus::

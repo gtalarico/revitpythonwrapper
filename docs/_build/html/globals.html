@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Globals &mdash; Revit Python Wrapper 0.0.95 documentation</title>
+  <title>Globals &mdash; Revit Python Wrapper 0.0.96 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.95 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.96 documentation" href="index.html"/>
         <link rel="next" title="Base Wrapper" href="base.html"/>
         <link rel="prev" title="Revit Python Wrapper" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.95
+                0.0.96
               </div>
             
           
@@ -252,7 +252,7 @@ libraries right away, and skip the typical:</p>
         <span class="n">doc</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
         <span class="n">version</span> <span class="o">=</span> <span class="n">__revit__</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionNumber</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
         <span class="n">platform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;revit&#39;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Running In Revit&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running In Revit&quot;</span><span class="p">)</span>
 
     <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Could not find pyRevit Document. Trying Dynamo.&#39;</span><span class="p">)</span>
@@ -277,7 +277,6 @@ libraries right away, and skip the typical:</p>
 
 
 <span class="k">if</span> <span class="n">platform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">platform</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing&#39;</span><span class="p">):</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Importing Modules to rpw namespace&#39;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
     <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Family</span><span class="p">,</span> <span class="n">Category</span>
     <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">WallInstance</span><span class="p">,</span> <span class="n">WallSymbol</span><span class="p">,</span> <span class="n">WallFamily</span><span class="p">,</span> <span class="n">WallCategory</span>
@@ -341,7 +340,7 @@ libraries right away, and skip the typical:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.95',
+            VERSION:'0.0.96',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

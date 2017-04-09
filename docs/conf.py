@@ -41,6 +41,7 @@ napoleon_include_private_with_doc = True
 project = 'Revit Python Wrapper'
 copyright = '2016, Gui Talarico'
 author = 'Gui Talarico'
+disqus_shortname = 'revitpythonwrapper'
 
 from rpw import __version__
 # The short X.Y version.
@@ -63,6 +64,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.githubpages',
     'sphinx.ext.napoleon',
+    'sphinxcontrib.disqus'
 ]
 
 
