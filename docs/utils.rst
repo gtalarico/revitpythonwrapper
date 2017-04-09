@@ -23,5 +23,8 @@ Implementation
 
 .. literalinclude:: ../rpw/utils/coerce.py
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> disqus
 .. disqus::

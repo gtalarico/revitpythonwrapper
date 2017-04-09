@@ -26,5 +26,8 @@ Implementation
 
 .. literalinclude:: ../rpw/transaction.py
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> disqus
 .. disqus::

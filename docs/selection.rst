@@ -24,5 +24,8 @@ Implementation
 
 .. literalinclude:: ../rpw/selection.py
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> disqus
 .. disqus::
