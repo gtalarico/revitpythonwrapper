@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tests &mdash; Revit Python Wrapper 0.0.92 documentation</title>
+  <title>Tests &mdash; Revit Python Wrapper 0.0.93 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.92 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.93 documentation" href="index.html"/>
         <link rel="next" title="Exceptions" href="exceptions.html"/>
         <link rel="prev" title="RevitPythonShell" href="revitpythonshell.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.92
+                0.0.93
               </div>
             
           
@@ -381,10 +381,20 @@ examples of how the library is intended to be used.</p>
                                        <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">walls</span><span class="o">.</span><span class="n">elements</span><span class="p">])</span>
 
+    <span class="k">def</span> <span class="nf">test_collector_is_element_false</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">walls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="s1">&#39;OST_Walls&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">walls</span><span class="o">.</span><span class="n">elements</span><span class="p">])</span>
+
     <span class="k">def</span> <span class="nf">test_collector_is_element_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">walls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="s1">&#39;OST_Walls&#39;</span><span class="p">,</span>
                                        <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
         <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">walls</span><span class="o">.</span><span class="n">elements</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_collector_is_element_type_false</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">walls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="s1">&#39;OST_Walls&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">walls</span><span class="o">.</span><span class="n">elements</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">test_collector_is_view_dependent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">fregions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="s1">&#39;OST_FilledRegion&#39;</span><span class="p">})</span>
@@ -893,6 +903,21 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Walls&#39;</span><span class="p">)</span>
 
 
+<span class="k">class</span> <span class="nc">WallTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_wall_instance_wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+
+
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Revit Python Wrapper Tests</span>
@@ -1004,7 +1029,7 @@ examples of how the library is intended to be used.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.92',
+            VERSION:'0.0.93',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

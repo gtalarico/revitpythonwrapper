@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Collector &mdash; Revit Python Wrapper 0.0.92 documentation</title>
+  <title>Collector &mdash; Revit Python Wrapper 0.0.93 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.92 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.93 documentation" href="index.html"/>
         <link rel="next" title="Enumeration" href="enumeration.html"/>
         <link rel="prev" title="Transaction" href="transaction.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.92
+                0.0.93
               </div>
             
           
@@ -160,7 +160,7 @@
 <dl class="class">
 <dt id="rpw.Collector">
 <em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Collector</code><span class="sig-paren">(</span><em>**filters</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Collector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Revit FilteredElement Collector Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -267,7 +267,7 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <dl class="class">
 <dt id="rpw.ParameterFilter">
 <em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">ParameterFilter</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>**conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ParameterFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></p>
 <p>Parameter Filter Wrapper.
 Used to build a parameter filter to be used with the Collector.</p>
 <dl class="docutils">
@@ -557,6 +557,14 @@ Used to build a parameter filter to be used with the Collector.</p>
                 <span class="c1"># Same as WhereIsElementType(bool)</span>
                 <span class="k">if</span> <span class="n">filter_value</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                     <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">()</span>
+                <span class="c1"># This allow is_type=False to set is_not_type=True</span>
+                <span class="k">elif</span> <span class="n">filter_value</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span>
+                    <span class="n">collector_filter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">collector</span><span class="p">,</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">[</span><span class="s1">&#39;is_not_type&#39;</span><span class="p">])</span>
+                    <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">()</span>
+                <span class="c1"># This allow for is_not_type=False to set is_type=True</span>
+                <span class="k">elif</span> <span class="n">filter_value</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span>
+                    <span class="n">collector_filter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">collector</span><span class="p">,</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">[</span><span class="s1">&#39;is_type&#39;</span><span class="p">])</span>
+                    <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">()</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">ParameterFilter</span><span class="p">):</span>
                 <span class="c1"># Same as WherePasses(ParameterFilter)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
@@ -794,7 +802,7 @@ Used to build a parameter filter to be used with the Collector.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.92',
+            VERSION:'0.0.93',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

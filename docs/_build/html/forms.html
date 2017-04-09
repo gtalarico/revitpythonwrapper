@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Forms &mdash; Revit Python Wrapper 0.0.92 documentation</title>
+  <title>Forms &mdash; Revit Python Wrapper 0.0.93 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.92 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.93 documentation" href="index.html"/>
         <link rel="next" title="Utilities" href="utils.html"/>
         <link rel="prev" title="Enumeration" href="enumeration.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.92
+                0.0.93
               </div>
             
           
@@ -158,7 +158,7 @@
 <img alt="_images/select-from-list.png" src="_images/select-from-list.png" />
 <dl class="class">
 <dt id="rpw.forms.SelectFromList">
-<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em>, <em>sort=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
 <dd><p>WPF form with ComboBox dropdown.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -168,6 +168,7 @@
 <li><strong>title</strong> (<em>str</em>) &#8211; Title of form</li>
 <li><strong>options</strong> (<em>[str]</em>) &#8211; List of Options as stings</li>
 <li><strong>description</strong> (<em>str</em>) &#8211; Description of input requested</li>
+<li><strong>sort</strong> (<em>bool</em>) &#8211; Sort list [default: True]</li>
 </ul>
 </td>
 </tr>
@@ -267,6 +268,7 @@
 <span class="sd">        title (str): Title of form</span>
 <span class="sd">        options ([str]): List of Options as stings</span>
 <span class="sd">        description (str): Description of input requested</span>
+<span class="sd">        sort (bool): Sort list [default: True]</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; form = SelectFromList(&#39;Test Window&#39;, [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])</span>
@@ -299,7 +301,7 @@
 <span class="s2">            &lt;/Window&gt;</span>
 <span class="s2">            &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="c1"># TODO: Validate options type, and handle dictionary input</span>
         <span class="c1"># So user can feed a list or a dictionary</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>
@@ -310,6 +312,9 @@
         <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">selection_label</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">description</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">button_select</span><span class="o">.</span><span class="n">Click</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_click</span>
+
+        <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">Items</span><span class="o">.</span><span class="n">Clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">ItemsSource</span> <span class="o">=</span> <span class="n">options</span>
@@ -456,7 +461,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.92',
+            VERSION:'0.0.93',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
