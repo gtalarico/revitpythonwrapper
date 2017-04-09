@@ -5,12 +5,15 @@
 
 
 ==================
-Utilities
+Base Wrapper
 ==================
 
-Coerce / Type Casting
+Base Wrapper
 
-.. automodule:: rpw.utils.coerce
+.. automodule:: rpw.base
+    :undoc-members:
+
+.. autoclass:: rpw.BaseObjectWrapper
     :members:
     :special-members: __init__
     :private-members:
@@ -21,6 +24,6 @@ Coerce / Type Casting
 Implementation
 **************
 
-.. literalinclude:: ../rpw/utils/coerce.py
+.. literalinclude:: ../rpw/base.py
 
 .. disqus::
