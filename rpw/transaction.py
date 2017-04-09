@@ -35,7 +35,7 @@ class Transaction(BaseObjectWrapper):
     def __exit__(self, exception, exception_value, traceback):
         if exception:
             self.transaction.RollBack()
-            logger.error('Error in Transactio Context: has rolled back.')
+            logger.error('Error in Transaction Context: has rolled back.')
             logger.error('{}:{}'.format(exception, exception_value))
             raise exception(exception_value, '')
         else:
@@ -43,7 +43,7 @@ class Transaction(BaseObjectWrapper):
                 self.transaction.Commit()
             except Exception as errmsg:
                 self.transaction.RollBack()
-                logger.error('Error in Transactio Commit: has rolled back.')
+                logger.error('Error in Transaction Commit: has rolled back.')
                 logger.error('Error: {}'.format(errmsg))
                 raise
 

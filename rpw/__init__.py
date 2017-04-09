@@ -1,5 +1,5 @@
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.95'
+__version__ = '0.0.96'
 __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
@@ -32,7 +32,7 @@ else:
         doc = __revit__.ActiveUIDocument.Document
         version = __revit__.Application.VersionNumber.ToString()
         platform = {'revit': version}
-        logger.info("Running In Revit")
+        logger.debug("Running In Revit")
 
     except NameError:
         logger.debug('Could not find pyRevit Document. Trying Dynamo.')
@@ -57,7 +57,6 @@ else:
 
 
 if platform is not None or platform.get('testing'):
-    logger.info('Importing Modules to rpw namespace')
     from rpw.base import BaseObjectWrapper
     from rpw.element import Element, Instance, Symbol, Family, Category
     from rpw.element import WallInstance, WallSymbol, WallFamily, WallCategory
