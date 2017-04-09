@@ -80,3 +80,5 @@ Implementation
 
 .. literalinclude:: ../rpw/__init__.py
     :start-after: import sys
+
+.. disqus::

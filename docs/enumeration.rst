@@ -21,3 +21,5 @@ Implementation
 
 .. literalinclude:: ../rpw/enumeration.py
     :start-after: ###
+
+.. disqus::

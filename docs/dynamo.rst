@@ -33,3 +33,5 @@ You can always manually add the library path; the node is only included for conv
 
 .. image:: _static/dynamo/package.png
 .. image:: _static/dynamo/intro.png
+
+.. disqus::
