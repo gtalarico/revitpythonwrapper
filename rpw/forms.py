@@ -26,13 +26,14 @@ try:
 
     from System.Windows import Application, Window
     from System.IO import StringReader
+    from System.Environment import Exit
     from rpw import UI
 except ImportError as errmsg:
     logger.error('Import Error: {}'.format(errmsg))
     from rpw.utils.sphinx_compat import *
 
 
-class SelectFromList(Window):
+class SelectFromListForm(Window):
     """
     WPF form with ComboBox dropdown.
 
@@ -41,6 +42,7 @@ class SelectFromList(Window):
         options ([str]): List of Options as stings
         description (str): Description of input requested
         sort (bool): Sort list [default: True]
+        exit_on_close (bool): Form will exit script if Closed on X. Default: True
 
     Usage:
         >>> form = SelectFromList('Test Window', ['1','2','3'])
@@ -77,7 +79,7 @@ class SelectFromList(Window):
         # TODO: Validate options type, and handle dictionary input
         # So user can feed a list or a dictionary
         self.selected = None
-        self.ui = wpf.LoadComponent(self, StringReader(SelectFromList.LAYOUT))
+        self.ui = wpf.LoadComponent(self, StringReader(SelectFromListForm.LAYOUT))
         # self.ui = wpf.LoadComponent(self, os.path.join(cwd, 'form_select_list.xaml'))
         self.ui.Title = title
 
@@ -99,9 +101,9 @@ class SelectFromList(Window):
         self.Close()
 
     def show(self):
-        return super(SelectFromList, self).ShowDialog()
+        return super(SelectFromListForm, self).ShowDialog()
 
-class TextInput(Window):
+class TextInputForm(Window):
     """
     WPF form with TextInput.
 
@@ -109,6 +111,7 @@ class TextInput(Window):
         title (str): Title of form
         default ([str]): Default value for text box
         description (str): Description of input requested
+        exit_on_close (bool): Form will exit script if Closed on X. Default: True
 
 
     Usage:
@@ -137,7 +140,7 @@ class TextInput(Window):
 
     def __init__(self, title, default=None, description=None):
         self.selected = None
-        self.ui = wpf.LoadComponent(self, StringReader(TextInput.LAYOUT))
+        self.ui = wpf.LoadComponent(self, StringReader(TextInputForm.LAYOUT))
         # self.ui = wpf.LoadComponent(self, os.path.join(cwd, 'form_text_input.xaml'))
         self.ui.Title = title
 
@@ -155,7 +158,7 @@ class TextInput(Window):
         self.Close()
 
     def show(self):
-        return super(TextInput, self).ShowDialog()
+        return super(TextInputForm, self).ShowDialog()
 
 
 class Alert():
@@ -178,12 +181,49 @@ class Alert():
         return dialog.Show()
 
 
+class FormWrapper(object):
+    """ Wraps WPF Window """
+
+    def __init__(self, *args, **kwargs):
+        form_class = getattr(self.__class__, 'form_class', None)
+        if not form_class:
+            raise Exception('FormWrapper is for inheritance only')
+
+        self.exit_on_close = kwargs.pop('exit_on_close', True)
+        self.form = form_class(*args, **kwargs)
+
+    def show(self):
+        results = self.form.show()
+        if self.exit_on_close:
+            logger.debug('Form was closed. Script will exit.')
+            sys.exit(1)
+        if results:
+            return True
+        else:
+            return False
+
+    def __getattr__(self, attr):
+        return getattr(self.form, attr)
+
+
+class SelectFromList(FormWrapper):
+    form_class = SelectFromListForm
+    pass
+
+
+class TextInput(FormWrapper):
+    form_class = TextInputForm
+    pass
+
 
 if __name__ == '__main__':
-    prompt = SelectFromList('Title', ['A','B'], description="Your Options")
+    prompt = SelectFromList('Title', ['A','B'], description="Your Options", exit_on_close=False)
     prompt.show()
     print(prompt.selected)
+
+    prompt = TextInput('Title', default="3", exit_on_close=False)
+    prompt.show()
+    print(prompt.selected)
+    print('forms.py ran')
+
 #
-    prompt = TextInput('Title', default="3")
-    prompt.show()
-    print(prompt.selected)
