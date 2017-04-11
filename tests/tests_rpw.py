@@ -736,29 +736,29 @@ class WallTests(unittest.TestCase):
         self.assertEqual(wall_category.name, 'Walls')
 
 
-class WallTests(unittest.TestCase):
+class RoomTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        pass
 
-
-    def setUp(self):
-        wall = rpw.Collector(of_class='Wall', is_not_type=True).first
-        self.wall = rpw.WallInstance(wall)
-
-    def test_wall_instance_wrap(self):
-        self.assertIsInstance(self.wall, rpw.WallInstance)
-        self.assertIsInstance(self.wall.unwrap(), DB.Wall)
+    # def setUp(self):
+    #     wall = rpw.Collector(of_class='Wall', is_not_type=True).first
+    #     self.wall = rpw.WallInstance(wall)
+    #
+    # def test_wall_instance_wrap(self):
+    #     self.assertIsInstance(self.wall, rpw.WallInstance)
+    #     self.assertIsInstance(self.wall.unwrap(), DB.Wall)
 
 
 def run():
     # logger.disable()
     logger.verbose(False)
 
-    # from tests.tests_forms import *
-    # suite = unittest.TestLoader().discover('tests')
+    from tests.tests_forms import *
+    suite = unittest.TestLoader().discover('tests')
 
-    suite = unittest.TestLoader().loadTestsFromTestCase(WallTests)
+    # suite = unittest.TestLoader().loadTestsFromTestCase(WallTests)
     # suite.addTest(unittest.TestLoader().loadTestsFromTestCase(FormTextInputTests))
 
     unittest.main(verbosity=3, buffer=False)
