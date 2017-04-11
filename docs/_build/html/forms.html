@@ -184,7 +184,42 @@
 <dl class="class">
 <dt id="rpw.forms.SelectFromList">
 <em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
+<dd><p>WPF form with ComboBox dropdown.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) &#8211; Title of form</li>
+<li><strong>options</strong> (<em>dict</em><em>,</em><em>list</em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; Dictionary (string keys) or List[strings]</li>
+<li><strong>description</strong> (<em>str</em>) &#8211; Optional Description of input requested  [default: None]</li>
+<li><strong>sort</strong> (<em>bool</em>) &#8211; Optional sort flag - sorts keys [default: True]</li>
+<li><strong>exit_on_close</strong> (<em>bool</em>) &#8211; Form will call sys.exit() if Closed on X. [default: True]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Dropdown shows &#39;1&#39;, &#39;2&#39; ,&#39;3&#39;. User clicks Select &#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+<span class="go">&#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Text&#39;</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;Number&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># User clicks Text</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+<span class="go">str</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
 <dt id="rpw.forms.SelectFromList.form_class">
 <code class="descname">form_class</code><a class="headerlink" href="#rpw.forms.SelectFromList.form_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">SelectFromListForm</span></code></p>
@@ -199,7 +234,31 @@
 <dl class="class">
 <dt id="rpw.forms.TextInput">
 <em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.TextInput" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
+<dd><p>WPF form with TextInput.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) &#8211; Title of form</li>
+<li><strong>default</strong> (<em>str</em>) &#8211; Optional default value for text box [default: None]</li>
+<li><strong>description</strong> (<em>str</em>) &#8211; Optional Description of input requested  [default: None]</li>
+<li><strong>exit_on_close</strong> (<em>bool</em>) &#8211; Form will call sys.exit() if Closed on X. [default: True]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prompt</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
 <dt id="rpw.forms.TextInput.form_class">
 <code class="descname">form_class</code><a class="headerlink" href="#rpw.forms.TextInput.form_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">TextInputForm</span></code></p>
@@ -254,17 +313,25 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        title (str): Title of form</span>
-<span class="sd">        options ([str],{str:}): Dictionary (string keys) List[strings]</span>
-<span class="sd">        description (str): Description of input requested</span>
-<span class="sd">        sort (bool): Sort list [default: True]</span>
-<span class="sd">        exit_on_close (bool): Form will exit script if Closed on X. Default: True</span>
+<span class="sd">        options (dict,list[str]): Dictionary (string keys) or List[strings]</span>
+<span class="sd">        description (str): Optional Description of input requested  [default: None]</span>
+<span class="sd">        sort (bool): Optional sort flag - sorts keys [default: True]</span>
+<span class="sd">        exit_on_close (bool): Form will call sys.exit() if Closed on X. [default: True]</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; form = SelectFromList(&#39;Test Window&#39;, [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])</span>
-<span class="sd">        &gt;&gt;&gt; form_ok = form.show()</span>
-<span class="sd">        &gt;&gt;&gt; if not form_ok:</span>
-<span class="sd">        &gt;&gt;&gt;     sys.exit() # User Canceld</span>
-<span class="sd">        &gt;&gt;&gt; selected_item = form.selected</span>
+<span class="sd">        &gt;&gt;&gt; # Dropdown shows &#39;1&#39;, &#39;2&#39; ,&#39;3&#39;. User clicks Select &#39;1&#39;</span>
+<span class="sd">        &gt;&gt;&gt; form</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; form.selected</span>
+<span class="sd">        &#39;1&#39;</span>
+<span class="sd">        &gt;&gt;&gt; # Dictionary</span>
+<span class="sd">        &gt;&gt;&gt; form = SelectFromList(&#39;Test Window&#39;, {&#39;Text&#39;:str, &#39;Number&#39;:int})</span>
+<span class="sd">        &gt;&gt;&gt; # User clicks Text</span>
+<span class="sd">        &gt;&gt;&gt; form</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; form.selected</span>
+<span class="sd">        str</span>
 
 <span class="sd">    .. note: XAML is embeded instead loaded from file so that package can be</span>
 <span class="sd">             kept as .zip for dynamo.</span>
@@ -330,9 +397,9 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        title (str): Title of form</span>
-<span class="sd">        default ([str]): Default value for text box</span>
-<span class="sd">        description (str): Description of input requested</span>
-<span class="sd">        exit_on_close (bool): Form will exit script if Closed on X. Default: True</span>
+<span class="sd">        default (str): Optional default value for text box [default: None]</span>
+<span class="sd">        description (str): Optional Description of input requested  [default: None]</span>
+<span class="sd">        exit_on_close (bool): Form will call sys.exit() if Closed on X. [default: True]</span>
 
 
 <span class="sd">    Usage:</span>
@@ -407,6 +474,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">form_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s1">&#39;form_class&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">form_class</span><span class="o">.</span><span class="vm">__doc__</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">form_class</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;FormWrapper is for inheritance only&#39;</span><span class="p">)</span>
 
@@ -429,12 +497,12 @@
 
 <span class="k">class</span> <span class="nc">SelectFromList</span><span class="p">(</span><span class="n">FormWrapper</span><span class="p">):</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">SelectFromListForm</span>
-    <span class="k">pass</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="n">SelectFromListForm</span><span class="o">.</span><span class="vm">__doc__</span>
 
 
 <span class="k">class</span> <span class="nc">TextInput</span><span class="p">(</span><span class="n">FormWrapper</span><span class="p">):</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">TextInputForm</span>
-    <span class="k">pass</span>
+    <span class="vm">__doc__</span> <span class="o">=</span> <span class="n">TextInputForm</span><span class="o">.</span><span class="vm">__doc__</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

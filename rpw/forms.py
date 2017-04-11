@@ -39,17 +39,25 @@ class SelectFromListForm(Window):
 
     Args:
         title (str): Title of form
-        options ([str],{str:}): Dictionary (string keys) List[strings]
-        description (str): Description of input requested
-        sort (bool): Sort list [default: True]
-        exit_on_close (bool): Form will exit script if Closed on X. Default: True
+        options (dict,list[str]): Dictionary (string keys) or List[strings]
+        description (str): Optional Description of input requested  [default: None]
+        sort (bool): Optional sort flag - sorts keys [default: True]
+        exit_on_close (bool): Form will call sys.exit() if Closed on X. [default: True]
 
     Usage:
         >>> form = SelectFromList('Test Window', ['1','2','3'])
-        >>> form_ok = form.show()
-        >>> if not form_ok:
-        >>>     sys.exit() # User Canceld
-        >>> selected_item = form.selected
+        >>> # Dropdown shows '1', '2' ,'3'. User clicks Select '1'
+        >>> form
+        True
+        >>> form.selected
+        '1'
+        >>> # Dictionary
+        >>> form = SelectFromList('Test Window', {'Text':str, 'Number':int})
+        >>> # User clicks Text
+        >>> form
+        True
+        >>> form.selected
+        str
 
     .. note: XAML is embeded instead loaded from file so that package can be
              kept as .zip for dynamo.
@@ -115,9 +123,9 @@ class TextInputForm(Window):
 
     Args:
         title (str): Title of form
-        default ([str]): Default value for text box
-        description (str): Description of input requested
-        exit_on_close (bool): Form will exit script if Closed on X. Default: True
+        default (str): Optional default value for text box [default: None]
+        description (str): Optional Description of input requested  [default: None]
+        exit_on_close (bool): Form will call sys.exit() if Closed on X. [default: True]
 
 
     Usage:
@@ -192,6 +200,7 @@ class FormWrapper(object):
 
     def __init__(self, *args, **kwargs):
         form_class = getattr(self.__class__, 'form_class', None)
+        self.__class__.__doc__ = form_class.__doc__
         if not form_class:
             raise Exception('FormWrapper is for inheritance only')
 
@@ -214,12 +223,12 @@ class FormWrapper(object):
 
 class SelectFromList(FormWrapper):
     form_class = SelectFromListForm
-    pass
+    __doc__ = SelectFromListForm.__doc__
 
 
 class TextInput(FormWrapper):
     form_class = TextInputForm
-    pass
+    __doc__ = TextInputForm.__doc__
 
 
 if __name__ == '__main__':
