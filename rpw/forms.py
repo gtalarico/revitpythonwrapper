@@ -142,7 +142,7 @@ class TextInputForm(Window):
                     xmlns:local="clr-namespace:WpfApplication1"
                     mc:Ignorable="d" Height="140.139" Width="325" ResizeMode="NoResize" Title="" WindowStartupLocation="CenterScreen" Topmost="True" SizeToContent="WidthAndHeight">
                 <Grid Margin="10,0,10,10">
-                    <Label x:Name="selection_label" Content="Select Item" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="299"/>
+                    <Label x:Name="selection_label" Content="Enter Text" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="299"/>
 
                     <TextBox x:Name="text_box" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Width="299"/>
 
