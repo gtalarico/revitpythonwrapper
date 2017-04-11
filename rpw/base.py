@@ -66,7 +66,7 @@ class BaseObjectWrapper(object):
         return self._revit_object
     #
     def __repr__(self, data=''):
-        if not data:
+        if data == '':
             data = self._revit_object.__class__.__name__
         return '<RPW_{class_name}: {optional_data}>'.format(
                                             class_name=self.__class__.__name__,

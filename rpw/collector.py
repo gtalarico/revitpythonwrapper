@@ -152,7 +152,7 @@ class Collector(BaseObjectWrapper):
         return len(self.elements)
 
     def __repr__(self):
-        return super(Collector, self).__repr__(len(self))
+        return super(Collector, self).__repr__(data=len(self))
 
 
 # class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain _revit_object
@@ -296,8 +296,8 @@ class ParameterFilter(BaseObjectWrapper):
     Used to build a parameter filter to be used with the Collector.
 
     Usage:
-        >>> param_id = DB.ElemendId(DB.BuiltInParameter.SOME_PARAMETER)
-        >>> parameter_filter = ParameterFilter('Type Name', equals='Wall 1')
+        >>> param_id = DB.ElemendId(DB.BuiltInParameter.TYPE_NAME)
+        >>> parameter_filter = ParameterFilter(param_id, equals='Wall 1')
         >>> collector = Collector(parameter_filter=parameter_filter)
 
     Returns:
@@ -373,7 +373,7 @@ class ParameterFilter(BaseObjectWrapper):
 
         for condition in conditions.keys():
             if condition not in ParameterFilter.RULES:
-                raise RPW_Exception('Rule not valid: {}'.format(key))
+                raise RPW_Exception('Rule not valid: {}'.format(condition))
 
         rules = []
         for condition_name, condition_value in conditions.iteritems():
@@ -390,6 +390,7 @@ class ParameterFilter(BaseObjectWrapper):
             if isinstance(condition_value, float):
                 args.append(precision)
 
+            # TODO: coerce from BuildInParameter or BIP name into paremter_id
             filter_rule = filter_value_rule(parameter_id, *args)
             if 'not_' in condition_name:
                 filter_rule = DB.FilterInverseRule(filter_rule)
