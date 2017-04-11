@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Forms &mdash; Revit Python Wrapper 0.0.96 documentation</title>
+  <title>Forms &mdash; Revit Python Wrapper 0.0.97 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.96 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.97 documentation" href="index.html"/>
         <link rel="next" title="Utilities" href="utils.html"/>
         <link rel="prev" title="Enumeration" href="enumeration.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.0.96
+                0.0.97
               </div>
             
           
@@ -183,33 +183,13 @@
 <img alt="_images/select-from-list.png" src="_images/select-from-list.png" />
 <dl class="class">
 <dt id="rpw.forms.SelectFromList">
-<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>title</em>, <em>options</em>, <em>description=None</em>, <em>sort=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
-<dd><p>WPF form with ComboBox dropdown.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>title</strong> (<em>str</em>) &#8211; Title of form</li>
-<li><strong>options</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; List of Options as stings</li>
-<li><strong>description</strong> (<em>str</em>) &#8211; Description of input requested</li>
-<li><strong>sort</strong> (<em>bool</em>) &#8211; Sort list [default: True]</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">form_ok</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span> <span class="c1"># User Canceld</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selected_item</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">selected</span>
-</pre></div>
-</div>
-</dd>
-</dl>
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="rpw.forms.SelectFromList.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#rpw.forms.SelectFromList.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">SelectFromListForm</span></code></p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -218,30 +198,13 @@
 <img alt="_images/text-input.png" src="_images/text-input.png" />
 <dl class="class">
 <dt id="rpw.forms.TextInput">
-<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>title</em>, <em>default=None</em>, <em>description=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.TextInput" title="Permalink to this definition">¶</a></dt>
-<dd><p>WPF form with TextInput.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>title</strong> (<em>str</em>) &#8211; Title of form</li>
-<li><strong>default</strong> (<em></em><em>[</em><em>str</em><em>]</em><em></em>) &#8211; Default value for text box</li>
-<li><strong>description</strong> (<em>str</em>) &#8211; Description of input requested</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prompt</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
-</dl>
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.TextInput" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="rpw.forms.TextInput.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#rpw.forms.TextInput.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">TextInputForm</span></code></p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -285,15 +248,16 @@
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>
 
-<span class="k">class</span> <span class="nc">SelectFromList</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SelectFromListForm</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    WPF form with ComboBox dropdown.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        title (str): Title of form</span>
-<span class="sd">        options ([str]): List of Options as stings</span>
+<span class="sd">        options ([str],{str:}): Dictionary (string keys) List[strings]</span>
 <span class="sd">        description (str): Description of input requested</span>
 <span class="sd">        sort (bool): Sort list [default: True]</span>
+<span class="sd">        exit_on_close (bool): Form will exit script if Closed on X. Default: True</span>
 
 <span class="sd">    Usage:</span>
 <span class="sd">        &gt;&gt;&gt; form = SelectFromList(&#39;Test Window&#39;, [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;])</span>
@@ -327,10 +291,8 @@
 <span class="s2">            &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="c1"># TODO: Validate options type, and handle dictionary input</span>
-        <span class="c1"># So user can feed a list or a dictionary</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">SelectFromList</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">SelectFromListForm</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
         <span class="c1"># self.ui = wpf.LoadComponent(self, os.path.join(cwd, &#39;form_select_list.xaml&#39;))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">title</span>
 
@@ -338,6 +300,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">selection_label</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">description</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">button_select</span><span class="o">.</span><span class="n">Click</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_click</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
             <span class="n">options</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
 
@@ -347,14 +313,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">select_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">SelectedItem</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">combo_data</span><span class="o">.</span><span class="n">SelectedItem</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="n">selected</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">DialogResult</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">SelectFromList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">SelectFromListForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
 
-<span class="k">class</span> <span class="nc">TextInput</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TextInputForm</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    WPF form with TextInput.</span>
 
@@ -362,6 +332,7 @@
 <span class="sd">        title (str): Title of form</span>
 <span class="sd">        default ([str]): Default value for text box</span>
 <span class="sd">        description (str): Description of input requested</span>
+<span class="sd">        exit_on_close (bool): Form will exit script if Closed on X. Default: True</span>
 
 
 <span class="sd">    Usage:</span>
@@ -390,7 +361,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">TextInput</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">TextInputForm</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
         <span class="c1"># self.ui = wpf.LoadComponent(self, os.path.join(cwd, &#39;form_text_input.xaml&#39;))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="n">title</span>
 
@@ -408,7 +379,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">TextInput</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">TextInputForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">Alert</span><span class="p">():</span>
@@ -431,15 +402,56 @@
         <span class="k">return</span> <span class="n">dialog</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
 
 
+<span class="k">class</span> <span class="nc">FormWrapper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Wraps WPF Window &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s1">&#39;form_class&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">form_class</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;FormWrapper is for inheritance only&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_close</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exit_on_close&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">form_class</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_on_close</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Form was closed. Script will exit.&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SelectFromList</span><span class="p">(</span><span class="n">FormWrapper</span><span class="p">):</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SelectFromListForm</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">TextInput</span><span class="p">(</span><span class="n">FormWrapper</span><span class="p">):</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">TextInputForm</span>
+    <span class="k">pass</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">prompt</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your Options&quot;</span><span class="p">)</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your Options&quot;</span><span class="p">,</span> <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your Options&quot;</span><span class="p">,</span> <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;forms.py ran&#39;</span><span class="p">)</span>
+
 <span class="c1">#</span>
-    <span class="n">prompt</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>
-    <span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
 </pre></div>
 </div>
 <div data-disqus-identifier="Forms" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
@@ -489,7 +501,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.96',
+            VERSION:'0.0.97',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tests &mdash; Revit Python Wrapper 0.0.96 documentation</title>
+  <title>Tests &mdash; Revit Python Wrapper 0.0.97 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.96 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.97 documentation" href="index.html"/>
         <link rel="next" title="Exceptions" href="exceptions.html"/>
         <link rel="prev" title="RevitPythonShell" href="revitpythonshell.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.0.96
+                0.0.97
               </div>
             
           
@@ -979,34 +979,61 @@ examples of how the library is intended to be used.</p>
 
     <span class="k">def</span> <span class="nf">test_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Select From List Test&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
-                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Select A and click select&#39;</span><span class="p">)</span>
+                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Select A and click select&#39;</span><span class="p">,</span>
+                                        <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">test_get_dict_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Select From List Test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>
+                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Select A and click select&#39;</span><span class="p">,</span>
+                                        <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">test_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Cancel&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
-                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE WITHOUT SELECTING&#39;</span><span class="p">)</span>
+                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE WITHOUT SELECTING&#39;</span><span class="p">,</span>
+                                        <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_close_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Text Exit on Close&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
+                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE WITHOUT SELECTING&#39;</span><span class="p">,</span>
+                                        <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemExit</span><span class="p">):</span>
+            <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">FormTextInputTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">test_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Text Input&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
-                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;select with letter A&#39;</span><span class="p">)</span>
+                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;select with letter A&#39;</span><span class="p">,</span>
+                                   <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Test Cancel&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
-                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE FORM&#39;</span><span class="p">)</span>
+                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE FORM&#39;</span><span class="p">,</span>
+                                   <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_close_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Test Exit on Close&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE FORM&#39;</span><span class="p">,</span>
+                                   <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemExit</span><span class="p">):</span>
+            <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 </pre></div>
 </div>
@@ -1057,7 +1084,7 @@ examples of how the library is intended to be used.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.96',
+            VERSION:'0.0.97',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
