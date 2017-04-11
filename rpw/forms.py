@@ -14,7 +14,7 @@ try:
     clr.AddReference("PresentationFramework")
     try:
         clr.AddReference('IronPython')
-        clr.AddReference('IronPython.Modules')
+        # clr.AddReference('IronPython.Modules')
         clr.AddReference('IronPython.Wpf')
         from IronPython.Modules import Wpf as wpf
     except IOError as errmsg:
@@ -39,7 +39,7 @@ class SelectFromListForm(Window):
 
     Args:
         title (str): Title of form
-        options ([str]): List of Options as stings
+        options ([str],{str:}): Dictionary (string keys) List[strings]
         description (str): Description of input requested
         sort (bool): Sort list [default: True]
         exit_on_close (bool): Form will exit script if Closed on X. Default: True
@@ -76,8 +76,6 @@ class SelectFromListForm(Window):
             """
 
     def __init__(self, title, options, description=None, sort=True):
-        # TODO: Validate options type, and handle dictionary input
-        # So user can feed a list or a dictionary
         self.selected = None
         self.ui = wpf.LoadComponent(self, StringReader(SelectFromListForm.LAYOUT))
         # self.ui = wpf.LoadComponent(self, os.path.join(cwd, 'form_select_list.xaml'))
@@ -87,6 +85,10 @@ class SelectFromListForm(Window):
             self.ui.selection_label.Content = description
         self.ui.button_select.Click += self.select_click
 
+        self.options = options
+
+        if isinstance(options, dict):
+            options = options.keys()
         if sort:
             options = sorted(options)
 
@@ -96,7 +98,11 @@ class SelectFromListForm(Window):
         self.ui.combo_data.Focus()
 
     def select_click(self, sender, e):
-        self.selected = self.ui.combo_data.SelectedItem
+        selected = self.ui.combo_data.SelectedItem
+        if isinstance(self.options, dict):
+            selected = self.options[selected]
+
+        self.selected = selected
         self.DialogResult = True
         self.Close()
 
@@ -194,10 +200,10 @@ class FormWrapper(object):
 
     def show(self):
         results = self.form.show()
-        if self.exit_on_close:
+        if not results and self.exit_on_close:
             logger.debug('Form was closed. Script will exit.')
             sys.exit(1)
-        if results:
+        elif results:
             return True
         else:
             return False
@@ -217,11 +223,15 @@ class TextInput(FormWrapper):
 
 
 if __name__ == '__main__':
-    prompt = SelectFromList('Title', ['A','B'], description="Your Options", exit_on_close=False)
+    prompt = SelectFromList('Title', ['A','B'], description="Your Options", exit_on_close=True)
     prompt.show()
     print(prompt.selected)
 
-    prompt = TextInput('Title', default="3", exit_on_close=False)
+    prompt = SelectFromList('Title', {'A':5, 'B':10}, description="Your Options", exit_on_close=True)
+    prompt.show()
+    print(prompt.selected)
+
+    prompt = TextInput('Title', default="3", exit_on_close=True)
     prompt.show()
     print(prompt.selected)
     print('forms.py ran')

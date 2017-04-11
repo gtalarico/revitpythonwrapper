@@ -38,6 +38,14 @@ class FormSelectFromListTests(unittest.TestCase):
         self.assertTrue(form_ok)
         self.assertEqual(form.selected, 'A')
 
+    def test_get_dict_value(self):
+        form = rpw.forms.SelectFromList('Select From List Test', {'A':10},
+                                        description='Select A and click select',
+                                        exit_on_close=False)
+        form_ok = form.show()
+        self.assertTrue(form_ok)
+        self.assertEqual(form.selected, 10)
+
     def test_cancel(self):
         form = rpw.forms.SelectFromList('Test Cancel', data,
                                         description='CLOSE WITHOUT SELECTING',
