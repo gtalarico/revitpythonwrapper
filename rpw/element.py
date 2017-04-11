@@ -463,10 +463,18 @@ class Room(Element):
         # Note: For an unknown reason, roominstance.Name does not work on IPY
         return self.parameters.builtins['ROOM_NAME'].value
 
+    @name.setter
+    def name(self, value):
+        self.parameters.builtins['ROOM_NAME'].value = value
+
     @property
     def number(self):
         """ Room Number as parameter Value: ``ROOM_NUMBER`` built-in parameter"""
         return self.parameters.builtins['ROOM_NUMBER'].value
+
+    @number.setter
+    def number(self, value):
+        self.parameters.builtins['ROOM_NUMBER'].value = value
 
     @property
     def is_placed(self):
@@ -484,3 +492,42 @@ class Room(Element):
 
     def __repr__(self):
         return super(Room, self).__repr__('{}:{}'.format(self.name, self.number))
+
+
+class Area(Room):
+    """
+    `DB.Area` Wrapper
+    Inherits from :any:`Room`
+
+    >>> area = rpw.Area(SomeArea)
+    <RPW_Room: Office:122>
+    >>> area.name
+    'Rentable'
+    >>> area.is_placed
+    True
+    >>> area.is_bounded
+    True
+
+    Attribute:
+        _revit_object (DB.Area): Wrapped ``DB.Area``
+    """
+
+    def __init__(self, area, enforce_type=DB.Area):
+        """
+        Args:
+            area (``DB.Area``): Area Instance to be wrapped
+        """
+        super(Area, self).__init__(area, enforce_type=enforce_type)
+
+    @property
+    def name(self):
+        """ Area Scheme Name: Area attribute parameter"""
+        return self._revit_object.AreaScheme.Name
+
+    @property
+    def area(self):
+        """ Area: .Area attribute"""
+        return self._revit_object.Area
+
+    def __repr__(self):
+        return super(Room, self).__repr__(data='{}:{}'.format(self.name, self.area))
