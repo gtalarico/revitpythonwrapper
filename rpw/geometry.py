@@ -4,7 +4,6 @@ from rpw import doc, DB
 from rpw.element import Element
 from rpw.base import BaseObject
 
-
 class Point(Element):
     """
     `DB.XYZ` Wrapper
@@ -20,18 +19,47 @@ class Point(Element):
     Attribute:
         _revit_object (DB.XYZ): Wrapped ``DB.XYZ``
     """
-    def __init__(self, xyz_or_tuple, enforce_type=DB.XYZ):
+    def __init__(self, *xyz_or_tuple):
         """
         Args:
             instance (``DB.XYZ``): Instance of XYZ to be wrapped
         """
-        if isinstance(xyz_or_tuple, DB.XYZ):
-            xyz = xyz_or_tuple
-        elif isinstance(tuple):
+        if len(xyz_or_tuple) == 3:
             xyz = DB.XYZ(*xyz_or_tuple)
-        super(Point, self).__init__(instance, enforce_type=enforce_type)
+        elif len(xyz_or_tuple) == 2:
+            xyz = DB.XYZ(xyz_or_tuple[0], xyz_or_tuple[1], 0)
+        elif len(xyz_or_tuple) == 1 and isinstance(xyz_or_tuple[0], tuple):
+            # Assumes one arg, tuple
+            xyz = DB.XYZ(*xyz_or_tuple[0])
+        else:
+            # Assumes one arg, DB.XYZ
+            xyz = xyz_or_tuple[0]
+        super(Point, self).__init__(xyz, enforce_type=DB.XYZ)
 
     @property
+    def x(self):
+        return self._revit_object.X
+
+    @property
+    def y(self):
+        return self._revit_object.Y
+
+    @property
+    def z(self):
+        return self._revit_object.Z
+
+    @x.setter
+    def x(self, value):
+        self._revit_object = DB.XYZ(value, self.y, self.z)
+
+    @y.setter
+    def y(self, value):
+        self._revit_object = DB.XYZ(self.x, value, self.z)
+
+    @z.setter
+    def z(self, value):
+        self._revit_object = DB.XYZ(self.x, self.y, value)
+
     def at_z(self, z):
         """
         Returns:
@@ -40,7 +68,7 @@ class Point(Element):
         Args:
             z (float): Z Elevation
         """
-        return DB.XYZ(self._revit_object.X, self._revit_object.Y, z)
+        return Point(self.x, self.y, z)
 
     @property
     def as_tuple(self):
@@ -48,9 +76,7 @@ class Point(Element):
         Returns:
             (tuple): tuple float of XYZ values
         """
-        return (self._revit_object.X,
-                self._revit_object.Y,
-                self._revit_object.Z)
+        return (self.x, self.y, self.z)
 
     def __repr__(self):
         return super(Point, self).__repr__(data=self.as_tuple)
@@ -88,14 +114,14 @@ class PointCollection(BaseObject):
         (2,2,1)
 
         """
-        x_values = [point.X for point in self.points]
-        y_values = [point.Y for point in self.points]
-        z_values = [point.Z for point in self.points]
+        x_values = [point.x for point in self.points]
+        y_values = [point.y for point in self.points]
+        z_values = [point.z for point in self.points]
         x_avg = sum(x_values) / len(x_values)
         y_avg = sum(y_values) / len(y_values)
         z_avg = sum(z_values) / len(z_values)
 
-        return PointElement(x_avg, y_avg, z_avg)
+        return Point(x_avg, y_avg, z_avg)
 
     @property
     def max(self):
@@ -106,9 +132,9 @@ class PointCollection(BaseObject):
         (2,2,5)
 
         """
-        x_values = [point.X for point in self.points]
-        y_values = [point.Y for point in self.points]
-        z_values = [point.Z for point in self.points]
+        x_values = [point.x for point in self.points]
+        y_values = [point.y for point in self.points]
+        z_values = [point.z for point in self.points]
         x_max = max(x_values)
         y_max = max(y_values)
         z_max = max(z_values)
@@ -122,18 +148,18 @@ class PointCollection(BaseObject):
         points = [(0,0,5), (2,2,2)]
         points.min = (0,0,2)
         """
-        x_values = [point.X for point in self.points]
-        y_values = [point.Y for point in self.points]
-        z_values = [point.Z for point in self.points]
+        x_values = [point.x for point in self.points]
+        y_values = [point.y for point in self.points]
+        z_values = [point.z for point in self.points]
         x_min = min(x_values)
         y_min = min(y_values)
         z_min = min(z_values)
-        return PointElement(x_min, y_min, z_min)
+        return Point(x_min, y_min, z_min)
 
-    def sort_points(self, align_axis):
-        sorted_points = self.points
-        sorted_points.sort(key=lambda p: getattr(p, align_axis))
-        self.points = sorted_points
+    def sorted_by(self, x_y_z):
+        sorted_points = self.points[:]
+        sorted_points.sort(key=lambda p: getattr(p, x_y_z))
+        return sorted_points
 
     def __len__(self):
         return len(self.points)
