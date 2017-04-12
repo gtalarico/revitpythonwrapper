@@ -8,7 +8,7 @@
 
 from rpw import uidoc, doc, DB
 from rpw import List
-from rpw.base import BaseObjectWrapper
+from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.element import Element
 from rpw.exceptions import RPW_Exception
 from rpw.enumeration import BicEnum, BipEnum
@@ -155,9 +155,7 @@ class Collector(BaseObjectWrapper):
         return super(Collector, self).__repr__(data=len(self))
 
 
-# class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain _revit_object
-# TODO: Create BaseObject Class, for this  type of classes to inherit from
-class _Filter():
+class _Filter(BaseObject):
     """ Filter for Collector class.
     Not to be confused with the Filter Class.
     """
