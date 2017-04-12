@@ -64,9 +64,9 @@ class BicEnum(type):
     """
     Enumeration Wrapper
 
-    >>> BicEnum.get('OST_Room')
-    Revit.DB.BuiltInCategory.OST_Room
-    >>> BicEnum.get_id('OST_Room')
+    >>> BicEnum.get('OST_Rooms')
+    Revit.DB.BuiltInCategory.OST_Rooms
+    >>> BicEnum.get_id('OST_Rooms')
     Revit.DB.ElementId
     >>> BicEnum.from_category_id(furniture.Category.Id)
     DB.BuiltInCategory.OST_Furniture
@@ -113,3 +113,4 @@ class BicEnum(type):
             ``DB.BuiltInCategory`` member
         """
         return Enum.ToObject(DB.BuiltInCategory, category_id.IntegerValue)
+        # Similar to: Category.GetCategory(doc, category.Id).Name
