@@ -21,11 +21,24 @@ SomeObject
 
 """
 
-from rpw.exceptions import RPW_TypeError
+from rpw.exceptions import RPW_TypeError, RPW_Exception
 from rpw import logger
 
 
-class BaseObjectWrapper(object):
+class BaseObject(object):
+
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def __repr__(self, data=''):
+            if data == '':
+                data = self._revit_object.__class__.__name__
+            return '<RPW_{class_name}: {data}>'.format(
+                                        class_name=self.__class__.__name__,
+                                        data=data
+                                        )
+
+class BaseObjectWrapper(BaseObject):
     """
     Arguments:
         element(APIObject): Revit Element to store
@@ -40,9 +53,7 @@ class BaseObjectWrapper(object):
         if enforce_type and not isinstance(revit_object, enforce_type):
             raise RPW_TypeError(enforce_type, type(revit_object))
 
-        # __dict__ used to prevent recursion
         object.__setattr__(self, '_revit_object', revit_object)
-        # self.__dict__['_revit_object'] = revit_object
 
     def __getattr__(self, attr):
         """
@@ -50,24 +61,20 @@ class BaseObjectWrapper(object):
         This method is only called if the attribute name does not
         already exists.
         """
-        # logger.error('Get Attr Called: {}'.format(attr))
-        return getattr(self.__dict__['_revit_object'], attr)
+        try:
+            return getattr(self.__dict__['_revit_object'], attr)
+        except KeyError:
+            raise RPW_Exception('BaseObjectWrapper is missing _revit_object: {}'.format(self))
 
-    # import rpw; from rpw.base import BaseObjectWrapper as B; w = B(selection[0])
-    # Setter allows for WrappedWall.Pinned = True
     def __setattr__(self, attr, value):
-        # logger.error('Set Attr Called: {}:{}'.format(attr, value))
+        """
+        Setter allows setting of wrapped object properties, for example
+        ```WrappedWall.Pinned = True``
+        """
         if hasattr(self._revit_object, attr):
             self._revit_object.__setattr__(attr, value)
         else:
-            super(BaseObjectWrapper, self).__setattr__(attr, value)
+            object.__setattr__(self, attr, value)
 
     def unwrap(self):
         return self._revit_object
-    #
-    def __repr__(self, data=''):
-        if data == '':
-            data = self._revit_object.__class__.__name__
-        return '<RPW_{class_name}: {optional_data}>'.format(
-                                            class_name=self.__class__.__name__,
-                                            optional_data=data)

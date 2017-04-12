@@ -491,7 +491,7 @@ class Room(Element):
         return self._revit_object.Area > 0
 
     def __repr__(self):
-        return super(Room, self).__repr__('{}:{}'.format(self.name, self.number))
+        return super(Room, self).__repr__(data='{}:{}'.format(self.name, self.number))
 
 
 class Area(Room):
