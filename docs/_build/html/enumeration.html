@@ -192,9 +192,9 @@ helpful.</p>
 <em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BicEnum</code><a class="headerlink" href="#rpw.enumeration.BicEnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
 <p>Enumeration Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.BuiltInCategory.OST_Room</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Room&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
+<span class="go">Revit.DB.BuiltInCategory.OST_Rooms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.ElementId</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="n">furniture</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
 <span class="go">DB.BuiltInCategory.OST_Furniture</span>
@@ -356,9 +356,9 @@ helpful.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration Wrapper</span>
 
-<span class="sd">    &gt;&gt;&gt; BicEnum.get(&#39;OST_Room&#39;)</span>
-<span class="sd">    Revit.DB.BuiltInCategory.OST_Room</span>
-<span class="sd">    &gt;&gt;&gt; BicEnum.get_id(&#39;OST_Room&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; BicEnum.get(&#39;OST_Rooms&#39;)</span>
+<span class="sd">    Revit.DB.BuiltInCategory.OST_Rooms</span>
+<span class="sd">    &gt;&gt;&gt; BicEnum.get_id(&#39;OST_Rooms&#39;)</span>
 <span class="sd">    Revit.DB.ElementId</span>
 <span class="sd">    &gt;&gt;&gt; BicEnum.from_category_id(furniture.Category.Id)</span>
 <span class="sd">    DB.BuiltInCategory.OST_Furniture</span>
@@ -405,6 +405,7 @@ helpful.</p>
 <span class="sd">            ``DB.BuiltInCategory`` member</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">Enum</span><span class="o">.</span><span class="n">ToObject</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+        <span class="c1"># Similar to: Category.GetCategory(doc, category.Id).Name</span>
 </pre></div>
 </div>
 <div data-disqus-identifier="Enumeration" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>

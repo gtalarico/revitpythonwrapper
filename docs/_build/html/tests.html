@@ -928,19 +928,25 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Walls&#39;</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">WallTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">RoomTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># def setUp(self):</span>
+    <span class="c1">#     wall = rpw.Collector(of_class=&#39;Wall&#39;, is_not_type=True).first</span>
+    <span class="c1">#     self.wall = rpw.WallInstance(wall)</span>
+    <span class="c1">#</span>
+    <span class="c1"># def test_wall_instance_wrap(self):</span>
+    <span class="c1">#     self.assertIsInstance(self.wall, rpw.WallInstance)</span>
+    <span class="c1">#     self.assertIsInstance(self.wall.unwrap(), DB.Wall)</span>
 
 
-    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_wall_instance_wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+<span class="c1"># TODO: Clean up Module Setup</span>
+<span class="c1"># TODO: Separate Classes</span>
+<span class="c1"># TODO: Create Area Tests</span>
+<span class="c1"># TODO: test wrapped_elements</span>
 
 
 </pre></div>

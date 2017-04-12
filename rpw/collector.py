@@ -53,6 +53,7 @@ class Collector(BaseObjectWrapper):
     Attributes:
         collector.elements: Returns list of all `collected` elements
         collector.first: Returns first found element, or ``None``
+        collector.wrapped_elements: Returns list with all elements wrapped. Elements will be instantiated using :any:`Element.Factory`
 
     Wrapped Element:
         self._revit_object = ``Revit.DB.FilteredElementCollector``
@@ -141,6 +142,8 @@ class Collector(BaseObjectWrapper):
 
     @property
     def wrapped_elements(self):
+        """ Returns list with all elements instantiated using :any:`Element.Factory`
+        """
         return [Element.Factory(el) for el in self.elements]
 
     def __bool__(self):

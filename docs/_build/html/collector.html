@@ -233,6 +233,12 @@
 <dd><p>Returns first found element, or <code class="docutils literal"><span class="pre">None</span></code></p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="rpw.collector.Collector.collector.wrapped_elements">
+<code class="descclassname">collector.</code><code class="descname">wrapped_elements</code><a class="headerlink" href="#rpw.collector.Collector.collector.wrapped_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list with all elements wrapped. Elements will be instantiated using <a class="reference internal" href="element.html#rpw.Element.Factory" title="rpw.Element.Factory"><code class="xref any py py-meth docutils literal"><span class="pre">Element.Factory</span></code></a></p>
+</dd></dl>
+
 <dl class="docutils">
 <dt>Wrapped Element:</dt>
 <dd>self._revit_object = <code class="docutils literal"><span class="pre">Revit.DB.FilteredElementCollector</span></code></dd>
@@ -287,6 +293,12 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <dd><p>Returns the first element in collector, or None</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="rpw.Collector.wrapped_elements">
+<code class="descname">wrapped_elements</code><a class="headerlink" href="#rpw.Collector.wrapped_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list with all elements instantiated using <a class="reference internal" href="element.html#rpw.Element.Factory" title="rpw.Element.Factory"><code class="xref any py py-meth docutils literal"><span class="pre">Element.Factory</span></code></a></p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -297,8 +309,8 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 Used to build a parameter filter to be used with the Collector.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">param_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElemendId</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">SOME_PARAMETER</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parameter_filter</span> <span class="o">=</span> <span class="n">ParameterFilter</span><span class="p">(</span><span class="s1">&#39;Type Name&#39;</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="s1">&#39;Wall 1&#39;</span><span class="p">)</span>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">param_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElemendId</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">TYPE_NAME</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parameter_filter</span> <span class="o">=</span> <span class="n">ParameterFilter</span><span class="p">(</span><span class="n">param_id</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="s1">&#39;Wall 1&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">parameter_filter</span><span class="o">=</span><span class="n">parameter_filter</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -376,7 +388,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span><span class="p">,</span> <span class="n">BaseObject</span>
 <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
@@ -421,6 +433,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">    Attributes:</span>
 <span class="sd">        collector.elements: Returns list of all `collected` elements</span>
 <span class="sd">        collector.first: Returns first found element, or ``None``</span>
+<span class="sd">        collector.wrapped_elements: Returns list with all elements wrapped. Elements will be instantiated using :any:`Element.Factory`</span>
 
 <span class="sd">    Wrapped Element:</span>
 <span class="sd">        self._revit_object = ``Revit.DB.FilteredElementCollector``</span>
@@ -509,6 +522,8 @@ Used to build a parameter filter to be used with the Collector.</p>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">wrapped_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns list with all elements instantiated using :any:`Element.Factory`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -520,12 +535,10 @@ Used to build a parameter filter to be used with the Collector.</p>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
 
-<span class="c1"># class _Filter(BaseObjectWrapper): # Should not inheir as it will not contain _revit_object</span>
-<span class="c1"># TODO: Create BaseObject Class, for this  type of classes to inherit from</span>
-<span class="k">class</span> <span class="nc">_Filter</span><span class="p">():</span>
+<span class="k">class</span> <span class="nc">_Filter</span><span class="p">(</span><span class="n">BaseObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Filter for Collector class.</span>
 <span class="sd">    Not to be confused with the Filter Class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -664,8 +677,8 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">    Used to build a parameter filter to be used with the Collector.</span>
 
 <span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; param_id = DB.ElemendId(DB.BuiltInParameter.SOME_PARAMETER)</span>
-<span class="sd">        &gt;&gt;&gt; parameter_filter = ParameterFilter(&#39;Type Name&#39;, equals=&#39;Wall 1&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; param_id = DB.ElemendId(DB.BuiltInParameter.TYPE_NAME)</span>
+<span class="sd">        &gt;&gt;&gt; parameter_filter = ParameterFilter(param_id, equals=&#39;Wall 1&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; collector = Collector(parameter_filter=parameter_filter)</span>
 
 <span class="sd">    Returns:</span>
@@ -741,7 +754,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 
         <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">condition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">RULES</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Rule not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Rule not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span>
 
         <span class="n">rules</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_value</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
@@ -758,6 +771,7 @@ Used to build a parameter filter to be used with the Collector.</p>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">condition_value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
                 <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span>
 
+            <span class="c1"># TODO: coerce from BuildInParameter or BIP name into paremter_id</span>
             <span class="n">filter_rule</span> <span class="o">=</span> <span class="n">filter_value_rule</span><span class="p">(</span><span class="n">parameter_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
             <span class="k">if</span> <span class="s1">&#39;not_&#39;</span> <span class="ow">in</span> <span class="n">condition_name</span><span class="p">:</span>
                 <span class="n">filter_rule</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilterInverseRule</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>

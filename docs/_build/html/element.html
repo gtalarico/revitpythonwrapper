@@ -101,7 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#family">Family</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#category">Category</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#walls">Walls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#room">Room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#room-area">Room + Area</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameter-and-parameter-set">Parameter and Parameter Set</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameter">Parameter</a></li>
@@ -580,8 +580,8 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 
 </div>
 <hr class="docutils" />
-<div class="section" id="room">
-<h2>Room<a class="headerlink" href="#room" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="room-area">
+<h2>Room + Area<a class="headerlink" href="#room-area" title="Permalink to this headline">¶</a></h2>
 <p>Room Wrapper</p>
 <dl class="class">
 <dt id="rpw.Room">
@@ -642,6 +642,54 @@ Uses result of <code class="docutils literal"><span class="pre">Room.Location</s
 <dt id="rpw.Room.number">
 <code class="descname">number</code><a class="headerlink" href="#rpw.Room.number" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Room Number as parameter Value</em> &#8211; <code class="docutils literal"><span class="pre">ROOM_NUMBER</span></code> built-in parameter</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Area Wrapper</p>
+<dl class="class">
+<dt id="rpw.Area">
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Area</code><span class="sig-paren">(</span><em>area</em>, <em>enforce_type=DB.Area</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Room</span></code></p>
+<p><cite>DB.Area</cite> Wrapper
+Inherits from <a class="reference internal" href="#rpw.Room" title="rpw.Room"><code class="xref any py py-class docutils literal"><span class="pre">Room</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">area</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Area</span><span class="p">(</span><span class="n">SomeArea</span><span class="p">)</span>
+<span class="go">&lt;RPW_Room: Office:122&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">area</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Rentable&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">area</span><span class="o">.</span><span class="n">is_placed</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">area</span><span class="o">.</span><span class="n">is_bounded</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.Area): Wrapped <code class="docutils literal"><span class="pre">DB.Area</span></code></dd>
+</dl>
+<dl class="method">
+<dt id="rpw.Area.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>area</em>, <em>enforce_type=DB.Area</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Area.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>area</strong> (<code class="docutils literal"><span class="pre">DB.Area</span></code>) &#8211; Area Instance to be wrapped</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.Area.area">
+<code class="descname">area</code><a class="headerlink" href="#rpw.Area.area" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Area</em> &#8211; .Area attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.Area.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.Area.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Area Scheme Name</em> &#8211; Area attribute parameter</p>
 </dd></dl>
 
 </dd></dl>
@@ -1011,6 +1059,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
                       <span class="s1">&#39;WallType&#39;</span><span class="p">:</span> <span class="n">WallSymbol</span><span class="p">,</span>
                       <span class="s1">&#39;WallKind&#39;</span><span class="p">:</span> <span class="n">WallFamily</span><span class="p">,</span>
                       <span class="s1">&#39;Room&#39;</span><span class="p">:</span> <span class="n">Room</span><span class="p">,</span>
+                      <span class="s1">&#39;Area&#39;</span><span class="p">:</span> <span class="n">Area</span><span class="p">,</span>
                     <span class="p">}</span>
         <span class="n">element_class_name</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">element_class</span> <span class="o">=</span> <span class="n">CLASS_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">)</span>
@@ -1363,10 +1412,18 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="c1"># Note: For an unknown reason, roominstance.Name does not work on IPY</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;ROOM_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;ROOM_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Room Number as parameter Value: ``ROOM_NUMBER`` built-in parameter&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;ROOM_NUMBER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@number</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;ROOM_NUMBER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_placed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1383,7 +1440,46 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Area</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">Area</span><span class="p">(</span><span class="n">Room</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `DB.Area` Wrapper</span>
+<span class="sd">    Inherits from :any:`Room`</span>
+
+<span class="sd">    &gt;&gt;&gt; area = rpw.Area(SomeArea)</span>
+<span class="sd">    &lt;RPW_Room: Office:122&gt;</span>
+<span class="sd">    &gt;&gt;&gt; area.name</span>
+<span class="sd">    &#39;Rentable&#39;</span>
+<span class="sd">    &gt;&gt;&gt; area.is_placed</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; area.is_bounded</span>
+<span class="sd">    True</span>
+
+<span class="sd">    Attribute:</span>
+<span class="sd">        _revit_object (DB.Area): Wrapped ``DB.Area``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Area</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            area (``DB.Area``): Area Instance to be wrapped</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Area</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Area Scheme Name: Area attribute parameter&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AreaScheme</span><span class="o">.</span><span class="n">Name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Area: .Area attribute&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Area</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>

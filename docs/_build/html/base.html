@@ -198,7 +198,7 @@ when passing the element into function where the original Type is expected.</p>
 <dl class="class">
 <dt id="rpw.BaseObjectWrapper">
 <em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">BaseObjectWrapper</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.BaseObjectWrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObject</span></code></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -242,11 +242,24 @@ Element is used loosely to refer to all Revit Elements.</p>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_TypeError</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_TypeError</span><span class="p">,</span> <span class="n">RPW_Exception</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">logger</span>
 
 
-<span class="k">class</span> <span class="nc">BaseObjectWrapper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BaseObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">return</span> <span class="s1">&#39;&lt;RPW_</span><span class="si">{class_name}</span><span class="s1">: </span><span class="si">{data}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                        <span class="n">class_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                        <span class="n">data</span><span class="o">=</span><span class="n">data</span>
+                                        <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">BaseObjectWrapper</span><span class="p">(</span><span class="n">BaseObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Arguments:</span>
 <span class="sd">        element(APIObject): Revit Element to store</span>
@@ -261,9 +274,7 @@ Element is used loosely to refer to all Revit Elements.</p>
         <span class="k">if</span> <span class="n">enforce_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">revit_object</span><span class="p">,</span> <span class="n">enforce_type</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="n">enforce_type</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">revit_object</span><span class="p">))</span>
 
-        <span class="c1"># __dict__ used to prevent recursion</span>
         <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_revit_object&#39;</span><span class="p">,</span> <span class="n">revit_object</span><span class="p">)</span>
-        <span class="c1"># self.__dict__[&#39;_revit_object&#39;] = revit_object</span>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -271,27 +282,23 @@ Element is used loosely to refer to all Revit Elements.</p>
 <span class="sd">        This method is only called if the attribute name does not</span>
 <span class="sd">        already exists.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># logger.error(&#39;Get Attr Called: {}&#39;.format(attr))</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_revit_object&#39;</span><span class="p">],</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_revit_object&#39;</span><span class="p">],</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;BaseObjectWrapper is missing _revit_object: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
-    <span class="c1"># import rpw; from rpw.base import BaseObjectWrapper as B; w = B(selection[0])</span>
-    <span class="c1"># Setter allows for WrappedWall.Pinned = True</span>
     <span class="k">def</span> <span class="nf">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="c1"># logger.error(&#39;Set Attr Called: {}:{}&#39;.format(attr, value))</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter allows setting of wrapped object properties, for example</span>
+<span class="sd">        ```WrappedWall.Pinned = True``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">super</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">unwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span>
-    <span class="c1">#</span>
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;RPW_</span><span class="si">{class_name}</span><span class="s1">: </span><span class="si">{optional_data}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                            <span class="n">class_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-                                            <span class="n">optional_data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 <div data-disqus-identifier="Base Wrapper" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
