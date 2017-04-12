@@ -111,6 +111,7 @@ class Element(BaseObjectWrapper):
                       'WallType': WallSymbol,
                       'WallKind': WallFamily,
                       'Room': Room,
+                      'Area': Area,
                     }
         element_class_name = element.__class__.__name__
         element_class = CLASS_MAP.get(element_class_name)
