@@ -1,0 +1,61 @@
+Revitpythonwrapper:
+
+Base Wrappers:
+✔ Transaction @done
+✔ Collector @done
+✔ Selection @done
+✔ Parameters @done
+☐ Document
+
+Base Element:
+✔ Abstraction Wrapper @done
+✔ Getter/Setter @done
+✔ Collection @done
+
+Element Wrappers:
+✔ BaseObject @done
+✔ BaseObjectWrapper @done
+✔ Element @done
+✔ Instance @done
+✔ Symbol @done
+✔ Family @done
+✔ Category @done
+✔ WallInstance @done
+✔ WallSymbol @done
+✔ WallFamily @done
+✔ WallCategory @done
+✔ Area @done
+✔ Room @done
+☐ View
+☐ ViewPort
+☐ Sheet
+☐ Floor
+☐ Door
+☐ Window
+☐ Schedule
+☐ Worksets
+☐ Links
+
+Collector:
+☐ Clean up filter
+☐ Add Slow Filters
+☐ Add Level Filter
+☐ Add Bounding Box Filter
+
+Geometry:
+✔ Point @done
+✔ PointCollection @done
+☐ BoundingBox
+
+Tests Debt:
+☐ Clean up + Separate
+☐ Room
+☐ Area
+
+Forms:
+☐ Multi-input Forms
+
+Geometry:
+✔ To Element Ids @done
+✔ To Elements @done
+☐ Data Types
