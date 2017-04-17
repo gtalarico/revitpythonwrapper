@@ -24,8 +24,9 @@ Element Wrappers:
 ✔ WallSymbol @done
 ✔ WallFamily @done
 ✔ WallCategory @done
-✔ Area @done
 ✔ Room @done
+✔ Area @done
+✔ AreaSchema @done
 ☐ View
 ☐ ViewPort
 ☐ Sheet
@@ -51,6 +52,9 @@ Tests Debt:
 ☐ Clean up + Separate
 ☐ Room
 ☐ Area
+
+Selection:
+☐ Add Pick / Filters
 
 Forms:
 ☐ Multi-input Forms
