@@ -88,12 +88,6 @@ class Element(BaseObjectWrapper):
         else:
             raise RPW_Exception('Wrapper cannot collect by class: {}'.format(cls.__name__))
 
-    @property
-    def id_as_int(self):
-        # TODO: Delete this
-        """ Example of mapping existing properties"""
-        return self._revit_object.Id.IntegerValue
-
     @staticmethod
     def from_int(id_int):
         element = doc.GetElement(DB.ElementId(id_int))
