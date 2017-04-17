@@ -1,4 +1,3 @@
-
 import rpw
 from rpw import doc, DB
 from rpw.element import Element
@@ -8,15 +7,19 @@ class Point(Element):
     """
     `DB.XYZ` Wrapper
 
+    Allows setting of properties
+
 
     >>> some_point = XYZ(0,0,0)
     >>> pt = rpw.Point(some_point)
     >>> pt.as_tuple
     (0,0,0)
+    >>> pt.x = 10
+    <RPW_Point: 0,0,10>
     >>> pt.at_z(5)
     <RPW_Point: 0,0,5>
 
-    Attribute:
+    Attributes:
         _revit_object (DB.XYZ): Wrapped ``DB.XYZ``
     """
     def __init__(self, *xyz_or_tuple):
@@ -38,14 +41,17 @@ class Point(Element):
 
     @property
     def x(self):
+        """X Value"""
         return self._revit_object.X
 
     @property
     def y(self):
+        """Y Value"""
         return self._revit_object.Y
 
     @property
     def z(self):
+        """Z Value"""
         return self._revit_object.Z
 
     @x.setter
@@ -61,20 +67,24 @@ class Point(Element):
         self._revit_object = DB.XYZ(self.x, self.y, value)
 
     def at_z(self, z):
-        """
-        Returns:
-            (DB.XYZ): a XYZ point with the assigned z value.
+        """ Returns a new point at the passed Z value
 
         Args:
-            z (float): Z Elevation
+            z(float): Elevation of new Points
+
+        Returns:
+            (:any:`Point`): New Points
         """
         return Point(self.x, self.y, z)
 
     @property
     def as_tuple(self):
         """
+        Tuple representing the xyz coordinate of the Point
+        
         Returns:
             (tuple): tuple float of XYZ values
+
         """
         return (self.x, self.y, self.z)
 
@@ -84,21 +94,18 @@ class Point(Element):
 
 
 class PointCollection(BaseObject):
-    """ A Collection of Point
-
-        points = [p1,p2,p3,p4, ...]
-        point_collection = PointCollection(*points)
-            or
-            point_collection = PointCollection(pt1, pt2, pt)
-            or
-            point_collection = PointCollection() - then
-
-        Attributes:
-            point_collection.average
-            point_collection.min
-            point_collection.max
     """
-    def __init__(self, points=None):
+    Provides helpful methods for managing a collection(list) of :any:`Point` instances.
+
+    >>> points = [p1,p2,p3,p4, ...]
+    >>> point_collection = PointCollection(points)
+
+    Attributes:
+        point_collection.average
+        point_collection.min
+        point_collection.max
+    """
+    def __init__(self, points):
         self.points = points if points is not None else []
 
     def __iter__(self):

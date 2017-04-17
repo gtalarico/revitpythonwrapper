@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
@@ -179,6 +180,7 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
@@ -187,6 +189,9 @@
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
  
 </div>
 <h2 id="_">_</h2>
@@ -227,6 +232,8 @@
 </li>
         <li><a href="forms.html#rpw.forms.Alert.__init__">(rpw.forms.Alert method)</a>
 </li>
+        <li><a href="geometry.html#rpw.geometry.Point.__init__">(rpw.geometry.Point method)</a>
+</li>
         <li><a href="element.html#rpw.parameter.Parameter.__init__">(rpw.parameter.Parameter method)</a>
 </li>
       </ul></li>
@@ -243,6 +250,8 @@
       <ul>
         <li><a href="element.html#rpw.element.ParameterSet._revit_object">(rpw.element.ParameterSet attribute)</a>
 </li>
+        <li><a href="geometry.html#rpw.geometry.Point._revit_object">(rpw.geometry.Point attribute)</a>
+</li>
       </ul></li>
   </ul></td>
 </tr></table>
@@ -256,16 +265,26 @@
 </li>
       <li><a href="element.html#rpw.ParameterSet.all">all (rpw.ParameterSet attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.Area">Area (class in rpw)</a>
 </li>
       <li><a href="element.html#rpw.Area.area">area (rpw.Area attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.AreaScheme.areas">areas (rpw.AreaScheme attribute)</a>
 </li>
       <li><a href="element.html#rpw.AreaScheme">AreaScheme (class in rpw)</a>
 </li>
+      <li><a href="geometry.html#rpw.geometry.Point.as_tuple">as_tuple (rpw.geometry.Point attribute)</a>
+</li>
+      <li><a href="geometry.html#rpw.geometry.Point.at_z">at_z() (rpw.geometry.Point method)</a>
+</li>
+      <li><a href="geometry.html#rpw.geometry.PointCollection.average">average (rpw.geometry.PointCollection attribute)</a>
+
+      <ul>
+        <li><a href="geometry.html#rpw.geometry.PointCollection.point_collection.average">(rpw.geometry.PointCollection.point_collection attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -419,6 +438,26 @@
   </ul></td>
 </tr></table>
 
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="geometry.html#rpw.geometry.PointCollection.max">max (rpw.geometry.PointCollection attribute)</a>
+
+      <ul>
+        <li><a href="geometry.html#rpw.geometry.PointCollection.point_collection.max">(rpw.geometry.PointCollection.point_collection attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="geometry.html#rpw.geometry.PointCollection.min">min (rpw.geometry.PointCollection attribute)</a>
+
+      <ul>
+        <li><a href="geometry.html#rpw.geometry.PointCollection.point_collection.min">(rpw.geometry.PointCollection.point_collection attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -452,11 +491,15 @@
 </li>
       <li><a href="collector.html#rpw.ParameterFilter">ParameterFilter (class in rpw)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.element.Element.parameters">parameters (rpw.element.Element attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.ParameterSet">ParameterSet (class in rpw)</a>
+</li>
+      <li><a href="geometry.html#rpw.geometry.Point">Point (class in rpw.geometry)</a>
+</li>
+      <li><a href="geometry.html#rpw.geometry.PointCollection">PointCollection (class in rpw.geometry)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -480,6 +523,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="geometry.html#module-rpw.geometry">rpw.geometry (module)</a>
+</li>
       <li><a href="selection.html#module-rpw.selection">rpw.selection (module)</a>
 </li>
       <li><a href="transaction.html#module-rpw.transaction">rpw.transaction (module)</a>
@@ -588,6 +633,30 @@
         <li><a href="collector.html#rpw.collector.Collector.collector.wrapped_elements">(rpw.collector.Collector.collector attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="geometry.html#rpw.geometry.Point.x">x (rpw.geometry.Point attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="geometry.html#rpw.geometry.Point.y">y (rpw.geometry.Point attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="geometry.html#rpw.geometry.Point.z">z (rpw.geometry.Point attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 

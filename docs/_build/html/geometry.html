@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Enumeration &mdash; Revit Python Wrapper 0.0.98 documentation</title>
+  <title>Geometry &mdash; Revit Python Wrapper 0.0.98 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.98 documentation" href="index.html"/>
-        <link rel="next" title="Forms" href="forms.html"/>
-        <link rel="prev" title="Geometry [Beta]" href="geometry.html"/> 
+        <link rel="next" title="Enumeration" href="enumeration.html"/>
+        <link rel="prev" title="Collector" href="collector.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -98,11 +98,11 @@
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry [Beta]</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Enumeration</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Geometry</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
@@ -154,13 +154,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Enumeration</li>
+      <li>Geometry</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/enumeration.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/geometry.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,133 +173,151 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-rpw.enumeration">
-<span id="enumeration"></span><h1>Enumeration<a class="headerlink" href="#module-rpw.enumeration" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.ElementId</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These classes were originally create to be used internally,
-but are documented here as some it&#8217;s functionalities can be
-helpful.</p>
-</div>
-<hr class="docutils" />
+  <div class="section" id="module-rpw.geometry">
+<span id="geometry"></span><h1>Geometry<a class="headerlink" href="#module-rpw.geometry" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="rpw.enumeration.BicEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BicEnum</code><a class="headerlink" href="#rpw.enumeration.BicEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
-<p>Enumeration Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.BuiltInCategory.OST_Rooms</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.ElementId</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="n">furniture</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
-<span class="go">DB.BuiltInCategory.OST_Furniture</span>
+<dt id="rpw.geometry.Point">
+<em class="property">class </em><code class="descclassname">rpw.geometry.</code><code class="descname">Point</code><span class="sig-paren">(</span><em>*xyz_or_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.geometry.Point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></p>
+<p><cite>DB.XYZ</cite> Wrapper</p>
+<p>Allows setting of properties</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">some_point</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">some_point</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">as_tuple</span>
+<span class="go">(0,0,0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="go">&lt;RPW_Point: 0,0,10&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">at_z</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">&lt;RPW_Point: 0,0,5&gt;</span>
 </pre></div>
 </div>
-<dl class="classmethod">
-<dt id="rpw.enumeration.BicEnum.from_category_id">
-<em class="property">classmethod </em><code class="descname">from_category_id</code><span class="sig-paren">(</span><em>category_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.from_category_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Casts <code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> Enumeration member from a Category ElementId</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="rpw.geometry.Point._revit_object">
+<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.geometry.Point._revit_object" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>DB.XYZ</em> &#8211; Wrapped <code class="docutils literal"><span class="pre">DB.XYZ</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.geometry.Point.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*xyz_or_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.geometry.Point.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>category_id</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) &#8211; ElementId reference of a category</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> member</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance</strong> (<code class="docutils literal"><span class="pre">DB.XYZ</span></code>) &#8211; Instance of XYZ to be wrapped</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="rpw.enumeration.BicEnum.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets Built In Category by Name</p>
+<dl class="attribute">
+<dt id="rpw.geometry.Point.as_tuple">
+<code class="descname">as_tuple</code><a class="headerlink" href="#rpw.geometry.Point.as_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tuple representing the xyz coordinate of the Point</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; Name of Category</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple float of XYZ values</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(tuple)</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="rpw.enumeration.BicEnum.get_id">
-<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BicEnum.get_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets ElementId of Category by name</p>
+<dl class="method">
+<dt id="rpw.geometry.Point.at_z">
+<code class="descname">at_z</code><span class="sig-paren">(</span><em>z</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.geometry.Point.at_z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new point at the passed Z value</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; Name of Category</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>z</strong> (<em>float</em>) &#8211; Elevation of new Points</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">New Points</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference internal" href="#rpw.geometry.Point" title="rpw.geometry.Point"><code class="xref any py py-class docutils literal"><span class="pre">Point</span></code></a>)</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.Point.x">
+<code class="descname">x</code><a class="headerlink" href="#rpw.geometry.Point.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>X Value</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.Point.y">
+<code class="descname">y</code><a class="headerlink" href="#rpw.geometry.Point.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Y Value</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.Point.z">
+<code class="descname">z</code><a class="headerlink" href="#rpw.geometry.Point.z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Z Value</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="rpw.enumeration.BipEnum">
-<em class="property">class </em><code class="descclassname">rpw.enumeration.</code><code class="descname">BipEnum</code><a class="headerlink" href="#rpw.enumeration.BipEnum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">type</span></code></p>
-<p>BuiltInParameter Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
-<span class="go">Revit.DB.ElementId</span>
+<dt id="rpw.geometry.PointCollection">
+<em class="property">class </em><code class="descclassname">rpw.geometry.</code><code class="descname">PointCollection</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.geometry.PointCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObject</span></code></p>
+<p>Provides helpful methods for managing a collection(list) of <a class="reference internal" href="#rpw.geometry.Point" title="rpw.geometry.Point"><code class="xref any py py-class docutils literal"><span class="pre">Point</span></code></a> instances.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p3</span><span class="p">,</span><span class="n">p4</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">point_collection</span> <span class="o">=</span> <span class="n">PointCollection</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="classmethod">
-<dt id="rpw.enumeration.BipEnum.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BipEnum.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets Built In Parameter by Name</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> &#8211; Name of Parameter</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInParameter</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="attribute">
+<dt id="rpw.geometry.PointCollection.point_collection.average">
+<code class="descclassname">point_collection.</code><code class="descname">average</code><a class="headerlink" href="#rpw.geometry.PointCollection.point_collection.average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.PointCollection.point_collection.min">
+<code class="descclassname">point_collection.</code><code class="descname">min</code><a class="headerlink" href="#rpw.geometry.PointCollection.point_collection.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.PointCollection.point_collection.max">
+<code class="descclassname">point_collection.</code><code class="descname">max</code><a class="headerlink" href="#rpw.geometry.PointCollection.point_collection.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.PointCollection.average">
+<code class="descname">average</code><a class="headerlink" href="#rpw.geometry.PointCollection.average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns PointElement representing average of point collection.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">XYZ</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">points</span><span class="o">.</span><span class="n">average</span>
+<span class="go">(2,2,1)</span>
+</pre></div>
+</div>
 </dd></dl>
 
-<dl class="classmethod">
-<dt id="rpw.enumeration.BipEnum.get_id">
-<em class="property">classmethod </em><code class="descname">get_id</code><span class="sig-paren">(</span><em>parameter_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.enumeration.BipEnum.get_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets ElementId of Category by name</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameter_name</strong> (<code class="docutils literal"><span class="pre">str</span></code>) &#8211; Name of Built In Parameter</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuitInParameter</span></code></td>
-</tr>
-</tbody>
-</table>
+<dl class="attribute">
+<dt id="rpw.geometry.PointCollection.max">
+<code class="descname">max</code><a class="headerlink" href="#rpw.geometry.PointCollection.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns PointElement representing MAXIMUM of point collection.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">points</span><span class="o">.</span><span class="n">max</span>
+<span class="go">(2,2,5)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.geometry.PointCollection.min">
+<code class="descname">min</code><a class="headerlink" href="#rpw.geometry.PointCollection.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns PointElement representing MINIMUM of point collection.
+PointElement objects must support X,Y,Z attributes.
+Example:
+points = [(0,0,5), (2,2,2)]
+points.min = (0,0,2)</p>
 </dd></dl>
 
 </dd></dl>
@@ -409,7 +427,7 @@ helpful.</p>
         <span class="c1"># Similar to: Category.GetCategory(doc, category.Id).Name</span>
 </pre></div>
 </div>
-<div data-disqus-identifier="Enumeration" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
+<div data-disqus-identifier="Geometry" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
 </div>
 
 
@@ -422,10 +440,10 @@ helpful.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="forms.html" class="btn btn-neutral float-right" title="Forms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="enumeration.html" class="btn btn-neutral float-right" title="Enumeration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="geometry.html" class="btn btn-neutral" title="Geometry [Beta]" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="collector.html" class="btn btn-neutral" title="Collector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

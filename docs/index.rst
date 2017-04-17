@@ -19,6 +19,7 @@ Revit Python Wrapper
    selection
    transaction
    collector
+   geometry
    enumeration
    forms
    utils
