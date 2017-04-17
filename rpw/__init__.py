@@ -26,7 +26,7 @@ Copyright 2017 Gui Talarico
 """
 
 __title__ = 'revitpythonwrapper'
-__version__ = '0.0.97'
+__version__ = '0.0.98'
 __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'

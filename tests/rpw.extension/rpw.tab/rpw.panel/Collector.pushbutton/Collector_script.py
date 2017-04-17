@@ -1,0 +1,353 @@
+"""
+Collector Tests
+
+Passes:
+ * 2017.1
+
+Revit Python Wrapper
+github.com/gtalarico/revitpythonwrapper
+revitpythonwrapper.readthedocs.io
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Copyright 2017 Gui Talarico
+
+"""
+
+import sys
+import unittest
+import os
+
+parent = os.path.dirname
+
+script_dir = parent(__file__)
+panel_dir = parent(script_dir)
+sys.path.append(script_dir)
+
+import rpw
+from rpw import DB, UI, doc, uidoc, version, clr
+from rpw import List
+from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
+from rpw.utils.logger import logger
+
+import test_utils
+
+def setUpModule():
+    logger.title('SETTING UP COLLECTOR TESTS...')
+    logger.title('REVIT {}'.format(version))
+    uidoc.Application.OpenAndActivateDocument(os.path.join(panel_dir, 'collector.rvt'))
+    test_utils.delete_all_walls()
+    test_utils.make_wall()
+
+def tearDownModule():
+    test_utils.delete_all_walls()
+
+######################
+# COLLECTOR
+######################
+
+
+class CollectorTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING COLLECTOR...')
+        collector = DB.FilteredElementCollector(doc)
+        cls.family_loaded = collector.OfCategory(DB.BuiltInCategory.OST_Furniture).ToElements()
+
+    @staticmethod
+    def collector_helper(filters):
+        logger.debug('{}'.format(filters))
+        collector = rpw.Collector(**filters)
+        elements = collector.elements
+        logger.debug(collector)
+        logger.debug(collector.first)
+        return collector
+
+    def setUp(self):
+        self.collector_helper = CollectorTests.collector_helper
+
+    def test_collector_elements(self):
+        x = self.collector_helper({'of_class': DB.View})
+        assert isinstance(x.elements[0], DB.View)
+
+    def test_collector_elements_view_element(self):
+        x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView})
+        self.assertEqual(len(x), 1)
+
+    def test_collector_elements_view_element_another(self):
+        # Id of view where everything is hidden
+        view_hidden = doc.GetElement(DB.ElementId(12531))
+        x = self.collector_helper({'of_class': DB.Wall, 'view': view_hidden})
+        self.assertEqual(len(x), 0)
+
+    def test_collector_elements_view_id(self):
+        x = self.collector_helper({'of_class': DB.Wall, 'view': uidoc.ActiveView.Id})
+        self.assertEqual(len(x), 1)
+
+    def test_collector_len(self):
+        x = self.collector_helper({'of_class': DB.View})
+        assert len(x) > 1
+
+    def test_collector_first(self):
+        x = self.collector_helper({'of_class': DB.View})
+        assert isinstance(x.first, DB.View)
+
+    def test_collector_caster(self):
+        x = self.collector_helper({'of_class': DB.Wall}).elements[0]
+        assert isinstance(x, DB.Wall)
+        y = self.collector_helper({'of_class': 'Wall'}).elements[0]
+        assert isinstance(y, DB.Wall)
+
+    def test_collector_is_element(self):
+        walls = self.collector_helper({'of_category': 'OST_Walls',
+                                       'is_not_type': True})
+        assert all([isinstance(x, DB.Wall) for x in walls.elements])
+
+    def test_collector_is_element_false(self):
+        walls = self.collector_helper({'of_category': 'OST_Walls',
+                                       'is_not_type': False})
+        assert all([isinstance(x, DB.WallType) for x in walls.elements])
+
+    def test_collector_is_element_type(self):
+        walls = self.collector_helper({'of_category': 'OST_Walls',
+                                       'is_type': True})
+        assert all([isinstance(x, DB.WallType) for x in walls.elements])
+
+    def test_collector_is_element_type_false(self):
+        walls = self.collector_helper({'of_category': 'OST_Walls',
+                                       'is_type': False})
+        assert all([isinstance(x, DB.Wall) for x in walls.elements])
+
+    def test_collector_is_view_dependent(self):
+        fregions = self.collector_helper({'of_category': 'OST_FilledRegion'})
+        assert all([f.ViewSpecific for f in fregions.elements])
+        view_dependent = self.collector_helper({'is_view_independent': True})
+        assert not all([f.ViewSpecific for f in view_dependent.elements])
+
+    def test_collector_chained_calls(self):
+        wall_collector = self.collector_helper({'of_category': DB.BuiltInCategory.OST_Walls})
+        walls_category = len(wall_collector)
+        wall_collector.filter(is_not_type=True)
+        walls_elements = len(wall_collector)
+        wall_collector.filter(is_type=True)
+        walls_element_type = len(wall_collector)
+        assert walls_category > walls_elements > walls_element_type
+
+    def tests_collect_rooms(self):
+        collector = rpw.Collector(of_category='OST_Rooms')
+        if collector:
+            self.assertIsInstance(collector.first, DB.SpatialElement)
+            collector = rpw.Collector(of_class='SpatialElement')
+            self.assertIsInstance(collector.first, DB.Architecture.Room)
+
+    def test_collector_scope_elements(self):
+        """ If Collector scope is list of elements, should not find View"""
+        wall = rpw.Collector(of_class='Wall').first
+        collector = rpw.Collector(elements=[wall], of_class='View')
+        self.assertEqual(len(collector), 0)
+
+    def test_collector_scope_element_ids(self):
+        wall = rpw.Collector(of_class='Wall').first
+        collector = rpw.Collector(element_ids=[wall.Id], of_class='View')
+        self.assertEqual(len(collector), 0)
+
+    def test_collector_symbol_filter(self):
+        desk_types = rpw.Collector(of_class='FamilySymbol',
+                                   of_category="OST_Furniture").elements
+        self.assertEqual(len(desk_types), 3)
+
+        all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+        self.assertGreater(len(all_symbols), 3)
+        all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+
+        #Placed Twice
+        first_symbol = rpw.Collector(symbol=desk_types[0]).elements
+        self.assertEqual(len(first_symbol), 2)
+
+        #Placed Once
+        second_symbol = rpw.Collector(symbol=desk_types[1]).elements
+        self.assertEqual(len(second_symbol), 1)
+
+        second_symbol = rpw.Collector(of_class='Wall', symbol=desk_types[1]).elements
+        self.assertEqual(len(second_symbol), 0)
+
+##############################
+# Built in Element Collector #
+##############################
+
+class BuiltInCollectorTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING ELEMENT COLLECTOR...')
+
+    def test_element_collector_wall(self):
+        walls = rpw.WallInstance.collect()
+        self.assertEqual(len(walls), 1)
+        self.assertIsInstance(walls.first, DB.Wall)
+
+    def test_element_collector_wallsymbols(self):
+        wallsymbols = rpw.WallSymbol.collect()
+        self.assertEqual(len(wallsymbols), 3)
+        self.assertIsInstance(wallsymbols.first, DB.WallType)
+
+    def test_element_collector_Room(self):
+        rooms = rpw.Room.collect()
+        self.assertEqual(len(rooms), 2)
+        self.assertIsInstance(rooms.first, DB.Architecture.Room)
+
+    def test_element_collector_Area(self):
+        areas = rpw.Area.collect()
+        self.assertEqual(len(areas), 1)
+        self.assertIsInstance(areas.first, DB.Area)
+
+    def test_element_collector_AreaScheme(self):
+        areas = rpw.AreaScheme.collect()
+        self.assertEqual(len(areas), 2)
+        self.assertIsInstance(areas.first, DB.AreaScheme)
+
+
+
+
+############################
+# COLLECTOR PARAMETER FILTER
+############################
+
+class ParameterFilterTests(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(self):
+        logger.title('TESTING PARAMETER FILTER...')
+
+    def setUp(self):
+        collector = rpw.Collector()
+        self.wall = collector.filter(of_class='Wall').first
+        self.wrapped_wall = rpw.Element(self.wall)
+        with rpw.Transaction('Set Comment'):
+            self.wrapped_wall.parameters['Comments'].value = 'Tests'
+            self.wrapped_wall.parameters['Unconnected Height'].value = 12.0
+
+        # BIP Ids
+        self.param_id_height = rpw.enumeration.BipEnum.get_id('WALL_USER_HEIGHT_PARAM')
+        self.param_id_location = rpw.enumeration.BipEnum.get_id('WALL_KEY_REF_PARAM')
+        self.param_id_comments = rpw.enumeration.BipEnum.get_id('ALL_MODEL_INSTANCE_COMMENTS')
+        self.param_id_level_name = rpw.enumeration.BipEnum.get_id('DATUM_TEXT')
+
+    def tearDown(self):
+        pass
+
+    def test_param_filter_float_less_no(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, less=10.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_filter_float_less_yes(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, less=15.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_equal(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, equals=12.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_not_equal(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, not_equals=12.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_filter_float_greater(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, greater=10.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_multi_filter(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, greater=10.0, less=14.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_float_multi_filter(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_height, greater=10.0, not_less=14.0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_filter_int_equal(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_location, equals=0)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_filter_int_less(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_location, less=3)
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+
+        self.assertEqual(len(col), 1)
+
+    def test_param_comments_equals(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_comments, equals='Tests')
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_comments_not_equals(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_comments, equals='Blaa')
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_comments_begins(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_comments, begins='Tes')
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def test_param_comments_not_begins(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_comments, equals='Bla bla')
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 0)
+
+    def test_param_comments_not_begins(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_comments, not_begins='Bla bla')
+        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    # FAILS - CASE SENSITIVE FLAG IS NOT WORKING
+    # def test_param_comments_equal_case(self):
+        # parameter_filter = rpw.ParameterFilter(self.param_id_comments, contains='tests')
+        # col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        # self.assertEqual(len(col), 0)
+
+    def tests_param_name_contains(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_level_name, contains='1')
+        col = rpw.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+    def tests_param_name_ends(self):
+        parameter_filter = rpw.ParameterFilter(self.param_id_level_name, ends='1')
+        col = rpw.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+        self.assertEqual(len(col), 1)
+
+
+
+def run():
+    logger.verbose(False)
+    suite = unittest.TestLoader().discover('tests')
+    unittest.main(verbosity=3, buffer=True)
+
+
+
+if __name__ == '__main__':
+    run()
