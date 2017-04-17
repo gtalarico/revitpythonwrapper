@@ -1,4 +1,5 @@
-Revitpythonwrapper:
+Refactor/Logic:
+☐ Fix `enforce_type` params in Element Wrappers
 
 Base Wrappers:
 ✔ Transaction @done
@@ -52,6 +53,8 @@ Tests Debt:
 ☐ Clean up + Separate
 ☐ Room
 ☐ Area
+☐ Geometry
+☐ Geometry
 
 Selection:
 ☐ Add Pick / Filters

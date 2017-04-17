@@ -76,8 +76,16 @@ class Element(BaseObjectWrapper):
     def collect(cls, **kwargs):
         """ Collect all elements of the wrapper, using the default collector.
 
+        Collector will use default params for that Element (ie: Room ``{'of_category': 'OST_rooms'}``).
+        These can be overriden by passing keyword args to the collectors call.
+
+
         >>> rooms = rpw.Rooms.collect()
         [<RPW_Room: Room:1>]
+        >>> rooms = rpw.Area.collect()
+        [<RPW_Area: Rentable:30.2>]
+        >>> rooms = rpw.WallInstance.collect()
+        [<RPW_WallInstance: Basic Wall>]
 
         """
         _collector_params = getattr(cls, '_collector_params', None)

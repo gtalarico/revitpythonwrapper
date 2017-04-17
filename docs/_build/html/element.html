@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Element Wrappers &mdash; Revit Python Wrapper 0.0.97 documentation</title>
+  <title>Element Wrappers &mdash; Revit Python Wrapper 0.0.98 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.97 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 0.0.98 documentation" href="index.html"/>
         <link rel="next" title="Selection" href="selection.html"/>
         <link rel="prev" title="Base Wrapper" href="base.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.0.97
+                0.0.98
               </div>
             
           
@@ -118,8 +118,8 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 
@@ -246,7 +246,8 @@ so it can provide parameter access.</p>
 <em class="property">static </em><code class="descname">Factory</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Element.Factory" title="Permalink to this definition">¶</a></dt>
 <dd><p>This Factory function is used to Construct classes witout specifying the
 exact class. On instantiation, it will attempt to map the type provided,
-if a match is not found an exception is raised.</p>
+if a match is not found, an Element will be used.
+If the element does not inherit from DB.Element, and exception is raised.</p>
 <p>This is generically, without knowing the type will come through later.
 This is primarily used to keep the base Instance, Symbol, and Family Classes
 generic.</p>
@@ -286,10 +287,20 @@ generic.</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="rpw.Element.id_as_int">
-<code class="descname">id_as_int</code><a class="headerlink" href="#rpw.Element.id_as_int" title="Permalink to this definition">¶</a></dt>
-<dd><p>Example of mapping existing properties</p>
+<dl class="classmethod">
+<dt id="rpw.Element.collect">
+<em class="property">classmethod </em><code class="descname">collect</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Element.collect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect all elements of the wrapper, using the default collector.</p>
+<p>Collector will use default params for that Element (ie: Room <code class="docutils literal"><span class="pre">{'of_category':</span> <span class="pre">'OST_rooms'}</span></code>).
+These can be overriden by passing keyword args to the collectors call.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Rooms</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="go">[&lt;RPW_Room: Room:1&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Area</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="go">[&lt;RPW_Area: Rentable:30.2&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="go">[&lt;RPW_WallInstance: Basic Wall&gt;]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -545,7 +556,7 @@ to retrieve the &#8220;symbol&#8221; and &#8220;family&#8221; of a wall using:
 </div>
 <dl class="class">
 <dt id="rpw.WallInstance">
-<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallInstance</code><span class="sig-paren">(</span><em>wall_instance</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallInstance" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallInstance</code><span class="sig-paren">(</span><em>wall_instance</em>, <em>enforce_type=DB.Wall</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Instance</span></code></p>
 <p>Inherits base <code class="docutils literal"><span class="pre">Instance</span></code> and overrides symbol attribute to
 get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
@@ -553,7 +564,7 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 
 <dl class="class">
 <dt id="rpw.WallSymbol">
-<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallSymbol</code><span class="sig-paren">(</span><em>wall_symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallSymbol" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallSymbol</code><span class="sig-paren">(</span><em>wall_symbol</em>, <em>enforce_type=DB.WallType</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Symbol</span></code></p>
 <dl class="docutils">
 <dt>Inherits from <a class="reference internal" href="#rpw.Symbol" title="rpw.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a> and overrides:</dt>
@@ -567,15 +578,20 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 
 <dl class="class">
 <dt id="rpw.WallFamily">
-<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallFamily</code><span class="sig-paren">(</span><em>wall_family</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallFamily" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallFamily</code><span class="sig-paren">(</span><em>wall_family</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallFamily" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Family</span></code></p>
 <p>Inherits base <code class="docutils literal"><span class="pre">Family</span></code> and overrides methods for Wall Instance`</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="rpw.WallCategory">
-<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallCategory</code><span class="sig-paren">(</span><em>wall_category</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallCategory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">WallCategory</code><span class="sig-paren">(</span><em>category</em>, <em>enforce_type=DB.Category</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.WallCategory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Category</span></code></p>
+<p><code class="docutils literal"><span class="pre">DB.Category</span></code> Wall Category Wrapper</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.Family): Wrapped <code class="docutils literal"><span class="pre">DB.Category</span></code></dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -585,7 +601,7 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 <p>Room Wrapper</p>
 <dl class="class">
 <dt id="rpw.Room">
-<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Room</code><span class="sig-paren">(</span><em>room</em>, <em>enforce_type=DB.Room</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Room" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Room</code><span class="sig-paren">(</span><em>room</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Room" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></p>
 <p><cite>DB.Architecture.Room</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.Element" title="rpw.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
@@ -607,7 +623,7 @@ Inherits from <a class="reference internal" href="#rpw.Element" title="rpw.Eleme
 </dl>
 <dl class="method">
 <dt id="rpw.Room.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>room</em>, <em>enforce_type=DB.Room</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Room.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>room</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Room.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -649,7 +665,7 @@ Uses result of <code class="docutils literal"><span class="pre">Room.Location</s
 <p>Area Wrapper</p>
 <dl class="class">
 <dt id="rpw.Area">
-<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Area</code><span class="sig-paren">(</span><em>area</em>, <em>enforce_type=DB.Area</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Area" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">Area</code><span class="sig-paren">(</span><em>area</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Area" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Room</span></code></p>
 <p><cite>DB.Area</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.Room" title="rpw.Room"><code class="xref any py py-class docutils literal"><span class="pre">Room</span></code></a></p>
@@ -669,7 +685,7 @@ Inherits from <a class="reference internal" href="#rpw.Room" title="rpw.Room"><c
 </dl>
 <dl class="method">
 <dt id="rpw.Area.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>area</em>, <em>enforce_type=DB.Area</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Area.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>area</em>, <em>enforce_type=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.Area.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -689,6 +705,53 @@ Inherits from <a class="reference internal" href="#rpw.Room" title="rpw.Room"><c
 <dl class="attribute">
 <dt id="rpw.Area.name">
 <code class="descname">name</code><a class="headerlink" href="#rpw.Area.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Area Scheme Name</em> &#8211; Area attribute parameter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.Area.scheme">
+<code class="descname">scheme</code><a class="headerlink" href="#rpw.Area.scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Area Scheme</em> &#8211; Wrapped Area Scheme</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>Area Scheme Wrapper</p>
+<dl class="class">
+<dt id="rpw.AreaScheme">
+<em class="property">class </em><code class="descclassname">rpw.</code><code class="descname">AreaScheme</code><span class="sig-paren">(</span><em>area_scheme</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.AreaScheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.element.Element</span></code></p>
+<p><cite>DB.AreaScheme</cite> Wrapper
+Inherits from <a class="reference internal" href="#rpw.Element" title="rpw.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.AreaScheme): Wrapped <code class="docutils literal"><span class="pre">DB.AreaScheme</span></code></dd>
+</dl>
+<dl class="method">
+<dt id="rpw.AreaScheme.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>area_scheme</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.AreaScheme.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>area</strong> (<code class="docutils literal"><span class="pre">DB.Area</span></code>) &#8211; Area Instance to be wrapped</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.AreaScheme.areas">
+<code class="descname">areas</code><a class="headerlink" href="#rpw.AreaScheme.areas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all Area Instances of this Area Scheme</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.AreaScheme.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.AreaScheme.name" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Area Scheme Name</em> &#8211; Area attribute parameter</p>
 </dd></dl>
 
@@ -956,11 +1019,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    using ``rpw.Element``, ``rpw.Instance``, etc.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.parameter</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">ParameterSet</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="c1"># from rpw.collector import Collector</span>
 
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_TypeError</span>
@@ -1000,6 +1065,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -1016,11 +1083,29 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">id_as_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO: Delete this</span>
-        <span class="sd">&quot;&quot;&quot; Example of mapping existing properties&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collect all elements of the wrapper, using the default collector.</span>
+
+<span class="sd">        Collector will use default params for that Element (ie: Room ``{&#39;of_category&#39;: &#39;OST_rooms&#39;}``).</span>
+<span class="sd">        These can be overriden by passing keyword args to the collectors call.</span>
+
+
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.Rooms.collect()</span>
+<span class="sd">        [&lt;RPW_Room: Room:1&gt;]</span>
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.Area.collect()</span>
+<span class="sd">        [&lt;RPW_Area: Rentable:30.2&gt;]</span>
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.WallInstance.collect()</span>
+<span class="sd">        [&lt;RPW_WallInstance: Basic Wall&gt;]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_collector_params</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_collector_params&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">_collector_params</span><span class="p">:</span>
+            <span class="n">_collector_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="o">**</span><span class="n">_collector_params</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Wrapper cannot collect by class: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="n">id_int</span><span class="p">):</span>
@@ -1037,7 +1122,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This Factory function is used to Construct classes witout specifying the</span>
 <span class="sd">        exact class. On instantiation, it will attempt to map the type provided,</span>
-<span class="sd">        if a match is not found an exception is raised.</span>
+<span class="sd">        if a match is not found, an Element will be used.</span>
+<span class="sd">        If the element does not inherit from DB.Element, and exception is raised.</span>
 
 <span class="sd">        This is generically, without knowing the type will come through later.</span>
 <span class="sd">        This is primarily used to keep the base Instance, Symbol, and Family Classes</span>
@@ -1050,6 +1136,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        &gt;&gt;&gt; type(wall_symbol)</span>
 <span class="sd">        rpw.element.WallSymbol</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># TODO: Auto-detect by iterating over types in element.py</span>
         <span class="n">CLASS_MAP</span> <span class="o">=</span> <span class="p">{</span>
                       <span class="s1">&#39;FamilyInstance&#39;</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
                       <span class="s1">&#39;FamilySymbol&#39;</span><span class="p">:</span> <span class="n">Symbol</span><span class="p">,</span>
@@ -1060,11 +1148,15 @@ Same as DB.Parameter.Definition.BuiltIn</p>
                       <span class="s1">&#39;WallKind&#39;</span><span class="p">:</span> <span class="n">WallFamily</span><span class="p">,</span>
                       <span class="s1">&#39;Room&#39;</span><span class="p">:</span> <span class="n">Room</span><span class="p">,</span>
                       <span class="s1">&#39;Area&#39;</span><span class="p">:</span> <span class="n">Area</span><span class="p">,</span>
+                      <span class="s1">&#39;AreaScheme&#39;</span><span class="p">:</span> <span class="n">AreaScheme</span><span class="p">,</span>
                     <span class="p">}</span>
         <span class="n">element_class_name</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="n">element_class</span> <span class="o">=</span> <span class="n">CLASS_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">element_class</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Factory does not support type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmro</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Factory does not support type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">element_class</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1088,6 +1180,11 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilyInstance): Wrapped ``DB.FamilyInstance``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstance</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstance</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -1136,6 +1233,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FamilySymbol</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilySymbol</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1189,6 +1288,9 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.Family): Wrapped ``DB.Family``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Family</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Family</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Args:</span>
@@ -1255,6 +1357,9 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.Family): Wrapped ``DB.Category``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Category</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Category</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
@@ -1304,8 +1409,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">    Inherits base ``Instance`` and overrides symbol attribute to</span>
 <span class="sd">    get `Symbol` equivalent of Wall `(GetTypeId)`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_instance</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+
+    <span class="n">_revit_object_category</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_instance</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1320,8 +1430,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        * :func:`family` to get the `Family` equivalent of Wall `(.Kind)`</span>
 <span class="sd">        * Uses a different method to get instances.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_symbol</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallSymbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallSymbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1333,8 +1447,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="sd">&quot;&quot;&quot; Returns all Instances of this Wall Types &quot;&quot;&quot;</span>
         <span class="n">bip</span> <span class="o">=</span> <span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;SYMBOL_NAME_PARAM&#39;</span><span class="p">)</span>
         <span class="n">param_filter</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">ParameterFilter</span><span class="p">(</span><span class="n">bip</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">,</span> <span class="n">parameter_filter</span><span class="o">=</span><span class="n">param_filter</span><span class="p">,</span>
-                             <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">parameter_filter</span><span class="o">=</span><span class="n">param_filter</span><span class="p">,</span>
+                             <span class="o">**</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">_collector_params</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">siblings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1345,12 +1459,17 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inherits base ``Family`` and overrides methods for Wall Instance`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_family</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallFamily</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="p">)</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">enforce_type</span><span class="p">:</span>
+            <span class="n">enforce_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_revit_object_class</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">WallFamily</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_family</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">symbols</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="o">**</span><span class="n">WallSymbol</span><span class="o">.</span><span class="n">_collector_params</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span> <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">Kind</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">]</span>
 
     <span class="nd">@property</span>
@@ -1360,15 +1479,15 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 
 <span class="k">class</span> <span class="nc">WallCategory</span><span class="p">(</span><span class="n">Category</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_category</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WallCategory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">wall_category</span><span class="p">)</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    ``DB.Category`` Wall Category Wrapper</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.Family): Wrapped ``DB.Category``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">families</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns ``DB.WallKind`` elements in the category &quot;&quot;&quot;</span>
@@ -1399,11 +1518,18 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        _revit_object (DB.Architecture.Room): Wrapped ``DB.Architecture.Room``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Architecture</span><span class="o">.</span><span class="n">Room</span><span class="p">):</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Architecture</span><span class="o">.</span><span class="n">Room</span>
+    <span class="n">_revit_object_category</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Rooms</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="n">_revit_object_category</span><span class="p">,</span>
+                         <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            room (``DB.Architecture.Room``): Room to be wrapped</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">enforce_type</span><span class="p">:</span>
+            <span class="n">enforce_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_revit_object_class</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1461,7 +1587,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        _revit_object (DB.Area): Wrapped ``DB.Area``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Area</span><span class="p">):</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Area</span>
+    <span class="n">_revit_object_category</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Areas</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_category&#39;</span><span class="p">:</span> <span class="n">_revit_object_category</span><span class="p">,</span>
+                         <span class="s1">&#39;is_not_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            area (``DB.Area``): Area Instance to be wrapped</span>
@@ -1471,7 +1602,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Area Scheme Name: Area attribute parameter&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AreaScheme</span><span class="o">.</span><span class="n">Name</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheme</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Area Scheme: Wrapped Area Scheme&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AreaScheme</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AreaScheme</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1479,7 +1615,46 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Area</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">AreaScheme</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `DB.AreaScheme` Wrapper</span>
+<span class="sd">    Inherits from :any:`Element`</span>
+
+<span class="sd">    &gt;&gt;&gt;</span>
+
+<span class="sd">    Attribute:</span>
+<span class="sd">        _revit_object (DB.AreaScheme): Wrapped ``DB.AreaScheme``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">AreaScheme</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area_scheme</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            area (``DB.Area``): Area Instance to be wrapped</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">enforce_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_revit_object_class</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AreaScheme</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">area_scheme</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="n">enforce_type</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Area Scheme Name: Area attribute parameter&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">areas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns all Area Instances of this Area Scheme &quot;&quot;&quot;</span>
+        <span class="n">bip</span> <span class="o">=</span> <span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;AREA_SCHEME_ID&#39;</span><span class="p">)</span>
+        <span class="n">param_filter</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">ParameterFilter</span><span class="p">(</span><span class="n">bip</span><span class="p">,</span> <span class="n">equals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">parameter_filter</span><span class="o">=</span><span class="n">param_filter</span><span class="p">,</span>
+                                  <span class="o">**</span><span class="n">Area</span><span class="o">.</span><span class="n">_collector_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">collector</span><span class="o">.</span><span class="n">wrapped_elements</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">AreaScheme</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -1818,7 +1993,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.97',
+            VERSION:'0.0.98',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

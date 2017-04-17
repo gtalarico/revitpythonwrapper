@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tests &mdash; Revit Python Wrapper 0.0.97 documentation</title>
+  <title>Tests &mdash; Revit Python Wrapper 0.0.98 documentation</title>
   
 
   
@@ -35,9 +35,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 0.0.97 documentation" href="index.html"/>
-        <link rel="next" title="Exceptions" href="exceptions.html"/>
-        <link rel="prev" title="RevitPythonShell" href="revitpythonshell.html"/> 
+    <link rel="top" title="Revit Python Wrapper 0.0.98 documentation" href="index.html"/>
+        <link rel="next" title="Known Issues" href="known_issues.html"/>
+        <link rel="prev" title="Exceptions" href="exceptions.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.0.97
+                0.0.98
               </div>
             
           
@@ -103,11 +103,11 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#test-suite">Test Suite</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 </ul>
 
@@ -190,22 +190,132 @@ examples of how the library is intended to be used.</p>
 <hr class="docutils" />
 <div class="section" id="test-suite">
 <h2>Test Suite<a class="headerlink" href="#test-suite" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Revit Python Wrapper Tests</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Globals</span>
 
 <span class="sd">Passes:</span>
+<span class="sd"> * 2017.1</span>
 
-<span class="sd">    * Revit:</span>
-<span class="sd">        * Revit 2015</span>
-<span class="sd">        * Revit 2016</span>
+<span class="sd">Revit Python Wrapper</span>
+<span class="sd">github.com/gtalarico/revitpythonwrapper</span>
+<span class="sd">revitpythonwrapper.readthedocs.io</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights to</span>
+<span class="sd">use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies</span>
+<span class="sd">of the Software, and to permit persons to whom the Software is furnished to do</span>
+<span class="sd">so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in</span>
+<span class="sd">all copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="sd">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR</span>
+<span class="sd">OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,</span>
+<span class="sd">ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="sd">OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">Copyright 2017 Gui Talarico</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">unittest</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">test_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
-<span class="n">root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">test_dir</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
+
+<span class="c1">######################</span>
+<span class="c1"># Globals</span>
+<span class="c1">######################</span>
+
+
+<span class="k">class</span> <span class="nc">Globals</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">rpw</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">test_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;Document&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span>
+        <span class="n">Wall</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="p">,</span> <span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">Wall</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">UI</span>
+        <span class="n">TaskDialog</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">UI</span><span class="p">,</span> <span class="s1">&#39;TaskDialog&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">TaskDialog</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_uidoc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">uidoc</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;UIApplication&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">logger</span>
+        <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">LoggerWrapper</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">LoggerWrapper</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_platform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">platform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;revit&#39;</span><span class="p">,</span> <span class="n">platform</span><span class="p">)</span>
+
+
+
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Collector Tests</span>
+
+<span class="sd">Passes:</span>
+<span class="sd"> * 2017.1</span>
+
+<span class="sd">Revit Python Wrapper</span>
+<span class="sd">github.com/gtalarico/revitpythonwrapper</span>
+<span class="sd">revitpythonwrapper.readthedocs.io</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights to</span>
+<span class="sd">use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies</span>
+<span class="sd">of the Software, and to permit persons to whom the Software is furnished to do</span>
+<span class="sd">so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in</span>
+<span class="sd">all copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="sd">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR</span>
+<span class="sd">OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,</span>
+<span class="sd">ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="sd">OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">Copyright 2017 Gui Talarico</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">parent</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span>
+
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">panel_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">clr</span>
@@ -213,142 +323,17 @@ examples of how the library is intended to be used.</p>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
-<span class="c1"># sys.exit()</span>
+<span class="kn">import</span> <span class="nn">test_utils</span>
 
 <span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SETTING UP TESTS...&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SETTING UP COLLECTOR TESTS...&#39;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;REVIT </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="p">))</span>
-    <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="n">walls</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">walls</span><span class="p">:</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Delete Walls&#39;</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="n">walls</span><span class="p">:</span>
-            <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
-    <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="n">level</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">)</span><span class="o">.</span><span class="n">FirstElement</span><span class="p">()</span>
-    <span class="n">pt1</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">pt2</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">wall_line</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Line</span><span class="o">.</span><span class="n">CreateBound</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">)</span>
-
-    <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Add Wall&#39;</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
-    <span class="n">wall</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">wall_line</span><span class="p">,</span> <span class="n">level</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
-    <span class="k">global</span> <span class="n">wall_int</span>
-    <span class="n">wall_int</span> <span class="o">=</span> <span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;WALL CREATED.&#39;</span><span class="p">)</span>
-
-    <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="n">desk</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Furniture</span><span class="p">)</span><span class="o">.</span><span class="n">FirstElement</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">desk</span><span class="p">:</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="n">desk</span><span class="o">.</span><span class="n">Family</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Delete&#39;</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
-        <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
-
-    <span class="c1">##################################################</span>
-    <span class="c1"># Load Fixture Family and Place Instances</span>
-    <span class="c1">##################################################</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;LOADING SYMBOl&#39;</span><span class="p">)</span>
-    <span class="n">family_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">test_dir</span><span class="p">,</span> <span class="s1">&#39;fixtures&#39;</span><span class="p">,</span> <span class="s1">&#39;desk.rfa&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">family_path</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Could not find fixture: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">family_path</span><span class="p">))</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;LOADING SYMBOl&#39;</span><span class="p">)</span>
-    <span class="n">family</span> <span class="o">=</span> <span class="n">clr</span><span class="o">.</span><span class="n">Reference</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">Family</span><span class="p">]()</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">&#39;Delete&#39;</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
-    <span class="n">doc</span><span class="o">.</span><span class="n">LoadFamily</span><span class="p">(</span><span class="n">family_path</span><span class="p">,</span> <span class="n">family</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
-    <span class="n">family</span> <span class="o">=</span> <span class="n">family</span><span class="o">.</span><span class="n">Value</span>
-    <span class="n">symbols</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># for family_symbol in family.Symbols:</span>
-    <span class="k">for</span> <span class="n">family_symbol_id</span> <span class="ow">in</span> <span class="n">family</span><span class="o">.</span><span class="n">GetFamilySymbolIds</span><span class="p">():</span>
-        <span class="n">family_symbol</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">family_symbol_id</span><span class="p">)</span>
-        <span class="n">symbols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">family_symbol</span><span class="p">)</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Start</span><span class="p">(</span><span class="s1">&#39;Place Families&#39;</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Starting Transactions&#39;</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">Activate</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">]</span>
-    <span class="k">except</span><span class="p">:</span>
-        <span class="k">pass</span> <span class="c1"># Revit &lt; 2016</span>
-    <span class="n">level</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span><span class="o">.</span><span class="n">FirstElement</span><span class="p">()</span>
-    <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
-    <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
-    <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewFamilyInstance</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">symbols</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">level</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">StructuralType</span><span class="o">.</span><span class="n">NonStructural</span><span class="p">)</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
+    <span class="n">uidoc</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">OpenAndActivateDocument</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">panel_dir</span><span class="p">,</span> <span class="s1">&#39;collector.rvt&#39;</span><span class="p">))</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">make_wall</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
-    <span class="k">pass</span>
-
-
-<span class="c1">######################</span>
-<span class="c1"># TRANSACTIONS</span>
-<span class="c1">######################</span>
-
-
-<span class="k">class</span> <span class="nc">TransactionsTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING TRANSACTIONS...&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="n">wall_int</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Reset Comment&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Test Is Instance&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_started</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Has Started&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">HasStarted</span><span class="p">())</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_has_ended</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Add Comment&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">HasEnded</span><span class="p">())</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Named Transaction&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetName</span><span class="p">(),</span> <span class="s1">&#39;Named Transaction&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_commit_status_success</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span><span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">test_transaction_commit_status_rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-            <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Top Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">RolledBack</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">TransactionGroup</span><span class="p">(</span><span class="s1">&#39;Multiple Transactions&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tg</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tg</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tg</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_transaction_decorator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nd">@rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">ensure</span><span class="p">(</span><span class="s1">&#39;Transaction Name&#39;</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">somefunction</span><span class="p">():</span>
-            <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
-            <span class="k">return</span> <span class="n">param</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">somefunction</span><span class="p">())</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
 
 <span class="c1">######################</span>
 <span class="c1"># COLLECTOR</span>
@@ -382,6 +367,12 @@ examples of how the library is intended to be used.</p>
     <span class="k">def</span> <span class="nf">test_collector_elements_view_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">:</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span><span class="p">})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_collector_elements_view_element_another</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Id of view where everything is hidden</span>
+        <span class="n">view_hidden</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="mi">12531</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">:</span> <span class="n">view_hidden</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_collector_elements_view_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collector_helper</span><span class="p">({</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">:</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span><span class="o">.</span><span class="n">Id</span><span class="p">})</span>
@@ -474,197 +465,42 @@ examples of how the library is intended to be used.</p>
         <span class="n">second_symbol</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="n">desk_types</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">elements</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">second_symbol</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 
+<span class="c1">##############################</span>
+<span class="c1"># Built in Element Collector #</span>
+<span class="c1">##############################</span>
 
-<span class="c1">######################</span>
-<span class="c1"># SELECTION</span>
-<span class="c1">######################</span>
-
-
-<span class="k">class</span> <span class="nc">SelectionTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BuiltInCollectorTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING SELECTION...&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING ELEMENT COLLECTOR...&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">([</span><span class="n">wall_int</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">test_element_collector_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">walls</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">walls</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;SELECTION TEST PASSED&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_element_collector_wallsymbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wallsymbols</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallSymbol</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wallsymbols</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wallsymbols</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_selection_element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">element_ids</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span>
-                        <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">]</span>
-                        <span class="p">))</span>
+    <span class="k">def</span> <span class="nf">test_element_collector_Room</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Room</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rooms</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">rooms</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Architecture</span><span class="o">.</span><span class="n">Room</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_selection_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">elements</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span>
-                        <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
-                        <span class="p">))</span>
+    <span class="k">def</span> <span class="nf">test_element_collector_Area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">areas</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Area</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">areas</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">areas</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Area</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_selection_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">wall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_selection_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_selection_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_selection_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">([</span><span class="n">wall_int</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">test_selection_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
-        <span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">wall_int</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
-
-<span class="c1">######################</span>
-<span class="c1"># ELEMENT</span>
-<span class="c1">######################</span>
+    <span class="k">def</span> <span class="nf">test_element_collector_AreaScheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">areas</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">AreaScheme</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">areas</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">areas</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">AreaScheme</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">ElementTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING ELEMENT...&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">()</span>
-        <span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Test Levels&#39;</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;&lt;RPW_Element:&lt;Autodesk.Revit.DB.Wall&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span>
-
-    <span class="k">def</span> <span class="nf">test_element_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">id_as_int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">id_as_int</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_from_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">wall_int</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_from_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="n">wall_int</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_get_parameter_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Base Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Room Bounding&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_get_parameter_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="s1">&#39;Comments&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_get_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Test String&#39;</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="s1">&#39;Test String&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_coerce_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_float</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Integer&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">5.0</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_coerce_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Coerce Int&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span>
-        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_element_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">active_view</span> <span class="o">=</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
-        <span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">active_view</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Create and Set Level&#39;</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">new_level</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="n">new_level</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewLevel</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Top Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_level</span><span class="o">.</span><span class="n">Id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Top Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">,</span>
-                         <span class="n">new_level</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_get_builtin_parameter_by_strin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">bip</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_set_get_builtin_parameter_by_strin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span>
-        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Value&#39;</span><span class="p">):</span>
-            <span class="n">bip</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bip</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">test_element_get_builtin_parameter_caster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">BIP_ENUM</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">WALL_KEY_REF_PARAM</span>
-        <span class="n">bip2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="n">BIP_ENUM</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bip</span><span class="p">,</span> <span class="n">bip2</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">tests_wrong_storage_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">RPW_WrongStorageType</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Test&#39;</span>
-
-    <span class="k">def</span> <span class="nf">test_parameter_does_not_exist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">RPW_ParameterNotFound</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Parameter Name&#39;</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">test_built_in_parameter_exception_raised</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">RPW_ParameterNotFound</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;PARAMETERD_DOES_NOT_EXIST&#39;</span><span class="p">]</span>
-
-
-<span class="c1">######################</span>
-<span class="c1"># Parameter Independent</span>
-<span class="c1">######################</span>
-
-    <span class="k">def</span> <span class="nf">tests_param_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">LookupParameter</span><span class="p">(</span><span class="s1">&#39;Comments&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
-        <span class="n">wrapped_param</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">wrapped_param</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wrapped_param</span><span class="o">.</span><span class="n">builtin</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">ALL_MODEL_INSTANCE_COMMENTS</span><span class="p">)</span>
 
 
 <span class="c1">############################</span>
@@ -781,52 +617,218 @@ examples of how the library is intended to be used.</p>
         <span class="n">col</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s2">&quot;OST_Levels&quot;</span><span class="p">,</span> <span class="n">parameter_filter</span><span class="o">=</span><span class="n">parameter_filter</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 
+
+
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Collector Tests</span>
+
+<span class="sd">Passes:</span>
+<span class="sd"> * 2017.1</span>
+
+<span class="sd">Revit Python Wrapper</span>
+<span class="sd">github.com/gtalarico/revitpythonwrapper</span>
+<span class="sd">revitpythonwrapper.readthedocs.io</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights to</span>
+<span class="sd">use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies</span>
+<span class="sd">of the Software, and to permit persons to whom the Software is furnished to do</span>
+<span class="sd">so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in</span>
+<span class="sd">all copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="sd">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR</span>
+<span class="sd">OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,</span>
+<span class="sd">ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="sd">OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">Copyright 2017 Gui Talarico</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">parent</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span>
+
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">panel_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">rpw</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">clr</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+
+<span class="kn">import</span> <span class="nn">test_utils</span>
+
+<span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SETTING UP ELEMENTS TESTS...&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;REVIT </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="p">))</span>
+    <span class="n">uidoc</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">OpenAndActivateDocument</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">panel_dir</span><span class="p">,</span> <span class="s1">&#39;collector.rvt&#39;</span><span class="p">))</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">make_wall</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+
+
 <span class="c1">######################</span>
-<span class="c1"># COERCE</span>
+<span class="c1"># ELEMENT</span>
 <span class="c1">######################</span>
 
 
-<span class="k">class</span> <span class="nc">CoerceTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ElementTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING COERCE FUNCITONS...&#39;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING ELEMENT...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">)</span>
+        <span class="c1"># param = self.wall.LookupParameter(&#39;Comments&#39;)</span>
+        <span class="c1"># t = DB.Transaction(doc)</span>
+        <span class="c1"># t.Start(&#39;Clear Comment Param&#39;)</span>
+        <span class="c1"># param.Set(&#39;&#39;)</span>
+        <span class="c1"># t.Commit()</span>
 
     <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+        <span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">()</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Test Levels&#39;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_corce_into_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">)</span>
-        <span class="n">all_id</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">all_id</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_element_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIn</span><span class="p">(</span><span class="s1">&#39;&lt;RPW_Element:&lt;Autodesk.Revit.DB.Wall&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span>
 
-    <span class="k">def</span> <span class="nf">test_corce_into_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">ids</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">])</span>
-        <span class="n">all_id</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">all_id</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_element_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_corce_element_ref_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_elements</span><span class="p">(</span><span class="n">wall_int</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_element_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_corce_element_ref_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">wall_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">wall_int</span><span class="p">)</span>
-        <span class="n">elements</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_elements</span><span class="p">(</span><span class="n">wall_id</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]))</span>
+    <span class="k">def</span> <span class="nf">test_element_from_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">test_corce_to_element_diverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">wall_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">wall_int</span><span class="p">)</span>
-        <span class="n">elements</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_elements</span><span class="p">([</span><span class="n">wall_id</span><span class="p">,</span> <span class="n">wall_int</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]))</span>
+    <span class="k">def</span> <span class="nf">test_element_from_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_get_parameter_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Base Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Room Bounding&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_get_parameter_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="s1">&#39;Comments&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_get_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Test String&#39;</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="s1">&#39;Test String&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_coerce_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_float</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Integer&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">5.0</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_coerce_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Coerce Int&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">rv</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tests_element_set_get_parameter_element_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">active_view</span> <span class="o">=</span> <span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+        <span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">active_view</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Create and Set Level&#39;</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">new_level</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">new_level</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewLevel</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Top Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_level</span><span class="o">.</span><span class="n">Id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Top Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">,</span>
+                         <span class="n">new_level</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_get_builtin_parameter_by_strin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">bip</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_set_get_builtin_parameter_by_strin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Value&#39;</span><span class="p">):</span>
+            <span class="n">bip</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bip</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_element_get_builtin_parameter_caster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_KEY_REF_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">BIP_ENUM</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">WALL_KEY_REF_PARAM</span>
+        <span class="n">bip2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="n">BIP_ENUM</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">bip</span><span class="p">,</span> <span class="n">bip2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tests_wrong_storage_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">RPW_WrongStorageType</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Test&#39;</span>
+
+    <span class="k">def</span> <span class="nf">test_parameter_does_not_exist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">RPW_ParameterNotFound</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Parameter Name&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">test_built_in_parameter_exception_raised</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">RPW_ParameterNotFound</span><span class="p">)</span> <span class="k">as</span> <span class="n">context</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wrapped_wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;PARAMETERD_DOES_NOT_EXIST&#39;</span><span class="p">]</span>
 
 
-<span class="c1">######################</span>
-<span class="c1"># INSTANCES</span>
-<span class="c1">######################</span>
+<span class="c1">#########################</span>
+<span class="c1"># Parameters / Isolated #</span>
+<span class="c1">#########################</span>
+
+    <span class="k">def</span> <span class="nf">tests_param_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">LookupParameter</span><span class="p">(</span><span class="s1">&#39;Comments&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
+        <span class="n">wrapped_param</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">wrapped_param</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wrapped_param</span><span class="o">.</span><span class="n">builtin</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">ALL_MODEL_INSTANCE_COMMENTS</span><span class="p">)</span>
+
+<span class="c1">##################################</span>
+<span class="c1"># INSTANCES / Symbols / Families #</span>
+<span class="c1">##################################</span>
 
 <span class="k">class</span> <span class="nc">InstanceTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
@@ -882,6 +884,10 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">rpw</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">category</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()),</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Category</span><span class="p">)</span>
 
 
+<span class="c1">##################################################</span>
+<span class="c1"># Wall / Wall Types / Wall Kind / Wall Category  #</span>
+<span class="c1">##################################################</span>
+
 <span class="k">class</span> <span class="nc">WallTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
@@ -928,36 +934,36 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Walls&#39;</span><span class="p">)</span>
 
 
+<span class="c1">##################</span>
+<span class="c1"># Rooms / Areas  #</span>
+<span class="c1">##################</span>
+
 <span class="k">class</span> <span class="nc">RoomTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
         <span class="k">pass</span>
+        <span class="c1"># t = DB.Transaction(doc)</span>
+        <span class="c1"># t.Start(&#39;Add Room&#39;)</span>
 
-    <span class="c1"># def setUp(self):</span>
-    <span class="c1">#     wall = rpw.Collector(of_class=&#39;Wall&#39;, is_not_type=True).first</span>
-    <span class="c1">#     self.wall = rpw.WallInstance(wall)</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">room</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">os_category</span><span class="o">=</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
     <span class="c1">#</span>
     <span class="c1"># def test_wall_instance_wrap(self):</span>
     <span class="c1">#     self.assertIsInstance(self.wall, rpw.WallInstance)</span>
     <span class="c1">#     self.assertIsInstance(self.wall.unwrap(), DB.Wall)</span>
 
 
-<span class="c1"># TODO: Clean up Module Setup</span>
-<span class="c1"># TODO: Separate Classes</span>
-<span class="c1"># TODO: Create Area Tests</span>
-<span class="c1"># TODO: test wrapped_elements</span>
-
 
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Revit Python Wrapper Tests</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Revit Python Wrapper Tests - Forms</span>
 
 <span class="sd">Passes:</span>
+<span class="sd">2017</span>
 
-<span class="sd">    * Revit:</span>
-<span class="sd">        * Revit 2015</span>
-<span class="sd">        * Revit 2016</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -1043,6 +1049,348 @@ examples of how the library is intended to be used.</p>
 
 </pre></div>
 </div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Selection Tests</span>
+
+<span class="sd">Passes:</span>
+<span class="sd"> * 2017.1</span>
+
+<span class="sd">Revit Python Wrapper</span>
+<span class="sd">github.com/gtalarico/revitpythonwrapper</span>
+<span class="sd">revitpythonwrapper.readthedocs.io</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights to</span>
+<span class="sd">use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies</span>
+<span class="sd">of the Software, and to permit persons to whom the Software is furnished to do</span>
+<span class="sd">so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in</span>
+<span class="sd">all copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="sd">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR</span>
+<span class="sd">OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,</span>
+<span class="sd">ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="sd">OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">Copyright 2017 Gui Talarico</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">parent</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span>
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">panel_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">rpw</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+
+<span class="kn">import</span> <span class="nn">test_utils</span>
+
+<span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SETTING UP ELEMENTS TESTS...&#39;</span><span class="p">)</span>
+    <span class="c1"># uidoc.Application.OpenAndActivateDocument(os.path.join(panel_dir, &#39;collector.rvt&#39;))</span>
+
+<span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+
+<span class="c1">######################</span>
+<span class="c1"># SELECTION</span>
+<span class="c1">######################</span>
+
+
+<span class="k">class</span> <span class="nc">SelectionTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING SELECTION...&#39;</span><span class="p">)</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">make_wall</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">wall</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">SelectionTests</span><span class="o">.</span><span class="n">wall</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;SELECTION TEST PASSED&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">element_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span>
+                        <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">eid</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">eid</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">]</span>
+                        <span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">elements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span>
+                        <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+                        <span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_boolean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_boolean_false</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">test_selection_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
+        <span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Transaction Tests</span>
+
+<span class="sd">Passes:</span>
+<span class="sd"> * 2017.1</span>
+
+<span class="sd">Revit Python Wrapper</span>
+<span class="sd">github.com/gtalarico/revitpythonwrapper</span>
+<span class="sd">revitpythonwrapper.readthedocs.io</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights to</span>
+<span class="sd">use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies</span>
+<span class="sd">of the Software, and to permit persons to whom the Software is furnished to do</span>
+<span class="sd">so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in</span>
+<span class="sd">all copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="sd">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR</span>
+<span class="sd">OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,</span>
+<span class="sd">ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="sd">OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">Copyright 2017 Gui Talarico</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">parent</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span>
+
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">panel_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">rpw</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">clr</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+
+<span class="kn">import</span> <span class="nn">test_utils</span>
+
+<span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SETTING UP TRANSACTION TESTS...&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">TransactionsTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING TRANSACTIONS...&#39;</span><span class="p">)</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="n">test_utils</span><span class="o">.</span><span class="n">make_wall</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">wall</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Reset Comment&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Test Is Instance&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Transaction</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_started</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Has Started&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">HasStarted</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_has_ended</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Add Comment&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">HasEnded</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Named Transaction&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetName</span><span class="p">(),</span> <span class="s1">&#39;Named Transaction&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_commit_status_success</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_commit_status_rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Top Constraint&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">RolledBack</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">TransactionGroup</span><span class="p">(</span><span class="s1">&#39;Multiple Transactions&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tg</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set String&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Started</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">tg</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">TransactionStatus</span><span class="o">.</span><span class="n">Committed</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_transaction_decorator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nd">@rpw</span><span class="o">.</span><span class="n">Transaction</span><span class="o">.</span><span class="n">ensure</span><span class="p">(</span><span class="s1">&#39;Transaction Name&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">somefunction</span><span class="p">():</span>
+            <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+            <span class="k">return</span> <span class="n">param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">somefunction</span><span class="p">())</span>
+
+
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utils Tests</span>
+
+<span class="sd">Passes:</span>
+<span class="sd"> * 2017.1</span>
+
+<span class="sd">Revit Python Wrapper</span>
+<span class="sd">github.com/gtalarico/revitpythonwrapper</span>
+<span class="sd">revitpythonwrapper.readthedocs.io</span>
+
+<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="sd">of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="sd">in the Software without restriction, including without limitation the rights to</span>
+<span class="sd">use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies</span>
+<span class="sd">of the Software, and to permit persons to whom the Software is furnished to do</span>
+<span class="sd">so, subject to the following conditions:</span>
+
+<span class="sd">The above copyright notice and this permission notice shall be included in</span>
+<span class="sd">all copies or substantial portions of the Software.</span>
+
+<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL</span>
+<span class="sd">THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR</span>
+<span class="sd">OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,</span>
+<span class="sd">ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="sd">OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">Copyright 2017 Gui Talarico</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">parent</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span>
+
+<span class="n">script_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">panel_dir</span> <span class="o">=</span> <span class="n">parent</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">script_dir</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">rpw</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">clr</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+
+<span class="kn">import</span> <span class="nn">test_utils</span>
+
+<span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;SETTING UP UTILS TESTS...&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;REVIT </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="p">))</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">make_wall</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
+    <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">CoerceTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING COERCE FUNCITONS...&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">test_corce_into_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">)</span>
+        <span class="n">all_id</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">all_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_corce_into_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_element_ids</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">])</span>
+        <span class="n">all_id</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">all_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_corce_element_ref_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_elements</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_corce_element_ref_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_elements</span><span class="p">(</span><span class="n">wall_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]))</span>
+
+    <span class="k">def</span> <span class="nf">test_corce_to_element_diverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">coerce</span><span class="o">.</span><span class="n">to_elements</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]))</span>
+
+</pre></div>
+</div>
 <div data-disqus-identifier="Tests" data-disqus-shortname="revitpythonwrapper" id="disqus_thread"></div></div>
 </div>
 
@@ -1056,10 +1404,10 @@ examples of how the library is intended to be used.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="known_issues.html" class="btn btn-neutral float-right" title="Known Issues" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="revitpythonshell.html" class="btn btn-neutral" title="RevitPythonShell" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="exceptions.html" class="btn btn-neutral" title="Exceptions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1090,7 +1438,7 @@ examples of how the library is intended to be used.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.0.97',
+            VERSION:'0.0.98',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

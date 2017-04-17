@@ -1,8 +1,8 @@
 class MockDB(object):
 
-    BuiltInParameter = None
-    BuiltInCategory = None
-    ElementId = None
+    # BuiltInParameter = None
+    # BuiltInCategory = None
+    # ElementId = None
 
     def __init__(self, name=None):
         self.name = name

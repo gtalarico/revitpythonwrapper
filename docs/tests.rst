@@ -25,10 +25,25 @@ examples of how the library is intended to be used.
 Test Suite
 **************
 
-.. literalinclude:: ../tests/tests_rpw.py
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Globals.pushbutton/Globals_script.py
     :end-before: run()
 
-.. literalinclude:: ../tests/tests_forms.py
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Collector.pushbutton/Collector_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Elements.pushbutton/Elements_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Forms.pushbutton/Forms_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Selection.pushbutton/Selection_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Transaction.pushbutton/Transaction_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Utils.pushbutton/Utils_script.py
     :end-before: run()
 
 .. disqus::

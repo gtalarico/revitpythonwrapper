@@ -122,6 +122,14 @@ Area Wrapper
     :special-members: __init__
     :show-inheritance:
 
+Area Scheme Wrapper
+
+.. autoclass:: rpw.AreaScheme
+    :members:
+    :private-members:
+    :special-members: __init__
+    :show-inheritance:
+
 ----------------------------------------------
 
 Parameter and Parameter Set
