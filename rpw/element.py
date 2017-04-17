@@ -53,7 +53,8 @@ class Element(BaseObjectWrapper):
         unwrap(): Wrapped Revit Reference
 
     """
-    _default_collector = '_collect_by_class'
+
+    _revit_object_class = DB.Element
 
     def __init__(self, element, enforce_type=None):
         """
@@ -72,32 +73,20 @@ class Element(BaseObjectWrapper):
         self.parameters = ParameterSet(element)
 
     @classmethod
-    def collect(cls):
+    def collect(cls, **kwargs):
         """ Collect all elements of the wrapper, using the default collector.
 
         >>> rooms = rpw.Rooms.collect()
         [<RPW_Room: Room:1>]
 
         """
-        return getattr(cls, cls._default_collector)()
+        _collector_params = getattr(cls, '_collector_params', None)
 
-    @classmethod
-    def _collect_by_class(cls):
-        """ Collects all elements from the wrapper's class, if one is defined """
-        _revit_object_class = getattr(cls, '_revit_object_class', None)
-        if _revit_object_class:
-            return rpw.Collector(of_class=_revit_object_class)
+        if _collector_params:
+            _collector_params.update(**kwargs)
+            return rpw.Collector(**_collector_params)
         else:
             raise RPW_Exception('Wrapper cannot collect by class: {}'.format(cls.__name__))
-
-    @classmethod
-    def _collect_by_category(cls):
-        """ Collects all elements from the wrapper's category, if one is defined """
-        _revit_object_category = getattr(cls, '_revit_object_category', None)
-        if _revit_object_category:
-            return rpw.Collector(of_category=_revit_object_category)
-        else:
-            raise RPW_Exception('Wrapper cannot collect by category: {}'.format(cls.__name__))
 
     @property
     def id_as_int(self):
@@ -134,6 +123,8 @@ class Element(BaseObjectWrapper):
         >>> type(wall_symbol)
         rpw.element.WallSymbol
         """
+
+        # TODO: Auto-detect by iterating over types in element.py
         CLASS_MAP = {
                       'FamilyInstance': Instance,
                       'FamilySymbol': Symbol,
@@ -144,6 +135,7 @@ class Element(BaseObjectWrapper):
                       'WallKind': WallFamily,
                       'Room': Room,
                       'Area': Area,
+                      'AreaScheme': AreaScheme,
                     }
         element_class_name = element.__class__.__name__
         element_class = CLASS_MAP.get(element_class_name)
@@ -177,6 +169,8 @@ class Instance(Element):
     """
 
     _revit_object_class = DB.FamilyInstance
+    _collector_params = {'of_class': _revit_object_class, 'is_not_type': True}
+
 
     def __init__(self, instance, enforce_type=DB.FamilyInstance):
         """
@@ -227,6 +221,7 @@ class Symbol(Element):
         _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``
     """
     _revit_object_class = DB.FamilySymbol
+    _collector_params = {'of_class': _revit_object_class, 'is_type': True}
 
     def __init__(self, symbol, enforce_type=DB.FamilySymbol):
         """
@@ -282,6 +277,7 @@ class Family(Element):
     """
 
     _revit_object_class = DB.Family
+    _collector_params = {'of_class': _revit_object_class, 'is_type': True}
 
     def __init__(self, family, enforce_type=DB.Family):
         """Args:
@@ -401,8 +397,9 @@ class WallInstance(Instance):
     get `Symbol` equivalent of Wall `(GetTypeId)`
     """
 
-    _revit_object_class = DB.Wall
     _revit_object_category = DB.BuiltInCategory.OST_Walls
+    _revit_object_class = DB.Wall
+    _collector_params = {'of_class': _revit_object_class, 'is_not_type': True}
 
     def __init__(self, wall_instance, enforce_type=DB.Wall):
         super(WallInstance, self).__init__(wall_instance, enforce_type=enforce_type)
@@ -422,6 +419,7 @@ class WallSymbol(Symbol):
     """
 
     _revit_object_class = DB.WallType
+    _collector_params = {'of_class': _revit_object_class, 'is_type': True}
 
     def __init__(self, wall_symbol, enforce_type=DB.WallType):
         super(WallSymbol, self).__init__(wall_symbol, enforce_type=enforce_type)
@@ -436,8 +434,8 @@ class WallSymbol(Symbol):
         """ Returns all Instances of this Wall Types """
         bip = BipEnum.get_id('SYMBOL_NAME_PARAM')
         param_filter = rpw.collector.ParameterFilter(bip, equals=self.name)
-        return rpw.Collector(of_class=DB.Wall, parameter_filter=param_filter,
-                             is_not_type=True).elements
+        return rpw.Collector(parameter_filter=param_filter,
+                             **WallInstance._collector_params).elements
 
     @property
     def siblings(self):
@@ -451,12 +449,14 @@ class WallFamily(Family):
 
     _revit_object_class = DB.WallKind
 
-    def __init__(self, wall_family, enforce_type=DB.WallKind):
-        super(WallFamily, self).__init__(wall_family, enforce_type=self.__class__._revit_object_class)
+    def __init__(self, wall_family, enforce_type=None):
+        if not enforce_type:
+            enforce_type = self.__class__._revit_object_class
+        super(WallFamily, self).__init__(wall_family, enforce_type=enforce_type)
 
     @property
     def symbols(self):
-        symbols = rpw.Collector(of_class=DB.WallType, is_type=True).elements
+        symbols = rpw.Collector(**WallSymbol._collector_params).elements
         return [symbol for symbol in symbols if symbol.Kind == self._revit_object]
 
     @property
@@ -506,14 +506,17 @@ class Room(Element):
     """
 
     _revit_object_class = DB.Architecture.Room
-    _revit_object_category= DB.BuiltInCategory.OST_Rooms
-    _default_collector = '_collect_by_category'
+    _revit_object_category = DB.BuiltInCategory.OST_Rooms
+    _collector_params = {'of_category': _revit_object_category,
+                         'is_not_type': True}
 
-    def __init__(self, room, enforce_type=DB.Architecture.Room):
+    def __init__(self, room, enforce_type=None):
         """
         Args:
             room (``DB.Architecture.Room``): Room to be wrapped
         """
+        if not enforce_type:
+            enforce_type = self.__class__._revit_object_class
         super(Room, self).__init__(room, enforce_type=enforce_type)
 
     @property
@@ -540,14 +543,14 @@ class Room(Element):
         """ ``bool`` for whether Room is Placed.
         Uses result of ``Room.Location`` attribute to define if room is Placed.
         """
-        return bool(self._revit_object_class.Location)
+        return bool(self._revit_object.Location)
 
     @property
     def is_bounded(self):
         """ ``bool`` for whether Room is Bounded.
         Uses result of ``Room.Area`` attribute to define if room is Bounded.
         """
-        return self._revit_object_class.Area > 0
+        return self._revit_object.Area > 0
 
     def __repr__(self):
         return super(Room, self).__repr__(data='{}:{}'.format(self.name, self.number))
@@ -573,9 +576,10 @@ class Area(Room):
 
     _revit_object_class = DB.Area
     _revit_object_category = DB.BuiltInCategory.OST_Areas
-    _default_collector = '_collect_by_category'
+    _collector_params = {'of_category': _revit_object_category,
+                         'is_not_type': True}
 
-    def __init__(self, area, enforce_type=DB.Area):
+    def __init__(self, area, enforce_type=None):
         """
         Args:
             area (``DB.Area``): Area Instance to be wrapped
@@ -585,12 +589,56 @@ class Area(Room):
     @property
     def name(self):
         """ Area Scheme Name: Area attribute parameter"""
-        return self._revit_object_class.AreaScheme.Name
+        return self.scheme.name
+
+    @property
+    def scheme(self):
+        """ Area Scheme: Wrapped Area Scheme"""
+        return AreaScheme(self._revit_object.AreaScheme)
 
     @property
     def area(self):
         """ Area: .Area attribute"""
-        return self._revit_object_class.Area
+        return self._revit_object.Area
 
     def __repr__(self):
-        return super(Room, self).__repr__(data='{}:{}'.format(self.name, self.area))
+        return super(Element, self).__repr__(data='{}:{}'.format(self.name, self.area))
+
+class AreaScheme(Element):
+    """
+    `DB.AreaScheme` Wrapper
+    Inherits from :any:`Element`
+
+    >>>
+
+    Attribute:
+        _revit_object (DB.AreaScheme): Wrapped ``DB.AreaScheme``
+    """
+
+    _revit_object_class = DB.AreaScheme
+    _collector_params = {'of_class': _revit_object_class}
+
+    def __init__(self, area_scheme):
+        """
+        Args:
+            area (``DB.Area``): Area Instance to be wrapped
+        """
+        enforce_type = self.__class__._revit_object_class
+        super(AreaScheme, self).__init__(area_scheme, enforce_type=enforce_type)
+
+    @property
+    def name(self):
+        """ Area Scheme Name: Area attribute parameter"""
+        return self._revit_object.Name
+
+    @property
+    def areas(self):
+        """ Returns all Area Instances of this Area Scheme """
+        bip = BipEnum.get_id('AREA_SCHEME_ID')
+        param_filter = rpw.collector.ParameterFilter(bip, equals=self._revit_object.Id)
+        collector = rpw.Collector(parameter_filter=param_filter,
+                                  **Area._collector_params)
+        return collector.wrapped_elements
+
+    def __repr__(self):
+        return super(AreaScheme, self).__repr__(data='{}'.format(self.name))
