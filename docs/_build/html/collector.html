@@ -190,13 +190,14 @@
 <p>Revit FilteredElement Collector Wrapper</p>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">View</span><span class="p">)</span>
+<dd><div class="first highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;View&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">elements</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>
 </pre></div>
 </div>
 <p>Multiple Filters:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;ViewSheet&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">some_level</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="n">SomeSymbol</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">parameter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
 </pre></div>
@@ -207,7 +208,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall_types</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">elements</span>  <span class="c1"># Both filters applied</span>
 </pre></div>
 </div>
-<p>Use Enumeration member or name as string:</p>
+<p>Use Enumeration member or its name as a string:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="n">DB</span><span class="o">.</span><span class="n">ViewType</span><span class="p">)</span>
@@ -217,6 +218,7 @@
 <p>Search Document, View, or list of elements</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># doc is default</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">view</span><span class="o">=</span><span class="n">SomeView</span><span class="p">,</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span> <span class="c1"># Doc is default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">SomeLinkedDoc</span><span class="p">,</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Collector</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">Element1</span><span class="p">,</span> <span class="n">Element2</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -392,7 +394,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span><span class="p">,</span> <span class="n">BaseObject</span>
 <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span><span class="p">,</span> <span class="n">RPW_TypeError</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -403,13 +405,14 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">    Revit FilteredElement Collector Wrapper</span>
 
 <span class="sd">    Usage:</span>
-<span class="sd">        &gt;&gt;&gt; collector = Collector(of_class=View)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_class=&#39;View&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; elements = collector.elements</span>
 
 <span class="sd">        Multiple Filters:</span>
 
-<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=&#39;OST_Walls&#39;, is_type=True)</span>
 <span class="sd">        &gt;&gt;&gt; collector = Collector(of_class=&#39;Wall&#39;, is_not_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_class=&#39;ViewSheet&#39;, is_not_type=True)</span>
+<span class="sd">        &gt;&gt;&gt; collector = Collector(of_category=&#39;OST_Rooms&#39;, level=some_level)</span>
 <span class="sd">        &gt;&gt;&gt; collector = Collector(symbol=SomeSymbol)</span>
 <span class="sd">        &gt;&gt;&gt; collector = Collector(parameter_filter=filter_rule)</span>
 
@@ -419,7 +422,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">        &gt;&gt;&gt; wall_types = collector.filter(is_type=True)</span>
 <span class="sd">        &gt;&gt;&gt; wall_types = collector.elements  # Both filters applied</span>
 
-<span class="sd">        Use Enumeration member or name as string:</span>
+<span class="sd">        Use Enumeration member or its name as a string:</span>
 
 <span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; Collector(of_category=DB.BuiltInCategory.OST_Walls)</span>
@@ -430,6 +433,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 
 <span class="sd">        &gt;&gt;&gt; Collector(of_category=&#39;OST_Walls&#39;) # doc is default</span>
 <span class="sd">        &gt;&gt;&gt; Collector(view=SomeView, of_category=&#39;OST_Walls&#39;) # Doc is default</span>
+<span class="sd">        &gt;&gt;&gt; Collector(doc=SomeLinkedDoc, of_category=&#39;OST_Walls&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; Collector(elements=[Element1, Element2,...], of_category=&#39;OST_Walls&#39;)</span>
 
 <span class="sd">    Attributes:</span>
@@ -523,6 +527,8 @@ Used to build a parameter filter to be used with the Collector.</p>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
+    <span class="c1">#TODO: add __iter__</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">wrapped_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns list with all elements instantiated using :any:`Element.Factory`</span>
@@ -575,6 +581,7 @@ Used to build a parameter filter to be used with the Collector.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">filtered_collector</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span>
 
+    <span class="c1"># TODO: Quick Filters should be run first, then Slow Filters</span>
     <span class="k">def</span> <span class="nf">_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">collector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Chain filters together.</span>
 
@@ -675,8 +682,10 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">):</span>
             <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">FamilySymbol</span><span class="p">):</span>
             <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span><span class="o">.</span><span class="n">Id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;FamilySymbol or FamilySymbol Id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">))</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstanceFilter</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">symbol_id</span><span class="p">))</span>
 
@@ -702,9 +711,10 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">):</span>
             <span class="n">level_id</span> <span class="o">=</span> <span class="n">level_or_id</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">):</span>
             <span class="n">level_id</span> <span class="o">=</span> <span class="n">level_or_id</span><span class="o">.</span><span class="n">Id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;Level or Level Id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">))</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">_ElementLevelFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementLevelFilter</span><span class="p">(</span><span class="n">level_id</span><span class="p">,</span> <span class="n">reverse</span><span class="p">))</span>
 

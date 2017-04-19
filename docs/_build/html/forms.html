@@ -273,10 +273,10 @@
 <img alt="_images/alert.png" src="_images/alert.png" />
 <dl class="class">
 <dt id="rpw.forms.Alert">
-<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">Alert</code><span class="sig-paren">(</span><em>message</em>, <em>title='Alert'</em>, <em>heading=''</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.Alert" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.forms.</code><code class="descname">Alert</code><span class="sig-paren">(</span><em>message</em>, <em>title='Alert'</em>, <em>heading=''</em>, <em>exit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.Alert" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="rpw.forms.Alert.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>message</em>, <em>title='Alert'</em>, <em>heading=''</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.Alert.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>message</em>, <em>title='Alert'</em>, <em>heading=''</em>, <em>exit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.forms.Alert.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates Standard Revit Alert.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -286,6 +286,7 @@
 <li><strong>message</strong> (<em>str</em>) &#8211; TaskDialog Message</li>
 <li><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; TaskDialog Title</li>
 <li><strong>heading</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; TaskDialog Message Heading</li>
+<li><strong>exit</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; Exit Script after Dialog. Useful for handled Errors.</li>
 </ul>
 </td>
 </tr>
@@ -294,6 +295,7 @@
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;Your Message&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s2">&quot;Some Heading&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;You need to select Something&#39;</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -451,7 +453,7 @@
 
 
 <span class="k">class</span> <span class="nc">Alert</span><span class="p">():</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Alert&#39;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Alert&#39;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates Standard Revit Alert.</span>
 
@@ -459,15 +461,19 @@
 <span class="sd">            message (str): TaskDialog Message</span>
 <span class="sd">            title (str, optional): TaskDialog Title</span>
 <span class="sd">            heading (str, optional): TaskDialog Message Heading</span>
-
+<span class="sd">            exit (bool, optional): Exit Script after Dialog. Useful for handled Errors.</span>
 
 <span class="sd">        Usage:</span>
 <span class="sd">            &gt;&gt;&gt; Alert(&#39;Your Message&#39;, title=&quot;Title&quot;, heading=&quot;Some Heading&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; Alert(&#39;You need to select Something&#39;, exit=True)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dialog</span> <span class="o">=</span> <span class="n">UI</span><span class="o">.</span><span class="n">TaskDialog</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">dialog</span><span class="o">.</span><span class="n">MainInstruction</span> <span class="o">=</span> <span class="n">heading</span>
         <span class="n">dialog</span><span class="o">.</span><span class="n">MainContent</span> <span class="o">=</span> <span class="n">message</span>
-        <span class="k">return</span> <span class="n">dialog</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">exit</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">FormWrapper</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

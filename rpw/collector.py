@@ -21,13 +21,14 @@ class Collector(BaseObjectWrapper):
     Revit FilteredElement Collector Wrapper
 
     Usage:
-        >>> collector = Collector(of_class=View)
+        >>> collector = Collector(of_class='View')
         >>> elements = collector.elements
 
         Multiple Filters:
 
-        >>> collector = Collector(of_category='OST_Walls', is_type=True)
         >>> collector = Collector(of_class='Wall', is_not_type=True)
+        >>> collector = Collector(of_class='ViewSheet', is_not_type=True)
+        >>> collector = Collector(of_category='OST_Rooms', level=some_level)
         >>> collector = Collector(symbol=SomeSymbol)
         >>> collector = Collector(parameter_filter=filter_rule)
 
@@ -37,7 +38,7 @@ class Collector(BaseObjectWrapper):
         >>> wall_types = collector.filter(is_type=True)
         >>> wall_types = collector.elements  # Both filters applied
 
-        Use Enumeration member or name as string:
+        Use Enumeration member or its name as a string:
 
         >>> Collector(of_category='OST_Walls')
         >>> Collector(of_category=DB.BuiltInCategory.OST_Walls)
@@ -48,6 +49,7 @@ class Collector(BaseObjectWrapper):
 
         >>> Collector(of_category='OST_Walls') # doc is default
         >>> Collector(view=SomeView, of_category='OST_Walls') # Doc is default
+        >>> Collector(doc=SomeLinkedDoc, of_category='OST_Walls')
         >>> Collector(elements=[Element1, Element2,...], of_category='OST_Walls')
 
     Attributes:
@@ -140,6 +142,8 @@ class Collector(BaseObjectWrapper):
             return self.elements[0]
         except IndexError:
             return None
+
+    #TODO: add __iter__
 
     @property
     def wrapped_elements(self):
