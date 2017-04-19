@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 0.0.98 documentation" href="index.html"/>
-        <link rel="next" title="Geometry [Beta]" href="geometry.html"/>
+        <link rel="next" title="Geometry" href="geometry.html"/>
         <link rel="prev" title="Transaction" href="transaction.html"/> 
 
   
@@ -101,7 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry [Beta]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enumeration.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
@@ -282,6 +282,7 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <li><code class="docutils literal"><span class="pre">of_category</span></code> (<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>): Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Type can be Enum member or String: <code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">OST_Wall</span></code></li>
 <li><code class="docutils literal"><span class="pre">is_view_independent</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
 <li><code class="docutils literal"><span class="pre">symbol</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">DB.Element</span></code>)`: Element or ElementId of Symbol</li>
+<li><code class="docutils literal"><span class="pre">level</span></code> (<code class="docutils literal"><span class="pre">DB.Level</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>)`: Level or ElementId of Level</li>
 <li><code class="docutils literal"><span class="pre">parameter_filter</span></code> (<a class="reference internal" href="#rpw.ParameterFilter" title="rpw.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a>): Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
 </ul>
 </dd>
@@ -465,6 +466,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="sd">            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``</span>
 <span class="sd">            * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``</span>
 <span class="sd">            * ``symbol`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Symbol</span>
+<span class="sd">            * ``level`` (``DB.Level``, ``DB.ElementId``)`: Level or ElementId of Level</span>
 <span class="sd">            * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -550,6 +552,8 @@ Used to build a parameter filter to be used with the Collector.</p>
              <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsElementType&#39;</span><span class="p">,</span>
              <span class="s1">&#39;is_view_independent&#39;</span><span class="p">:</span> <span class="s1">&#39;WhereElementIsViewIndependent&#39;</span><span class="p">,</span>
              <span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;not_level&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
              <span class="s1">&#39;parameter_filter&#39;</span><span class="p">:</span> <span class="s1">&#39;WherePasses&#39;</span><span class="p">,</span>
             <span class="p">}</span>
 
@@ -610,6 +614,10 @@ Used to build a parameter filter to be used with the Collector.</p>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;symbol&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as WherePasses(FamilyInstanceFilter)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">_collector_doc</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">filter_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;not_level&#39;</span><span class="p">):</span>
+                <span class="c1"># Same as WherePasses(ElementLevelFilter)</span>
+                <span class="n">reverse</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">filter_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;not&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span>
+                <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">_ElementLevelFilter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
             <span class="k">elif</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_class&#39;</span> <span class="ow">or</span> <span class="n">filter_name</span> <span class="o">==</span> <span class="s1">&#39;of_category&#39;</span><span class="p">:</span>
                 <span class="c1"># Same as OfCategory(filter_value) and OfClass(filter_value)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span>
@@ -671,6 +679,34 @@ Used to build a parameter filter to be used with the Collector.</p>
             <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span><span class="o">.</span><span class="n">Id</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstanceFilter</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">symbol_id</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">_ElementLevelFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used by Collector to provide the ``level`` keyword filter.</span>
+<span class="sd">    It returns a ``DB.ElementLevelFilter `` which is then used by the</span>
+<span class="sd">    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.</span>
+
+<span class="sd">    Wrapped Element:</span>
+<span class="sd">        self._revit_object = ``Revit.DB.ElementLevelFilter``</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level_or_id</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            level_or_id(``DB.Level``, ``DB.ElementId``): Level or ElementId of Level</span>
+<span class="sd">            reverse(bool): if True, will match all elements not associated to the given level</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            DB.ElementLevelFilter: instance of_ElementLevelFilter()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">):</span>
+            <span class="n">level_id</span> <span class="o">=</span> <span class="n">level_or_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">)</span>
+            <span class="n">level_id</span> <span class="o">=</span> <span class="n">level_or_id</span><span class="o">.</span><span class="n">Id</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">_ElementLevelFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementLevelFilter</span><span class="p">(</span><span class="n">level_id</span><span class="p">,</span> <span class="n">reverse</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">ParameterFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -811,7 +847,7 @@ Used to build a parameter filter to be used with the Collector.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="geometry.html" class="btn btn-neutral float-right" title="Geometry [Beta]" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="geometry.html" class="btn btn-neutral float-right" title="Geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="transaction.html" class="btn btn-neutral" title="Transaction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
