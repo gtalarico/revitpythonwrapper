@@ -322,7 +322,6 @@ class _ElementLevelFilter(BaseObjectWrapper):
         if isinstance(level_or_id, DB.ElementId):
             level_id = level_or_id
         else:
-            print(level_or_id)
             level_id = level_or_id.Id
 
         super(_ElementLevelFilter, self).__init__(DB.ElementLevelFilter(level_id, reverse))
