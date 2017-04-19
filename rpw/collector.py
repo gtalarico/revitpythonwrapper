@@ -84,6 +84,7 @@ class Collector(BaseObjectWrapper):
             * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``
             * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``
             * ``symbol`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Symbol
+            * ``level`` (``DB.Level``, ``DB.ElementId``)`: Level or ElementId of Level
             * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class
 
         """
@@ -169,6 +170,8 @@ class _Filter(BaseObject):
              'is_type': 'WhereElementIsElementType',
              'is_view_independent': 'WhereElementIsViewIndependent',
              'symbol': 'WherePasses',
+             'level': 'WherePasses',
+             'not_level': 'WherePasses',
              'parameter_filter': 'WherePasses',
             }
 
@@ -229,6 +232,10 @@ class _Filter(BaseObject):
             elif filter_name == 'symbol':
                 # Same as WherePasses(FamilyInstanceFilter)
                 collector_results = collector_filter(_FamilyInstanceFilter(filter_value, doc=self._collector._collector_doc).unwrap())
+            elif filter_name in ('level', 'not_level'):
+                # Same as WherePasses(ElementLevelFilter)
+                reverse = True if filter_name.startswith('not') else False
+                collector_results = collector_filter(_ElementLevelFilter(filter_value, reverse=reverse).unwrap())
             elif filter_name == 'of_class' or filter_name == 'of_category':
                 # Same as OfCategory(filter_value) and OfClass(filter_value)
                 collector_results = collector_filter(filter_value)
@@ -290,6 +297,34 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
             symbol_id = symbol_or_id.Id
 
         super(_FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
+
+
+class _ElementLevelFilter(BaseObjectWrapper):
+    """
+    Used by Collector to provide the ``level`` keyword filter.
+    It returns a ``DB.ElementLevelFilter `` which is then used by the
+    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
+
+    Wrapped Element:
+        self._revit_object = ``Revit.DB.ElementLevelFilter``
+
+    """
+    def __init__(self, level_or_id, reverse=False):
+        """
+        Args:
+            level_or_id(``DB.Level``, ``DB.ElementId``): Level or ElementId of Level
+            reverse(bool): if True, will match all elements not associated to the given level
+
+        Returns:
+            DB.ElementLevelFilter: instance of_ElementLevelFilter()
+        """
+        if isinstance(level_or_id, DB.ElementId):
+            level_id = level_or_id
+        else:
+            print(level_or_id)
+            level_id = level_or_id.Id
+
+        super(_ElementLevelFilter, self).__init__(DB.ElementLevelFilter(level_id, reverse))
 
 
 class ParameterFilter(BaseObjectWrapper):
