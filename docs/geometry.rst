@@ -19,7 +19,7 @@ Geometry
 Implementation
 **************
 
-.. literalinclude:: ../rpw/enumeration.py
+.. literalinclude:: ../rpw/geometry.py
     :start-after: ###
 
 .. disqus::
