@@ -176,7 +176,7 @@ class TextInputForm(Window):
 
 
 class Alert():
-    def __init__(self, message, title='Alert', heading=''):
+    def __init__(self, message, title='Alert', heading='', exit=False):
         """
         Creates Standard Revit Alert.
 
@@ -184,15 +184,19 @@ class Alert():
             message (str): TaskDialog Message
             title (str, optional): TaskDialog Title
             heading (str, optional): TaskDialog Message Heading
-
+            exit (bool, optional): Exit Script after Dialog. Useful for handled Errors.
 
         Usage:
             >>> Alert('Your Message', title="Title", heading="Some Heading")
+            >>> Alert('You need to select Something', exit=True)
         """
         dialog = UI.TaskDialog(title)
         dialog.MainInstruction = heading
         dialog.MainContent = message
-        return dialog.Show()
+        self.result = dialog.Show()
+
+        if exit:
+            sys.exit(1)
 
 
 class FormWrapper(object):
