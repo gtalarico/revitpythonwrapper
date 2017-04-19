@@ -193,6 +193,7 @@ class _Filter(BaseObject):
         self._collector.elements = [element for element in filtered_collector]
         return self._collector
 
+    # TODO: Quick Filters should be run first, then Slow Filters
     def _chain(self, filters, collector=None):
         """ Chain filters together.
 

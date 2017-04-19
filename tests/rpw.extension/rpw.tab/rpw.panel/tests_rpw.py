@@ -751,12 +751,6 @@ class TransactionsTest(unittest.TestCase):
     #     self.assertIsInstance(self.wall.unwrap(), DB.Wall)
 
 
-# TODO: Clean up Module Setup
-# TODO: Separate Classes
-# TODO: Create Area Tests
-# TODO: test wrapped_elements
-
-
 def run():
     # logger.disable()
     logger.verbose(False)

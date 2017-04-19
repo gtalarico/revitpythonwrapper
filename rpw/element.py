@@ -475,7 +475,7 @@ class WallCategory(Category):
         _revit_object (DB.Family): Wrapped ``DB.Category``
     """
 
-    _revit_object_class = None
+    _revit_object_class = DB.Category
 
     @property
     def families(self):

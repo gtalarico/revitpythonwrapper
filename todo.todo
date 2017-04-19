@@ -41,8 +41,8 @@ Element Wrappers:
 Collector:
 ☐ Clean up filter
 ☐ Add Slow Filters
-☐ Add Level Filter
 ☐ Add Bounding Box Filter
+✔ Add Level Filter @done
 
 Geometry:
 ✔ Point @done
@@ -54,7 +54,7 @@ Tests Debt:
 ☐ Room
 ☐ Area
 ☐ Geometry
-☐ Geometry
+☐ wrapped_elements
 
 Selection:
 ☐ Add Pick / Filters
