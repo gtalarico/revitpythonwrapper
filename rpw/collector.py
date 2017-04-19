@@ -10,7 +10,7 @@ from rpw import uidoc, doc, DB
 from rpw import List
 from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.element import Element
-from rpw.exceptions import RPW_Exception
+from rpw.exceptions import RPW_Exception, RPW_TypeError
 from rpw.enumeration import BicEnum, BipEnum
 from rpw.utils.coerce import to_element_ids
 from rpw.utils.logger import logger
@@ -294,8 +294,10 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
         """
         if isinstance(symbol_or_id, DB.ElementId):
             symbol_id = symbol_or_id
-        else:
+        elif isinstance(symbol_or_id, DB.FamilySymbol):
             symbol_id = symbol_or_id.Id
+        else:
+            raise RPW_TypeError('FamilySymbol or FamilySymbol Id', type(symbol_or_id))
 
         super(_FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
 
@@ -321,8 +323,10 @@ class _ElementLevelFilter(BaseObjectWrapper):
         """
         if isinstance(level_or_id, DB.ElementId):
             level_id = level_or_id
-        else:
+        elif isinstance(level_or_id, DB.Level):
             level_id = level_or_id.Id
+        else:
+            raise RPW_TypeError('Level or Level Id', type(level_or_id))
 
         super(_ElementLevelFilter, self).__init__(DB.ElementLevelFilter(level_id, reverse))
 
