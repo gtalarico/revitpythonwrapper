@@ -9,7 +9,7 @@ from rpw import List
 from rpw.exceptions import RPW_TypeError
 
 
-def to_element_ids(elements):
+def to_element_ids(element_references):
     """ Coerces an element or list of elements into element ids. Elements remain unchanged.
 
     >>> from rpw.utils.coerce import to_element_ids
@@ -26,21 +26,21 @@ def to_element_ids(elements):
     Returns:
         [``DB.ElementId``, ... ]: List of Element Ids.
     """
-    if not isinstance(elements, list) and not isinstance(elements, set):
-        elements = [elements]
+    if not isinstance(element_references, list) and not isinstance(element_references, set):
+        element_references = [element_references]
 
     element_ids = []
-    for element in elements:
-        if isinstance(element, DB.Element):
-            element_ids.append(element.Id)
-        elif isinstance(element, int):
-            element_ids.append(DB.ElementId(element))
-        elif isinstance(element, DB.ElementId):
-            element_ids.append(element)
-        elif isinstance(element, DB.ElementId.InvalidElementId):
-            element_ids.append(element)
+    for reference in element_references:
+        if isinstance(reference, DB.Element):
+            element_ids.append(reference.Id)
+        elif isinstance(reference, int):
+            element_ids.append(DB.ElementId(reference))
+        elif isinstance(reference, DB.ElementId):
+            element_ids.append(reference)
+        elif isinstance(reference, DB.ElementId.InvalidElementId):
+            element_ids.append(reference)
         else:
-            raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
+            raise RpwTypeError('Element, ElementId, or int', type(item))
 
     return element_ids
 
@@ -68,16 +68,16 @@ def to_elements(element_references):
 
     elements = []
 
-    for element_reference in element_references:
+    for reference in element_references:
 
-        if isinstance(element_reference, DB.ElementId):
-            element = doc.GetElement(element_reference)
+        if isinstance(reference, DB.ElementId):
+            element = doc.GetElement(reference)
 
-        elif isinstance(element_reference, int):
-            element = doc.GetElement(DB.ElementId(element_reference))
+        elif isinstance(reference, int):
+            element = doc.GetElement(DB.ElementId(reference))
 
-        elif isinstance(element_reference, DB.Element):
-            element = element_reference
+        elif isinstance(reference, DB.Element):
+            element = reference
 
         else:
             raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
