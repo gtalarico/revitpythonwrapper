@@ -1,17 +1,9 @@
-# __all__ = []
-
 from rpw.db.collector import Collector, ParameterFilter
-# __all__.extend(['Collector', 'ParameterFilter'])
-
 from rpw.db.transaction import Transaction, TransactionGroup
-# __all__.extend(['Transaction', 'TransactionGroup'])
 
-from rpw.db.element import (Element,
-                            Instance, Symbol, Family, Category,
-                            WallInstance, WallSymbol, WallCategory,
-                            Room, Area, AreaScheme
-                           )
-# __all__.extend(['Instance', 'Symbol', 'Family', 'Category'])
+from rpw.db.element import Element
+from rpw.db.element import Instance, Symbol, Family, Category
+from rpw.db.wall import WallInstance, WallSymbol, WallCategory
+from rpw.db.spatial_element import Room, Area, AreaScheme
 
 from rpw.db.builtins import BicEnum, BipEnum
-# __all__.extend(['BicEnum', 'BipEnum', 'Collector'])

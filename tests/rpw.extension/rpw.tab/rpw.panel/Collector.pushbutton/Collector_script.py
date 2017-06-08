@@ -77,7 +77,7 @@ class CollectorTests(unittest.TestCase):
     @staticmethod
     def collector_helper(filters):
         logger.debug('{}'.format(filters))
-        collector = rpw.Collector(**filters)
+        collector = rpw.db.Collector(**filters)
         elements = collector.elements
         logger.debug(collector)
         logger.debug(collector.first)
@@ -154,41 +154,41 @@ class CollectorTests(unittest.TestCase):
         assert walls_category > walls_elements > walls_element_type
 
     def tests_collect_rooms(self):
-        collector = rpw.Collector(of_category='OST_Rooms')
+        collector = rpw.db.Collector(of_category='OST_Rooms')
         if collector:
             self.assertIsInstance(collector.first, DB.SpatialElement)
-            collector = rpw.Collector(of_class='SpatialElement')
+            collector = rpw.db.Collector(of_class='SpatialElement')
             self.assertIsInstance(collector.first, DB.Architecture.Room)
 
     def test_collector_scope_elements(self):
         """ If Collector scope is list of elements, should not find View"""
-        wall = rpw.Collector(of_class='Wall').first
-        collector = rpw.Collector(elements=[wall], of_class='View')
+        wall = rpw.db.Collector(of_class='Wall').first
+        collector = rpw.db.Collector(elements=[wall], of_class='View')
         self.assertEqual(len(collector), 0)
 
     def test_collector_scope_element_ids(self):
-        wall = rpw.Collector(of_class='Wall').first
-        collector = rpw.Collector(element_ids=[wall.Id], of_class='View')
+        wall = rpw.db.Collector(of_class='Wall').first
+        collector = rpw.db.Collector(element_ids=[wall.Id], of_class='View')
         self.assertEqual(len(collector), 0)
 
     def test_collector_symbol_filter(self):
-        desk_types = rpw.Collector(of_class='FamilySymbol',
+        desk_types = rpw.db.Collector(of_class='FamilySymbol',
                                    of_category="OST_Furniture").elements
         self.assertEqual(len(desk_types), 3)
 
-        all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+        all_symbols = rpw.db.Collector(of_class='FamilySymbol').elements
         self.assertGreater(len(all_symbols), 3)
-        all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+        all_symbols = rpw.db.Collector(of_class='FamilySymbol').elements
 
         #Placed Twice
-        first_symbol = rpw.Collector(symbol=desk_types[0]).elements
+        first_symbol = rpw.db.Collector(symbol=desk_types[0]).elements
         self.assertEqual(len(first_symbol), 2)
 
         #Placed Once
-        second_symbol = rpw.Collector(symbol=desk_types[1]).elements
+        second_symbol = rpw.db.Collector(symbol=desk_types[1]).elements
         self.assertEqual(len(second_symbol), 1)
 
-        second_symbol = rpw.Collector(of_class='Wall', symbol=desk_types[1]).elements
+        second_symbol = rpw.db.Collector(of_class='Wall', symbol=desk_types[1]).elements
         self.assertEqual(len(second_symbol), 0)
 
 ##############################
@@ -264,84 +264,84 @@ class ParameterFilterTests(unittest.TestCase):
 
     def test_param_filter_float_less_yes(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_height, less=15.0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_filter_float_equal(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_height, equals=12.0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_filter_float_not_equal(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_height, not_equals=12.0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 0)
 
     def test_param_filter_float_greater(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_height, greater=10.0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_filter_float_multi_filter(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_height, greater=10.0, less=14.0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_filter_float_multi_filter(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_height, greater=10.0, not_less=14.0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 0)
 
     def test_param_filter_int_equal(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_location, equals=0)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_filter_int_less(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_location, less=3)
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 
         self.assertEqual(len(col), 1)
 
     def test_param_comments_equals(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_comments, equals='Tests')
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_comments_not_equals(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_comments, equals='Blaa')
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 0)
 
     def test_param_comments_begins(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_comments, begins='Tes')
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def test_param_comments_not_begins(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_comments, equals='Bla bla')
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 0)
 
     def test_param_comments_not_begins(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_comments, not_begins='Bla bla')
-        col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     # FAILS - CASE SENSITIVE FLAG IS NOT WORKING
     # def test_param_comments_equal_case(self):
         # parameter_filter = rpw.db.ParameterFilter(self.param_id_comments, contains='tests')
-        # col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+        # col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
         # self.assertEqual(len(col), 0)
 
     def tests_param_name_contains(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_level_name, contains='1')
-        col = rpw.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
     def tests_param_name_ends(self):
         parameter_filter = rpw.db.ParameterFilter(self.param_id_level_name, ends='1')
-        col = rpw.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+        col = rpw.db.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)
 
 
