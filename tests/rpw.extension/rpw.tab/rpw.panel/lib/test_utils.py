@@ -1,4 +1,5 @@
-from rpw import doc, DB
+from rpw import revit, DB
+doc = revit.doc
 
 def delete_all_walls():
     collector = DB.FilteredElementCollector(doc)

@@ -2,13 +2,14 @@
 `uidoc.Selection` Wrapper
 """
 
-from rpw import doc, uidoc, DB
-from rpw import List
+from rpw.revit import revit, DB
+from rpw.utils.dotnot import List
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_TypeError
 from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids
 
+doc, uidoc = revit.doc, revit.uidoc
 
 class Selection(BaseObjectWrapper):
     """
