@@ -4,8 +4,8 @@ Type Casting Utilities
 """
 
 
-from rpw import uidoc, doc, DB
-from rpw import List
+from rpw.revit import revit, DB
+from rpw.utils.dotnet import List
 from rpw.exceptions import RPW_TypeError
 
 
@@ -45,7 +45,7 @@ def to_element_ids(element_references):
     return element_ids
 
 
-def to_elements(element_references):
+def to_elements(element_references, doc=revit.doc):
     """ Coerces element reference (``int``, or ``ElementId``) into ``DB.Element``.
     Remains unchanged if it's already ``DB.Element``. Accepts single object or lists
 
