@@ -6,12 +6,12 @@
 
 """
 
-from rpw import uidoc, doc, DB
-from rpw import List
+from rpw.revit import revit, DB
+from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject
-from rpw.element import Element
 from rpw.exceptions import RPW_Exception, RPW_TypeError
-from rpw.enumeration import BicEnum, BipEnum
+from rpw.db.element import Element
+from rpw.db.builtins import BicEnum, BipEnum
 from rpw.utils.coerce import to_element_ids
 from rpw.utils.logger import logger
 
@@ -92,7 +92,7 @@ class Collector(BaseObjectWrapper):
         """
         # Pick Scope Filter, Default is doc
         # Override standard doc with passed doc
-        collector_doc = filters.pop('doc') if 'doc' in filters else doc
+        collector_doc = filters.pop('doc') if 'doc' in filters else revit.doc
         if 'view' in filters:
             view = filters.pop('view')
             view_id = view if isinstance(view, DB.ElementId) else view.Id
@@ -288,7 +288,7 @@ class _FamilyInstanceFilter(BaseObjectWrapper):
         self._revit_object = ``Revit.DB.FamilyInstanceFilter``
 
     """
-    def __init__(self, symbol_or_id, doc=doc):
+    def __init__(self, symbol_or_id, doc=revit.doc):
         """
         Args:
             symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId

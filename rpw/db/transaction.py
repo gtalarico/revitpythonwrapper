@@ -1,4 +1,4 @@
-from rpw import doc, DB, platform
+from rpw.revit import DB
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception
 from rpw.utils.logger import logger
@@ -22,7 +22,7 @@ class Transaction(BaseObjectWrapper):
         self._revit_object = `Revit.DB.Transaction`
 
     """
-    def __init__(self, name=None):
+    def __init__(self, name=None, doc=revit.doc):
         if name is None:
             name = 'RPW Transaction'
         super(Transaction, self).__init__(DB.Transaction(doc, name))
@@ -90,7 +90,7 @@ class TransactionGroup(BaseObjectWrapper):
 
 
     """
-    def __init__(self, name=None, assimilate=True):
+    def __init__(self, name=None, assimilate=True, doc=revit.doc):
         """
             Args:
                 name (str): Name of the Transaction

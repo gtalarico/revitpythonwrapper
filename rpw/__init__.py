@@ -34,6 +34,7 @@ __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 if __name__ == 'make.doc':
     pass
 print __name__
+
 from revit import revit, DB, UI
 
 # from rpw.base import BaseObjectWrapper

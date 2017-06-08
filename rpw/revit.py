@@ -1,7 +1,7 @@
 import clr
 clr.AddReference('System')
 from System.Diagnostics import Process
-# from rpw.utils.logger import logger
+from rpw.utils.logger import logger
 
 
 class Revit:
@@ -19,9 +19,8 @@ class Revit:
             try:
                 self.uiapp = self.find_dynamo_uiapp()
             except Exception as errmsg:
-                # logger.error(errmsg)
-                print(errmsg)
-                raise ImportError('A Revit Application handle could not be found')
+                logger.error(errmsg)
+                raise Exception('A Revit Application handle could not be found')
         clr.AddReference('RevitAPI')
         clr.AddReference('RevitAPIUI')
 
@@ -33,7 +32,6 @@ class Revit:
         self.host = Revit.HOSTS.DYNAMO
         import sys
         sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
-
         return DocumentManager.Instance.CurrentUIApplication
 
     @property

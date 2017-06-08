@@ -3,8 +3,8 @@ Parameter Wrapper
 
 """
 
-from rpw import DB
-from rpw.enumeration import BipEnum
+from rpw.revit import DB
+from rpw.db.builtins import BipEnum
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError

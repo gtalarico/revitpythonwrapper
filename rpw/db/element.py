@@ -11,16 +11,17 @@ Note:
 import inspect
 
 import rpw
-from rpw import doc, uidoc, DB
-from rpw.parameter import Parameter, ParameterSet
+from rpw import revit, DB
+from rpw.db.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
-# from rpw.collector import Collector
+
+doc, uidoc = revit.doc, revit.uidoc
 
 from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
 from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
 from rpw.utils.logger import logger
 
-from rpw.enumeration import BicEnum, BipEnum
+from rpw.db.builtins import BicEnum, BipEnum
 
 
 class Element(BaseObjectWrapper):
