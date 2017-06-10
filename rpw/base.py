@@ -35,10 +35,10 @@ class BaseObject(object):
             return self.__repr__(*args, **kwargs)
 
         def __repr__(self, data=''):
-            return '<rpw: {class_name}: {data}>'.format(
+            return '<rpw:{class_name}: {data}>'.format(
                                         class_name=self.__class__.__name__,
-                                        data=data
-                                        )
+                                        data=data)
+
 
 class BaseObjectWrapper(BaseObject):
     """
@@ -78,13 +78,13 @@ class BaseObjectWrapper(BaseObject):
         else:
             object.__setattr__(self, attr, value)
 
-
     def unwrap(self):
         return self._revit_object
 
     def __repr__(self, data=''):
+        revit_object_name = self._revit_object.ToString()
         return '<rpw:{class_name} % {revit_object}: {data}>'.format(
                                     class_name=self.__class__.__name__,
-                                    revit_object=self._revit_object.ToString(),
+                                    revit_object=revit_object_name,
                                     data=data
                                     )
