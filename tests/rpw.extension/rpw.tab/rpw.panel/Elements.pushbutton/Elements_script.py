@@ -41,17 +41,16 @@ panel_dir = parent(script_dir)
 sys.path.append(script_dir)
 
 import rpw
-from rpw import DB, UI, doc, uidoc, version, clr
-from rpw import List
-from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
+from rpw import revit, DB, UI
+from rpw.utils.dotnet import List
+from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType, RPW_CoerceError
 from rpw.utils.logger import logger
 
 import test_utils
 
 def setUpModule():
     logger.title('SETTING UP ELEMENTS TESTS...')
-    logger.title('REVIT {}'.format(version))
-    uidoc.Application.OpenAndActivateDocument(os.path.join(panel_dir, 'collector.rvt'))
+    revit.uidoc.Application.OpenAndActivateDocument(os.path.join(panel_dir, 'collector.rvt'))
     test_utils.delete_all_walls()
     test_utils.make_wall()
 
@@ -71,8 +70,8 @@ class ElementTests(unittest.TestCase):
         logger.title('TESTING ELEMENT...')
 
     def setUp(self):
-        self.wall = DB.FilteredElementCollector(doc).OfClass(DB.Wall).ToElements()[0]
-        self.wrapped_wall = rpw.Element(self.wall)
+        self.wall = DB.FilteredElementCollector(revit.doc).OfClass(DB.Wall).ToElements()[0]
+        self.wrapped_wall = rpw.db.Element(self.wall)
         # param = self.wall.LookupParameter('Comments')
         # t = DB.Transaction(doc)
         # t.Start('Clear Comment Param')
@@ -84,28 +83,28 @@ class ElementTests(unittest.TestCase):
         levels = rpw.db.Collector(of_class=DB.Level).elements
         with rpw.db.Transaction('Delete Test Levels'):
             for level in levels[1:]:
-                doc.Delete(level.Id)
+                revit.doc.Delete(level.Id)
 
     def test_element_repr(self):
         self.assertIn('<RPW_Element:<Autodesk.Revit.DB.Wall', self.wrapped_wall.__repr__())
 
     def test_element_repr(self):
-        self.assertIsInstance(self.wrapped_wall, rpw.Element)
+        self.assertIsInstance(self.wrapped_wall, rpw.db.Element)
         self.assertIsInstance(self.wrapped_wall.unwrap(), DB.Wall)
 
     def test_element_id(self):
         assert isinstance(self.wrapped_wall.Id, DB.ElementId)
 
     def test_element_from_id(self):
-        element = rpw.Element.from_id(self.wall.Id)
-        self.assertIsInstance(element, rpw.Element)
+        element = rpw.db.Element.from_id(self.wall.Id)
+        self.assertIsInstance(element, rpw.db.Element)
 
     def test_element_from_int(self):
-        element = rpw.Element.from_int(self.wall.Id.IntegerValue)
-        self.assertIsInstance(element, rpw.Element)
+        element = rpw.db.Element.from_int(self.wall.Id.IntegerValue)
+        self.assertIsInstance(element, rpw.db.Element)
 
     def test_element_id(self):
-        self.assertIsInstance(self.wrapped_wall, rpw.Element)
+        self.assertIsInstance(self.wrapped_wall, rpw.db.Element)
 
     def test_element_get_parameter_type(self):
         rv = self.wrapped_wall.parameters['Comments'].type
@@ -150,13 +149,13 @@ class ElementTests(unittest.TestCase):
         self.assertEqual(rv, 5.0)
 
     def tests_element_set_get_parameter_element_id(self):
-        active_view = uidoc.ActiveView
-        wrapped_view = rpw.Element(active_view)
+        active_view = revit.uidoc.ActiveView
+        wrapped_view = rpw.db.Element(active_view)
         with rpw.db.Transaction('Create and Set Level'):
             try:
-                new_level = DB.Level.Create(doc, 10)
+                new_level = DB.Level.Create(revit.doc, 10)
             except:
-                new_level = doc.Create.NewLevel(10)
+                new_level = revit.doc.Create.NewLevel(10)
             self.wrapped_wall.parameters['Top Constraint'].value = new_level.Id
         self.assertEqual(self.wrapped_wall.parameters['Top Constraint'].value.IntegerValue,
                          new_level.Id.IntegerValue)
@@ -188,7 +187,7 @@ class ElementTests(unittest.TestCase):
             self.wrapped_wall.parameters['Parameter Name']
 
     def test_built_in_parameter_exception_raised(self):
-        with self.assertRaises(RPW_ParameterNotFound) as context:
+        with self.assertRaises(RPW_CoerceError) as context:
             self.wrapped_wall.parameters.builtins['PARAMETERD_DOES_NOT_EXIST']
 
 
@@ -199,7 +198,7 @@ class ElementTests(unittest.TestCase):
     def tests_param_class(self):
         param = self.wall.LookupParameter('Comments')
         self.assertIsInstance(param, DB.Parameter)
-        wrapped_param = rpw.Parameter(param)
+        wrapped_param = rpw.db.Parameter(param)
         self.assertIs(wrapped_param.type, str)
         self.assertEqual(wrapped_param.builtin, DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS)
 
@@ -215,18 +214,18 @@ class InstanceTests(unittest.TestCase):
 
     def setUp(self):
         instance = rpw.db.Collector(of_category='OST_Furniture', is_not_type=True).first
-        self.instance = rpw.Instance(instance)
+        self.instance = rpw.db.Instance(instance)
 
     def tearDown(self):
         logger.debug('SELECTION TEST PASSED')
 
     def test_instance_wrap(self):
-        self.assertIsInstance(self.instance, rpw.Instance)
+        self.assertIsInstance(self.instance, rpw.db.Instance)
         self.assertIsInstance(self.instance.unwrap(), DB.FamilyInstance)
 
     def test_instance_symbol(self):
         symbol = self.instance.symbol
-        self.assertIsInstance(symbol, rpw.Symbol)
+        self.assertIsInstance(symbol, rpw.db.Symbol)
         self.assertIsInstance(symbol.unwrap(), DB.FamilySymbol)
         self.assertEqual(symbol.name, '60" x 30"')
         self.assertEqual(len(symbol.instances), 2)
@@ -234,7 +233,7 @@ class InstanceTests(unittest.TestCase):
 
     def test_instance_family(self):
         family = self.instance.symbol.family
-        self.assertIsInstance(family, rpw.Family)
+        self.assertIsInstance(family, rpw.db.Family)
         self.assertEqual(family.name, 'desk')
         self.assertIsInstance(family.unwrap(), DB.Family)
         self.assertEqual(len(family.instances), 3)
@@ -243,7 +242,7 @@ class InstanceTests(unittest.TestCase):
 
     def test_instance_category(self):
         category = self.instance.symbol.family.category
-        self.assertIsInstance(category, rpw.Category)
+        self.assertIsInstance(category, rpw.db.Category)
         self.assertIsInstance(category.unwrap(), DB.Category)
         self.assertEqual(category.name, 'Furniture')
         self.assertEqual(len(category.instances), 3)
@@ -255,10 +254,10 @@ class InstanceTests(unittest.TestCase):
         symbol = instance.symbol
         family = instance.family
         category = instance.category
-        self.assertIsInstance(rpw.Element.Factory(instance.unwrap()), rpw.Instance)
-        self.assertIsInstance(rpw.Element.Factory(symbol.unwrap()), rpw.Symbol)
-        self.assertIsInstance(rpw.Element.Factory(family.unwrap()), rpw.Family)
-        self.assertIsInstance(rpw.Element.Factory(category.unwrap()), rpw.Category)
+        self.assertIsInstance(rpw.db.Element.Factory(instance.unwrap()), rpw.db.Instance)
+        self.assertIsInstance(rpw.db.Element.Factory(symbol.unwrap()), rpw.db.Symbol)
+        self.assertIsInstance(rpw.db.Element.Factory(family.unwrap()), rpw.db.Family)
+        self.assertIsInstance(rpw.db.Element.Factory(category.unwrap()), rpw.db.Category)
 
 
 ##################################################
@@ -273,23 +272,23 @@ class WallTests(unittest.TestCase):
 
     def setUp(self):
         wall = rpw.db.Collector(of_class='Wall', is_not_type=True).first
-        self.wall = rpw.WallInstance(wall)
+        self.wall = rpw.db.wall.WallInstance(wall)
 
     def test_wall_instance_wrap(self):
-        self.assertIsInstance(self.wall, rpw.WallInstance)
+        self.assertIsInstance(self.wall, rpw.db.wall.WallInstance)
         self.assertIsInstance(self.wall.unwrap(), DB.Wall)
 
     def test_wall_factory(self):
-        wrapped = rpw.Element.Factory(self.wall.unwrap())
-        self.assertIsInstance(wrapped, rpw.WallInstance)
-        wrapped = rpw.Element.Factory(self.wall.symbol.unwrap())
-        self.assertIsInstance(wrapped, rpw.WallSymbol)
-        wrapped = rpw.Element.Factory(self.wall.family.unwrap())
-        self.assertIsInstance(wrapped, rpw.WallFamily)
+        wrapped = rpw.db.Element.Factory(self.wall.unwrap())
+        self.assertIsInstance(wrapped, rpw.db.wall.WallInstance)
+        wrapped = rpw.db.Element.Factory(self.wall.symbol.unwrap())
+        self.assertIsInstance(wrapped, rpw.db.wall.WallSymbol)
+        wrapped = rpw.db.Element.Factory(self.wall.family.unwrap())
+        self.assertIsInstance(wrapped, rpw.db.wall.WallFamily)
 
     def test_wall_instance_symbol(self):
         wall_symbol = self.wall.symbol
-        self.assertIsInstance(wall_symbol, rpw.WallSymbol)
+        self.assertIsInstance(wall_symbol, rpw.db.wall.WallSymbol)
         self.assertIsInstance(wall_symbol.unwrap(), DB.WallType)
         self.assertEqual(wall_symbol.name, 'Wall 1')
         self.assertEqual(len(wall_symbol.instances), 1)
@@ -297,7 +296,7 @@ class WallTests(unittest.TestCase):
 
     def test_wall_instance_family(self):
         wall_family = self.wall.family
-        self.assertIsInstance(wall_family, rpw.WallFamily)
+        self.assertIsInstance(wall_family, rpw.db.wall.WallFamily)
         self.assertEqual(wall_family.unwrap(), DB.WallKind.Basic)
         self.assertEqual(wall_family.name, 'Basic Wall')
         self.assertEqual(len(wall_family.instances), 1)
@@ -306,7 +305,7 @@ class WallTests(unittest.TestCase):
 
     def test_wall_instance_category(self):
         wall_category = self.wall.category
-        self.assertIsInstance(wall_category, rpw.WallCategory)
+        self.assertIsInstance(wall_category, rpw.db.wall.WallCategory)
         self.assertIsInstance(wall_category.unwrap(), DB.Category)
         self.assertEqual(wall_category.name, 'Walls')
 
@@ -326,10 +325,10 @@ class RoomTests(unittest.TestCase):
 
     def setUp(self):
         room = rpw.db.Collector(os_category='OST_Rooms', is_not_type=True).first
-        self.wall = rpw.WallInstance(wall)
+        self.wall = rpw.db.wall.WallInstance(wall)
     #
     # def test_wall_instance_wrap(self):
-    #     self.assertIsInstance(self.wall, rpw.WallInstance)
+    #     self.assertIsInstance(self.wall, rpw.db.wall.WallInstance)
     #     self.assertIsInstance(self.wall.unwrap(), DB.Wall)
 
 
