@@ -3,7 +3,7 @@
 """
 
 from rpw.revit import revit, DB
-from rpw.utils.dotnot import List
+from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_TypeError
 from rpw.utils.logger import logger
@@ -13,7 +13,7 @@ doc, uidoc = revit.doc, revit.uidoc
 
 class Selection(BaseObjectWrapper):
     """
-    >>> selection = rpw.Selection()
+    >>> selection = rpw.ui.Selection()
     >>> selection[0]
     FirstElement
     >>> selection.element_ids

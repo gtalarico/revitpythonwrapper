@@ -63,7 +63,7 @@ class CoerceTests(unittest.TestCase):
         logger.title('TESTING COERCE FUNCITONS...')
 
     def setUp(self):
-        self.wall = rpw.Collector(of_class='Wall').first
+        self.wall = rpw.db.Collector(of_class='Wall').first
 
     def tearDown(self):
         pass

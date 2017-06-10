@@ -76,12 +76,12 @@ class WallFamily(Family):
 
     @property
     def symbols(self):
-        symbols = rpw.Collector(**WallSymbol._collector_params).elements
+        symbols = rpw.db.Collector(**WallSymbol._collector_params).elements
         return [symbol for symbol in symbols if symbol.Kind == self._revit_object]
 
     @property
     def category(self):
-        wall_type = rpw.Collector(of_class=DB.WallType, is_type=True).first
+        wall_type = rpw.db.Collector(of_class=DB.WallType, is_type=True).first
         return WallCategory(wall_type.Category)
 
 

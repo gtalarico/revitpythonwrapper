@@ -160,8 +160,8 @@ class AreaScheme(Element):
     def areas(self):
         """ Returns all Area Instances of this Area Scheme """
         bip = BipEnum.get_id('AREA_SCHEME_ID')
-        param_filter = rpw.collector.ParameterFilter(bip, equals=self._revit_object.Id)
-        collector = rpw.Collector(parameter_filter=param_filter,
+        param_filter = rpw.db.Collector.ParameterFilter(bip, equals=self._revit_object.Id)
+        collector = rpw.db.Collector(parameter_filter=param_filter,
                                   **Area._collector_params)
         return collector.wrapped_elements
 

@@ -40,7 +40,8 @@ panel_dir = parent(script_dir)
 sys.path.append(script_dir)
 
 import rpw
-from rpw import DB, UI, doc, uidoc
+from rpw import DB, UI
+doc, uidoc = rpw.revit.doc, rpw.revit.uidoc
 from rpw.utils.logger import logger
 
 import test_utils
@@ -73,7 +74,7 @@ class SelectionTests(unittest.TestCase):
 
     def setUp(self):
         self.wall = SelectionTests.wall
-        self.selection = rpw.Selection([self.wall.Id])
+        self.selection = rpw.ui.Selection([self.wall.Id])
 
     def tearDown(self):
         self.selection.clear()
@@ -108,10 +109,10 @@ class SelectionTests(unittest.TestCase):
     def test_selection_clear(self):
         self.selection.clear()
         self.assertEqual(len(self.selection), 0)
-        self.selection = rpw.Selection([self.wall.Id])
+        self.selection = rpw.ui.Selection([self.wall.Id])
 
     def test_selection_add(self):
-        selection = rpw.Selection()
+        selection = rpw.ui.Selection()
         selection.add([self.wall])
         self.assertIsInstance(selection[0], DB.Wall)
 

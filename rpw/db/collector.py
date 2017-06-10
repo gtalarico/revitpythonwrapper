@@ -1,10 +1,11 @@
 """
->>> levels = rpw.Collector(of_category='OST_Levels', is_no_type=True)
+>>> levels = rpw.db.Collector(of_category='OST_Levels', is_no_type=True)
 
 >>> # Traditional
 >>> levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
 
 """
+
 import types
 
 from rpw.revit import revit, DB
@@ -165,7 +166,7 @@ class ParameterFilter(SlowFilter):
 
 # class WhereFilter(SuperSlowFilter):
 #     keyword = 'where'
-#     # w = rpw.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
+#     # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
 #
 #     @classmethod
 #     def process_value(cls, func):

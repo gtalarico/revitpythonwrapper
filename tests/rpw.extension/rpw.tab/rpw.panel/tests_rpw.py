@@ -107,30 +107,30 @@ class TransactionsTest(unittest.TestCase):
 
     def setUp(self):
         self.wall = rpw.Element.from_int(wall_int)
-        with rpw.Transaction('Reset Comment') as t:
+        with rpw.db.Transaction('Reset Comment') as t:
             self.wall.parameters['Comments'] = ''
 
     def test_transaction_instance(self):
-        with rpw.Transaction('Test Is Instance') as t:
+        with rpw.db.Transaction('Test Is Instance') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertIsInstance(t, DB.Transaction)
 
     def test_transaction_started(self):
-        with rpw.Transaction('Has Started') as t:
+        with rpw.db.Transaction('Has Started') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertTrue(t.HasStarted())
 
     def test_transaction_has_ended(self):
-        with rpw.Transaction('Add Comment') as t:
+        with rpw.db.Transaction('Add Comment') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertFalse(t.HasEnded())
 
     def test_transaction_get_name(self):
-        with rpw.Transaction('Named Transaction') as t:
+        with rpw.db.Transaction('Named Transaction') as t:
             self.assertEqual(t.GetName(), 'Named Transaction')
 
     def test_transaction_commit_status_success(self):
-        with rpw.Transaction('Set String') as t:
+        with rpw.db.Transaction('Set String') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
         self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
@@ -138,21 +138,21 @@ class TransactionsTest(unittest.TestCase):
 
     def test_transaction_commit_status_rollback(self):
         with self.assertRaises(Exception):
-            with rpw.Transaction('Set String') as t:
+            with rpw.db.Transaction('Set String') as t:
                 self.wall.parameters['Top Constraint'].value = DB.ElementId('a')
         self.assertEqual(t.GetStatus(), DB.TransactionStatus.RolledBack)
 
     def test_transaction_group(self):
-        with rpw.TransactionGroup('Multiple Transactions') as tg:
+        with rpw.db.TransactionGroup('Multiple Transactions') as tg:
             self.assertEqual(tg.GetStatus(), DB.TransactionStatus.Started)
-            with rpw.Transaction('Set String') as t:
+            with rpw.db.Transaction('Set String') as t:
                 self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
                 self.wall.parameters['Comments'].value = '1'
             self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
         self.assertEqual(tg.GetStatus(), DB.TransactionStatus.Committed)
 
     def test_transaction_decorator(self):
-        @rpw.Transaction.ensure('Transaction Name')
+        @rpw.db.Transaction.ensure('Transaction Name')
         def somefunction():
             param = self.wall.parameters['Comments'].value = '1'
             return param
@@ -174,7 +174,7 @@ class TransactionsTest(unittest.TestCase):
 #     @staticmethod
 #     def collector_helper(filters):
 #         logger.debug('{}'.format(filters))
-#         collector = rpw.Collector(**filters)
+#         collector = rpw.db.Collector(**filters)
 #         elements = collector.elements
 #         logger.debug(collector)
 #         logger.debug(collector.first)
@@ -245,41 +245,41 @@ class TransactionsTest(unittest.TestCase):
 #         assert walls_category > walls_elements > walls_element_type
 #
 #     def tests_collect_rooms(self):
-#         collector = rpw.Collector(of_category='OST_Rooms')
+#         collector = rpw.db.Collector(of_category='OST_Rooms')
 #         if collector:
 #             self.assertIsInstance(collector.first, DB.SpatialElement)
-#             collector = rpw.Collector(of_class='SpatialElement')
+#             collector = rpw.db.Collector(of_class='SpatialElement')
 #             self.assertIsInstance(collector.first, DB.Architecture.Room)
 #
 #     def test_collector_scope_elements(self):
 #         """ If Collector scope is list of elements, should not find View"""
-#         wall = rpw.Collector(of_class='Wall').first
-#         collector = rpw.Collector(elements=[wall], of_class='View')
+#         wall = rpw.db.Collector(of_class='Wall').first
+#         collector = rpw.db.Collector(elements=[wall], of_class='View')
 #         self.assertEqual(len(collector), 0)
 #
 #     def test_collector_scope_element_ids(self):
-#         wall = rpw.Collector(of_class='Wall').first
-#         collector = rpw.Collector(element_ids=[wall.Id], of_class='View')
+#         wall = rpw.db.Collector(of_class='Wall').first
+#         collector = rpw.db.Collector(element_ids=[wall.Id], of_class='View')
 #         self.assertEqual(len(collector), 0)
 #
 #     def test_collector_symbol_filter(self):
-#         desk_types = rpw.Collector(of_class='FamilySymbol',
+#         desk_types = rpw.db.Collector(of_class='FamilySymbol',
 #                                    of_category="OST_Furniture").elements
 #         self.assertEqual(len(desk_types), 3)
 #
-#         all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+#         all_symbols = rpw.db.Collector(of_class='FamilySymbol').elements
 #         self.assertGreater(len(all_symbols), 3)
-#         all_symbols = rpw.Collector(of_class='FamilySymbol').elements
+#         all_symbols = rpw.db.Collector(of_class='FamilySymbol').elements
 #
 #         #Placed Twice
-#         first_symbol = rpw.Collector(symbol=desk_types[0]).elements
+#         first_symbol = rpw.db.Collector(symbol=desk_types[0]).elements
 #         self.assertEqual(len(first_symbol), 2)
 #
 #         #Placed Once
-#         second_symbol = rpw.Collector(symbol=desk_types[1]).elements
+#         second_symbol = rpw.db.Collector(symbol=desk_types[1]).elements
 #         self.assertEqual(len(second_symbol), 1)
 #
-#         second_symbol = rpw.Collector(of_class='Wall', symbol=desk_types[1]).elements
+#         second_symbol = rpw.db.Collector(of_class='Wall', symbol=desk_types[1]).elements
 #         self.assertEqual(len(second_symbol), 0)
 
 
@@ -295,7 +295,7 @@ class TransactionsTest(unittest.TestCase):
 #         logger.title('TESTING SELECTION...')
 #
 #     def setUp(self):
-#         self.selection = rpw.Selection([wall_int])
+#         self.selection = rpw.ui.Selection([wall_int])
 #
 #     def tearDown(self):
 #         self.selection.clear()
@@ -326,10 +326,10 @@ class TransactionsTest(unittest.TestCase):
 #     def test_selection_clear(self):
 #         self.selection.clear()
 #         self.assertEqual(len(self.selection), 0)
-#         self.selection = rpw.Selection([wall_int])
+#         self.selection = rpw.ui.Selection([wall_int])
 #
 #     def test_selection_add(self):
-#         selection = rpw.Selection()
+#         selection = rpw.ui.Selection()
 #         selection.add([wall_int])
 #         self.assertIsInstance(selection[0], DB.Wall)
 
@@ -345,13 +345,13 @@ class TransactionsTest(unittest.TestCase):
 #         logger.title('TESTING ELEMENT...')
 #
 #     def setUp(self):
-#         self.wall = rpw.Collector(of_class='Wall').first
+#         self.wall = rpw.db.Collector(of_class='Wall').first
 #         self.wrapped_wall = rpw.Element(self.wall)
 #
 #     def tearDown(self):
-#         collector = rpw.Collector()
-#         levels = rpw.Collector(of_class=DB.Level).elements
-#         with rpw.Transaction('Delete Test Levels'):
+#         collector = rpw.db.Collector()
+#         levels = rpw.db.Collector(of_class=DB.Level).elements
+#         with rpw.db.Transaction('Delete Test Levels'):
 #             for level in levels[1:]:
 #                 doc.Delete(level.Id)
 #
@@ -397,25 +397,25 @@ class TransactionsTest(unittest.TestCase):
 #         self.assertEqual(rv, None)
 #
 #     def tests_element_set_get_parameter_string(self):
-#         with rpw.Transaction('Set String'):
+#         with rpw.db.Transaction('Set String'):
 #             self.wrapped_wall.parameters['Comments'].value = 'Test String'
 #         rv = self.wrapped_wall.parameters['Comments'].value
 #         self.assertEqual(rv, 'Test String')
 #
 #     def tests_element_set_get_parameter_coerce_string(self):
-#         with rpw.Transaction('Set String'):
+#         with rpw.db.Transaction('Set String'):
 #             self.wrapped_wall.parameters['Comments'].value = 5
 #         rv = self.wrapped_wall.parameters['Comments'].value
 #         self.assertEqual(rv, '5')
 #
 #     def tests_element_set_get_parameter_float(self):
-#         with rpw.Transaction('Set Integer'):
+#         with rpw.db.Transaction('Set Integer'):
 #             self.wrapped_wall.parameters['Unconnected Height'].value = 5.0
 #         rv = self.wrapped_wall.parameters['Unconnected Height'].value
 #         self.assertEqual(rv, 5.0)
 #
 #     def tests_element_set_get_parameter_coerce_int(self):
-#         with rpw.Transaction('Set Coerce Int'):
+#         with rpw.db.Transaction('Set Coerce Int'):
 #             self.wrapped_wall.parameters['Unconnected Height'].value = 5
 #         rv = self.wrapped_wall.parameters['Unconnected Height'].value
 #         self.assertEqual(rv, 5.0)
@@ -423,7 +423,7 @@ class TransactionsTest(unittest.TestCase):
 #     def tests_element_set_get_parameter_element_id(self):
 #         active_view = uidoc.ActiveView
 #         wrapped_view = rpw.Element(active_view)
-#         with rpw.Transaction('Create and Set Level'):
+#         with rpw.db.Transaction('Create and Set Level'):
 #             try:
 #                 new_level = DB.Level.Create(doc, 10)
 #             except:
@@ -438,7 +438,7 @@ class TransactionsTest(unittest.TestCase):
 #
 #     def test_element_set_get_builtin_parameter_by_strin(self):
 #         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
-#         with rpw.Transaction('Set Value'):
+#         with rpw.db.Transaction('Set Value'):
 #             bip.value = 0
 #         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
 #         self.assertEqual(bip.value, 0)
@@ -451,7 +451,7 @@ class TransactionsTest(unittest.TestCase):
 #
 #     def tests_wrong_storage_type(self):
 #         with self.assertRaises(RPW_WrongStorageType) as context:
-#             with rpw.Transaction('Set String'):
+#             with rpw.db.Transaction('Set String'):
 #                 self.wrapped_wall.parameters['Unconnected Height'].value = 'Test'
 #
 #     def test_parameter_does_not_exist(self):
@@ -486,10 +486,10 @@ class TransactionsTest(unittest.TestCase):
 #         logger.title('TESTING PARAMETER FILTER...')
 #
 #     def setUp(self):
-#         collector = rpw.Collector()
+#         collector = rpw.db.Collector()
 #         self.wall = collector.filter(of_class='Wall').first
 #         self.wrapped_wall = rpw.Element(self.wall)
-#         with rpw.Transaction('Set Comment'):
+#         with rpw.db.Transaction('Set Comment'):
 #             self.wrapped_wall.parameters['Comments'].value = 'Tests'
 #             self.wrapped_wall.parameters['Unconnected Height'].value = 12.0
 #
@@ -504,89 +504,89 @@ class TransactionsTest(unittest.TestCase):
 #
 #     def test_param_filter_float_less_no(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, less=10.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 0)
 #
 #     def test_param_filter_float_less_yes(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, less=15.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_filter_float_equal(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, equals=12.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_filter_float_not_equal(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, not_equals=12.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 0)
 #
 #     def test_param_filter_float_greater(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, greater=10.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_filter_float_multi_filter(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, greater=10.0, less=14.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_filter_float_multi_filter(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_height, greater=10.0, not_less=14.0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 0)
 #
 #     def test_param_filter_int_equal(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_location, equals=0)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_filter_int_less(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_location, less=3)
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_comments_equals(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_comments, equals='Tests')
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_comments_not_equals(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_comments, equals='Blaa')
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 0)
 #
 #     def test_param_comments_begins(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_comments, begins='Tes')
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def test_param_comments_not_begins(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_comments, equals='Bla bla')
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 0)
 #
 #     def test_param_comments_not_begins(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_comments, not_begins='Bla bla')
-#         col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     # FAILS - CASE SENSITIVE FLAG IS NOT WORKING
 #     # def test_param_comments_equal_case(self):
 #         # parameter_filter = rpw.ParameterFilter(self.param_id_comments, contains='tests')
-#         # col = rpw.Collector(of_class="Wall", parameter_filter=parameter_filter)
+#         # col = rpw.db.Collector(of_class="Wall", parameter_filter=parameter_filter)
 #         # self.assertEqual(len(col), 0)
 #
 #     def tests_param_name_contains(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_level_name, contains='1')
-#         col = rpw.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 #
 #     def tests_param_name_ends(self):
 #         parameter_filter = rpw.ParameterFilter(self.param_id_level_name, ends='1')
-#         col = rpw.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
+#         col = rpw.db.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
 #         self.assertEqual(len(col), 1)
 
 ######################
@@ -601,7 +601,7 @@ class TransactionsTest(unittest.TestCase):
 #         logger.title('TESTING COERCE FUNCITONS...')
 #
 #     def setUp(self):
-#         collector = rpw.Collector()
+#         collector = rpw.db.Collector()
 #         self.wall = collector.filter(of_class='Wall').first
 #
 #     def tearDown(self):
@@ -643,7 +643,7 @@ class TransactionsTest(unittest.TestCase):
 #         logger.title('TESTING INSTANCES...')
 #
 #     def setUp(self):
-#         instance = rpw.Collector(of_category='OST_Furniture', is_not_type=True).first
+#         instance = rpw.db.Collector(of_category='OST_Furniture', is_not_type=True).first
 #         self.instance = rpw.Instance(instance)
 #
 #     def tearDown(self):
@@ -697,7 +697,7 @@ class TransactionsTest(unittest.TestCase):
 #         logger.title('TESTING WALL...')
 #
 #     def setUp(self):
-#         wall = rpw.Collector(of_class='Wall', is_not_type=True).first
+#         wall = rpw.db.Collector(of_class='Wall', is_not_type=True).first
 #         self.wall = rpw.WallInstance(wall)
 #
 #     def test_wall_instance_wrap(self):
@@ -743,7 +743,7 @@ class TransactionsTest(unittest.TestCase):
 #         pass
 
     # def setUp(self):
-    #     wall = rpw.Collector(of_class='Wall', is_not_type=True).first
+    #     wall = rpw.db.Collector(of_class='Wall', is_not_type=True).first
     #     self.wall = rpw.WallInstance(wall)
     #
     # def test_wall_instance_wrap(self):

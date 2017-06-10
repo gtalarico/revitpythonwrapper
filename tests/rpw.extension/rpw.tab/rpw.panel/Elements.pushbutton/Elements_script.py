@@ -80,9 +80,9 @@ class ElementTests(unittest.TestCase):
         # t.Commit()
 
     def tearDown(self):
-        collector = rpw.Collector()
-        levels = rpw.Collector(of_class=DB.Level).elements
-        with rpw.Transaction('Delete Test Levels'):
+        collector = rpw.db.Collector()
+        levels = rpw.db.Collector(of_class=DB.Level).elements
+        with rpw.db.Transaction('Delete Test Levels'):
             for level in levels[1:]:
                 doc.Delete(level.Id)
 
@@ -126,25 +126,25 @@ class ElementTests(unittest.TestCase):
         self.assertEqual(rv, None)
 
     def tests_element_set_get_parameter_string(self):
-        with rpw.Transaction('Set String'):
+        with rpw.db.Transaction('Set String'):
             self.wrapped_wall.parameters['Comments'].value = 'Test String'
         rv = self.wrapped_wall.parameters['Comments'].value
         self.assertEqual(rv, 'Test String')
 
     def tests_element_set_get_parameter_coerce_string(self):
-        with rpw.Transaction('Set String'):
+        with rpw.db.Transaction('Set String'):
             self.wrapped_wall.parameters['Comments'].value = 5
         rv = self.wrapped_wall.parameters['Comments'].value
         self.assertEqual(rv, '5')
 
     def tests_element_set_get_parameter_float(self):
-        with rpw.Transaction('Set Integer'):
+        with rpw.db.Transaction('Set Integer'):
             self.wrapped_wall.parameters['Unconnected Height'].value = 5.0
         rv = self.wrapped_wall.parameters['Unconnected Height'].value
         self.assertEqual(rv, 5.0)
 
     def tests_element_set_get_parameter_coerce_int(self):
-        with rpw.Transaction('Set Coerce Int'):
+        with rpw.db.Transaction('Set Coerce Int'):
             self.wrapped_wall.parameters['Unconnected Height'].value = 5
         rv = self.wrapped_wall.parameters['Unconnected Height'].value
         self.assertEqual(rv, 5.0)
@@ -152,7 +152,7 @@ class ElementTests(unittest.TestCase):
     def tests_element_set_get_parameter_element_id(self):
         active_view = uidoc.ActiveView
         wrapped_view = rpw.Element(active_view)
-        with rpw.Transaction('Create and Set Level'):
+        with rpw.db.Transaction('Create and Set Level'):
             try:
                 new_level = DB.Level.Create(doc, 10)
             except:
@@ -167,7 +167,7 @@ class ElementTests(unittest.TestCase):
 
     def test_element_set_get_builtin_parameter_by_strin(self):
         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
-        with rpw.Transaction('Set Value'):
+        with rpw.db.Transaction('Set Value'):
             bip.value = 0
         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM']
         self.assertEqual(bip.value, 0)
@@ -180,7 +180,7 @@ class ElementTests(unittest.TestCase):
 
     def tests_wrong_storage_type(self):
         with self.assertRaises(RPW_WrongStorageType) as context:
-            with rpw.Transaction('Set String'):
+            with rpw.db.Transaction('Set String'):
                 self.wrapped_wall.parameters['Unconnected Height'].value = 'Test'
 
     def test_parameter_does_not_exist(self):
@@ -214,7 +214,7 @@ class InstanceTests(unittest.TestCase):
         logger.title('TESTING INSTANCES...')
 
     def setUp(self):
-        instance = rpw.Collector(of_category='OST_Furniture', is_not_type=True).first
+        instance = rpw.db.Collector(of_category='OST_Furniture', is_not_type=True).first
         self.instance = rpw.Instance(instance)
 
     def tearDown(self):
@@ -272,7 +272,7 @@ class WallTests(unittest.TestCase):
         logger.title('TESTING WALL...')
 
     def setUp(self):
-        wall = rpw.Collector(of_class='Wall', is_not_type=True).first
+        wall = rpw.db.Collector(of_class='Wall', is_not_type=True).first
         self.wall = rpw.WallInstance(wall)
 
     def test_wall_instance_wrap(self):
@@ -325,7 +325,7 @@ class RoomTests(unittest.TestCase):
 
 
     def setUp(self):
-        room = rpw.Collector(os_category='OST_Rooms', is_not_type=True).first
+        room = rpw.db.Collector(os_category='OST_Rooms', is_not_type=True).first
         self.wall = rpw.WallInstance(wall)
     #
     # def test_wall_instance_wrap(self):

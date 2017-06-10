@@ -35,7 +35,8 @@ if __name__ == 'make.doc':
     pass
 
 from revit import revit, DB, UI
-from rpw.db.collector import Collector
+import rpw.db
+import rpw.ui
 
 # from rpw.base import BaseObjectWrapper
 # from rpw.element import Element, Instance, Symbol, Family, Category
@@ -44,8 +45,8 @@ from rpw.db.collector import Collector
 # from rpw.geometry import Point, PointCollection
 # from rpw.parameter import ParameterSet, Parameter
 # from rpw.selection import Selection
-# from rpw.collector import Collector, ParameterFilter
-# from rpw.transaction import Transaction, TransactionGroup
+# from rpw.db.Collector import Collector, ParameterFilter
+# from rpw.db.Transaction import Transaction, TransactionGroup
 # from rpw.utils.logger import logger
 # from rpw.enumeration import BipEnum, BicEnum
 # from rpw.utils.coerce import to_element_ids, to_elements
