@@ -21,6 +21,7 @@ from rpw.utils.logger import logger
 
 # http://thebuildingcoder.typepad.com/blog/2015/12/quick-slow-and-linq-element-filtering.html
 
+
 class BaseFilter(BaseObject):
     method = 'WherePasses'
 
@@ -31,7 +32,7 @@ class BaseFilter(BaseObject):
         if hasattr(cls, 'process_value'):
 
             # FamilyInstanceFilter is the only Filter that  requires Doc
-            if cls is not FamilyInstanceFilter:
+            if cls is not Filters.FamilyInstanceFilter:
                 value = cls.process_value(value)
             else:
                 value = cls.process_value(value, doc)
@@ -55,151 +56,145 @@ class SuperQuickFilter(BaseFilter):
     priority_group = 0
 
 
-class ClassFilter(SuperQuickFilter):
-    keyword = 'of_class'
+class Filters():
 
     @classmethod
-    def process_value(cls, class_reference):
-        class_ = to_class(class_reference)
-        return DB.ElementClassFilter(class_)
-
-
-class CategoryFilter(SuperQuickFilter):
-    keyword = 'of_category'
-
-    @classmethod
-    def process_value(cls, category_reference):
-        category = to_category(category_reference)
-        return DB.ElementCategoryFilter(category)
-
-
-class IsTypeFilter(QuickFilter):
-    keyword = 'is_type'
+    def get_available_filters(cls):
+        filters = []
+        for filter_class_name in dir(Filters):
+            if filter_class_name.endswith('Filter'):
+                filters.append(getattr(Filters, filter_class_name))
+        return filters
 
     @classmethod
-    def process_value(cls, bool_value):
-        return DB.ElementIsElementTypeFilter(not(bool_value))
+    def get_sorted(cls):
+        return sorted(Filters.get_available_filters(),
+                      key=lambda f: f.priority_group)
 
+    class ClassFilter(SuperQuickFilter):
+        keyword = 'of_class'
 
-class IsNotTypeFilter(IsTypeFilter):
-    keyword = 'is_not_type'
+        @classmethod
+        def process_value(cls, class_reference):
+            class_ = to_class(class_reference)
+            return DB.ElementClassFilter(class_)
 
-    @classmethod
-    def process_value(cls, bool_value):
-        return DB.ElementIsElementTypeFilter(bool_value)
+    class CategoryFilter(SuperQuickFilter):
+        keyword = 'of_category'
 
+        @classmethod
+        def process_value(cls, category_reference):
+            category = to_category(category_reference)
+            return DB.ElementCategoryFilter(category)
 
-class FamilySymbolFilter(QuickFilter):
-    keyword = 'family'
+    class IsTypeFilter(QuickFilter):
+        keyword = 'is_type'
 
-    @classmethod
-    def process_value(cls, family_reference):
-        family_id = to_element_id(family_reference)
-        return DB.FamilySymbolFilter(family_id)
+        @classmethod
+        def process_value(cls, bool_value):
+            return DB.ElementIsElementTypeFilter(not(bool_value))
 
+    class IsNotTypeFilter(IsTypeFilter):
+        keyword = 'is_not_type'
 
-class ViewOwnerFilter(QuickFilter):
-    keyword = 'owner_view'
-    reverse = False
+        @classmethod
+        def process_value(cls, bool_value):
+            return DB.ElementIsElementTypeFilter(bool_value)
 
-    @classmethod
-    def process_value(cls, view_reference):
-        if view_reference is not None:
-            view_id = to_element_id(view_reference)
-        else:
-            view_id = DB.ElementId.InvalidElementId
-        return DB.ElementOwnerViewFilter(view_id, cls.reverse)
+    class FamilySymbolFilter(QuickFilter):
+        keyword = 'family'
 
+        @classmethod
+        def process_value(cls, family_reference):
+            family_id = to_element_id(family_reference)
+            return DB.FamilySymbolFilter(family_id)
 
-class ViewIndependentFilter(QuickFilter):
-    keyword = 'is_view_independent'
+    class ViewOwnerFilter(QuickFilter):
+        keyword = 'owner_view'
+        reverse = False
 
-    @classmethod
-    def process_value(cls, bool_value):
-        view_id = DB.ElementId.InvalidElementId
-        return DB.ElementOwnerViewFilter(view_id, not(bool_value))
-
-
-class FamilyInstanceFilter(SlowFilter):
-    keyword = 'symbol'
-
-    @classmethod
-    def process_value(cls, symbol_reference, doc):
-        symbol_id = to_element_id(symbol_reference)
-        return DB.FamilyInstanceFilter(doc, symbol_id)
-
-
-class LevelFilter(SlowFilter):
-    keyword = 'level'
-    reverse = False
-
-    @classmethod
-    def process_value(cls, level_reference):
-        # TEST: Move this into Level Wrapper - Level.collect(name='')
-        if isinstance(level_reference, str):
-            for level in Collector(of_class='Level', is_type=False):
-                if level.Name == level_reference:
-                    level_id = level.Id
-                    break
+        @classmethod
+        def process_value(cls, view_reference):
+            if view_reference is not None:
+                view_id = to_element_id(view_reference)
             else:
-                raise RPW_CoerceError(level_reference, DB.Level)
-        else:
-            level_id = to_element_id(level_reference)
-        return DB.ElementLevelFilter(level_id, cls.reverse)
+                view_id = DB.ElementId.InvalidElementId
+            return DB.ElementOwnerViewFilter(view_id, cls.reverse)
 
+    class ViewIndependentFilter(QuickFilter):
+        keyword = 'is_view_independent'
 
-class NotLevelFilter(LevelFilter):
-    keyword = 'not_level'
-    reverse = True
+        @classmethod
+        def process_value(cls, bool_value):
+            view_id = DB.ElementId.InvalidElementId
+            return DB.ElementOwnerViewFilter(view_id, not(bool_value))
 
+    class CurveDrivenFilter(QuickFilter):
+        keyword = 'is_curve_driven'
 
-class ParameterFilter(SlowFilter):
-    keyword = 'parameter_filter'
+        @classmethod
+        def process_value(cls, bool_value):
+            return DB.ElementIsCurveDrivenFilter(bool_value)
 
-    @classmethod
-    def process_value(cls, parameter_filter):
-        if isinstance(parameter_filter, ParameterFilter):
-            return parameter_filter.unwrap()
-        else:
-            raise Exception('Shouldnt get here')
+    class FamilyInstanceFilter(SlowFilter):
+        keyword = 'symbol'
 
+        @classmethod
+        def process_value(cls, symbol_reference, doc):
+            symbol_id = to_element_id(symbol_reference)
+            return DB.FamilyInstanceFilter(doc, symbol_id)
 
-# class WhereFilter(SuperSlowFilter):
-#     keyword = 'where'
-#     # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
-#
-#     @classmethod
-#     def process_value(cls, func):
-#         if isinstance(parameter_filter, types.FunctionType):
-#             return func
-#         else:
-#             raise RPW_TypeError(types.FunctionType, type(func))
-#
-#     @classmethod
-#     def apply(cls, doc, collector, func):
-#         passing_elements = []
-#         for element in collector:
-#             if func(element):
-#                 passing_elements.append(element)
-#         if passing_elements:
-#             return Collector(doc=doc, elements=passing_elements)._collector
+    class LevelFilter(SlowFilter):
+        keyword = 'level'
+        reverse = False
 
+        @classmethod
+        def process_value(cls, level_reference):
+            # TEST: Move this into Level Wrapper - Level.collect(name='')
+            if isinstance(level_reference, str):
+                for level in Collector(of_class='Level', is_type=False):
+                    if level.Name == level_reference:
+                        level_id = level.Id
+                        break
+                else:
+                    raise RPW_CoerceError(level_reference, DB.Level)
+            else:
+                level_id = to_element_id(level_reference)
+            return DB.ElementLevelFilter(level_id, cls.reverse)
 
-available_filters = sorted([
-                            ClassFilter,
-                            CategoryFilter,
-                            IsTypeFilter,
-                            IsNotTypeFilter,
-                            FamilySymbolFilter,
-                            NotLevelFilter,
-                            FamilyInstanceFilter,
-                            LevelFilter,
-                            ViewOwnerFilter,
-                            ViewIndependentFilter,
-                            ParameterFilter,
-                            # WhereFilter
-                           ], key=lambda f: f.priority_group
-                           )
+    class NotLevelFilter(LevelFilter):
+        keyword = 'not_level'
+        reverse = True
+
+    class ParameterFilter(SlowFilter):
+        keyword = 'parameter_filter'
+
+        @classmethod
+        def process_value(cls, parameter_filter):
+            if isinstance(parameter_filter, ParameterFilter):
+                return parameter_filter.unwrap()
+            else:
+                raise Exception('Shouldnt get here')
+
+    # class WhereFilter(SuperSlowFilter):
+    #     keyword = 'where'
+    #     # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
+    #
+    #     @classmethod
+    #     def process_value(cls, func):
+    #         if isinstance(parameter_filter, types.FunctionType):
+    #             return func
+    #         else:
+    #             raise RPW_TypeError(types.FunctionType, type(func))
+    #
+    #     @classmethod
+    #     def apply(cls, doc, collector, func):
+    #         passing_elements = []
+    #         for element in collector:
+    #             if func(element):
+    #                 passing_elements.append(element)
+    #         if passing_elements:
+    #             return Collector(doc=doc, elements=passing_elements)._collector
 
 
 class Collector(BaseObjectWrapper):
@@ -292,13 +287,13 @@ class Collector(BaseObjectWrapper):
         super(Collector, self).__init__(collector)
 
         for key in filters.keys():
-            if key not in [f.keyword for f in available_filters]:
+            if key not in [f.keyword for f in Filters.get_sorted()]:
                 raise RPW_Exception('Collector Filter not valid: {}'.format(key))
 
         self._collector = self._collect(collector_doc, collector, filters)
 
     def _collect(self, doc, collector, filters):
-        for filter_class in available_filters:
+        for filter_class in Filters.get_sorted():
             if filter_class.keyword not in filters:
                 continue
             filter_value = filters.pop(filter_class.keyword)

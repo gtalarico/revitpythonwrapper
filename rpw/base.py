@@ -30,6 +30,10 @@ class BaseObject(object):
         def __init__(self, *args, **kwargs):
             pass
 
+        def ToString(self, *args, **kwargs):
+            """ Show correct repr on Dynamo """
+            return self.__repr__(*args, **kwargs)
+
         def __repr__(self, data=''):
             if data == '':
                 data = self._revit_object.__class__.__name__
