@@ -44,7 +44,7 @@ import rpw
 from rpw.revit import DB, UI
 from rpw.utils.dotnet import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
-from rpw.utils.logger import logger
+from rpw.utils import logger
 
 import test_utils
 

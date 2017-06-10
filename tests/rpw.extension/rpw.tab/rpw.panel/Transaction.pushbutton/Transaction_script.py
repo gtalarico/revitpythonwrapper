@@ -43,7 +43,7 @@ sys.path.append(script_dir)
 import rpw
 from rpw.revit import DB, UI
 from rpw.utils.dotnet import List
-from rpw.utils.logger import logger
+from rpw.utils import logger
 doc = rpw.revit.doc
 
 import test_utils

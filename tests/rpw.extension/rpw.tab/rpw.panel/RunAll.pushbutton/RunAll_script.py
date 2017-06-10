@@ -42,7 +42,7 @@ all_tests = [
 
 results = []
 for module in all_tests:
-    from rpw import logger
+    from rpw.utils import logger
     # logger.verbose(False) # Disable Logger
     logger.disable()
 

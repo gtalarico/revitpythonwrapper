@@ -19,7 +19,7 @@ import rpw
 from rpw import DB, UI, doc, uidoc, version, clr
 from rpw import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
-from rpw.utils.logger import logger
+from rpw.utils import logger
 
 # sys.exit()
 

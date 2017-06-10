@@ -71,7 +71,7 @@ class Globals(unittest.TestCase):
         self.assertEqual(revit.uidoc.Application.__class__.__name__, 'UIApplication')
 
     def test_logger(self):
-        from rpw.utils.logger import logger
+        from rpw.utils import logger
         from rpw.utils.logger import LoggerWrapper
         self.assertIsInstance(logger, LoggerWrapper)
 
