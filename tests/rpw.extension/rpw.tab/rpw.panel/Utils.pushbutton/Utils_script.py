@@ -41,8 +41,8 @@ panel_dir = parent(script_dir)
 sys.path.append(script_dir)
 
 import rpw
-from rpw import DB, UI, doc, uidoc, version, clr
-from rpw import List
+from rpw.revit import DB, UI
+from rpw.utils.dotnet import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.utils.logger import logger
 
@@ -50,7 +50,6 @@ import test_utils
 
 def setUpModule():
     logger.title('SETTING UP UTILS TESTS...')
-    logger.title('REVIT {}'.format(version))
     test_utils.delete_all_walls()
     test_utils.make_wall()
 
@@ -64,16 +63,14 @@ class CoerceTests(unittest.TestCase):
         logger.title('TESTING COERCE FUNCITONS...')
 
     def setUp(self):
-        collector = rpw.Collector()
-        self.wall = collector.filter(of_class='Wall').first
+        self.wall = rpw.Collector(of_class='Wall').first
 
     def tearDown(self):
         pass
 
     def test_corce_into_id(self):
-        ids = rpw.utils.coerce.to_element_ids(self.wall)
-        all_id = all([isinstance(i, DB.ElementId) for i in ids])
-        self.assertTrue(all_id)
+        id_ = rpw.utils.coerce.to_element_id(self.wall)
+        self.assertIsInstance(id_, DB.ElementId)
 
     def test_corce_into_ids(self):
         ids = rpw.utils.coerce.to_element_ids([self.wall])
@@ -81,12 +78,12 @@ class CoerceTests(unittest.TestCase):
         self.assertTrue(all_id)
 
     def test_corce_element_ref_int(self):
-        element = rpw.utils.coerce.to_elements(self.wall.Id.IntegerValue)[0]
+        element = rpw.utils.coerce.to_element(self.wall.Id.IntegerValue)
         self.assertIsInstance(element, DB.Element)
 
     def test_corce_element_ref_id(self):
         wall_id = DB.ElementId(self.wall.Id.IntegerValue)
-        elements = rpw.utils.coerce.to_elements(wall_id)
+        elements = rpw.utils.coerce.to_elements([wall_id])
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
     def test_corce_to_element_diverse(self):
@@ -94,8 +91,27 @@ class CoerceTests(unittest.TestCase):
         elements = rpw.utils.coerce.to_elements([self.wall, self.wall.Id, self.wall.Id.IntegerValue])
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
+    def test_to_class_wall(self):
+        self.assertIs(rpw.utils.coerce.to_class('Wall'), DB.Wall)
+
+    def test_to_class_view(self):
+        self.assertIs(rpw.utils.coerce.to_class('View'), DB.View)
+
+    def test_to_category_walls(self):
+        self.assertIs(rpw.utils.coerce.to_category('Walls'), DB.BuiltInCategory.OST_Walls)
+        self.assertIs(rpw.utils.coerce.to_category('walls'), DB.BuiltInCategory.OST_Walls)
+        self.assertIs(rpw.utils.coerce.to_category('ost_walls'), DB.BuiltInCategory.OST_Walls)
+
+    def test_to_category_stacked_walls(self):
+        self.assertIs(rpw.utils.coerce.to_category('ost_StackedWalls'), DB.BuiltInCategory.OST_StackedWalls)
+        self.assertIs(rpw.utils.coerce.to_category('StackedWalls'), DB.BuiltInCategory.OST_StackedWalls)
+        self.assertIs(rpw.utils.coerce.to_category('stackedwalls'), DB.BuiltInCategory.OST_StackedWalls)
+        self.assertIs(rpw.utils.coerce.to_category('stacked walls'), DB.BuiltInCategory.OST_StackedWalls)
+
+    # TODO: Add BuiltInCategory Tests
+
 def run():
-    logger.verbose(False)
+    logger.verbose(True)
     suite = unittest.TestLoader().discover('tests')
     unittest.main(verbosity=3, buffer=True)
 
