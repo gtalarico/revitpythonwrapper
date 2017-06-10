@@ -13,7 +13,7 @@ class RPW_TypeError(TypeError):
 
 
 class RPW_ParameterNotFound(RPW_Exception, KeyError):
-    """ Revit Python Wrapper Base Exception """
+    """ Revit Python Wrapper Parameter Error """
     def __init__(self, element, param_name):
         msg = 'parameter not found [element:{}]:[param_name:{}]'.format(element, param_name)
         super(RPW_ParameterNotFound, self).__init__(msg)
@@ -25,3 +25,10 @@ class RPW_WrongStorageType(RPW_Exception, TypeError):
         msg = 'Wrong Storage Type: [{}]:[{}:{}]'.format(storage_type,
                                                         type(value), value)
         super(RPW_WrongStorageType, self).__init__(msg)
+
+
+class RPW_CoerceError(RPW_Exception, ValueError):
+    """ Coerce Error """
+    def __init__(self, value, target_type):
+        msg = 'Could not cast value:{} to target_type:{}'.format(value, target_type)
+        super(RPW_CoerceError, self).__init__(msg)

@@ -14,10 +14,11 @@ Note:
 """
 
 ###
+import re
 from rpw.revit import DB
 from rpw.utils.dotnet import Enum
 from rpw.base import BaseObjectWrapper
-from rpw.exceptions import RPW_ParameterNotFound
+from rpw.exceptions import RPW_CoerceError
 
 
 class BipEnum(type):
@@ -44,7 +45,7 @@ class BipEnum(type):
         try:
             enum = getattr(DB.BuiltInParameter, parameter_name)
         except AttributeError:
-            raise RPW_ParameterNotFound(DB.BuiltInParameter, parameter_name)
+            raise RPW_CoerceError(parameter_name, DB.BuiltInParameter)
         return enum
 
     @classmethod
@@ -83,11 +84,24 @@ class BicEnum(type):
         Returns:
             ``DB.BuiltInCategory``: BuiltInCategory Enumeration Member
         """
+
         try:
             enum = getattr(DB.BuiltInCategory, category_name)
         except AttributeError:
-            raise RPW_ParameterNotFound(DB.BuiltInCategory, category_name)
+            raise RPW_CoerceError(category_name, DB.BuiltInCategory)
         return enum
+
+    @classmethod
+    def fuzzy_get(cls, loose_category_name):
+        loose_category_name = loose_category_name.replace(' ', '').lower()
+        loose_category_name = loose_category_name.replace('ost_', '')
+        for category_name in dir(DB.BuiltInCategory):
+            exp = '(OST_)({})$'.format(loose_category_name)
+            if re.search(exp, category_name, re.IGNORECASE):
+                return cls.get(category_name)
+        # If not Found Try regular method, handle error
+        return cls.get(loose_category_name)
+
 
     @classmethod
     def get_id(cls, category_name):

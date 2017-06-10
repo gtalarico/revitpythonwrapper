@@ -33,10 +33,9 @@ __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 
 if __name__ == 'make.doc':
     pass
-print __name__
 
 from revit import revit, DB, UI
-from rpw.db.collector import *
+from rpw.db.collector import Collector
 
 # from rpw.base import BaseObjectWrapper
 # from rpw.element import Element, Instance, Symbol, Family, Category

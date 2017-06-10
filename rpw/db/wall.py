@@ -19,7 +19,7 @@ class WallInstance(Instance):
 
     _revit_object_category = DB.BuiltInCategory.OST_Walls
     _revit_object_class = DB.Wall
-    _collector_params = {'of_class': _revit_object_class, 'is_not_type': True}
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
     def __init__(self, wall_instance, enforce_type=DB.Wall):
         super(WallInstance, self).__init__(wall_instance, enforce_type=enforce_type)

@@ -133,12 +133,12 @@ class Element(BaseObjectWrapper):
                       'FamilySymbol': Symbol,
                       'Family': Family,
                       'Category': Category,
-                      'Wall': WallInstance,
-                      'WallType': WallSymbol,
-                      'WallKind': WallFamily,
-                      'Room': Room,
-                      'Area': Area,
-                      'AreaScheme': AreaScheme,
+                      'Wall': rpw.db.wall.WallInstance,
+                      'WallType': rpw.db.wall.WallSymbol,
+                      'WallKind': rpw.db.wall.WallFamily,
+                      'Room': rpw.db.spatial_element.Room,
+                      'Area': rpw.db.spatial_element.Area,
+                      'AreaScheme': rpw.db.spatial_element.AreaScheme,
                     }
         element_class_name = element.__class__.__name__
         element_class = CLASS_MAP.get(element_class_name)

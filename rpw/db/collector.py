@@ -5,15 +5,193 @@
 >>> levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
 
 """
-
+# print("Collector Init")
 from rpw.revit import revit, DB
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RPW_Exception, RPW_TypeError
 from rpw.db.element import Element
 from rpw.db.builtins import BicEnum, BipEnum
-from rpw.utils.coerce import to_element_ids
+from rpw.utils.coerce import to_element_id, to_element_ids
+from rpw.utils.coerce import to_category, to_class
+# from rpw.utils.coerce import to_class, to_category
 from rpw.utils.logger import logger
+
+# http://thebuildingcoder.typepad.com/blog/2015/12/quick-slow-and-linq-element-filtering.html
+
+class BaseFilter(BaseObject):
+    method = 'WherePasses'
+
+    @classmethod
+    def apply(cls, doc, collector, value):
+        method_name = cls.method
+        method = getattr(collector, method_name)
+        print('Applying Method: ' + method_name)
+        print('FilterClass: ' + cls.__name__)
+        print('Value: ' + str(value))
+        if hasattr(cls, 'process_value'):
+
+            # FamilyInstanceFilter is the only Filter that  requires Doc
+            if cls is not FamilyInstanceFilter:
+                value = cls.process_value(value)
+            else:
+                value = cls.process_value(value, doc)
+
+        return method(value)
+
+        # if len(values) > 0:
+        #     if hasattr(cls, 'process_value'):
+        #         if isinstance(cls, FamilyInstanceFilter):
+        #             values.append(collector)
+        #         values = cls.process_value(*values)
+        #
+        #     return method(*values)
+        # else:
+        #     return method()
+
+
+class SuperSlowFilter(BaseFilter):
+    priority_group = 3
+
+
+class SlowFilter(BaseFilter):
+    priority_group = 2
+
+
+class QuickFilter(BaseFilter):
+    priority_group = 1
+
+
+class SuperQuickFilter(BaseFilter):
+    priority_group = 0
+
+
+class ClassFilter(SuperQuickFilter):
+    keyword = 'of_class'
+
+    @classmethod
+    def process_value(cls, class_reference):
+        class_ = to_class(class_reference)
+        return DB.ElementClassFilter(class_)
+
+
+class CategoryFilter(SuperQuickFilter):
+    keyword = 'of_category'
+
+    @classmethod
+    def process_value(cls, category_reference):
+        category = to_category(category_reference)
+        print(category)
+        return DB.ElementCategoryFilter(category)
+
+
+class IsTypeFilter(QuickFilter):
+    keyword = 'is_type'
+
+    @classmethod
+    def process_value(cls, bool_value):
+        return DB.ElementIsElementTypeFilter(not(bool_value))
+
+
+class IsNotTypeFilter(IsTypeFilter):
+    keyword = 'is_not_type'
+
+    @classmethod
+    def process_value(cls, bool_value):
+        return DB.ElementIsElementTypeFilter(bool_value)
+
+
+class FamilySymbolFilter(QuickFilter):
+    keyword = 'family'
+
+    @classmethod
+    def process_value(cls, family_reference):
+        family_id = to_element_id(family_reference)
+        return DB.FamilySymbolFilter(family_id)
+
+
+class FamilyInstanceFilter(SlowFilter):
+    keyword = 'symbol'
+
+    @classmethod
+    def process_value(cls, symbol_reference, doc):
+        symbol_id = to_element_id(symbol_reference)
+        return DB.FamilyInstanceFilter(doc, symbol_id)
+
+
+class LevelFilter(SuperSlowFilter):
+    keyword = 'level'
+    reverse = False
+
+    @classmethod
+    def process_value(cls, level_reference):
+        level_id = to_element_id(level_reference)
+        return DB.ElementLevelFilter(level_id, cls.reverse)
+
+
+class NotLevelFilter(LevelFilter):
+    keyword = 'not_level'
+    reverse = True
+
+
+class ViewOwnerFilter(QuickFilter):
+    keyword = 'owner_view'
+    method = 'ElementOwnerViewFilter'
+    # method = 'WhereElementIsViewIndependent'
+    reverse = False
+
+    @classmethod
+    def process_value(cls, view_reference):
+        if view_reference is not None:
+            view_id = to_element_id(view_reference)
+        else:
+            view_id = DB.ElementId.InvalidElementId
+        return DB.ElementOwnerViewFilter(view_id, cls.reverse)
+
+
+class ViewIndependentFilter(LevelFilter):
+    keyword = 'is_view_independent'
+
+    @classmethod
+    def process_value(cls, bool_value):
+        view_id = DB.ElementId.InvalidElementId
+        return DB.ElementOwnerViewFilter(view_id, not(bool))
+
+
+# class ParameterFilter(SlowFilter):
+#     keyword = 'parameter'
+#     method = 'WherePasses'
+#
+#
+
+
+
+# elif isinstance(filter_value, ParameterFilter):
+#     # Same as WherePasses(ParameterFilter)
+#     collector_results = collector_filter(filter_value._revit_object)
+# elif filter_name in ('level', 'not_level'):
+#     # Same as WherePasses(ElementLevelFilter)
+#     reverse = True if filter_name.startswith('not') else False
+#     collector_results = collector_filter(_ElementLevelFilter(filter_value, reverse=reverse).unwrap())
+
+
+available_filters = sorted(
+                    [
+                     ClassFilter,
+                     CategoryFilter,
+                     IsTypeFilter,
+                     IsNotTypeFilter,
+                     FamilySymbolFilter,
+                     NotLevelFilter,
+                     FamilyInstanceFilter,
+                     LevelFilter,
+                     ViewOwnerFilter,
+                     ViewIndependentFilter,
+                     # ViewIndependentFilter,
+                     # ParameterFilter
+                     ],
+                    key=lambda f: f.priority_group
+                    )
 
 
 class Collector(BaseObjectWrapper):
@@ -90,9 +268,9 @@ class Collector(BaseObjectWrapper):
             * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class
 
         """
-        # Pick Scope Filter, Default is doc
-        # Override standard doc with passed doc
+        # Define Filtered Element Collector Scope + Doc
         collector_doc = filters.pop('doc') if 'doc' in filters else revit.doc
+
         if 'view' in filters:
             view = filters.pop('view')
             view_id = view if isinstance(view, DB.ElementId) else view.Id
@@ -109,47 +287,57 @@ class Collector(BaseObjectWrapper):
 
         super(Collector, self).__init__(collector)
 
-        self._collector_doc = collector_doc
-        self.elements = []
-
         for key in filters.keys():
-            if key not in _Filter.MAP:
+            if key not in [f.keyword for f in available_filters]:
                 raise RPW_Exception('Collector Filter not valid: {}'.format(key))
 
-        # Stores filters for chained calls
-        self._filters = filters
+        self._collector = self._collect(collector_doc, collector, filters)
 
-        # Instantiates Filter class on attribute filter
-        self.filter = _Filter(self)
-
-        # Allows Class to Excecute on Construction, if filters are present.
-        if filters:
-            self.filter(**filters)  # Call
-
+    def _collect(self, doc, collector, filters):
+        for filter_class in available_filters:
+            if filter_class.keyword not in filters:
+                continue
+            filter_value = filters.pop(filter_class.keyword)
+            new_collector = filter_class.apply(doc, collector, filter_value)
+            return self._collect(doc, new_collector, filters)
+        return collector
 
     def __iter__(self):
-        """ Collector Iterator
-        >> for wall in Collector(of_class='Wall'):
-        >>     wall
-        """
-        for element in self._revit_object:
+        """ Uses iterator to reduce unecessary memory usage """
+        for element in self._collector:
             yield element
 
     @property
-    def first(self):
-        """ Returns the first element in collector, or None"""
-        try:
-            return self.elements[0]
-        except IndexError:
-            return None
-
-    #TODO: add __iter__
+    def elements(self):
+        """ Returns list with all elements instantiated using :any:`Element.Factory`
+        """
+        return [element for element in self.__iter__()]
 
     @property
     def wrapped_elements(self):
         """ Returns list with all elements instantiated using :any:`Element.Factory`
         """
-        return [Element.Factory(el) for el in self.elements]
+        return [Element.Factory(el) for el in self.__iter__()]
+
+
+    @property
+    def first(self):
+        """ TODO
+        """
+        return self.__getitem__(0)
+
+    @property
+    def element_ids(self):
+        """ Returns list with all elements instantiated using :any:`Element.Factory`
+        """
+        return [element_id for element_id in self._collector.ToElementIds()]
+
+    def __getitem__(self, index):
+        for n, element in enumerate(self.__iter__()):
+            if n == index:
+                return element
+        else:
+            raise IndexError('Index {} does not exist in collector {}'.format(index, self))
 
     def __bool__(self):
         """ Evaluates to `True` if Collector.elements is not empty [] """
@@ -157,182 +345,67 @@ class Collector(BaseObjectWrapper):
 
     def __len__(self):
         """ Returns length of collector.elements """
-        return len(self.elements)
+        return self._collector.GetElementCount()
 
     def __repr__(self):
         return super(Collector, self).__repr__(data=len(self))
 
-
-class _Filter(BaseObject):
-    """ Filter for Collector class.
-    Not to be confused with the Filter Class.
-    """
-    MAP = {
-             'of_class': 'OfClass',
-             'of_category': 'OfCategory',
-             'is_not_type': 'WhereElementIsNotElementType',
-             'is_type': 'WhereElementIsElementType',
-             'is_view_independent': 'WhereElementIsViewIndependent',
-             'symbol': 'WherePasses',
-             'level': 'WherePasses',
-             'not_level': 'WherePasses',
-             'parameter_filter': 'WherePasses',
-            }
-
-    def __init__(self, collector):
-        self._collector = collector
-
-    def __call__(self, **filters):
-        """
-        collector = Collector().filter > ._Filter(filters)
-        filters = {'of_class'=Wall}
-        """
-        filters = self._coerce_filter_values(filters)
-
-        for key, value in filters.iteritems():
-            self._collector._filters[key] = value
-
-        filtered_collector = self._chain(self._collector._filters)
-        # TODO: This should return iterator to save memory
-        self._collector.elements = [element for element in filtered_collector]
-        return self._collector
-
-    # TODO: Quick Filters should be run first, then Slow Filters
-    def _chain(self, filters, collector=None):
-        """ Chain filters together.
-
-        Builts API syntax, by converting ```collector.filter(of_class=X, is_not_type=True)``
-        into: ```FilteredElementCollector.OfClass(X).WhereElementisNotElementType()``
-
-        Iteration happens over a copy of filter dictionary, so applied filter
-        can be poppped before chain enters deeper recursion level.
-        """
-        #TODO: parameter_filter should accept list so multiple filters can be applied
-        # First Loop
-        if not collector:
-            collector = self._collector._revit_object
-
-        # Stack is track filter chainning queue
-        filter_stack = filters.copy()
-        for filter_name, filter_value in filters.iteritems():
-            collector_filter = getattr(collector, _Filter.MAP[filter_name])
-
-            if filter_name not in _Filter.MAP:
-                raise RPW_Exception('collector filter rule does not exist: {}'.format(filter_name))
-            elif isinstance(filter_value, bool):
-                # Same as WhereIsElementType(bool)
-                if filter_value is True:
-                    collector_results = collector_filter()
-                # This allow is_type=False to set is_not_type=True
-                elif filter_value is False and filter_name == 'is_type':
-                    collector_filter = getattr(collector, _Filter.MAP['is_not_type'])
-                    collector_results = collector_filter()
-                # This allow for is_not_type=False to set is_type=True
-                elif filter_value is False and filter_name == 'is_not_type':
-                    collector_filter = getattr(collector, _Filter.MAP['is_type'])
-                    collector_results = collector_filter()
-            elif isinstance(filter_value, ParameterFilter):
-                # Same as WherePasses(ParameterFilter)
-                collector_results = collector_filter(filter_value._revit_object)
-            elif filter_name == 'symbol':
-                # Same as WherePasses(FamilyInstanceFilter)
-                collector_results = collector_filter(_FamilyInstanceFilter(filter_value, doc=self._collector._collector_doc).unwrap())
-            elif filter_name in ('level', 'not_level'):
-                # Same as WherePasses(ElementLevelFilter)
-                reverse = True if filter_name.startswith('not') else False
-                collector_results = collector_filter(_ElementLevelFilter(filter_value, reverse=reverse).unwrap())
-            elif filter_name == 'of_class' or filter_name == 'of_category':
-                # Same as OfCategory(filter_value) and OfClass(filter_value)
-                collector_results = collector_filter(filter_value)
-            else:
-                raise RPW_Exception('unknown parameter filter error: {}:{}'.format(
-                                    filter_name, filter_value))
-            filter_stack.pop(filter_name)
-            collector = self._chain(filter_stack, collector=collector)
-
-        return collector
-
-    def _coerce_filter_values(self, filters):
-        """ Allows filter values to be either Enumerate or string
-
-        Usage:
-            >>> elements = Collector(of_category=BuiltInCategory.OST_Walls)
-            >>> elements = Collector(of_category='OST_Walls')
-
-            >>> elements = Collector(of_class=WallType)
-            >>> elements = Collector(of_class='WallType')
-
-        Note:
-            String Connversion for ``of_class`` only works for the ``Revit.DB``
-            namespace.
-
-        """
-        category_name = filters.get('of_category')
-        if category_name and isinstance(category_name, str):
-            filters['of_category'] = BicEnum.get(category_name)
-
-        class_name = filters.get('of_class')
-        if class_name and isinstance(class_name, str):
-            filters['of_class'] = getattr(DB, class_name)
-
-        return filters
-
-
-class _FamilyInstanceFilter(BaseObjectWrapper):
-    """
-    Used by Collector to provide the ``symbol`` keyword filter.
-    It returns a ``DB.FamilyInstanceFilter`` which is then used by the
-    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
-
-    Wrapped Element:
-        self._revit_object = ``Revit.DB.FamilyInstanceFilter``
-
-    """
-    def __init__(self, symbol_or_id, doc=revit.doc):
-        """
-        Args:
-            symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId
-
-        Returns:
-            DB.FamilyInstanceFilter: _FamilyInstanceFilter
-        """
-        if isinstance(symbol_or_id, DB.ElementId):
-            symbol_id = symbol_or_id
-        elif isinstance(symbol_or_id, DB.FamilySymbol):
-            symbol_id = symbol_or_id.Id
-        else:
-            raise RPW_TypeError('FamilySymbol or FamilySymbol Id', type(symbol_or_id))
-
-        super(_FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
-
-
-class _ElementLevelFilter(BaseObjectWrapper):
-    """
-    Used by Collector to provide the ``level`` keyword filter.
-    It returns a ``DB.ElementLevelFilter `` which is then used by the
-    ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
-
-    Wrapped Element:
-        self._revit_object = ``Revit.DB.ElementLevelFilter``
-
-    """
-    def __init__(self, level_or_id, reverse=False):
-        """
-        Args:
-            level_or_id(``DB.Level``, ``DB.ElementId``): Level or ElementId of Level
-            reverse(bool): if True, will match all elements not associated to the given level
-
-        Returns:
-            DB.ElementLevelFilter: instance of_ElementLevelFilter()
-        """
-        if isinstance(level_or_id, DB.ElementId):
-            level_id = level_or_id
-        elif isinstance(level_or_id, DB.Level):
-            level_id = level_or_id.Id
-        else:
-            raise RPW_TypeError('Level or Level Id', type(level_or_id))
-
-        super(_ElementLevelFilter, self).__init__(DB.ElementLevelFilter(level_id, reverse))
+#
+# class _FamilyInstanceFilter(BaseObjectWrapper):
+#     """
+#     Used by Collector to provide the ``symbol`` keyword filter.
+#     It returns a ``DB.FamilyInstanceFilter`` which is then used by the
+#     ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
+#
+#     Wrapped Element:
+#         self._revit_object = ``Revit.DB.FamilyInstanceFilter``
+#
+#     """
+#     def __init__(self, symbol_or_id, doc=revit.doc):
+#         """
+#         Args:
+#             symbol_or_id(``DB.FamilySymbol``, ``DB.ElementId``): FamilySymbol or ElementId
+#
+#         Returns:
+#             DB.FamilyInstanceFilter: _FamilyInstanceFilter
+#         """
+#         if isinstance(symbol_or_id, DB.ElementId):
+#             symbol_id = symbol_or_id
+#         elif isinstance(symbol_or_id, DB.FamilySymbol):
+#             symbol_id = symbol_or_id.Id
+#         else:
+#             raise RPW_TypeError('FamilySymbol or FamilySymbol Id', type(symbol_or_id))
+#
+#         super(_FamilyInstanceFilter, self).__init__(DB.FamilyInstanceFilter(doc, symbol_id))
+#
+#
+# class _ElementLevelFilter(BaseObjectWrapper):
+#     """
+#     Used by Collector to provide the ``level`` keyword filter.
+#     It returns a ``DB.ElementLevelFilter `` which is then used by the
+#     ``FilterElementCollector.WherePasses()`` method to filter by symbol type.
+#
+#     Wrapped Element:
+#         self._revit_object = ``Revit.DB.ElementLevelFilter``
+#
+#     """
+#     def __init__(self, level_or_id, reverse=False):
+#         """
+#         Args:
+#             level_or_id(``DB.Level``, ``DB.ElementId``): Level or ElementId of Level
+#             reverse(bool): if True, will match all elements not associated to the given level
+#
+#         Returns:
+#             DB.ElementLevelFilter: instance of_ElementLevelFilter()
+#         """
+#         if isinstance(level_or_id, DB.ElementId):
+#             level_id = level_or_id
+#         elif isinstance(level_or_id, DB.Level):
+#             level_id = level_or_id.Id
+#         else:
+#             raise RPW_TypeError('Level or Level Id', type(level_or_id))
+#
+#         super(_ElementLevelFilter, self).__init__(DB.ElementLevelFilter(level_id, reverse))
 
 
 class ParameterFilter(BaseObjectWrapper):
@@ -458,3 +531,5 @@ class ParameterFilter(BaseObjectWrapper):
 
     def __repr__(self):
         return super(ParameterFilter, self).__repr__(self.conditions)
+
+# print("Collector Loaded")

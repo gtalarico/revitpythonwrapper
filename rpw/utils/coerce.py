@@ -5,9 +5,27 @@ Type Casting Utilities
 
 
 from rpw.revit import revit, DB
+from rpw.base import BaseObjectWrapper
+from rpw.db.builtins import BicEnum
 from rpw.utils.dotnet import List
 from rpw.exceptions import RPW_TypeError
 
+
+def to_element_id(element_reference):
+
+    if isinstance(element_reference, BaseObjectWrapper):
+        element_id = element_reference.Id
+    elif isinstance(element_reference, DB.Element):
+        element_id = element_reference.Id
+    elif isinstance(element_reference, int):
+        element_id = DB.ElementId(element_reference)
+    elif isinstance(element_reference, DB.ElementId):
+        element_id = element_reference
+    elif isinstance(element_reference, DB.ElementId.InvalidElementId):
+        element_id = element_reference
+    else:
+        raise RpwTypeError('Element, ElementId, or int', type(item))
+    return element_id
 
 def to_element_ids(element_references):
     """ Coerces an element or list of elements into element ids. Elements remain unchanged.
@@ -26,24 +44,19 @@ def to_element_ids(element_references):
     Returns:
         [``DB.ElementId``, ... ]: List of Element Ids.
     """
-    if not isinstance(element_references, list) and not isinstance(element_references, set):
-        element_references = [element_references]
 
-    element_ids = []
-    for reference in element_references:
-        if isinstance(reference, DB.Element):
-            element_ids.append(reference.Id)
-        elif isinstance(reference, int):
-            element_ids.append(DB.ElementId(reference))
-        elif isinstance(reference, DB.ElementId):
-            element_ids.append(reference)
-        elif isinstance(reference, DB.ElementId.InvalidElementId):
-            element_ids.append(reference)
-        else:
-            raise RpwTypeError('Element, ElementId, or int', type(item))
+    return [to_element_id(e_ref) for e_ref in element_references]
 
-    return element_ids
-
+def to_element(element_reference, doc=revit.doc):
+    if isinstance(element_reference, DB.ElementId):
+        element = doc.GetElement(element_reference)
+    elif isinstance(element_reference, int):
+        element = doc.GetElement(DB.ElementId(element_reference))
+    elif isinstance(element_reference, DB.Element):
+        element = element_reference
+    else:
+        raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
+    return element
 
 def to_elements(element_references, doc=revit.doc):
     """ Coerces element reference (``int``, or ``ElementId``) into ``DB.Element``.
@@ -63,25 +76,57 @@ def to_elements(element_references, doc=revit.doc):
     Returns:
         [``DB.Element``]: Elements
     """
-    if not isinstance(element_references, list):
-        element_references = [element_references]
 
-    elements = []
+    return [to_element(e_ref) for e_ref in element_references]
 
-    for reference in element_references:
 
-        if isinstance(reference, DB.ElementId):
-            element = doc.GetElement(reference)
+def to_class(class_reference):
+    """ Coerces a class or class reference to a Class.
 
-        elif isinstance(reference, int):
-            element = doc.GetElement(DB.ElementId(reference))
+    >>> from rpw.utils.coerce import to_class
+    >>> to_class('Wall')
+    [ DB.Wall ]
+    >>> to_class(Wall)
+    [ DB.Wall ]
 
-        elif isinstance(reference, DB.Element):
-            element = reference
+    Args:
+        class_reference ([``DB.Wall``, ``str``]): Class Reference or class name
 
+    Returns:
+        [``type``]: Class
+    """
+    if isinstance(class_reference, str):
+        return getattr(DB, class_reference)
+    if isinstance(class_reference, type):
+        return class_reference
+    raise RPW_TypeError('Class Type, Class Type Name', type(class_reference))
+
+
+def to_category(category_reference, fuzzy=True):
+    """ Coerces a category, category name or category id to a BuiltInCategory.
+
+    >>> from rpw.utils.coerce import to_category
+    >>> to_category('OST_Walls')
+    BuiltInCategory.OST_Walls
+    >>> to_class('Wall')
+    BuiltInCategory.OST_Walls
+    >>> to_class(BuiltInCategory.OST_Walls)
+    BuiltInCategory.OST_Walls
+
+    Args:
+        cateagory_reference ([``DB.BuiltInCategory``, ``str``, ``CategoryId``]): Category Reference or Name
+
+    Returns:
+        [``BuiltInCategory``]: BuiltInCategory
+    """
+    if isinstance(category_reference, DB.BuiltInCategory):
+        return category_reference
+    if isinstance(category_reference, str):
+        if fuzzy:
+            return BicEnum.fuzzy_get(category_reference)
         else:
-            raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
-
-        elements.append(element)
-
-    return elements
+            return BicEnum.get(category_reference)
+    if isinstance(category_reference, DB.ElementId):
+        return BicEnum.from_category_id(category_reference)
+    raise RPW_TypeError('Category Type, Category Type Name',
+                        type(category_reference))
