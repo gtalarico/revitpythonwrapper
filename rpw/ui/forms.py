@@ -27,7 +27,7 @@ try:
     from System.Windows import Application, Window
     from System.IO import StringReader
     from System.Environment import Exit
-    from rpw import UI
+    from rpw.revit import UI
 except ImportError as errmsg:
     logger.error('Import Error: {}'.format(errmsg))
     from rpw.utils.sphinx_compat import *

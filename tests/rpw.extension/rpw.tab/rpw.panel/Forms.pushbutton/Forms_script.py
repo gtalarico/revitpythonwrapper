@@ -14,8 +14,10 @@ root_dir = os.path.dirname(test_dir)
 sys.path.append(root_dir)
 
 import rpw
-from rpw import DB, UI, doc, uidoc, version
-from rpw import List
+from rpw.revit import DB, UI
+doc, uidoc = rpw.revit.doc, rpw.revit.uidoc
+
+from rpw.utils.dotnet import List
 from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
 from rpw.utils.logger import logger
 
@@ -29,7 +31,7 @@ data = ['A', 'B', 'C']
 class FormSelectFromListTests(unittest.TestCase):
 
     def test_get_value(self):
-        form = rpw.forms.SelectFromList('Select From List Test', data,
+        form = rpw.ui.forms.SelectFromList('Select From List Test', data,
                                         description='Select A and click select',
                                         exit_on_close=False)
         form_ok = form.show()
@@ -37,7 +39,7 @@ class FormSelectFromListTests(unittest.TestCase):
         self.assertEqual(form.selected, 'A')
 
     def test_get_dict_value(self):
-        form = rpw.forms.SelectFromList('Select From List Test', {'A':10},
+        form = rpw.ui.forms.SelectFromList('Select From List Test', {'A':10},
                                         description='Select A and click select',
                                         exit_on_close=False)
         form_ok = form.show()
@@ -45,7 +47,7 @@ class FormSelectFromListTests(unittest.TestCase):
         self.assertEqual(form.selected, 10)
 
     def test_cancel(self):
-        form = rpw.forms.SelectFromList('Test Cancel', data,
+        form = rpw.ui.forms.SelectFromList('Test Cancel', data,
                                         description='CLOSE WITHOUT SELECTING',
                                         exit_on_close=False)
         form_ok = form.show()
@@ -53,7 +55,7 @@ class FormSelectFromListTests(unittest.TestCase):
         self.assertFalse(form.selected)
 
     def test_close_exit(self):
-        form = rpw.forms.SelectFromList('Text Exit on Close', data,
+        form = rpw.ui.forms.SelectFromList('Text Exit on Close', data,
                                         description='CLOSE WITHOUT SELECTING',
                                         exit_on_close=True)
 
@@ -64,7 +66,7 @@ class FormSelectFromListTests(unittest.TestCase):
 class FormTextInputTests(unittest.TestCase):
 
     def test_get_value(self):
-        form = rpw.forms.TextInput('Text Input', default='A',
+        form = rpw.ui.forms.TextInput('Text Input', default='A',
                                    description='select with letter A',
                                    exit_on_close=False)
         form_ok = form.show()
@@ -72,7 +74,7 @@ class FormTextInputTests(unittest.TestCase):
         self.assertEqual(form.selected, 'A')
 
     def test_cancel(self):
-        form = rpw.forms.TextInput('Test Cancel', default='A',
+        form = rpw.ui.forms.TextInput('Test Cancel', default='A',
                                    description='CLOSE FORM',
                                    exit_on_close=False)
         form_ok = form.show()
@@ -80,7 +82,7 @@ class FormTextInputTests(unittest.TestCase):
         self.assertFalse(form.selected)
 
     def test_close_exit(self):
-        form = rpw.forms.TextInput('Test Exit on Close', default='A',
+        form = rpw.ui.forms.TextInput('Test Exit on Close', default='A',
                                    description='CLOSE FORM',
                                    exit_on_close=True)
         with self.assertRaises(SystemExit):

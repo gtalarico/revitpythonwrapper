@@ -53,31 +53,30 @@ class Globals(unittest.TestCase):
         pass
 
     def test_doc(self):
-        from rpw import doc
-        self.assertEqual(doc.__class__.__name__, 'Document')
+        from rpw import revit
+        self.assertEqual(revit.doc.__class__.__name__, 'Document')
 
     def test_db(self):
-        from rpw import DB
+        from rpw.revit import DB
         Wall = getattr(DB, 'Wall', None)
         self.assertIsInstance(Wall, type)
 
     def test_ui(self):
-        from rpw import UI
+        from rpw.revit import UI
         TaskDialog = getattr(UI, 'TaskDialog', None)
         self.assertIsInstance(TaskDialog, type)
 
     def test_uidoc(self):
-        from rpw import uidoc
-        self.assertEqual(uidoc.Application.__class__.__name__, 'UIApplication')
+        from rpw import revit
+        self.assertEqual(revit.uidoc.Application.__class__.__name__, 'UIApplication')
 
     def test_logger(self):
-        from rpw import logger
+        from rpw.utils.logger import logger
         from rpw.utils.logger import LoggerWrapper
         self.assertIsInstance(logger, LoggerWrapper)
 
-    def test_platform(self):
-        from rpw import platform
-        self.assertIn('revit', platform)
+    #TODO: test version
+    #TODO: test built
 
 
 
