@@ -41,9 +41,10 @@ panel_dir = parent(script_dir)
 sys.path.append(script_dir)
 
 import rpw
-from rpw import DB, UI, doc, uidoc, version, clr
-from rpw import List
+from rpw.revit import DB, UI
+from rpw.utils.dotnet import List
 from rpw.utils.logger import logger
+doc = rpw.revit.doc
 
 import test_utils
 
@@ -68,52 +69,52 @@ class TransactionsTest(unittest.TestCase):
 
     def setUp(self):
         wall = DB.FilteredElementCollector(doc).OfClass(DB.Wall).ToElements()[0]
-        self.wall = rpw.WallInstance(wall)
-        with rpw.Transaction('Reset Comment') as t:
+        self.wall = rpw.db.WallInstance(wall)
+        with rpw.db.Transaction('Reset Comment') as t:
             self.wall.parameters['Comments'] = ''
 
     def test_transaction_instance(self):
-        with rpw.Transaction('Test Is Instance') as t:
+        with rpw.db.Transaction('Test Is Instance') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertIsInstance(t, DB.Transaction)
 
     def test_transaction_started(self):
-        with rpw.Transaction('Has Started') as t:
+        with rpw.db.Transaction('Has Started') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertTrue(t.HasStarted())
 
     def test_transaction_has_ended(self):
-        with rpw.Transaction('Add Comment') as t:
+        with rpw.db.Transaction('Add Comment') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertFalse(t.HasEnded())
 
     def test_transaction_get_name(self):
-        with rpw.Transaction('Named Transaction') as t:
+        with rpw.db.Transaction('Named Transaction') as t:
             self.assertEqual(t.GetName(), 'Named Transaction')
 
     def test_transaction_commit_status_success(self):
-        with rpw.Transaction('Set String') as t:
+        with rpw.db.Transaction('Set String') as t:
             self.wall.parameters['Comments'].value = ''
             self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
         self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
 
     def test_transaction_commit_status_rollback(self):
         with self.assertRaises(Exception):
-            with rpw.Transaction('Set String') as t:
+            with rpw.db.Transaction('Set String') as t:
                 self.wall.parameters['Top Constraint'].value = DB.ElementId('a')
         self.assertEqual(t.GetStatus(), DB.TransactionStatus.RolledBack)
 
     def test_transaction_group(self):
-        with rpw.TransactionGroup('Multiple Transactions') as tg:
+        with rpw.db.TransactionGroup('Multiple Transactions') as tg:
             self.assertEqual(tg.GetStatus(), DB.TransactionStatus.Started)
-            with rpw.Transaction('Set String') as t:
+            with rpw.db.Transaction('Set String') as t:
                 self.assertEqual(t.GetStatus(), DB.TransactionStatus.Started)
                 self.wall.parameters['Comments'].value = '1'
             self.assertEqual(t.GetStatus(), DB.TransactionStatus.Committed)
         self.assertEqual(tg.GetStatus(), DB.TransactionStatus.Committed)
 
     def test_transaction_decorator(self):
-        @rpw.Transaction.ensure('Transaction Name')
+        @rpw.db.Transaction.ensure('Transaction Name')
         def somefunction():
             param = self.wall.parameters['Comments'].value = '1'
             return param
