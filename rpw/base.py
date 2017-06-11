@@ -50,6 +50,8 @@ class BaseObjectWrapper(BaseObject):
         """
         Child classes can use self._revit_object to refer back to Revit Element
         Element is used loosely to refer to all Revit Elements.
+        NOTE: Any Wrapper that inherits this class MUST call this __init__
+        to ensure _revit_object is created.
         """
 
         if enforce_type and not isinstance(revit_object, enforce_type):
