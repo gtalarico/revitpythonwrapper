@@ -20,19 +20,19 @@ class Revit(BaseObject):
         except NameError:
             try:
                 self.uiapp = self.find_dynamo_uiapp()
+                self.host = Revit.HOSTS.DYNAMO
             except Exception as errmsg:
                 logger.error(errmsg)
                 raise Exception('A Revit Application handle could not be found')
+
         clr.AddReference('RevitAPI')
         clr.AddReference('RevitAPIUI')
-
 
     def find_dynamo_uiapp(self):
         clr.AddReference("RevitServices")
         import RevitServices
         from RevitServices.Persistence import DocumentManager
 
-        self.host = Revit.HOSTS.DYNAMO
         import sys
         sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
         return DocumentManager.Instance.CurrentUIApplication
@@ -115,7 +115,7 @@ class RevitVersion():
     def build(self):
         return self.uiapp.Application.VersionBuild
 
-    def __lt__(self):
+    def __cmp__(self, other):
         """ Handle Version Comparison Logic"""
         raise NotImplemented
 
