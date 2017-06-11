@@ -2,9 +2,10 @@ import clr
 clr.AddReference('System')
 from System.Diagnostics import Process
 from rpw.utils.logger import logger
+from rpw.base import BaseObject
 
 
-class Revit:
+class Revit(BaseObject):
     """Revit Application Wrapper """
 
     class HOSTS():
@@ -24,6 +25,7 @@ class Revit:
         clr.AddReference('RevitAPI')
         clr.AddReference('RevitAPIUI')
 
+
     def find_dynamo_uiapp(self):
         clr.AddReference("RevitServices")
         import RevitServices
@@ -41,6 +43,14 @@ class Revit:
     @property
     def uidoc(self):
         return self.uiapp.ActiveUIDocument
+
+    @property
+    def active_view(self):
+        return self.uidoc.ActiveView
+
+    @active_view.setter
+    def active_view(self, view_reference):
+        self.uidoc.ActiveView = view_reference
 
     @property
     def app(self):
