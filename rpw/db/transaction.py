@@ -93,7 +93,7 @@ class TransactionGroup(BaseObjectWrapper):
     """
 
     _revit_object_class = DB.TransactionGroup
-    
+
     def __init__(self, name=None, assimilate=True, doc=revit.doc):
         """
             Args:

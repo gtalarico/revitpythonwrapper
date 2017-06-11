@@ -16,13 +16,15 @@ from rpw.db.element import Element
 from rpw.db.builtins import BicEnum, BipEnum
 from rpw.utils.coerce import to_element_id, to_element_ids
 from rpw.utils.coerce import to_category, to_class
-# from rpw.utils.coerce import to_class, to_category
 from rpw.utils.logger import logger
 
+# More Info on Performance
 # http://thebuildingcoder.typepad.com/blog/2015/12/quick-slow-and-linq-element-filtering.html
 
 
 class BaseFilter(BaseObject):
+    """ Base Filter and Apply Logic """
+
     method = 'WherePasses'
 
     @classmethod
@@ -32,7 +34,7 @@ class BaseFilter(BaseObject):
         if hasattr(cls, 'process_value'):
 
             # FamilyInstanceFilter is the only Filter that  requires Doc
-            if cls is not Filters.FamilyInstanceFilter:
+            if cls is not FilterClasses.FamilyInstanceFilter:
                 value = cls.process_value(value)
             else:
                 value = cls.process_value(value, doc)
@@ -40,35 +42,42 @@ class BaseFilter(BaseObject):
         return method(value)
 
 
-class SuperSlowFilter(BaseFilter):
-    priority_group = 3
-
-
-class SlowFilter(BaseFilter):
-    priority_group = 2
-
-
-class QuickFilter(BaseFilter):
-    priority_group = 1
-
-
 class SuperQuickFilter(BaseFilter):
+    """ Preferred Quick """
     priority_group = 0
 
 
-class Filters():
+class QuickFilter(BaseFilter):
+    """ Typical Quick """
+    priority_group = 1
+
+
+class SlowFilter(BaseFilter):
+    """ Typical Slow """
+    priority_group = 2
+
+
+class SuperSlowFilter(BaseFilter):
+    """ Leave it for Last! """
+    priority_group = 3
+
+
+class FilterClasses():
+    """ Groups FilterClasses to facilitate discovery."""
 
     @classmethod
     def get_available_filters(cls):
+        """ Discover all Defined Filter Classes """
         filters = []
-        for filter_class_name in dir(Filters):
+        for filter_class_name in dir(FilterClasses):
             if filter_class_name.endswith('Filter'):
-                filters.append(getattr(Filters, filter_class_name))
+                filters.append(getattr(FilterClasses, filter_class_name))
         return filters
 
     @classmethod
     def get_sorted(cls):
-        return sorted(Filters.get_available_filters(),
+        """ Returns Defined Filter Classes sorted by priority """
+        return sorted(FilterClasses.get_available_filters(),
                       key=lambda f: f.priority_group)
 
     class ClassFilter(SuperQuickFilter):
@@ -134,7 +143,7 @@ class Filters():
 
         @classmethod
         def process_value(cls, bool_value):
-            return DB.ElementIsCurveDrivenFilter(bool_value)
+            return DB.ElementIsCurveDrivenFilter(not(bool_value))
 
     class FamilyInstanceFilter(SlowFilter):
         keyword = 'symbol'
@@ -194,6 +203,8 @@ class Filters():
     #             if func(element):
     #                 passing_elements.append(element)
     #         if passing_elements:
+    #             # Cannot create this collector, Need to return just elements w
+    #             # wich breaks pattern
     #             return Collector(doc=doc, elements=passing_elements)._collector
 
 
@@ -207,11 +218,13 @@ class Collector(BaseObjectWrapper):
 
         Multiple Filters:
 
-        >>> collector = Collector(of_class='Wall', is_not_type=True)
-        >>> collector = Collector(of_class='ViewSheet', is_not_type=True)
-        >>> collector = Collector(of_category='OST_Rooms', level=some_level)
-        >>> collector = Collector(symbol=SomeSymbol)
-        >>> collector = Collector(parameter_filter=parameter_filter)
+        >>> Collector(of_class='Wall', is_not_type=True)
+        >>> Collector(of_class='ViewSheet', is_not_type=True)
+        >>> Collector(of_category='OST_Rooms', level=some_level)
+        >>> Collector(symbol=SomeSymbol)
+        >>> Collector(owner_view=SomeView)
+        >>> Collector(owner_view=None)
+        >>> Collector(parameter_filter=parameter_filter)
 
         Use Enumeration member or its name as a string:
 
@@ -226,6 +239,8 @@ class Collector(BaseObjectWrapper):
         >>> Collector(view=SomeView, of_category='OST_Walls') # Doc is default
         >>> Collector(doc=SomeLinkedDoc, of_category='OST_Walls')
         >>> Collector(elements=[Element1, Element2,...], of_category='OST_Walls')
+        >>> Collector(owner_view=SomeView)
+        >>> Collector(owner_view=None)
 
     Attributes:
         collector.elements: Returns list of all `collected` elements
@@ -289,20 +304,35 @@ class Collector(BaseObjectWrapper):
         super(Collector, self).__init__(collector)
 
         for key in filters.keys():
-            if key not in [f.keyword for f in Filters.get_sorted()]:
+            if key not in [f.keyword for f in FilterClasses.get_sorted()]:
                 raise RPW_Exception('Collector Filter not valid: {}'.format(key))
 
         self._collector = self._collect(collector_doc, collector, filters)
 
     def _collect(self, doc, collector, filters):
-        for filter_class in Filters.get_sorted():
+        for filter_class in FilterClasses.get_sorted():
             if filter_class.keyword not in filters:
                 continue
             filter_value = filters.pop(filter_class.keyword)
-            print('Applying Filter: {}'.format(filter_class))
+            logger.debug('Applying Filter: {}'.format(filter_class))
             new_collector = filter_class.apply(doc, collector, filter_value)
             return self._collect(doc, new_collector, filters)
         return collector
+
+    def filter(self, func, wrapped=True):
+        #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.LookupParameter('Length').AsDouble() > 5 )
+        #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.parameters['Length'] < 5 )
+        #  rpw.db.Family.collect().filter(lambda x: x.Name == 'desk' )
+        if not isinstance(func, types.FunctionType):
+            raise RPW_TypeError(types.FunctionType, type(func))
+
+        passing_elements = []
+        for element in self:
+            element = Element(element) if wrapped else element
+            if func(element):
+                passing_elements.append(element)
+
+        return passing_elements
 
     def __iter__(self):
         """ Uses iterator to reduce unecessary memory usage """
@@ -319,7 +349,7 @@ class Collector(BaseObjectWrapper):
     def wrapped_elements(self):
         """ Returns list with all elements instantiated using :any:`Element.Factory`
         """
-        return [Element.Factory(el) for el in self.__iter__()]
+        return [Element(el) for el in self.__iter__()]
 
 
     @property

@@ -81,6 +81,11 @@ class Element(BaseObjectWrapper):
         defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
         # [('Area', '<class Area>'), ... ]
 
+        _revit_object_class = cls._revit_object_class
+
+        if cls is not Element and not isinstance(element, _revit_object_class):
+            raise RPW_TypeError(_revit_object_class, type(element))
+
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
@@ -88,8 +93,9 @@ class Element(BaseObjectWrapper):
         else:
             # Could Not find a Matching Class, Use Element if related
             if DB.Element in inspect.getmro(element.__class__):
-                return super(Element, cls).__new__(cls, element)
+                return super(Element, cls).__new__(cls)
             else:
+                element_class_name = element.__class__.__name__
                 raise RPW_Exception('Factory does not support type: {}'.format(element_class_name))
 
     def __init__(self, element):

@@ -50,13 +50,14 @@ class BaseObjectWrapper(BaseObject):
     def __init__(self, revit_object):
         """
         Child classes can use self._revit_object to refer back to Revit Element
-        Element is used loosely to refer to all Revit Elements.
-        NOTE: Any Wrapper that inherits this class MUST call this __init__
-        to ensure _revit_object is created.
+        NOTE: Any Wrapper that inherits and overrides __ini__ class MUST
+        super to ensure _revit_object is created.
+        BaseObjectWrapper must define a class variable _revit_object_class
+        to define the object being wrapped.
         """
         _revit_object_class = self.__class__._revit_object_class
+
         if not isinstance(revit_object, _revit_object_class):
-            print(self.__class__.__name__)
             raise RPW_TypeError(_revit_object_class, type(revit_object))
 
         object.__setattr__(self, '_revit_object', revit_object)
@@ -77,7 +78,7 @@ class BaseObjectWrapper(BaseObject):
             attr_pascal_case = rpw.utils.coerce.to_pascal_case(attr)
             return getattr(self.__dict__['_revit_object'], attr_pascal_case)
         except KeyError:
-            raise RPW_Exception('BaseObjectWrapper is missing _revit_object: {}'.format(self))
+            raise RPW_Exception('BaseObjectWrapper is missing _revit_object')
 
 
     def __setattr__(self, attr, value):
@@ -97,6 +98,7 @@ class BaseObjectWrapper(BaseObject):
         """ ToString can be overriden for objects in which the method is
         not consistent - ie. XYZ.ToString returns pt tuple not Class Name """
         revit_object_name = to_string or self._revit_object.ToString()
+
         return '<rpw:{class_name} % {revit_object} | {data}>'.format(
                                     class_name=self.__class__.__name__,
                                     revit_object=revit_object_name,
