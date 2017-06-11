@@ -21,7 +21,11 @@ from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_CoerceError
 
 
-class BipEnum(type):
+# For Compatibility
+# BipEnum = BuiltInParameters
+# BipEnum = BuiltInParameters
+
+class BuiltInParameter(type):
     """
     BuiltInParameter Wrapper
 
@@ -62,7 +66,7 @@ class BipEnum(type):
         return DB.ElementId(enum)
 
 
-class BicEnum(type):
+class BuiltInCategory(type):
     """
     Enumeration Wrapper
 
@@ -129,3 +133,8 @@ class BicEnum(type):
         """
         return Enum.ToObject(DB.BuiltInCategory, category_id.IntegerValue)
         # Similar to: Category.GetCategory(doc, category.Id).Name
+
+# For Test Compatibility
+# TODO: Replace on Tests and Code!
+BipEnum = BuiltInParameter
+BicEnum = BuiltInCategory
