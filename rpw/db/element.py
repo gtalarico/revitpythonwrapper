@@ -71,13 +71,17 @@ class Element(BaseObjectWrapper):
     _revit_object_class = DB.Element
 
     def __new__(cls, element):
-        """ Factory Constructor will chose the best Class for the Element.
+        """
+        Factory Constructor will chose the best Class for the Element.
         This function iterates through all classes in the rpw.db module,
         and will find one that wraps the corresponding class. If and exact
-        match is not found rpw.db.Element is used """
-        
+        match is not found rpw.db.Element is used
+        """
+
         defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
-        for wrapper_name, wrapper_class in defined_wrapper_classes:
+        # [('Area', '<class Area>'), ... ]
+
+        for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
                 return super(Element, cls).__new__(wrapper_class)
@@ -104,7 +108,8 @@ class Element(BaseObjectWrapper):
         super(Element, self).__init__(element)
         if isinstance(element, DB.Element):
             # WallKind Inherits from Family/Element, but is not Element,
-            # so ParameterSet fails.
+            # so ParameterSet fails. Parameters are only added if Element
+            # inherits from element
             self.parameters = ParameterSet(element)
 
     @classmethod
