@@ -2,6 +2,7 @@
 
 from rpw.db import XYZ
 from rpw.base import BaseObject
+from rpw.utils.coerce import to_elements, to_element_ids
 
 
 class PointCollection(BaseObject):
@@ -84,3 +85,60 @@ class PointCollection(BaseObject):
 
     def __repr__(self):
         return super(PointCollection, self).__repr__(data=len(self))
+
+
+class ElementCollection(BaseObject):
+
+    def __init__(self, elements_or_ids=None):
+        self._elements = []
+        if elements_or_ids:
+            self.add(elements_or_ids)
+
+    def add(self, elements_or_ids=None):
+        if not isinstance(elements_or_ids, (list, set)):
+            elements_or_ids = [elements_or_ids]
+        print('>>>')
+        print(elements_or_ids)
+        elements = to_elements(elements_or_ids)
+        self._elements.extend(elements)
+
+    @property
+    def wrapped_elements(self):
+        return [Element(x) for x in self._elements]
+
+    @property
+    def elements(self):
+        return self._elements
+
+    def __len__(self):
+        return len(self._elements)
+
+    def __iter__(self):
+        return iter(self._elements)
+
+    def __getitem__(self, index):
+        return self._elements[index]
+
+    def __contains__(self, mixed_list):
+        raise NotImplemented
+
+    def __bool__(self):
+        return bool(self._elements)
+
+    def __repr__(self, data=None):
+        return super(ElementCollection, self).__repr__(data=len(self))
+
+    @property
+    def first(self):
+        return self[0]
+
+    @property
+    def last(self):
+        return self[-1]
+
+    # def set(self, mixed_list):
+        # raise NotImplemented
+        # self._element_ids = to_element_ids(mixed_list)
+
+    def clear(self):
+        self._elements = []
