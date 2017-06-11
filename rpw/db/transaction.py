@@ -33,7 +33,7 @@ class Transaction(BaseObjectWrapper):
 
     def __enter__(self):
         self.transaction.Start()
-        return self.transaction
+        return self
 
     def __exit__(self, exception, exception_value, traceback):
         if exception:

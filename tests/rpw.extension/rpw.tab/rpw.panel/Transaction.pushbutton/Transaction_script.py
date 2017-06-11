@@ -76,7 +76,7 @@ class TransactionsTest(unittest.TestCase):
     def test_transaction_instance(self):
         with rpw.db.Transaction('Test Is Instance') as t:
             self.wall.parameters['Comments'].value = ''
-            self.assertIsInstance(t, DB.Transaction)
+            self.assertIsInstance(t.unwrap(), DB.Transaction)
 
     def test_transaction_started(self):
         with rpw.db.Transaction('Has Started') as t:
