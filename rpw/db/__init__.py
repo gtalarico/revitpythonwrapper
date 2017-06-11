@@ -1,4 +1,6 @@
 """ rpw.db modules """
+
+import rpw.db
 from rpw.db.collector import Collector, ParameterFilter
 from rpw.db.transaction import Transaction, TransactionGroup
 

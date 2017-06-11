@@ -52,6 +52,8 @@ class LoggerWrapper():
 
         handler = logging.StreamHandler(sys.stdout)
         formatter = logging.Formatter("[%(levelname)s] %(message)s")
+        # TODO: Show Module
+        # formatter = logging.Formatter("[%(levelname)s] %(message)s [%(module)s:%(lineno)s]")
         handler.setFormatter(formatter)
 
         logger = logging.getLogger('rpw_logger')

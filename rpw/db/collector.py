@@ -366,7 +366,7 @@ class ParameterFilter(BaseObjectWrapper):
         FilterRule: A filter rule object, depending on arguments.
     """
     _revit_object_class = DB.ElementParameterFilter
-    
+
     RULES = {
             'equals': 'CreateEqualsRule',
             'not_equals': 'CreateEqualsRule',

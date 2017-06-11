@@ -9,6 +9,7 @@ Note:
 
 """
 import inspect
+import warnings
 
 import rpw
 from rpw import revit, DB
@@ -44,6 +45,18 @@ class Element(BaseObjectWrapper):
     >>> wall.parameters['Height'].value
     10.0
 
+    The ``Element`` Constructor can be used witout specifying the
+    exact class. On instantiation, it will attempt to map the type provided,
+    if a match is not found, an Element will be used.
+    If the element does not inherit from DB.Element, and exception is raised.
+
+    >>> wall_instance = Element(SomeWallInstance)
+    >>> type(wall_instance)
+    rpw.element.WallInstance
+    >>> wall_symbol = Element(SomeWallSymbol)
+    >>> type(wall_symbol)
+    rpw.element.WallSymbol
+
     Attributes:
 
         parameters (:any:`ParameterSet`): Access :any:`ParameterSet` class.
@@ -56,6 +69,19 @@ class Element(BaseObjectWrapper):
     """
 
     _revit_object_class = DB.Element
+
+    def __new__(cls, element):
+        defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
+        for wrapper_name, wrapper_class in defined_wrapper_classes:
+            if type(element) is getattr(wrapper_class, '_revit_object_class', None):
+                # Found Mathing Class, Use Wrapper
+                return super(Element, cls).__new__(wrapper_class)
+        else:
+            # Could Not find a Matching Class, Use Element if related
+            if DB.Element in inspect.getmro(element.__class__):
+                return super(Element, cls).__new__(cls, element)
+            else:
+                raise RPW_Exception('Factory does not support type: {}'.format(element_class_name))
 
     def __init__(self, element):
         """
@@ -112,45 +138,11 @@ class Element(BaseObjectWrapper):
 
     @staticmethod
     def Factory(element):
-        """
-        This Factory function is used to Construct classes witout specifying the
-        exact class. On instantiation, it will attempt to map the type provided,
-        if a match is not found, an Element will be used.
-        If the element does not inherit from DB.Element, and exception is raised.
+        # Depracated - For Compatibility Only
+        msg = 'Element.Factory() has been depracated. Use Element()'
+        logger.warning(msg)
+        return Element(element)
 
-        This is generically, without knowing the type will come through later.
-        This is primarily used to keep the base Instance, Symbol, and Family Classes
-        generic.
-
-        >>> wall_instance = Element.Factory(SomeWallInstance)
-        >>> type(wall_instance)
-        rpw.element.WallInstance
-        >>> wall_symbol = Element.Factory(SomeWallSymbol)
-        >>> type(wall_symbol)
-        rpw.element.WallSymbol
-        """
-
-        # TODO: Auto-detect by iterating over types in element.py
-        CLASS_MAP = {
-                      'FamilyInstance': Instance,
-                      'FamilySymbol': Symbol,
-                      'Family': Family,
-                      'Category': Category,
-                      'Wall': rpw.db.wall.WallInstance,
-                      'WallType': rpw.db.wall.WallSymbol,
-                      'WallKind': rpw.db.wall.WallFamily,
-                      'Room': rpw.db.spatial_element.Room,
-                      'Area': rpw.db.spatial_element.Area,
-                      'AreaScheme': rpw.db.spatial_element.AreaScheme,
-                    }
-        element_class_name = element.__class__.__name__
-        element_class = CLASS_MAP.get(element_class_name)
-        if not element_class:
-            if DB.Element in inspect.getmro(element.__class__):
-                return Element(element)
-            else:
-                raise RPW_Exception('Factory does not support type: {}'.format(element_class_name))
-        return element_class(element)
 
     def __repr__(self, data=None):
         data = data if data else self._revit_object

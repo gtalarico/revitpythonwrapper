@@ -58,16 +58,9 @@ class Selection(BaseObjectWrapper):
         >>> selection.add([elements])
         >>> selection.add([element_ids])
         """
-        if not isinstance(elements_or_ids, list):
+        if not isinstance(elements_or_ids, (list, set)):
             elements_or_ids = [elements_or_ids]
-        if all([isinstance(e, DB.ElementId) for e in elements_or_ids]):
-            element_ids = elements_or_ids
-        elif all([isinstance(e, DB.Element) for e in elements_or_ids]):
-            element_ids = [e.Id for e in elements_or_ids]
-        elif all([isinstance(e, int) for e in elements_or_ids]):
-            element_ids = [DB.ElementId(e) for e in elements_or_ids]
-        else:
-            raise RPW_TypeError(list, type(elements_or_ids[0]))
+        element_ids = to_element_ids(elements_or_ids)
 
         current_selection = [e for e in uidoc.Selection.GetElementIds()]
         new_selection = element_ids + current_selection
