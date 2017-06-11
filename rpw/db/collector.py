@@ -237,6 +237,8 @@ class Collector(BaseObjectWrapper):
 
     """
 
+    _revit_object_class = DB.FilteredElementCollector
+
     def __init__(self, **filters):
         """
         Args:
@@ -363,7 +365,8 @@ class ParameterFilter(BaseObjectWrapper):
     Returns:
         FilterRule: A filter rule object, depending on arguments.
     """
-
+    _revit_object_class = DB.ElementParameterFilter
+    
     RULES = {
             'equals': 'CreateEqualsRule',
             'not_equals': 'CreateEqualsRule',

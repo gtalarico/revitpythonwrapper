@@ -57,7 +57,7 @@ class Element(BaseObjectWrapper):
 
     _revit_object_class = DB.Element
 
-    def __init__(self, element, enforce_type=None):
+    def __init__(self, element):
         """
         Args:
             element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
@@ -70,8 +70,11 @@ class Element(BaseObjectWrapper):
             >>> wall.parameters['Height']
             >>> wall.parameters.builtins['WALL_LOCATION_LINE']
         """
-        super(Element, self).__init__(element, enforce_type=enforce_type)
-        self.parameters = ParameterSet(element)
+        super(Element, self).__init__(element)
+        if isinstance(element, DB.Element):
+            # WallKind Inherits from Family/Element, but is not Element,
+            # so ParameterSet fails.
+            self.parameters = ParameterSet(element)
 
     @classmethod
     def collect(cls, **kwargs):
@@ -174,14 +177,6 @@ class Instance(Element):
     _revit_object_class = DB.FamilyInstance
     _collector_params = {'of_class': _revit_object_class, 'is_not_type': True}
 
-
-    def __init__(self, instance, enforce_type=DB.FamilyInstance):
-        """
-        Args:
-            instance (``DB.FamilyInstance``): Instance of FamilyInstance to be wrapped
-        """
-        super(Instance, self).__init__(instance, enforce_type=enforce_type)
-
     @property
     def symbol(self):
         """ Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance`` """
@@ -225,13 +220,6 @@ class Symbol(Element):
     """
     _revit_object_class = DB.FamilySymbol
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
-
-    def __init__(self, symbol, enforce_type=DB.FamilySymbol):
-        """
-        Args:
-            symbol (``DB.FamilySymbol``): Instance of FamilySymbol to be wrapped
-        """
-        super(Symbol, self).__init__(symbol, enforce_type=enforce_type)
 
     @property
     def name(self):
@@ -281,12 +269,6 @@ class Family(Element):
 
     _revit_object_class = DB.Family
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
-
-    def __init__(self, family, enforce_type=DB.Family):
-        """Args:
-            family (``DB.FamilySymbol``): Instance of FamilySymbol to be wrapped
-        """
-        super(Family, self).__init__(family, enforce_type=enforce_type)
 
     @property
     def name(self):
@@ -349,9 +331,6 @@ class Category(BaseObjectWrapper):
     """
 
     _revit_object_class = DB.Category
-
-    def __init__(self, category, enforce_type=DB.Category):
-        super(Category, self).__init__(category, enforce_type=enforce_type)
 
     @property
     def name(self):

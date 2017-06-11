@@ -7,6 +7,7 @@ import rpw
 from rpw import revit, DB
 from rpw.db import Element
 from rpw.db import Instance, Symbol, Family, Category
+from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger
 from rpw.db.builtins import BipEnum
 
@@ -20,9 +21,6 @@ class WallInstance(Instance):
     _revit_object_category = DB.BuiltInCategory.OST_Walls
     _revit_object_class = DB.Wall
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
-
-    def __init__(self, wall_instance, enforce_type=DB.Wall):
-        super(WallInstance, self).__init__(wall_instance, enforce_type=enforce_type)
 
     @property
     def symbol(self):
@@ -41,8 +39,6 @@ class WallSymbol(Symbol):
     _revit_object_class = DB.WallType
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
 
-    def __init__(self, wall_symbol, enforce_type=DB.WallType):
-        super(WallSymbol, self).__init__(wall_symbol, enforce_type=enforce_type)
 
     @property
     def family(self):
@@ -68,11 +64,6 @@ class WallFamily(Family):
     """
 
     _revit_object_class = DB.WallKind
-
-    def __init__(self, wall_family, enforce_type=None):
-        if not enforce_type:
-            enforce_type = self.__class__._revit_object_class
-        super(WallFamily, self).__init__(wall_family, enforce_type=enforce_type)
 
     @property
     def symbols(self):

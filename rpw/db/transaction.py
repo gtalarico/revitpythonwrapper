@@ -22,6 +22,9 @@ class Transaction(BaseObjectWrapper):
         self._revit_object = `Revit.DB.Transaction`
 
     """
+
+    _revit_object_class = DB.Transaction
+
     def __init__(self, name=None, doc=revit.doc):
         if name is None:
             name = 'RPW Transaction'
@@ -87,9 +90,10 @@ class TransactionGroup(BaseObjectWrapper):
     >>> with rpw.TransacationGroup('Do Major Task', assimilate=False):
     >>>     with rpw.db.Transaction('Do Task'):
     >>>         # Do Stuff
-
-
     """
+
+    _revit_object_class = DB.TransactionGroup
+    
     def __init__(self, name=None, assimilate=True, doc=revit.doc):
         """
             Args:

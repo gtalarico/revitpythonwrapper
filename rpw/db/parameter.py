@@ -31,6 +31,8 @@ class ParameterSet(BaseObjectWrapper):
 
     """
 
+    _revit_object_class = DB.Element
+
     def __init__(self, element):
         """
         Args:
@@ -98,6 +100,8 @@ class _BuiltInParameterSet(BaseObjectWrapper):
 
     """
 
+    _revit_object_class = DB.Element
+
     def __getitem__(self, builtin_enum):
         """ Retrieves Built In Parameter. """
         if isinstance(builtin_enum, str):
@@ -146,6 +150,8 @@ class Parameter(BaseObjectWrapper):
 
 
     """
+
+    _revit_object_class = DB.Parameter
     storage_types = {
                     'String': str,
                     'Double': float,

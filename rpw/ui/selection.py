@@ -2,7 +2,7 @@
 `uidoc.Selection` Wrapper
 """
 
-from rpw.revit import revit, DB
+from rpw.revit import revit, DB, UI
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_TypeError
@@ -26,6 +26,8 @@ class Selection(BaseObjectWrapper):
     Wrapped Element:
         _revit_object = `Revit.UI.Selection`
     """
+
+    _revit_object_class = UI.Selection.Selection
 
     def __init__(self, elements=None):
         """

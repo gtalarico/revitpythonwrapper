@@ -35,7 +35,7 @@ class BaseObject(object):
             return self.__repr__(*args, **kwargs)
 
         def __repr__(self, data=''):
-            return '<rpw:{class_name}: {data}>'.format(
+            return '<rpw:{class_name} | {data}>'.format(
                                         class_name=self.__class__.__name__,
                                         data=data)
 
@@ -46,16 +46,17 @@ class BaseObjectWrapper(BaseObject):
         element(APIObject): Revit Element to store
     """
 
-    def __init__(self, revit_object, enforce_type=None):
+    def __init__(self, revit_object):
         """
         Child classes can use self._revit_object to refer back to Revit Element
         Element is used loosely to refer to all Revit Elements.
         NOTE: Any Wrapper that inherits this class MUST call this __init__
         to ensure _revit_object is created.
         """
-
-        if enforce_type and not isinstance(revit_object, enforce_type):
-            raise RPW_TypeError(enforce_type, type(revit_object))
+        _revit_object_class = self.__class__._revit_object_class
+        if not isinstance(revit_object, _revit_object_class):
+            print(self.__class__.__name__)
+            raise RPW_TypeError(_revit_object_class, type(revit_object))
 
         object.__setattr__(self, '_revit_object', revit_object)
 
@@ -85,7 +86,7 @@ class BaseObjectWrapper(BaseObject):
 
     def __repr__(self, data=''):
         revit_object_name = self._revit_object.ToString()
-        return '<rpw:{class_name} % {revit_object}: {data}>'.format(
+        return '<rpw:{class_name} % {revit_object} | {data}>'.format(
                                     class_name=self.__class__.__name__,
                                     revit_object=revit_object_name,
                                     data=data

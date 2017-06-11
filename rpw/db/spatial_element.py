@@ -35,15 +35,6 @@ class Room(Element):
     _collector_params = {'of_category': _revit_object_category,
                          'is_not_type': True}
 
-    def __init__(self, room, enforce_type=None):
-        """
-        Args:
-            room (``DB.Architecture.Room``): Room to be wrapped
-        """
-        if not enforce_type:
-            enforce_type = self.__class__._revit_object_class
-        super(Room, self).__init__(room, enforce_type=enforce_type)
-
     @property
     def name(self):
         """ Room Name as parameter Value: ``ROOM_NAME`` built-in parameter"""
@@ -104,13 +95,6 @@ class Area(Room):
     _collector_params = {'of_category': _revit_object_category,
                          'is_not_type': True}
 
-    def __init__(self, area, enforce_type=None):
-        """
-        Args:
-            area (``DB.Area``): Area Instance to be wrapped
-        """
-        super(Area, self).__init__(area, enforce_type=enforce_type)
-
     @property
     def name(self):
         """ Area Scheme Name: Area attribute parameter"""
@@ -142,14 +126,6 @@ class AreaScheme(Element):
 
     _revit_object_class = DB.AreaScheme
     _collector_params = {'of_class': _revit_object_class}
-
-    def __init__(self, area_scheme):
-        """
-        Args:
-            area (``DB.Area``): Area Instance to be wrapped
-        """
-        enforce_type = self.__class__._revit_object_class
-        super(AreaScheme, self).__init__(area_scheme, enforce_type=enforce_type)
 
     @property
     def name(self):
