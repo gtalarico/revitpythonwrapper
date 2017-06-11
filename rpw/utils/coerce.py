@@ -4,7 +4,7 @@ Type Casting Utilities
 """
 
 
-from rpw.revit import revit, DB
+from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 from rpw.db.builtins import BicEnum
 from rpw.utils.dotnet import List
@@ -130,3 +130,14 @@ def to_category(category_reference, fuzzy=True):
         return BicEnum.from_category_id(category_reference)
     raise RPW_TypeError('Category Type, Category Type Name',
                         type(category_reference))
+
+
+def to_pascal_case(snake_str):
+    """ Converts Snake Case to Pascal Case
+
+    >>> to_pascal_case('family_name')
+    'FamilyName'
+    """
+
+    components = snake_str.split('_')
+    return "".join(x.title() for x in components)

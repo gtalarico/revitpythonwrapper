@@ -21,6 +21,7 @@ SomeObject
 
 """
 
+import rpw
 from rpw.exceptions import RPW_TypeError, RPW_Exception
 from rpw.utils import logger
 
@@ -68,8 +69,15 @@ class BaseObjectWrapper(BaseObject):
         """
         try:
             return getattr(self.__dict__['_revit_object'], attr)
+        except AttributeError:
+            # This lower/snake case to be converted.
+            # This automatically gives acess to all names in lower case format
+            # x.name (if was not already defined, will get x.Name)
+            pascal_case = rpw.utils.coerce.to_pascal_case(attr)
+            return getattr(self.__dict__['_revit_object'], pascal_case)
         except KeyError:
             raise RPW_Exception('BaseObjectWrapper is missing _revit_object: {}'.format(self))
+
 
     def __setattr__(self, attr, value):
         """
