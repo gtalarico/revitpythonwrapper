@@ -268,7 +268,7 @@ class Family(Element):
     """
 
     _revit_object_class = DB.Family
-    _collector_params = {'of_class': _revit_object_class, 'is_type': True}
+    _collector_params = {'of_class': _revit_object_class}
 
     @property
     def name(self):
