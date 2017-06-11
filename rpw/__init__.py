@@ -37,6 +37,7 @@ if __name__ == 'make.doc':
 from revit import revit, DB, UI
 import rpw.db
 import rpw.ui
+import rpw.extras
 
 # from rpw.base import BaseObjectWrapper
 # from rpw.element import Element, Instance, Symbol, Family, Category

@@ -84,8 +84,10 @@ class BaseObjectWrapper(BaseObject):
     def unwrap(self):
         return self._revit_object
 
-    def __repr__(self, data=''):
-        revit_object_name = self._revit_object.ToString()
+    def __repr__(self, data='', to_string=None):
+        """ ToString can be overriden for objects in which the method is
+        not consistent - ie. XYZ.ToString returns pt tuple not Class Name """
+        revit_object_name = to_string or self._revit_object.ToString()
         return '<rpw:{class_name} % {revit_object} | {data}>'.format(
                                     class_name=self.__class__.__name__,
                                     revit_object=revit_object_name,
