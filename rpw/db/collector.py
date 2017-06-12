@@ -356,7 +356,10 @@ class Collector(BaseObjectWrapper):
     def first(self):
         """ TODO
         """
-        return self.__getitem__(0, None)
+        try:
+            return self[0]
+        except IndexError:
+            return None
 
     @property
     def element_ids(self):
