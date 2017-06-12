@@ -162,11 +162,10 @@ class FilterClasses():
             # TODO: Move this into Level Wrapper - Level.collect(name='')
             if isinstance(level_reference, str):
                 levels = Collector(of_class='Level', is_type=False)
-                match = levels.filter(lambda x: x.Name == level_reference)
-                if match:
-                    level_id = match[0].Id
-                else:
-                    raise RPW_CoerceError(level_reference, DB.Level)
+                try:
+                    return levels.filter(lambda x: x.Name == level_reference)[0].Id
+                except IndexError:
+                    RPW_CoerceError(level_reference, DB.Level)
             else:
                 level_id = to_element_id(level_reference)
             return DB.ElementLevelFilter(level_id, cls.reverse)
@@ -185,27 +184,24 @@ class FilterClasses():
             else:
                 raise Exception('Shouldnt get here')
 
-    # class WhereFilter(SuperSlowFilter):
-    #     keyword = 'where'
-    #     # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
-    #
-    #     @classmethod
-    #     def process_value(cls, func):
-    #         if isinstance(parameter_filter, types.FunctionType):
-    #             return func
-    #         else:
-    #             raise RPW_TypeError(types.FunctionType, type(func))
-    #
-    #     @classmethod
-    #     def apply(cls, doc, collector, func):
-    #         passing_elements = []
-    #         for element in collector:
-    #             if func(element):
-    #                 passing_elements.append(element)
-    #         if passing_elements:
-    #             # Cannot create this collector, Need to return just elements w
-    #             # wich breaks pattern
-    #             return Collector(doc=doc, elements=passing_elements)._collector
+    class WhereFilter(SuperSlowFilter):
+        """ Requires Unpacking of each Element. As per the API design,
+        this filter must be combined """
+        keyword = 'where'
+        # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
+        # rpw.db.Collector(of_class='FamilyInstance', where=lambda x: 'Student' in x.name)
+        @classmethod
+        def apply(cls, doc, collector, func):
+            excluded_elements = set()
+            for element in collector:
+                wrapped_element = Element(element)
+                if not func(wrapped_element):
+                    excluded_elements.add(element.Id)
+            excluded_elements = List[DB.ElementId](excluded_elements)
+            if excluded_elements:
+                return collector.Excluding(excluded_elements)
+            else:
+                return collector
 
 
 class Collector(BaseObjectWrapper):
@@ -319,20 +315,20 @@ class Collector(BaseObjectWrapper):
             return self._collect(doc, new_collector, filters)
         return collector
 
-    def filter(self, func, wrapped=True):
-        #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.LookupParameter('Length').AsDouble() > 5 )
-        #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.parameters['Length'] < 5 )
-        #  rpw.db.Family.collect().filter(lambda x: x.Name == 'desk' )
-        if not isinstance(func, types.FunctionType):
-            raise RPW_TypeError(types.FunctionType, type(func))
-
-        passing_elements = []
-        for element in self:
-            element = Element(element) if wrapped else element
-            if func(element):
-                passing_elements.append(element)
-
-        return passing_elements
+    # def filter(self, func, wrapped=True):
+    #     #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.LookupParameter('Length').AsDouble() > 5 )
+    #     #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.parameters['Length'] < 5 )
+    #     #  rpw.db.Family.collect().filter(lambda x: x.Name == 'desk' )
+    #     if not isinstance(func, types.FunctionType):
+    #         raise RPW_TypeError(types.FunctionType, type(func))
+    #
+    #     passing_elements = []
+    #     for element in self:
+    #         element = Element(element) if wrapped else element
+    #         if func(element):
+    #             passing_elements.append(element)
+    #
+    #     return passing_elements
 
     def __iter__(self):
         """ Uses iterator to reduce unecessary memory usage """
