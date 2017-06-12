@@ -104,7 +104,8 @@ class ElementSet(BaseObject):
         if elements_or_ids:
             self.add(elements_or_ids)
 
-    def add(self, elements_or_ids=None):
+    def add(self, elements_or_ids):
+        """ Adds elements or element_ids to set. Handles single or list """
         if not isinstance(elements_or_ids, (list, set)):
             elements_or_ids = [elements_or_ids]
         element_ids = to_element_ids(elements_or_ids)
@@ -113,13 +114,16 @@ class ElementSet(BaseObject):
 
     @property
     def wrapped_elements(self):
+        """ List of wrapped elements stored in ElementSet """
         return [Element(x) for x in self.elements]
 
     @property
     def elements(self):
+        """ Elements stored in ElementSet """
         return [self.doc.GetElement(eid) for eid in self._element_ids]
 
     def clear(self):
+        """ Clears Set """
         self._element_ids = set()
 
     def __len__(self):
@@ -132,8 +136,8 @@ class ElementSet(BaseObject):
         return self.doc.GetElement(self._element_ids[index])
 
     def __contains__(self, element_or_id):
+        # Test String: import rpw; s0 in rpw.extras.ElementSet(selection)
         element_id = to_element_id(element_or_id)
-        # import rpw; s0 in rpw.extras.ElementSet(selection)
         return bool(element_id in self._element_ids)
 
     def __bool__(self):
@@ -142,14 +146,12 @@ class ElementSet(BaseObject):
     def __repr__(self, data=None):
         return super(ElementSet, self).__repr__(data=len(self))
 
-    # @property
-    # def first(self):
-    #     return self[0]
-    #
-    # @property
-    # def last(self):
-    #     return self[-1]
-
-    # def set(self, mixed_list):
-        # raise NotImplemented
-        # self._element_ids = to_element_ids(mixed_list)
+    # @property - why not use index[0] which is standard pyhon.
+    # Only advantage would be if is fail safe, so user does not have to check for error,
+    # similar to Django's ORM
+    @property
+    def first(self):
+        try:
+            return self.elements[0]
+        except IndexError:
+            return None
