@@ -140,8 +140,8 @@ class Element(BaseObjectWrapper):
         _collector_params = getattr(cls, '_collector_params', None)
 
         if _collector_params:
-            _collector_params.update(**kwargs)
-            return rpw.db.Collector(**_collector_params)
+            kwargs.update(_collector_params)
+            return rpw.db.Collector(**kwargs)
         else:
             raise RPW_Exception('Wrapper cannot collect by class: {}'.format(cls.__name__))
 
