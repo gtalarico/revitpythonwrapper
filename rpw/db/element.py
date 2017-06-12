@@ -1,5 +1,5 @@
 """
-Element Wrappers provide a consitent interface for acccessing parameters and properties
+Element Model Wrappers provide a consitent interface for acccessing parameters and properties
 of commonly used elements.
 
 Note:

@@ -51,6 +51,7 @@ class ParameterSet(BaseObjectWrapper):
             :class:`RPW_ParameterNotFound`
 
         """
+        # TODO: Any advantage of using ParameterMap Instead
         parameter = self._revit_object.LookupParameter(param_name)
         # return _Parameter(parameter) if parameter else None
         if not parameter:

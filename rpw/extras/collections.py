@@ -1,6 +1,8 @@
 """ Misc Geometry Wrappers (Not Part Of Revit API) """
 
-from rpw.db import XYZ
+from rpw import revit
+from rpw.db.xyz import XYZ
+from rpw.db.element import Element
 from rpw.base import BaseObject
 from rpw.utils.coerce import to_elements, to_element_ids
 
@@ -87,58 +89,58 @@ class PointCollection(BaseObject):
         return super(PointCollection, self).__repr__(data=len(self))
 
 
-class ElementCollection(BaseObject):
+class ElementSet(BaseObject):
 
-    def __init__(self, elements_or_ids=None):
-        self._elements = []
+    def __init__(self, elements_or_ids=None, doc=revit.doc):
+        self.doc = doc
+        self._element_ids = set()
         if elements_or_ids:
             self.add(elements_or_ids)
 
     def add(self, elements_or_ids=None):
         if not isinstance(elements_or_ids, (list, set)):
             elements_or_ids = [elements_or_ids]
-        print('>>>')
-        print(elements_or_ids)
-        elements = to_elements(elements_or_ids)
-        self._elements.extend(elements)
+        element_ids = to_element_ids(elements_or_ids)
+        for eid in element_ids:
+            self._element_ids.add(eid)
 
     @property
     def wrapped_elements(self):
-        return [Element(x) for x in self._elements]
+        return [Element(x) for x in self.elements]
 
     @property
     def elements(self):
-        return self._elements
+        return [self.doc.GetElement(eid) for eid in self._element_ids]
+        
+    def clear(self):
+        self._element_ids = set()
 
     def __len__(self):
-        return len(self._elements)
+        return len(self._element_ids)
 
     def __iter__(self):
-        return iter(self._elements)
+        return iter(self._element_ids)
 
     def __getitem__(self, index):
-        return self._elements[index]
+        return self.doc.GetElement(self._element_ids[index])
 
-    def __contains__(self, mixed_list):
-        raise NotImplemented
+    def __contains__(self, element_or_ids):
+        return bool()
 
     def __bool__(self):
-        return bool(self._elements)
+        return bool(self._element_ids)
 
     def __repr__(self, data=None):
-        return super(ElementCollection, self).__repr__(data=len(self))
+        return super(ElementSet, self).__repr__(data=len(self))
 
-    @property
-    def first(self):
-        return self[0]
-
-    @property
-    def last(self):
-        return self[-1]
+    # @property
+    # def first(self):
+    #     return self[0]
+    #
+    # @property
+    # def last(self):
+    #     return self[-1]
 
     # def set(self, mixed_list):
         # raise NotImplemented
         # self._element_ids = to_element_ids(mixed_list)
-
-    def clear(self):
-        self._elements = []

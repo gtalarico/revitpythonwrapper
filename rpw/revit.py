@@ -117,6 +117,7 @@ class RevitVersion():
 
     def __cmp__(self, other):
         """ Handle Version Comparison Logic"""
+        # http://portingguide.readthedocs.io/en/latest/comparisons.html
         raise NotImplemented
 
     def __repr__(self):

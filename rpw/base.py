@@ -35,6 +35,10 @@ class BaseObject(object):
             """ Show correct repr on Dynamo """
             return self.__repr__(*args, **kwargs)
 
+        # def __dir__(self):
+        # TODO: Implement Dir on BaseOBject and BaseObjectWrapper for proper AC
+            # return list(self.__dict__)
+
         def __repr__(self, data=''):
             return '<rpw:{class_name} | {data}>'.format(
                                         class_name=self.__class__.__name__,
