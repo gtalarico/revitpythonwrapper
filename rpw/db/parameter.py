@@ -78,7 +78,7 @@ class ParameterSet(BaseObjectWrapper):
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add Parameter List Name """
-        return super(ParameterSet, self).__repr__(len(self))
+        return super(ParameterSet, self).__repr__(data={'count': len(self)})
 
 
 class _BuiltInParameterSet(BaseObjectWrapper):
@@ -289,4 +289,5 @@ class Parameter(BaseObjectWrapper):
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
-        return super(Parameter, self).__repr__('[{}:{}]'.format(self.name, self.value))
+        return super(Parameter, self).__repr__(data={'name': self.name,
+                                                     'value': self.value})

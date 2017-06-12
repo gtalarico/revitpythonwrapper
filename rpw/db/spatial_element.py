@@ -69,7 +69,8 @@ class Room(Element):
         return self._revit_object.Area > 0
 
     def __repr__(self):
-        return super(Room, self).__repr__(data='{}:{}'.format(self.name, self.number))
+        return super(Room, self).__repr__(data={'name': self.name,
+                                                'number': self.number})
 
 
 class Area(Room):
@@ -111,7 +112,8 @@ class Area(Room):
         return self._revit_object.Area
 
     def __repr__(self):
-        return super(Element, self).__repr__(data='{}:{}'.format(self.name, self.area))
+        return super(Element, self).__repr__(data={'name': self.name,
+                                                   'area': self.area})
 
 class AreaScheme(Element):
     """
@@ -142,4 +144,4 @@ class AreaScheme(Element):
         return collector.wrapped_elements
 
     def __repr__(self):
-        return super(AreaScheme, self).__repr__(data='{}'.format(self.name))
+        return super(AreaScheme, self).__repr__(data={'name': self.name})

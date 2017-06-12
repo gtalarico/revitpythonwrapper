@@ -35,7 +35,7 @@ class XYZ(BaseObjectWrapper):
         elif len(xyz_or_tuple) == 1 and isinstance(xyz_or_tuple[0], tuple):
             # Assumes one arg, tuple
             xyz = DB.XYZ(*xyz_or_tuple[0])
-        else:
+        elif isinstance(xyz_or_tuple, (list,tuple)):
             # Assumes one arg, DB.XYZ
             xyz = xyz_or_tuple[0]
         super(XYZ, self).__init__(xyz)
@@ -89,6 +89,17 @@ class XYZ(BaseObjectWrapper):
         """
         return (self.x, self.y, self.z)
 
+    @property
+    def as_dict(self):
+        """
+        Dictionary representing the xyz coordinate of the Point
+
+        Returns:
+            (dict): dict with float of XYZ values
+
+        """
+        return {'x': self.x, 'y': self.y, 'z':self.z}
+
     def __repr__(self):
-        return super(XYZ, self).__repr__(data=self.as_tuple,
+        return super(XYZ, self).__repr__(data=self.as_dict,
                                          to_string='Autodesk.Revit.DB.XYZ')

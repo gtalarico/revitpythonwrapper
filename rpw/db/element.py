@@ -159,10 +159,9 @@ class Element(BaseObjectWrapper):
         logger.warning(msg)
         return Element(element)
 
-
-    def __repr__(self, data=None):
-        data = data if data else self._revit_object
-        return super(Element, self).__repr__(str(data))
+    def __repr__(self, data={}):
+        data = data or {'id': getattr(self._revit_object, 'Id', None)}
+        return super(Element, self).__repr__(data=data)
 
 
 class Instance(Element):
@@ -207,7 +206,7 @@ class Instance(Element):
         return self.symbol.instances
 
     def __repr__(self):
-        return super(Instance, self).__repr__(self.symbol.name)
+        return super(Instance, self).__repr__(data={'symbol': self.symbol.name})
 
 
 class Symbol(Element):
@@ -264,7 +263,7 @@ class Symbol(Element):
         return self.family.category
 
     def __repr__(self):
-        return super(Symbol, self).__repr__(self.name)
+        return super(Symbol, self).__repr__(data={'name': self.name})
 
 
 class Family(Element):
@@ -327,7 +326,7 @@ class Family(Element):
         return self.category.families
 
     def __repr__(self):
-        return super(Family, self).__repr__(self.name)
+        return super(Family, self).__repr__({'name': self.name})
 
 
 class Category(BaseObjectWrapper):
@@ -378,4 +377,4 @@ class Category(BaseObjectWrapper):
         return BicEnum.from_category_id(self._revit_object.Id)
 
     def __repr__(self):
-        return super(Category, self).__repr__(self.name)
+        return super(Category, self).__repr__({'name': self.name})

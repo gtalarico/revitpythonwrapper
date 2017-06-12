@@ -380,7 +380,7 @@ class Collector(BaseObjectWrapper):
         return self._collector.GetElementCount()
 
     def __repr__(self):
-        return super(Collector, self).__repr__(data=len(self))
+        return super(Collector, self).__repr__(data={'count':len(self)})
 
 
 class ParameterFilter(BaseObjectWrapper):
@@ -519,6 +519,6 @@ class ParameterFilter(BaseObjectWrapper):
         return ParameterFilter(param_id, **conditions)
 
     def __repr__(self):
-        return super(ParameterFilter, self).__repr__(self.conditions)
+        return super(ParameterFilter, self).__repr__(data=self.conditions)
 
 # print("Collector Loaded")

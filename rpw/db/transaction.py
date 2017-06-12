@@ -78,6 +78,8 @@ class Transaction(BaseObjectWrapper):
             return wrapped_f
         return wrap
 
+    # TODO: Add  __repr__ with Transaction Status
+
 
 class TransactionGroup(BaseObjectWrapper):
     """
