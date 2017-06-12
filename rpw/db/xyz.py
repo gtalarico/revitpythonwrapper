@@ -1,5 +1,6 @@
 from rpw import DB
 from rpw.base import BaseObjectWrapper
+from rpw.exceptions import RPW_CoerceError
 
 
 class XYZ(BaseObjectWrapper):
@@ -28,16 +29,19 @@ class XYZ(BaseObjectWrapper):
         Args:
             instance (``DB.XYZ``): Instance of XYZ to be wrapped
         """
+        # TODO: rpw.db.Element(XYZ(0,0,0)) does not work
         if len(xyz_or_tuple) == 3:
             xyz = DB.XYZ(*xyz_or_tuple)
         elif len(xyz_or_tuple) == 2:
             xyz = DB.XYZ(xyz_or_tuple[0], xyz_or_tuple[1], 0)
-        elif len(xyz_or_tuple) == 1 and isinstance(xyz_or_tuple[0], tuple):
+        elif len(xyz_or_tuple) == 1 and isinstance(xyz_or_tuple[0], (tuple, list)):
             # Assumes one arg, tuple
             xyz = DB.XYZ(*xyz_or_tuple[0])
-        elif isinstance(xyz_or_tuple, (list,tuple)):
+        elif isinstance(xyz_or_tuple, (list, tuple)):
             # Assumes one arg, DB.XYZ
             xyz = xyz_or_tuple[0]
+        else:
+            raise RPW_CoerceError(xyz_or_tuple, 'point-like object')
         super(XYZ, self).__init__(xyz)
 
     @property

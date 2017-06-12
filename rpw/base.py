@@ -84,7 +84,6 @@ class BaseObjectWrapper(BaseObject):
         except KeyError:
             raise RPW_Exception('BaseObjectWrapper is missing _revit_object')
 
-
     def __setattr__(self, attr, value):
         """
         Setter allows setting of wrapped object properties, for example

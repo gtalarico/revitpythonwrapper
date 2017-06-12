@@ -89,9 +89,11 @@ class Element(BaseObjectWrapper):
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
+                # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
                 return super(Element, cls).__new__(wrapper_class)
         else:
             # Could Not find a Matching Class, Use Element if related
+            # print('Not find a Matching Class, Use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls)
             else:
