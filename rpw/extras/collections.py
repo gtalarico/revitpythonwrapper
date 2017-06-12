@@ -4,7 +4,7 @@ from rpw import revit
 from rpw.db.xyz import XYZ
 from rpw.db.element import Element
 from rpw.base import BaseObject
-from rpw.utils.coerce import to_elements, to_element_ids
+from rpw.utils.coerce import to_elements, to_element_ids, to_element_id
 
 
 class PointCollection(BaseObject):
@@ -90,7 +90,14 @@ class PointCollection(BaseObject):
 
 
 class ElementSet(BaseObject):
+    """
+    Provides helpful methods for managing a set of unique of ``DB.ElementId``.
 
+    >>> elements = ElementSet([element, element])
+    >>>
+
+    """
+    # TODO: Allow to consume wrapped Element
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
         self._element_ids = set()
@@ -111,7 +118,7 @@ class ElementSet(BaseObject):
     @property
     def elements(self):
         return [self.doc.GetElement(eid) for eid in self._element_ids]
-        
+
     def clear(self):
         self._element_ids = set()
 
@@ -124,8 +131,10 @@ class ElementSet(BaseObject):
     def __getitem__(self, index):
         return self.doc.GetElement(self._element_ids[index])
 
-    def __contains__(self, element_or_ids):
-        return bool()
+    def __contains__(self, element_or_id):
+        element_id = to_element_id(element_or_id)
+        # import rpw; s0 in rpw.extras.ElementSet(selection)
+        return bool(element_id in self._element_ids)
 
     def __bool__(self):
         return bool(self._element_ids)
