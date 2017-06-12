@@ -70,7 +70,7 @@ class Element(BaseObjectWrapper):
 
     _revit_object_class = DB.Element
 
-    def __new__(cls, element):
+    def __new__(cls, element, **kwargs):
         """
         Factory Constructor will chose the best Class for the Element.
         This function iterates through all classes in the rpw.db module,
@@ -90,12 +90,12 @@ class Element(BaseObjectWrapper):
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
                 # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
-                return super(Element, cls).__new__(wrapper_class)
+                return super(Element, cls).__new__(wrapper_class, element, **kwargs)
         else:
             # Could Not find a Matching Class, Use Element if related
             # print('Not find a Matching Class, Use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
-                return super(Element, cls).__new__(cls)
+                return super(Element, cls).__new__(cls, element, **kwargs)
             else:
                 element_class_name = element.__class__.__name__
                 raise RPW_Exception('Factory does not support type: {}'.format(element_class_name))
