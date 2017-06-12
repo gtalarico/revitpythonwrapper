@@ -159,12 +159,12 @@ class FilterClasses():
 
         @classmethod
         def process_value(cls, level_reference):
-            # TEST: Move this into Level Wrapper - Level.collect(name='')
+            # TODO: Move this into Level Wrapper - Level.collect(name='')
             if isinstance(level_reference, str):
-                for level in Collector(of_class='Level', is_type=False):
-                    if level.Name == level_reference:
-                        level_id = level.Id
-                        break
+                levels = Collector(of_class='Level', is_type=False)
+                match = levels.filter(lambda x: x.Name == level_reference)
+                if match:
+                    level_id = match[0].Id
                 else:
                     raise RPW_CoerceError(level_reference, DB.Level)
             else:
@@ -356,7 +356,7 @@ class Collector(BaseObjectWrapper):
     def first(self):
         """ TODO
         """
-        return self.__getitem__(0)
+        return self.__getitem__(0, None)
 
     @property
     def element_ids(self):
