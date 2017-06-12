@@ -160,10 +160,13 @@ class FilterClasses():
         @classmethod
         def process_value(cls, level_reference):
             # TODO: Move this into Level Wrapper - Level.collect(name='')
+            # Handle filter by level name
             if isinstance(level_reference, str):
-                levels = Collector(of_class='Level', is_type=False)
+                level = Collector(of_class='Level', is_type=False,
+                                  where=lambda x:
+                                  x.Name == level_reference)
                 try:
-                    return levels.filter(lambda x: x.Name == level_reference)[0].Id
+                    level_id = level[0].Id
                 except IndexError:
                     RPW_CoerceError(level_reference, DB.Level)
             else:
@@ -315,6 +318,7 @@ class Collector(BaseObjectWrapper):
             return self._collect(doc, new_collector, filters)
         return collector
 
+    # #CLEAN MOVED TO WHERE FILTER
     # def filter(self, func, wrapped=True):
     #     #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.LookupParameter('Length').AsDouble() > 5 )
     #     #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.parameters['Length'] < 5 )
