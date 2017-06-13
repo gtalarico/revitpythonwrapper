@@ -18,7 +18,7 @@ from rpw.utils.coerce import to_element_id, to_element_ids
 from rpw.utils.coerce import to_category, to_class
 from rpw.utils.logger import logger
 
-# More Info on Performance
+# More Info on Performance and ElementFilters:
 # http://thebuildingcoder.typepad.com/blog/2015/12/quick-slow-and-linq-element-filtering.html
 
 
@@ -44,9 +44,10 @@ class BaseFilter(BaseObject):
 
     @classmethod
     def apply(cls, doc, collector, value):
-        """ Filters can overide this method to define how the filter is applied
+        """
+        Filters can overide this method to define how the filter is applied
         The default behavious is to chain the ``method`` defined by the filter
-        class (ie. WherePasses) to the collector, and feed it the input `value`.
+        class (ie. WherePasses) to the collector, and feed it the input `value`
         """
         method_name = cls.method
         method = getattr(collector, method_name)
@@ -253,7 +254,7 @@ class FilterClasses():
 
     class WhereFilter(SuperSlowFilter):
         """ Requires Unpacking of each Element. As per the API design,
-        this filter must be combined
+        this filter must be combined.
         """
         keyword = 'where'
         # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
@@ -358,7 +359,7 @@ class Collector(BaseObjectWrapper):
         elif 'elements' in filters:
             elements = filters.pop('elements')
             element_ids = to_element_ids(elements)
-            collector = DB.FilteredElementCollector(collector_doc, List[DB.ElementId](element_ids))
+            collector = DB.FilteredElementCollector(collector_doc,List[DB.ElementId](element_ids))
         elif 'element_ids' in filters:
             element_ids = filters.pop('element_ids')
             collector = DB.FilteredElementCollector(collector_doc, List[DB.ElementId](element_ids))
@@ -369,7 +370,7 @@ class Collector(BaseObjectWrapper):
 
         for key in filters.keys():
             if key not in [f.keyword for f in FilterClasses.get_sorted()]:
-                raise RPW_Exception('Collector Filter not valid: {}'.format(key))
+                raise RPW_Exception('Filter not valid: {}'.format(key))
 
         self._collector = self._collect(collector_doc, collector, filters)
 
@@ -382,22 +383,6 @@ class Collector(BaseObjectWrapper):
             new_collector = filter_class.apply(doc, collector, filter_value)
             return self._collect(doc, new_collector, filters)
         return collector
-
-    # #CLEAN MOVED TO WHERE FILTER
-    # def filter(self, func, wrapped=True):
-    #     #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.LookupParameter('Length').AsDouble() > 5 )
-    #     #  rpw.db.Collector(of_category='Walls', is_type=False).filter(lambda x: x.parameters['Length'] < 5 )
-    #     #  rpw.db.Family.collect().filter(lambda x: x.Name == 'desk' )
-    #     if not isinstance(func, types.FunctionType):
-    #         raise RPW_TypeError(types.FunctionType, type(func))
-    #
-    #     passing_elements = []
-    #     for element in self:
-    #         element = Element(element) if wrapped else element
-    #         if func(element):
-    #             passing_elements.append(element)
-    #
-    #     return passing_elements
 
     def __iter__(self):
         """ Uses iterator to reduce unecessary memory usage """
@@ -416,10 +401,12 @@ class Collector(BaseObjectWrapper):
         """
         return [Element(el) for el in self.__iter__()]
 
-
     @property
     def first(self):
-        """ TODO
+        """ Returns first element or `None`
+
+        Returns:
+            Element (`DB.Element`, `None`): First element or None
         """
         try:
             return self[0]
@@ -437,7 +424,7 @@ class Collector(BaseObjectWrapper):
             if n == index:
                 return element
         else:
-            raise IndexError('Index {} does not exist in collector {}'.format(index, self))
+            raise IndexError('Index {} not in collector {}'.format(index, self))
 
     def __bool__(self):
         """ Evaluates to `True` if Collector.elements is not empty [] """
@@ -536,7 +523,8 @@ class ParameterFilter(BaseObjectWrapper):
 
             # Returns on of the CreateRule factory method names above
             rule_factory_name = ParameterFilter.RULES.get(condition_name)
-            filter_value_rule = getattr(DB.ParameterFilterRuleFactory, rule_factory_name)
+            filter_value_rule = getattr(DB.ParameterFilterRuleFactory,
+                                        rule_factory_name)
 
             args = [condition_value]
 
@@ -563,7 +551,8 @@ class ParameterFilter(BaseObjectWrapper):
         if not rules:
             raise RPW_Exception('malformed filter rule: {}'.format(conditions))
 
-        _revit_object = DB.ElementParameterFilter(List[DB.FilterRule](rules), reverse)
+        _revit_object = DB.ElementParameterFilter(List[DB.FilterRule](rules),
+                                                  reverse)
         super(ParameterFilter, self).__init__(_revit_object)
         self.conditions = conditions
 
@@ -578,15 +567,15 @@ class ParameterFilter(BaseObjectWrapper):
 
     @staticmethod
     def from_element_and_parameter(element, param_name, **conditions):
+        """ Alternative constructor to built Parameter Filter from Element +
+        Parameter Name """
         # TEST: parameter_filter from object+param name to skip having to get param_id
         #       basically an alternative constructor that takes elemement + parameter name
         #       instead of param_id, which is a pain in the ass
-        #       >>> parameter_filter = ParameterFilter.from_element(element,param_name, less_than=10)
+        #       >>> parameter_filter = ParameterFilter.from_element(element,param_name, less_than=10)"""
         parameter = element.LookupParameter(param_name)
         param_id = parameter.Id
         return ParameterFilter(param_id, **conditions)
 
     def __repr__(self):
         return super(ParameterFilter, self).__repr__(data=self.conditions)
-
-# print("Collector Loaded")
