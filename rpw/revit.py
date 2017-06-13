@@ -23,7 +23,7 @@ class Revit(BaseObject):
                 self.host = Revit.HOSTS.DYNAMO
             except Exception as errmsg:
                 logger.error(errmsg)
-                raise Exception('A Revit Application handle could not be found')
+                raise Exception('Revit Application handle could not be found')
 
         clr.AddReference('RevitAPI')
         clr.AddReference('RevitAPIUI')
@@ -36,6 +36,9 @@ class Revit(BaseObject):
         import sys
         sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
         return DocumentManager.Instance.CurrentUIApplication
+
+    def open(self, path):
+        """ Opens New Document """
 
     @property
     def doc(self):
@@ -82,10 +85,10 @@ class Revit(BaseObject):
         return Process.GetCurrentProcess().ProcessName
 
     def __repr__(self):
-        return '<{version} [{process}:{pid}] >'.format(version=self.version,
-                                                       process=self.process_name,
-                                                       pid=self.process_id)
-
+        return '<{version} [{process}:{pid}]>'.format(version=self.version,
+                                                      process=self.process_name,
+                                                      pid=self.process_id)
+    # Check what this is
     # @property
     # def proc_screen(self):
     #     clr.AddReferenceByPartialName('System.Windows.Forms')
@@ -123,8 +126,10 @@ class RevitVersion():
     def __repr__(self):
         return '<Version: {year}: {build}>'.format(year=self.name,
                                                    build=self.build)
+
     def __str__(self):
         return '{name}:{build}'.format(name=self.name, build=self.build)
+
 
 revit = Revit()
 from Autodesk.Revit import DB, UI
