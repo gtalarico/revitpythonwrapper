@@ -39,6 +39,8 @@ class BaseObject(object):
         # TODO: Implement Dir on BaseOBject and BaseObjectWrapper for proper AC
             # return list(self.__dict__)
 
+        # TODO: Allow dictionary like BaseObjectWapper
+
         def __repr__(self, data=''):
             return '<rpw:{class_name} | {data}>'.format(
                                         class_name=self.__class__.__name__,

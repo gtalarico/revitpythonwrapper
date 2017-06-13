@@ -144,6 +144,7 @@ class ElementSet(BaseObject):
         return bool(self._element_ids)
 
     def __repr__(self, data=None):
+        # TODO: Sent {'count': len}
         return super(ElementSet, self).__repr__(data=len(self))
 
     # @property - why not use index[0] which is standard pyhon.
