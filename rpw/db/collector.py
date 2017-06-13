@@ -28,16 +28,34 @@ class BaseFilter(BaseObject):
     method = 'WherePasses'
 
     @classmethod
+    def process_value(cls, value):
+        """
+        Filters must implement this method to process the input values and
+        convert it into the proper filter or value.
+
+        For example, if the user inputs `level=Level`,
+        process value will create a ElementLevelFilter() with the id of Level.
+
+        Additionally, this method can be used for more advanced input
+        processing, for example, converting a 'LevelName' into a Level
+        to allow for more flexible input options
+        """
+        raise NotImplemented
+
+    @classmethod
     def apply(cls, doc, collector, value):
+        """ Filters can overide this method to define how the filter is applied
+        The default behavious is to chain the ``method`` defined by the filter
+        class (ie. WherePasses) to the collector, and feed it the input `value`.
+        """
         method_name = cls.method
         method = getattr(collector, method_name)
-        if hasattr(cls, 'process_value'):
 
-            # FamilyInstanceFilter is the only Filter that  requires Doc
-            if cls is not FilterClasses.FamilyInstanceFilter:
-                value = cls.process_value(value)
-            else:
-                value = cls.process_value(value, doc)
+        # FamilyInstanceFilter is the only Filter that  requires Doc
+        if cls is not FilterClasses.FamilyInstanceFilter:
+            value = cls.process_value(value)
+        else:
+            value = cls.process_value(value, doc)
 
         return method(value)
 
@@ -58,13 +76,59 @@ class SlowFilter(BaseFilter):
 
 
 class SuperSlowFilter(BaseFilter):
-    """ Leave it for Last! """
+    """ Leave it for Last. Must unpack results """
     priority_group = 3
 
 
 class FilterClasses():
-    """ Groups FilterClasses to facilitate discovery."""
+    """ Groups FilterClasses to facilitate discovery.
 
+        Implementation Tracker:
+        Quick
+            _ Autodesk.Revit.DB BoundingBoxContainsPointFilter
+            _ Autodesk.Revit.DB BoundingBoxIntersectsFilter
+            _ Autodesk.Revit.DB BoundingBoxIsInsideFilter
+            X Autodesk.Revit.DB ElementCategoryFilter = of_category
+            X Autodesk.Revit.DB ElementClassFilter = of_class
+            _ Autodesk.Revit.DB ElementDesignOptionFilter
+            X Autodesk.Revit.DB ElementIsCurveDrivenFilter = is_curve_driven
+            X Autodesk.Revit.DB ElementIsElementTypeFilter = is_type / is_not_type
+            _ Autodesk.Revit.DB ElementMulticategoryFilter
+            _ Autodesk.Revit.DB ElementMulticlassFilter
+            X Autodesk.Revit.DB ElementOwnerViewFilter = view
+            _ Autodesk.Revit.DB ElementStructuralTypeFilter
+            _ Autodesk.Revit.DB ElementWorksetFilter
+            _ Autodesk.Revit.DB ExclusionFilter = exclude
+            _ Autodesk.Revit.DB.ExtensibleStorage ExtensibleStorageFilter
+            X Autodesk.Revit.DB FamilySymbolFilter = family
+        Slow
+            _ Autodesk.Revit.DB.Architecture RoomFilter
+            _ Autodesk.Revit.DB.Architecture RoomTagFilter
+            _ Autodesk.Revit.DB AreaFilter
+            _ Autodesk.Revit.DB AreaTagFilter
+            _ Autodesk.Revit.DB CurveElementFilter
+            _ Autodesk.Revit.DB ElementIntersectsFilter
+            X Autodesk.Revit.DB ElementLevelFilter
+            _ Autodesk.Revit.DB ElementParameterFilter
+            _ Autodesk.Revit.DB ElementPhaseStatusFilter
+            X Autodesk.Revit.DB FamilyInstanceFilter = symbol
+            _ Autodesk.Revit.DB.Mechanical SpaceFilter
+            _ Autodesk.Revit.DB.Mechanical SpaceTagFilter
+            _ Autodesk.Revit.DB PrimaryDesignOptionMemberFilter
+            _ Autodesk.Revit.DB.Structure FamilyStructuralMaterialTypeFilter
+            _ Autodesk.Revit.DB.Structure StructuralInstanceUsageFilter
+            _ Autodesk.Revit.DB.Structure StructuralMaterialTypeFilter
+            _ Autodesk.Revit.DB.Structure StructuralWallUsageFilter
+            _ Autodesk.Revit.UI.Selection SelectableInViewFilter
+
+        Logical
+            _ Autodesk.Revit.DB LogicalAndFilter = and_filter
+            _ Autodesk.Revit.DB LogicalOrFilter = or_filter
+
+        Others
+            X Custom where - uses lambda
+
+    """
     @classmethod
     def get_available_filters(cls):
         """ Discover all Defined Filter Classes """
@@ -189,7 +253,8 @@ class FilterClasses():
 
     class WhereFilter(SuperSlowFilter):
         """ Requires Unpacking of each Element. As per the API design,
-        this filter must be combined """
+        this filter must be combined
+        """
         keyword = 'where'
         # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
         # rpw.db.Collector(of_class='FamilyInstance', where=lambda x: 'Student' in x.name)
