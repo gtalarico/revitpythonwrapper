@@ -154,7 +154,7 @@ class Selection(BaseObjectWrapper):
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
-        return super(Selection, self).__repr__(len(self))
+        return super(Selection, self).__repr__(data={'count': len(self)})
     #
     #
     # def _pick_obj(self, obj_type, pick_message, multiple=False, world=False):
