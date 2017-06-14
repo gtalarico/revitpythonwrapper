@@ -15,8 +15,8 @@ def debug():
     stack_locals = stack.f_locals
     stack_globals = stack.f_globals
 
-    print('Local vars: ' + str(stack_locals))
-    print('Global vars: ' + str(stack_globals))
+    # print('Local vars: ' + str(stack_locals))
+    # print('Global vars: ' + str(stack_globals))
     console = Console(stack_globals, stack_locals)
     console.ShowDialog()
 
@@ -43,30 +43,27 @@ except ImportError as errmsg:
     # from rpw.utils.sphinx_compat import *
 
 class Console(Window):
+    # https://www.roelvanlisdonk.nl/2010/12/09/setting-100-width-and-100-height-for-a-textbox-in-wpf/
     LAYOUT = """
     <Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:WpfApplication1"
-    mc:Ignorable="d"
-    Title="MainWindow" Height="350" Width="525">
+    Title="DeployWindow" Height="400" Width="800" SnapsToDevicePixels="True" UseLayoutRounding="True" WindowState="Normal" WindowStartupLocation="CenterScreen"
+    >
     <Grid>
-    <TextBox x:Name="text_box"
-    KeyDown="OnKeyDownHandler"
-    KeyUp="OnKeyUpHandler"
-    Height="319"
-    AcceptsReturn="True"
-    TextWrapping="Wrap"
-    Text="TextBox"
-    VerticalAlignment="Top"
-    VerticalScrollBarVisibility="Auto"
-    HorizontalAlignment="Left"
-    Width="517"/>
+    <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+    <RowDefinition Height="0"></RowDefinition>
+    <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch" KeyDown="OnKeyDownHandler" KeyUp="OnKeyUpHandler"
+    Name="text_box" Margin="6,6,6,6" VerticalAlignment="Stretch" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
     </Grid>
     </Window>
     """
+    # <Button Grid.Column="1" Content="Deploy" Height="30" Width="100" HorizontalAlignment="Left" Margin="10,10,10,10" Name="deployButton" Cursor="Hand" />
 
     NEWLINE = '>>> '
 
@@ -76,7 +73,8 @@ class Console(Window):
         self.stack_globals = stack_globals
 
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
-        # self.ui.Title = title
+        self.ui.Title = 'RevitPythonWrapper Stack Debugger'
+
         self.ui.text_box.Text = Console.NEWLINE
         self.ui.text_box.Focus()
         self.ui.text_box.CaretIndex = self.ui.text_box.Text.Length
@@ -87,6 +85,8 @@ class Console(Window):
 
     def OnKeyUpHandler(self, sender, args):
         line_count = sender.LineCount
+        if line_count == 1:
+            return
         if args.Key == Key.Enter:
             last_line = line_count - 1
             # line = sender.GetLineText(line_count - 2)[3:-1] - ipy console
@@ -109,12 +109,12 @@ class Console(Window):
     def OnKeyDownHandler(self, sender, args):
         pass
 
-if __name__ == '__main__':
-    # console = Console()
-    # console.show()
-    def some():
-        xxxxxxxxxxxxxxxxxxxx = 'asdadasdasdqweqweqw'
-        y = 3
-        debug()
-
-    some()
+# if __name__ == '__main__':
+#     # console = Console()
+#     # console.show()
+#     def some():
+#         xxxxxxxxxxxxxxxxxxxx = 'asdadasdasdqweqweqw'
+#         y = 3
+#         debug()
+#
+#     some()
