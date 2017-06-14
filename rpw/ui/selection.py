@@ -95,65 +95,70 @@ class Selection(BaseObjectWrapper, ElementSet):
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
         return super(Selection, self).__repr__(data={'count': len(self)})
+
+
+class Pick():
+
+    @staticmethod
+    def _pick_obj(obj_type, msg='', multiple=False, world=False):
+        # PICK_MAP = {multiple: }
+        # try:
+            # logger.debug('Picking elements: {} '
+            #              'pick_message: {} '
+            #              'multiple: {} '
+            #              'world: {}'.format(obj_type, pick_message,
+            #                                 multiple, world))
+            # if multiple:
+            #     self._refs = list(uidoc.Selection.PickObjects(obj_type,
+            #                                                   msg))
+            # else:
+            #     self._refs = []
+            selected = uidoc.Selection.PickObject(obj_type, msg)
+
+            # if not self._refs:
+            #     logger.debug('Nothing picked by user...Returning None')
+            #     return None
+            #
+            # logger.debug('Picked elements are: {}'.format(self._refs))
+            #
+            # if obj_type == UI.Selection.ObjectType.Element:
+            #     return_values = [doc.GetElement(ref) for ref in self._refs]
+            # elif obj_type == UI.Selection.ObjectType.PointOnElement:
+            #     if world:
+            #         return_values = [ref.GlobalPoint for ref in self._refs]
+            #     else:
+            #         return_values = [ref.UVPoint for ref in self._refs]
+            # else:
+            #     return_values = \
+            #         [doc.GetElement(ref).GetGeometryObjectFromReference(ref)
+            #          for ref in self._refs]
+            #
+            # logger.debug('Processed return elements are: {}'
+            #              .format(return_values))
+            #
+            # if type(return_values) is list:
+            #     if len(return_values) > 1:
+            #         return return_values
+            #     elif len(return_values) == 1:
+            #         return return_values[0]
+            # else:
+            #     logger.error('Error processing picked elements. '
+            #                  'return_values should be a list.')
+        # except:
+            # return None
     #
     #
-    # def _pick_obj(self, obj_type, pick_message, multiple=False, world=False):
-    #     PICK_MAP = {multiple: }
-    #     try:
-    #         # logger.debug('Picking elements: {} '
-    #         #              'pick_message: {} '
-    #         #              'multiple: {} '
-    #         #              'world: {}'.format(obj_type, pick_message,
-    #         #                                 multiple, world))
-    #         if multiple:
-    #             self._refs = list(uidoc.Selection.PickObjects(obj_type,
-    #                                                           pick_message))
-    #         else:
-    #             self._refs = []
-    #             self._refs.append(uidoc.Selection.PickObject(obj_type,
-    #                                                          pick_message))
-    #
-    #         if not self._refs:
-    #             logger.debug('Nothing picked by user...Returning None')
-    #             return None
-    #
-    #         logger.debug('Picked elements are: {}'.format(self._refs))
-    #
-    #         if obj_type == ObjectType.Element:
-    #             return_values = [doc.GetElement(ref) for ref in self._refs]
-    #         elif obj_type == ObjectType.PointOnElement:
-    #             if world:
-    #                 return_values = [ref.GlobalPoint for ref in self._refs]
-    #             else:
-    #                 return_values = [ref.UVPoint for ref in self._refs]
-    #         else:
-    #             return_values = \
-    #                 [doc.GetElement(ref).GetGeometryObjectFromReference(ref)
-    #                  for ref in self._refs]
-    #
-    #         logger.debug('Processed return elements are: {}'
-    #                      .format(return_values))
-    #
-    #         if type(return_values) is list:
-    #             if len(return_values) > 1:
-    #                 return return_values
-    #             elif len(return_values) == 1:
-    #                 return return_values[0]
-    #         else:
-    #             logger.error('Error processing picked elements. '
-    #                          'return_values should be a list.')
-    #     except:
-    #         return None
-    #
-    #
-    # def pick_element(self, message=''):
-    #     return self._pick_obj(ObjectType.Element, message)
-    #
-    # def pick_elementpoint(self, message='', world=False):
-    #     return self._pick_obj(ObjectType.PointOnElement, message, world=world)
-    #
-    # def pick_edge(self, message=''):
-    #     return self._pick_obj(ObjectType.Edge, message)
+    @staticmethod
+    def element(msg=''):
+        return Pick._pick_obj(UI.Selection.ObjectType.Element, msg=msg)
+
+    @staticmethod
+    def element_point(msg='', world=False):
+        return Pick._pick_obj(UI.Selection.ObjectType.PointOnElement, msg=msg, world=world)
+
+    @staticmethod
+    def edge(msg=''):
+        return Pick._pick_obj(UI.Selection.ObjectType.Edge, msg=msg)
     #
     # def pick_face(self, message=''):
     #     return self._pick_obj(ObjectType.Face, message)
