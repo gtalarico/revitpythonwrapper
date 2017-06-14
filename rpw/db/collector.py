@@ -86,45 +86,45 @@ class FilterClasses():
 
         Implementation Tracker:
         Quick
-            _ Autodesk.Revit.DB BoundingBoxContainsPointFilter
-            _ Autodesk.Revit.DB BoundingBoxIntersectsFilter
-            _ Autodesk.Revit.DB BoundingBoxIsInsideFilter
-            X Autodesk.Revit.DB ElementCategoryFilter = of_category
-            X Autodesk.Revit.DB ElementClassFilter = of_class
-            _ Autodesk.Revit.DB ElementDesignOptionFilter
-            X Autodesk.Revit.DB ElementIsCurveDrivenFilter = is_curve_driven
-            X Autodesk.Revit.DB ElementIsElementTypeFilter = is_type / is_not_type
-            _ Autodesk.Revit.DB ElementMulticategoryFilter
-            _ Autodesk.Revit.DB ElementMulticlassFilter
-            X Autodesk.Revit.DB ElementOwnerViewFilter = view
-            _ Autodesk.Revit.DB ElementStructuralTypeFilter
-            _ Autodesk.Revit.DB ElementWorksetFilter
-            _ Autodesk.Revit.DB ExclusionFilter = exclude
-            _ Autodesk.Revit.DB.ExtensibleStorage ExtensibleStorageFilter
-            X Autodesk.Revit.DB FamilySymbolFilter = family
+            _ Revit.DB.BoundingBoxContainsPointFilter
+            _ Revit.DB.BoundingBoxIntersectsFilter
+            _ Revit.DB.BoundingBoxIsInsideFilter
+            X Revit.DB.ElementCategoryFilter = of_category
+            X Revit.DB.ElementClassFilter = of_class
+            _ Revit.DB.ElementDesignOptionFilter
+            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven
+            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type
+            _ Revit.DB.ElementMulticategoryFilter
+            _ Revit.DB.ElementMulticlassFilter
+            X Revit.DB.ElementOwnerViewFilter = view
+            _ Revit.DB.ElementStructuralTypeFilter
+            _ Revit.DB.ElementWorksetFilter
+            _ Revit.DB.ExclusionFilter = exclude
+            _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter
+            X Revit.DB.FamilySymbolFilter = family
         Slow
-            _ Autodesk.Revit.DB.Architecture RoomFilter
-            _ Autodesk.Revit.DB.Architecture RoomTagFilter
-            _ Autodesk.Revit.DB AreaFilter
-            _ Autodesk.Revit.DB AreaTagFilter
-            _ Autodesk.Revit.DB CurveElementFilter
-            _ Autodesk.Revit.DB ElementIntersectsFilter
-            X Autodesk.Revit.DB ElementLevelFilter
-            _ Autodesk.Revit.DB ElementParameterFilter
-            _ Autodesk.Revit.DB ElementPhaseStatusFilter
-            X Autodesk.Revit.DB FamilyInstanceFilter = symbol
-            _ Autodesk.Revit.DB.Mechanical SpaceFilter
-            _ Autodesk.Revit.DB.Mechanical SpaceTagFilter
-            _ Autodesk.Revit.DB PrimaryDesignOptionMemberFilter
-            _ Autodesk.Revit.DB.Structure FamilyStructuralMaterialTypeFilter
-            _ Autodesk.Revit.DB.Structure StructuralInstanceUsageFilter
-            _ Autodesk.Revit.DB.Structure StructuralMaterialTypeFilter
-            _ Autodesk.Revit.DB.Structure StructuralWallUsageFilter
+            _ Revit.DB.Architecture RoomFilter
+            _ Revit.DB.Architecture RoomTagFilter
+            _ Revit.DB.AreaFilter
+            _ Revit.DB.AreaTagFilter
+            _ Revit.DB.CurveElementFilter
+            _ Revit.DB.ElementIntersectsFilter
+            X Revit.DB.ElementLevelFilter
+            _ Revit.DB.ElementParameterFilter
+            _ Revit.DB.ElementPhaseStatusFilter
+            X Revit.DB.FamilyInstanceFilter = symbol
+            _ Revit.DB.Mechanical SpaceFilter
+            _ Revit.DB.Mechanical SpaceTagFilter
+            _ Revit.DB.PrimaryDesignOptionMemberFilter
+            _ Revit.DB.Structure FamilyStructuralMaterialTypeFilter
+            _ Revit.DB.Structure StructuralInstanceUsageFilter
+            _ Revit.DB.Structure StructuralMaterialTypeFilter
+            _ Revit.DB.Structure StructuralWallUsageFilter
             _ Autodesk.Revit.UI.Selection SelectableInViewFilter
 
         Logical
-            _ Autodesk.Revit.DB LogicalAndFilter = and_filter
-            _ Autodesk.Revit.DB LogicalOrFilter = or_filter
+            _ Revit.DB.LogicalAndFilter = and_filter
+            _ Revit.DB.LogicalOrFilter = or_filter
 
         Others
             X Custom where - uses lambda
@@ -224,8 +224,7 @@ class FilterClasses():
 
         @classmethod
         def process_value(cls, level_reference):
-            # TODO: Move this into Level Wrapper - Level.collect(name='')
-            # Handle filter by level name
+            """ Process level= input to allow for level name """
             if isinstance(level_reference, str):
                 level = Collector(of_class='Level', is_type=False,
                                   where=lambda x:
@@ -253,12 +252,19 @@ class FilterClasses():
                 raise Exception('Shouldnt get here')
 
     class WhereFilter(SuperSlowFilter):
-        """ Requires Unpacking of each Element. As per the API design,
+        """
+        Requires Unpacking of each Element. As per the API design,
         this filter must be combined.
+
+        By default, function will test against wrapped elements for easier
+        parameter access
+
+        >>> rpw.db.Collector(of_class='FamilyInstance', where=lambda x: 'Desk' in x.name)
+        >>> rpw.db.Collector(of_class='Wall', where=lambda x: 'Desk' in x.parameters['Length'] > 5.0)
         """
         keyword = 'where'
-        # w = rpw.db.Collector(of_category='Walls', is_type=False, where=lambda x: x.LookupParameter('Length').AsDouble() > 5 )
-        # rpw.db.Collector(of_class='FamilyInstance', where=lambda x: 'Student' in x.name)
+
+
         @classmethod
         def apply(cls, doc, collector, func):
             excluded_elements = set()
@@ -343,10 +349,12 @@ class Collector(BaseObjectWrapper):
             * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``
             * ``owner_view`` (``DB.ElementId, View`): ``WhereElementIsViewIndependent(True)``
             * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``
+            * ``family`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Family
             * ``symbol`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Symbol
             * ``level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId of Level, or Level Name
             * ``not_level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId of Level, or Level Name
             * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class
+            * ``where`` (`function`): function to test your elements against
 
         """
         # Define Filtered Element Collector Scope + Doc
@@ -375,6 +383,17 @@ class Collector(BaseObjectWrapper):
         self._collector = self._collect(collector_doc, collector, filters)
 
     def _collect(self, doc, collector, filters):
+        """
+        Main Internal Recursive Collector Function.
+
+        Args:
+            doc (`UI.UIDocument`): Document for the collector.
+            collector (`FilteredElementCollector`): FilteredElementCollector
+            filters (`dict`): Filters - {'doc': revit.doc, 'of_class': 'Wall'}
+
+        Returns:
+            collector (`FilteredElementCollector`): FilteredElementCollector
+        """
         for filter_class in FilterClasses.get_sorted():
             if filter_class.keyword not in filters:
                 continue
@@ -391,19 +410,22 @@ class Collector(BaseObjectWrapper):
 
     @property
     def elements(self):
-        """ Returns list with all elements instantiated using :any:`Element.Factory`
+        """
+        Returns list with all elements instantiated using :any:`Element.Factory`
         """
         return [element for element in self.__iter__()]
 
     @property
     def wrapped_elements(self):
-        """ Returns list with all elements instantiated using :any:`Element.Factory`
+        """
+        Returns list with all elements instantiated using :any:`Element.Factory`
         """
         return [Element(el) for el in self.__iter__()]
 
     @property
     def first(self):
-        """ Returns first element or `None`
+        """
+        Returns first element or `None`
 
         Returns:
             Element (`DB.Element`, `None`): First element or None
@@ -424,7 +446,8 @@ class Collector(BaseObjectWrapper):
             if n == index:
                 return element
         else:
-            raise IndexError('Index {} not in collector {}'.format(index, self))
+            raise IndexError('Index {} not in collector {}'.format(index,
+                                                                   self))
 
     def __bool__(self):
         """ Evaluates to `True` if Collector.elements is not empty [] """
@@ -435,7 +458,7 @@ class Collector(BaseObjectWrapper):
         return self._collector.GetElementCount()
 
     def __repr__(self):
-        return super(Collector, self).__repr__(data={'count':len(self)})
+        return super(Collector, self).__repr__(data={'count': len(self)})
 
 
 class ParameterFilter(BaseObjectWrapper):
@@ -471,8 +494,8 @@ class ParameterFilter(BaseObjectWrapper):
             'not_less_equal': 'CreateLessOrEqualRule',
            }
 
-    CASE_SENSITIVE = True
-    FLOAT_PRECISION = 0.0013020833333333
+    CASE_SENSITIVE = True                 # Override with case_sensitive=False
+    FLOAT_PRECISION = 0.0013020833333333  # 1/64" in ft:(1/64" = 0.015625)/12
 
     def __init__(self, parameter_reference, **conditions):
         """
@@ -537,16 +560,14 @@ class ParameterFilter(BaseObjectWrapper):
             filter_rule = filter_value_rule(parameter_id, *args)
             if 'not_' in condition_name:
                 filter_rule = DB.FilterInverseRule(filter_rule)
-            ##################################################################
-            # FILTER DEBUG INFO - TODO: MOVE TO FUNCTION
-            ##################################################################
-            # logger.critical('Conditions: {}'.format(conditions))
-            # logger.critical('Case sensitive: {}'.format(case_sensitive))
-            # logger.critical('Reverse: {}'.format(self.reverse))
-            # logger.critical('ARGS: {}'.format(args))
-            # logger.critical(filter_rule)
-            # logger.critical(str(dir(filter_rule)))
-            ##################################################################
+
+            logger.debug('ParamFilter Conditions: {}'.format(conditions))
+            logger.debug('Case sensitive: {}'.format(case_sensitive))
+            logger.debug('Reverse: {}'.format(self.reverse))
+            logger.debug('ARGS: {}'.format(args))
+            logger.debug(filter_rule)
+            logger.debug(str(dir(filter_rule)))
+
             rules.append(filter_rule)
         if not rules:
             raise RPW_Exception('malformed filter rule: {}'.format(conditions))
@@ -567,12 +588,13 @@ class ParameterFilter(BaseObjectWrapper):
 
     @staticmethod
     def from_element_and_parameter(element, param_name, **conditions):
-        """ Alternative constructor to built Parameter Filter from Element +
-        Parameter Name """
-        # TEST: parameter_filter from object+param name to skip having to get param_id
-        #       basically an alternative constructor that takes elemement + parameter name
-        #       instead of param_id, which is a pain in the ass
-        #       >>> parameter_filter = ParameterFilter.from_element(element,param_name, less_than=10)"""
+        """
+        Alternative constructor to built Parameter Filter from Element +
+        Parameter Name instead of parameter Id
+
+        >>> parameter_filter = ParameterFilter.from_element(element,param_name, less_than=10)
+        >>> Collector(parameter_filter=parameter_filter)
+        """
         parameter = element.LookupParameter(param_name)
         param_id = parameter.Id
         return ParameterFilter(param_id, **conditions)
