@@ -8,10 +8,12 @@ from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_TypeError
 from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids
+from rpw.extras import ElementSet
 
 doc, uidoc = revit.doc, revit.uidoc
 
-class Selection(BaseObjectWrapper):
+
+class Selection(BaseObjectWrapper, ElementSet):
     """
     >>> selection = rpw.ui.Selection()
     >>> selection[0]
@@ -29,7 +31,7 @@ class Selection(BaseObjectWrapper):
 
     _revit_object_class = UI.Selection.Selection
 
-    def __init__(self, elements=None, uidoc=revit.uidoc):
+    def __init__(self, elements_or_ids=None, uidoc=revit.uidoc):
         """
         Initializes Selection. Elements or ElementIds are optional.
         If no elements are provided on intiialization,
@@ -43,9 +45,9 @@ class Selection(BaseObjectWrapper):
         >>> selection = Selection([Element, Element, Element, ...])
 
         """
-        super(Selection, self).__init__(uidoc.Selection)
-        if elements:
-            self.add(elements)
+        BaseObjectWrapper.__init__(self, uidoc.Selection)
+        self.uidoc = uidoc
+        ElementSet.__init__(self, elements_or_ids, doc=uidoc.Document)
 
     def add(self, elements_or_ids):
         """ Adds elements to selection.
@@ -58,32 +60,8 @@ class Selection(BaseObjectWrapper):
         >>> selection.add([elements])
         >>> selection.add([element_ids])
         """
-        if not isinstance(elements_or_ids, (list, set)):
-            elements_or_ids = [elements_or_ids]
-        element_ids = to_element_ids(elements_or_ids)
-
-        current_selection = [e for e in uidoc.Selection.GetElementIds()]
-        new_selection = element_ids + current_selection
-        uidoc.Selection.SetElementIds(List[DB.ElementId](new_selection))
-
-    @property
-    def element_ids(self):
-        """
-        Gets list of ```ElemendId`` in selection
-
-        Returns:
-            [DB.ElementId]: List of ElementIds Objects """
-        return [eid for eid in self._revit_object.GetElementIds()]
-
-    @property
-    def elements(self):
-        """
-        Gets list of ```Elemend`` in selection
-
-        Returns:
-            [DB.Element]: List of Elements """
-        return [doc.GetElement(eid) for eid in self.element_ids]
-
+        ElementSet.add(self, elements_or_ids)
+        uidoc.Selection.SetElementIds(List[DB.ElementId](self.element_ids))
 
     def clear(self):
         """ Clears Selection
@@ -94,37 +72,8 @@ class Selection(BaseObjectWrapper):
         Returns:
             None
         """
+        ElementSet.clear(self)
         uidoc.Selection.SetElementIds(List[DB.ElementId]())
-
-    def __getitem__(self, index):
-        """
-        Retrieves element in seleciton using index.
-        If Index is out range, ``None`` is returned
-
-        Args:
-            int: Integer representing item index in ``selection.elements``
-
-        Returns:
-            ``DB.Element``, ``None``: Item at Index, or None
-
-        >>> selection[0]
-        < Revit.DB.Element >
-        """
-        return self.elements[index]
-
-    def __contains__(self, element_reference):
-        """
-        Checks if selection contains the element Reference.
-        Args:
-            Reference: Element, ElementId, or Integer
-        Returns:
-            bool: ``True`` or ``False``
-        """
-        element_ids = to_element_ids(element_reference)
-        if len(element_ids) != 1:
-            raise RPW_TypeError('element_reference', type(element_reference))
-        element_id = element_ids[0]
-        return any([e == element_id for e in self.element_ids])
 
     def __bool__(self):
         """
@@ -141,16 +90,7 @@ class Selection(BaseObjectWrapper):
         >>> bool(selection)
         False
         """
-        return bool(self.elements)
-
-    def __len__(self):
-        """ Number items of Selection
-
-        >>> selection = Selection(OneElement)
-        >>> len(selection)
-        1
-        """
-        return len(self.element_ids)
+        return bool(len(self))
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
