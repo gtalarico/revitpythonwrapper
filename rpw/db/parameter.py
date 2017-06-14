@@ -156,7 +156,7 @@ class Parameter(BaseObjectWrapper):
     """
 
     _revit_object_class = DB.Parameter
-    storage_types = {
+    STORAGE_TYPES = {
                     'String': str,
                     'Double': float,
                     'Integer': int,
@@ -189,7 +189,14 @@ class Parameter(BaseObjectWrapper):
             <type: float>
         """
         storage_type_name = self._revit_object.StorageType.ToString()
-        return Parameter.storage_types[storage_type_name]
+        python_type = Parameter.STORAGE_TYPES[storage_type_name]
+
+        return python_type
+
+    @property
+    def parameter_type(self):
+        parameter_type = self._revit_object.Definition.ParameterType
+        return parameter_type
 
     @property
     def id(self):
@@ -225,10 +232,13 @@ class Parameter(BaseObjectWrapper):
             return self._revit_object.AsString()
         if self.type is float:
             return self._revit_object.AsDouble()
-        if self.type is int:
-            return self._revit_object.AsInteger()
         if self.type is DB.ElementId:
             return self._revit_object.AsElementId()
+        if self.type is int:
+            if self.parameter_type is DB.ParameterType.YesNo:
+                return bool(self._revit_object.AsInteger())
+            else:
+                return self._revit_object.AsInteger()
 
         raise RPW_Exception('could not get storage type: {}'.format(self.type))
 
@@ -249,6 +259,8 @@ class Parameter(BaseObjectWrapper):
             elif isinstance(value, int) and self.type is float:
                 value = float(value)
             elif isinstance(value, float) and self.type is int:
+                value = int(value)
+            elif isinstance(value, bool) and self.type is int:
                 value = int(value)
             else:
                 raise RPW_WrongStorageType(self.type, value)
