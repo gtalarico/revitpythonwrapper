@@ -256,6 +256,30 @@ class Parameter(BaseObjectWrapper):
         param = self._revit_object.Set(value)
         return param
 
+    def __eq__(self, other):
+        """ Equal Parameter Value Comparison """
+        return self.value == other
+
+    def __ne__(self, other):
+        """ Not Equal Parameter Value Comparison """
+        return self.value != other
+
+    def __gt__(self, other):
+        """ Greater than Parameter Value Comparison """
+        return self.value > other
+
+    def __ge__(self, other):
+        """ Greater or Equal Parameter Value Comparison """
+        return self.value >= other
+
+    def __lt__(self, other):
+        """ Less than Parameter Value Comparison """
+        return self.value < other
+
+    def __le__(self, other):
+        """ Less or Equal Parameter Value Comparison """
+        return self.value <= other
+
     @property
     def name(self):
         """
