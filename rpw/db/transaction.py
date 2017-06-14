@@ -66,7 +66,6 @@ class Transaction(BaseObjectWrapper):
         >>>
         >>> set_some_parameter(wall, value)
         """
-        # TODO: Test in Dynamo
         from functools import wraps
 
         def wrap(f):
@@ -79,6 +78,7 @@ class Transaction(BaseObjectWrapper):
         return wrap
 
     # TODO: Add  __repr__ with Transaction Status
+    # TODO: Merge Transaction Status
 
 
 class TransactionGroup(BaseObjectWrapper):
@@ -131,7 +131,7 @@ class TransactionGroup(BaseObjectWrapper):
 
 class DynamoTransaction(object):
 
-    # TODO: Use Dynamo Transaction when platform='dynamo'
+    # TODO: Use Dynamo Transaction when HOST is 'Dynamo'
 
     def __init__(self, name):
         raise NotImplemented

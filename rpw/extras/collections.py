@@ -94,11 +94,10 @@ class ElementSet(BaseObject):
     Provides helpful methods for managing a set of unique of ``DB.ElementId``.
 
     >>> elements = ElementSet([element, element])
-    >>>
 
+    NOTE: Similar to ElementSet, but not sure there is an advante in wrapping
     """
-    # TODO: Allow to consume wrapped ElementSet
-    
+
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
         self._element_ids = set()
@@ -145,8 +144,7 @@ class ElementSet(BaseObject):
         return bool(self._element_ids)
 
     def __repr__(self, data=None):
-        # TODO: Sent {'count': len}
-        return super(ElementSet, self).__repr__(data=len(self))
+        return super(ElementSet, self).__repr__(data={'count': len(self)})
 
     # @property - why not use index[0] which is standard pyhon.
     # Only advantage would be if is fail safe, so user does not have to check for error,

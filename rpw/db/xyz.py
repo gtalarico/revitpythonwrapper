@@ -29,7 +29,6 @@ class XYZ(BaseObjectWrapper):
         Args:
             instance (``DB.XYZ``): Instance of XYZ to be wrapped
         """
-        # TODO: rpw.db.Element(XYZ(0,0,0)) does not work
         if len(xyz_or_tuple) == 3:
             xyz = DB.XYZ(*xyz_or_tuple)
         elif len(xyz_or_tuple) == 2:

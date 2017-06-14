@@ -73,9 +73,6 @@ class ParameterSet(BaseObjectWrapper):
         """
         return [Parameter(parameter) for parameter in self._revit_object.Parameters]
 
-    # def __lt__(self, other):
-    # TODO: Implement Comparison operators to allow e.parameters['Length'] > 5
-
     def __len__(self):
         return len(self.all)
 
