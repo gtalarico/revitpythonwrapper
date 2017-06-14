@@ -235,10 +235,7 @@ class Parameter(BaseObjectWrapper):
         if self.type is DB.ElementId:
             return self._revit_object.AsElementId()
         if self.type is int:
-            if self.parameter_type is DB.ParameterType.YesNo:
-                return bool(self._revit_object.AsInteger())
-            else:
-                return self._revit_object.AsInteger()
+            return self._revit_object.AsInteger()
 
         raise RPW_Exception('could not get storage type: {}'.format(self.type))
 
