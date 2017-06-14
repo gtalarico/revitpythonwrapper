@@ -49,6 +49,9 @@ class Selection(BaseObjectWrapper, ElementSet):
         self.uidoc = uidoc
         ElementSet.__init__(self, elements_or_ids, doc=uidoc.Document)
 
+        from rpw.utils import debug
+        debug(locals())
+
     def add(self, elements_or_ids):
         """ Adds elements to selection.
 
