@@ -97,7 +97,8 @@ class ElementSet(BaseObject):
     >>>
 
     """
-    # TODO: Allow to consume wrapped Element
+    # TODO: Allow to consume wrapped ElementSet
+    
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
         self._element_ids = set()

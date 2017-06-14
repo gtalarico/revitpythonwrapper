@@ -563,7 +563,7 @@ class ParameterFilter(BaseObjectWrapper):
 
             logger.debug('ParamFilter Conditions: {}'.format(conditions))
             logger.debug('Case sensitive: {}'.format(case_sensitive))
-            logger.debug('Reverse: {}'.format(self.reverse))
+            logger.debug('Reverse: {}'.format(reverse))
             logger.debug('ARGS: {}'.format(args))
             logger.debug(filter_rule)
             logger.debug(str(dir(filter_rule)))
