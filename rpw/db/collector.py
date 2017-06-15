@@ -6,8 +6,6 @@
 
 """
 
-import types
-
 from rpw.revit import revit, DB
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject

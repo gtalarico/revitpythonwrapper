@@ -16,16 +16,12 @@ Note:
 ###
 import re
 from rpw.revit import DB
+from rpw.base import BaseObject
 from rpw.utils.dotnet import Enum
-from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_CoerceError
 
 
-# For Compatibility
-# BipEnum = BuiltInParameters
-# BipEnum = BuiltInParameters
-
-class BuiltInParameter(type):
+class BiParameter(BaseObject):
     """
     BuiltInParameter Wrapper
 
@@ -35,8 +31,10 @@ class BuiltInParameter(type):
     Revit.DB.ElementId
     """
 
-    @classmethod
-    def get(cls, parameter_name):
+    def __getattr__(self, attr):
+        return self.get(attr)
+
+    def get(self, parameter_name):
         """ Gets Built In Parameter by Name
 
         Args:
@@ -52,8 +50,7 @@ class BuiltInParameter(type):
             raise RPW_CoerceError(parameter_name, DB.BuiltInParameter)
         return enum
 
-    @classmethod
-    def get_id(cls, parameter_name):
+    def get_id(self, parameter_name):
         """ Gets ElementId of Category by name
 
         Args:
@@ -62,11 +59,11 @@ class BuiltInParameter(type):
         Returns:
             ``DB.BuitInParameter``: BuiltInParameter Enumeration Member
         """
-        enum = cls.get(parameter_name)
+        enum = self.get(parameter_name)
         return DB.ElementId(enum)
 
 
-class BuiltInCategory(type):
+class BiCategory(BaseObject):
     """
     Enumeration Wrapper
 
@@ -78,8 +75,7 @@ class BuiltInCategory(type):
     DB.BuiltInCategory.OST_Furniture
     """
 
-    @classmethod
-    def get(cls, category_name):
+    def get(self, category_name):
         """ Gets Built In Category by Name
 
         Args:
@@ -95,20 +91,18 @@ class BuiltInCategory(type):
             raise RPW_CoerceError(category_name, DB.BuiltInCategory)
         return enum
 
-    @classmethod
-    def fuzzy_get(cls, loose_category_name):
+    def fuzzy_get(self, loose_category_name):
         loose_category_name = loose_category_name.replace(' ', '').lower()
         loose_category_name = loose_category_name.replace('ost_', '')
         for category_name in dir(DB.BuiltInCategory):
             exp = '(OST_)({})$'.format(loose_category_name)
             if re.search(exp, category_name, re.IGNORECASE):
-                return cls.get(category_name)
+                return self.get(category_name)
         # If not Found Try regular method, handle error
-        return cls.get(loose_category_name)
+        return self.get(loose_category_name)
 
 
-    @classmethod
-    def get_id(cls, category_name):
+    def get_id(self, category_name):
         """ Gets ElementId of Category by name
 
         Args:
@@ -117,11 +111,10 @@ class BuiltInCategory(type):
         Returns:
             ``DB.BuiltInCategory``: BuiltInCategory Enumeration Member
         """
-        enum = cls.get(category_name)
+        enum = self.get(category_name)
         return DB.ElementId(enum)
 
-    @classmethod
-    def from_category_id(cls, category_id):
+    def from_category_id(self, category_id):
         """
         Casts ``DB.BuiltInCategory`` Enumeration member from a Category ElementId
 
@@ -136,5 +129,5 @@ class BuiltInCategory(type):
 
 # For Test Compatibility
 # TODO: Replace on Tests and Code!
-BipEnum = BuiltInParameter
-BicEnum = BuiltInCategory
+BipEnum = BiParameter()
+BicEnum = BiCategory()

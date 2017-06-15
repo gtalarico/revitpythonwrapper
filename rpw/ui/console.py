@@ -43,8 +43,9 @@ class Console(Window):
         filename = 'rpw-history'
         self.history_file = os.path.join(tempdir, filename)
 
-        stack_tuple = inspect.stack()[2]
+        stack_tuple = inspect.stack()[2] # Finds Calling Stack
 
+        # TODO: Print Stack Info on Init
         stack_filename = stack_tuple[1]
         stack_line = stack_tuple[2]
         stack_name = stack_tuple[3]
@@ -65,6 +66,8 @@ class Console(Window):
         self.ui.text_box.Text = Console.CARET
         self.ui.text_box.Focus()
         self.ui.text_box.CaretIndex = len(Console.CARET)
+
+        # self.text_box.FontFamily = FontFamily("Consolas")
 
         self.PreviewKeyDown += self.KeyPressPreview
 

@@ -9,7 +9,6 @@ Note:
 
 """
 import inspect
-import warnings
 
 import rpw
 from rpw import revit, DB
