@@ -12,6 +12,7 @@ from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RPW_Exception, RPW_TypeError, RPW_CoerceError
 from rpw.db.element import Element
 from rpw.db.builtins import BicEnum, BipEnum
+from rpw.ui import Selection
 from rpw.utils.coerce import to_element_id, to_element_ids
 from rpw.utils.coerce import to_category, to_class
 from rpw.utils.logger import logger
@@ -419,6 +420,9 @@ class Collector(BaseObjectWrapper):
         Returns list with all elements instantiated using :any:`Element.Factory`
         """
         return [Element(el) for el in self.__iter__()]
+
+    def select(self):
+        Selection(self.element_ids)
 
     @property
     def first(self):
