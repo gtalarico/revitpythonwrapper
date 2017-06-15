@@ -31,9 +31,6 @@ __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 
-if __name__ == 'make.doc':
-    pass
-
 from revit import revit, DB, UI
 import rpw.db
 import rpw.ui
