@@ -133,3 +133,6 @@ class RevitVersion():
 
 revit = Revit()
 from Autodesk.Revit import DB, UI
+
+# For Compatibility reasons:
+doc = revit.doc

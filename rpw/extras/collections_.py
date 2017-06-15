@@ -102,7 +102,6 @@ class ElementSet(BaseObject, OrderedDict):
     """
 
     def __init__(self, elements_or_ids=None, doc=revit.doc):
-        print('ElementSet Initiated')
         self.doc = doc
         self._element_dict = OrderedDict()
         if elements_or_ids:
