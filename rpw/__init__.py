@@ -38,24 +38,11 @@ from revit import revit, DB, UI
 import rpw.db
 import rpw.ui
 import rpw.extras
+from rpw.utils.logger import logger
 
-# from rpw.base import BaseObjectWrapper
-# from rpw.element import Element, Instance, Symbol, Family, Category
-# from rpw.element import WallInstance, WallSymbol, WallFamily, WallCategory
-# from rpw.element import Room, Area, AreaScheme
-# from rpw.geometry import Point, PointCollection
-# from rpw.parameter import ParameterSet, Parameter
-# from rpw.selection import Selection
-# from rpw.db.Collector import Collector, ParameterFilter
-# from rpw.db.Transaction import Transaction, TransactionGroup
-# from rpw.utils.logger import logger
-# from rpw.enumeration import BipEnum, BicEnum
-# from rpw.utils.coerce import to_element_ids, to_elements
+# PENDING FOR MERGE:
+# * Pick Object
+# * Forms
 
-# try:
-    # import forms
-# except ImportError as errmsg:
-    # logger.critical('Could Not load Forms dependencies')
-    # logger.warning(errmsg)
-
-# from rpw.utils.sphinx_compat import *
+# * Update Docs
+# * Fix Sphinx Compilation
