@@ -52,7 +52,7 @@ class BaseObjectWrapper(BaseObject):
         element(APIObject): Revit Element to store
     """
 
-    def __init__(self, revit_object):
+    def __init__(self, revit_object, enforce_type=True):
         """
         Child classes can use self._revit_object to refer back to Revit Element
         NOTE: Any Wrapper that inherits and overrides __ini__ class MUST
@@ -62,7 +62,7 @@ class BaseObjectWrapper(BaseObject):
         """
         _revit_object_class = self.__class__._revit_object_class
 
-        if not isinstance(revit_object, _revit_object_class):
+        if enforce_type and not isinstance(revit_object, _revit_object_class):
             raise RPW_TypeError(_revit_object_class, type(revit_object))
 
         object.__setattr__(self, '_revit_object', revit_object)
