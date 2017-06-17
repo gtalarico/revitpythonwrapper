@@ -1,7 +1,9 @@
 """ Standard IO Dialogs
 
+Original code by github.com/eirannejad/pyRevit
+
 """
-# TODO: Merge with Forms ?
+
 
 import clr
 
@@ -9,11 +11,12 @@ clr.AddReferenceByPartialName('System.Windows.Forms')
 from System.Windows import Forms
 
 def select_folder():
-    """ Selects a Folder Path using the standard OS Dialog
+    """ Selects a Folder Path using the standard OS Dialog.
+    Uses Forms.FolderBrowserDialog(). For more information see:
+    https://msdn.microsoft.com/en-us/library/system.windows.forms.openfiledialog.
 
     >>> folderpath = select_folder()
     'C:\\folder\\path'
-
     """
 
     form = Forms.FolderBrowserDialog()
@@ -21,21 +24,33 @@ def select_folder():
         return form.SelectedPath
 
 
-def select_file(file_ext='*', multi_file=False):
-    """ Selects a File Path using the standard OS Dialog
+def select_file(extensions='All Files (*.*)|*.*',
+                title="Select File",
+                multiple=False,
+                restore_directory=True):
+    """ Selects a File Path using the standard OS Dialog.
+    Uses Forms.OpenFileDialog. For more information see:
+    https://msdn.microsoft.com/en-us/library/system.windows.forms.filedialog.restoredirectory
 
-    >>> filepath = select_file('rvt')
+    >>> filepath = select_file('Revit File ('*.rvt|*.rvt')
     'C:\\folder\\file.rvt'
+
+    Args:
+        extensions (str, optional): File Extensions Filtering options. Default is All Files (*.*)|*.*
+        title (str, optional): File Extensions Filtering options
+        multiple (bool): Allow selection of multiple files. Default is `False`
+        restore_directory (bool): Restores the directory to the previously selected directory before closing
 
     """
     form = Forms.OpenFileDialog()
-    form.Filter = '|*.{}'.format(file_ext)
-    form.RestoreDirectory = True
-    form.Multiselect = multi_file
+    form.Filter = extensions
+    form.Title = title
+    form.Multiselect = multiple
+    form.RestoreDirectory = restore_directory
     if form.ShowDialog() == Forms.DialogResult.OK:
         return form.FileName
 
-
+# Tests
 if __name__ == '__main__':
-    select_folder()
-    select_file()
+    # select_folder()
+    print(select_file('Python Files|*.py'))
