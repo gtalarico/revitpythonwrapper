@@ -3,12 +3,12 @@
 
 from collections import OrderedDict
 
-from rpw import revit
+from rpw import revit, DB
 from rpw.db.xyz import XYZ
 from rpw.db.element import Element
 from rpw.base import BaseObject
 from rpw.utils.coerce import to_elements, to_element_ids, to_element_id
-
+from rpw.utils.dotnet import List
 
 class PointCollection(BaseObject):
     """
@@ -92,18 +92,26 @@ class PointCollection(BaseObject):
         return super(PointCollection, self).__repr__(data=len(self))
 
 
-class ElementSet(BaseObject, OrderedDict):
+class ElementSet(BaseObject):
     """
     Provides helpful methods for managing a set of unique of ``DB.ElementId``.
 
-    >>> elements = ElementSet([element, element])
+    >>> element_set = ElementSet([element, element])
+    >>> element_set = ElementSet()
+    >>> element_set.add(SomeElement)
+    >>> SomeElement in element_set
+    True
+    >>> element_set.clear()
 
-    NOTE: Similar to ElementSet, but not sure there is an advante in wrapping
+    NOTE: Similar to DB.ElementSet, doesnt wrap since there is no advantage
+
+    Args:
+        (`DB.Element`, `DB.ElementID`, optional): Elements or Element Ids.
     """
 
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
-        self._element_dict = OrderedDict()
+        self._elements = OrderedDict()
         if elements_or_ids:
             self.add(elements_or_ids)
 
@@ -113,10 +121,10 @@ class ElementSet(BaseObject, OrderedDict):
             elements_or_ids = [elements_or_ids]
         element_ids = to_element_ids(elements_or_ids)
         for eid in element_ids:
-            self._element_dict[eid] = self.doc.GetElement(eid)
+            self._elements[eid] = self.doc.GetElement(eid)
 
     def pop(self, element_id):
-        return self._element_dict.pop(element_id)
+        return self._elements.pop(element_id)
 
     @property
     def wrapped_elements(self):
@@ -126,7 +134,7 @@ class ElementSet(BaseObject, OrderedDict):
     @property
     def elements(self):
         """ Elements stored in ElementSet """
-        return [e for e in self._element_dict.values()]
+        return [e for e in self._elements.values()]
         # return [self.doc.GetElement(eid) for eid in self._element_dict.keys()]
 
     @property
@@ -134,18 +142,24 @@ class ElementSet(BaseObject, OrderedDict):
         """
         Returns:
             [DB.ElementId]: List of ElementIds Objects """
-        return [e for e in self._element_dict.keys()]
+        return [e for e in self._elements.keys()]
         # return [eid for eid in self._element_dict]
 
     def clear(self):
         """ Clears Set """
-        self._element_dict = set()
+        self._elements = set()
+
+    def as_element_list(self):
+        return List[DB.Element](self.elements)
+
+    def as_element_id_list(self):
+        return List[DB.ElementId](self.element_ids)
 
     def __len__(self):
-        return len(self._element_dict)
+        return len(self._elements)
 
     def __iter__(self):
-        return iter(self._element_dict)
+        return iter(self._elements.values())
 
     def __getitem__(self, index):
         return self.elements[index]
@@ -160,10 +174,10 @@ class ElementSet(BaseObject, OrderedDict):
         """
         # TODO Write Tests
         element_id = to_element_id(element_or_id)
-        return bool(element_id in self._element_dict)
+        return bool(element_id in self.element_ids)
 
     def __bool__(self):
-        return bool(self._element_dict)
+        return bool(self._elements)
 
     def __repr__(self, data=None):
         return super(ElementSet, self).__repr__(data={'count': len(self)})
@@ -174,3 +188,57 @@ class ElementSet(BaseObject, OrderedDict):
             return self[0]
         except IndexError:
             return None
+
+class ElementCollection(ElementSet):
+    """
+    List Collection for managing a list of ``DB.Element``.
+
+    >>> element_set = ElementCollection([element, element])
+    >>> element_set = ElementCollection()
+    >>> element_set.add(SomeElement)
+    >>> SomeElement in element_set
+    True
+    >>> element_set.clear()
+
+    NOTE: Similar to DB.ElementCollection, doesnt wrap since there is no advantage
+
+    Args:
+        (`DB.Element`, `DB.ElementID`, optional): Elements or Element Ids.
+    """
+    def __init__(self, elements_or_ids=None, doc=revit.doc):
+        self.doc = doc
+        self._elements = []
+        if elements_or_ids:
+            self.append(elements_or_ids)
+
+    def append(self, elements_or_ids):
+        """ Adds elements or element_ids to set. Handles single or list """
+        if not isinstance(elements_or_ids, (list, set)):
+            elements_or_ids = [elements_or_ids]
+        elements = to_elements(elements_or_ids)
+        for element in elements:
+            self._elements.append(element)
+
+    def add(self, *args):
+        raise AttributeError('Use ElementCollection .append instead')
+
+    @property
+    def elements(self):
+        """
+        Returns:
+            [DB.Element]: List of Elements Objects """
+        return self._elements
+
+    @property
+    def element_ids(self):
+        """
+        Returns:
+            [DB.ElementId]: List of ElementIds Objects """
+        return [e.Id for e in self._elements]
+
+    def clear(self):
+        """ Clears Set """
+        self._elements = []
+
+    def __iter__(self):
+        return iter(self._elements)
