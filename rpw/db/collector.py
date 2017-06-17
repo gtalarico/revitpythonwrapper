@@ -9,7 +9,7 @@
 from rpw.revit import revit, DB
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject
-from rpw.exceptions import RPW_Exception, RPW_TypeError, RPW_CoerceError
+from rpw.exceptions import RpwException, RpwTypeError, RpwCoerceError
 from rpw.db.element import Element
 from rpw.db.builtins import BicEnum, BipEnum
 from rpw.ui import Selection
@@ -231,7 +231,7 @@ class FilterClasses():
                 try:
                     level_id = level[0].Id
                 except IndexError:
-                    RPW_CoerceError(level_reference, DB.Level)
+                    RpwCoerceError(level_reference, DB.Level)
             else:
                 level_id = to_element_id(level_reference)
             return DB.ElementLevelFilter(level_id, cls.reverse)
@@ -377,7 +377,7 @@ class Collector(BaseObjectWrapper):
 
         for key in filters.keys():
             if key not in [f.keyword for f in FilterClasses.get_sorted()]:
-                raise RPW_Exception('Filter not valid: {}'.format(key))
+                raise RpwException('Filter not valid: {}'.format(key))
 
         self._collector = self._collect(collector_doc, collector, filters)
 
@@ -541,7 +541,7 @@ class ParameterFilter(BaseObjectWrapper):
 
         for condition in conditions.keys():
             if condition not in ParameterFilter.RULES:
-                raise RPW_Exception('Rule not valid: {}'.format(condition))
+                raise RpwException('Rule not valid: {}'.format(condition))
 
         rules = []
         for condition_name, condition_value in conditions.iteritems():
@@ -572,7 +572,7 @@ class ParameterFilter(BaseObjectWrapper):
 
             rules.append(filter_rule)
         if not rules:
-            raise RPW_Exception('malformed filter rule: {}'.format(conditions))
+            raise RpwException('malformed filter rule: {}'.format(conditions))
 
         _revit_object = DB.ElementParameterFilter(List[DB.FilterRule](rules),
                                                   reverse)
@@ -585,7 +585,7 @@ class ParameterFilter(BaseObjectWrapper):
         elif isinstance(parameter_reference, DB.ElementId):
             param_id = parameter_reference
         else:
-            RPW_CoerceError(parameter_reference, ElementId)
+            RpwCoerceError(parameter_reference, ElementId)
         return param_id
 
     @staticmethod

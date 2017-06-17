@@ -394,7 +394,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span><span class="p">,</span> <span class="n">BaseObject</span>
 <span class="kn">from</span> <span class="nn">rpw.element</span> <span class="k">import</span> <span class="n">Element</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span><span class="p">,</span> <span class="n">RPW_TypeError</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwException</span><span class="p">,</span> <span class="n">RpwTypeError</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -498,7 +498,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Collector Filter not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Collector Filter not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
 
         <span class="c1"># Stores filters for chained calls</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="n">filters</span>
@@ -602,7 +602,7 @@ Used to build a parameter filter to be used with the Collector.</p>
             <span class="n">collector_filter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">collector</span><span class="p">,</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">[</span><span class="n">filter_name</span><span class="p">])</span>
 
             <span class="k">if</span> <span class="n">filter_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_Filter</span><span class="o">.</span><span class="n">MAP</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;collector filter rule does not exist: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filter_name</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;collector filter rule does not exist: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filter_name</span><span class="p">))</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filter_value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
                 <span class="c1"># Same as WhereIsElementType(bool)</span>
                 <span class="k">if</span> <span class="n">filter_value</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -629,7 +629,7 @@ Used to build a parameter filter to be used with the Collector.</p>
                 <span class="c1"># Same as OfCategory(filter_value) and OfClass(filter_value)</span>
                 <span class="n">collector_results</span> <span class="o">=</span> <span class="n">collector_filter</span><span class="p">(</span><span class="n">filter_value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;unknown parameter filter error: </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;unknown parameter filter error: </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                     <span class="n">filter_name</span><span class="p">,</span> <span class="n">filter_value</span><span class="p">))</span>
             <span class="n">filter_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chain</span><span class="p">(</span><span class="n">filter_stack</span><span class="p">,</span> <span class="n">collector</span><span class="o">=</span><span class="n">collector</span><span class="p">)</span>
@@ -685,7 +685,7 @@ Used to build a parameter filter to be used with the Collector.</p>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">FamilySymbol</span><span class="p">):</span>
             <span class="n">symbol_id</span> <span class="o">=</span> <span class="n">symbol_or_id</span><span class="o">.</span><span class="n">Id</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;FamilySymbol or FamilySymbol Id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="s1">&#39;FamilySymbol or FamilySymbol Id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">symbol_or_id</span><span class="p">))</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">_FamilyInstanceFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">FamilyInstanceFilter</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">symbol_id</span><span class="p">))</span>
 
@@ -714,7 +714,7 @@ Used to build a parameter filter to be used with the Collector.</p>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Level</span><span class="p">):</span>
             <span class="n">level_id</span> <span class="o">=</span> <span class="n">level_or_id</span><span class="o">.</span><span class="n">Id</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;Level or Level Id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="s1">&#39;Level or Level Id&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">level_or_id</span><span class="p">))</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">_ElementLevelFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementLevelFilter</span><span class="p">(</span><span class="n">level_id</span><span class="p">,</span> <span class="n">reverse</span><span class="p">))</span>
 
@@ -801,7 +801,7 @@ Used to build a parameter filter to be used with the Collector.</p>
 
         <span class="k">for</span> <span class="n">condition</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">condition</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ParameterFilter</span><span class="o">.</span><span class="n">RULES</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Rule not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Rule not valid: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span>
 
         <span class="n">rules</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">condition_name</span><span class="p">,</span> <span class="n">condition_value</span> <span class="ow">in</span> <span class="n">conditions</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
@@ -834,7 +834,7 @@ Used to build a parameter filter to be used with the Collector.</p>
             <span class="c1">##################################################################</span>
             <span class="n">rules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_rule</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">rules</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;malformed filter rule: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conditions</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;malformed filter rule: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conditions</span><span class="p">))</span>
 
         <span class="n">_revit_object</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementParameterFilter</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">FilterRule</span><span class="p">](</span><span class="n">rules</span><span class="p">),</span> <span class="n">reverse</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ParameterFilter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">_revit_object</span><span class="p">)</span>

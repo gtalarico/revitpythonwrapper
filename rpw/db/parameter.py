@@ -6,8 +6,8 @@ Parameter Wrapper
 from rpw.revit import DB
 from rpw.db.builtins import BipEnum
 from rpw.base import BaseObjectWrapper
-from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
-from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
+from rpw.exceptions import RpwException, RpwWrongStorageType
+from rpw.exceptions import RpwParameterNotFound, RpwTypeError
 from rpw.utils.logger import logger
 
 
@@ -48,14 +48,14 @@ class ParameterSet(BaseObjectWrapper):
             :any:`Parameter`: The first parameter found with a matching name (wrapper),
 
         Raises:
-            :class:`RPW_ParameterNotFound`
+            :class:`RpwParameterNotFound`
 
         """
         # TODO: Any advantage of using ParameterMap Instead
         parameter = self._revit_object.LookupParameter(param_name)
         # return _Parameter(parameter) if parameter else None
         if not parameter:
-            raise RPW_ParameterNotFound(self._revit_object, param_name)
+            raise RpwParameterNotFound(self._revit_object, param_name)
         return Parameter(parameter)
 
     def __setitem__(self, param_name, value):
@@ -109,7 +109,7 @@ class _BuiltInParameterSet(BaseObjectWrapper):
             builtin_enum = BipEnum.get(builtin_enum)
         parameter = self._revit_object.get_Parameter(builtin_enum)
         if not parameter:
-            raise RPW_ParameterNotFound(self._revit_object, builtin_enum)
+            raise RpwParameterNotFound(self._revit_object, builtin_enum)
         return Parameter(parameter)
 
     def __setitem__(self, name, param_value):
@@ -171,7 +171,7 @@ class Parameter(BaseObjectWrapper):
             Parameter: Wrapped Parameter Class
         """
         if not isinstance(parameter, DB.Parameter):
-            raise RPW_TypeError(DB.Parameter, type(parameter))
+            raise RpwTypeError(DB.Parameter, type(parameter))
         super(Parameter, self).__init__(parameter)
 
     @property
@@ -234,12 +234,12 @@ class Parameter(BaseObjectWrapper):
         if self.type is int:
             return self._revit_object.AsInteger()
 
-        raise RPW_Exception('could not get storage type: {}'.format(self.type))
+        raise RpwException('could not get storage type: {}'.format(self.type))
 
     @value.setter
     def value(self, value):
         if self._revit_object.IsReadOnly:
-            raise RPW_Exception('Parameter is Read Only: {}'.format(self._revit_object.Definition.Name))
+            raise RpwException('Parameter is Read Only: {}'.format(self._revit_object.Definition.Name))
 
         # Check if value provided matches storage type
         if not isinstance(value, self.type):
@@ -257,7 +257,7 @@ class Parameter(BaseObjectWrapper):
             elif isinstance(value, bool) and self.type is int:
                 value = int(value)
             else:
-                raise RPW_WrongStorageType(self.type, value)
+                raise RpwWrongStorageType(self.type, value)
 
         param = self._revit_object.Set(value)
         return param

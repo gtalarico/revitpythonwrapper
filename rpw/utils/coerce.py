@@ -8,7 +8,7 @@ from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 from rpw.db.builtins import BicEnum
 from rpw.utils.dotnet import List
-from rpw.exceptions import RPW_TypeError
+from rpw.exceptions import RpwTypeError
 
 
 def to_element_id(element_reference):
@@ -55,7 +55,7 @@ def to_element(element_reference, doc=revit.doc):
     elif isinstance(element_reference, DB.Element):
         element = element_reference
     else:
-        raise RPW_TypeError('Element, ElementId, or int', type(element_reference))
+        raise RpwTypeError('Element, ElementId, or int', type(element_reference))
     return element
 
 def to_elements(element_references, doc=revit.doc):
@@ -99,7 +99,7 @@ def to_class(class_reference):
         return getattr(DB, class_reference)
     if isinstance(class_reference, type):
         return class_reference
-    raise RPW_TypeError('Class Type, Class Type Name', type(class_reference))
+    raise RpwTypeError('Class Type, Class Type Name', type(class_reference))
 
 
 def to_category(category_reference, fuzzy=True):
@@ -128,7 +128,7 @@ def to_category(category_reference, fuzzy=True):
             return BicEnum.get(category_reference)
     if isinstance(category_reference, DB.ElementId):
         return BicEnum.from_category_id(category_reference)
-    raise RPW_TypeError('Category Type, Category Type Name',
+    raise RpwTypeError('Category Type, Category Type Name',
                         type(category_reference))
 
 

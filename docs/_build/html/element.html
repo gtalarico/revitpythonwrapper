@@ -804,7 +804,7 @@ attribute of wrapped elements.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.parameter.Parameter" title="rpw.parameter.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">Parameter</span></code></a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">RPW_ParameterNotFound</span></code></td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">RpwParameterNotFound</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -1028,8 +1028,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="c1"># from rpw.collector import Collector</span>
 
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_TypeError</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwException</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwTypeError</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BicEnum</span><span class="p">,</span> <span class="n">BipEnum</span>
@@ -1106,7 +1106,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             <span class="n">_collector_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="o">**</span><span class="n">_collector_params</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Wrapper cannot collect by class: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Wrapper cannot collect by class: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="n">id_int</span><span class="p">):</span>
@@ -1157,7 +1157,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             <span class="k">if</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmro</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Factory does not support type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Factory does not support type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element_class_name</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">element_class</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1309,7 +1309,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Family [</span><span class="si">{}</span><span class="s1">] has no symbols&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Family [</span><span class="si">{}</span><span class="s1">] has no symbols&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SYMBOL_FAMILY_NAME_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="c1"># Uses generic factory so it can be inherited by others</span>
         <span class="c1"># Alternative: ALL_MODEL_FAMILY_NAME</span>
@@ -1666,8 +1666,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.enumeration</span> <span class="k">import</span> <span class="n">BipEnum</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_Exception</span><span class="p">,</span> <span class="n">RPW_WrongStorageType</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_ParameterNotFound</span><span class="p">,</span> <span class="n">RPW_TypeError</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwException</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwTypeError</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 
@@ -1706,13 +1706,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">            :any:`Parameter`: The first parameter found with a matching name (wrapper),</span>
 
 <span class="sd">        Raises:</span>
-<span class="sd">            :class:`RPW_ParameterNotFound`</span>
+<span class="sd">            :class:`RpwParameterNotFound`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">LookupParameter</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
         <span class="c1"># return _Parameter(parameter) if parameter else None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">parameter</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">param_name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">RpwParameterNotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">param_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -1764,7 +1764,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             <span class="n">builtin_enum</span> <span class="o">=</span> <span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">builtin_enum</span><span class="p">)</span>
         <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">get_Parameter</span><span class="p">(</span><span class="n">builtin_enum</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">parameter</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_ParameterNotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">builtin_enum</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">RpwParameterNotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">builtin_enum</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param_value</span><span class="p">):</span>
@@ -1824,7 +1824,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">            Parameter: Wrapped Parameter Class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">parameter</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">parameter</span><span class="p">))</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -1880,12 +1880,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsElementId</span><span class="p">()</span>
 
-        <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;could not get storage type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;could not get storage type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
 
     <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">IsReadOnly</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_Exception</span><span class="p">(</span><span class="s1">&#39;Parameter is Read Only: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Parameter is Read Only: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span>
 
         <span class="c1"># Check if value provided matches storage type</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>
@@ -1901,7 +1901,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RPW_WrongStorageType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">RpwWrongStorageType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
         <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">param</span>

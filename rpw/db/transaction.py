@@ -1,6 +1,6 @@
 from rpw.revit import revit, DB
 from rpw.base import BaseObjectWrapper
-from rpw.exceptions import RPW_Exception
+from rpw.exceptions import RpwException
 from rpw.utils.logger import logger
 
 
@@ -151,4 +151,4 @@ class DynamoTransaction(object):
     #             try:
     #                 self.transaction.ForceCloseTransaction()
     #             except:
-    #                 raise RPW_Exception('Failed to complete transaction')
+    #                 raise RpwException('Failed to complete transaction')

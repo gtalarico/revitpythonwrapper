@@ -17,8 +17,8 @@ from rpw.base import BaseObjectWrapper
 
 doc, uidoc = revit.doc, revit.uidoc
 
-from rpw.exceptions import RPW_Exception, RPW_WrongStorageType
-from rpw.exceptions import RPW_ParameterNotFound, RPW_TypeError
+from rpw.exceptions import RpwException, RpwWrongStorageType
+from rpw.exceptions import RpwParameterNotFound, RpwTypeError
 from rpw.utils.logger import logger
 
 from rpw.db.builtins import BicEnum, BipEnum
@@ -83,7 +83,7 @@ class Element(BaseObjectWrapper):
         _revit_object_class = cls._revit_object_class
 
         if cls is not Element and not isinstance(element, _revit_object_class):
-            raise RPW_TypeError(_revit_object_class, type(element))
+            raise RpwTypeError(_revit_object_class, type(element))
 
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
@@ -98,7 +98,7 @@ class Element(BaseObjectWrapper):
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls, element, **kwargs)
         element_class_name = element.__class__.__name__
-        raise RPW_Exception('Factory does not support type: {}'.format(element_class_name))
+        raise RpwException('Factory does not support type: {}'.format(element_class_name))
 
     def __init__(self, element):
         """
@@ -142,7 +142,7 @@ class Element(BaseObjectWrapper):
             kwargs.update(_collector_params)
             return rpw.db.Collector(**kwargs)
         else:
-            raise RPW_Exception('Wrapper cannot collect by class: {}'.format(cls.__name__))
+            raise RpwException('Wrapper cannot collect by class: {}'.format(cls.__name__))
 
     @staticmethod
     def from_int(id_int):
@@ -289,7 +289,7 @@ class Family(Element):
         try:
             symbol = self.symbols[0]
         except IndexError:
-            raise RPW_Exception('Family [{}] has no symbols'.format(self.name))
+            raise RpwException('Family [{}] has no symbols'.format(self.name))
         return Element.Factory(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
         # Uses generic factory so it can be inherited by others
         # Alternative: ALL_MODEL_FAMILY_NAME

@@ -243,7 +243,7 @@ Remains unchanged if it&#8217;s already <code class="docutils literal"><span cla
 
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RPW_TypeError</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwTypeError</span>
 
 
 <span class="k">def</span> <span class="nf">to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
@@ -277,7 +277,7 @@ Remains unchanged if it&#8217;s already <code class="docutils literal"><span cla
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="o">.</span><span class="n">InvalidElementId</span><span class="p">):</span>
             <span class="n">element_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;Element, ElementId, or int&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element_reference</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="s1">&#39;Element, ElementId, or int&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element_reference</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">element_ids</span>
 
@@ -317,7 +317,7 @@ Remains unchanged if it&#8217;s already <code class="docutils literal"><span cla
             <span class="n">element</span> <span class="o">=</span> <span class="n">element_reference</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RPW_TypeError</span><span class="p">(</span><span class="s1">&#39;Element, ElementId, or int&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element_reference</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="s1">&#39;Element, ElementId, or int&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element_reference</span><span class="p">))</span>
 
         <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 

@@ -18,7 +18,7 @@ from rpw.revit import DB, UI
 doc, uidoc = rpw.revit.doc, rpw.revit.uidoc
 
 from rpw.utils.dotnet import List
-from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
+from rpw.exceptions import RpwParameterNotFound, RpwWrongStorageType
 from rpw.utils import logger
 
 data = ['A', 'B', 'C']

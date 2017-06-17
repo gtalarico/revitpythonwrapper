@@ -18,7 +18,7 @@ import re
 from rpw.revit import DB
 from rpw.base import BaseObject, BaseObjectWrapper
 from rpw.utils.dotnet import Enum
-from rpw.exceptions import RPW_CoerceError
+from rpw.exceptions import RpwCoerceError
 
 
 class BiParameter(BaseObjectWrapper):
@@ -53,7 +53,7 @@ class BiParameter(BaseObjectWrapper):
         try:
             enum = getattr(DB.BuiltInParameter, parameter_name)
         except AttributeError:
-            raise RPW_CoerceError(parameter_name, DB.BuiltInParameter)
+            raise RpwCoerceError(parameter_name, DB.BuiltInParameter)
         return enum
 
     def get_id(self, parameter_name):
@@ -100,7 +100,7 @@ class BiCategory(BaseObjectWrapper):
         try:
             enum = getattr(DB.BuiltInCategory, category_name)
         except AttributeError:
-            raise RPW_CoerceError(category_name, DB.BuiltInCategory)
+            raise RpwCoerceError(category_name, DB.BuiltInCategory)
         return enum
 
     def fuzzy_get(self, loose_category_name):

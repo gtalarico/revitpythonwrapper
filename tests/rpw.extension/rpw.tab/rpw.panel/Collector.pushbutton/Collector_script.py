@@ -46,7 +46,7 @@ from rpw.revit import revit, DB, UI
 doc, uidoc = revit.doc, revit.uidoc
 
 from rpw.utils.dotnet import List
-from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType
+from rpw.exceptions import RpwParameterNotFound, RpwWrongStorageType
 from rpw.utils import logger
 
 import test_utils

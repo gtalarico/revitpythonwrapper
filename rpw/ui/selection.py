@@ -5,7 +5,7 @@
 from rpw.revit import revit, DB, UI
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper
-from rpw.exceptions import RPW_TypeError
+from rpw.exceptions import RpwTypeError
 from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids
 from rpw.db.collections_ import ElementSet

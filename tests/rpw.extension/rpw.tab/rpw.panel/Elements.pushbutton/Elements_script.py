@@ -43,7 +43,7 @@ sys.path.append(script_dir)
 import rpw
 from rpw import revit, DB, UI
 from rpw.utils.dotnet import List
-from rpw.exceptions import RPW_ParameterNotFound, RPW_WrongStorageType, RPW_CoerceError
+from rpw.exceptions import RpwParameterNotFound, RpwWrongStorageType, RpwCoerceError
 from rpw.utils import logger
 
 import test_utils
@@ -178,16 +178,16 @@ class ElementTests(unittest.TestCase):
         self.assertEqual(bip, bip2)
 
     def tests_wrong_storage_type(self):
-        with self.assertRaises(RPW_WrongStorageType) as context:
+        with self.assertRaises(RpwWrongStorageType) as context:
             with rpw.db.Transaction('Set String'):
                 self.wrapped_wall.parameters['Unconnected Height'].value = 'Test'
 
     def test_parameter_does_not_exist(self):
-        with self.assertRaises(RPW_ParameterNotFound) as context:
+        with self.assertRaises(RpwParameterNotFound) as context:
             self.wrapped_wall.parameters['Parameter Name']
 
     def test_built_in_parameter_exception_raised(self):
-        with self.assertRaises(RPW_CoerceError) as context:
+        with self.assertRaises(RpwCoerceError) as context:
             self.wrapped_wall.parameters.builtins['PARAMETERD_DOES_NOT_EXIST']
 
 

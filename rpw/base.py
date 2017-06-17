@@ -13,7 +13,7 @@ when passing the element into function where the original Type is expected.
 
 >>> wrapped = BaseObjectWrapper(SomeObject)
 >>> wrapped
-<RPW_BaseOBjectWrapper:>
+<rpw:RPW_BaseOBjectWrapper>
 >>> wrapped.unwrap()
 SomeObject
 >>> wrapped.SomeOriginalMethod()
@@ -22,7 +22,7 @@ SomeObject
 """
 
 import rpw
-from rpw.exceptions import RPW_TypeError, RPW_Exception
+from rpw.exceptions import RpwTypeError, RpwException
 from rpw.utils import logger
 
 
@@ -63,7 +63,7 @@ class BaseObjectWrapper(BaseObject):
         _revit_object_class = self.__class__._revit_object_class
 
         if enforce_type and not isinstance(revit_object, _revit_object_class):
-            raise RPW_TypeError(_revit_object_class, type(revit_object))
+            raise RpwTypeError(_revit_object_class, type(revit_object))
 
         object.__setattr__(self, '_revit_object', revit_object)
 
@@ -83,7 +83,7 @@ class BaseObjectWrapper(BaseObject):
             # attr_pascal_case = rpw.utils.coerce.to_pascal_case(attr)
             # return getattr(self.__dict__['_revit_object'], attr_pascal_case)
         except KeyError:
-            raise RPW_Exception('BaseObjectWrapper is missing _revit_object')
+            raise RpwException('BaseObjectWrapper is missing _revit_object')
 
     def __setattr__(self, attr, value):
         """

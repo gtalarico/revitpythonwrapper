@@ -1,6 +1,6 @@
 from rpw import DB
 from rpw.base import BaseObjectWrapper
-from rpw.exceptions import RPW_CoerceError
+from rpw.exceptions import RpwCoerceError
 
 
 class XYZ(BaseObjectWrapper):
@@ -40,7 +40,7 @@ class XYZ(BaseObjectWrapper):
             # Assumes one arg, DB.XYZ
             xyz = xyz_or_tuple[0]
         else:
-            raise RPW_CoerceError(xyz_or_tuple, 'point-like object')
+            raise RpwCoerceError(xyz_or_tuple, 'point-like object')
         super(XYZ, self).__init__(xyz)
 
     @property
