@@ -8,7 +8,7 @@ from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RPW_TypeError
 from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids
-from rpw.extras import ElementSet
+from rpw.db.collections_ import ElementSet
 
 doc, uidoc = revit.doc, revit.uidoc
 

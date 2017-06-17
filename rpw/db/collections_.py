@@ -10,7 +10,7 @@ from rpw.base import BaseObject
 from rpw.utils.coerce import to_elements, to_element_ids, to_element_id
 from rpw.utils.dotnet import List
 
-class PointCollection(BaseObject):
+class XYZCollection(BaseObject):
     """
     Provides helpful methods for managing a collection(list) of :any:`Point` instances.
 

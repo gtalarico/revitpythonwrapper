@@ -1,6 +1,6 @@
 """ rpw.db modules
 
-Regardless of future folder organization, all
+Import all class so they are available in the .db namespace
 wrapper classes stay available in rpw.db
 
 """
@@ -21,3 +21,6 @@ from rpw.db.builtins import BicEnum, BipEnum
 
 from rpw.db.xyz import XYZ
 from rpw.db.bounding_box import BoundingBox
+
+from rpw.db.collections_ import ElementSet, ElementCollection
+from rpw.db.collections_ import XYZCollection
