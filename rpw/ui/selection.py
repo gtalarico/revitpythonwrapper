@@ -66,7 +66,10 @@ class Selection(BaseObjectWrapper, ElementSet):
         >>> selection.add([element_ids])
         """
         ElementSet.add(self, elements_or_ids)
-        uidoc.Selection.SetElementIds(List[DB.ElementId](self.element_ids))
+        self.update()
+
+    def update(self):
+        self.uidoc.Selection.SetElementIds(self.as_element_id_list())
 
     def clear(self):
         """ Clears Selection
