@@ -11,10 +11,11 @@ from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids, to_elements, to_iterable
 from rpw.db.collections_ import ElementSet
 
-ObjectType = UI.Selection.ObjectType
-ObjectSnapTypes = UI.Selection.ObjectSnapTypes
-PickObjects = revit.uidoc.Selection.PickObjects
-PickObject = revit.uidoc.Selection.PickObject
+if revit.host:
+    ObjectType = UI.Selection.ObjectType
+    ObjectSnapTypes = UI.Selection.ObjectSnapTypes
+    PickObjects = revit.uidoc.Selection.PickObjects
+    PickObject = revit.uidoc.Selection.PickObject
 
 class Selection(BaseObjectWrapper, ElementSet):
     """
@@ -152,18 +153,20 @@ class Selection(BaseObjectWrapper, ElementSet):
     def pick_pt(self, msg='Pick Point', snap=None):
         """ Selects a XYZ This does not add eleents to selection """
 
-        SNAPS = {'none': ObjectSnapTypes.None,
-                 'endpoints':ObjectSnapTypes.Endpoints,
-                 'midpoints':ObjectSnapTypes.Midpoints,
-                 'nearest':ObjectSnapTypes.Nearest,
-                 'workplanegrid':ObjectSnapTypes.WorkPlaneGrid,
-                 'intersections':ObjectSnapTypes.Intersections,
-                 'centers':ObjectSnapTypes.Centers,
-                 'perpendicular':ObjectSnapTypes.Perpendicular,
-                 'tangents':ObjectSnapTypes.Tangents,
-                 'quadrants':ObjectSnapTypes.Quadrants,
-                 'points':ObjectSnapTypes.Points,
+        SNAPS = {
+                #  'none': ObjectSnapTypes.None,
+                 'endpoints': ObjectSnapTypes.Endpoints,
+                 'midpoints': ObjectSnapTypes.Midpoints,
+                 'nearest': ObjectSnapTypes.Nearest,
+                 'workplanegrid': ObjectSnapTypes.WorkPlaneGrid,
+                 'intersections': ObjectSnapTypes.Intersections,
+                 'centers': ObjectSnapTypes.Centers,
+                 'perpendicular': ObjectSnapTypes.Perpendicular,
+                 'tangents': ObjectSnapTypes.Tangents,
+                 'quadrants': ObjectSnapTypes.Quadrants,
+                 'points': ObjectSnapTypes.Points,
                  }
+
         if snap:
             return self._revit_object.PickPoint(SNAPS[snap], msg)
         else:

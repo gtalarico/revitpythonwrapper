@@ -14,13 +14,9 @@ import rpw
 from rpw import revit, DB
 from rpw.db.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
-
-doc, uidoc = revit.doc, revit.uidoc
-
 from rpw.exceptions import RpwException, RpwWrongStorageType
 from rpw.exceptions import RpwParameterNotFound, RpwTypeError
 from rpw.utils.logger import logger
-
 from rpw.db.builtins import BicEnum, BipEnum
 
 
@@ -100,7 +96,7 @@ class Element(BaseObjectWrapper):
         element_class_name = element.__class__.__name__
         raise RpwException('Factory does not support type: {}'.format(element_class_name))
 
-    def __init__(self, element):
+    def __init__(self, element, doc=revit.doc):
         """
         Args:
             element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
@@ -113,7 +109,9 @@ class Element(BaseObjectWrapper):
             >>> wall.parameters['Height']
             >>> wall.parameters.builtins['WALL_LOCATION_LINE']
         """
+
         super(Element, self).__init__(element)
+        self.doc = doc
         if isinstance(element, DB.Element):
             # WallKind Inherits from Family/Element, but is not Element,
             # so ParameterSet fails. Parameters are only added if Element
@@ -146,12 +144,12 @@ class Element(BaseObjectWrapper):
 
     @staticmethod
     def from_int(id_int):
-        element = doc.GetElement(DB.ElementId(id_int))
+        element = revit.doc.GetElement(DB.ElementId(id_int))
         return Element(element)
 
     @staticmethod
     def from_id(element_id):
-        element = doc.GetElement(element_id)
+        element = revit.doc.GetElement(element_id)
         return Element(element)
 
     @staticmethod
@@ -255,7 +253,7 @@ class Symbol(Element):
             [``DB.FamilySymbol``]: List of symbol Types of the same Family (unwrapped)
         """
         symbols_ids = self._revit_object.GetSimilarTypes()
-        return [doc.GetElement(i) for i in symbols_ids]
+        return [revit.doc.GetElement(i) for i in symbols_ids]
         # Same as: return self.family.symbols
 
     @property
@@ -312,7 +310,7 @@ class Family(Element):
             [``DB.FamilySymbol``]: List of Symbol Types in the family (unwrapped)
         """
         symbols_ids = self._revit_object.GetFamilySymbolIds()
-        return [doc.GetElement(i) for i in symbols_ids]
+        return [revit.doc.GetElement(i) for i in symbols_ids]
 
     @property
     def category(self):
@@ -357,7 +355,7 @@ class Category(BaseObjectWrapper):
         for symbol in symbols:
             symbol_family = Element.Factory(symbol).family
             unique_family_ids.add(symbol_family.Id)
-        return [doc.GetElement(family_id) for family_id in unique_family_ids]
+        return [revit.doc.GetElement(family_id) for family_id in unique_family_ids]
 
     @property
     def symbols(self):

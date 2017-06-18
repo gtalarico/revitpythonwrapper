@@ -1,14 +1,13 @@
 import os
 import inspect
+import logging
 import tempfile
 from collections import defaultdict
 
-from rpw.utils.logger import logger
-from forms import *
-
-clr.AddReference("System.Drawing")          # System.Windows.Input
-from System.Drawing import FontFamily
-from System.Windows.Input import Key
+try:
+    from forms import *
+except ImportError:
+    from rpw.ui.forms import *
 
 # logger.verbose(True)
 

@@ -1,10 +1,6 @@
-import clr
-clr.AddReference('System')
-from System.Diagnostics import Process
-
+from rpw.utils.dotnet import clr, Process, MockObject
 from rpw.utils.logger import logger
 from rpw.base import BaseObject
-
 
 class Revit(BaseObject):
     """Revit Application Wrapper """
@@ -14,6 +10,7 @@ class Revit(BaseObject):
         DYNAMO = 'Dynamo'
 
     def __init__(self):
+        self.uiapp = None
         try:
             self.uiapp = __revit__
             self.host = Revit.HOSTS.RPS
@@ -22,11 +19,17 @@ class Revit(BaseObject):
                 self.uiapp = self.find_dynamo_uiapp()
                 self.host = Revit.HOSTS.DYNAMO
             except Exception as errmsg:
-                logger.error(errmsg)
-                raise Exception('Revit Application handle could not be found')
+                logger.warning('Revit Application handle could not be found')
 
-        clr.AddReference('RevitAPI')
-        clr.AddReference('RevitAPIUI')
+        try:
+            clr.AddReference('RevitAPI')
+            clr.AddReference('RevitAPIUI')
+            from Autodesk.Revit import DB, UI
+            globals().update({'DB': DB, 'UI': UI})
+        except IOError:
+            logger.warning('RevitAPI References could not be added')
+            globals().update({'DB': MockObject(), 'UI': MockObject()})
+            self.host = None
 
     def find_dynamo_uiapp(self):
         clr.AddReference("RevitServices")
@@ -120,7 +123,6 @@ class RevitVersion():
 
     def __cmp__(self, other):
         """ Handle Version Comparison Logic"""
-        # http://portingguide.readthedocs.io/en/latest/comparisons.html
         raise NotImplemented
 
     def __repr__(self):
@@ -132,7 +134,5 @@ class RevitVersion():
 
 
 revit = Revit()
-from Autodesk.Revit import DB, UI
-
-# For Compatibility reasons:
-doc = revit.doc
+DB
+UI

@@ -8,35 +8,38 @@ ui. currently maps to Revit.DB namespace
 """
 
 import sys
-# from rpw.utils.logger import logger
+import os
+import logging
 
+# This is only so forms.py to be executed on console for easier testing and dev
+# `ipy.exe forms.py` and ipy -X:FullFrames console.py
 try:
+    from rpw import revit, UI
+    if revit.host == 'Dynamo':
+        # Standard Location Added for Dynamo, where script cannot reach inside
+        sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
+    from rpw.utils.dotnet import clr
+    from rpw.utils.logger import logger
+except ImportError:
     import clr
-    import os
-    # Standard Location Added for use in Dynamo, where script cannot reach inside
-    sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
-    clr.AddReference("PresentationFramework")   # ?
-    clr.AddReference("WindowsBase")             # System.Windows.Input
-    try:
-        clr.AddReference('IronPython')
-        # clr.AddReference('IronPython.Modules')
-        clr.AddReference('IronPython.Wpf')
-        from IronPython.Modules import Wpf as wpf
-    except IOError as errmsg:
-        # logger.error(errmsg)
-        raise IOError('Could not find IronPython.Wpf. Path: {}'.format(str(sys.path)))
-    except ImportError as errmsg:
-        # logger.error(errmsg)
-        raise ImportError('Could not Import IronPython.Wpf. Path: {}'.format(str(sys.path)))
+    logger = logging.getLogger()
+    logger.warning('Could not import rpw module.')
 
-    from System.Windows import Application, Window
-    from System.IO import StringReader
-    from System.Environment import Exit, NewLine
-    from rpw.revit import UI
-except ImportError as errmsg:
-    pass
-    # logger.error('Import Error: {}'.format(errmsg))
-    # from rpw.utils.sphinx_compat import *
+
+clr.AddReference("PresentationFramework")  # ?
+clr.AddReference("WindowsBase")            # System.Windows.Input
+clr.AddReference("System.Drawing")         # FontFamily
+
+from System.Windows import Application, Window
+from System.IO import StringReader
+from System.Environment import Exit, NewLine
+from System.Drawing import FontFamily
+from System.Windows.Input import Key
+
+clr.AddReference('IronPython')
+# clr.AddReference('IronPython.Modules')
+clr.AddReference('IronPython.Wpf')
+from IronPython.Modules import Wpf as wpf
 
 
 class SelectFromListForm(Window):

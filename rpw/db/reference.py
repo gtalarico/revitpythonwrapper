@@ -4,7 +4,7 @@ Reference Wrappers
 """
 
 # import rpw
-# from rpw import revit, DB
+# from rpw.revit import revit, DB
 # from rpw.db import Element
 # from rpw.utils.logger import logger
 # from rpw.db.builtins import BipEnum
