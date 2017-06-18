@@ -3,6 +3,7 @@ import inspect
 import tempfile
 from collections import defaultdict
 
+from rpw.utils.logger import logger
 from forms import *
 
 clr.AddReference("System.Drawing")          # System.Windows.Input
@@ -14,6 +15,10 @@ class Console(Window):
 
     >>> from rpw.forms import Console
     >>> Console()
+
+    Args:
+        stack_level (int, optional): Stack Level. Default is 1.
+        stack_info (bool): Print Stack Call info. Default is False.
 
     """
     LAYOUT = """
@@ -49,7 +54,7 @@ class Console(Window):
 
     CARET = '>>> '
 
-    def __init__(self, stack_level=1):
+    def __init__(self, stack_level=1, stack_info=False):
 
         # History Helper
         tempdir = tempfile.gettempdir()
@@ -63,8 +68,8 @@ class Console(Window):
         self.stack_locals = stack_frame.f_locals
         self.stack_globals = stack_frame.f_globals
         stack_code = stack_frame.f_code
-        # print('Local vars: ' + str(stack_locals))
-        # print('Global vars: ' + str(stack_globals))
+        logger.debug('Local vars: ' + str(self.stack_locals))
+        logger.debug('Global vars: ' + str(self.stack_globals))
 
         stack_filename = os.path.basename(stack_code.co_filename)
         stack_lineno = stack_code.co_firstlineno
@@ -77,7 +82,8 @@ class Console(Window):
 
         # Form Init
         self.ui.tbox.Focus()
-        self.write_line('Caller: {} [line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
+        if stack_info:
+            self.write_line('Caller: {} [line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
 
         self.ui.tbox.CaretIndex = len(self.tbox.Text)
 
@@ -91,7 +97,7 @@ class Console(Window):
         line = self.tbox.GetLineText(index).replace('\r\n','')
         if line.startswith(Console.CARET):
             line = line[len(Console.CARET):]
-        # print('Get Line: {}'.format(line))
+        logger.debug('Get Line: {}'.format(line))
         return line
 
     def get_last_line(self):
@@ -108,7 +114,7 @@ class Console(Window):
         for index in range(0, last_line_index):
             line = self.get_line(index)
             lines.append(line)
-        # print('Lines: {}'.format(lines))
+        logger.debug('Lines: {}'.format(lines))
         return lines
 
     def OnKeyUpHandler(self, sender, args):
@@ -126,9 +132,12 @@ class Console(Window):
             self.write_line(output)
 
     def evaluate(self, line):
-        # print('Stack: ' + str(self.stack_vars))
+
         try:
             output = eval(line, self.stack_globals, self.stack_locals)
+        except SyntaxError as errmsg:
+            exec(line, self.stack_globals, self.stack_locals)
+            return
         except Exception as errmsg:
             output = errmsg
         return str(output)
@@ -159,10 +168,10 @@ class Console(Window):
         last_line = self.get_last_line()
         cursor_line_index = self.tbox.CaretIndex - self.tbox.Text.rfind(Console.CARET) - len(Console.CARET)
         text = last_line[0:cursor_line_index]
-        # print('Text: {}'.format(text))
         possibilities = set(self.stack_locals.keys() + self.stack_globals.keys()) # + self.get_all_history()
         suggestions = [p for p in possibilities if p.lower().startswith(text.lower())]
-        # print('Sug: {}'.format(suggestions))
+        logger.debug('Text: {}'.format(text))
+        logger.debug('Sug: {}'.format(suggestions))
 
         if not suggestions:
             return None
@@ -212,13 +221,13 @@ class Console(Window):
             self.write_text(line)
 
     def append_history(self, line):
-        print('Adding Line to History:' + repr(line))
+        logger.debug('Adding Line to History:' + repr(line))
         with open(self.history_file, 'a') as fp:
             fp.write(line + '\n')
 
     def history_iter(self):
         lines = self.get_all_history()
-            # print('Lines: {}'.format(lines))
+        logger.debug('Lines: {}'.format(lines))
         try:
             line = lines[::-1][self.history_index -1]
         except IndexError:

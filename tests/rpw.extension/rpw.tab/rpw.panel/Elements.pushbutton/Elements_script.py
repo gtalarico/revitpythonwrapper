@@ -335,7 +335,7 @@ class RoomTests(unittest.TestCase):
 
 
 def run():
-    logger.verbose(False)
+    logger.verbose(True)
     suite = unittest.TestLoader().discover('tests')
     unittest.main(verbosity=3, buffer=True)
 
