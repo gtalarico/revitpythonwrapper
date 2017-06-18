@@ -32,7 +32,6 @@ try:
     from System.Windows import Application, Window
     from System.IO import StringReader
     from System.Environment import Exit, NewLine
-    from System.Windows.Input import Key
     from rpw.revit import UI
 except ImportError as errmsg:
     pass

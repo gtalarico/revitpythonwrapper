@@ -159,6 +159,7 @@ class ElementTests(unittest.TestCase):
             self.wrapped_wall.parameters['Top Constraint'].value = new_level.Id
         self.assertEqual(self.wrapped_wall.parameters['Top Constraint'].value.IntegerValue,
                          new_level.Id.IntegerValue)
+        rpw.ui.Console()
 
     def test_element_get_builtin_parameter_by_strin(self):
         bip = self.wrapped_wall.parameters.builtins['WALL_KEY_REF_PARAM'].value

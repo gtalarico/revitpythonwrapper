@@ -1,6 +1,13 @@
+import os
+import inspect
+import tempfile
 from collections import defaultdict
+
 from forms import *
 
+clr.AddReference("System.Drawing")          # System.Windows.Input
+from System.Drawing import FontFamily
+from System.Windows.Input import Key
 
 class Console(Window):
     """ REPL Console for Inspecting Stack
@@ -14,6 +21,12 @@ class Console(Window):
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         Title="DeployWindow" Height="400" Width="800" SnapsToDevicePixels="True"
                         UseLayoutRounding="True" WindowState="Normal" WindowStartupLocation="CenterScreen">
+            	<Window.Resources>
+            		<Style TargetType="{x:Type MenuItem}">
+            			<Setter Property="FontFamily" Value="Consolas"/>
+            			<Setter Property="FontSize" Value="12.0"/>
+            		</Style>
+            	</Window.Resources>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -25,7 +38,10 @@ class Console(Window):
                 <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"
                          KeyDown="OnKeyDownHandler" KeyUp="OnKeyUpHandler"
                          Name="tbox" Margin="6,6,6,6" VerticalAlignment="Stretch"
-                         AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+                         AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                         TextWrapping="Wrap"
+                         FontFamily="Consolas" FontSize="12.0"
+                         />
                 </Grid>
                 </Window>
     """
@@ -33,47 +49,41 @@ class Console(Window):
 
     CARET = '>>> '
 
-    def __init__(self):
+    def __init__(self, stack_level=1):
 
-        import inspect
-        import os
-        import tempfile
-        import pickle
-
+        # History Helper
         tempdir = tempfile.gettempdir()
         filename = 'rpw-history'
         self.history_file = os.path.join(tempdir, filename)
 
-        stack_tuple = inspect.stack()[2] # Finds Calling Stack
+        # Stack Info
+        # stack = inspect.currentframe().f_back
+        stack_frame = inspect.stack()[stack_level][0] # Finds Calling Stack
 
-        # TODO: Print Stack Info on Init
-        stack_filename = stack_tuple[1]
-        stack_line = stack_tuple[2]
-        stack_name = stack_tuple[3]
-
-        stack = stack_tuple[0]
-        stack_locals = stack.f_locals
-        stack_globals = stack.f_globals
-
+        self.stack_locals = stack_frame.f_locals
+        self.stack_globals = stack_frame.f_globals
+        stack_code = stack_frame.f_code
         # print('Local vars: ' + str(stack_locals))
         # print('Global vars: ' + str(stack_globals))
 
-        self.stack_locals = stack_locals
-        self.stack_globals = stack_globals
+        stack_filename = os.path.basename(stack_code.co_filename)
+        stack_lineno = stack_code.co_firstlineno
+        stack_caller = stack_code.co_name
 
+        # Form Setup
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
         self.ui.Title = 'RevitPythonWrapper Console'
-
-        self.ui.tbox.Text = Console.CARET
-        self.ui.tbox.Focus()
-        self.ui.tbox.CaretIndex = len(Console.CARET)
-
-        # self.tbox.FontFamily = FontFamily("Consolas")
-
         self.PreviewKeyDown += self.KeyPressPreview
+
+        # Form Init
+        self.ui.tbox.Focus()
+        self.write_line('Caller: {} [line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
+
+        self.ui.tbox.CaretIndex = len(self.tbox.Text)
+
+        # Vars
         self.history_index = 0
         self.ac_options = defaultdict(int)
-        self.ac_index = 0
 
         self.ShowDialog()
 
@@ -149,10 +159,10 @@ class Console(Window):
         last_line = self.get_last_line()
         cursor_line_index = self.tbox.CaretIndex - self.tbox.Text.rfind(Console.CARET) - len(Console.CARET)
         text = last_line[0:cursor_line_index]
-        print('Text: {}'.format(text))
+        # print('Text: {}'.format(text))
         possibilities = set(self.stack_locals.keys() + self.stack_globals.keys()) # + self.get_all_history()
         suggestions = [p for p in possibilities if p.lower().startswith(text.lower())]
-        print('Sug: {}'.format(suggestions))
+        # print('Sug: {}'.format(suggestions))
 
         if not suggestions:
             return None
