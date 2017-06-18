@@ -68,8 +68,8 @@ class Console(Window):
         self.stack_locals = stack_frame.f_locals
         self.stack_globals = stack_frame.f_globals
         stack_code = stack_frame.f_code
-        logger.debug('Local vars: ' + str(self.stack_locals))
-        logger.debug('Global vars: ' + str(self.stack_globals))
+        # logger.debug('Local vars: ' + str(self.stack_locals))
+        # logger.debug('Global vars: ' + str(self.stack_globals))
 
         stack_filename = os.path.basename(stack_code.co_filename)
         stack_lineno = stack_code.co_firstlineno
@@ -84,6 +84,8 @@ class Console(Window):
         self.ui.tbox.Focus()
         if stack_info:
             self.write_line('Caller: {} [line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
+        else:
+            self.tbox.Text = Console.CARET
 
         self.ui.tbox.CaretIndex = len(self.tbox.Text)
 
@@ -136,8 +138,11 @@ class Console(Window):
         try:
             output = eval(line, self.stack_globals, self.stack_locals)
         except SyntaxError as errmsg:
-            exec(line, self.stack_globals, self.stack_locals)
-            return
+            try:
+                exec(line, self.stack_globals, self.stack_locals)
+                return
+            except Exception as errmsg:
+                output = errmsg
         except Exception as errmsg:
             output = errmsg
         return str(output)
@@ -145,8 +150,13 @@ class Console(Window):
     def OnKeyDownHandler(self, sender, args):
         pass
 
+    def reset_caret(self):
+        self.tbox.CaretIndex = self.tbox.Text.rfind(Console.CARET) + len(Console.CARET)
+
     def KeyPressPreview(self, sender, e):
         e.Handled = False
+        if self.tbox.CaretIndex < self.tbox.Text.rfind(Console.CARET):
+            self.tbox.CaretIndex = len(self.tbox.Text)
         if e.Key == Key.Up:
             self.history_up()
             e.Handled = True
@@ -157,11 +167,14 @@ class Console(Window):
             if self.ui.tbox.CaretIndex == self.tbox.Text.rfind(Console.CARET) + len(Console.CARET):
                 e.Handled = True
         if e.Key == Key.Home:
-            self.tbox.CaretIndex = self.tbox.Text.rfind(Console.CARET) + len(Console.CARET)
+            self.reset_caret()
             e.Handled = True
         if e.Key == Key.Tab:
             self.autocomplete()
             e.Handled = True
+        if e.Key == Key.Enter:
+            self.tbox.CaretIndex = len(self.tbox.Text)
+
 
     def autocomplete(self):
         # TODO: Add recursive dir() attribute suggestions
