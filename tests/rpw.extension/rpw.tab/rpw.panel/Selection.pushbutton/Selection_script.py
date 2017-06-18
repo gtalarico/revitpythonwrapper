@@ -127,9 +127,9 @@ class SelectionTests(unittest.TestCase):
         selection2.update()
         self.assertEqual(selection[0].Id, selection2[0].Id)
 
-    def test_selection_reset(self):
+    def test_selection_update(self):
         selection = rpw.ui.Selection()
-        selection.reset()
+        selection.update()
 
 def run():
     logger.verbose(False)
