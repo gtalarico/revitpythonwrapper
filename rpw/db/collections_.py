@@ -117,8 +117,6 @@ class ElementSet(BaseObject):
 
     def add(self, elements_or_ids):
         """ Adds elements or element_ids to set. Handles single or list """
-        if not isinstance(elements_or_ids, (list, set)):
-            elements_or_ids = [elements_or_ids]
         element_ids = to_element_ids(elements_or_ids)
         for eid in element_ids:
             self._elements[eid] = self.doc.GetElement(eid)
@@ -147,13 +145,16 @@ class ElementSet(BaseObject):
 
     def clear(self):
         """ Clears Set """
-        self._elements = set()
+        self._elements = OrderedDict()
 
     def as_element_list(self):
         return List[DB.Element](self.elements)
 
     def as_element_id_list(self):
         return List[DB.ElementId](self.element_ids)
+
+    def select(self):
+        return Selection(self.element_ids)
 
     def __len__(self):
         return len(self._elements)

@@ -47,7 +47,7 @@ from rpw.utils import logger
 import test_utils
 
 def setUpModule():
-    logger.title('SETTING UP ELEMENTS TESTS...')
+    logger.title('SETTING UP SELECTION TESTS...')
     # uidoc.Application.OpenAndActivateDocument(os.path.join(panel_dir, 'collector.rvt'))
 
 def tearDownModule():
@@ -116,6 +116,20 @@ class SelectionTests(unittest.TestCase):
         selection.add([self.wall])
         self.assertIsInstance(selection[0], DB.Wall)
 
+    def test_selection_contains(self):
+        selection = rpw.ui.Selection()
+        selection.add([self.wall])
+        self.assertIn(self.wall, selection)
+
+    def test_selection_updates_does_not_lose(self):
+        selection = rpw.ui.Selection()
+        selection2 = rpw.ui.Selection()
+        selection2.update()
+        self.assertEqual(selection[0].Id, selection2[0].Id)
+
+    def test_selection_reset(self):
+        selection = rpw.ui.Selection()
+        selection.reset()
 
 def run():
     logger.verbose(False)

@@ -50,13 +50,14 @@ def to_element_ids(element_references):
 def to_element(element_reference, doc=revit.doc):
     if isinstance(element_reference, DB.ElementId):
         element = doc.GetElement(element_reference)
-    if isinstance(element_reference, DB.Reference):
+    elif isinstance(element_reference, DB.Reference):
         element = doc.GetElement(element_reference)
     elif isinstance(element_reference, int):
         element = doc.GetElement(DB.ElementId(element_reference))
     elif isinstance(element_reference, DB.Element):
         element = element_reference
     else:
+        rpw.ui.Console()
         raise RpwTypeError('Element, ElementId, or int', type(element_reference))
     return element
 

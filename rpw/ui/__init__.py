@@ -1,6 +1,6 @@
 from rpw.utils.logger import logger
 
-from rpw.ui.selection import Selection, Pick
+from rpw.ui.selection import Selection
 from rpw.ui.console import Console
 
 try:

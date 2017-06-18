@@ -2,16 +2,18 @@
 `uidoc.Selection` Wrapper
 """
 
+import rpw
 from rpw.revit import revit, DB, UI
 from rpw.utils.dotnet import List
-from rpw.base import BaseObjectWrapper
+from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RpwTypeError
 from rpw.utils.logger import logger
-from rpw.utils.coerce import to_element_ids
+from rpw.utils.coerce import to_element_ids, to_elements, to_iterable
 from rpw.db.collections_ import ElementSet
 
-doc, uidoc = revit.doc, revit.uidoc
-
+ObjectType = UI.Selection.ObjectType
+PickObjects = revit.uidoc.Selection.PickObjects
+PickObject = revit.uidoc.Selection.PickObject
 
 class Selection(BaseObjectWrapper, ElementSet):
     """
@@ -66,9 +68,14 @@ class Selection(BaseObjectWrapper, ElementSet):
         >>> selection.add([element_ids])
         """
         ElementSet.add(self, elements_or_ids)
-        self.update()
+        self.reset()
 
-    def update(self):
+    # def update(self):
+    #     """ Updates Selection() object to match current selection state"""
+    #     Selection.__init__(self, uidoc=self.uidoc)
+
+    def reset(self):
+        """ Forces UI selection to match the Selection() object """
         self.uidoc.Selection.SetElementIds(self.as_element_id_list())
 
     def clear(self):
@@ -81,7 +88,7 @@ class Selection(BaseObjectWrapper, ElementSet):
             None
         """
         ElementSet.clear(self)
-        uidoc.Selection.SetElementIds(List[DB.ElementId]())
+        self.reset()
 
     def __bool__(self):
         """
@@ -92,11 +99,6 @@ class Selection(BaseObjectWrapper, ElementSet):
         2
         >>> Selection() is True
         True
-        >>> bool(selection)
-        True
-        >>> selection.clear()
-        >>> bool(selection)
-        False
         """
         return bool(len(self))
 
@@ -105,97 +107,53 @@ class Selection(BaseObjectWrapper, ElementSet):
         return super(Selection, self).__repr__(data={'count': len(self)})
 
 
-class Pick():
+    def _pick(self, obj_type, msg='', multiple=False, world=None):
+        if multiple:
+            picked = PickObjects(obj_type, msg)
+        else:
+            picked = PickObject(obj_type, msg)
 
-    @staticmethod
-    def _pick_obj(obj_type, msg='', multiple=False, world=False):
-        # PICK_MAP = {multiple: }
-        # try:
-            # logger.debug('Picking elements: {} '
-            #              'pick_message: {} '
-            #              'multiple: {} '
-            #              'world: {}'.format(obj_type, pick_message,
-            #                                 multiple, world))
-            # if multiple:
-            #     self._refs = list(uidoc.Selection.PickObjects(obj_type,
-            #                                                   msg))
-            # else:
-            #     self._refs = []
-            selected = uidoc.Selection.PickObject(obj_type, msg)
+        elements = to_elements(picked)
+        self.add(elements)
+        rpw.ui.Console()
+        if world:
+            picked = [ref.GlobalPoint for ref in picked]
+        elif world is False:
+            picked = [ref.UVPoint for ref in picked]
 
-            # if not self._refs:
-            #     logger.debug('Nothing picked by user...Returning None')
-            #     return None
-            #
-            # logger.debug('Picked elements are: {}'.format(self._refs))
-            #
-            # if obj_type == UI.Selection.ObjectType.Element:
-            #     return_values = [doc.GetElement(ref) for ref in self._refs]
-            # elif obj_type == UI.Selection.ObjectType.PointOnElement:
-            #     if world:
-            #         return_values = [ref.GlobalPoint for ref in self._refs]
-            #     else:
-            #         return_values = [ref.UVPoint for ref in self._refs]
-            # else:
-            #     return_values = \
-            #         [doc.GetElement(ref).GetGeometryObjectFromReference(ref)
-            #          for ref in self._refs]
-            #
-            # logger.debug('Processed return elements are: {}'
-            #              .format(return_values))
-            #
-            # if type(return_values) is list:
-            #     if len(return_values) > 1:
-            #         return return_values
-            #     elif len(return_values) == 1:
-            #         return return_values[0]
-            # else:
-            #     logger.error('Error processing picked elements. '
-            #                  'return_values should be a list.')
-        # except:
-            # return None
-    #
-    #
-    @staticmethod
-    def element(msg=''):
-        return Pick._pick_obj(UI.Selection.ObjectType.Element, msg=msg)
+        return self.elements if multiple else self.elements[0]
 
-    @staticmethod
-    def element_point(msg='', world=False):
-        return Pick._pick_obj(UI.Selection.ObjectType.PointOnElement, msg=msg, world=world)
+        # else:
+        #     return_values = \
+        #         [doc.GetElement(ref).GetGeometryObjectFromReference(ref)
+        #          for ref in self._refs]
 
-    @staticmethod
-    def edge(msg=''):
-        return Pick._pick_obj(UI.Selection.ObjectType.Edge, msg=msg)
-    #
-    # def pick_face(self, message=''):
-    #     return self._pick_obj(ObjectType.Face, message)
-    #
-    # def pick_linked(self, message=''):
-    #     return self._pick_obj(ObjectType.LinkedElement, message)
-    #
-    # def pick_elements(self, message=''):
-    #     return self._pick_obj(ObjectType.Element, message, multiple=True)
-    #
-    # def pick_elementpoints(self, message='', world=False):
-    #     return self._pick_obj(ObjectType.PointOnElement, message, multiple=True, world=world)
-    #
-    # def pick_edges(self, message=''):
-    #     return self._pick_obj(ObjectType.Edge, message, multiple=True)
-    #
-    # def pick_faces(self, message=''):
-    #     return self._pick_obj(ObjectType.Face, message, multiple=True)
-    #
-    # def pick_linkeds(self, message=''):
-    #     return self._pick_obj(ObjectType.LinkedElement, message, multiple=True)
-    #
-    # # @staticmethod
-    # # def pick_point(message=''):
-    # #     try:
-    # #         return uidoc.Selection.PickPoint(pick_message)
-    # #     except:
-    # #         return None
-    #
-    # @property
-    # def references(self):
-    #     return self._refs
+    def pick_element(self, msg='', multiple=False):
+        return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
+
+    def pick_element_point(self, msg='', world=False):
+        return self._pick(ObjectType.PointOnElement, msg=msg, world=world)
+
+    def pick_point(self, msg=''):
+        return revit.wauidoc.Selection.PickPoint(msg)
+
+    def pick_edge(self, msg=''):
+        return self._pick(ObjectType.Edge, msg=msg)
+
+    def pick_edges(self, msg=''):
+        return self._pick(ObjectType.Edge, msg, multiple=True)
+
+    def pick_face(self, msg=''):
+        return self._pick(ObjectType.Face, msg)
+
+    def pick_faces(self, msg=''):
+        return self._pick(ObjectType.Face, msg, multiple=True)
+
+    def pick_linked_element(self, msg=''):
+        return self._pick(ObjectType.LinkedElement, msg)
+
+    def pick_linked_elements(self, msg=''):
+        return self._pick(ObjectType.LinkedElement, msg, multiple=True)
+
+    def pick_point_on_element(self, msg='', world=False):
+        return self._pick(ObjectType.PointOnElement, msg, multiple=True, world=world)

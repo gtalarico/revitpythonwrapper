@@ -87,7 +87,6 @@ class CoerceTests(unittest.TestCase):
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
     def test_corce_to_element_diverse(self):
-        wall_id = DB.ElementId(self.wall.Id.IntegerValue)
         elements = rpw.utils.coerce.to_elements([self.wall, self.wall.Id, self.wall.Id.IntegerValue])
         self.assertTrue(all([isinstance(e, DB.Element) for e in elements]))
 
@@ -107,6 +106,16 @@ class CoerceTests(unittest.TestCase):
         self.assertIs(rpw.utils.coerce.to_category('StackedWalls'), DB.BuiltInCategory.OST_StackedWalls)
         self.assertIs(rpw.utils.coerce.to_category('stackedwalls'), DB.BuiltInCategory.OST_StackedWalls)
         self.assertIs(rpw.utils.coerce.to_category('stacked walls'), DB.BuiltInCategory.OST_StackedWalls)
+
+    def test_to_iterable(self):
+        self.assertTrue([w for w in rpw.utils.coerce.to_iterable(self.wall)])
+
+    def test_to_iterable_element_id(self):
+        self.assertTrue([w for w in rpw.utils.coerce.to_element_ids(self.wall)])
+
+    def test_to_iterable_element(self):
+        self.assertTrue([w for w in rpw.utils.coerce.to_elements(self.wall)])
+
 
     # TODO: Add BuiltInCategory Tests
 
