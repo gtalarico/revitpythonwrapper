@@ -52,9 +52,10 @@ class Selection(BaseObjectWrapper, ElementSet):
         self.uidoc = uidoc
 
         if not elements_or_ids:
+            # Is List of elements is not provided, uses uidoc selection
             elements_or_ids = [e for e in uidoc.Selection.GetElementIds()]
 
-        ElementSet.__init__(self, elements_or_ids, doc=uidoc.Document)
+        ElementSet.__init__(self, elements_or_ids, doc=self.uidoc.Document)
 
     def add(self, elements_or_ids):
         """ Adds elements to selection.
@@ -67,14 +68,15 @@ class Selection(BaseObjectWrapper, ElementSet):
         >>> selection.add([elements])
         >>> selection.add([element_ids])
         """
+        # Call Set for proper adding into set.
         ElementSet.add(self, elements_or_ids)
-        self.reset()
+        self.update()
 
     # def update(self):
     #     """ Updates Selection() object to match current selection state"""
     #     Selection.__init__(self, uidoc=self.uidoc)
 
-    def reset(self):
+    def update(self):
         """ Forces UI selection to match the Selection() object """
         self.uidoc.Selection.SetElementIds(self.as_element_id_list())
 
@@ -88,7 +90,7 @@ class Selection(BaseObjectWrapper, ElementSet):
             None
         """
         ElementSet.clear(self)
-        self.reset()
+        self.update()
 
     def __bool__(self):
         """
@@ -108,52 +110,57 @@ class Selection(BaseObjectWrapper, ElementSet):
 
 
     def _pick(self, obj_type, msg='', multiple=False, world=None):
+        doc = self.uidoc.Document
+
         if multiple:
-            picked = PickObjects(obj_type, msg)
+            refs = PickObjects(obj_type, msg)
         else:
-            picked = PickObject(obj_type, msg)
+            refs = PickObject(obj_type, msg)
 
-        elements = to_elements(picked)
-        self.add(elements)
-        rpw.ui.Console()
+        refs = to_iterable(refs)
+
+        ref_dict = {}  # Return Value
+
         if world:
-            picked = [ref.GlobalPoint for ref in picked]
-        elif world is False:
-            picked = [ref.UVPoint for ref in picked]
+            try:
+                global_pts = [ref.GlobalPoint for ref in refs]
+            except AttributeError:
+                raise
+            else:
+                global_pts = global_pts if multiple else global_pts[0]
+                ref_dict['global_points'] = global_pts
+        if world is False:
+            try:
+                uv_pts = [ref.UVPoint for ref in refs]
+            except AttributeError:
+                raise
+            else:
+                uv_pts = uv_pts if multiple else uv_pts[0]
+                ref_dict['uv_points'] = uv_pts
+        try:
+            ref_dict['geometric_object'] = [doc.GetElement(ref).GetGeometryObjectFromReference(ref) for ref in refs]
+        except AttributeError:
+            raise
 
-        return self.elements if multiple else self.elements[0]
+        self.add(refs)
+        rpw.ui.Console()
+        return ref_dict
 
-        # else:
-        #     return_values = \
-        #         [doc.GetElement(ref).GetGeometryObjectFromReference(ref)
-        #          for ref in self._refs]
 
     def pick_element(self, msg='', multiple=False):
         return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
 
-    def pick_element_point(self, msg='', world=False):
-        return self._pick(ObjectType.PointOnElement, msg=msg, world=world)
+    def pick_element_point(self, msg='', world=False, multiple=False):
+        return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple, world=world)
 
     def pick_point(self, msg=''):
         return revit.wauidoc.Selection.PickPoint(msg)
 
-    def pick_edge(self, msg=''):
-        return self._pick(ObjectType.Edge, msg=msg)
+    def pick_edge(self, msg='', multiple=False):
+        return self._pick(ObjectType.Edge, msg=msg, multiple=multiple)
 
-    def pick_edges(self, msg=''):
-        return self._pick(ObjectType.Edge, msg, multiple=True)
+    def pick_face(self, msg='', multiple=False):
+        return self._pick(ObjectType.Face, msg=msg, multiple=multiple)
 
-    def pick_face(self, msg=''):
-        return self._pick(ObjectType.Face, msg)
-
-    def pick_faces(self, msg=''):
-        return self._pick(ObjectType.Face, msg, multiple=True)
-
-    def pick_linked_element(self, msg=''):
-        return self._pick(ObjectType.LinkedElement, msg)
-
-    def pick_linked_elements(self, msg=''):
-        return self._pick(ObjectType.LinkedElement, msg, multiple=True)
-
-    def pick_point_on_element(self, msg='', world=False):
-        return self._pick(ObjectType.PointOnElement, msg, multiple=True, world=world)
+    def pick_linked_element(self, msg='', multiple=False):
+        return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple)

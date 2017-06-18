@@ -98,6 +98,11 @@ class PickTests(unittest.TestCase):
         self.assertIsInstance(desks[0], DB.FamilyInstance)
         self.assertEqual(len(selection), 2)
 
+    def test_pick_element_point(self):
+        selection = Selection()
+        point = selection.pick_element_point('Pick Point', world=True)
+        rpw.ui.Console()
+
 
 def run():
     logger.verbose(True)

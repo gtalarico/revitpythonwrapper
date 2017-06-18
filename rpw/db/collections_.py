@@ -3,6 +3,7 @@
 
 from collections import OrderedDict
 
+import rpw
 from rpw import revit, DB
 from rpw.db.xyz import XYZ
 from rpw.db.element import Element
