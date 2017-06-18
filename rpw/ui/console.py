@@ -1,3 +1,4 @@
+from collections import defaultdict
 from forms import *
 
 
@@ -23,7 +24,7 @@ class Console(Window):
                 </Grid.RowDefinitions>
                 <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"
                          KeyDown="OnKeyDownHandler" KeyUp="OnKeyUpHandler"
-                         Name="text_box" Margin="6,6,6,6" VerticalAlignment="Stretch"
+                         Name="tbox" Margin="6,6,6,6" VerticalAlignment="Stretch"
                          AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
                 </Grid>
                 </Window>
@@ -61,32 +62,56 @@ class Console(Window):
         self.stack_globals = stack_globals
 
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
-        self.ui.Title = 'RevitPythonWrapper Stack Debugger'
+        self.ui.Title = 'RevitPythonWrapper Console'
 
-        self.ui.text_box.Text = Console.CARET
-        self.ui.text_box.Focus()
-        self.ui.text_box.CaretIndex = len(Console.CARET)
+        self.ui.tbox.Text = Console.CARET
+        self.ui.tbox.Focus()
+        self.ui.tbox.CaretIndex = len(Console.CARET)
 
-        # self.text_box.FontFamily = FontFamily("Consolas")
+        # self.tbox.FontFamily = FontFamily("Consolas")
 
         self.PreviewKeyDown += self.KeyPressPreview
-
         self.history_index = 0
+        self.ac_options = defaultdict(int)
+        self.ac_index = 0
 
         self.ShowDialog()
 
+    def get_line(self, index):
+        line = self.tbox.GetLineText(index).replace('\r\n','')
+        if line.startswith(Console.CARET):
+            line = line[len(Console.CARET):]
+        # print('Get Line: {}'.format(line))
+        return line
+
+    def get_last_line(self):
+        try:
+            last_line = self.get_lines()[-1]
+        except IndexError:
+            last_line = self.get_line(0)
+
+        return last_line
+
+    def get_lines(self):
+        last_line_index = self.tbox.LineCount - 1
+        lines = []
+        for index in range(0, last_line_index):
+            line = self.get_line(index)
+            lines.append(line)
+        # print('Lines: {}'.format(lines))
+        return lines
+
     def OnKeyUpHandler(self, sender, args):
+        """ Need to use this to be able to override ENTER """
+        if self.tbox.LineCount == 1:
+            return
         if args.Key == Key.Enter:
-            line_count = sender.LineCount
-            last_line = line_count - 1
-            line = sender.GetLineText(last_line - 1)[4:-1]
-            # print('Line:{}'.format(repr(line)))
-            if line == '\r':
+            last_line = self.get_last_line()
+            if last_line == '':
                 self.write_line(None)
                 return
-
-            output = self.evaluate(line)
-            self.append_history(line)
+            output = self.evaluate(last_line)
+            self.append_history(last_line)
             self.history_index = 0
             self.write_line(output)
 
@@ -110,44 +135,79 @@ class Console(Window):
             self.history_down()
             e.Handled = True
         if e.Key == Key.Left or e.Key == Key.Back:
-            if self.ui.text_box.CaretIndex == self.text_box.Text.rfind(Console.CARET) + len(Console.CARET):
+            if self.ui.tbox.CaretIndex == self.tbox.Text.rfind(Console.CARET) + len(Console.CARET):
                 e.Handled = True
+        if e.Key == Key.Home:
+            self.tbox.CaretIndex = self.tbox.Text.rfind(Console.CARET) + len(Console.CARET)
+            e.Handled = True
         if e.Key == Key.Tab:
-            # TODO: Tab Completion
-            raise NotImplemented
+            self.autocomplete()
+            e.Handled = True
+
+    def autocomplete(self):
+        # TODO: Add recursive dir() attribute suggestions
+        last_line = self.get_last_line()
+        cursor_line_index = self.tbox.CaretIndex - self.tbox.Text.rfind(Console.CARET) - len(Console.CARET)
+        text = last_line[0:cursor_line_index]
+        print('Text: {}'.format(text))
+        possibilities = set(self.stack_locals.keys() + self.stack_globals.keys()) # + self.get_all_history()
+        suggestions = [p for p in possibilities if p.lower().startswith(text.lower())]
+        print('Sug: {}'.format(suggestions))
+
+        if not suggestions:
+            return None
+        # Create Dictionary to Track iteration over suggestion
+        index = self.ac_options[text]
+        try:
+            suggestion = suggestions[index]
+        except IndexError:
+            self.ac_options[text] = 0
+            suggestion = suggestions[0]
+        self.ac_options[text] += 1
+
+        if suggestion is not None:
+            caret_index = self.tbox.CaretIndex
+            self.write_text(suggestion)
+            self.tbox.CaretIndex = caret_index
 
     def write_line(self, line=None):
         if line:
-            self.text_box.AppendText(line)
-            self.text_box.AppendText(NewLine)
-        self.text_box.AppendText(Console.CARET)
+            self.tbox.AppendText(line)
+            self.tbox.AppendText(NewLine)
+        self.tbox.AppendText(Console.CARET)
 
-    def history_set(self, line):
-        last_new_line = self.text_box.Text.rfind(Console.CARET)
-        self.text_box.Text = self.text_box.Text[0:last_new_line]
-        self.text_box.AppendText(Console.CARET)
-        self.text_box.AppendText(line)
-        self.ui.text_box.CaretIndex = len(self.ui.text_box.Text)
+    def write_text(self, line):
+        last_new_line = self.tbox.Text.rfind(Console.CARET)
+        self.tbox.Text = self.tbox.Text[0:last_new_line]
+        self.tbox.AppendText(Console.CARET)
+        self.tbox.AppendText(line)
+        self.ui.tbox.CaretIndex = len(self.ui.tbox.Text)
+
+    def get_all_history(self):
+        """ Retrieves all lines from history file """
+        with open(self.history_file) as fp:
+            lines = [l for l in fp.read().split('\n') if l != '']
+            return lines
 
     def history_up(self):
         self.history_index += 1
-        line = self.read_history()
+        line = self.history_iter()
         if line is not None:
-            self.history_set(line)
+            self.write_text(line)
 
     def history_down(self):
         self.history_index -= 1
-        line = self.read_history()
+        line = self.history_iter()
         if line is not None:
-            self.history_set(line)
+            self.write_text(line)
 
     def append_history(self, line):
+        print('Adding Line to History:' + repr(line))
         with open(self.history_file, 'a') as fp:
-            fp.write(line)
+            fp.write(line + '\n')
 
-    def read_history(self):
-        with open(self.history_file) as fp:
-            lines = fp.read().split()
+    def history_iter(self):
+        lines = self.get_all_history()
             # print('Lines: {}'.format(lines))
         try:
             line = lines[::-1][self.history_index -1]
