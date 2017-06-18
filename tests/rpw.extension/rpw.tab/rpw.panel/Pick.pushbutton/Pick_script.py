@@ -83,25 +83,52 @@ class PickTests(unittest.TestCase):
     def test_pick_element(self):
         selection = Selection()
         desk = selection.pick_element('Pick a Desk')
-        self.assertIsInstance(desk, DB.FamilyInstance)
+        self.assertIsInstance(desk, DB.Reference)
         self.assertEqual(len(selection), 1)
 
     def test_pick_elements(self):
         selection = Selection()
         desks = selection.pick_element('Pick 2 Desks', multiple=True)
-        self.assertIsInstance(desks[0], DB.FamilyInstance)
+        self.assertIsInstance(desks[0], DB.Reference)
         self.assertEqual(len(selection), 2)
 
     def test_pick_elements(self):
         selection = Selection()
         desks = selection.pick_element('Pick 2 Desks', multiple=True)
-        self.assertIsInstance(desks[0], DB.FamilyInstance)
+        self.assertIsInstance(desks[0], DB.Reference)
         self.assertEqual(len(selection), 2)
 
     def test_pick_element_point(self):
         selection = Selection()
-        point = selection.pick_element_point('Pick Point', world=True)
-        rpw.ui.Console()
+        rv = selection.pick_pt_on_element('pick_pt_on_element')
+        self.assertIsInstance(rv, DB.Reference)
+        rv = selection.pick_pt_on_element('pick_pt_on_element', multiple=True)
+        self.assertIsInstance(rv[0], DB.Reference)
+
+    def test_pick_element_edge(self):
+        selection = Selection()
+        rv = selection.pick_edge('pick_edge')
+        self.assertIsInstance(rv, DB.Reference)
+        rv = selection.pick_edge('pick_edges', multiple=True)
+        self.assertIsInstance(rv[0], DB.Reference)
+
+    def test_pick_element_face(self):
+        selection = Selection()
+        rv = selection.pick_face('pick_face')
+        self.assertIsInstance(rv, DB.Reference)
+        rv = selection.pick_face('pick_faces', multiple=True)
+        self.assertIsInstance(rv[0], DB.Reference)
+
+    def test_pick_pt(self):
+        selection = Selection()
+        rv = selection.pick_pt('pick_pt')
+        self.assertIsInstance(rv, DB.XYZ)
+
+    # def test_pick_linked(self):
+    #     selection = Selection()
+    #     rv = selection.pick_linked_element('pick_linked_element')
+    #     rpw.ui.Console()
+
 
 
 def run():

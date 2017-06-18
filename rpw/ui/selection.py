@@ -109,52 +109,28 @@ class Selection(BaseObjectWrapper, ElementSet):
         return super(Selection, self).__repr__(data={'count': len(self)})
 
 
-    def _pick(self, obj_type, msg='', multiple=False, world=None):
+    def _pick(self, obj_type, msg='', multiple=False):
+        """ Note: Moved Reference Logic to Referenc Wrapper."""
         doc = self.uidoc.Document
 
         if multiple:
-            refs = PickObjects(obj_type, msg)
+            references = PickObjects(obj_type, msg)
         else:
-            refs = PickObject(obj_type, msg)
+            references = PickObject(obj_type, msg)
 
-        refs = to_iterable(refs)
-
-        ref_dict = {}  # Return Value
-
-        if world:
-            try:
-                global_pts = [ref.GlobalPoint for ref in refs]
-            except AttributeError:
-                raise
-            else:
-                global_pts = global_pts if multiple else global_pts[0]
-                ref_dict['global_points'] = global_pts
-        if world is False:
-            try:
-                uv_pts = [ref.UVPoint for ref in refs]
-            except AttributeError:
-                raise
-            else:
-                uv_pts = uv_pts if multiple else uv_pts[0]
-                ref_dict['uv_points'] = uv_pts
-        try:
-            ref_dict['geometric_object'] = [doc.GetElement(ref).GetGeometryObjectFromReference(ref) for ref in refs]
-        except AttributeError:
-            raise
-
-        self.add(refs)
-        rpw.ui.Console()
-        return ref_dict
+        self.add(references)
+        return references
 
 
     def pick_element(self, msg='', multiple=False):
         return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
 
-    def pick_element_point(self, msg='', world=False, multiple=False):
-        return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple, world=world)
+    def pick_pt_on_element(self, msg='', multiple=False):
+        return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple)
 
-    def pick_point(self, msg=''):
-        return revit.wauidoc.Selection.PickPoint(msg)
+    def pick_pt(self, msg=''):
+        """ This does not add eleents to selection """
+        return self.uidoc.Selection.PickPoint(msg)
 
     def pick_edge(self, msg='', multiple=False):
         return self._pick(ObjectType.Edge, msg=msg, multiple=multiple)
