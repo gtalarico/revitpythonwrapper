@@ -3,7 +3,7 @@ Type Casting Utilities
 
 """
 
-
+import rpw
 from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 from rpw.db.builtins import BicEnum
@@ -12,19 +12,18 @@ from rpw.exceptions import RpwTypeError
 
 
 def to_element_id(element_reference):
-
-    if isinstance(element_reference, BaseObjectWrapper):
+    if hasattr(element_reference, 'Id'):
         element_id = element_reference.Id
-    elif isinstance(element_reference, DB.Element):
-        element_id = element_reference.Id
+    elif isinstance(element_reference, DB.Reference):
+        element_id = element_reference.ElementId
     elif isinstance(element_reference, int):
         element_id = DB.ElementId(element_reference)
     elif isinstance(element_reference, DB.ElementId):
         element_id = element_reference
-    elif isinstance(element_reference, DB.ElementId.InvalidElementId):
+    elif element_reference == DB.ElementId.InvalidElementId:
         element_id = element_reference
     else:
-        raise RpwTypeError('Element, ElementId, or int', type(item))
+        raise RpwTypeError('Element, ElementId, or int', type(element_reference))
     return element_id
 
 def to_element_ids(element_references):
