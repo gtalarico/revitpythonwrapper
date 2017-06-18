@@ -1,1 +1,1 @@
-from logger import logger
+from rpw.utils.logger import logger

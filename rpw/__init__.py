@@ -31,12 +31,16 @@ __maintainer__ = 'Gui Talarico'
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 
-from revit import revit, DB, UI
-import rpw.db
-import rpw.ui
-import rpw.extras
-from rpw.utils.logger import logger
-
+# if __name__ == 'rpw':
+    # raise Exception('Peido')
+try:
+    from rpw.revit import revit, DB, UI
+    import rpw.db
+    import rpw.ui
+    import rpw.extras
+    from rpw.utils.logger import logger
+except:
+    from rpw.utils.sphinx_compat import *
 # PENDING FOR MERGE:
 # * Pick Object
 # * Forms
