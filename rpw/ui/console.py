@@ -10,6 +10,8 @@ clr.AddReference("System.Drawing")          # System.Windows.Input
 from System.Drawing import FontFamily
 from System.Windows.Input import Key
 
+# logger.verbose(True)
+
 class Console(Window):
     """ REPL Console for Inspecting Stack
 
@@ -55,6 +57,22 @@ class Console(Window):
     CARET = '>>> '
 
     def __init__(self, stack_level=1, stack_info=False):
+        """ RPW Console
+
+        >>> rpw.ui.Console()
+        # Execution will stop, and a Console will start with the stack variable
+        loaded
+
+        Args:
+            stack_level (int): Default is 1. 0 Is the Console stack, 1 is the
+                               caller; 2 is previous to that, etc.
+            stack_info (bool): Display info about where call came from.
+                               Will print filename name,  line no. and Caller
+                               name.
+        Tips:
+            Press `UP` + `DOWN` to scroll through persistant history.
+            Press tab to autocomplete based on local variables.
+        """
 
         # History Helper
         tempdir = tempfile.gettempdir()
@@ -107,11 +125,19 @@ class Console(Window):
             last_line = self.get_lines()[-1]
         except IndexError:
             last_line = self.get_line(0)
+        logger.debug('Last Line: {}'.format(last_line))
+        return last_line
 
+    def get_last_entered_line(self):
+        try:
+            last_line = self.get_lines()[-2]
+        except IndexError:
+            last_line = self.get_line(0)
+        logger.debug('Last Line: {}'.format(last_line))
         return last_line
 
     def get_lines(self):
-        last_line_index = self.tbox.LineCount - 1
+        last_line_index = self.tbox.LineCount
         lines = []
         for index in range(0, last_line_index):
             line = self.get_line(index)
@@ -124,12 +150,12 @@ class Console(Window):
         if self.tbox.LineCount == 1:
             return
         if args.Key == Key.Enter:
-            last_line = self.get_last_line()
-            if last_line == '':
+            entered_line = self.get_last_entered_line()
+            if entered_line == '':
                 self.write_line(None)
                 return
-            output = self.evaluate(last_line)
-            self.append_history(last_line)
+            output = self.evaluate(entered_line)
+            self.append_history(entered_line)
             self.history_index = 0
             self.write_line(output)
 
@@ -178,11 +204,13 @@ class Console(Window):
 
     def autocomplete(self):
         # TODO: Add recursive dir() attribute suggestions
+
         last_line = self.get_last_line()
         cursor_line_index = self.tbox.CaretIndex - self.tbox.Text.rfind(Console.CARET) - len(Console.CARET)
         text = last_line[0:cursor_line_index]
         possibilities = set(self.stack_locals.keys() + self.stack_globals.keys()) # + self.get_all_history()
         suggestions = [p for p in possibilities if p.lower().startswith(text.lower())]
+
         logger.debug('Text: {}'.format(text))
         logger.debug('Sug: {}'.format(suggestions))
 
@@ -243,6 +271,7 @@ class Console(Window):
         logger.debug('Lines: {}'.format(lines))
         try:
             line = lines[::-1][self.history_index -1]
+        # Wrap around lines to loop and up down infinetly.
         except IndexError:
             if len(lines) == 0:
                 return None
