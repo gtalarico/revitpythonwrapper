@@ -124,6 +124,11 @@ class PickTests(unittest.TestCase):
         rv = selection.pick_pt('pick_pt')
         self.assertIsInstance(rv, DB.XYZ)
 
+    def test_pick_snaps(self):
+        selection = Selection()
+        rv = selection.pick_pt('pick_pt', snap='endpoints')
+        self.assertIsInstance(rv, DB.XYZ)
+
     # def test_pick_linked(self):
     #     selection = Selection()
     #     rv = selection.pick_linked_element('pick_linked_element')

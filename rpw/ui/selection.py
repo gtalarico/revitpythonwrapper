@@ -12,6 +12,7 @@ from rpw.utils.coerce import to_element_ids, to_elements, to_iterable
 from rpw.db.collections_ import ElementSet
 
 ObjectType = UI.Selection.ObjectType
+ObjectSnapTypes = UI.Selection.ObjectSnapTypes
 PickObjects = revit.uidoc.Selection.PickObjects
 PickObject = revit.uidoc.Selection.PickObject
 
@@ -78,7 +79,7 @@ class Selection(BaseObjectWrapper, ElementSet):
 
     def update(self):
         """ Forces UI selection to match the Selection() object """
-        self.uidoc.Selection.SetElementIds(self.as_element_id_list())
+        self._revit_object.SetElementIds(self.as_element_id_list())
 
     def clear(self):
         """ Clears Selection
@@ -105,14 +106,26 @@ class Selection(BaseObjectWrapper, ElementSet):
         return bool(len(self))
 
     def __repr__(self):
-        """ Adds data to Base __repr__ to add selection count"""
         return super(Selection, self).__repr__(data={'count': len(self)})
 
+    # Other Selection Methods - Keep with Selection? Seems to make sense
+    def pick_box(self, msg, style='directional'):
+        """ Pick Box Style """
+        PICK_STYLE = {'crossing': UI.Selection.PickBoxStyle.Crossing,
+                      'enclosing': UI.Selection.PickBoxStyle.Enclosing,
+                      'directional': UI.Selection.PickBoxStyle.Directional,
+                      }
 
-    def _pick(self, obj_type, msg='', multiple=False):
+        refs = self._revit_object.PickBox(PICK_STYLE[style])
+        return refs
+
+    def pick_by_rectangle(self, msg):
+        # TODO: Implement ISelectFilter overload
+        refs = self._revit_object.PickElementsByRectangle(msg)
+
+    def _pick(self, obj_type, msg='Pick:', multiple=False):
+        # TODO: Implement ISelectFilter overload
         """ Note: Moved Reference Logic to Referenc Wrapper."""
-        doc = self.uidoc.Document
-
         if multiple:
             references = PickObjects(obj_type, msg)
         else:
@@ -121,22 +134,44 @@ class Selection(BaseObjectWrapper, ElementSet):
         self.add(references)
         return references
 
-
-    def pick_element(self, msg='', multiple=False):
+    def pick_element(self, msg='Pick Element(s)', multiple=False):
         return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
 
-    def pick_pt_on_element(self, msg='', multiple=False):
+    def pick_pt_on_element(self, msg='Pick Pt On Element(s)', multiple=False):
         return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple)
 
-    def pick_pt(self, msg=''):
-        """ This does not add eleents to selection """
-        return self.uidoc.Selection.PickPoint(msg)
-
-    def pick_edge(self, msg='', multiple=False):
+    def pick_edge(self, msg='Pick Edge(s)', multiple=False):
         return self._pick(ObjectType.Edge, msg=msg, multiple=multiple)
 
-    def pick_face(self, msg='', multiple=False):
+    def pick_face(self, msg='Pick Face(s)', multiple=False):
         return self._pick(ObjectType.Face, msg=msg, multiple=multiple)
 
-    def pick_linked_element(self, msg='', multiple=False):
+    def pick_linked_element(self, msg='Pick Linked Element', multiple=False):
         return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple)
+
+    def pick_pt(self, msg='Pick Point', snap=None):
+        """ Selects a XYZ This does not add eleents to selection """
+
+        SNAPS = {'none': ObjectSnapTypes.None,
+                 'endpoints':ObjectSnapTypes.Endpoints,
+                 'midpoints':ObjectSnapTypes.Midpoints,
+                 'nearest':ObjectSnapTypes.Nearest,
+                 'workplanegrid':ObjectSnapTypes.WorkPlaneGrid,
+                 'intersections':ObjectSnapTypes.Intersections,
+                 'centers':ObjectSnapTypes.Centers,
+                 'perpendicular':ObjectSnapTypes.Perpendicular,
+                 'tangents':ObjectSnapTypes.Tangents,
+                 'quadrants':ObjectSnapTypes.Quadrants,
+                 'points':ObjectSnapTypes.Points,
+                 }
+        if snap:
+            return self._revit_object.PickPoint(SNAPS[snap], msg)
+        else:
+            return self._revit_object.PickPoint(msg)
+
+
+class SelectionFilter(UI.Selection.ISelectionFilter):
+    # http://www.revitapidocs.com/2017.1/d552f44b-221c-0ecd-d001-41a5099b2f9f.htm
+    # Also See Ehsan's Implemented
+    def __init__(self):
+        raise NotImplemented
