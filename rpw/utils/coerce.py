@@ -28,6 +28,7 @@ def to_element_id(element_reference):
 
 def to_element_ids(element_references):
     """ Coerces an element or list of elements into element ids. Elements remain unchanged.
+    This will always return a list, even if only one element is passed.
 
     >>> from rpw.utils.coerce import to_element_ids
     >>> to_element_ids(DB.Element)
@@ -43,11 +44,13 @@ def to_element_ids(element_references):
     Returns:
         [``DB.ElementId``, ... ]: List of Element Ids.
     """
-
+    element_references = to_iterable(element_references)
     return [to_element_id(e_ref) for e_ref in element_references]
 
 def to_element(element_reference, doc=revit.doc):
     if isinstance(element_reference, DB.ElementId):
+        element = doc.GetElement(element_reference)
+    if isinstance(element_reference, DB.Reference):
         element = doc.GetElement(element_reference)
     elif isinstance(element_reference, int):
         element = doc.GetElement(DB.ElementId(element_reference))
@@ -75,7 +78,7 @@ def to_elements(element_references, doc=revit.doc):
     Returns:
         [``DB.Element``]: Elements
     """
-
+    element_references = to_iterable(element_references)
     return [to_element(e_ref) for e_ref in element_references]
 
 
@@ -130,6 +133,12 @@ def to_category(category_reference, fuzzy=True):
     raise RpwTypeError('Category Type, Category Type Name',
                         type(category_reference))
 
+def to_iterable(item_or_iterable):
+    """ This helps replace code to check if an element is iterable."""
+    if hasattr(item_or_iterable, '__iter__'):
+        return item_or_iterable
+    else:
+        return [item_or_iterable]
 
 def to_pascal_case(snake_str):
     """ Converts Snake Case to Pascal Case
@@ -137,7 +146,6 @@ def to_pascal_case(snake_str):
     >>> to_pascal_case('family_name')
     'FamilyName'
     """
-
     components = snake_str.split('_')
     return "".join(x.title() for x in components)
 
