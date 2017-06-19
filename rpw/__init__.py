@@ -42,6 +42,4 @@ import rpw.extras
 
 # After Merge:
 # * Transaction
-
-# * Update Docs
-# * Fix Sphinx Compilation
+# * AutoCollector

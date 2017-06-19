@@ -3,7 +3,7 @@ import imp
 
 from rpw.utils.logger import logger
 
-logger.verbose(True)
+logger.verbose(False)
 
 class MockObject(object):
     """
@@ -32,7 +32,7 @@ class MockObject(object):
         yield iter(self)
 
     def AddReference(self, namespace):
-        logger.info("Mock.clr.AddReference('{}')".format(namespace))
+        logger.debug("Mock.clr.AddReference('{}')".format(namespace))
 
     def __call__(self, *args, **kwargs):
         return MockObject(*args, **kwargs)
@@ -69,7 +69,7 @@ class MockImporter(object):
         if fullname in sys.modules:
             return sys.modules[fullname]
         else:
-            logger.info('Importing Mock Module: {}'.format(fullname))
+            logger.debug('Importing Mock Module: {}'.format(fullname))
             # mod = imp.new_module(fullname)
             # import pdb; pdb.set_trace()
             mod = MockObject(fullname=fullname)
