@@ -1,6 +1,11 @@
 """
 Parameter Wrapper
 
+>>> wrapped_element.parameters['Length']
+10.0
+>>> wrapped_element.parameters['Length'] = 5
+5.0
+
 """
 
 from rpw import revit, DB

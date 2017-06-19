@@ -19,6 +19,12 @@ SomeObject
 >>> wrapped.SomeOriginalMethod()
 # Method will run.
 
+Warning:
+    This class is primarily for internal use. If you plan on creating your
+    own wrappers using this base class make sure you read through the
+    documentation first. Misusing this class can cause easilly cause
+    Max Recursion Crashes.
+
 """
 
 import rpw
@@ -55,10 +61,12 @@ class BaseObjectWrapper(BaseObject):
     def __init__(self, revit_object, enforce_type=True):
         """
         Child classes can use self._revit_object to refer back to Revit Element
-        NOTE: Any Wrapper that inherits and overrides __ini__ class MUST
-        super to ensure _revit_object is created.
-        BaseObjectWrapper must define a class variable _revit_object_class
-        to define the object being wrapped.
+
+        Warning:
+            Any Wrapper that inherits and overrides __init__ class MUST
+            super to ensure _revit_object is created by calling super().__init__
+            BaseObjectWrapper must define a class variable _revit_object_class
+            to define the object being wrapped.
         """
         _revit_object_class = self.__class__._revit_object_class
 
@@ -96,6 +104,7 @@ class BaseObjectWrapper(BaseObject):
             object.__setattr__(self, attr, value)
 
     def unwrap(self):
+        """ Returns the Original Wrapped Element """
         return self._revit_object
 
     def __repr__(self, data={}, to_string=None):

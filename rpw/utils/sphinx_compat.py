@@ -3,6 +3,8 @@ import imp
 
 from rpw.utils.logger import logger
 
+logger.verbose(True)
+
 class MockObject(object):
     """
     This gets passed back as an object when an import fails but is listed
@@ -20,7 +22,7 @@ class MockObject(object):
         self.fullname = kwargs.get('fullname', '<Unamed Import>')
 
     def __getattr__(self, attr):
-        logger.info("Getting Atts:{} from {}')".format(attr, self.fullname))
+        logger.debug("Getting Atts:{} from {}')".format(attr, self.fullname))
         path_and_attr = '.'.join([self.fullname, attr])
         if path_and_attr in MockObject.MOCK_OVERRIDE:
             return MockObject.MOCK_OVERRIDE[path_and_attr]

@@ -121,6 +121,7 @@ class Selection(BaseObjectWrapper, ElementSet):
         return refs
 
     def pick_by_rectangle(self, msg):
+        """ Pick by Rectangle """
         # TODO: Implement ISelectFilter overload
         refs = self._revit_object.PickElementsByRectangle(msg)
 
@@ -136,22 +137,66 @@ class Selection(BaseObjectWrapper, ElementSet):
         return references
 
     def pick_element(self, msg='Pick Element(s)', multiple=False):
+        """
+        Pick Element
+
+        Args:
+            msg (str): Message to show
+            multiple (bool): False to pick single element, True for multiple
+        """
         return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
 
     def pick_pt_on_element(self, msg='Pick Pt On Element(s)', multiple=False):
+        """
+        Pick Point On Element
+
+        Args:
+            msg (str): Message to show
+            multiple (bool): False to pick single point, True for multiple
+        """
         return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple)
 
     def pick_edge(self, msg='Pick Edge(s)', multiple=False):
+        """
+        Pick Edge
+
+        Args:
+            msg (str): Message to show
+            multiple (bool): False to pick single edge, True for multiple
+        """
         return self._pick(ObjectType.Edge, msg=msg, multiple=multiple)
 
     def pick_face(self, msg='Pick Face(s)', multiple=False):
+        """
+        Pick Face
+
+        Args:
+            msg (str): Message to show
+            multiple (bool): False to pick single face, True for multiple
+        """
         return self._pick(ObjectType.Face, msg=msg, multiple=multiple)
 
     def pick_linked_element(self, msg='Pick Linked Element', multiple=False):
+        """
+        Pick Linked Element
+
+        Args:
+            msg (str): Message to show
+            multiple (bool): False to pick single element, True for multiple
+        """
         return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple)
 
     def pick_pt(self, msg='Pick Point', snap=None):
-        """ Selects a XYZ This does not add eleents to selection """
+        """
+        Pick Point location
+
+        Args:
+            msg (str): Message to show
+            snap (str): Snap Options: [endpoints, midpoints, nearest,
+                                       workplanegrid, intersections,
+                                       centers, perpendicular,
+                                       tangents, quadrants, points]
+        """
 
         SNAPS = {
                 #  'none': ObjectSnapTypes.None,

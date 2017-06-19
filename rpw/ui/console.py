@@ -14,9 +14,9 @@ except ImportError:
 # logger.verbose(True)
 
 class Console(Window):
-    """ REPL Console for Inspecting Stack
+    """ REPL Console for Inspecting Stack.
 
-    >>> from rpw.forms import Console
+    >>> from rpw.ui import Console
     >>> Console()
 
     Args:

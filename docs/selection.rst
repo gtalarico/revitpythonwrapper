@@ -14,7 +14,6 @@ Selection
 .. autoclass:: rpw.ui.Selection
     :members:
     :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
-    :private-members:
     :show-inheritance:
 
 ----------------------------------------------

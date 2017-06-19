@@ -1,8 +1,24 @@
 """
->>> levels = rpw.db.Collector(of_category='OST_Levels', is_no_type=True)
+>>> levels = rpw.db.Collector(of_category='Levels', is_type=True)
+>>> walls = rpw.db.Collector(of_class='Wall',
+                             where=lambda x: x.parameters['Length'] > 5)
 
->>> # Traditional
->>> levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
+
+
+Note:
+    As of June 2017, these are the filters that have been implemented:
+
+    | ``ElementCategoryFilter`` = ``of_category``
+    | ``ElementClassFilter`` = ``of_class``
+    | ``ElementIsCurveDrivenFilter`` = ``is_curve_driven``
+    | ``ElementIsElementTypeFilter`` = ``is_type`` + ``is_not_type``
+    | ``ElementOwnerViewFilter`` = ``view``
+    | ``ElementLevelFilter`` = ``level`` + ``not_level``
+    | ``ElementOwnerViewFilter`` = ``owner_view`` + ``is_view_independent``
+    | ``FamilySymbolFilter`` = ``family``
+    | ``FamilyInstanceFilter`` = ``symbol``
+    | ``ElementParameterFilter`` = ``parameter_filter``
+    | ``Custom`` = where
 
 """
 
@@ -85,33 +101,33 @@ class FilterClasses():
 
         Implementation Tracker:
         Quick
+            X Revit.DB.ElementCategoryFilter = of_category
+            X Revit.DB.ElementClassFilter = of_class
+            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven
+            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type
+            X Revit.DB.ElementOwnerViewFilter = view
+            X Revit.DB.FamilySymbolFilter = family
+            _ Revit.DB.ExclusionFilter = exclude
             _ Revit.DB.BoundingBoxContainsPointFilter
             _ Revit.DB.BoundingBoxIntersectsFilter
             _ Revit.DB.BoundingBoxIsInsideFilter
-            X Revit.DB.ElementCategoryFilter = of_category
-            X Revit.DB.ElementClassFilter = of_class
             _ Revit.DB.ElementDesignOptionFilter
-            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven
-            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type
             _ Revit.DB.ElementMulticategoryFilter
             _ Revit.DB.ElementMulticlassFilter
-            X Revit.DB.ElementOwnerViewFilter = view
             _ Revit.DB.ElementStructuralTypeFilter
             _ Revit.DB.ElementWorksetFilter
-            _ Revit.DB.ExclusionFilter = exclude
             _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter
-            X Revit.DB.FamilySymbolFilter = family
         Slow
+            X Revit.DB.ElementLevelFilter
+            X Revit.DB.FamilyInstanceFilter = symbol
+            X Revit.DB.ElementParameterFilter
             _ Revit.DB.Architecture RoomFilter
             _ Revit.DB.Architecture RoomTagFilter
             _ Revit.DB.AreaFilter
             _ Revit.DB.AreaTagFilter
             _ Revit.DB.CurveElementFilter
             _ Revit.DB.ElementIntersectsFilter
-            X Revit.DB.ElementLevelFilter
-            _ Revit.DB.ElementParameterFilter
             _ Revit.DB.ElementPhaseStatusFilter
-            X Revit.DB.FamilyInstanceFilter = symbol
             _ Revit.DB.Mechanical SpaceFilter
             _ Revit.DB.Mechanical SpaceTagFilter
             _ Revit.DB.PrimaryDesignOptionMemberFilter
@@ -345,7 +361,7 @@ class Collector(BaseObjectWrapper):
             * ``is_type`` (``bool``): Same as ``WhereElementIsElementType``
             * ``is_not_type`` (``bool``): Same as ``WhereElementIsNotElementType``
             * ``of_class`` (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``'Wall'``
-            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``
+            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Can be ``DB.BuiltInCategory.OST_Wall`` or ``'Wall'``
             * ``owner_view`` (``DB.ElementId, View`): ``WhereElementIsViewIndependent(True)``
             * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``
             * ``family`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Family
@@ -416,12 +432,11 @@ class Collector(BaseObjectWrapper):
 
     @property
     def wrapped_elements(self):
-        """
-        Returns list with all elements instantiated using :any:`Element`
-        """
+        """ Returns list with all elements instantiated using :any:`Element` """
         return [Element(el) for el in self.__iter__()]
 
     def select(self):
+        """ Selects Collector Elements on the UI """
         Selection(self.element_ids)
 
     @property
@@ -512,22 +527,14 @@ class ParameterFilter(BaseObjectWrapper):
             **conditions: Filter Rule Conditions and options.
 
             conditions:
-                | ``equals``
-                | ``contains``
-                | ``begins``
-                | ``ends``
-                | ``greater``
-                | ``greater_equal``
-                | ``less``
-                | ``less_equal``
-                | ``not_equals``
-                | ``not_contains``
-                | ``not_begins``
-                | ``not_ends``
-                | ``not_greater``
-                | ``not_greater_equal``
-                | ``not_less``
-                | ``not_less_equal``
+                | ``begins``, ``not_begins``
+                | ``contains``, ``not_contains``
+                | ``ends``, ``not_ends``
+                | ``equals``, ``not_equals``
+                | ``less``, ``not_less``
+                | ``less_equal``, ``not_less_equal``
+                | ``greater``, ``not_greater``
+                | ``greater_equal``, ``not_greater_equal``
 
             options:
                 | ``case_sensitive``: Enforces case sensitive, String only

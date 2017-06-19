@@ -38,17 +38,20 @@ class ElementSet(BaseObject):
             self.add(elements_or_ids)
 
     def add(self, elements_or_ids):
-        """ Adds elements or element_ids to set. Handles single or list
+        """
+        Adds elements or element_ids to set. Handles single or list
 
         Args:
             element_reference (`DB.Element`, DB.Element_ids): Iterable Optional
+            
         """
         element_ids = to_element_ids(elements_or_ids)
         for eid in element_ids:
             self._elements[eid] = self.doc.GetElement(eid)
 
     def pop(self, element_id):
-        """ Removed from set using ElementIds
+        """
+        Removed from set using ElementIds
 
         Args:
             element_id (`DB.ElementId`)
@@ -197,7 +200,7 @@ class ElementCollection(ElementSet):
 
 class XyzCollection(BaseObject):
     """
-    Provides helpful methods for managing a collection(list) of :any:`Point` instances.
+    Provides helpful methods for managing a collection(list) of :any:`XYZ` instances.
 
     >>> points = [p1,p2,p3,p4, ...]
     >>> point_collection = PointCollection(points)
@@ -207,6 +210,8 @@ class XyzCollection(BaseObject):
         point_collection.min
         point_collection.max
     """
+    # TODO: Implement wrapped returns
+
     def __init__(self, points):
         self.points = points if points is not None else []
 
@@ -277,7 +282,7 @@ class XyzCollection(BaseObject):
         >>> pts = XyzCollection(XYZ(0,10,0), XYZ(0,0,0))
         >>> pts.sorted_by('y')
         [XYZ(0,0,0), XYZ(0,10,0)]
-        
+
         Args:
             axis (`str`): Axist to sort by.
         """

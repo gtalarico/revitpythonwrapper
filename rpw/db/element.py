@@ -59,7 +59,7 @@ class Element(BaseObjectWrapper):
 
     Methods:
         unwrap(): Wrapped Revit Reference
-        
+
     """
 
     _revit_object_class = DB.Element
@@ -69,7 +69,7 @@ class Element(BaseObjectWrapper):
         Factory Constructor will chose the best Class for the Element.
         This function iterates through all classes in the rpw.db module,
         and will find one that wraps the corresponding class. If and exact
-        match is not found rpw.db.Element is used
+        match is not found :any:`Element` is used
         """
 
         defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
@@ -97,9 +97,14 @@ class Element(BaseObjectWrapper):
 
     def __init__(self, element, doc=revit.doc):
         """
+        Main Element Instantiation
+
         >>> wall = Element(SomeElementId)
+        <rpw: WallInstance % DB.Wall >
         >>> wall.parameters['Height']
+        10.0
         >>> wall.parameters.builtins['WALL_LOCATION_LINE']
+        1
 
         Args:
             element (`Element Reference`): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
@@ -124,13 +129,12 @@ class Element(BaseObjectWrapper):
         Collector will use default params for that Element (ie: Room ``{'of_category': 'OST_rooms'}``).
         These can be overriden by passing keyword args to the collectors call.
 
-
         >>> rooms = rpw.Rooms.collect()
-        [<RPW_Room: Room:1>]
+        [<rpw:Room % DB.Room | Room:1>]
         >>> rooms = rpw.Area.collect()
-        [<RPW_Area: Rentable:30.2>]
-        >>> rooms = rpw.WallInstance.collect()
-        [<RPW_WallInstance: Basic Wall>]
+        [<rpw:Area % DB.Area | Rentable:30.2>]
+        >>> rooms = rpw.WallInstance.collect(level="Level 1")
+        [<rpw:WallInstance % DB.Wall symbol:Basic Wall>]
 
         """
         _collector_params = getattr(cls, '_collector_params', None)
@@ -143,11 +147,13 @@ class Element(BaseObjectWrapper):
 
     @staticmethod
     def from_int(id_int):
+        """ Instantiate Element from an Integer representing and Id """
         element = revit.doc.GetElement(DB.ElementId(id_int))
         return Element(element)
 
     @staticmethod
     def from_id(element_id):
+        """ Instantiate Element from an ElementId """
         element = revit.doc.GetElement(element_id)
         return Element(element)
 

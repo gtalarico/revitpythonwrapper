@@ -7,8 +7,8 @@ Revit.DB.ElementId
 
 Note:
     These classes were originally create to be used internally,
-    but are documented here as some it's functionalities can be
-    helpful.
+    but are documented here as some its functionalities could be
+    helpful to others.
 
 ----------------------------------------------------------------
 """

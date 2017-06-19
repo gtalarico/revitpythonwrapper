@@ -135,7 +135,15 @@ def to_category(category_reference, fuzzy=True):
                         type(category_reference))
 
 def to_iterable(item_or_iterable):
-    """ This helps replace code to check if an element is iterable."""
+    """
+    Ensures input is iterable
+
+    Args:
+        any (iterable, non-iterable)
+
+    Returns:
+        (`iterable`): Same as input
+    """
     if hasattr(item_or_iterable, '__iter__'):
         return item_or_iterable
     else:

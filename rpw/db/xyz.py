@@ -7,16 +7,18 @@ class XYZ(BaseObjectWrapper):
     """
     `DB.XYZ` Wrapper
 
-    Allows setting of properties
+    XYZ light wrapper with a few helpful methods:
 
     >>> some_point = XYZ(0,0,0)
     >>> pt = rpw.Point(some_point)
     >>> pt.as_tuple
     (0,0,0)
     >>> pt.x = 10
-    <RPW_Point: 0,0,10>
+    <rpw:XYZ % DB.XYZ: 0,0,10>
     >>> pt.at_z(5)
-    <RPW_Point: 0,0,5>
+    <rpw:XYZ % DB.XYZ: 0,0,5>
+    >>> pt.as_dict()
+    {'x': 0, 'y':0, 'z':5}
 
     Attributes:
         _revit_object (DB.XYZ): Wrapped ``DB.XYZ``
