@@ -119,12 +119,6 @@ class Revit(BaseObject):
     #     # noinspection PyUnresolvedReferences
     #     from System.Windows.Forms import Screen
     #     return Screen.FromHandle(Process.GetCurrentProcess().MainWindowHandle)
-    #
-    # def is_newer_than(self, version):
-    #     return int(self.version) > int(version)
-    #
-    # def is_older_than(self, version):
-    #     return int(self.version) < int(version)
 
 class RevitVersion():
     def __init__(self, uiapp):
@@ -142,7 +136,11 @@ class RevitVersion():
     def build(self):
         return self.uiapp.Application.VersionBuild
 
-    def __cmp__(self, other):
+    def __lt__(self, other):
+        """ Handle Version Comparison Logic"""
+        raise NotImplemented
+
+    def __gt__(self, other):
         """ Handle Version Comparison Logic"""
         raise NotImplemented
 
@@ -155,5 +153,3 @@ class RevitVersion():
 
 
 revit = Revit()
-DB
-UI
