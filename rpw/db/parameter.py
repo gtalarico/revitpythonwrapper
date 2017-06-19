@@ -3,7 +3,7 @@ Parameter Wrapper
 
 """
 
-from rpw.revit import DB
+from rpw import revit, DB
 from rpw.db.builtins import BipEnum
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException, RpwWrongStorageType
@@ -124,7 +124,7 @@ class _BuiltInParameterSet(BaseObjectWrapper):
 
 class Parameter(BaseObjectWrapper):
     """
-    Primarily for internal use by :any:`rpw.Element`, but can be used on it's own.
+    Primarily for internal use by :any:`rpw.db.Element`, but can be used on it's own.
 
     >>> parameter = Parameter(DB.Parameter)
     >>> parameter.type

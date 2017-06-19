@@ -6,7 +6,7 @@
 
 """
 
-from rpw.revit import revit, DB
+from rpw import revit, DB
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RpwException, RpwTypeError, RpwCoerceError
@@ -315,7 +315,7 @@ class Collector(BaseObjectWrapper):
     Attributes:
         collector.elements: Returns list of all `collected` elements
         collector.first: Returns first found element, or ``None``
-        collector.wrapped_elements: Returns list with all elements wrapped. Elements will be instantiated using :any:`Element.Factory`
+        collector.wrapped_elements: Returns list with all elements wrapped. Elements will be instantiated using :any:`Element`
 
     Wrapped Element:
         self._revit_object = ``Revit.DB.FilteredElementCollector``
@@ -410,14 +410,14 @@ class Collector(BaseObjectWrapper):
     @property
     def elements(self):
         """
-        Returns list with all elements instantiated using :any:`Element.Factory`
+        Returns list with all elements instantiated using :any:`Element`
         """
         return [element for element in self.__iter__()]
 
     @property
     def wrapped_elements(self):
         """
-        Returns list with all elements instantiated using :any:`Element.Factory`
+        Returns list with all elements instantiated using :any:`Element`
         """
         return [Element(el) for el in self.__iter__()]
 
@@ -439,7 +439,7 @@ class Collector(BaseObjectWrapper):
 
     @property
     def element_ids(self):
-        """ Returns list with all elements instantiated using :any:`Element.Factory`
+        """ Returns list with all elements instantiated using :any:`Element`
         """
         return [element_id for element_id in self._collector.ToElementIds()]
 

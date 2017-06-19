@@ -1,5 +1,5 @@
 import rpw
-from rpw.revit import revit, DB
+from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 
 

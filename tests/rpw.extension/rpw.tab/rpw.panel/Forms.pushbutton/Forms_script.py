@@ -14,12 +14,12 @@ root_dir = os.path.dirname(test_dir)
 sys.path.append(root_dir)
 
 import rpw
-from rpw.revit import DB, UI
+from rpw import revit, DB, UI
 doc, uidoc = rpw.revit.doc, rpw.revit.uidoc
 
 from rpw.utils.dotnet import List
 from rpw.exceptions import RpwParameterNotFound, RpwWrongStorageType
-from rpw.utils import logger
+from rpw.utils.logger import logger
 
 data = ['A', 'B', 'C']
 

@@ -16,7 +16,7 @@ from rpw.db.element import Instance, Symbol, Family, Category
 from rpw.db.wall import WallInstance, WallSymbol, WallFamily, WallCategory
 from rpw.db.spatial_element import Room, Area, AreaScheme
 
-from rpw.db.parameter import Parameter
+from rpw.db.parameter import Parameter, ParameterSet
 from rpw.db.builtins import BicEnum, BipEnum
 
 from rpw.db.xyz import XYZ

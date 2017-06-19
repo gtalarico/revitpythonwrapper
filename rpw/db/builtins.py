@@ -15,7 +15,7 @@ Note:
 
 ###
 import re
-from rpw.revit import DB
+from rpw import revit, DB
 from rpw.base import BaseObject, BaseObjectWrapper
 from rpw.utils.dotnet import Enum
 from rpw.exceptions import RpwCoerceError

@@ -3,7 +3,7 @@
 """
 
 import rpw
-from rpw.revit import revit, DB, UI
+from rpw import revit, DB, UI
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RpwTypeError

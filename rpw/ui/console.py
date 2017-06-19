@@ -4,11 +4,13 @@ import logging
 import tempfile
 from collections import defaultdict
 
+# This is only so forms.py to be executed on console for easier testing and dev
+# `ipy.exe forms.py` and ipy -X:FullFrames console.py
+
 try:
     from forms import *
 except ImportError:
     from rpw.ui.forms import *
-
 # logger.verbose(True)
 
 class Console(Window):
@@ -281,8 +283,12 @@ class Console(Window):
             line = lines[0]
         return line
 
+    def __repr__(self):
+        '<rpw:Console stack_level={}>'.format(self.stack_level)
+
 
 if __name__ == '__main__':
     def test():
+        x = 1
         Console()
     test()

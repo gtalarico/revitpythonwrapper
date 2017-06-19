@@ -41,10 +41,10 @@ panel_dir = parent(script_dir)
 sys.path.append(script_dir)
 
 import rpw
-from rpw.revit import DB, UI
+from rpw import revit, DB, UI
 from rpw.utils.dotnet import List
 from rpw.exceptions import RpwParameterNotFound, RpwWrongStorageType
-from rpw.utils import logger
+from rpw.utils.logger import logger
 
 import test_utils
 

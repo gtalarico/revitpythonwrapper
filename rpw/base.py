@@ -23,7 +23,7 @@ SomeObject
 
 import rpw
 from rpw.exceptions import RpwTypeError, RpwException
-from rpw.utils import logger
+from rpw.utils.logger import logger
 
 
 class BaseObject(object):

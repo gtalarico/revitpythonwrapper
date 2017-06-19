@@ -3,9 +3,9 @@ Element Model Wrappers provide a consitent interface for acccessing parameters a
 of commonly used elements.
 
 Note:
-    These wrappers are located in the module ``rpw.elements``,
+    These wrappers are located in the module ``rpw.db.elements``,
     but all of them are imported by into the main module so they can be accessed
-    using ``rpw.Element``, ``rpw.Instance``, etc.
+    using ``rpw.db.Element``, ``rpw.db.Instance``, etc.
 
 """
 import inspect
@@ -25,17 +25,17 @@ class Element(BaseObjectWrapper):
     Inheriting from element extends wrapped elements with a new :class:`parameters`
     attribute, well as the :func:`unwrap` method inherited from the :any:`BaseObjectWrapper` class.
 
-    It can be created by instantiating ``rpw.Element`` , or one of the helper
+    It can be created by instantiating ``rpw.db.Element`` , or one of the helper
     static methods shown below.
 
     Most importantly, all other `Element-related` classes inhert from this class
     so it can provide parameter access.
 
-    >>> element = rpw.Element(SomeElement)
-    >>> element = rpw.Element.from_id(ElementId)
-    >>> element = rpw.Element.from_int(Integer)
+    >>> element = rpw.db.Element(SomeElement)
+    >>> element = rpw.db.Element.from_id(ElementId)
+    >>> element = rpw.db.Element.from_int(Integer)
 
-    >>> wall = rpw.Element(RevitWallElement)
+    >>> wall = rpw.db.Element(RevitWallElement)
     >>> wall.Id
     >>> wall.parameters['Height'].value
     10.0
@@ -47,20 +47,19 @@ class Element(BaseObjectWrapper):
 
     >>> wall_instance = Element(SomeWallInstance)
     >>> type(wall_instance)
-    rpw.element.WallInstance
+    rpw.db.WallInstance
     >>> wall_symbol = Element(SomeWallSymbol)
     >>> type(wall_symbol)
-    rpw.element.WallSymbol
+    rpw.db.WallSymbol
 
     Attributes:
 
         parameters (:any:`ParameterSet`): Access :any:`ParameterSet` class.
-        parameters['ParamName'] (:any:`Parameter`): Returns :any:`Parameter` class instance if match is found.
-        parameters.builtins['BuiltInName'] (:any:`Parameter`): BuitIn :any:`Parameter` object
+        parameters.builtins (:any:`ParameterSet`): BuitIn :any:`ParameterSet` object
 
     Methods:
         unwrap(): Wrapped Revit Reference
-
+        
     """
 
     _revit_object_class = DB.Element
@@ -98,16 +97,16 @@ class Element(BaseObjectWrapper):
 
     def __init__(self, element, doc=revit.doc):
         """
+        >>> wall = Element(SomeElementId)
+        >>> wall.parameters['Height']
+        >>> wall.parameters.builtins['WALL_LOCATION_LINE']
+
         Args:
-            element (Element Reference): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
+            element (`Element Reference`): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.
 
         Returns:
-            :class:`Element`: Instance of Wrapped Element
+            :class:`Element`: Instance of Wrapped Element.
 
-        Usage:
-            >>> wall = Element(SomeElementId)
-            >>> wall.parameters['Height']
-            >>> wall.parameters.builtins['WALL_LOCATION_LINE']
         """
 
         super(Element, self).__init__(element)

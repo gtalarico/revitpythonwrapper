@@ -1,4 +1,4 @@
-from rpw.revit import revit, DB
+from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException
 from rpw.utils.logger import logger

@@ -1,4 +1,4 @@
-from rpw.utils.dotnet import clr, Process, MockObject
+from rpw.utils.dotnet import clr, Process
 from rpw.utils.logger import logger
 from rpw.base import BaseObject
 
@@ -13,11 +13,11 @@ class Revit(BaseObject):
         self.uiapp = None
         try:
             self.uiapp = __revit__
-            self.host = Revit.HOSTS.RPS
+            self._host = Revit.HOSTS.RPS
         except NameError:
             try:
                 self.uiapp = self.find_dynamo_uiapp()
-                self.host = Revit.HOSTS.DYNAMO
+                self._host = Revit.HOSTS.DYNAMO
             except Exception as errmsg:
                 logger.warning('Revit Application handle could not be found')
 
@@ -25,11 +25,13 @@ class Revit(BaseObject):
             clr.AddReference('RevitAPI')
             clr.AddReference('RevitAPIUI')
             from Autodesk.Revit import DB, UI
+            # Add DB UI Import to globals so it can be imported by __init__
             globals().update({'DB': DB, 'UI': UI})
-        except IOError:
+        except:
             logger.warning('RevitAPI References could not be added')
+            from rpw.utils.sphinx_compat import MockObject
             globals().update({'DB': MockObject(), 'UI': MockObject()})
-            self.host = None
+            self._host = None
 
     def find_dynamo_uiapp(self):
         clr.AddReference("RevitServices")
@@ -40,19 +42,31 @@ class Revit(BaseObject):
         sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Lib')
         return DocumentManager.Instance.CurrentUIApplication
 
+    @property
+    def host(self):
+        """ Host is set based on how revit handle was found.
+
+        Returns:
+            Host (str): Revit Application Host ['RPS', 'Dynamo']
+        """
+        return self._host
+
     def open(self, path):
         """ Opens New Document """
 
     @property
     def doc(self):
+        """ Returns: uiapp.ActiveUIDocument.Document """
         return self.uiapp.ActiveUIDocument.Document
 
     @property
     def uidoc(self):
+        """ Returns: uiapp.ActiveUIDocument """
         return self.uiapp.ActiveUIDocument
 
     @property
     def active_view(self):
+        """ Returns: uidoc.ActiveView """
         return self.uidoc.ActiveView
 
     @active_view.setter
@@ -61,31 +75,38 @@ class Revit(BaseObject):
 
     @property
     def app(self):
+        """ Returns: uidoc.Application """
         return self.uiapp.Application
 
     @property
     def docs(self):
+        """ Returns: uidoc.Application.Documents """
         return self.app.Application.Documents
 
     @property
     def username(self):
+        """ Returns: uidoc.Application.Username """
         return self.uiapp.Application.Username
 
     @property
     def version(self):
+        """ Returns: uidoc.Application.Username """
         return RevitVersion(self.uiapp)
 
     @property
     def process(self):
+        """ Returns: Process.GetCurrentProcess() """
         return Process.GetCurrentProcess()
 
     @property
     def process_id(self):
-        return Process.GetCurrentProcess().Id
+        """ Returns: Process.GetCurrentProcess() """
+        return self.process.Id
 
     @property
     def process_name(self):
-        return Process.GetCurrentProcess().ProcessName
+        """ Returns: Process.GetCurrentProcess() """
+        return self.process.ProcessName
 
     def __repr__(self):
         return '<{version} [{process}:{pid}]>'.format(version=self.version,

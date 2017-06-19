@@ -42,7 +42,7 @@ sys.path.append(script_dir)
 import rpw
 from rpw import DB, UI
 doc, uidoc = rpw.revit.doc, rpw.revit.uidoc
-from rpw.utils import logger
+from rpw.utils.logger import logger
 
 import test_utils
 

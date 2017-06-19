@@ -77,7 +77,7 @@ class XYZ(BaseObjectWrapper):
             z(float): Elevation of new Points
 
         Returns:
-            (:any:`Point`): New Points
+            (:any:`XYZ`): New Points
         """
         return XYZ(self.x, self.y, z)
 
