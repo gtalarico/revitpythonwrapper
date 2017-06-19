@@ -31,7 +31,7 @@ sys.path.append(root_dir)
 
 # sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper\\rpw')
 # sys.setrecursionlimit(500)
-autodoc_mock_imports = ['wpf']
+# autodoc_mock_imports = ['wpf']
 
 napoleon_google_docstring = True
 napoleon_include_private_with_doc = True
@@ -39,7 +39,7 @@ napoleon_include_private_with_doc = True
 
 # General information about the project.
 project = 'Revit Python Wrapper'
-copyright = '2016, Gui Talarico'
+copyright = '2017, Gui Talarico'
 author = 'Gui Talarico'
 disqus_shortname = 'revitpythonwrapper'
 
@@ -64,7 +64,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.githubpages',
     'sphinx.ext.napoleon',
-    'sphinxcontrib.disqus'
+    # 'sphinxcontrib.disqus'
 ]
 
 

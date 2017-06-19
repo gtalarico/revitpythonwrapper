@@ -13,7 +13,7 @@ Base Wrapper
 .. automodule:: rpw.base
     :undoc-members:
 
-.. autoclass:: rpw.BaseObjectWrapper
+.. autoclass:: rpw.base.BaseObjectWrapper
     :members:
     :special-members: __init__
     :private-members:
@@ -26,4 +26,4 @@ Implementation
 
 .. literalinclude:: ../rpw/base.py
 
-.. disqus::
+.. disqus

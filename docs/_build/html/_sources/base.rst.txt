@@ -5,12 +5,17 @@
 
 
 ==================
-Enumeration
+Base Wrapper
 ==================
 
-.. automodule:: rpw.enumeration
+Base Wrapper
+
+.. automodule:: rpw.base
+    :undoc-members:
+
+.. autoclass:: rpw.base.BaseObjectWrapper
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__
     :private-members:
     :show-inheritance:
 
@@ -19,7 +24,6 @@ Enumeration
 Implementation
 **************
 
-.. literalinclude:: ../rpw/enumeration.py
-    :start-after: ###
+.. literalinclude:: ../rpw/base.py
 
-.. disqus::
+.. disqus

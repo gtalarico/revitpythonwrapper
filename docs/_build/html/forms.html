@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Forms &mdash; Revit Python Wrapper 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Utilities" href="utils.html"/>
+        <link rel="prev" title="Enumeration" href="builtins.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#selectfromlist">SelectFromList</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#textinput">TextInput</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#alert">Alert</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Forms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/forms.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rpw.ui.forms">
+<span id="forms"></span><h1>Forms<a class="headerlink" href="#module-rpw.ui.forms" title="Permalink to this headline">¶</a></h1>
+<p>Forms are provided to facilitate user input.</p>
+<p># Move to rpw.forms?</p>
+<p>ui. currently maps to Revit.DB namespace</p>
+<div class="section" id="selectfromlist">
+<h2>SelectFromList<a class="headerlink" href="#selectfromlist" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/select-from-list.png" src="_images/select-from-list.png" />
+<dl class="class">
+<dt id="rpw.ui.forms.SelectFromList">
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="textinput">
+<h2>TextInput<a class="headerlink" href="#textinput" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/text-input.png" src="_images/text-input.png" />
+<dl class="class">
+<dt id="rpw.ui.forms.TextInput">
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextInput" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="alert">
+<h2>Alert<a class="headerlink" href="#alert" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/alert.png" src="_images/alert.png" />
+<dl class="class">
+<dt id="rpw.ui.forms.Alert">
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Alert</code><span class="sig-paren">(</span><em>message</em>, <em>title=’Alert’</em>, <em>heading=”</em>, <em>exit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Alert" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="rpw.ui.forms.Alert.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>message</em>, <em>title=’Alert’</em>, <em>heading=”</em>, <em>exit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Alert.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Standard Revit Alert.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>str</em>) – TaskDialog Message</li>
+<li><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – TaskDialog Title</li>
+<li><strong>heading</strong> (<em>str</em><em>, </em><em>optional</em>) – TaskDialog Message Heading</li>
+<li><strong>exit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Exit Script after Dialog. Useful for handled Errors.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;Your Message&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s2">&quot;Some Heading&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;You need to select Something&#39;</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Forms</span> <span class="n">are</span> <span class="n">provided</span> <span class="n">to</span> <span class="n">facilitate</span> <span class="n">user</span> <span class="nb">input</span><span class="o">.</span>
+
+<span class="c1"># Move to rpw.forms?</span>
+
+<span class="n">ui</span><span class="o">.</span> <span class="n">currently</span> <span class="n">maps</span> <span class="n">to</span> <span class="n">Revit</span><span class="o">.</span><span class="n">DB</span> <span class="n">namespace</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">import sys</span>
+<span class="sd">import os</span>
+<span class="sd">import logging</span>
+
+<span class="sd"># This is only so forms.py to be executed on console for easier testing and dev</span>
+<span class="sd"># `ipy.exe forms.py` and ipy -X:FullFrames console.py</span>
+<span class="sd">try:</span>
+<span class="sd">    from rpw import revit, UI</span>
+<span class="sd">    if revit.host == &#39;Dynamo&#39;:</span>
+<span class="sd">        # Standard Location Added for Dynamo, where script cannot reach inside</span>
+<span class="sd">        sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
+<span class="sd">    from rpw.utils.dotnet import clr</span>
+<span class="sd">    from rpw.utils.logger import logger</span>
+<span class="sd">except ImportError:</span>
+<span class="sd">    import clr</span>
+<span class="sd">    logger = logging.getLogger()</span>
+<span class="sd">    logger.warning(&#39;Could not import rpw module.&#39;)</span>
+
+
+<span class="sd">clr.AddReference(&quot;PresentationFramework&quot;)  # ?</span>
+<span class="sd">clr.AddReference(&quot;WindowsBase&quot;)            # System.Windows.Input</span>
+<span class="sd">clr.AddReference(&quot;System.Drawing&quot;)         # FontFamily</span>
+
+<span class="sd">from System.Windows import Application, Window</span>
+<span class="sd">from System.IO import StringReader</span>
+<span class="sd">from System.Environment import Exit, NewLine</span>
+<span class="sd">from System.Drawing import FontFamily</span>
+<span class="sd">from System.Windows.Input import Key</span>
+
+<span class="sd">clr.AddReference(&#39;IronPython&#39;)</span>
+<span class="sd">clr.AddReference(&#39;IronPython.Wpf&#39;)</span>
+<span class="sd"># clr.AddReference(&#39;IronPython.Modules&#39;)</span>
+<span class="sd">from IronPython.Modules import Wpf as wpf</span>
+
+
+<span class="sd">class SelectFromListForm(Window):</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">WPF</span> <span class="n">form</span> <span class="k">with</span> <span class="n">ComboBox</span> <span class="n">dropdown</span><span class="o">.</span>
+
+    <span class="n">Args</span><span class="p">:</span>
+        <span class="n">title</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Title</span> <span class="n">of</span> <span class="n">form</span>
+        <span class="n">options</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span> <span class="n">Dictionary</span> <span class="p">(</span><span class="n">string</span> <span class="n">keys</span><span class="p">)</span> <span class="ow">or</span> <span class="n">List</span><span class="p">[</span><span class="n">strings</span><span class="p">]</span>
+        <span class="n">description</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Optional</span> <span class="n">Description</span> <span class="n">of</span> <span class="nb">input</span> <span class="n">requested</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">sort</span> <span class="p">(</span><span class="nb">bool</span><span class="p">):</span> <span class="n">Optional</span> <span class="n">sort</span> <span class="n">flag</span> <span class="o">-</span> <span class="n">sorts</span> <span class="n">keys</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">True</span><span class="p">]</span>
+        <span class="n">exit_on_close</span> <span class="p">(</span><span class="nb">bool</span><span class="p">):</span> <span class="n">Form</span> <span class="n">will</span> <span class="n">call</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span> <span class="k">if</span> <span class="n">Closed</span> <span class="n">on</span> <span class="n">X</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">True</span><span class="p">]</span>
+
+    <span class="n">Usage</span><span class="p">:</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">])</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="c1"># Dropdown shows &#39;1&#39;, &#39;2&#39; ,&#39;3&#39;. User clicks Select &#39;1&#39;</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">form</span>
+        <span class="kc">True</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+        <span class="s1">&#39;1&#39;</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="c1"># Dictionary</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Text&#39;</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;Number&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">})</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="c1"># User clicks Text</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">form</span>
+        <span class="kc">True</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+        <span class="nb">str</span>
+
+    <span class="o">..</span> <span class="n">note</span><span class="p">:</span> <span class="n">XAML</span> <span class="ow">is</span> <span class="n">embeded</span> <span class="n">instead</span> <span class="n">loaded</span> <span class="kn">from</span> <span class="nn">file</span> <span class="n">so</span> <span class="n">that</span> <span class="n">package</span> <span class="n">can</span> <span class="n">be</span>
+             <span class="n">kept</span> <span class="k">as</span> <span class="o">.</span><span class="n">zip</span> <span class="k">for</span> <span class="n">dynamo</span><span class="o">.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    LAYOUT = &quot;&quot;&quot;</span>
+            <span class="o">&lt;</span><span class="n">Window</span>
+                <span class="n">xmlns</span><span class="o">=</span><span class="s2">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span>
+                <span class="n">xmlns</span><span class="p">:</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
+                <span class="n">xmlns</span><span class="p">:</span><span class="n">d</span><span class="o">=</span><span class="s2">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span>
+                <span class="n">xmlns</span><span class="p">:</span><span class="n">mc</span><span class="o">=</span><span class="s2">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span>
+                <span class="n">xmlns</span><span class="p">:</span><span class="n">local</span><span class="o">=</span><span class="s2">&quot;clr-namespace:WpfApplication1&quot;</span>
+                <span class="n">mc</span><span class="p">:</span><span class="n">Ignorable</span><span class="o">=</span><span class="s2">&quot;d&quot;</span> <span class="n">Height</span><span class="o">=</span><span class="s2">&quot;140.139&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;325&quot;</span> <span class="n">ResizeMode</span><span class="o">=</span><span class="s2">&quot;NoResize&quot;</span>
+                <span class="n">Title</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="n">WindowStartupLocation</span><span class="o">=</span><span class="s2">&quot;CenterScreen&quot;</span> <span class="n">Topmost</span><span class="o">=</span><span class="s2">&quot;True&quot;</span> <span class="n">SizeToContent</span><span class="o">=</span><span class="s2">&quot;WidthAndHeight&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">Grid</span> <span class="n">Margin</span><span class="o">=</span><span class="s2">&quot;10,0,10,10&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">Label</span> <span class="n">x</span><span class="p">:</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;selection_label&quot;</span> <span class="n">Content</span><span class="o">=</span><span class="s2">&quot;Select Item&quot;</span> <span class="n">HorizontalAlignment</span><span class="o">=</span><span class="s2">&quot;Left&quot;</span> <span class="n">Height</span><span class="o">=</span><span class="s2">&quot;30&quot;</span>
+                        <span class="n">VerticalAlignment</span><span class="o">=</span><span class="s2">&quot;Top&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;299&quot;</span><span class="o">/&gt;</span>
+                    <span class="o">&lt;</span><span class="n">ComboBox</span> <span class="n">x</span><span class="p">:</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;combo_data&quot;</span> <span class="n">HorizontalAlignment</span><span class="o">=</span><span class="s2">&quot;Left&quot;</span> <span class="n">Margin</span><span class="o">=</span><span class="s2">&quot;0,30,0,0&quot;</span>
+                        <span class="n">VerticalAlignment</span><span class="o">=</span><span class="s2">&quot;Top&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;299&quot;</span><span class="o">/&gt;</span>
+                    <span class="o">&lt;</span><span class="n">Button</span> <span class="n">x</span><span class="p">:</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;button_select&quot;</span> <span class="n">Content</span><span class="o">=</span><span class="s2">&quot;Select&quot;</span> <span class="n">HorizontalAlignment</span><span class="o">=</span><span class="s2">&quot;Left&quot;</span> <span class="n">Height</span><span class="o">=</span><span class="s2">&quot;26&quot;</span>
+                    <span class="n">Margin</span><span class="o">=</span><span class="s2">&quot;0,63,0,0&quot;</span> <span class="n">VerticalAlignment</span><span class="o">=</span><span class="s2">&quot;Top&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;299&quot;</span><span class="o">/&gt;</span>
+                <span class="o">&lt;/</span><span class="n">Grid</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">Window</span><span class="o">&gt;</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    def __init__(self, title, options, description=None, sort=True):</span>
+<span class="sd">        self.selected = None</span>
+<span class="sd">        self.ui = wpf.LoadComponent(self, StringReader(SelectFromListForm.LAYOUT))</span>
+<span class="sd">        # self.ui = wpf.LoadComponent(self, os.path.join(cwd, &#39;form_select_list.xaml&#39;))</span>
+<span class="sd">        self.ui.Title = title</span>
+
+<span class="sd">        if description is not None:</span>
+<span class="sd">            self.ui.selection_label.Content = description</span>
+<span class="sd">        self.ui.button_select.Click += self.select_click</span>
+
+<span class="sd">        self.options = options</span>
+
+<span class="sd">        if isinstance(options, dict):</span>
+<span class="sd">            options = options.keys()</span>
+<span class="sd">        if sort:</span>
+<span class="sd">            options = sorted(options)</span>
+
+<span class="sd">        self.ui.combo_data.Items.Clear()</span>
+<span class="sd">        self.ui.combo_data.ItemsSource = options</span>
+<span class="sd">        self.ui.combo_data.SelectedItem = options[0]</span>
+<span class="sd">        self.ui.combo_data.Focus()</span>
+
+<span class="sd">    def select_click(self, sender, e):</span>
+<span class="sd">        selected = self.ui.combo_data.SelectedItem</span>
+<span class="sd">        if isinstance(self.options, dict):</span>
+<span class="sd">            selected = self.options[selected]</span>
+
+<span class="sd">        self.selected = selected</span>
+<span class="sd">        self.DialogResult = True</span>
+<span class="sd">        self.Close()</span>
+
+<span class="sd">    def show(self):</span>
+<span class="sd">        return super(SelectFromListForm, self).ShowDialog()</span>
+
+<span class="sd">class TextInputForm(Window):</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">WPF</span> <span class="n">form</span> <span class="k">with</span> <span class="n">TextInput</span><span class="o">.</span>
+
+    <span class="n">Args</span><span class="p">:</span>
+        <span class="n">title</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Title</span> <span class="n">of</span> <span class="n">form</span>
+        <span class="n">default</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Optional</span> <span class="n">default</span> <span class="n">value</span> <span class="k">for</span> <span class="n">text</span> <span class="n">box</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">description</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">Optional</span> <span class="n">Description</span> <span class="n">of</span> <span class="nb">input</span> <span class="n">requested</span>  <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">exit_on_close</span> <span class="p">(</span><span class="nb">bool</span><span class="p">):</span> <span class="n">Form</span> <span class="n">will</span> <span class="n">call</span> <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span> <span class="k">if</span> <span class="n">Closed</span> <span class="n">on</span> <span class="n">X</span><span class="o">.</span> <span class="p">[</span><span class="n">default</span><span class="p">:</span> <span class="kc">True</span><span class="p">]</span>
+
+
+    <span class="n">Usage</span><span class="p">:</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">prompt</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    LAYOUT = &quot;&quot;&quot;</span>
+            <span class="o">&lt;</span><span class="n">Window</span> <span class="n">xmlns</span><span class="o">=</span><span class="s2">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span>
+                    <span class="n">xmlns</span><span class="p">:</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
+                    <span class="n">xmlns</span><span class="p">:</span><span class="n">d</span><span class="o">=</span><span class="s2">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span>
+                    <span class="n">xmlns</span><span class="p">:</span><span class="n">mc</span><span class="o">=</span><span class="s2">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span>
+                    <span class="n">xmlns</span><span class="p">:</span><span class="n">local</span><span class="o">=</span><span class="s2">&quot;clr-namespace:WpfApplication1&quot;</span>
+                    <span class="n">mc</span><span class="p">:</span><span class="n">Ignorable</span><span class="o">=</span><span class="s2">&quot;d&quot;</span> <span class="n">Height</span><span class="o">=</span><span class="s2">&quot;140.139&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;325&quot;</span> <span class="n">ResizeMode</span><span class="o">=</span><span class="s2">&quot;NoResize&quot;</span> <span class="n">Title</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="n">WindowStartupLocation</span><span class="o">=</span><span class="s2">&quot;CenterScreen&quot;</span> <span class="n">Topmost</span><span class="o">=</span><span class="s2">&quot;True&quot;</span> <span class="n">SizeToContent</span><span class="o">=</span><span class="s2">&quot;WidthAndHeight&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">Grid</span> <span class="n">Margin</span><span class="o">=</span><span class="s2">&quot;10,0,10,10&quot;</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">Label</span> <span class="n">x</span><span class="p">:</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;selection_label&quot;</span> <span class="n">Content</span><span class="o">=</span><span class="s2">&quot;Enter Text&quot;</span> <span class="n">HorizontalAlignment</span><span class="o">=</span><span class="s2">&quot;Left&quot;</span> <span class="n">Height</span><span class="o">=</span><span class="s2">&quot;30&quot;</span> <span class="n">VerticalAlignment</span><span class="o">=</span><span class="s2">&quot;Top&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;299&quot;</span><span class="o">/&gt;</span>
+
+                    <span class="o">&lt;</span><span class="n">TextBox</span> <span class="n">x</span><span class="p">:</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;text_box&quot;</span> <span class="n">HorizontalAlignment</span><span class="o">=</span><span class="s2">&quot;Left&quot;</span> <span class="n">Margin</span><span class="o">=</span><span class="s2">&quot;0,30,0,0&quot;</span> <span class="n">VerticalAlignment</span><span class="o">=</span><span class="s2">&quot;Top&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;299&quot;</span><span class="o">/&gt;</span>
+
+                    <span class="o">&lt;</span><span class="n">Button</span> <span class="n">x</span><span class="p">:</span><span class="n">Name</span><span class="o">=</span><span class="s2">&quot;button_select&quot;</span> <span class="n">Content</span><span class="o">=</span><span class="s2">&quot;Select&quot;</span> <span class="n">HorizontalAlignment</span><span class="o">=</span><span class="s2">&quot;Left&quot;</span> <span class="n">Height</span><span class="o">=</span><span class="s2">&quot;26&quot;</span> <span class="n">Margin</span><span class="o">=</span><span class="s2">&quot;0,63,0,0&quot;</span> <span class="n">VerticalAlignment</span><span class="o">=</span><span class="s2">&quot;Top&quot;</span> <span class="n">Width</span><span class="o">=</span><span class="s2">&quot;299&quot;</span><span class="o">/&gt;</span>
+
+                <span class="o">&lt;/</span><span class="n">Grid</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">Window</span><span class="o">&gt;</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    def __init__(self, title, default=None, description=None):</span>
+<span class="sd">        self.selected = None</span>
+<span class="sd">        self.ui = wpf.LoadComponent(self, StringReader(TextInputForm.LAYOUT))</span>
+<span class="sd">        # self.ui = wpf.LoadComponent(self, os.path.join(cwd, &#39;form_text_input.xaml&#39;))</span>
+<span class="sd">        self.ui.Title = title</span>
+
+<span class="sd">        self.ui.text_box.Focus()</span>
+<span class="sd">        if default is not None:</span>
+<span class="sd">            self.ui.text_box.Text = default</span>
+
+<span class="sd">        if description is not None:</span>
+<span class="sd">            self.ui.selection_label.Content = description</span>
+<span class="sd">        self.ui.button_select.Click += self.select_click</span>
+
+<span class="sd">    def select_click(self, sender, e):</span>
+<span class="sd">        self.DialogResult = True</span>
+<span class="sd">        self.selected = self.ui.text_box.Text</span>
+<span class="sd">        self.Close()</span>
+
+<span class="sd">    def show(self):</span>
+<span class="sd">        return super(TextInputForm, self).ShowDialog()</span>
+
+
+<span class="sd">class Alert():</span>
+<span class="sd">    def __init__(self, message, title=&#39;Alert&#39;, heading=&#39;&#39;, exit=False):</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Creates</span> <span class="n">Standard</span> <span class="n">Revit</span> <span class="n">Alert</span><span class="o">.</span>
+
+        <span class="n">Args</span><span class="p">:</span>
+            <span class="n">message</span> <span class="p">(</span><span class="nb">str</span><span class="p">):</span> <span class="n">TaskDialog</span> <span class="n">Message</span>
+            <span class="n">title</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">optional</span><span class="p">):</span> <span class="n">TaskDialog</span> <span class="n">Title</span>
+            <span class="n">heading</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">optional</span><span class="p">):</span> <span class="n">TaskDialog</span> <span class="n">Message</span> <span class="n">Heading</span>
+            <span class="n">exit</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">optional</span><span class="p">):</span> <span class="n">Exit</span> <span class="n">Script</span> <span class="n">after</span> <span class="n">Dialog</span><span class="o">.</span> <span class="n">Useful</span> <span class="k">for</span> <span class="n">handled</span> <span class="n">Errors</span><span class="o">.</span>
+
+        <span class="n">Usage</span><span class="p">:</span>
+            <span class="o">&gt;&gt;&gt;</span> <span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;Your Message&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="s2">&quot;Some Heading&quot;</span><span class="p">)</span>
+            <span class="o">&gt;&gt;&gt;</span> <span class="n">Alert</span><span class="p">(</span><span class="s1">&#39;You need to select Something&#39;</span><span class="p">,</span> <span class="n">exit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        dialog = UI.TaskDialog(title)</span>
+<span class="sd">        dialog.MainInstruction = heading</span>
+<span class="sd">        dialog.MainContent = message</span>
+<span class="sd">        self.result = dialog.Show()</span>
+
+<span class="sd">        if exit:</span>
+<span class="sd">            sys.exit(1)</span>
+
+
+<span class="sd">class FormWrapper(object):</span>
+<span class="sd">    &quot;&quot;&quot;</span> <span class="n">Wraps</span> <span class="n">WPF</span> <span class="n">Window</span> <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">    def __init__(self, *args, **kwargs):</span>
+<span class="s2">        form_class = getattr(self.__class__, &#39;form_class&#39;, None)</span>
+<span class="s2">        self.__class__.__doc__ = form_class.__doc__</span>
+<span class="s2">        if not form_class:</span>
+<span class="s2">            raise Exception(&#39;FormWrapper is for inheritance only&#39;)</span>
+
+<span class="s2">        self.exit_on_close = kwargs.pop(&#39;exit_on_close&#39;, True)</span>
+<span class="s2">        self.form = form_class(*args, **kwargs)</span>
+
+<span class="s2">    def show(self):</span>
+<span class="s2">        results = self.form.show()</span>
+<span class="s2">        if not results and self.exit_on_close:</span>
+<span class="s2">            logger.debug(&#39;Form was closed. Script will exit.&#39;)</span>
+<span class="s2">            sys.exit(1)</span>
+<span class="s2">        elif results:</span>
+<span class="s2">            return True</span>
+<span class="s2">        else:</span>
+<span class="s2">            return False</span>
+
+<span class="s2">    def __getattr__(self, attr):</span>
+<span class="s2">        return getattr(self.form, attr)</span>
+
+
+<span class="s2">class SelectFromList(FormWrapper):</span>
+<span class="s2">    form_class = SelectFromListForm</span>
+<span class="s2">    __doc__ = SelectFromListForm.__doc__</span>
+
+
+<span class="s2">class TextInput(FormWrapper):</span>
+<span class="s2">    form_class = TextInputForm</span>
+<span class="s2">    __doc__ = TextInputForm.__doc__</span>
+
+
+<span class="s2">if __name__ == &#39;__main__&#39;:</span>
+<span class="s2">    prompt = SelectFromList(&#39;Title&#39;, [&#39;A&#39;,&#39;B&#39;], description=&quot;Your Options&quot;, exit_on_close=True)</span>
+<span class="s2">    prompt.show()</span>
+<span class="s2">    print(prompt.selected)</span>
+
+<span class="s2">    prompt = SelectFromList(&#39;Title&#39;, {&#39;A&#39;:5, &#39;B&#39;:10}, description=&quot;Your Options&quot;, exit_on_close=True)</span>
+<span class="s2">    prompt.show()</span>
+<span class="s2">    print(prompt.selected)</span>
+
+<span class="s2">    prompt = TextInput(&#39;Title&#39;, default=&quot;3&quot;, exit_on_close=True)</span>
+<span class="s2">    prompt.show()</span>
+<span class="s2">    print(prompt.selected)</span>
+<span class="s2">    print(&#39;forms.py ran&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="builtins.html" class="btn btn-neutral" title="Enumeration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

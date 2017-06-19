@@ -11,10 +11,10 @@ Element Wrappers
 Element
 ************
 
-.. automodule:: rpw.element
+.. automodule:: rpw.db.element
     :undoc-members:
 
-.. autoclass:: rpw.Element
+.. autoclass:: rpw.db.Element
     :members:
     :private-members:
     :special-members: __init__, __getattr__
@@ -23,7 +23,7 @@ Element
 Instance
 ************
 
-.. autoclass:: rpw.Instance
+.. autoclass:: rpw.db.Instance
     :members:
     :private-members:
     :special-members: __init__
@@ -32,7 +32,7 @@ Instance
 Symbol
 ************
 
-.. autoclass:: rpw.Symbol
+.. autoclass:: rpw.db.Symbol
     :members:
     :private-members:
     :special-members: __init__
@@ -41,7 +41,7 @@ Symbol
 Family
 ************
 
-.. autoclass:: rpw.Family
+.. autoclass:: rpw.db.Family
     :members:
     :private-members:
     :special-members: __init__
@@ -50,7 +50,7 @@ Family
 Category
 ************
 
-.. autoclass:: rpw.Category
+.. autoclass:: rpw.db.Category
     :members:
     :private-members:
     :special-members: __init__
@@ -70,7 +70,7 @@ Wall Element Tree Wrappers
     When retrieving the FamilySymbol from an instance, and the  Family from a Symbol,
     one might uses ``instance.Symbol`` and ``symbol.Family``.
 
-    Unfortunatelly, this would not be the case with Wall Elements.
+    Unfortunately, this would not be the case with Wall Elements.
     A Wall Instance is actually a ``DB.Wall``; the `Family Type` of a wall
     is not a ``DB.FamilySymbol`` type, but a ``DB.WallType``;
     and instead of ``.Family``, walls use ``.Kind``.
@@ -79,36 +79,36 @@ Wall Element Tree Wrappers
     to retrieve the "symbol" and "family" of a wall using:
     `wall.symbol`, and `wall.family`
 
-    >>> wall = rpw.WallInstance(SomeWallInstance)
+    >>> wall = rpw.db.WallInstance(SomeWallInstance)
     >>> wall.symbol
     < RPW_WallType: Wall 1>
     >>> wall.family
     < RPW_WallKind: Basic Wall>
 
-.. autoclass:: rpw.WallInstance
+.. autoclass:: rpw.db.WallInstance
     :show-inheritance:
     :special-members: __init__
 
-.. autoclass:: rpw.WallSymbol
+.. autoclass:: rpw.db.WallSymbol
     :show-inheritance:
     :special-members: __init__
 
-.. autoclass:: rpw.WallFamily
+.. autoclass:: rpw.db.WallFamily
     :show-inheritance:
     :special-members: __init__
 
-.. autoclass:: rpw.WallCategory
+.. autoclass:: rpw.db.WallCategory
     :show-inheritance:
     :special-members: __init__
 
 ----------------------------------------------
 
-Room + Area
-************
+Spatial Elements
+****************
 
 Room Wrapper
 
-.. autoclass:: rpw.Room
+.. autoclass:: rpw.db.Room
     :members:
     :private-members:
     :special-members: __init__
@@ -116,7 +116,7 @@ Room Wrapper
 
 Area Wrapper
 
-.. autoclass:: rpw.Area
+.. autoclass:: rpw.db.Area
     :members:
     :private-members:
     :special-members: __init__
@@ -124,7 +124,7 @@ Area Wrapper
 
 Area Scheme Wrapper
 
-.. autoclass:: rpw.AreaScheme
+.. autoclass:: rpw.db.AreaScheme
     :members:
     :private-members:
     :special-members: __init__
@@ -139,11 +139,11 @@ ParameterSet
 ^^^^^^^^^^^^
 
 .. Note::
-    These are used internally by all Classes that inherit from ``rpw.Element``,
+    These are used internally by all Classes that inherit from ``rpw.db.element``,
     but can be used on their own.
 
 
-.. autoclass:: rpw.ParameterSet
+.. autoclass:: rpw.db.ParameterSet
     :members:
     :special-members: __init__, __getitem__, __setitem__, __len__
     :show-inheritance:
@@ -152,7 +152,7 @@ ParameterSet
 Parameter
 ^^^^^^^^^
 
-.. autoclass:: rpw.parameter.Parameter
+.. autoclass:: rpw.db.Parameter
     :members:
     :special-members: __init__, __getattr__, __setitem__
     :show-inheritance:
@@ -162,7 +162,9 @@ Parameter
 Implementation
 **************
 
-.. literalinclude:: ../rpw/element.py
-.. literalinclude:: ../rpw/parameter.py
+.. literalinclude:: ../rpw/db/element.py
+.. literalinclude:: ../rpw/db/parameter.py
+.. literalinclude:: ../rpw/db/wall.py
+.. literalinclude:: ../rpw/db/spatial_element.py
 
-.. disqus::
+.. disqus
