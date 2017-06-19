@@ -1,10 +1,11 @@
+===========================
 Parameter and Parameter Set
-***************************
+===========================
 
 .. automodule:: rpw.db.parameter
 
 ParameterSet
-^^^^^^^^^^^^
+************
 
 .. Note::
     These are used internally by all Classes that inherit from ``rpw.db.element``,
@@ -18,7 +19,7 @@ ParameterSet
 
 
 Parameter
-^^^^^^^^^
+*********
 
 .. autoclass:: rpw.db.Parameter
     :members:
@@ -30,5 +31,4 @@ Parameter
 Implementation
 **************
 
-.. literalinclude:: ../rpw/db/element.py
 .. literalinclude:: ../rpw/db/parameter.py
