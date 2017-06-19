@@ -36,10 +36,3 @@ from rpw.__revit import revit, DB, UI
 import rpw.db
 import rpw.ui
 import rpw.extras
-
-# PENDING FOR MERGE:
-# * Forms
-
-# After Merge:
-# * Transaction
-# * AutoCollector

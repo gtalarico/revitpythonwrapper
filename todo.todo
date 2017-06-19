@@ -1,11 +1,18 @@
-Refactor/Logic:
-☐ Fix `enforce_type` params in Element Wrappers
+Merge-Ready:
+☐ Forms *
+
+Merge-Review:
+☐ Transaction (Status)
+☐ Logger
+☐ AutoCollector
+
+--------------------------------------
 
 Base Wrappers:
-✔ Transaction @done
-✔ Collector @done
-✔ Selection @done
-✔ Parameters @done
+✔ Transaction
+✔ Collector
+✔ Selection
+✔ Parameters
 ☐ Document
 
 Base Element:
@@ -14,6 +21,17 @@ Base Element:
 ✔ Collection @done
 
 Element Wrappers:
+☐ Level
+☐ Reference
+☐ View
+☐ ViewPort
+☐ Sheet
+☐ Floor
+☐ Door
+☐ Window
+☐ Schedule
+☐ Worksets
+☐ Links
 ✔ BaseObject @done
 ✔ BaseObjectWrapper @done
 ✔ Element @done
@@ -28,36 +46,29 @@ Element Wrappers:
 ✔ Room @done
 ✔ Area @done
 ✔ AreaSchema @done
-☐ View
-☐ ViewPort
-☐ Sheet
-☐ Floor
-☐ Door
-☐ Window
-☐ Schedule
-☐ Worksets
-☐ Links
 
 Collector:
-☐ Clean up filter
-☐ Add Slow Filters
 ☐ Add Bounding Box Filter
+✔ Clean up filter
+✔ Add Slow Filters
+✔ Add Quick Filters
+✔ Add Where Lambda
 ✔ Add Level Filter @done
 
 Geometry:
-✔ Point @done
-✔ PointCollection @done
 ☐ BoundingBox
+✔ Point
+✔ PointCollection @done
 
 Tests Debt:
-☐ Clean up + Separate
+✔ Clean up + Separate
 ☐ Room
 ☐ Area
 ☐ Geometry
 ☐ wrapped_elements
 
 Selection:
-☐ Add Pick / Filters
+✔ Add Pick / Filters
 
 Forms:
 ☐ Multi-input Forms
@@ -66,3 +77,6 @@ Geometry:
 ✔ To Element Ids @done
 ✔ To Elements @done
 ☐ Data Types
+
+Fix:
+✔ Fix `enforce_type` params in Element Wrappers
