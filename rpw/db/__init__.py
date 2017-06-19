@@ -22,5 +22,5 @@ from rpw.db.builtins import BicEnum, BipEnum
 from rpw.db.xyz import XYZ
 from rpw.db.bounding_box import BoundingBox
 
-from rpw.db.collections_ import ElementSet, ElementCollection
-from rpw.db.collections_ import XYZCollection
+from rpw.db.collection import ElementSet, ElementCollection
+from rpw.db.collection import XyzCollection

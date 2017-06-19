@@ -9,7 +9,7 @@ from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RpwTypeError
 from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids, to_elements, to_iterable
-from rpw.db.collections_ import ElementSet
+from rpw.db.collection import ElementSet
 
 if revit.host:
     ObjectType = UI.Selection.ObjectType

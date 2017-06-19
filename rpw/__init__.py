@@ -32,7 +32,7 @@ __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 
 from rpw.utils.logger import logger
-from rpw._revit import revit, DB, UI
+from rpw.__revit import revit, DB, UI
 import rpw.db
 import rpw.ui
 import rpw.extras
