@@ -20,9 +20,6 @@ Element
     :special-members: __init__, __getattr__
     :show-inheritance:
 
-.. data:: parameters
-    :annotation:  access Element wrapped Parameters
-
 Instance
 ************
 

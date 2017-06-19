@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
         <link rel="next" title="Dynamo" href="dynamo.html"/>
-        <link rel="prev" title="Forms" href="forms.html"/> 
+        <link rel="prev" title="Console" href="console.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
@@ -271,7 +272,7 @@ This will always return a list, even if only one element is passed.</p>
 
 <dl class="function">
 <dt id="rpw.utils.coerce.to_elements">
-<code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_elements</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_elements" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_elements</code><span class="sig-paren">(</span><em>element_references</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Coerces element reference (<code class="docutils literal"><span class="pre">int</span></code>, or <code class="docutils literal"><span class="pre">ElementId</span></code>) into <code class="docutils literal"><span class="pre">DB.Element</span></code>.
 Remains unchanged if it’s already <code class="docutils literal"><span class="pre">DB.Element</span></code>. Accepts single object or lists</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_elements</span>
@@ -496,7 +497,7 @@ Remains unchanged if it’s already <code class="docutils literal"><span class="
         <a href="dynamo.html" class="btn btn-neutral float-right" title="Dynamo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="forms.html" class="btn btn-neutral" title="Forms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="console.html" class="btn btn-neutral" title="Console" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

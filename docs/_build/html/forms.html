@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Utilities" href="utils.html"/>
+        <link rel="next" title="Console" href="console.html"/>
         <link rel="prev" title="Enumeration" href="builtins.html"/> 
 
   
@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -187,7 +188,48 @@
 <dl class="class">
 <dt id="rpw.ui.forms.SelectFromList">
 <em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">SelectFromList</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.SelectFromList" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>WPF form with ComboBox dropdown.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) – Title of form</li>
+<li><strong>options</strong> (<em>dict</em><em>,</em><em>list</em><em>[</em><em>str</em><em>]</em>) – Dictionary (string keys) or List[strings]</li>
+<li><strong>description</strong> (<em>str</em>) – Optional Description of input requested  [default: None]</li>
+<li><strong>sort</strong> (<em>bool</em>) – Optional sort flag - sorts keys [default: True]</li>
+<li><strong>exit_on_close</strong> (<em>bool</em>) – Form will call sys.exit() if Closed on X. [default: True]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Dropdown shows &#39;1&#39;, &#39;2&#39; ,&#39;3&#39;. User clicks Select &#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+<span class="go">&#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Window&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Text&#39;</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;Number&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># User clicks Text</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">selected</span>
+<span class="go">str</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="rpw.ui.forms.SelectFromList.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#rpw.ui.forms.SelectFromList.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">SelectFromListForm</span></code></p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="textinput">
@@ -196,7 +238,37 @@
 <dl class="class">
 <dt id="rpw.ui.forms.TextInput">
 <em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">TextInput</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextInput" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>WPF form with TextInput.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) – Title of form</li>
+<li><strong>default</strong> (<em>str</em>) – Optional default value for text box [default: None]</li>
+<li><strong>description</strong> (<em>str</em>) – Optional Description of input requested  [default: None]</li>
+<li><strong>exit_on_close</strong> (<em>bool</em>) – Form will call sys.exit() if Closed on X. [default: True]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">prompt</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">prompt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="rpw.ui.forms.TextInput.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#rpw.ui.forms.TextInput.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">TextInputForm</span></code></p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="alert">
@@ -249,24 +321,24 @@
 
 <span class="sd">import sys</span>
 <span class="sd">import os</span>
-<span class="sd">import logging</span>
+
 
 <span class="sd"># This is only so forms.py to be executed on console for easier testing and dev</span>
 <span class="sd"># `ipy.exe forms.py` and ipy -X:FullFrames console.py</span>
-<span class="sd">try:</span>
-<span class="sd">    from rpw import revit, UI</span>
-<span class="sd">    if revit.host == &#39;Dynamo&#39;:</span>
-<span class="sd">        # Standard Location Added for Dynamo, where script cannot reach inside</span>
-<span class="sd">        sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
+<span class="sd">from rpw import revit, UI</span>
+<span class="sd">if revit.host == &#39;Dynamo&#39;:</span>
+<span class="sd">    # Standard Location Added for Dynamo, where script cannot reach inside</span>
+<span class="sd">    sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
 <span class="sd">    from rpw.utils.dotnet import clr</span>
 <span class="sd">    from rpw.utils.logger import logger</span>
-<span class="sd">except ImportError:</span>
+<span class="sd">else:</span>
 <span class="sd">    import clr</span>
+<span class="sd">    import logging</span>
 <span class="sd">    logger = logging.getLogger()</span>
 <span class="sd">    logger.warning(&#39;Could not import rpw module.&#39;)</span>
 
-
-<span class="sd">clr.AddReference(&quot;PresentationFramework&quot;)  # ?</span>
+<span class="sd"># WPF/Form Imports</span>
+<span class="sd">clr.AddReference(&quot;PresentationFramework&quot;)</span>
 <span class="sd">clr.AddReference(&quot;WindowsBase&quot;)            # System.Windows.Input</span>
 <span class="sd">clr.AddReference(&quot;System.Drawing&quot;)         # FontFamily</span>
 
@@ -280,7 +352,6 @@
 <span class="sd">clr.AddReference(&#39;IronPython.Wpf&#39;)</span>
 <span class="sd"># clr.AddReference(&#39;IronPython.Modules&#39;)</span>
 <span class="sd">from IronPython.Modules import Wpf as wpf</span>
-
 
 <span class="sd">class SelectFromListForm(Window):</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -512,7 +583,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="console.html" class="btn btn-neutral float-right" title="Console" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="builtins.html" class="btn btn-neutral" title="Enumeration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -264,7 +265,7 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">revit</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;UIApplication&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+        <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
         <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">LoggerWrapper</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="n">LoggerWrapper</span><span class="p">)</span>
 
@@ -324,7 +325,7 @@ examples of how the library is intended to be used.</p>
 
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span>
-<span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">test_utils</span>
 
@@ -695,7 +696,7 @@ examples of how the library is intended to be used.</p>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span><span class="p">,</span> <span class="n">RpwCoerceError</span>
-<span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">test_utils</span>
 
@@ -1007,7 +1008,7 @@ examples of how the library is intended to be used.</p>
 
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span>
-<span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]</span>
 
@@ -1122,7 +1123,7 @@ examples of how the library is intended to be used.</p>
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">revit</span><span class="o">.</span><span class="n">uidoc</span>
-<span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">test_utils</span>
 
@@ -1258,7 +1259,7 @@ examples of how the library is intended to be used.</p>
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="n">doc</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span>
 
 <span class="kn">import</span> <span class="nn">test_utils</span>
@@ -1384,7 +1385,7 @@ examples of how the library is intended to be used.</p>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span>
-<span class="kn">from</span> <span class="nn">rpw.utils</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">test_utils</span>
 

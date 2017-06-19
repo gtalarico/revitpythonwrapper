@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -178,7 +179,7 @@
 <p><cite>uidoc.Selection</cite> Wrapper</p>
 <dl class="class">
 <dt id="rpw.ui.Selection">
-<em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Selection</code><a class="headerlink" href="#rpw.ui.Selection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements_or_ids=None</em>, <em>uidoc=ActiveUIDocument</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">rpw.db.collections_.ElementSet</span></code></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -218,7 +219,7 @@
 
 <dl class="method">
 <dt id="rpw.ui.Selection.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>elements_or_ids=None</em>, <em>uidoc=ActiveUIDocument</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes Selection. Elements or ElementIds are optional.
 If no elements are provided on intiialization,
 selection handler will be created with selected elements.</p>

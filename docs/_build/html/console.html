@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Console &mdash; Revit Python Wrapper 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Utilities" href="utils.html"/>
+        <link rel="prev" title="Forms" href="forms.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Console</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interactive-console">Interactive Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Console</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/console.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="console">
+<h1>Console<a class="headerlink" href="#console" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interactive-console">
+<h2>Interactive Console<a class="headerlink" href="#interactive-console" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/console.png" src="_images/console.png" />
+<dl class="class">
+<dt id="rpw.ui.Console">
+<em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Console" title="Permalink to this definition">¶</a></dt>
+<dd><p>REPL Console for Inspecting Stack</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">()</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>stack_level</strong> (<em>int</em><em>, </em><em>optional</em>) – Stack Level. Default is 1.</li>
+<li><strong>stack_info</strong> (<em>bool</em>) – Print Stack Call info. Default is False.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
+
+<span class="c1"># This is only so forms.py to be executed on console for easier testing and dev</span>
+<span class="c1"># `ipy.exe forms.py` and ipy -X:FullFrames console.py</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">forms</span> <span class="k">import</span> <span class="o">*</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">rpw.ui.forms</span> <span class="k">import</span> <span class="o">*</span>
+<span class="c1"># logger.verbose(True)</span>
+
+<span class="k">class</span> <span class="nc">Console</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; REPL Console for Inspecting Stack</span>
+
+<span class="sd">    &gt;&gt;&gt; from rpw.forms import Console</span>
+<span class="sd">    &gt;&gt;&gt; Console()</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        stack_level (int, optional): Stack Level. Default is 1.</span>
+<span class="sd">        stack_info (bool): Print Stack Call info. Default is False.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">LAYOUT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                &lt;Window xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span>
+<span class="s2">                        xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
+<span class="s2">                        Title=&quot;DeployWindow&quot; Height=&quot;400&quot; Width=&quot;800&quot; SnapsToDevicePixels=&quot;True&quot;</span>
+<span class="s2">                        UseLayoutRounding=&quot;True&quot; WindowState=&quot;Normal&quot; WindowStartupLocation=&quot;CenterScreen&quot;&gt;</span>
+<span class="s2">            	&lt;Window.Resources&gt;</span>
+<span class="s2">            		&lt;Style TargetType=&quot;{x:Type MenuItem}&quot;&gt;</span>
+<span class="s2">            			&lt;Setter Property=&quot;FontFamily&quot; Value=&quot;Consolas&quot;/&gt;</span>
+<span class="s2">            			&lt;Setter Property=&quot;FontSize&quot; Value=&quot;12.0&quot;/&gt;</span>
+<span class="s2">            		&lt;/Style&gt;</span>
+<span class="s2">            	&lt;/Window.Resources&gt;</span>
+<span class="s2">                &lt;Grid&gt;</span>
+<span class="s2">                    &lt;Grid.ColumnDefinitions&gt;</span>
+<span class="s2">                        &lt;ColumnDefinition Width=&quot;*&quot;&gt;&lt;/ColumnDefinition&gt;</span>
+<span class="s2">                    &lt;/Grid.ColumnDefinitions&gt;</span>
+<span class="s2">                &lt;Grid.RowDefinitions&gt;</span>
+<span class="s2">                    &lt;RowDefinition Height=&quot;0&quot;&gt;&lt;/RowDefinition&gt;</span>
+<span class="s2">                    &lt;RowDefinition Height=&quot;*&quot;&gt;&lt;/RowDefinition&gt;</span>
+<span class="s2">                &lt;/Grid.RowDefinitions&gt;</span>
+<span class="s2">                &lt;TextBox Grid.Column=&quot;1&quot; Grid.Row=&quot;1&quot;  HorizontalAlignment=&quot;Stretch&quot;</span>
+<span class="s2">                         KeyDown=&quot;OnKeyDownHandler&quot; KeyUp=&quot;OnKeyUpHandler&quot;</span>
+<span class="s2">                         Name=&quot;tbox&quot; Margin=&quot;6,6,6,6&quot; VerticalAlignment=&quot;Stretch&quot;</span>
+<span class="s2">                         AcceptsReturn=&quot;True&quot; VerticalScrollBarVisibility=&quot;Auto&quot;</span>
+<span class="s2">                         TextWrapping=&quot;Wrap&quot;</span>
+<span class="s2">                         FontFamily=&quot;Consolas&quot; FontSize=&quot;12.0&quot;</span>
+<span class="s2">                         /&gt;</span>
+<span class="s2">                &lt;/Grid&gt;</span>
+<span class="s2">                &lt;/Window&gt;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="c1"># &lt;Button Grid.Column=&quot;1&quot; Content=&quot;Deploy&quot; Height=&quot;30&quot; Width=&quot;100&quot; HorizontalAlignment=&quot;Left&quot; Margin=&quot;10,10,10,10&quot; Name=&quot;deployButton&quot; Cursor=&quot;Hand&quot; /&gt;</span>
+
+    <span class="n">CARET</span> <span class="o">=</span> <span class="s1">&#39;&gt;&gt;&gt; &#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; RPW Console</span>
+
+<span class="sd">        &gt;&gt;&gt; rpw.ui.Console()</span>
+<span class="sd">        # Execution will stop, and a Console will start with the stack variable</span>
+<span class="sd">        loaded</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            stack_level (int): Default is 1. 0 Is the Console stack, 1 is the</span>
+<span class="sd">                               caller; 2 is previous to that, etc.</span>
+<span class="sd">            stack_info (bool): Display info about where call came from.</span>
+<span class="sd">                               Will print filename name,  line no. and Caller</span>
+<span class="sd">                               name.</span>
+<span class="sd">        Tips:</span>
+<span class="sd">            Press `UP` + `DOWN` to scroll through persistant history.</span>
+<span class="sd">            Press tab to autocomplete based on local variables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># History Helper</span>
+        <span class="n">tempdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;rpw-history&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+        <span class="c1"># Stack Info</span>
+        <span class="c1"># stack = inspect.currentframe().f_back</span>
+        <span class="n">stack_frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="n">stack_level</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Finds Calling Stack</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_globals</span>
+        <span class="n">stack_code</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_code</span>
+        <span class="c1"># logger.debug(&#39;Local vars: &#39; + str(self.stack_locals))</span>
+        <span class="c1"># logger.debug(&#39;Global vars: &#39; + str(self.stack_globals))</span>
+
+        <span class="n">stack_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">stack_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">)</span>
+        <span class="n">stack_lineno</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_firstlineno</span>
+        <span class="n">stack_caller</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_name</span>
+
+        <span class="c1"># Form Setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="s1">&#39;RevitPythonWrapper Console&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PreviewKeyDown</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KeyPressPreview</span>
+
+        <span class="c1"># Form Init</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">stack_info</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="s1">&#39;Caller: </span><span class="si">{}</span><span class="s1"> [line:</span><span class="si">{}</span><span class="s1">] | File: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack_caller</span><span class="p">,</span> <span class="n">stack_lineno</span><span class="p">,</span> <span class="n">stack_filename</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">Console</span><span class="o">.</span><span class="n">CARET</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+
+        <span class="c1"># Vars</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">GetLineText</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Get Line: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">line</span>
+
+    <span class="k">def</span> <span class="nf">get_last_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">last_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">last_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_line</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Last Line: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">last_line</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">last_line</span>
+
+    <span class="k">def</span> <span class="nf">get_last_entered_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">last_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">last_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_line</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Last Line: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">last_line</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">last_line</span>
+
+    <span class="k">def</span> <span class="nf">get_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">last_line_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">LineCount</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">last_line_index</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_line</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Lines: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">lines</span>
+
+    <span class="k">def</span> <span class="nf">OnKeyUpHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Need to use this to be able to override ENTER &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">LineCount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Enter</span><span class="p">:</span>
+            <span class="n">entered_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_last_entered_line</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">entered_line</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">entered_line</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">append_history</span><span class="p">(</span><span class="n">entered_line</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">exec</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">errmsg</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">errmsg</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">OnKeyDownHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">reset_caret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">KeyPressPreview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Up</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">history_up</span><span class="p">()</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Down</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">history_down</span><span class="p">()</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Left</span> <span class="ow">or</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Back</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
+                <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Home</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_caret</span><span class="p">()</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Tab</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">autocomplete</span><span class="p">()</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Enter</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">autocomplete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: Add recursive dir() attribute suggestions</span>
+
+        <span class="n">last_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_last_line</span><span class="p">()</span>
+        <span class="n">cursor_line_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">last_line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">cursor_line_index</span><span class="p">]</span>
+        <span class="n">possibilities</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="c1"># + self.get_all_history()</span>
+        <span class="n">suggestions</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">possibilities</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Text: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Sug: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">suggestions</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">suggestions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="c1"># Create Dictionary to Track iteration over suggestion</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">suggestion</span> <span class="o">=</span> <span class="n">suggestions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">suggestion</span> <span class="o">=</span> <span class="n">suggestions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">suggestion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">caret_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">suggestion</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="n">caret_index</span>
+
+    <span class="k">def</span> <span class="nf">write_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">NewLine</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="n">last_new_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">last_new_line</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_all_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Retrieves all lines from history file &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">lines</span>
+
+    <span class="k">def</span> <span class="nf">history_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_iter</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">history_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">history_iter</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">append_history</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Adding Line to History:&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history_file</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">history_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_history</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Lines: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># Wrap around lines to loop and up down infinetly.</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">line</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s1">&#39;&lt;rpw:Console stack_level=</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_level</span><span class="p">)</span>
+
+
+<span class="c1"># if __name__ == &#39;__main__&#39;:</span>
+<span class="c1">#     # def test():</span>
+<span class="c1">#     #     Console()</span>
+<span class="c1">#     # test()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="forms.html" class="btn btn-neutral" title="Forms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -22,6 +22,7 @@ Revit Python Wrapper
    geometry
    builtins
    forms
+   console
    utils
    dynamo
    revitpythonshell

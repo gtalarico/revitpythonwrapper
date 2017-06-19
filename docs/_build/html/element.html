@@ -116,6 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -199,9 +200,9 @@ using <code class="docutils literal"><span class="pre">rpw.db.Element</span></co
 </div>
 <dl class="class">
 <dt id="rpw.db.Element">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Element</code><a class="headerlink" href="#rpw.db.Element" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Inheriting from element extends wrapped elements with a new <a class="reference internal" href="#rpw.db.element.parameters" title="rpw.db.element.parameters"><code class="xref py py-class docutils literal"><span class="pre">parameters</span></code></a>
+<p>Inheriting from element extends wrapped elements with a new <a class="reference internal" href="#rpw.db.element.Element.parameters" title="rpw.db.element.Element.parameters"><code class="xref py py-class docutils literal"><span class="pre">parameters</span></code></a>
 attribute, well as the <a class="reference internal" href="#rpw.db.element.Element.unwrap" title="rpw.db.element.Element.unwrap"><code class="xref py py-func docutils literal"><span class="pre">unwrap()</span></code></a> method inherited from the <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref any py py-class docutils literal"><span class="pre">BaseObjectWrapper</span></code></a> class.</p>
 <p>It can be created by instantiating <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> , or one of the helper
 static methods shown below.</p>
@@ -250,7 +251,7 @@ If the element does not inherit from DB.Element, and exception is raised.</p>
 
 <dl class="method">
 <dt id="rpw.db.Element.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">]</span>
@@ -288,17 +289,12 @@ These can be overriden by passing keyword args to the collectors call.</p>
 
 </dd></dl>
 
-<dl class="data">
-<dt id="rpw.db.element.parameters">
-<code class="descclassname">rpw.db.element.</code><code class="descname">parameters</code><em class="property"> access Element wrapped Parameters</em><a class="headerlink" href="#rpw.db.element.parameters" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="instance">
 <h2>Instance<a class="headerlink" href="#instance" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="rpw.db.Instance">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Instance</code><a class="headerlink" href="#rpw.db.Instance" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.FamilyInstance</cite> Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
@@ -346,7 +342,7 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <h2>Symbol<a class="headerlink" href="#symbol" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="rpw.db.Symbol">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Symbol</code><a class="headerlink" href="#rpw.db.Symbol" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Symbol</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.FamilySymbol</cite> Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbol</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">SomeSymbol</span><span class="p">)</span>
@@ -400,7 +396,7 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <h2>Family<a class="headerlink" href="#family" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="rpw.db.Family">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Family</code><a class="headerlink" href="#rpw.db.Family" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Family</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Family" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.Family</cite> Wrapper</p>
 <dl class="docutils">
@@ -511,7 +507,7 @@ to retrieve the “symbol” and “family” of a wall using:
 </div>
 <dl class="class">
 <dt id="rpw.db.WallInstance">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallInstance</code><a class="headerlink" href="#rpw.db.WallInstance" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallInstance</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.WallInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Instance</span></code></p>
 <p>Inherits base <code class="docutils literal"><span class="pre">Instance</span></code> and overrides symbol attribute to
 get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
@@ -519,7 +515,7 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 
 <dl class="class">
 <dt id="rpw.db.WallSymbol">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallSymbol</code><a class="headerlink" href="#rpw.db.WallSymbol" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallSymbol</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.WallSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Symbol</span></code></p>
 <dl class="docutils">
 <dt>Inherits from <a class="reference internal" href="#rpw.db.Symbol" title="rpw.db.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a> and overrides:</dt>
@@ -533,7 +529,7 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 
 <dl class="class">
 <dt id="rpw.db.WallFamily">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallFamily</code><a class="headerlink" href="#rpw.db.WallFamily" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallFamily</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.WallFamily" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Family</span></code></p>
 <p>Inherits base <code class="docutils literal"><span class="pre">Family</span></code> and overrides methods for Wall Instance`</p>
 </dd></dl>
@@ -556,7 +552,7 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 <p>Room Wrapper</p>
 <dl class="class">
 <dt id="rpw.db.Room">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Room</code><a class="headerlink" href="#rpw.db.Room" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Room</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Room" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.Architecture.Room</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
@@ -607,7 +603,7 @@ Uses result of <code class="docutils literal"><span class="pre">Room.Location</s
 <p>Area Wrapper</p>
 <dl class="class">
 <dt id="rpw.db.Area">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Area</code><a class="headerlink" href="#rpw.db.Area" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Area</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Area" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.spatial_element.Room</span></code></p>
 <p><cite>DB.Area</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.db.Room" title="rpw.db.Room"><code class="xref any py py-class docutils literal"><span class="pre">Room</span></code></a></p>
@@ -648,7 +644,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Room" title="rpw.db.Ro
 <p>Area Scheme Wrapper</p>
 <dl class="class">
 <dt id="rpw.db.AreaScheme">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">AreaScheme</code><a class="headerlink" href="#rpw.db.AreaScheme" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">AreaScheme</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.AreaScheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.AreaScheme</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
