@@ -14,7 +14,7 @@ from rpw.utils.dotnet import List
 
 class ElementSet(BaseObject):
     """
-    Provides helpful methods for managing a set of unique of ``DB.ElementId``.
+    Provides helpful methods for managing a set of unique of ``DB.ElementId``
 
     >>> element_set = ElementSet([element, element])
     >>> element_set = ElementSet()
@@ -23,10 +23,12 @@ class ElementSet(BaseObject):
     True
     >>> element_set.clear()
 
-    NOTE: Similar to DB.ElementSet, doesnt wrap since there is no advantage
+    NOTE:
+        Similar to DB.ElementSet, doesnt wrap since there is no advantage
 
     Args:
         (`DB.Element`, `DB.ElementID`, optional): Elements or Element Ids.
+
     """
 
     def __init__(self, elements_or_ids=None, doc=revit.doc):
@@ -36,22 +38,37 @@ class ElementSet(BaseObject):
             self.add(elements_or_ids)
 
     def add(self, elements_or_ids):
-        """ Adds elements or element_ids to set. Handles single or list """
+        """ Adds elements or element_ids to set. Handles single or list
+
+        Args:
+            element_reference (`DB.Element`, DB.Element_ids): Iterable Optional
+        """
         element_ids = to_element_ids(elements_or_ids)
         for eid in element_ids:
             self._elements[eid] = self.doc.GetElement(eid)
 
     def pop(self, element_id):
+        """ Removed from set using ElementIds
+
+        Args:
+            element_id (`DB.ElementId`)
+         """
         return self._elements.pop(element_id)
 
     @property
     def wrapped_elements(self):
-        """ List of wrapped elements stored in ElementSet """
+        """
+        Returns:
+            List of wrapped elements stored in ElementSet
+        """
         return [Element(x) for x in self.elements]
 
     @property
     def elements(self):
-        """ Elements stored in ElementSet """
+        """
+        Returns:
+            Elements stored in ElementSet
+        """
         return [e for e in self._elements.values()]
         # return [self.doc.GetElement(eid) for eid in self._element_dict.keys()]
 
@@ -68,12 +85,21 @@ class ElementSet(BaseObject):
         self._elements = OrderedDict()
 
     def as_element_list(self):
+        """
+        Returns:
+            IList<DB.Element>
+        """
         return List[DB.Element](self.elements)
 
     def as_element_id_list(self):
+        """
+        Returns:
+            IList<DB.ElementId>
+        """
         return List[DB.ElementId](self.element_ids)
 
     def select(self):
+        """ Selects Set in UI """
         return Selection(self.element_ids)
 
     def __len__(self):
@@ -88,8 +114,10 @@ class ElementSet(BaseObject):
     def __contains__(self, element_or_id):
         """
         Checks if selection contains the element Reference.
+
         Args:
             Reference: Element, ElementId, or Integer
+
         Returns:
             bool: ``True`` or ``False``
         """
@@ -147,14 +175,16 @@ class ElementCollection(ElementSet):
     def elements(self):
         """
         Returns:
-            [DB.Element]: List of Elements Objects """
+            [DB.Element]: List of Elements Objects
+        """
         return self._elements
 
     @property
     def element_ids(self):
         """
         Returns:
-            [DB.ElementId]: List of ElementIds Objects """
+            [DB.ElementId]: List of ElementIds Objects
+        """
         return [e.Id for e in self._elements]
 
     def clear(self):
@@ -186,11 +216,13 @@ class XyzCollection(BaseObject):
 
     @property
     def average(self):
-        """ Returns PointElement representing average of point collection.
-
+        """
         >>> points = [XYZ(0,0,0), XYZ(4,4,2)]
         >>> points.average
         (2,2,1)
+
+        Returns:
+            XYZ (`DB.XYZ`): Average of point collection.
 
         """
         x_values = [point.x for point in self.points]
@@ -204,11 +236,13 @@ class XyzCollection(BaseObject):
 
     @property
     def max(self):
-        """ Returns PointElement representing MAXIMUM of point collection.
-
+        """
         >>> points = [(0,0,5), (2,2,2)]
         >>> points.max
         (2,2,5)
+
+        Returns:
+            XYZ (`DB.XYZ`): Max of point collection.
 
         """
         x_values = [point.x for point in self.points]
@@ -221,11 +255,13 @@ class XyzCollection(BaseObject):
 
     @property
     def min(self):
-        """ Returns PointElement representing MINIMUM of point collection.
-        PointElement objects must support X,Y,Z attributes.
-        Example:
-        points = [(0,0,5), (2,2,2)]
-        points.min = (0,0,2)
+        """
+        >>> points = [(0,0,5), (2,2,2)]
+        >>> points.min = (0,0,2)
+
+        Returns:
+            XYZ (`DB.XYZ`): Min of point collection.
+
         """
         x_values = [point.x for point in self.points]
         y_values = [point.y for point in self.points]
@@ -236,6 +272,15 @@ class XyzCollection(BaseObject):
         return XYZ(x_min, y_min, z_min)
 
     def sorted_by(self, x_y_z):
+        """ Sorts Point Collection by axis.
+
+        >>> pts = XyzCollection(XYZ(0,10,0), XYZ(0,0,0))
+        >>> pts.sorted_by('y')
+        [XYZ(0,0,0), XYZ(0,10,0)]
+        
+        Args:
+            axis (`str`): Axist to sort by.
+        """
         sorted_points = self.points[:]
         sorted_points.sort(key=lambda p: getattr(p, x_y_z))
         return sorted_points
