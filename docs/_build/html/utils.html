@@ -95,11 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
@@ -109,8 +112,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -301,7 +304,19 @@ Remains unchanged if it’s already <code class="docutils literal"><span class="
 <dl class="function">
 <dt id="rpw.utils.coerce.to_iterable">
 <code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_iterable</code><span class="sig-paren">(</span><em>item_or_iterable</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_iterable" title="Permalink to this definition">¶</a></dt>
-<dd><p>This helps replace code to check if an element is iterable.</p>
+<dd><p>Ensures input is iterable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>any</strong> (<em>iterable</em><em>, </em><em>non-iterable</em>) – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Same as input</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<cite>iterable</cite>)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -454,7 +469,15 @@ Remains unchanged if it’s already <code class="docutils literal"><span class="
                         <span class="nb">type</span><span class="p">(</span><span class="n">category_reference</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">to_iterable</span><span class="p">(</span><span class="n">item_or_iterable</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; This helps replace code to check if an element is iterable.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Ensures input is iterable</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        any (iterable, non-iterable)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (`iterable`): Same as input</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">item_or_iterable</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">item_or_iterable</span>
     <span class="k">else</span><span class="p">:</span>

@@ -5,7 +5,7 @@
 
 
 ==================
-Enumeration
+BuiltIns
 ==================
 
 .. automodule:: rpw.db.builtins

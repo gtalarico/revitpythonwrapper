@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Enumeration &mdash; Revit Python Wrapper 1.0.0 documentation</title>
+  <title>BuiltIns &mdash; Revit Python Wrapper 1.0.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Forms" href="forms.html"/>
-        <link rel="prev" title="Geometry" href="geometry.html"/> 
+        <link rel="next" title="Geometry" href="geometry.html"/>
+        <link rel="prev" title="Collections" href="collections.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,22 +95,25 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Enumeration</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">BuiltIns</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -155,7 +158,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Enumeration</li>
+      <li>BuiltIns</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,7 +178,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-rpw.db.builtins">
-<span id="enumeration"></span><h1>Enumeration<a class="headerlink" href="#module-rpw.db.builtins" title="Permalink to this headline">¶</a></h1>
+<span id="builtins"></span><h1>BuiltIns<a class="headerlink" href="#module-rpw.db.builtins" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
@@ -185,8 +188,8 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">These classes were originally create to be used internally,
-but are documented here as some it’s functionalities can be
-helpful.</p>
+but are documented here as some its functionalities could be
+helpful to others.</p>
 </div>
 <hr class="docutils" />
 <dl class="class">
@@ -452,10 +455,10 @@ helpful.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="forms.html" class="btn btn-neutral float-right" title="Forms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="geometry.html" class="btn btn-neutral float-right" title="Geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="geometry.html" class="btn btn-neutral" title="Geometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="collections.html" class="btn btn-neutral" title="Collections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

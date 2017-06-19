@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
         <link rel="next" title="Transaction" href="transaction.html"/>
-        <link rel="prev" title="Element Wrappers" href="element.html"/> 
+        <link rel="prev" title="Parameter and Parameter Set" href="parameters.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,22 +95,25 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Selection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -180,7 +183,7 @@
 <dl class="class">
 <dt id="rpw.ui.Selection">
 <em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements_or_ids=None</em>, <em>uidoc=ActiveUIDocument</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">rpw.db.collections_.ElementSet</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">rpw.db.collection.ElementSet</span></code></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">FirstElement</span>
@@ -289,9 +292,120 @@ selection handler will be created with selected elements.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="rpw.ui.Selection.pick_by_rectangle">
+<code class="descname">pick_by_rectangle</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_by_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick by Rectangle</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Selection.pick_edge">
+<code class="descname">pick_edge</code><span class="sig-paren">(</span><em>msg=’Pick Edge(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Edge</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single edge, True for multiple</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Selection.pick_element">
+<code class="descname">pick_element</code><span class="sig-paren">(</span><em>msg=’Pick Element(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single element, True for multiple</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Selection.pick_face">
+<code class="descname">pick_face</code><span class="sig-paren">(</span><em>msg=’Pick Face(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_face" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Face</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single face, True for multiple</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Selection.pick_linked_element">
+<code class="descname">pick_linked_element</code><span class="sig-paren">(</span><em>msg=’Pick Linked Element’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_linked_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Linked Element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single element, True for multiple</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="rpw.ui.Selection.pick_pt">
 <code class="descname">pick_pt</code><span class="sig-paren">(</span><em>msg=’Pick Point’</em>, <em>snap=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_pt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Selects a XYZ This does not add eleents to selection</p>
+<dd><p>Pick Point location</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>snap</strong> (<em>str</em>) – Snap Options: [endpoints, midpoints, nearest,
+workplanegrid, intersections,
+centers, perpendicular,
+tangents, quadrants, points]</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Selection.pick_pt_on_element">
+<code class="descname">pick_pt_on_element</code><span class="sig-paren">(</span><em>msg=’Pick Pt On Element(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection.pick_pt_on_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Point On Element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single point, True for multiple</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -316,7 +430,7 @@ selection handler will be created with selected elements.</p>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwTypeError</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span><span class="p">,</span> <span class="n">to_elements</span><span class="p">,</span> <span class="n">to_iterable</span>
-<span class="kn">from</span> <span class="nn">rpw.db.collections_</span> <span class="k">import</span> <span class="n">ElementSet</span>
+<span class="kn">from</span> <span class="nn">rpw.db.collection</span> <span class="k">import</span> <span class="n">ElementSet</span>
 
 <span class="k">if</span> <span class="n">revit</span><span class="o">.</span><span class="n">host</span><span class="p">:</span>
     <span class="n">ObjectType</span> <span class="o">=</span> <span class="n">UI</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">ObjectType</span>
@@ -428,6 +542,7 @@ selection handler will be created with selected elements.</p>
         <span class="k">return</span> <span class="n">refs</span>
 
     <span class="k">def</span> <span class="nf">pick_by_rectangle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Pick by Rectangle &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Implement ISelectFilter overload</span>
         <span class="n">refs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">PickElementsByRectangle</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
@@ -443,22 +558,66 @@ selection handler will be created with selected elements.</p>
         <span class="k">return</span> <span class="n">references</span>
 
     <span class="k">def</span> <span class="nf">pick_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick Element(s)&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick Element</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): Message to show</span>
+<span class="sd">            multiple (bool): False to pick single element, True for multiple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pick_pt_on_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick Pt On Element(s)&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick Point On Element</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): Message to show</span>
+<span class="sd">            multiple (bool): False to pick single point, True for multiple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">PointOnElement</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pick_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick Edge(s)&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick Edge</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): Message to show</span>
+<span class="sd">            multiple (bool): False to pick single edge, True for multiple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Edge</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pick_face</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick Face(s)&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick Face</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): Message to show</span>
+<span class="sd">            multiple (bool): False to pick single face, True for multiple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Face</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pick_linked_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick Linked Element&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick Linked Element</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): Message to show</span>
+<span class="sd">            multiple (bool): False to pick single element, True for multiple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">LinkedElement</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pick_pt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick Point&#39;</span><span class="p">,</span> <span class="n">snap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Selects a XYZ This does not add eleents to selection &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pick Point location</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): Message to show</span>
+<span class="sd">            snap (str): Snap Options: [endpoints, midpoints, nearest,</span>
+<span class="sd">                                       workplanegrid, intersections,</span>
+<span class="sd">                                       centers, perpendicular,</span>
+<span class="sd">                                       tangents, quadrants, points]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">SNAPS</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="c1">#  &#39;none&#39;: ObjectSnapTypes.None,</span>
@@ -503,7 +662,7 @@ selection handler will be created with selected elements.</p>
         <a href="transaction.html" class="btn btn-neutral float-right" title="Transaction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="element.html" class="btn btn-neutral" title="Element Wrappers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="parameters.html" class="btn btn-neutral" title="Parameter and Parameter Set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

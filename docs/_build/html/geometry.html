@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Enumeration" href="builtins.html"/>
-        <link rel="prev" title="Collector" href="collector.html"/> 
+        <link rel="next" title="BuiltIns" href="builtins.html"/>
+        <link rel="prev" title="Collections" href="collections.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,22 +95,25 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Geometry</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -181,15 +184,17 @@
 <em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">XYZ</code><span class="sig-paren">(</span><em>*xyz_or_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p><cite>DB.XYZ</cite> Wrapper</p>
-<p>Allows setting of properties</p>
+<p>XYZ light wrapper with a few helpful methods:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">some_point</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">some_point</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">as_tuple</span>
 <span class="go">(0,0,0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="go">&lt;RPW_Point: 0,0,10&gt;</span>
+<span class="go">&lt;rpw:XYZ % DB.XYZ: 0,0,10&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">at_z</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="go">&lt;RPW_Point: 0,0,5&gt;</span>
+<span class="go">&lt;rpw:XYZ % DB.XYZ: 0,0,5&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">{&#39;x&#39;: 0, &#39;y&#39;:0, &#39;z&#39;:5}</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -293,16 +298,18 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    `DB.XYZ` Wrapper</span>
 
-<span class="sd">    Allows setting of properties</span>
+<span class="sd">    XYZ light wrapper with a few helpful methods:</span>
 
 <span class="sd">    &gt;&gt;&gt; some_point = XYZ(0,0,0)</span>
 <span class="sd">    &gt;&gt;&gt; pt = rpw.Point(some_point)</span>
 <span class="sd">    &gt;&gt;&gt; pt.as_tuple</span>
 <span class="sd">    (0,0,0)</span>
 <span class="sd">    &gt;&gt;&gt; pt.x = 10</span>
-<span class="sd">    &lt;RPW_Point: 0,0,10&gt;</span>
+<span class="sd">    &lt;rpw:XYZ % DB.XYZ: 0,0,10&gt;</span>
 <span class="sd">    &gt;&gt;&gt; pt.at_z(5)</span>
-<span class="sd">    &lt;RPW_Point: 0,0,5&gt;</span>
+<span class="sd">    &lt;rpw:XYZ % DB.XYZ: 0,0,5&gt;</span>
+<span class="sd">    &gt;&gt;&gt; pt.as_dict()</span>
+<span class="sd">    {&#39;x&#39;: 0, &#39;y&#39;:0, &#39;z&#39;:5}</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        _revit_object (DB.XYZ): Wrapped ``DB.XYZ``</span>
@@ -407,10 +414,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="builtins.html" class="btn btn-neutral float-right" title="Enumeration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="builtins.html" class="btn btn-neutral float-right" title="BuiltIns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="collector.html" class="btn btn-neutral" title="Collector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="collections.html" class="btn btn-neutral" title="Collections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Geometry" href="geometry.html"/>
+        <link rel="next" title="Collections" href="collections.html"/>
         <link rel="prev" title="Transaction" href="transaction.html"/> 
 
   
@@ -95,22 +95,25 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Collector</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -177,12 +180,27 @@
   <div class="section" id="collector">
 <h1>Collector<a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h1>
 <p>FilteredElementCollector Wrapper</p>
-<span class="target" id="module-rpw.db.collector"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Levels&#39;</span><span class="p">,</span> <span class="n">is_no_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="target" id="module-rpw.db.collector"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;Levels&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span>
+<span class="go">                             where=lambda x: x.parameters[&#39;Length&#39;] &gt; 5)</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Traditional</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Levels</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span>
-</pre></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>As of June 2017, these are the filters that have been implemented:</p>
+<div class="last line-block">
+<div class="line"><code class="docutils literal"><span class="pre">ElementCategoryFilter</span></code> = <code class="docutils literal"><span class="pre">of_category</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementClassFilter</span></code> = <code class="docutils literal"><span class="pre">of_class</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementIsCurveDrivenFilter</span></code> = <code class="docutils literal"><span class="pre">is_curve_driven</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementIsElementTypeFilter</span></code> = <code class="docutils literal"><span class="pre">is_type</span></code> + <code class="docutils literal"><span class="pre">is_not_type</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementOwnerViewFilter</span></code> = <code class="docutils literal"><span class="pre">view</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementLevelFilter</span></code> = <code class="docutils literal"><span class="pre">level</span></code> + <code class="docutils literal"><span class="pre">not_level</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementOwnerViewFilter</span></code> = <code class="docutils literal"><span class="pre">owner_view</span></code> + <code class="docutils literal"><span class="pre">is_view_independent</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">FamilySymbolFilter</span></code> = <code class="docutils literal"><span class="pre">family</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">FamilyInstanceFilter</span></code> = <code class="docutils literal"><span class="pre">symbol</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> = <code class="docutils literal"><span class="pre">parameter_filter</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">Custom</span></code> = where</div>
+</div>
 </div>
 <dl class="class">
 <dt id="rpw.db.Collector">
@@ -280,7 +298,7 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <li><code class="docutils literal"><span class="pre">is_type</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): Same as <code class="docutils literal"><span class="pre">WhereElementIsElementType</span></code></li>
 <li><code class="docutils literal"><span class="pre">is_not_type</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): Same as <code class="docutils literal"><span class="pre">WhereElementIsNotElementType</span></code></li>
 <li><code class="docutils literal"><span class="pre">of_class</span></code> (<code class="docutils literal"><span class="pre">Type</span></code>): Same as <code class="docutils literal"><span class="pre">OfClass</span></code>. Type can be <code class="docutils literal"><span class="pre">DB.SomeType</span></code> or string: <code class="docutils literal"><span class="pre">DB.Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></li>
-<li><code class="docutils literal"><span class="pre">of_category</span></code> (<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>): Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Type can be Enum member or String: <code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">OST_Wall</span></code></li>
+<li><code class="docutils literal"><span class="pre">of_category</span></code> (<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>): Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Can be <code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></li>
 <li><code class="docutils literal"><span class="pre">owner_view</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId,</span> <span class="pre">View`):</span> <span class="pre">``WhereElementIsViewIndependent(True)</span></code></li>
 <li><code class="docutils literal"><span class="pre">is_view_independent</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
 <li><code class="docutils literal"><span class="pre">family</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">DB.Element</span></code>)`: Element or ElementId of Family</li>
@@ -347,6 +365,12 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="rpw.db.Collector.select">
+<code class="descname">select</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Collector.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects Collector Elements on the UI</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="rpw.db.Collector.wrapped_elements">
 <code class="descname">wrapped_elements</code><a class="headerlink" href="#rpw.db.Collector.wrapped_elements" title="Permalink to this definition">¶</a></dt>
@@ -397,22 +421,14 @@ Used to build a parameter filter to be used with the Collector.</p>
 <li><strong>param_id</strong> (<em>DB.ElementID</em>) – ElemendId of parameter</li>
 <li><strong>**conditions</strong> – Filter Rule Conditions and options.</li>
 <li><strong>conditions</strong> – <div class="line-block">
-<div class="line"><code class="docutils literal"><span class="pre">equals</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">contains</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">begins</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">ends</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">greater</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">greater_equal</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">less</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">less_equal</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_equals</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_contains</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_begins</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_ends</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_greater</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_greater_equal</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_less</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">not_less_equal</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">begins</span></code>, <code class="docutils literal"><span class="pre">not_begins</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">contains</span></code>, <code class="docutils literal"><span class="pre">not_contains</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">ends</span></code>, <code class="docutils literal"><span class="pre">not_ends</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">equals</span></code>, <code class="docutils literal"><span class="pre">not_equals</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">less</span></code>, <code class="docutils literal"><span class="pre">not_less</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">less_equal</span></code>, <code class="docutils literal"><span class="pre">not_less_equal</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">greater</span></code>, <code class="docutils literal"><span class="pre">not_greater</span></code></div>
+<div class="line"><code class="docutils literal"><span class="pre">greater_equal</span></code>, <code class="docutils literal"><span class="pre">not_greater_equal</span></code></div>
 </div>
 </li>
 <li><strong>options</strong> – <div class="line-block">
@@ -444,10 +460,26 @@ Parameter Name instead of parameter Id</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">&gt;&gt;&gt; levels = rpw.db.Collector(of_category=&#39;OST_Levels&#39;, is_no_type=True)</span>
+<span class="sd">&gt;&gt;&gt; levels = rpw.db.Collector(of_category=&#39;Levels&#39;, is_type=True)</span>
+<span class="sd">&gt;&gt;&gt; walls = rpw.db.Collector(of_class=&#39;Wall&#39;,</span>
+<span class="sd">                             where=lambda x: x.parameters[&#39;Length&#39;] &gt; 5)</span>
 
-<span class="sd">&gt;&gt;&gt; # Traditional</span>
-<span class="sd">&gt;&gt;&gt; levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()</span>
+
+
+<span class="sd">Note:</span>
+<span class="sd">    As of June 2017, these are the filters that have been implemented:</span>
+
+<span class="sd">    | ``ElementCategoryFilter`` = ``of_category``</span>
+<span class="sd">    | ``ElementClassFilter`` = ``of_class``</span>
+<span class="sd">    | ``ElementIsCurveDrivenFilter`` = ``is_curve_driven``</span>
+<span class="sd">    | ``ElementIsElementTypeFilter`` = ``is_type`` + ``is_not_type``</span>
+<span class="sd">    | ``ElementOwnerViewFilter`` = ``view``</span>
+<span class="sd">    | ``ElementLevelFilter`` = ``level`` + ``not_level``</span>
+<span class="sd">    | ``ElementOwnerViewFilter`` = ``owner_view`` + ``is_view_independent``</span>
+<span class="sd">    | ``FamilySymbolFilter`` = ``family``</span>
+<span class="sd">    | ``FamilyInstanceFilter`` = ``symbol``</span>
+<span class="sd">    | ``ElementParameterFilter`` = ``parameter_filter``</span>
+<span class="sd">    | ``Custom`` = where</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -530,33 +562,33 @@ Parameter Name instead of parameter Id</p>
 
 <span class="sd">        Implementation Tracker:</span>
 <span class="sd">        Quick</span>
+<span class="sd">            X Revit.DB.ElementCategoryFilter = of_category</span>
+<span class="sd">            X Revit.DB.ElementClassFilter = of_class</span>
+<span class="sd">            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven</span>
+<span class="sd">            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type</span>
+<span class="sd">            X Revit.DB.ElementOwnerViewFilter = view</span>
+<span class="sd">            X Revit.DB.FamilySymbolFilter = family</span>
+<span class="sd">            _ Revit.DB.ExclusionFilter = exclude</span>
 <span class="sd">            _ Revit.DB.BoundingBoxContainsPointFilter</span>
 <span class="sd">            _ Revit.DB.BoundingBoxIntersectsFilter</span>
 <span class="sd">            _ Revit.DB.BoundingBoxIsInsideFilter</span>
-<span class="sd">            X Revit.DB.ElementCategoryFilter = of_category</span>
-<span class="sd">            X Revit.DB.ElementClassFilter = of_class</span>
 <span class="sd">            _ Revit.DB.ElementDesignOptionFilter</span>
-<span class="sd">            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven</span>
-<span class="sd">            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type</span>
 <span class="sd">            _ Revit.DB.ElementMulticategoryFilter</span>
 <span class="sd">            _ Revit.DB.ElementMulticlassFilter</span>
-<span class="sd">            X Revit.DB.ElementOwnerViewFilter = view</span>
 <span class="sd">            _ Revit.DB.ElementStructuralTypeFilter</span>
 <span class="sd">            _ Revit.DB.ElementWorksetFilter</span>
-<span class="sd">            _ Revit.DB.ExclusionFilter = exclude</span>
 <span class="sd">            _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter</span>
-<span class="sd">            X Revit.DB.FamilySymbolFilter = family</span>
 <span class="sd">        Slow</span>
+<span class="sd">            X Revit.DB.ElementLevelFilter</span>
+<span class="sd">            X Revit.DB.FamilyInstanceFilter = symbol</span>
+<span class="sd">            X Revit.DB.ElementParameterFilter</span>
 <span class="sd">            _ Revit.DB.Architecture RoomFilter</span>
 <span class="sd">            _ Revit.DB.Architecture RoomTagFilter</span>
 <span class="sd">            _ Revit.DB.AreaFilter</span>
 <span class="sd">            _ Revit.DB.AreaTagFilter</span>
 <span class="sd">            _ Revit.DB.CurveElementFilter</span>
 <span class="sd">            _ Revit.DB.ElementIntersectsFilter</span>
-<span class="sd">            X Revit.DB.ElementLevelFilter</span>
-<span class="sd">            _ Revit.DB.ElementParameterFilter</span>
 <span class="sd">            _ Revit.DB.ElementPhaseStatusFilter</span>
-<span class="sd">            X Revit.DB.FamilyInstanceFilter = symbol</span>
 <span class="sd">            _ Revit.DB.Mechanical SpaceFilter</span>
 <span class="sd">            _ Revit.DB.Mechanical SpaceTagFilter</span>
 <span class="sd">            _ Revit.DB.PrimaryDesignOptionMemberFilter</span>
@@ -790,7 +822,7 @@ Parameter Name instead of parameter Id</p>
 <span class="sd">            * ``is_type`` (``bool``): Same as ``WhereElementIsElementType``</span>
 <span class="sd">            * ``is_not_type`` (``bool``): Same as ``WhereElementIsNotElementType``</span>
 <span class="sd">            * ``of_class`` (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``&#39;Wall&#39;``</span>
-<span class="sd">            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Type can be Enum member or String: ``DB.BuiltInCategory.OST_Wall`` or ``OST_Wall``</span>
+<span class="sd">            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Can be ``DB.BuiltInCategory.OST_Wall`` or ``&#39;Wall&#39;``</span>
 <span class="sd">            * ``owner_view`` (``DB.ElementId, View`): ``WhereElementIsViewIndependent(True)``</span>
 <span class="sd">            * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``</span>
 <span class="sd">            * ``family`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Family</span>
@@ -861,12 +893,11 @@ Parameter Name instead of parameter Id</p>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">wrapped_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns list with all elements instantiated using :any:`Element`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Returns list with all elements instantiated using :any:`Element` &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Element</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()]</span>
 
     <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Selects Collector Elements on the UI &quot;&quot;&quot;</span>
         <span class="n">Selection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">element_ids</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -957,22 +988,14 @@ Parameter Name instead of parameter Id</p>
 <span class="sd">            **conditions: Filter Rule Conditions and options.</span>
 
 <span class="sd">            conditions:</span>
-<span class="sd">                | ``equals``</span>
-<span class="sd">                | ``contains``</span>
-<span class="sd">                | ``begins``</span>
-<span class="sd">                | ``ends``</span>
-<span class="sd">                | ``greater``</span>
-<span class="sd">                | ``greater_equal``</span>
-<span class="sd">                | ``less``</span>
-<span class="sd">                | ``less_equal``</span>
-<span class="sd">                | ``not_equals``</span>
-<span class="sd">                | ``not_contains``</span>
-<span class="sd">                | ``not_begins``</span>
-<span class="sd">                | ``not_ends``</span>
-<span class="sd">                | ``not_greater``</span>
-<span class="sd">                | ``not_greater_equal``</span>
-<span class="sd">                | ``not_less``</span>
-<span class="sd">                | ``not_less_equal``</span>
+<span class="sd">                | ``begins``, ``not_begins``</span>
+<span class="sd">                | ``contains``, ``not_contains``</span>
+<span class="sd">                | ``ends``, ``not_ends``</span>
+<span class="sd">                | ``equals``, ``not_equals``</span>
+<span class="sd">                | ``less``, ``not_less``</span>
+<span class="sd">                | ``less_equal``, ``not_less_equal``</span>
+<span class="sd">                | ``greater``, ``not_greater``</span>
+<span class="sd">                | ``greater_equal``, ``not_greater_equal``</span>
 
 <span class="sd">            options:</span>
 <span class="sd">                | ``case_sensitive``: Enforces case sensitive, String only</span>
@@ -1063,7 +1086,7 @@ Parameter Name instead of parameter Id</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="geometry.html" class="btn btn-neutral float-right" title="Geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="collections.html" class="btn btn-neutral float-right" title="Collections" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="transaction.html" class="btn btn-neutral" title="Transaction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

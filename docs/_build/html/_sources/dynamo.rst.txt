@@ -8,6 +8,12 @@
 Dynamo
 ===============
 
+.. Warning::
+    As of June 2017 the Dynamo Package has not been updated. For the time
+    being, please get the latest package from the Github Repository:
+    
+    https://github.com/gtalarico/revitpythonwrapper
+
 The Revit Python Wrapper can easily be used within dynamo.
 The package distributed through Dynamo's Package Manager
 has everything you need to use it.

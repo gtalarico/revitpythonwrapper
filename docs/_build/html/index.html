@@ -94,19 +94,22 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -185,10 +188,12 @@ and more consistent with Python’s conventions.</p>
 <p>It also provides a few convenient shortcuts:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Initializes a <code class="docutils literal"><span class="pre">doc</span></code> and <code class="docutils literal"><span class="pre">uidoc</span></code>
-document handling variables, so you can
-reuse code across platforms with no change to your import code.</li>
-<li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPIUI.dll</span></code> assemblies.</li>
+<li>Initializes all common variables such as document handling variables (<code class="docutils literal"><span class="pre">doc</span></code> and <code class="docutils literal"><span class="pre">uidoc</span></code>)
+so you can reuse code across platforms with no change to your import code.</li>
+<li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPIUI.dll</span></code> assemblies,</li>
+</ul>
+<p>and other common .NET types such as <code class="docutils literal"><span class="pre">List</span></code>.</p>
+<ul class="simple">
 <li>Adds Reference the IronPython Standard Library to your <code class="docutils literal"><span class="pre">sys.path</span></code> (for <a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>).</li>
 <li>Easy to use WPF <a class="reference internal" href="forms.html"><span class="doc">Forms</span></a> so you can request additional user input
 with little effort.</li>
@@ -209,9 +214,8 @@ with little effort.</li>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference internal" href="revitpythonshell.html"><span class="doc">RevitPythonShell</span></a>: import the library directly into the interactive interpreter</li>
-<li><a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>: Install through <a class="reference external" href="https://dynamopackages.com/">Dynamo Package Manager</a></li>
 <li><a class="reference external" href="http://eirannejad.github.io/pyRevit/">pyRevit</a> : import it into your scripts</li>
-<li>Macros: import library into your Python Macros (untested).</li>
+<li><a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>: Install through <a class="reference external" href="https://dynamopackages.com/">Dynamo Package Manager</a></li>
 </ul>
 </div></blockquote>
 <div class="section" id="benefits">
@@ -221,8 +225,8 @@ with little effort.</li>
 <li>Normalizes Document and Application handlers for Revit + Dynamo</li>
 <li>Increase code re-use across platforms (ie. <a class="reference internal" href="revit.html"><span class="doc">Revit</span></a>)</li>
 <li>Implements patterns to reduce repetitive tasks (ie. <a class="reference internal" href="transaction.html#module-rpw.db.transaction" title="rpw.db.transaction"><code class="xref py py-class docutils literal"><span class="pre">rpw.db.transaction</span></code></a>)</li>
-<li>Handles some data-type casting for speed and flexibility (ie. <a class="reference internal" href="element.html#rpw.db.Parameter" title="rpw.db.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">rpw.db.Parameter</span></code></a>)</li>
-<li>Normalizes API calls for different Revit Versions (not yet implemented)</li>
+<li>Handles some data-type casting for speed and flexibility (ie. <a class="reference internal" href="parameters.html#rpw.db.Parameter" title="rpw.db.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">rpw.db.Parameter</span></code></a>)</li>
+<li>Normalizes API calls for different Revit Versions</li>
 </ul>
 </div></blockquote>
 </div>
@@ -232,7 +236,7 @@ with little effort.</li>
 <div><p>RevitPythonWrapper has been tested on the following platforms:</p>
 <ul class="simple">
 <li>RevitPythonShell + Revit: 2015, 2016, 2017</li>
-<li>pyRevit: 2015, 2016</li>
+<li>pyRevit on 2015, 2016, 2017</li>
 <li>Dynamo: 1.2</li>
 </ul>
 </div></blockquote>
@@ -256,8 +260,9 @@ paired with an example sans-rpw.</p>
 <div class="section" id="revit">
 <h3><a class="reference internal" href="revit.html"><span class="doc">Revit</span></a><a class="headerlink" href="#revit" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handles Document Manager and namespace imports for RevitPythonShell and Dynamo</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span><span class="p">,</span> <span class="n">uidoc</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
+<span class="go"># That&#39;s pretty much all you need!</span>
 </pre></div>
 </div>
 <p>Without RPW</p>
@@ -283,10 +288,9 @@ paired with an example sans-rpw.</p>
 <div class="section" id="transaction">
 <h3><a class="reference internal" href="transaction.html"><span class="doc">Transaction</span></a><a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Wrapper - Same code for RevitPythonShell, and Dynamo</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">doc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="s1">&#39;Delete Object&#39;</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">db</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Delete Object&#39;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">Remove</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Without RPW</p>
@@ -321,17 +325,12 @@ paired with an example sans-rpw.</p>
 </div>
 <div class="section" id="selection">
 <h3><a class="reference internal" href="selection.html"><span class="doc">Selection</span></a><a class="headerlink" href="#selection" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">ui</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span> <span class="o">=</span> <span class="n">ui</span><span class="o">.</span><span class="n">Selection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">&lt; Autodesk.Revit.DB.Element &gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">elements</span>
 <span class="go">[&lt; Autodesk.Revit.DB.Element &gt;]</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Other Features</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Element</span> <span class="ow">or</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Without RPW</p>
@@ -345,13 +344,13 @@ paired with an example sans-rpw.</p>
 <div class="section" id="element">
 <h3><a class="reference internal" href="element.html"><span class="doc">Element Wrappers</span></a><a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h3>
 <blockquote>
-<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">SomeRevitElement</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">transaction</span><span class="p">(</span><span class="s1">&#39;Set Comment Parameter&#39;</span><span class="p">):</span>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">db</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeRevitElement</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">db</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Set Comment Parameter&#39;</span><span class="p">):</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Some String&#39;</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Parameters</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;some value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;some value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
 <span class="go">&lt;type: string&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;some value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
 <span class="go">&#39;Some String&#39;</span>
@@ -360,44 +359,50 @@ paired with an example sans-rpw.</p>
 </pre></div>
 </div>
 <p>Access to original attributes, and parameters are provided
-by the <a class="reference internal" href="element.html#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper. More Specialized Wrappers
+by the <a class="reference internal" href="element.html#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper.</p>
+<p>More Specialized Wrappers
 also provide additional features based on its type:
 <code class="docutils literal"><span class="pre">DB.FamilyInstace</span></code> (<a class="reference internal" href="element.html#rpw.db.Instance" title="rpw.db.Instance"><code class="xref any py py-class docutils literal"><span class="pre">Instance</span></code></a>), <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> (<a class="reference internal" href="element.html#rpw.db.Symbol" title="rpw.db.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a>),
 <code class="docutils literal"><span class="pre">DB.Family</span></code> (<a class="reference internal" href="element.html#rpw.db.Family" title="rpw.db.Family"><code class="xref any py py-class docutils literal"><span class="pre">Family</span></code></a>), and <code class="docutils literal"><span class="pre">DB.Category</span></code> (<a class="reference internal" href="element.html#rpw.db.Category" title="rpw.db.Category"><code class="xref any py py-class docutils literal"><span class="pre">Category</span></code></a>).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span>
-<span class="go">&#39;Comment&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Your Comment&#39;</span>
-<span class="go"># Comment set</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SOME_BUILT_IN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="go">&#39;Parameter Value&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
+<span class="go">&lt;rpw:Instance % DB.FamilyInstance symbol:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span>
-<span class="go">&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="go">&lt;rpw:Symbol % DB.FamilySymbol symbol:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
-<span class="go">&lt;RPW_Family:desk&gt;</span>
+<span class="go">&lt;rpw:Family % DB.Family name:desk&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;desk&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">category</span>
-<span class="go">&lt;RPW_Category:Furniture&gt;</span>
+<span class="go">&lt;rpw:Category % DB.Category name:Furniture&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">instances</span>
-<span class="go">[&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="go">[&lt;rpw:Instance % DB.FamilyInstance symbol:72&quot; x 36&quot;&gt;, ... ]</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
 <div class="section" id="collector">
 <h3><a class="reference internal" href="collector.html"><span class="doc">Collector</span></a><a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span>
-<span class="go">[&lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, etc]</span>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">db</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:Collector % DB.FilteredElementCollector count:10&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span><span class="o">.</span><span class="n">wrapped_elements</span>
+<span class="go">[&lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, &lt; instance DB.Wall&gt;, ...]</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aview</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Views&#39;</span><span class="p">,</span> <span class="n">is_element_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-<span class="go">&lt; instance DB.View&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;OST_Views&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
 </pre></div>
 </div>
+<p>The Collector Class is also accessible through the wrappers using the <code class="docutils literal"><span class="pre">collect()</span></code> method</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">Room</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="go">&lt;rpw:Collector % DB.FilteredElementCollector count:8&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span><span class="o">.</span><span class="n">Room</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s1">&#39;Level 1&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:Collector % DB.FilteredElementCollector count:2&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
 <p>Without RPW</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Typical API Example:</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">FilteredElementCollector</span><span class="p">,</span> <span class="n">WallType</span>
@@ -409,8 +414,8 @@ also provide additional features based on its type:
 <div class="section" id="parameterfilter">
 <h3><a class="reference internal" href="collector.html#rpw.db.ParameterFilter" title="rpw.db.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a><a class="headerlink" href="#parameterfilter" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">rpw</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">filter_rule</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">parameterFilter</span><span class="p">(</span><span class="n">some_param_id</span><span class="p">,</span> <span class="n">greater</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">,</span> <span class="n">paramter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">filter_rule</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">ParameterFilter</span><span class="p">(</span><span class="n">param_id</span><span class="p">,</span> <span class="n">greater</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">,</span> <span class="n">paramter_filter</span><span class="o">=</span><span class="n">filter_rule</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Without RPW</p>
@@ -426,12 +431,10 @@ also provide additional features based on its type:
 </div>
 <div class="section" id="forms">
 <h3><a class="reference internal" href="forms.html"><span class="doc">Forms</span></a><a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Option 1&#39;</span><span class="p">,</span><span class="s1">&#39;Option 2&#39;</span><span class="p">,</span><span class="s1">&#39;Option 3&#39;</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.ui.forms</span> <span class="k">import</span> <span class="n">SelectFromList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Option 1&#39;</span><span class="p">,</span><span class="s1">&#39;Option 2&#39;</span><span class="p">,</span><span class="s1">&#39;Option 3&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Window Title&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Form shows on screen</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">form_ok</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span> <span class="c1"># User Canceld</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selected_item</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">selected</span>
 </pre></div>
 </div>

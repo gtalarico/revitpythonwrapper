@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
         <link rel="next" title="Console" href="console.html"/>
-        <link rel="prev" title="Enumeration" href="builtins.html"/> 
+        <link rel="prev" title="BuiltIns" href="builtins.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,11 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#selectfromlist">SelectFromList</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#textinput">TextInput</a></li>
@@ -112,8 +115,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -325,17 +328,18 @@
 
 <span class="sd"># This is only so forms.py to be executed on console for easier testing and dev</span>
 <span class="sd"># `ipy.exe forms.py` and ipy -X:FullFrames console.py</span>
-<span class="sd">from rpw import revit, UI</span>
-<span class="sd">if revit.host == &#39;Dynamo&#39;:</span>
-<span class="sd">    # Standard Location Added for Dynamo, where script cannot reach inside</span>
-<span class="sd">    sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
+<span class="sd">try:</span>
+<span class="sd">    from rpw import revit, UI</span>
 <span class="sd">    from rpw.utils.dotnet import clr</span>
 <span class="sd">    from rpw.utils.logger import logger</span>
-<span class="sd">else:</span>
+<span class="sd">    if revit.host == &#39;Dynamo&#39;:</span>
+<span class="sd">        # Standard Location Added for Dynamo, where script cannot reach inside</span>
+<span class="sd">        sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
+<span class="sd">except ImportError:</span>
 <span class="sd">    import clr</span>
 <span class="sd">    import logging</span>
-<span class="sd">    logger = logging.getLogger()</span>
-<span class="sd">    logger.warning(&#39;Could not import rpw module.&#39;)</span>
+<span class="sd">    logger = logging.getLogger(&#39;Forms Logger&#39;)</span>
+<span class="sd">    logger.warning(&#39;Could not import rpw module. Running WPF Only&#39;)</span>
 
 <span class="sd"># WPF/Form Imports</span>
 <span class="sd">clr.AddReference(&quot;PresentationFramework&quot;)</span>
@@ -586,7 +590,7 @@
         <a href="console.html" class="btn btn-neutral float-right" title="Console" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="builtins.html" class="btn btn-neutral" title="Enumeration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="builtins.html" class="btn btn-neutral" title="BuiltIns" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

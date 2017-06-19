@@ -95,11 +95,14 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Console</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#interactive-console">Interactive Console</a></li>
@@ -110,8 +113,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -183,8 +186,8 @@
 <dl class="class">
 <dt id="rpw.ui.Console">
 <em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Console" title="Permalink to this definition">¶</a></dt>
-<dd><p>REPL Console for Inspecting Stack</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.forms</span> <span class="k">import</span> <span class="n">Console</span>
+<dd><p>REPL Console for Inspecting Stack.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.ui</span> <span class="k">import</span> <span class="n">Console</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -222,9 +225,9 @@
 <span class="c1"># logger.verbose(True)</span>
 
 <span class="k">class</span> <span class="nc">Console</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; REPL Console for Inspecting Stack</span>
+    <span class="sd">&quot;&quot;&quot; REPL Console for Inspecting Stack.</span>
 
-<span class="sd">    &gt;&gt;&gt; from rpw.forms import Console</span>
+<span class="sd">    &gt;&gt;&gt; from rpw.ui import Console</span>
 <span class="sd">    &gt;&gt;&gt; Console()</span>
 
 <span class="sd">    Args:</span>
@@ -495,10 +498,11 @@
         <span class="s1">&#39;&lt;rpw:Console stack_level=</span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_level</span><span class="p">)</span>
 
 
-<span class="c1"># if __name__ == &#39;__main__&#39;:</span>
-<span class="c1">#     # def test():</span>
-<span class="c1">#     #     Console()</span>
-<span class="c1">#     # test()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">Console</span><span class="p">()</span>
+    <span class="n">test</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

@@ -9,27 +9,28 @@ Revit Python Wrapper
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :hidden:
 
    self
    revit
    base
    element
+   parameters
    selection
    transaction
    collector
-   geometry
+   collections
    builtins
+   geometry
    forms
    console
    utils
    dynamo
    revitpythonshell
    exceptions
-   tests
-
    known_issues
+   tests
 
 
 .. image:: _static/logo/logo-tight.png
@@ -50,11 +51,11 @@ and more consistent with Python's conventions.
 
 It also provides a few convenient shortcuts:
 
-    * Initializes a ``doc`` and ``uidoc``
-      document handling variables, so you can
-      reuse code across platforms with no change to your import code.
+    * Initializes all common variables such as document handling variables (``doc`` and ``uidoc``)
+      so you can reuse code across platforms with no change to your import code.
 
-    * Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies.
+    * Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies,
+    and other common .NET types such as ``List``.
 
     * Adds Reference the IronPython Standard Library to your ``sys.path`` (for :doc:`dynamo`).
 
@@ -75,9 +76,8 @@ Using RPW
 There are several ways to use RevitPythonWrapper:
 
     * :doc:`revitpythonshell`: import the library directly into the interactive interpreter
-    * :doc:`dynamo`: Install through `Dynamo Package Manager <https://dynamopackages.com/>`_
     * `pyRevit <http://eirannejad.github.io/pyRevit/>`_ : import it into your scripts
-    * Macros: import library into your Python Macros (untested).
+    * :doc:`dynamo`: Install through `Dynamo Package Manager <https://dynamopackages.com/>`_
 
 Benefits
 ^^^^^^^^
@@ -86,7 +86,7 @@ Benefits
     * Increase code re-use across platforms (ie. :doc:`revit`)
     * Implements patterns to reduce repetitive tasks (ie. :class:`rpw.db.transaction`)
     * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.db.Parameter`)
-    * Normalizes API calls for different Revit Versions (not yet implemented)
+    * Normalizes API calls for different Revit Versions
 
 Compatibility
 ^^^^^^^^^^^^^
@@ -94,7 +94,7 @@ Compatibility
     RevitPythonWrapper has been tested on the following platforms:
 
     * RevitPythonShell + Revit: 2015, 2016, 2017
-    * pyRevit: 2015, 2016
+    * pyRevit on 2015, 2016, 2017
     * Dynamo: 1.2
 
 Contribute
@@ -118,8 +118,9 @@ paired with an example sans-rpw.
 ^^^^^^^^^^^^^^
 
     >>> # Handles Document Manager and namespace imports for RevitPythonShell and Dynamo
-    >>> from rpw import doc, uidoc, DB, UI
-    >>> uidoc.ActiveView
+    >>> import rpw
+    >>> from rpw import revit, DB, UI
+    # That's pretty much all you need!
 
 Without RPW
 
@@ -145,10 +146,9 @@ Without RPW
 ^^^^^^^^^^^^^^^^^^
 
     >>> # Using Wrapper - Same code for RevitPythonShell, and Dynamo
-    >>> import rpw
-    >>> from rpw import doc
-    >>> with rpw.db.transaction('Delete Object'):
-    >>>     doc.Remove(SomeElementId)
+    >>> from rpw import revit, db
+    >>> with db.Transaction('Delete Object'):
+    >>>     revit.doc.Remove(SomeElementId)
 
 Without RPW
 
@@ -182,16 +182,12 @@ Without RPW
 :doc:`selection`
 ^^^^^^^^^^^^^^^^^^^
 
-    >>> import rpw
-    >>> selection = rpw.ui.selection()
+    >>> from rpw import ui
+    >>> selection = ui.Selection()
     >>> selection[0]
     < Autodesk.Revit.DB.Element >
     >>> selection.elements
     [< Autodesk.Revit.DB.Element >]
-
-    >>> # Other Features
-    >>> selection.clear()
-    >>> selection.add(DB.Element or DB.ElementId)
 
 Without RPW
 
@@ -204,12 +200,11 @@ Without RPW
 :doc:`element`
 ^^^^^^^^^^^^^^^^^^^
 
-    >>> import rpw
-    >>> element = rpw.db.element(SomeRevitElement)
-    >>> with rpw.db.transaction('Set Comment Parameter'):
+    >>> from rpw import revit, db
+    >>> element = db.Element(SomeRevitElement)
+    >>> with db.Transaction('Set Comment Parameter'):
     >>>     element.parameters['Comments'].value = 'Some String'
-    >>>
-    >>> # Parameters
+
     >>> element.parameters['some value'].type
     <type: string>
     >>> element.parameters['some value'].value
@@ -218,42 +213,47 @@ Without RPW
     1
 
     Access to original attributes, and parameters are provided
-    by the :any:`Element` wrapper. More Specialized Wrappers
+    by the :any:`Element` wrapper.
+
+    More Specialized Wrappers
     also provide additional features based on its type:
     ``DB.FamilyInstace`` (:any:`Instance`), ``DB.FamilySymbol`` (:any:`Symbol`),
     ``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
 
 
-    >>> instance = rpw.Instance(SomeFamilyInstance)
-    >>> instance.parameters['Comments']
-    'Comment'
-    >>> instance.parameters['Comments'].value = 'Your Comment'
-    # Comment set
-    >>> instance.parameters.builtins['SOME_BUILT_IN'].value
-    'Parameter Value'
+    >>> instance = db.Element(SomeFamilyInstance)
+    <rpw:Instance % DB.FamilyInstance symbol:72" x 36">
     >>> instance.symbol
-    <RPW_Symbol:72" x 36">
+    <rpw:Symbol % DB.FamilySymbol symbol:72" x 36">
     >>> instance.symbol.name
     '72" x 36"'
     >>> instance.family
-    <RPW_Family:desk>
+    <rpw:Family % DB.Family name:desk>
     >>> instance.family.name
     'desk'
     >>> instance.category
-    <RPW_Category:Furniture>
+    <rpw:Category % DB.Category name:Furniture>
     >>> instance.symbol.instances
-    [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
+    [<rpw:Instance % DB.FamilyInstance symbol:72" x 36">, ... ]
 
 
 :doc:`collector`
 ^^^^^^^^^^^^^^^^^^^
 
-    >>> import rpw
-    >>> walls = rpw.db.collector(of_class='Wall').elements
-    [< instance DB.Wall>, < instance DB.Wall>, < instance DB.Wall>, etc]
+    >>> from rpw import db
+    >>> walls = db.Collector(of_class='Wall')
+    <rpw:Collector % DB.FilteredElementCollector count:10>
+    >>> walls.wrapped_elements
+    [< instance DB.Wall>, < instance DB.Wall>, < instance DB.Wall>, ...]
 
-    >>> aview = rpw.db.collector(of_category='OST_Views', is_element_type=True).first
-    < instance DB.View>
+    >>> view = db.collector(of_category='OST_Views', is_type=False).first
+
+    The Collector Class is also accessible through the wrappers using the ``collect()`` method
+
+    >>> db.Room.collect()
+    <rpw:Collector % DB.FilteredElementCollector count:8>
+    >>> db.Room.collect(level='Level 1')
+    <rpw:Collector % DB.FilteredElementCollector count:2>
 
 Without RPW
 
@@ -266,8 +266,8 @@ Without RPW
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
     >>> import rpw
-    >>> filter_rule = rpw.db.parameterFilter(some_param_id, greater=3)
-    >>> collector = rpw.db.collector(of_class='WallType', paramter_filter=filter_rule)
+    >>> filter_rule = db.ParameterFilter(param_id, greater=3)
+    >>> collector = db.Collector(of_class='WallType', paramter_filter=filter_rule)
 
 Without RPW
 
@@ -283,12 +283,10 @@ Without RPW
 :doc:`forms`
 ^^^^^^^^^^^^^^^^^^^
 
+    >>> from rpw.ui.forms import SelectFromList
     >>> options = ['Option 1','Option 2','Option 3']
     >>> form = SelectFromList('Window Title', options)
-    >>> # Form shows on screen
-    >>> form_ok = form.show()
-    >>> if not form_ok:
-    >>>     sys.exit() # User Canceld
+    >>> form.show()
     >>> selected_item = form.selected
 
 

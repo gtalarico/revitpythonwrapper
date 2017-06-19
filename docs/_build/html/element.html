@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Selection" href="selection.html"/>
+        <link rel="next" title="Parameter and Parameter Set" href="parameters.html"/>
         <link rel="prev" title="Base Wrapper" href="base.html"/> 
 
   
@@ -102,27 +102,25 @@
 <li class="toctree-l2"><a class="reference internal" href="#category">Category</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#walls">Walls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spatial-elements">Spatial Elements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#parameter-and-parameter-set">Parameter and Parameter Set</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#parameterset">ParameterSet</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#parameter">Parameter</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -234,13 +232,13 @@ If the element does not inherit from DB.Element, and exception is raised.</p>
 <dl class="attribute">
 <dt id="rpw.db.element.Element.parameters">
 <code class="descname">parameters</code><a class="headerlink" href="#rpw.db.element.Element.parameters" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference internal" href="#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> – Access <a class="reference internal" href="#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> class.</p>
+<dd><p><a class="reference internal" href="parameters.html#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> – Access <a class="reference internal" href="parameters.html#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> class.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rpw.db.element.Element.parameters.builtins">
 <code class="descclassname">parameters.</code><code class="descname">builtins</code><a class="headerlink" href="#rpw.db.element.Element.parameters.builtins" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference internal" href="#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> – BuitIn <a class="reference internal" href="#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> object</p>
+<dd><p><a class="reference internal" href="parameters.html#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> – BuitIn <a class="reference internal" href="parameters.html#rpw.db.ParameterSet" title="rpw.db.ParameterSet"><code class="xref any py py-class docutils literal"><span class="pre">ParameterSet</span></code></a> object</p>
 </dd></dl>
 
 <dl class="method">
@@ -252,9 +250,13 @@ If the element does not inherit from DB.Element, and exception is raised.</p>
 <dl class="method">
 <dt id="rpw.db.Element.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<dd><p>Main Element Instantiation</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<span class="go">&lt;rpw: WallInstance % DB.Wall &gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
+<span class="go">10.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">]</span>
+<span class="go">1</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -271,6 +273,15 @@ If the element does not inherit from DB.Element, and exception is raised.</p>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="rpw.db.Element.__new__">
+<em class="property">static </em><code class="descname">__new__</code><span class="sig-paren">(</span><em>element</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory Constructor will chose the best Class for the Element.
+This function iterates through all classes in the rpw.db module,
+and will find one that wraps the corresponding class. If and exact
+match is not found <a class="reference internal" href="#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> is used</p>
+</dd></dl>
+
 <dl class="classmethod">
 <dt id="rpw.db.Element.collect">
 <em class="property">classmethod </em><code class="descname">collect</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.collect" title="Permalink to this definition">¶</a></dt>
@@ -278,13 +289,25 @@ If the element does not inherit from DB.Element, and exception is raised.</p>
 <p>Collector will use default params for that Element (ie: Room <code class="docutils literal"><span class="pre">{'of_category':</span> <span class="pre">'OST_rooms'}</span></code>).
 These can be overriden by passing keyword args to the collectors call.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Rooms</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-<span class="go">[&lt;RPW_Room: Room:1&gt;]</span>
+<span class="go">[&lt;rpw:Room % DB.Room | Room:1&gt;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Area</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-<span class="go">[&lt;RPW_Area: Rentable:30.2&gt;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-<span class="go">[&lt;RPW_WallInstance: Basic Wall&gt;]</span>
+<span class="go">[&lt;rpw:Area % DB.Area | Rentable:30.2&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;Level 1&quot;</span><span class="p">)</span>
+<span class="go">[&lt;rpw:WallInstance % DB.Wall symbol:Basic Wall&gt;]</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="rpw.db.Element.from_id">
+<em class="property">static </em><code class="descname">from_id</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.from_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate Element from an ElementId</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="rpw.db.Element.from_int">
+<em class="property">static </em><code class="descname">from_int</code><span class="sig-paren">(</span><em>id_int</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.from_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate Element from an Integer representing and Id</p>
 </dd></dl>
 
 </dd></dl>
@@ -499,9 +522,9 @@ to retrieve the “symbol” and “family” of a wall using:
 <cite>wall.symbol</cite>, and <cite>wall.family</cite></p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">SomeWallInstance</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">symbol</span>
-<span class="go">&lt; RPW_WallType: Wall 1&gt;</span>
+<span class="go">&lt;rpw: WallSymbol % DB.WallType | type:Wall 1&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">family</span>
-<span class="go">&lt; RPW_WallKind: Basic Wall&gt;</span>
+<span class="go">&lt;rpw: WallFamily % DB.WallKind | type:Basic 1&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -671,254 +694,6 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 
 </div>
 <hr class="docutils" />
-<div class="section" id="parameter-and-parameter-set">
-<h2>Parameter and Parameter Set<a class="headerlink" href="#parameter-and-parameter-set" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="parameterset">
-<h3>ParameterSet<a class="headerlink" href="#parameterset" title="Permalink to this headline">¶</a></h3>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These are used internally by all Classes that inherit from <code class="docutils literal"><span class="pre">rpw.db.element</span></code>,
-but can be used on their own.</p>
-</div>
-<dl class="class">
-<dt id="rpw.db.ParameterSet">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ParameterSet</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Allows you to treat an element’s parameters as a dictionary.</p>
-<p>This is used internally by Element Wrapper.
-An instance of this class is returned on the <code class="docutils literal"><span class="pre">parameters</span></code>
-attribute of wrapped elements.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Something&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">Element</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="attribute">
-<dt id="rpw.db.element.ParameterSet._revit_object">
-<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.db.element.ParameterSet._revit_object" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>DB.Element</em></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="rpw.db.ParameterSet.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>param_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get’s parameter by name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The first parameter found with a matching name (wrapper),</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.db.Parameter" title="rpw.db.Parameter"><code class="xref any py py-class docutils literal"><span class="pre">Parameter</span></code></a></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">RpwParameterNotFound</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rpw.db.ParameterSet.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element</strong> (<em>DB.Element</em>) – Element to create ParameterSet</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="rpw.db.ParameterSet.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>param_name</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet.__setitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets value to element’s parameter.
-This is a shorcut to using <cite>parameters[‘Name’].value = value</cite></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rpw.db.ParameterSet.all">
-<code class="descname">all</code><a class="headerlink" href="#rpw.db.ParameterSet.all" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Returns</em> – Flat list of wrapped parameter elements</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="parameter">
-<h3>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="rpw.db.Parameter">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Parameter</code><span class="sig-paren">(</span><em>parameter</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
-<p>Primarily for internal use by <a class="reference internal" href="#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">rpw.db.Element</span></code></a>, but can be used on it’s own.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span><span class="o">.</span><span class="n">type</span>
-<span class="go">&lt;type: str&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span><span class="o">.</span><span class="n">value</span>
-<span class="go">&#39;Some String&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span>
-<span class="go">&#39;Parameter Name&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">parameter</span><span class="o">.</span><span class="n">builtin</span>
-<span class="go">Revit.DB.BuiltInParameter.SOME_BUILT_IN_NAME</span>
-</pre></div>
-</div>
-<dl class="attribute">
-<dt id="rpw.db.element.Parameter._revit_object">
-<code class="descname">_revit_object</code><a class="headerlink" href="#rpw.db.element.Parameter._revit_object" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>DB.Parameter</em></p>
-</dd></dl>
-
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Parameter Wrapper handles the following types:</p>
-<div class="last line-block">
-<div class="line">Autodesk.Revit.DB.StorageType.String</div>
-<div class="line">Autodesk.Revit.DB.StorageType.Double</div>
-<div class="line">Autodesk.Revit.DB.StorageType.ElementId</div>
-<div class="line">Autodesk.Revit.DB.StorageType.Integer</div>
-<div class="line">Autodesk.Revit.DB.StorageType.None</div>
-</div>
-</div>
-<dl class="method">
-<dt id="rpw.db.Parameter.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>parameter</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Parameter.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parameter Wrapper Constructor</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>DB.Parameter</strong> – Parameter to be wrapped</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Wrapped Parameter Class</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.db.Parameter" title="rpw.db.Parameter">Parameter</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rpw.db.Parameter.builtin">
-<code class="descname">builtin</code><a class="headerlink" href="#rpw.db.Parameter.builtin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the BuiltInParameter name of Parameter.
-Same as DB.Parameter.Definition.BuiltIn</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">builtin_name</span>
-<span class="go">Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">BuiltInParameter Enumeration Member</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Revit.DB.BuiltInParameter</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rpw.db.Parameter.builtin_id">
-<code class="descname">builtin_id</code><a class="headerlink" href="#rpw.db.Parameter.builtin_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>ElementId of BuiltIn</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Unconnected Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">builtin_id</span>
-<span class="go">Revit.DB.BuiltInParameter.WALL_USER_HEIGHT_PARAM</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rpw.db.Parameter.name">
-<code class="descname">name</code><a class="headerlink" href="#rpw.db.Parameter.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns Parameter name</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;Comments&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rpw.db.Parameter.type">
-<code class="descname">type</code><a class="headerlink" href="#rpw.db.Parameter.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Python Type of the Parameter</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Python Built in type</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.db.Parameter.type" title="rpw.db.Parameter.type">type</a></td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-<span class="go">&lt;type: float&gt;</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="rpw.db.Parameter.value">
-<code class="descname">value</code><a class="headerlink" href="#rpw.db.Parameter.value" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Gets Parameter Value</em> –</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">parameter value in python type</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.db.Parameter.type" title="rpw.db.Parameter.type">type</a></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mf">3.0</span>
-</pre></div>
-</div>
-<p>Sets Parameter Value (must be in Transaction Context):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p><cite>Parameter</cite> value setter automatically handles a few type castings:</p>
-<ul class="last simple">
-<li>Storage is <code class="docutils literal"><span class="pre">str</span></code> and value is <code class="docutils literal"><span class="pre">None</span></code>; value is converted to <code class="docutils literal"><span class="pre">blank_string</span></code></li>
-<li>Storage is <code class="docutils literal"><span class="pre">str</span></code> and value is <code class="docutils literal"><span class="pre">any</span></code>; value is converted to <code class="docutils literal"><span class="pre">string</span></code></li>
-<li>Storage is <code class="docutils literal"><span class="pre">ElementId</span></code> and value is <code class="docutils literal"><span class="pre">None</span></code>; value is converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidElementId</span></code></li>
-<li>Storage is <code class="docutils literal"><span class="pre">int</span></code> and value is <code class="docutils literal"><span class="pre">float</span></code>; value is converted to <code class="docutils literal"><span class="pre">int</span></code></li>
-<li>Storage is <code class="docutils literal"><span class="pre">float</span></code> and value is <code class="docutils literal"><span class="pre">int</span></code>; value is converted to <code class="docutils literal"><span class="pre">float</span></code></li>
-</ul>
-</div>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-</div>
-<hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -982,7 +757,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">    Methods:</span>
 <span class="sd">        unwrap(): Wrapped Revit Reference</span>
-<span class="sd">        </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span>
@@ -992,7 +767,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Factory Constructor will chose the best Class for the Element.</span>
 <span class="sd">        This function iterates through all classes in the rpw.db module,</span>
 <span class="sd">        and will find one that wraps the corresponding class. If and exact</span>
-<span class="sd">        match is not found rpw.db.Element is used</span>
+<span class="sd">        match is not found :any:`Element` is used</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">defined_wrapper_classes</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">)</span>
@@ -1020,9 +795,14 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Main Element Instantiation</span>
+
 <span class="sd">        &gt;&gt;&gt; wall = Element(SomeElementId)</span>
+<span class="sd">        &lt;rpw: WallInstance % DB.Wall &gt;</span>
 <span class="sd">        &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
+<span class="sd">        10.0</span>
 <span class="sd">        &gt;&gt;&gt; wall.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
+<span class="sd">        1</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            element (`Element Reference`): Can be ``DB.Element``, ``DB.ElementId``, or ``int``.</span>
@@ -1047,13 +827,12 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <span class="sd">        Collector will use default params for that Element (ie: Room ``{&#39;of_category&#39;: &#39;OST_rooms&#39;}``).</span>
 <span class="sd">        These can be overriden by passing keyword args to the collectors call.</span>
 
-
 <span class="sd">        &gt;&gt;&gt; rooms = rpw.Rooms.collect()</span>
-<span class="sd">        [&lt;RPW_Room: Room:1&gt;]</span>
+<span class="sd">        [&lt;rpw:Room % DB.Room | Room:1&gt;]</span>
 <span class="sd">        &gt;&gt;&gt; rooms = rpw.Area.collect()</span>
-<span class="sd">        [&lt;RPW_Area: Rentable:30.2&gt;]</span>
-<span class="sd">        &gt;&gt;&gt; rooms = rpw.WallInstance.collect()</span>
-<span class="sd">        [&lt;RPW_WallInstance: Basic Wall&gt;]</span>
+<span class="sd">        [&lt;rpw:Area % DB.Area | Rentable:30.2&gt;]</span>
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.WallInstance.collect(level=&quot;Level 1&quot;)</span>
+<span class="sd">        [&lt;rpw:WallInstance % DB.Wall symbol:Basic Wall&gt;]</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_collector_params</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">&#39;_collector_params&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1066,11 +845,13 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="n">id_int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Instantiate Element from an Integer representing and Id &quot;&quot;&quot;</span>
         <span class="n">element</span> <span class="o">=</span> <span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">id_int</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_id</span><span class="p">(</span><span class="n">element_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Instantiate Element from an ElementId &quot;&quot;&quot;</span>
         <span class="n">element</span> <span class="o">=</span> <span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
@@ -1300,334 +1081,6 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Parameter Wrapper</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
-<span class="kn">from</span> <span class="nn">rpw.db.builtins</span> <span class="k">import</span> <span class="n">BipEnum</span>
-<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwException</span><span class="p">,</span> <span class="n">RpwWrongStorageType</span>
-<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwParameterNotFound</span><span class="p">,</span> <span class="n">RpwTypeError</span>
-<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
-
-
-<span class="k">class</span> <span class="nc">ParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Allows you to treat an element&#39;s parameters as a dictionary.</span>
-
-<span class="sd">    This is used internally by Element Wrapper.</span>
-<span class="sd">    An instance of this class is returned on the ``parameters``</span>
-<span class="sd">    attribute of wrapped elements.</span>
-
-<span class="sd">    &gt;&gt;&gt; element.parameters.all()</span>
-<span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value</span>
-<span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value = &#39;Something&#39;</span>
-<span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].type</span>
-
-<span class="sd">    &gt;&gt;&gt; parameters = ParameterSet(Element)</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        _revit_object (DB.Element) = Revit Reference</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            element(DB.Element): Element to create ParameterSet</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">builtins</span> <span class="o">=</span> <span class="n">_BuiltInParameterSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Get&#39;s parameter by name.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :any:`Parameter`: The first parameter found with a matching name (wrapper),</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            :class:`RpwParameterNotFound`</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: Any advantage of using ParameterMap Instead</span>
-        <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">LookupParameter</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
-        <span class="c1"># return _Parameter(parameter) if parameter else None</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">parameter</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RpwParameterNotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">param_name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Sets value to element&#39;s parameter.</span>
-<span class="sd">        This is a shorcut to using `parameters[&#39;Name&#39;].value = value`</span>
-
-<span class="sd">        &gt;&gt;&gt; element.parameters[&#39;Height&#39;] = value</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
-        <span class="n">parameter</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Returns: Flat list of wrapped parameter elements</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Parameters</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add Parameter List Name &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)})</span>
-
-
-<span class="k">class</span> <span class="nc">_BuiltInParameterSet</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Built In Parameter Manager</span>
-
-<span class="sd">    Usage:</span>
-
-<span class="sd">        location_line = element.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        Item Getter can take the BuilInParameter name string, or the Enumeration.</span>
-<span class="sd">        &gt;&gt;&gt; element.parameters.builtins[&#39;WALL_LOCATION_LINE&#39;]</span>
-
-<span class="sd">        or</span>
-
-<span class="sd">        &gt;&gt;&gt;element.parameters.builtins[Revit.DB.BuiltInParameter.WALL_LOCATION_LINE]</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        _revit_object (DB.Element) = Revit Reference</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span>
-
-    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builtin_enum</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Retrieves Built In Parameter. &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">builtin_enum</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">builtin_enum</span> <span class="o">=</span> <span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">builtin_enum</span><span class="p">)</span>
-        <span class="n">parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">get_Parameter</span><span class="p">(</span><span class="n">builtin_enum</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">parameter</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RpwParameterNotFound</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">builtin_enum</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param_value</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Sets value for an element&#39;s built in parameter. &quot;&quot;&quot;</span>
-        <span class="n">builtin_parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">builtin_parameter</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">param_value</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add Parameter List Name &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BuiltInParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
-
-
-<span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Primarily for internal use by :any:`rpw.db.Element`, but can be used on it&#39;s own.</span>
-
-<span class="sd">    &gt;&gt;&gt; parameter = Parameter(DB.Parameter)</span>
-<span class="sd">    &gt;&gt;&gt; parameter.type</span>
-<span class="sd">    &lt;type: str&gt;</span>
-<span class="sd">    &gt;&gt;&gt; parameter.value</span>
-<span class="sd">    &#39;Some String&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parameter.name</span>
-<span class="sd">    &#39;Parameter Name&#39;</span>
-<span class="sd">    &gt;&gt;&gt; parameter.builtin</span>
-<span class="sd">    Revit.DB.BuiltInParameter.SOME_BUILT_IN_NAME</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        _revit_object (DB.Parameter) = Revit Reference</span>
-
-<span class="sd">    Note:</span>
-
-<span class="sd">        Parameter Wrapper handles the following types:</span>
-
-<span class="sd">        | Autodesk.Revit.DB.StorageType.String</span>
-<span class="sd">        | Autodesk.Revit.DB.StorageType.Double</span>
-<span class="sd">        | Autodesk.Revit.DB.StorageType.ElementId</span>
-<span class="sd">        | Autodesk.Revit.DB.StorageType.Integer</span>
-<span class="sd">        | Autodesk.Revit.DB.StorageType.None</span>
-
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span>
-    <span class="n">STORAGE_TYPES</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s1">&#39;String&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                    <span class="s1">&#39;Double&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                    <span class="s1">&#39;Integer&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                    <span class="s1">&#39;ElementId&#39;</span><span class="p">:</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">,</span>
-                    <span class="s1">&#39;None&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                     <span class="p">}</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Parameter Wrapper Constructor</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            DB.Parameter: Parameter to be wrapped</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Parameter: Wrapped Parameter Class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Parameter</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">parameter</span><span class="p">))</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Returns the Python Type of the Parameter</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            type: Python Built in type</span>
-
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; element.parameters[&#39;Height&#39;].type</span>
-<span class="sd">            &lt;type: float&gt;</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">storage_type_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">StorageType</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
-        <span class="n">python_type</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">STORAGE_TYPES</span><span class="p">[</span><span class="n">storage_type_name</span><span class="p">]</span>
-
-        <span class="k">return</span> <span class="n">python_type</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">parameter_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">parameter_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">ParameterType</span>
-        <span class="k">return</span> <span class="n">parameter_type</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Id</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets Parameter Value:</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            type: parameter value in python type</span>
-
-<span class="sd">        &gt;&gt;&gt; desk.parameters[&#39;Height&#39;].value</span>
-<span class="sd">        &gt;&gt;&gt; 3.0</span>
-
-<span class="sd">        Sets Parameter Value (must be in Transaction Context):</span>
-
-<span class="sd">        &gt;&gt;&gt; desk.parameters[&#39;Height&#39;].value = 3</span>
-
-<span class="sd">        Note:</span>
-
-<span class="sd">            `Parameter` value setter automatically handles a few type castings:</span>
-
-<span class="sd">            * Storage is ``str`` and value is ``None``; value is converted to ``blank_string``</span>
-<span class="sd">            * Storage is ``str`` and value is ``any``; value is converted to ``string``</span>
-<span class="sd">            * Storage is ``ElementId`` and value is ``None``; value is converted to ``ElemendId.InvalidElementId``</span>
-<span class="sd">            * Storage is ``int`` and value is ``float``; value is converted to ``int``</span>
-<span class="sd">            * Storage is ``float`` and value is ``int``; value is converted to ``float``</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsString</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsDouble</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsElementId</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsInteger</span><span class="p">()</span>
-
-        <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;could not get storage type: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">))</span>
-
-    <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">IsReadOnly</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Parameter is Read Only: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span>
-
-        <span class="c1"># Check if value provided matches storage type</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>
-            <span class="c1"># If not, try to handle</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">str</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">str</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="o">.</span><span class="n">InvalidElementId</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">RpwWrongStorageType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-        <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">param</span>
-
-    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Equal Parameter Value Comparison &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Not Equal Parameter Value Comparison &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Greater than Parameter Value Comparison &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="nf">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Greater or Equal Parameter Value Comparison &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Less than Parameter Value Comparison &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Less or Equal Parameter Value Comparison &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="n">other</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns Parameter name</span>
-
-<span class="sd">        &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].name</span>
-<span class="sd">        &gt;&gt;&gt; &#39;Comments&#39;</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">builtin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Returns the BuiltInParameter name of Parameter.</span>
-<span class="sd">        Same as DB.Parameter.Definition.BuiltIn</span>
-
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].builtin_name</span>
-<span class="sd">            Revit.DB.BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            Revit.DB.BuiltInParameter: BuiltInParameter Enumeration Member</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">BuiltInParameter</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">builtin_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; ElementId of BuiltIn</span>
-
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; wall.parameters[&#39;Unconnected Height&#39;].builtin_id</span>
-<span class="sd">            Revit.DB.BuiltInParameter.WALL_USER_HEIGHT_PARAM</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">builtin</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Adds data to Base __repr__ to add selection count&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Parameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                                                     <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">})</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -1890,7 +1343,7 @@ Same as DB.Parameter.Definition.BuiltIn</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="selection.html" class="btn btn-neutral float-right" title="Selection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="parameters.html" class="btn btn-neutral float-right" title="Parameter and Parameter Set" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="base.html" class="btn btn-neutral" title="Base Wrapper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

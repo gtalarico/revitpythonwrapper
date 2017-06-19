@@ -17,7 +17,7 @@ Element
 .. autoclass:: rpw.db.Element
     :members:
     :private-members:
-    :special-members: __init__, __getattr__
+    :special-members: __init__, __getattr__, __new__
     :show-inheritance:
 
 Instance
@@ -81,9 +81,9 @@ Wall Element Tree Wrappers
 
     >>> wall = rpw.db.WallInstance(SomeWallInstance)
     >>> wall.symbol
-    < RPW_WallType: Wall 1>
+    <rpw: WallSymbol % DB.WallType | type:Wall 1>
     >>> wall.family
-    < RPW_WallKind: Basic Wall>
+    <rpw: WallFamily % DB.WallKind | type:Basic 1>
 
 .. autoclass:: rpw.db.WallInstance
     :show-inheritance:
@@ -132,38 +132,10 @@ Area Scheme Wrapper
 
 ----------------------------------------------
 
-Parameter and Parameter Set
-***************************
-
-ParameterSet
-^^^^^^^^^^^^
-
-.. Note::
-    These are used internally by all Classes that inherit from ``rpw.db.element``,
-    but can be used on their own.
-
-
-.. autoclass:: rpw.db.ParameterSet
-    :members:
-    :special-members: __init__, __getitem__, __setitem__, __len__
-    :show-inheritance:
-
-
-Parameter
-^^^^^^^^^
-
-.. autoclass:: rpw.db.Parameter
-    :members:
-    :special-members: __init__, __getattr__, __setitem__
-    :show-inheritance:
-
-----------------------------------------------
-
 Implementation
 **************
 
 .. literalinclude:: ../rpw/db/element.py
-.. literalinclude:: ../rpw/db/parameter.py
 .. literalinclude:: ../rpw/db/wall.py
 .. literalinclude:: ../rpw/db/spatial_element.py
 

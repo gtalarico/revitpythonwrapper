@@ -98,19 +98,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html#implementation">Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="builtins.html">Enumeration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
 </ul>
 
             
@@ -197,6 +200,13 @@ when passing the element into function where the original Type is expected.</p>
 <span class="go"># Method will run.</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This class is primarily for internal use. If you plan on creating your
+own wrappers using this base class make sure you read through the
+documentation first. Misusing this class can cause easilly cause
+Max Recursion Crashes.</p>
+</div>
 <dl class="class">
 <dt id="rpw.base.BaseObjectWrapper">
 <em class="property">class </em><code class="descclassname">rpw.base.</code><code class="descname">BaseObjectWrapper</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper" title="Permalink to this definition">¶</a></dt>
@@ -212,11 +222,20 @@ when passing the element into function where the original Type is expected.</p>
 <dl class="method">
 <dt id="rpw.base.BaseObjectWrapper.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Child classes can use self._revit_object to refer back to Revit Element
-NOTE: Any Wrapper that inherits and overrides __ini__ class MUST
-super to ensure _revit_object is created.
+<dd><p>Child classes can use self._revit_object to refer back to Revit Element</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Any Wrapper that inherits and overrides __init__ class MUST
+super to ensure _revit_object is created by calling super().__init__
 BaseObjectWrapper must define a class variable _revit_object_class
 to define the object being wrapped.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.base.BaseObjectWrapper.unwrap">
+<code class="descname">unwrap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.base.BaseObjectWrapper.unwrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Original Wrapped Element</p>
 </dd></dl>
 
 </dd></dl>
@@ -244,6 +263,12 @@ to define the object being wrapped.</p>
 <span class="sd">SomeObject</span>
 <span class="sd">&gt;&gt;&gt; wrapped.SomeOriginalMethod()</span>
 <span class="sd"># Method will run.</span>
+
+<span class="sd">Warning:</span>
+<span class="sd">    This class is primarily for internal use. If you plan on creating your</span>
+<span class="sd">    own wrappers using this base class make sure you read through the</span>
+<span class="sd">    documentation first. Misusing this class can cause easilly cause</span>
+<span class="sd">    Max Recursion Crashes.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -281,10 +306,12 @@ to define the object being wrapped.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">revit_object</span><span class="p">,</span> <span class="n">enforce_type</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Child classes can use self._revit_object to refer back to Revit Element</span>
-<span class="sd">        NOTE: Any Wrapper that inherits and overrides __ini__ class MUST</span>
-<span class="sd">        super to ensure _revit_object is created.</span>
-<span class="sd">        BaseObjectWrapper must define a class variable _revit_object_class</span>
-<span class="sd">        to define the object being wrapped.</span>
+
+<span class="sd">        Warning:</span>
+<span class="sd">            Any Wrapper that inherits and overrides __init__ class MUST</span>
+<span class="sd">            super to ensure _revit_object is created by calling super().__init__</span>
+<span class="sd">            BaseObjectWrapper must define a class variable _revit_object_class</span>
+<span class="sd">            to define the object being wrapped.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_revit_object_class</span>
 
@@ -322,6 +349,7 @@ to define the object being wrapped.</p>
             <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">unwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the Original Wrapped Element &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{},</span> <span class="n">to_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
