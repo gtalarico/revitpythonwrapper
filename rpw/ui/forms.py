@@ -11,6 +11,7 @@ import sys
 import os
 
 
+# TODO: Rewrite to make import MockImporter if outside of revit, not only if clr fails
 # This is only so forms.py to be executed on console for easier testing and dev
 # `ipy.exe forms.py` and ipy -X:FullFrames console.py
 try:
