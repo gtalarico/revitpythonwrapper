@@ -36,3 +36,6 @@ from rpw.__revit import revit, DB, UI
 import rpw.db
 import rpw.ui
 import rpw.extras
+
+# For Compatibility. Use revit.doc instead?
+doc, uidoc = revit.doc, revit.uidoc

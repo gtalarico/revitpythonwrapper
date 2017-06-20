@@ -16,7 +16,7 @@ Global variables normalize imports across platforms.
     >>> DB.ElementId(00000)
     >>> UI.TaskDialog
 
-.. automodule:: rpw._revit
+.. automodule:: rpw.__revit
     :members:
     :special-members: __init__, __getattr__, __getitem__
     :private-members:

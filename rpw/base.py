@@ -1,11 +1,14 @@
 """
-All Wrappers inherit from this base class, which has 4 responsibilities:
+Base Object Wrapper Class
 
-* Instantiates Class and storing wrapped element.
-* Provides a ``unwrap()`` method, which returns the wrapped object.
+Most other wrappers inherit from this base class,
+which has 4 primary responsibilities:
+
+* Instantiates Class and stores wrapped element.
+* Provides a ``unwrap()`` method to return the wrapped object.
 * Provides access to all original methods and attributes of the
-  wrapped object.
-* Create a ``__repr__()`` method for consistent representation
+  wrapped object through a pass through ``__getattr__``
+* Implements a ``__repr__()`` for consistent object representation
 
 Because access to original methods and properties is maintained, you can keep
 the elements wrapped throughout your code. You would only need to unwrap when
@@ -13,7 +16,7 @@ when passing the element into function where the original Type is expected.
 
 >>> wrapped = BaseObjectWrapper(SomeObject)
 >>> wrapped
-<rpw:RPW_BaseOBjectWrapper>
+<RPW_BaseOBjectWrapper:>
 >>> wrapped.unwrap()
 SomeObject
 >>> wrapped.SomeOriginalMethod()

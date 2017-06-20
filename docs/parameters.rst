@@ -1,5 +1,5 @@
 ===========================
-Parameter and Parameter Set
+Parameters
 ===========================
 
 .. automodule:: rpw.db.parameter
