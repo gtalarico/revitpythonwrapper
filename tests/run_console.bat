@@ -1,1 +1,1 @@
-ipy -X:FullFrames "rpw\ui\console.py"
+ipy -X:FullFrames -m rpw.ui.console

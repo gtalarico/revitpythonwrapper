@@ -3,7 +3,6 @@ import imp
 
 from rpw.utils.logger import logger
 
-logger.verbose(False)
 
 class MockObject(object):
     """

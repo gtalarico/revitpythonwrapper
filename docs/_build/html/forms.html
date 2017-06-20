@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
@@ -324,21 +324,12 @@
 <span class="sd">import sys</span>
 <span class="sd">import os</span>
 
+<span class="sd">from rpw import revit, UI</span>
+<span class="sd">from rpw.utils.dotnet import clr</span>
+<span class="sd">from rpw.utils.logger import logger</span>
 
-<span class="sd"># This is only so forms.py to be executed on console for easier testing and dev</span>
-<span class="sd"># `ipy.exe forms.py` and ipy -X:FullFrames console.py</span>
-<span class="sd">try:</span>
-<span class="sd">    from rpw import revit, UI</span>
-<span class="sd">    from rpw.utils.dotnet import clr</span>
-<span class="sd">    from rpw.utils.logger import logger</span>
-<span class="sd">    if revit.host == &#39;Dynamo&#39;:</span>
-<span class="sd">        # Standard Location Added for Dynamo, where script cannot reach inside</span>
-<span class="sd">        sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
-<span class="sd">except ImportError:</span>
-<span class="sd">    import clr</span>
-<span class="sd">    import logging</span>
-<span class="sd">    logger = logging.getLogger(&#39;Forms Logger&#39;)</span>
-<span class="sd">    logger.warning(&#39;Could not import rpw module. Running WPF Only&#39;)</span>
+<span class="sd">if revit.host == &#39;Dynamo&#39;:</span>
+<span class="sd">    sys.path.append(r&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;)</span>
 
 <span class="sd"># WPF/Form Imports</span>
 <span class="sd">clr.AddReference(&quot;PresentationFramework&quot;)</span>
@@ -352,9 +343,9 @@
 <span class="sd">from System.Windows.Input import Key</span>
 
 <span class="sd">clr.AddReference(&#39;IronPython&#39;)</span>
-<span class="sd">clr.AddReference(&#39;IronPython.Wpf&#39;)</span>
-<span class="sd"># clr.AddReference(&#39;IronPython.Modules&#39;)</span>
+<span class="sd">clr.AddReference(&#39;IronPython.Wpf&#39;)  # 2.7clr.AddReference(&#39;IronPython.Modules&#39;)</span>
 <span class="sd">from IronPython.Modules import Wpf as wpf</span>
+
 
 <span class="sd">class SelectFromListForm(Window):</span>
 <span class="sd">    &quot;&quot;&quot;</span>

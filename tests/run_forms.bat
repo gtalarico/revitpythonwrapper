@@ -1,1 +1,1 @@
-ipy -X:FullFrames "rpw\ui\forms.py"
+ipy -X:FullFrames -m rpw.ui.forms.py

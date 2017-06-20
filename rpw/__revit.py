@@ -10,27 +10,30 @@ class Revit(BaseObject):
         DYNAMO = 'Dynamo'
 
     def __init__(self):
-        self.uiapp = None
         try:
             self.uiapp = __revit__
             self._host = Revit.HOSTS.RPS
         except NameError:
             try:
+                # Try Getting handler from Dynamo RevitServices
                 self.uiapp = self.find_dynamo_uiapp()
                 self._host = Revit.HOSTS.DYNAMO
             except Exception as errmsg:
                 logger.warning('Revit Application handle could not be found')
 
         try:
+            # Add DB UI Import to globals so it can be imported by rpw
             clr.AddReference('RevitAPI')
             clr.AddReference('RevitAPIUI')
             from Autodesk.Revit import DB, UI
-            # Add DB UI Import to globals so it can be imported by __init__
             globals().update({'DB': DB, 'UI': UI})
-        except:
+        except Exception:
+            # Replace Globals with Mock Objects for Sphinx and ipy direct exec.
             logger.warning('RevitAPI References could not be added')
             from rpw.utils.sphinx_compat import MockObject
-            globals().update({'DB': MockObject(), 'UI': MockObject()})
+            globals().update({'DB': MockObject(fullname='Autodesk.Revit.DB'),
+                              'UI': MockObject(fullname='Autodesk.Revit.DB')})
+            self.uiapp = MockObject(fullname='Autodesk.Revit.UI.UIApplication')
             self._host = None
 
     def find_dynamo_uiapp(self):
@@ -114,7 +117,7 @@ class Revit(BaseObject):
                                                       pid=self.process_id)
     # Check what this is
     # @property
-    # def proc_screen(self):
+    # def process(self):
     #     clr.AddReferenceByPartialName('System.Windows.Forms')
     #     # noinspection PyUnresolvedReferences
     #     from System.Windows.Forms import Screen

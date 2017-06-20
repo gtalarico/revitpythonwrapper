@@ -98,7 +98,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
@@ -186,38 +186,38 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">UI</span><span class="o">.</span><span class="n">TaskDialog</span>
 </pre></div>
 </div>
-<span class="target" id="module-rpw._revit"></span><dl class="class">
-<dt id="rpw._revit.Revit">
-<em class="property">class </em><code class="descclassname">rpw._revit.</code><code class="descname">Revit</code><a class="headerlink" href="#rpw._revit.Revit" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-rpw.__revit"></span><dl class="class">
+<dt id="rpw.__revit.Revit">
+<em class="property">class </em><code class="descclassname">rpw.__revit.</code><code class="descname">Revit</code><a class="headerlink" href="#rpw.__revit.Revit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObject</span></code></p>
 <p>Revit Application Wrapper</p>
 <dl class="attribute">
-<dt id="rpw._revit.Revit.active_view">
-<code class="descname">active_view</code><a class="headerlink" href="#rpw._revit.Revit.active_view" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.active_view">
+<code class="descname">active_view</code><a class="headerlink" href="#rpw.__revit.Revit.active_view" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uidoc.ActiveView</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.app">
-<code class="descname">app</code><a class="headerlink" href="#rpw._revit.Revit.app" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.app">
+<code class="descname">app</code><a class="headerlink" href="#rpw.__revit.Revit.app" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uidoc.Application</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.doc">
-<code class="descname">doc</code><a class="headerlink" href="#rpw._revit.Revit.doc" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.doc">
+<code class="descname">doc</code><a class="headerlink" href="#rpw.__revit.Revit.doc" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uiapp.ActiveUIDocument.Document</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.docs">
-<code class="descname">docs</code><a class="headerlink" href="#rpw._revit.Revit.docs" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.docs">
+<code class="descname">docs</code><a class="headerlink" href="#rpw.__revit.Revit.docs" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uidoc.Application.Documents</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.host">
-<code class="descname">host</code><a class="headerlink" href="#rpw._revit.Revit.host" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.host">
+<code class="descname">host</code><a class="headerlink" href="#rpw.__revit.Revit.host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Host is set based on how revit handle was found.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -232,44 +232,44 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw._revit.Revit.open">
-<code class="descname">open</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw._revit.Revit.open" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.open">
+<code class="descname">open</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.__revit.Revit.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Opens New Document</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.process">
-<code class="descname">process</code><a class="headerlink" href="#rpw._revit.Revit.process" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.process">
+<code class="descname">process</code><a class="headerlink" href="#rpw.__revit.Revit.process" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – Process.GetCurrentProcess()</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.process_id">
-<code class="descname">process_id</code><a class="headerlink" href="#rpw._revit.Revit.process_id" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.process_id">
+<code class="descname">process_id</code><a class="headerlink" href="#rpw.__revit.Revit.process_id" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – Process.GetCurrentProcess()</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.process_name">
-<code class="descname">process_name</code><a class="headerlink" href="#rpw._revit.Revit.process_name" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.process_name">
+<code class="descname">process_name</code><a class="headerlink" href="#rpw.__revit.Revit.process_name" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – Process.GetCurrentProcess()</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.uidoc">
-<code class="descname">uidoc</code><a class="headerlink" href="#rpw._revit.Revit.uidoc" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.uidoc">
+<code class="descname">uidoc</code><a class="headerlink" href="#rpw.__revit.Revit.uidoc" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uiapp.ActiveUIDocument</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.username">
-<code class="descname">username</code><a class="headerlink" href="#rpw._revit.Revit.username" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.username">
+<code class="descname">username</code><a class="headerlink" href="#rpw.__revit.Revit.username" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uidoc.Application.Username</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw._revit.Revit.version">
-<code class="descname">version</code><a class="headerlink" href="#rpw._revit.Revit.version" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.__revit.Revit.version">
+<code class="descname">version</code><a class="headerlink" href="#rpw.__revit.Revit.version" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – uidoc.Application.Username</p>
 </dd></dl>
 

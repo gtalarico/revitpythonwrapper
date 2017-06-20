@@ -98,7 +98,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameter and Parameter Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
@@ -179,20 +179,22 @@
   <div class="section" id="base-wrapper">
 <h1>Base Wrapper<a class="headerlink" href="#base-wrapper" title="Permalink to this headline">¶</a></h1>
 <p>Base Wrapper</p>
-<span class="target" id="module-rpw.base"></span><p>All Wrappers inherit from this base class, which has 4 responsibilities:</p>
+<span class="target" id="module-rpw.base"></span><p>Base Object Wrapper Class</p>
+<p>Most other wrappers inherit from this base class,
+which has 4 primary responsibilities:</p>
 <ul class="simple">
-<li>Instantiates Class and storing wrapped element.</li>
-<li>Provides a <code class="docutils literal"><span class="pre">unwrap()</span></code> method, which returns the wrapped object.</li>
+<li>Instantiates Class and stores wrapped element.</li>
+<li>Provides a <code class="docutils literal"><span class="pre">unwrap()</span></code> method to return the wrapped object.</li>
 <li>Provides access to all original methods and attributes of the
-wrapped object.</li>
-<li>Create a <code class="docutils literal"><span class="pre">__repr__()</span></code> method for consistent representation</li>
+wrapped object through a pass through <code class="docutils literal"><span class="pre">__getattr__</span></code></li>
+<li>Implements a <code class="docutils literal"><span class="pre">__repr__()</span></code> for consistent object representation</li>
 </ul>
 <p>Because access to original methods and properties is maintained, you can keep
 the elements wrapped throughout your code. You would only need to unwrap when
 when passing the element into function where the original Type is expected.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span> <span class="o">=</span> <span class="n">BaseObjectWrapper</span><span class="p">(</span><span class="n">SomeObject</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span>
-<span class="go">&lt;rpw:RPW_BaseOBjectWrapper&gt;</span>
+<span class="go">&lt;RPW_BaseOBjectWrapper:&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
 <span class="go">SomeObject</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped</span><span class="o">.</span><span class="n">SomeOriginalMethod</span><span class="p">()</span>
@@ -243,13 +245,16 @@ to define the object being wrapped.</p>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">All Wrappers inherit from this base class, which has 4 responsibilities:</span>
+<span class="sd">Base Object Wrapper Class</span>
 
-<span class="sd">* Instantiates Class and storing wrapped element.</span>
-<span class="sd">* Provides a ``unwrap()`` method, which returns the wrapped object.</span>
+<span class="sd">Most other wrappers inherit from this base class,</span>
+<span class="sd">which has 4 primary responsibilities:</span>
+
+<span class="sd">* Instantiates Class and stores wrapped element.</span>
+<span class="sd">* Provides a ``unwrap()`` method to return the wrapped object.</span>
 <span class="sd">* Provides access to all original methods and attributes of the</span>
-<span class="sd">  wrapped object.</span>
-<span class="sd">* Create a ``__repr__()`` method for consistent representation</span>
+<span class="sd">  wrapped object through a pass through ``__getattr__``</span>
+<span class="sd">* Implements a ``__repr__()`` for consistent object representation</span>
 
 <span class="sd">Because access to original methods and properties is maintained, you can keep</span>
 <span class="sd">the elements wrapped throughout your code. You would only need to unwrap when</span>
@@ -257,7 +262,7 @@ to define the object being wrapped.</p>
 
 <span class="sd">&gt;&gt;&gt; wrapped = BaseObjectWrapper(SomeObject)</span>
 <span class="sd">&gt;&gt;&gt; wrapped</span>
-<span class="sd">&lt;rpw:RPW_BaseOBjectWrapper&gt;</span>
+<span class="sd">&lt;RPW_BaseOBjectWrapper:&gt;</span>
 <span class="sd">&gt;&gt;&gt; wrapped.unwrap()</span>
 <span class="sd">SomeObject</span>
 <span class="sd">&gt;&gt;&gt; wrapped.SomeOriginalMethod()</span>

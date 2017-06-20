@@ -10,22 +10,12 @@ ui. currently maps to Revit.DB namespace
 import sys
 import os
 
+from rpw import revit, UI
+from rpw.utils.dotnet import clr
+from rpw.utils.logger import logger
 
-# TODO: Rewrite to make import MockImporter if outside of revit, not only if clr fails
-# This is only so forms.py to be executed on console for easier testing and dev
-# `ipy.exe forms.py` and ipy -X:FullFrames console.py
-try:
-    from rpw import revit, UI
-    from rpw.utils.dotnet import clr
-    from rpw.utils.logger import logger
-    if revit.host == 'Dynamo':
-        # Standard Location Added for Dynamo, where script cannot reach inside
-        sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
-except ImportError:
-    import clr
-    import logging
-    logger = logging.getLogger('Forms Logger')
-    logger.warning('Could not import rpw module. Running WPF Only')
+if revit.host == 'Dynamo':
+    sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
 
 # WPF/Form Imports
 clr.AddReference("PresentationFramework")
@@ -39,9 +29,9 @@ from System.Drawing import FontFamily
 from System.Windows.Input import Key
 
 clr.AddReference('IronPython')
-clr.AddReference('IronPython.Wpf')
-# clr.AddReference('IronPython.Modules')
+clr.AddReference('IronPython.Wpf')  # 2.7clr.AddReference('IronPython.Modules')
 from IronPython.Modules import Wpf as wpf
+
 
 class SelectFromListForm(Window):
     """

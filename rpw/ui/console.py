@@ -4,13 +4,8 @@ import logging
 import tempfile
 from collections import defaultdict
 
-# This is only so forms.py to be executed on console for easier testing and dev
-# `ipy.exe forms.py` and ipy -X:FullFrames console.py
+from rpw.ui.forms import *
 
-try:
-    from forms import *
-except ImportError:
-    from rpw.ui.forms import *
 # logger.verbose(True)
 
 class Console(Window):
