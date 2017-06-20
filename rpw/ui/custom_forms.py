@@ -26,18 +26,25 @@ class CustomForm(Window):
                 Topmost="True"
                 SizeToContent="WidthAndHeight">
                 <Grid Name="MainGrid" Margin="10,10,10,10">
-                    {components}
                 </Grid>
             </Window>
             """
+            # {components}
             # Height="140.139" Width="325"
 
     def __init__(self, title, components):
-        components_string = ''.join([str(e) for e in components])
-        layout = CustomForm.LAYOUT.format(components=components_string.strip())
+        # components_string = ''.join([str(e) for e in components])
+        # layout = CustomForm.LAYOUT.format(components=components_string.strip())
+        layout = CustomForm.LAYOUT.format(components=self.LAYOUT)
 
         self.ui = wpf.LoadComponent(self, StringReader(layout))
         self.ui.Title = title
+
+        # l = Controls.Label()
+        # l.Content = 'GUUUU'
+
+        # for component in components:
+        self.MainGrid.Children.Add(components[0])
 
     def show(self):
         return super(CustomForm, self).ShowDialog()
@@ -85,12 +92,6 @@ class Component():
     _index = count(0)
     template = """<{component} x:{attributes}/>"""
 
-    allowed_attributes = [
-                          'name', 'width', 'height', 'margin', 'content',
-                          'horizontal_alignment', 'vertical_alignment',
-                          'click'
-                         ]
-
     def __init__(self, **kwargs):
         # DEFAULT VALUES
         self.index = next(self._index)
@@ -134,16 +135,18 @@ class Component():
         return component_str
 
 
-class Label(Component, Controls.Label):
+class Label(Controls.Label, Component):
 
     def __init__(self, content, **kwargs):
         self.content = content
         Component.__init__(self, **kwargs)
+        self.Content = content
 
 class TextBox(Component, Controls.TextBox):
 
     def __init__(self, **kwargs):
         Component.__init__(self, **kwargs)
+        self.Text = 'Shiiiit'
 
     @property
     def value(self):
@@ -170,10 +173,10 @@ class ComboBox(Component):
 if __name__ == '__main__':
     components = [
                   Label('Option 1'),
-                  TextBox(name='textbox1'),
+                #   TextBox(name='textbox1'),
                 #   Label('Option 2'),
                 #   TextBox(name='textbox2'),
-                  Button('button1', click='close'),
+                #   Button('button1', click='close'),
                 #   ComboBox({'A': 1}),
                  ]
 
