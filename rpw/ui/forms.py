@@ -22,7 +22,8 @@ clr.AddReference("PresentationFramework")  # System.Windows: Controls, ?
 clr.AddReference("WindowsBase")            # System.Windows.Input
 clr.AddReference("System.Drawing")         # FontFamily
 
-from System.Windows import Application, Window
+import System.Windows
+from System.Windows import Window
 from System.IO import StringReader
 from System.Environment import Exit, NewLine
 from System.Drawing import FontFamily
