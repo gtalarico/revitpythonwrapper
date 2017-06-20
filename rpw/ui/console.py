@@ -1,3 +1,21 @@
+""" REPL Console for Inspecting Stack
+
+>>> from rpw.ui import Console
+>>> Console()
+# Console should be launched
+
+Shortcuts:
+    * ``UP``  Iterate history up
+    * ``Down``  Iterate history down
+    * ``Tab``  Iterate possible autocomplete options
+
+Note:
+    Stack Frame is automatically injected is the context of the evaluation
+    loop of the console: the local variables from where the Console was called
+    from should be available.
+
+"""  #
+
 import os
 import inspect
 import logging
@@ -8,28 +26,19 @@ from rpw.ui.forms import *
 
 # logger.verbose(True)
 
+
 class Console(Window):
-    """ REPL Console for Inspecting Stack.
-
-    >>> from rpw.ui import Console
-    >>> Console()
-
-    Args:
-        stack_level (int, optional): Stack Level. Default is 1.
-        stack_info (bool): Print Stack Call info. Default is False.
-
-    """
     LAYOUT = """
                 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         Title="DeployWindow" Height="400" Width="800" SnapsToDevicePixels="True"
                         UseLayoutRounding="True" WindowState="Normal" WindowStartupLocation="CenterScreen">
-            	<Window.Resources>
-            		<Style TargetType="{x:Type MenuItem}">
-            			<Setter Property="FontFamily" Value="Consolas"/>
-            			<Setter Property="FontSize" Value="12.0"/>
-            		</Style>
-            	</Window.Resources>
+                <Window.Resources>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="FontFamily" Value="Consolas"/>
+                        <Setter Property="FontSize" Value="12.0"/>
+                    </Style>
+                </Window.Resources>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -53,21 +62,13 @@ class Console(Window):
     CARET = '>>> '
 
     def __init__(self, stack_level=1, stack_info=False):
-        """ RPW Console
-
-        >>> rpw.ui.Console()
-        # Execution will stop, and a Console will start with the stack variable
-        loaded
-
+        """
         Args:
             stack_level (int): Default is 1. 0 Is the Console stack, 1 is the
                                caller; 2 is previous to that, etc.
             stack_info (bool): Display info about where call came from.
                                Will print filename name,  line no. and Caller
                                name.
-        Tips:
-            Press `UP` + `DOWN` to scroll through persistant history.
-            Press tab to autocomplete based on local variables.
         """
 
         # History Helper

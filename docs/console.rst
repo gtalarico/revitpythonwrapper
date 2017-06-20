@@ -11,11 +11,13 @@ Console
 Interactive Console
 *******************
 
+.. automodule:: rpw.ui.console
+    :undoc-members:
+
 .. image:: _static/forms/console.png
 
 .. autoclass:: rpw.ui.Console
     :special-members: __init__
-
 
 
 ----------------------------------------------
@@ -24,5 +26,6 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/ui/console.py
+    :start-after: """  #
 
 .. disqus

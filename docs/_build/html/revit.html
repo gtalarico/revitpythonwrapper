@@ -94,6 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Revit</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#typical-methods">Typical Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
@@ -176,17 +177,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="revit">
-<h1>Revit<a class="headerlink" href="#revit" title="Permalink to this headline">¶</a></h1>
-<p>Global variables normalize imports across platforms.</p>
+  <div class="section" id="module-rpw.__revit">
+<span id="revit"></span><h1>Revit<a class="headerlink" href="#module-rpw.__revit" title="Permalink to this headline">¶</a></h1>
+<p>Revit Application Wrapper.</p>
+<p>All common global variables and namespaces accessible a single import</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">Delete</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">revit</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">revit</span><span class="o">.</span><span class="n">username</span>
+<span class="go">gtalarico</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">revit</span><span class="o">.</span><span class="n">host</span>
+<span class="go">&#39;Dynamo&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">revit</span><span class="o">.</span><span class="n">active_view</span>
+<span class="go">&lt; Autodesk.Revit.DB.View &gt;</span>
+</pre></div>
+</div>
+<p>Namespaces:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="mi">00000</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">UI</span><span class="o">.</span><span class="n">TaskDialog</span>
 </pre></div>
 </div>
-<span class="target" id="module-rpw.__revit"></span><dl class="class">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The module path for the Revit Wrapper and its namespaces is <code class="docutils literal"><span class="pre">rpw.__revit.Revit</span></code>.
+However, the <code class="docutils literal"><span class="pre">Revit()</span></code> is always instantiated on the initialization of rpw,
+and is stored along with the <code class="docutils literal"><span class="pre">DB</span></code> and <code class="docutils literal"><span class="pre">UI</span></code> namespaces in the
+root of rpw module.</p>
+<p class="last">In other words, to use this wrapper all you need is to import <code class="docutils literal"><span class="pre">from</span> <span class="pre">rpw</span> <span class="pre">import</span> <span class="pre">revit</span></code></p>
+</div>
+<dl class="data">
+<dt id="rpw.UI">
+<code class="descclassname">rpw.</code><code class="descname">UI</code><em class="property"> Revit.UI Namespace</em><a class="headerlink" href="#rpw.UI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="rpw.DB">
+<code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
 <dt id="rpw.__revit.Revit">
 <em class="property">class </em><code class="descclassname">rpw.__revit.</code><code class="descname">Revit</code><a class="headerlink" href="#rpw.__revit.Revit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObject</span></code></p>
@@ -275,16 +305,6 @@
 
 </dd></dl>
 
-<dl class="data">
-<dt id="rpw.UI">
-<code class="descclassname">rpw.</code><code class="descname">UI</code><em class="property"> Revit.UI Namespace</em><a class="headerlink" href="#rpw.UI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="data">
-<dt id="rpw.DB">
-<code class="descclassname">rpw.</code><code class="descname">DB</code><em class="property"> Revit.DB Namespace</em><a class="headerlink" href="#rpw.DB" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <div class="admonition hint">
 <p class="first admonition-title">Hint</p>
 <p>Besides creating these global variables, the module’s global variable initializer
@@ -328,7 +348,171 @@ libraries right away, and skip the typical:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">uidoc</span> <span class="o">=</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
 </pre></div>
 </div>
+</div>
 <hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">clr</span><span class="p">,</span> <span class="n">Process</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObject</span>
+
+<span class="k">class</span> <span class="nc">Revit</span><span class="p">(</span><span class="n">BaseObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Revit Application Wrapper &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">HOSTS</span><span class="p">():</span>
+        <span class="n">RPS</span> <span class="o">=</span> <span class="s1">&#39;RPS&#39;</span>
+        <span class="n">DYNAMO</span> <span class="o">=</span> <span class="s1">&#39;Dynamo&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span> <span class="o">=</span> <span class="n">__revit__</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">Revit</span><span class="o">.</span><span class="n">HOSTS</span><span class="o">.</span><span class="n">RPS</span>
+        <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Try Getting handler from Dynamo RevitServices</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_dynamo_uiapp</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">Revit</span><span class="o">.</span><span class="n">HOSTS</span><span class="o">.</span><span class="n">DYNAMO</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Revit Application handle could not be found&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Add DB UI Import to globals so it can be imported by rpw</span>
+            <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPI&#39;</span><span class="p">)</span>
+            <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;RevitAPIUI&#39;</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">Autodesk.Revit</span> <span class="k">import</span> <span class="n">DB</span><span class="p">,</span> <span class="n">UI</span>
+            <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;DB&#39;</span><span class="p">:</span> <span class="n">DB</span><span class="p">,</span> <span class="s1">&#39;UI&#39;</span><span class="p">:</span> <span class="n">UI</span><span class="p">})</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Replace Globals with Mock Objects for Sphinx and ipy direct exec.</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;RevitAPI References could not be added&#39;</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">rpw.utils.sphinx_compat</span> <span class="k">import</span> <span class="n">MockObject</span>
+            <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;DB&#39;</span><span class="p">:</span> <span class="n">MockObject</span><span class="p">(</span><span class="n">fullname</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB&#39;</span><span class="p">),</span>
+                              <span class="s1">&#39;UI&#39;</span><span class="p">:</span> <span class="n">MockObject</span><span class="p">(</span><span class="n">fullname</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB&#39;</span><span class="p">)})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span> <span class="o">=</span> <span class="n">MockObject</span><span class="p">(</span><span class="n">fullname</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.UI.UIApplication&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">find_dynamo_uiapp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;RevitServices&quot;</span><span class="p">)</span>
+        <span class="kn">import</span> <span class="nn">RevitServices</span>
+        <span class="kn">from</span> <span class="nn">RevitServices.Persistence</span> <span class="k">import</span> <span class="n">DocumentManager</span>
+
+        <span class="kn">import</span> <span class="nn">sys</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\Lib&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DocumentManager</span><span class="o">.</span><span class="n">Instance</span><span class="o">.</span><span class="n">CurrentUIApplication</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">host</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Host is set based on how revit handle was found.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Host (str): Revit Application Host [&#39;RPS&#39;, &#39;Dynamo&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host</span>
+
+    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Opens New Document &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uiapp.ActiveUIDocument.Document &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">uidoc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uiapp.ActiveUIDocument &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">active_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uidoc.ActiveView &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+
+    <span class="nd">@active_view</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">active_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_reference</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span> <span class="o">=</span> <span class="n">view_reference</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uidoc.Application &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">docs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uidoc.Application.Documents &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">Documents</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uidoc.Application.Username &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">Username</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: uidoc.Application.Username &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">RevitVersion</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: Process.GetCurrentProcess() &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Process</span><span class="o">.</span><span class="n">GetCurrentProcess</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">process_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: Process.GetCurrentProcess() &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">Id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">process_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns: Process.GetCurrentProcess() &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">ProcessName</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{version}</span><span class="s1"> [</span><span class="si">{process}</span><span class="s1">:</span><span class="si">{pid}</span><span class="s1">]&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+                                                      <span class="n">process</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_name</span><span class="p">,</span>
+                                                      <span class="n">pid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_id</span><span class="p">)</span>
+    <span class="c1"># Check what this is</span>
+    <span class="c1"># @property</span>
+    <span class="c1"># def process(self):</span>
+    <span class="c1">#     clr.AddReferenceByPartialName(&#39;System.Windows.Forms&#39;)</span>
+    <span class="c1">#     # noinspection PyUnresolvedReferences</span>
+    <span class="c1">#     from System.Windows.Forms import Screen</span>
+    <span class="c1">#     return Screen.FromHandle(Process.GetCurrentProcess().MainWindowHandle)</span>
+
+<span class="k">class</span> <span class="nc">RevitVersion</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uiapp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span> <span class="o">=</span> <span class="n">uiapp</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">year</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionNumber</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionName</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">VersionBuild</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Handle Version Comparison Logic&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Handle Version Comparison Logic&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;Version: </span><span class="si">{year}</span><span class="s1">: </span><span class="si">{build}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                   <span class="n">build</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">build</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">:</span><span class="si">{build}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">build</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">build</span><span class="p">)</span>
+
+
+<span class="n">revit</span> <span class="o">=</span> <span class="n">Revit</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 

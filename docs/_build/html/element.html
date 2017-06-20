@@ -695,16 +695,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Element Model Wrappers provide a consitent interface for acccessing parameters and properties</span>
-<span class="sd">of commonly used elements.</span>
-
-<span class="sd">Note:</span>
-<span class="sd">    These wrappers are located in the module ``rpw.db.elements``,</span>
-<span class="sd">    but all of them are imported by into the main module so they can be accessed</span>
-<span class="sd">    using ``rpw.db.Element``, ``rpw.db.Instance``, etc.</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 
 <span class="kn">import</span> <span class="nn">rpw</span>
@@ -1082,11 +1073,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Category</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Wall Wrappers</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-
+<div class="highlight-default"><div class="highlight"><pre><span></span>
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">Element</span>
@@ -1180,11 +1167,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="k">return</span> <span class="n">wall_kinds</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Spatial Element Wrappers</span>
-
-<span class="sd">&quot;&quot;&quot;</span>
-
+<div class="highlight-default"><div class="highlight"><pre><span></span>
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">Element</span>

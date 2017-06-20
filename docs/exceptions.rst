@@ -22,5 +22,5 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/exceptions.py
-
+    :start-after: """  #
 .. disqus

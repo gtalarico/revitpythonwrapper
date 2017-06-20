@@ -8,19 +8,8 @@
 Revit
 ==================
 
-Global variables normalize imports across platforms.
-
-    >>> from rpw import revit, DB, UI
-    >>> revit.doc.Delete(SomeElementId)
-    >>> revit.uidoc.ActiveView
-    >>> DB.ElementId(00000)
-    >>> UI.TaskDialog
-
 .. automodule:: rpw.__revit
-    :members:
-    :special-members: __init__, __getattr__, __getitem__
-    :private-members:
-    :show-inheritance:
+    :undoc-members:
 
 .. data:: UI
     :module: rpw
@@ -29,6 +18,12 @@ Global variables normalize imports across platforms.
 .. data:: DB
     :module: rpw
     :annotation:   Revit.DB Namespace
+
+.. autoclass:: rpw.__revit.Revit
+    :members:
+    :special-members: __init__, __getattr__, __getitem__
+    :private-members:
+    :show-inheritance:
 
 .. hint::
     Besides creating these global variables, the module's global variable initializer
@@ -73,4 +68,10 @@ When RPW is not used, import code ends up being different for each platform:
 
 ----------------------------------------------
 
+Implementation
+**************
+
+.. literalinclude:: ../rpw/__revit.py
+    :start-after: """  #
+    
 .. disqus

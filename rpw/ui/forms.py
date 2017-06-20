@@ -18,7 +18,7 @@ if revit.host == 'Dynamo':
     sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
 
 # WPF/Form Imports
-clr.AddReference("PresentationFramework")
+clr.AddReference("PresentationFramework")  # System.Windows: Controls, ?
 clr.AddReference("WindowsBase")            # System.Windows.Input
 clr.AddReference("System.Drawing")         # FontFamily
 

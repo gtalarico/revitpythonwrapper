@@ -2,15 +2,11 @@
 # `ipy.exe forms.py` and ipy -X:FullFrames console.py
 from itertools import count
 
-try:
-    from forms import *
-except ImportError:
-    from rpw.ui.forms import *
+from rpw.ui.forms import *
 # logger.verbose(True)
 
-V_SPACING = 5
-
-
+from System.Windows import Controls
+print('Custom Forms Started')
 class CustomForm(Window):
     """
     WPF Custom Form.
@@ -24,13 +20,17 @@ class CustomForm(Window):
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                 xmlns:local="clr-namespace:WpfApplication1"
-                mc:Ignorable="d" Height="140.139" Width="325" ResizeMode="NoResize"
-                Title="" WindowStartupLocation="CenterScreen" Topmost="True" SizeToContent="WidthAndHeight">
-                <Grid Margin="10,0,10,10">
+                mc:Ignorable="d"
+                ResizeMode="NoResize"
+                WindowStartupLocation="CenterScreen"
+                Topmost="True"
+                SizeToContent="WidthAndHeight">
+                <Grid Name="MainGrid" Margin="10,10,10,10">
                     {components}
                 </Grid>
             </Window>
             """
+            # Height="140.139" Width="325"
 
     def __init__(self, title, components):
         components_string = ''.join([str(e) for e in components])
@@ -39,23 +39,28 @@ class CustomForm(Window):
         self.ui = wpf.LoadComponent(self, StringReader(layout))
         self.ui.Title = title
 
+    def show(self):
+        return super(CustomForm, self).ShowDialog()
+
+    def close(self, sender, e):
+        component_values = {}
+        for component in self.MainGrid.Children:
+            component_values[component.Name] = component
+        self.value = component_values
+        self.Close()
         # if description is not None:
         #     self.ui.selection_label.Content = description
         # self.ui.button_select.Click += self.select_click
 
-
-
-    def select_click(self, sender, e):
-        selected = self.ui.combo_data.SelectedItem
+    # def button_click(self, sender, e):
+    #     self.Close()
+        # selected = self.ui.combo_data.SelectedItem
     #     if isinstance(self.options, dict):
     #         selected = self.options[selected]
     #
     #     self.selected = selected
     #     self.DialogResult = True
-    #     self.Close()
 
-    def show(self):
-        return super(CustomForm, self).ShowDialog()
 
 
 class ComponentAttribute():
@@ -80,28 +85,42 @@ class Component():
     _index = count(0)
     template = """<{component} x:{attributes}/>"""
 
-    allowed_attributes = ['name', 'width', 'height', 'margin',
-                          'content',
+    allowed_attributes = [
+                          'name', 'width', 'height', 'margin', 'content',
                           'horizontal_alignment', 'vertical_alignment',
-                          ]
+                          'click'
+                         ]
 
     def __init__(self, **kwargs):
         # DEFAULT VALUES
         self.index = next(self._index)
-        self.name = '{}_{}'.format(self.__class__.__name__.lower(), self.index)
+        self.name = kwargs.get('name', self.__class__.__name__ + str(self.index))
         self.width = 300
-        self.height = 30
-        self.margin = '0,{},0,0'.format(self.index * self.height + V_SPACING * self.index)
+        self.height = 25
         self.horizontal_alignment = "Left"
         self.vertical_alignment = "Top"
-        # CUSTOM VALUES
+
+        # Default Margin Settings
+        V_SPACING = 5
+        margin_left = kwargs.get('left', 0)
+        margin_right = kwargs.get('right', 0)
+        margin_bottom = kwargs.get('bottom', 0)
+        margin_top = kwargs.get('top', self.index * self.height +
+                                       self.index * V_SPACING)
+
+        margin = '{left},{top},{right},{bot}'.format(left=margin_left,
+                                                     top=margin_top,
+                                                     right=margin_right,
+                                                     bot=margin_bottom)
+        self.margin = margin
+        # Inject Custom Values
         self.__dict__.update(kwargs)
 
     def sorted_attributes(self):
         return sorted(vars(self), key=lambda x: x.name == 'Name')
 
     def __str__(self):
-        """ <Label x:  Index="0"  Name="label_0"  Width="30"  Height="30"
+        """ <Label x:Name="label_0"  Width="30"  Height="30"
              HorizontalAlignment="Left"  VerticalAlignment="Top" />"""
         attributes = ''
         for attr_name, value in vars(self).iteritems():
@@ -109,46 +128,56 @@ class Component():
                 continue
             component = ComponentAttribute(attr_name, value)
             attributes += str(component)
-        formatted_component = self.template.format(
-                                            component=self.__class__.__name__,
-                                            attributes=attributes)
-        print('Components: {}'.format(formatted_component))
-        return formatted_component
+        component_str = self.template.format(component=self.__class__.__name__,
+                                             attributes=attributes)
+        print(component_str)
+        return component_str
 
-class Label(Component):
+
+class Label(Component, Controls.Label):
 
     def __init__(self, content, **kwargs):
-        Component.__init__(self, **kwargs)
         self.content = content
+        Component.__init__(self, **kwargs)
 
-
-class TextBox(Component):
+class TextBox(Component, Controls.TextBox):
 
     def __init__(self, **kwargs):
         Component.__init__(self, **kwargs)
 
+    @property
+    def value(self):
+        return self.Text
 
 class Button(Component):
 
     def __init__(self, content, **kwargs):
-        Component.__init__(self, **kwargs)
         self.content = content
+        Component.__init__(self, **kwargs)
+
+    @property
+    def value(self):
+        return self.Content
+
 
 class ComboBox(Component):
 
     def __init__(self, options, **kwargs):
-        Component.__init__(self, **kwargs)
+        Component.__init__(self, name, **kwargs)
         self.options = options
 
 
 if __name__ == '__main__':
-    pass
     components = [
-                  Label('Briaaan'),
-                  TextBox(),
-                  ComboBox({'A': 1}),
-                  Button('Button!', width=50, horizontal_alignment="Right"),
+                  Label('Option 1'),
+                  TextBox(name='textbox1'),
+                #   Label('Option 2'),
+                #   TextBox(name='textbox2'),
+                  Button('button1', click='close'),
+                #   ComboBox({'A': 1}),
                  ]
 
     form = CustomForm('Title', components)
     form.show()
+    print(form)
+    print(form.value)

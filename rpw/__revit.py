@@ -1,3 +1,36 @@
+"""
+
+Revit Application Wrapper.
+
+All common global variables and namespaces accessible a single import
+
+    >>> from rpw import revit, DB, UI
+    >>> revit.doc.Delete(SomeElementId)
+    >>> revit.uidoc.ActiveView
+    >>> revit.username
+    gtalarico
+    >>> revit.host
+    'Dynamo'
+    >>> revit.active_view
+    < Autodesk.Revit.DB.View >
+
+Namespaces:
+
+    >>> from rpw import DB, UI
+    >>> DB.ElementId(00000)
+    >>> UI.TaskDialog
+
+Note:
+    The module path for the Revit Wrapper and its namespaces is ``rpw.__revit.Revit``.
+    However, the ``Revit()`` is always instantiated on the initialization of rpw,
+    and is stored along with the ``DB`` and ``UI`` namespaces in the
+    root of rpw module.
+
+    In other words, to use this wrapper all you need is to import ``from rpw import revit``
+
+
+"""  #
+
 from rpw.utils.dotnet import clr, Process
 from rpw.utils.logger import logger
 from rpw.base import BaseObject

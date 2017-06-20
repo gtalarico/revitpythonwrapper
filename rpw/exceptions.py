@@ -1,3 +1,5 @@
+""" Custom RPW exceptions """  #
+
 from rpw.utils.logger import logger
 
 class RpwException(Exception):

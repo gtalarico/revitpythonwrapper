@@ -136,7 +136,10 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/db/element.py
+    :start-after: """  #
 .. literalinclude:: ../rpw/db/wall.py
+    :start-after: """  #
 .. literalinclude:: ../rpw/db/spatial_element.py
+    :start-after: """  #
 
 .. disqus

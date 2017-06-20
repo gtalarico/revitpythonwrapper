@@ -104,7 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Console</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#interactive-console">Interactive Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rpw.ui.console">Interactive Console</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
@@ -179,72 +179,63 @@
             
   <div class="section" id="console">
 <h1>Console<a class="headerlink" href="#console" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="interactive-console">
-<h2>Interactive Console<a class="headerlink" href="#interactive-console" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-rpw.ui.console">
+<span id="interactive-console"></span><h2>Interactive Console<a class="headerlink" href="#module-rpw.ui.console" title="Permalink to this headline">¶</a></h2>
+<p>REPL Console for Inspecting Stack</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.ui</span> <span class="k">import</span> <span class="n">Console</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">()</span>
+<span class="go"># Console should be launched</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Shortcuts:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">UP</span></code>  Iterate history up</li>
+<li><code class="docutils literal"><span class="pre">Down</span></code>  Iterate history down</li>
+<li><code class="docutils literal"><span class="pre">Tab</span></code>  Iterate possible autocomplete options</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Stack Frame is automatically injected is the context of the evaluation
+loop of the console: the local variables from where the Console was called
+from should be available.</p>
+</div>
 <img alt="_images/console.png" src="_images/console.png" />
 <dl class="class">
 <dt id="rpw.ui.Console">
 <em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Console" title="Permalink to this definition">¶</a></dt>
-<dd><p>REPL Console for Inspecting Stack.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.ui</span> <span class="k">import</span> <span class="n">Console</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">()</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stack_level</strong> (<em>int</em><em>, </em><em>optional</em>) – Stack Level. Default is 1.</li>
-<li><strong>stack_info</strong> (<em>bool</em>) – Print Stack Call info. Default is False.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dd></dd></dl>
 
 </div>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
 
-<span class="c1"># This is only so forms.py to be executed on console for easier testing and dev</span>
-<span class="c1"># `ipy.exe forms.py` and ipy -X:FullFrames console.py</span>
+<span class="kn">from</span> <span class="nn">rpw.ui.forms</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">forms</span> <span class="k">import</span> <span class="o">*</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">rpw.ui.forms</span> <span class="k">import</span> <span class="o">*</span>
 <span class="c1"># logger.verbose(True)</span>
 
+
 <span class="k">class</span> <span class="nc">Console</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; REPL Console for Inspecting Stack.</span>
-
-<span class="sd">    &gt;&gt;&gt; from rpw.ui import Console</span>
-<span class="sd">    &gt;&gt;&gt; Console()</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        stack_level (int, optional): Stack Level. Default is 1.</span>
-<span class="sd">        stack_info (bool): Print Stack Call info. Default is False.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">LAYOUT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">                &lt;Window xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span>
 <span class="s2">                        xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
 <span class="s2">                        Title=&quot;DeployWindow&quot; Height=&quot;400&quot; Width=&quot;800&quot; SnapsToDevicePixels=&quot;True&quot;</span>
 <span class="s2">                        UseLayoutRounding=&quot;True&quot; WindowState=&quot;Normal&quot; WindowStartupLocation=&quot;CenterScreen&quot;&gt;</span>
-<span class="s2">            	&lt;Window.Resources&gt;</span>
-<span class="s2">            		&lt;Style TargetType=&quot;{x:Type MenuItem}&quot;&gt;</span>
-<span class="s2">            			&lt;Setter Property=&quot;FontFamily&quot; Value=&quot;Consolas&quot;/&gt;</span>
-<span class="s2">            			&lt;Setter Property=&quot;FontSize&quot; Value=&quot;12.0&quot;/&gt;</span>
-<span class="s2">            		&lt;/Style&gt;</span>
-<span class="s2">            	&lt;/Window.Resources&gt;</span>
+<span class="s2">                &lt;Window.Resources&gt;</span>
+<span class="s2">                    &lt;Style TargetType=&quot;{x:Type MenuItem}&quot;&gt;</span>
+<span class="s2">                        &lt;Setter Property=&quot;FontFamily&quot; Value=&quot;Consolas&quot;/&gt;</span>
+<span class="s2">                        &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12.0&quot;/&gt;</span>
+<span class="s2">                    &lt;/Style&gt;</span>
+<span class="s2">                &lt;/Window.Resources&gt;</span>
 <span class="s2">                &lt;Grid&gt;</span>
 <span class="s2">                    &lt;Grid.ColumnDefinitions&gt;</span>
 <span class="s2">                        &lt;ColumnDefinition Width=&quot;*&quot;&gt;&lt;/ColumnDefinition&gt;</span>
@@ -268,21 +259,13 @@
     <span class="n">CARET</span> <span class="o">=</span> <span class="s1">&#39;&gt;&gt;&gt; &#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; RPW Console</span>
-
-<span class="sd">        &gt;&gt;&gt; rpw.ui.Console()</span>
-<span class="sd">        # Execution will stop, and a Console will start with the stack variable</span>
-<span class="sd">        loaded</span>
-
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            stack_level (int): Default is 1. 0 Is the Console stack, 1 is the</span>
 <span class="sd">                               caller; 2 is previous to that, etc.</span>
 <span class="sd">            stack_info (bool): Display info about where call came from.</span>
 <span class="sd">                               Will print filename name,  line no. and Caller</span>
 <span class="sd">                               name.</span>
-<span class="sd">        Tips:</span>
-<span class="sd">            Press `UP` + `DOWN` to scroll through persistant history.</span>
-<span class="sd">            Press tab to autocomplete based on local variables.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># History Helper</span>

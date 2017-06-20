@@ -179,7 +179,8 @@
   <div class="section" id="exceptions">
 <h1>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h1>
 <p>Revit Python Wrapper Exceptions</p>
-<span class="target" id="module-rpw.exceptions"></span><dl class="exception">
+<span class="target" id="module-rpw.exceptions"></span><p>Custom RPW exceptions</p>
+<dl class="exception">
 <dt id="rpw.exceptions.RpwCoerceError">
 <em class="property">exception </em><code class="descclassname">rpw.exceptions.</code><code class="descname">RpwCoerceError</code><span class="sig-paren">(</span><em>value</em>, <em>target_type</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.exceptions.RpwCoerceError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#rpw.exceptions.RpwException" title="rpw.exceptions.RpwException"><code class="xref py py-class docutils literal"><span class="pre">rpw.exceptions.RpwException</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></code></p>
@@ -217,7 +218,8 @@
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
 <span class="k">class</span> <span class="nc">RpwException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Revit Python Wrapper Base Exception &quot;&quot;&quot;</span>
