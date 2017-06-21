@@ -118,7 +118,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#console">Console</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#flexform">FlexForm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flexform">FlexForm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flexform-controls">FlexForm Controls</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
@@ -400,15 +403,14 @@ from should be available.</p>
 <dt id="rpw.ui.forms.FlexForm">
 <em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">FlexForm</code><span class="sig-paren">(</span><em>title</em>, <em>components</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.FlexForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flex Form Usage</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Label&#39;</span><span class="p">),</span>
-<span class="go">                  ComboBox(Name=&#39;combobox1&#39;{&#39;Opt 1&#39;: 10.0, &#39;Opt 2&#39;, 20.0}),</span>
-<span class="go">                  TextBox(Name=&#39;textbox1&#39;),</span>
-<span class="go">                  CheckBox(Name=&#39;checkbox1&#39;),</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">components</span> <span class="o">=</span> <span class="p">[</span><span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Pick Style:&#39;</span><span class="p">),</span>
+<span class="go">                  ComboBox(&#39;combobox1&#39;, {&#39;Opt 1&#39;: 10.0, &#39;Opt 2&#39;, 20.0}),</span>
+<span class="go">                  Label(&#39;Enter Name:&#39;),</span>
+<span class="go">                  TextBox(&#39;textbox1&#39;, Text=&quot;Default Value&quot;),</span>
+<span class="go">                  CheckBox(&#39;checkbox1&#39;, &#39;Check this&#39;),</span>
 <span class="go">                  Separator(),</span>
 <span class="go">                  Button(&#39;Select&#39;)]</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># User selects `Opt 1`, types &#39;Wood&#39; in TextBox, and select Checkbox</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">form</span><span class="o">.</span><span class="n">values</span>
@@ -417,6 +419,9 @@ from should be available.</p>
 </div>
 </dd></dl>
 
+<img alt="_images/flexform.png" src="_images/flexform.png" />
+<div class="section" id="flexform-controls">
+<h3>FlexForm Controls<a class="headerlink" href="#flexform-controls" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.ui.forms.Label">
 <em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Label</code><span class="sig-paren">(</span><em>label_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Label" title="Permalink to this definition">¶</a></dt>
@@ -428,7 +433,7 @@ from should be available.</p>
 
 <dl class="class">
 <dt id="rpw.ui.forms.TextBox">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">TextBox</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">TextBox</code><span class="sig-paren">(</span><em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows.Controls.TextBox Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TextBox</span><span class="p">()</span>
 </pre></div>
@@ -437,7 +442,7 @@ from should be available.</p>
 
 <dl class="class">
 <dt id="rpw.ui.forms.CheckBox">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>checkbox_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.CheckBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>checkbox_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.CheckBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows.Controls.Checkbox Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CheckBox</span><span class="p">(</span><span class="s1">&#39;Label&#39;</span><span class="p">)</span>
 </pre></div>
@@ -446,7 +451,7 @@ from should be available.</p>
 
 <dl class="class">
 <dt id="rpw.ui.forms.ComboBox">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">ComboBox</code><span class="sig-paren">(</span><em>options</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.ComboBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">ComboBox</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.ComboBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows.Controls.ComboBox Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ComboBox</span><span class="p">({</span><span class="s1">&#39;Option 1&#39;</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="s1">&#39;Option 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Elemnet&#39;</span><span class="p">})</span>
 </pre></div>
@@ -469,6 +474,7 @@ from should be available.</p>
 </dd></dl>
 
 </div>
+</div>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
@@ -484,13 +490,13 @@ from should be available.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Flex Form Usage</span>
 
-<span class="sd">    &gt;&gt;&gt; components = [Label(&#39;Label&#39;),</span>
-<span class="sd">                      ComboBox(Name=&#39;combobox1&#39;{&#39;Opt 1&#39;: 10.0, &#39;Opt 2&#39;, 20.0}),</span>
-<span class="sd">                      TextBox(Name=&#39;textbox1&#39;),</span>
-<span class="sd">                      CheckBox(Name=&#39;checkbox1&#39;),</span>
+<span class="sd">    &gt;&gt;&gt; components = [Label(&#39;Pick Style:&#39;),</span>
+<span class="sd">                      ComboBox(&#39;combobox1&#39;, {&#39;Opt 1&#39;: 10.0, &#39;Opt 2&#39;, 20.0}),</span>
+<span class="sd">                      Label(&#39;Enter Name:&#39;),</span>
+<span class="sd">                      TextBox(&#39;textbox1&#39;, Text=&quot;Default Value&quot;),</span>
+<span class="sd">                      CheckBox(&#39;checkbox1&#39;, &#39;Check this&#39;),</span>
 <span class="sd">                      Separator(),</span>
 <span class="sd">                      Button(&#39;Select&#39;)]</span>
-
 <span class="sd">    &gt;&gt;&gt; form = FlexForm(&#39;Title&#39;, components)</span>
 <span class="sd">    &gt;&gt;&gt; form.show()</span>
 <span class="sd">    &gt;&gt;&gt; # User selects `Opt 1`, types &#39;Wood&#39; in TextBox, and select Checkbox</span>
@@ -584,7 +590,9 @@ from should be available.</p>
 
         <span class="c1"># Default Values</span>
         <span class="n">control_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">control_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">control_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">Width</span> <span class="o">=</span> <span class="mi">300</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Height</span> <span class="o">=</span> <span class="mi">25</span>
 
@@ -621,11 +629,13 @@ from should be available.</p>
 
 <span class="sd">    &gt;&gt;&gt; TextBox()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
+<span class="sd">            name (``str``): Name of control. Will be used to return value</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -656,12 +666,14 @@ from should be available.</p>
 
 <span class="sd">    &gt;&gt;&gt; CheckBox(&#39;Label&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkbox_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">checkbox_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            button_text (``str``): Button Text</span>
+<span class="sd">            name (``str``): Name of control. Will be used to return value</span>
+<span class="sd">            checkbox_text (``str``): Checkbox label Text</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">checkbox_text</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="n">top_offset</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -676,12 +688,14 @@ from should be available.</p>
 
 <span class="sd">    &gt;&gt;&gt; ComboBox({&#39;Option 1&#39;: Element, &#39;Option 2&#39;, &#39;Elemnet&#39;})</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
+<span class="sd">            name (``str``): Name of control. Will be used to return value</span>
 <span class="sd">            options (``list``, ``dict``): If ``dict``, selected value is returned</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
@@ -708,24 +722,18 @@ from should be available.</p>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; TESTS &quot;&quot;&quot;</span>
     <span class="n">components</span> <span class="o">=</span> <span class="p">[</span>
-                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Enter Family Name&#39;</span><span class="p">),</span>
-                  <span class="n">TextBox</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="s1">&#39;family_name&#39;</span><span class="p">,</span> <span class="n">Text</span><span class="o">=</span><span class="s1">&#39;XXX-XXX&#39;</span><span class="p">),</span>
-                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Select Tyspe&#39;</span><span class="p">),</span>
-                  <span class="n">ComboBox</span><span class="p">({</span><span class="s1">&#39;24x36&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;36x48&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;48x64&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}),</span>
+                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Pick Style:&#39;</span><span class="p">),</span>
+                  <span class="n">ComboBox</span><span class="p">(</span><span class="s1">&#39;combobox1&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Opt 1&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span> <span class="s1">&#39;Opt 2&#39;</span><span class="p">:</span> <span class="mf">20.0</span><span class="p">}),</span>
+                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Enter Name:&#39;</span><span class="p">),</span>
+                  <span class="n">TextBox</span><span class="p">(</span><span class="s1">&#39;textbox1&#39;</span><span class="p">,</span> <span class="n">Text</span><span class="o">=</span><span class="s2">&quot;Default Value&quot;</span><span class="p">),</span>
+                  <span class="n">CheckBox</span><span class="p">(</span><span class="s1">&#39;checkbox1&#39;</span><span class="p">,</span> <span class="s1">&#39;Check this:&#39;</span><span class="p">),</span>
                   <span class="n">Separator</span><span class="p">(),</span>
-                  <span class="n">ComboBox</span><span class="p">([</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">]),</span>
-                  <span class="n">CheckBox</span><span class="p">(</span><span class="s1">&#39;Select Me&#39;</span><span class="p">),</span>
-                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Option 2&#39;</span><span class="p">),</span>
-                  <span class="n">CheckBox</span><span class="p">(</span><span class="s1">&#39;Select Me&#39;</span><span class="p">),</span>
-                  <span class="n">CheckBox</span><span class="p">(</span><span class="s1">&#39;Select Me&#39;</span><span class="p">,</span> <span class="n">IsChecked</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Option 2&#39;</span><span class="p">),</span>
-                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Option 2&#39;</span><span class="p">),</span>
-                  <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Press&#39;</span><span class="p">),</span>
-                  <span class="n">Label</span><span class="p">(</span><span class="s1">&#39;Option 2&#39;</span><span class="p">),</span>
-                  <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Press&#39;</span><span class="p">),</span>
-                  <span class="p">]</span>
+                  <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">)]</span>
 
-    <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">)</span>
+    <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>QuickForm</p>
@@ -758,7 +766,7 @@ from should be available.</p>
     <span class="n">components</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="n">description</span><span class="p">:</span>
         <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
-    <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ComboBox</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;combobox&#39;</span><span class="p">))</span>
+    <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ComboBox</span><span class="p">(</span><span class="s1">&#39;combobox&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">))</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">))</span>
     <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;SelectFromList&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span> <span class="n">exit_on_close</span><span class="o">=</span><span class="n">exit_on_close</span><span class="p">)</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -786,9 +794,9 @@ from should be available.</p>
     <span class="k">if</span> <span class="n">description</span><span class="p">:</span>
         <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">default</span><span class="p">:</span>
-        <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="n">Text</span><span class="o">=</span><span class="n">default</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="s1">&#39;textbox&#39;</span><span class="p">)</span>
+        <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">,</span> <span class="n">Text</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="n">Name</span><span class="o">=</span><span class="s1">&#39;textbox&#39;</span><span class="p">)</span>
+        <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">)</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">textbox</span><span class="p">)</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">))</span>
     <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;TextInput&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">)</span>

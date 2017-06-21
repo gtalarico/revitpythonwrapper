@@ -89,6 +89,14 @@ FlexForm
 ********
 
 .. autoclass:: rpw.ui.forms.FlexForm
+    :special-members: __init__
+
+.. image:: _static/forms/flexform.png
+
+
+FlexForm Controls
+^^^^^^^^^^^^^^^^^
+
 .. autoclass:: rpw.ui.forms.Label
 .. autoclass:: rpw.ui.forms.TextBox
 .. autoclass:: rpw.ui.forms.CheckBox

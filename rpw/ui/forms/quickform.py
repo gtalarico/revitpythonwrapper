@@ -56,9 +56,9 @@ def TextInput(title, default=None, description=None, sort=True, exit_on_close=Tr
     if description:
         components.append(Label(description))
     if default:
-        textbox = TextBox(textbox, Text=default)
+        textbox = TextBox('textbox', Text=default)
     else:
-        textbox = TextBox(Name='textbox')
+        textbox = TextBox('textbox')
     components.append(textbox)
     components.append(Button('Select'))
     form = FlexForm('TextInput', components, sort=sort)

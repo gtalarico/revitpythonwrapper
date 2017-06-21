@@ -10,13 +10,13 @@ class FlexForm(Window):
     """
     Flex Form Usage
 
-    components = [Label('Pick Style:'),
-                  ComboBox('combobox1', {'Opt 1': 10.0, 'Opt 2', 20.0}),
-                  Label('Enter Name:'),
-                  TextBox('textbox1', Text="Default Value"),
-                  CheckBox('checkbox1', 'Check this'),
-                  Separator(),
-                  Button('Select')]
+    >>> components = [Label('Pick Style:'),
+                      ComboBox('combobox1', {'Opt 1': 10.0, 'Opt 2', 20.0}),
+                      Label('Enter Name:'),
+                      TextBox('textbox1', Text="Default Value"),
+                      CheckBox('checkbox1', 'Check this'),
+                      Separator(),
+                      Button('Select')]
     >>> form = FlexForm('Title', components)
     >>> form.show()
     >>> # User selects `Opt 1`, types 'Wood' in TextBox, and select Checkbox
