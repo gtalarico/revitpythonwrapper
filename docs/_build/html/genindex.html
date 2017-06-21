@@ -102,7 +102,6 @@
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -184,6 +183,7 @@
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
@@ -314,6 +314,8 @@
 </li>
       <li><a href="element.html#rpw.db.element.Element.parameters.builtins">builtins (rpw.db.element.Element.parameters attribute)</a>
 </li>
+      <li><a href="forms.html#rpw.ui.forms.Button">Button (class in rpw.ui.forms)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -330,6 +332,8 @@
         <li><a href="element.html#rpw.db.Symbol.category">(rpw.db.Symbol attribute)</a>
 </li>
       </ul></li>
+      <li><a href="forms.html#rpw.ui.forms.CheckBox">CheckBox (class in rpw.ui.forms)</a>
+</li>
       <li><a href="collections.html#rpw.db.ElementCollection.clear">clear() (rpw.db.ElementCollection method)</a>
 
       <ul>
@@ -344,7 +348,9 @@
 </li>
       <li><a href="collector.html#rpw.db.Collector">Collector (class in rpw.db)</a>
 </li>
-      <li><a href="console.html#rpw.ui.Console">Console (class in rpw.ui)</a>
+      <li><a href="forms.html#rpw.ui.forms.ComboBox">ComboBox (class in rpw.ui.forms)</a>
+</li>
+      <li><a href="forms.html#rpw.ui.forms.Console">Console (class in rpw.ui.forms)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -420,12 +426,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="forms.html#rpw.ui.forms.SelectFromList.form_class">form_class (rpw.ui.forms.SelectFromList attribute)</a>
-
-      <ul>
-        <li><a href="forms.html#rpw.ui.forms.TextInput.form_class">(rpw.ui.forms.TextInput attribute)</a>
+      <li><a href="forms.html#rpw.ui.forms.FlexForm">FlexForm (class in rpw.ui.forms)</a>
 </li>
-      </ul></li>
       <li><a href="builtins.html#rpw.db.builtins.BiCategory.from_category_id">from_category_id() (rpw.db.builtins.BiCategory method)</a>
 </li>
       <li><a href="collector.html#rpw.db.ParameterFilter.from_element_and_parameter">from_element_and_parameter() (rpw.db.ParameterFilter static method)</a>
@@ -483,6 +485,14 @@
       <li><a href="element.html#rpw.db.Room.is_bounded">is_bounded (rpw.db.Room attribute)</a>
 </li>
       <li><a href="element.html#rpw.db.Room.is_placed">is_placed (rpw.db.Room attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="forms.html#rpw.ui.forms.Label">Label (class in rpw.ui.forms)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -608,9 +618,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="exceptions.html#module-rpw.exceptions">rpw.exceptions (module)</a>
 </li>
-      <li><a href="console.html#module-rpw.ui.console">rpw.ui.console (module)</a>
-</li>
       <li><a href="forms.html#module-rpw.ui.forms">rpw.ui.forms (module)</a>
+</li>
+      <li><a href="forms.html#module-rpw.ui.forms.console">rpw.ui.forms.console (module)</a>
 </li>
       <li><a href="selection.html#module-rpw.ui.selection">rpw.ui.selection (module)</a>
 </li>
@@ -640,10 +650,18 @@
         <li><a href="collections.html#rpw.db.ElementSet.select">(rpw.db.ElementSet method)</a>
 </li>
       </ul></li>
-      <li><a href="forms.html#rpw.ui.forms.SelectFromList">SelectFromList (class in rpw.ui.forms)</a>
+      <li><a href="forms.html#rpw.ui.forms.select_file">select_file() (in module rpw.ui.forms)</a>
+</li>
+      <li><a href="forms.html#rpw.ui.forms.select_folder">select_folder() (in module rpw.ui.forms)</a>
+</li>
+      <li><a href="forms.html#rpw.ui.forms.SelectFromList">SelectFromList() (in module rpw.ui.forms)</a>
 </li>
       <li><a href="selection.html#rpw.ui.Selection">Selection (class in rpw.ui)</a>
 </li>
+      <li><a href="forms.html#rpw.ui.forms.Separator">Separator (class in rpw.ui.forms)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.db.Family.siblings">siblings (rpw.db.Family attribute)</a>
 
       <ul>
@@ -652,8 +670,6 @@
         <li><a href="element.html#rpw.db.Symbol.siblings">(rpw.db.Symbol attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="collections.html#rpw.db.XyzCollection.sorted_by">sorted_by() (rpw.db.XyzCollection method)</a>
 </li>
       <li><a href="element.html#rpw.db.Symbol">Symbol (class in rpw.db)</a>
@@ -672,7 +688,9 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="forms.html#rpw.ui.forms.TextInput">TextInput (class in rpw.ui.forms)</a>
+      <li><a href="forms.html#rpw.ui.forms.TextBox">TextBox (class in rpw.ui.forms)</a>
+</li>
+      <li><a href="forms.html#rpw.ui.forms.TextInput">TextInput() (in module rpw.ui.forms)</a>
 </li>
       <li><a href="utils.html#rpw.utils.coerce.to_category">to_category() (in module rpw.utils.coerce)</a>
 </li>

@@ -2,12 +2,13 @@
 
 Original code by github.com/eirannejad/pyRevit
 
-"""
+"""  #
 
 from rpw.ui.forms.resources import *
 
 def select_folder():
-    """ Selects a Folder Path using the standard OS Dialog.
+    """
+    Selects a Folder Path using the standard OS Dialog.
     Uses Forms.FolderBrowserDialog(). For more information see:
     https://msdn.microsoft.com/en-us/library/system.windows.forms.openfiledialog.
 
@@ -24,11 +25,12 @@ def select_file(extensions='All Files (*.*)|*.*',
                 title="Select File",
                 multiple=False,
                 restore_directory=True):
-    """ Selects a File Path using the standard OS Dialog.
-    Uses Forms.OpenFileDialog. For more information see:
-    https://msdn.microsoft.com/en-us/library/system.windows.forms.filedialog.restoredirectory
+    """
+    Selects a File Path using the standard OS Dialog.
+    Uses Forms.OpenFileDialog
+    https://msdn.microsoft.com/en-us/library/system.windows.forms.filedialog.filter
 
-    >>> filepath = select_file('Revit File ('*.rvt|*.rvt')
+    >>> filepath = select_file('Revit File ('*.rvt)|*.rvt')
     'C:\\folder\\file.rvt'
 
     Args:

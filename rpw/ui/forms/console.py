@@ -22,9 +22,9 @@ import logging
 import tempfile
 from collections import defaultdict
 
+from rpw.ui.forms.resources import Window
 from rpw.ui.forms.resources import *
 # logger.verbose(True)
-
 
 class Console(Window):
     LAYOUT = """
@@ -142,7 +142,7 @@ class Console(Window):
         return lines
 
     def OnKeyUpHandler(self, sender, args):
-        """ Need to use this to be able to override ENTER """
+        # Need to use this to be able to override ENTER
         if self.tbox.LineCount == 1:
             return
         if args.Key == Key.Enter:
@@ -244,7 +244,6 @@ class Console(Window):
         self.ui.tbox.CaretIndex = len(self.ui.tbox.Text)
 
     def get_all_history(self):
-        """ Retrieves all lines from history file """
         # TODO: Add clean up when history > X
         with open(self.history_file) as fp:
             lines = [l for l in fp.read().split('\n') if l != '']

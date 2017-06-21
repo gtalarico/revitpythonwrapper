@@ -102,7 +102,6 @@
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -189,10 +188,8 @@ and more consistent with Python’s conventions.</p>
 <div><ul class="simple">
 <li>Initializes all common variables such as document handling variables (<code class="docutils literal"><span class="pre">doc</span></code> and <code class="docutils literal"><span class="pre">uidoc</span></code>)
 so you can reuse code across platforms with no change to your import code.</li>
-<li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPIUI.dll</span></code> assemblies,</li>
-</ul>
-<p>and other common .NET types such as <code class="docutils literal"><span class="pre">List</span></code>.</p>
-<ul class="simple">
+<li>Imports <code class="docutils literal"><span class="pre">clr</span></code>, and adds <code class="docutils literal"><span class="pre">RevitAPI.dll</span></code> + <code class="docutils literal"><span class="pre">RevitAPIUI.dll</span></code> assemblies,
+and other common .NET types such as <code class="docutils literal"><span class="pre">List</span></code>.</li>
 <li>Adds Reference the IronPython Standard Library to your <code class="docutils literal"><span class="pre">sys.path</span></code> (for <a class="reference internal" href="dynamo.html"><span class="doc">Dynamo</span></a>).</li>
 <li>Easy to use WPF <a class="reference internal" href="forms.html"><span class="doc">Forms</span></a> so you can request additional user input
 with little effort.</li>

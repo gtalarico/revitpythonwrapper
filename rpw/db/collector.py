@@ -97,52 +97,53 @@ class SuperSlowFilter(BaseFilter):
 
 
 class FilterClasses():
-    """ Groups FilterClasses to facilitate discovery.
+    """
+    Groups FilterClasses to facilitate discovery.
 
-        Implementation Tracker:
-        Quick
-            X Revit.DB.ElementCategoryFilter = of_category
-            X Revit.DB.ElementClassFilter = of_class
-            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven
-            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type
-            X Revit.DB.ElementOwnerViewFilter = view
-            X Revit.DB.FamilySymbolFilter = family
-            _ Revit.DB.ExclusionFilter = exclude
-            _ Revit.DB.BoundingBoxContainsPointFilter
-            _ Revit.DB.BoundingBoxIntersectsFilter
-            _ Revit.DB.BoundingBoxIsInsideFilter
-            _ Revit.DB.ElementDesignOptionFilter
-            _ Revit.DB.ElementMulticategoryFilter
-            _ Revit.DB.ElementMulticlassFilter
-            _ Revit.DB.ElementStructuralTypeFilter
-            _ Revit.DB.ElementWorksetFilter
-            _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter
-        Slow
-            X Revit.DB.ElementLevelFilter
-            X Revit.DB.FamilyInstanceFilter = symbol
-            X Revit.DB.ElementParameterFilter
-            _ Revit.DB.Architecture RoomFilter
-            _ Revit.DB.Architecture RoomTagFilter
-            _ Revit.DB.AreaFilter
-            _ Revit.DB.AreaTagFilter
-            _ Revit.DB.CurveElementFilter
-            _ Revit.DB.ElementIntersectsFilter
-            _ Revit.DB.ElementPhaseStatusFilter
-            _ Revit.DB.Mechanical SpaceFilter
-            _ Revit.DB.Mechanical SpaceTagFilter
-            _ Revit.DB.PrimaryDesignOptionMemberFilter
-            _ Revit.DB.Structure FamilyStructuralMaterialTypeFilter
-            _ Revit.DB.Structure StructuralInstanceUsageFilter
-            _ Revit.DB.Structure StructuralMaterialTypeFilter
-            _ Revit.DB.Structure StructuralWallUsageFilter
-            _ Autodesk.Revit.UI.Selection SelectableInViewFilter
+    Implementation Tracker:
+    Quick
+        X Revit.DB.ElementCategoryFilter = of_category
+        X Revit.DB.ElementClassFilter = of_class
+        X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven
+        X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type
+        X Revit.DB.ElementOwnerViewFilter = view
+        X Revit.DB.FamilySymbolFilter = family
+        _ Revit.DB.ExclusionFilter = exclude
+        _ Revit.DB.BoundingBoxContainsPointFilter
+        _ Revit.DB.BoundingBoxIntersectsFilter
+        _ Revit.DB.BoundingBoxIsInsideFilter
+        _ Revit.DB.ElementDesignOptionFilter
+        _ Revit.DB.ElementMulticategoryFilter
+        _ Revit.DB.ElementMulticlassFilter
+        _ Revit.DB.ElementStructuralTypeFilter
+        _ Revit.DB.ElementWorksetFilter
+        _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter
+    Slow
+        X Revit.DB.ElementLevelFilter
+        X Revit.DB.FamilyInstanceFilter = symbol
+        X Revit.DB.ElementParameterFilter
+        _ Revit.DB.Architecture RoomFilter
+        _ Revit.DB.Architecture RoomTagFilter
+        _ Revit.DB.AreaFilter
+        _ Revit.DB.AreaTagFilter
+        _ Revit.DB.CurveElementFilter
+        _ Revit.DB.ElementIntersectsFilter
+        _ Revit.DB.ElementPhaseStatusFilter
+        _ Revit.DB.Mechanical SpaceFilter
+        _ Revit.DB.Mechanical SpaceTagFilter
+        _ Revit.DB.PrimaryDesignOptionMemberFilter
+        _ Revit.DB.Structure FamilyStructuralMaterialTypeFilter
+        _ Revit.DB.Structure StructuralInstanceUsageFilter
+        _ Revit.DB.Structure StructuralMaterialTypeFilter
+        _ Revit.DB.Structure StructuralWallUsageFilter
+        _ Autodesk.Revit.UI.Selection SelectableInViewFilter
 
-        Logical
-            _ Revit.DB.LogicalAndFilter = and_filter
-            _ Revit.DB.LogicalOrFilter = or_filter
+    Logical
+        _ Revit.DB.LogicalAndFilter = and_filter
+        _ Revit.DB.LogicalOrFilter = or_filter
 
-        Others
-            X Custom where - uses lambda
+    Others
+        X Custom where - uses lambda
 
     """
     @classmethod
@@ -454,7 +455,8 @@ class Collector(BaseObjectWrapper):
 
     @property
     def element_ids(self):
-        """ Returns list with all elements instantiated using :any:`Element`
+        """
+        Returns list with all elements instantiated using :any:`Element`
         """
         return [element_id for element_id in self._collector.ToElementIds()]
 
@@ -479,7 +481,8 @@ class Collector(BaseObjectWrapper):
 
 
 class ParameterFilter(BaseObjectWrapper):
-    """ Parameter Filter Wrapper.
+    """
+    Parameter Filter Wrapper.
     Used to build a parameter filter to be used with the Collector.
 
     Usage:

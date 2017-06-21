@@ -1,11 +1,13 @@
-""" RPW Froms
-
+"""
+The forms module provide several pre-build forms as well as a framework
+from which you can build your own forms.
 
 """
 
 # FlexForm + Componets
 from rpw.ui.forms.flexform import FlexForm
-from rpw.ui.forms.flexform import Label, TextBox, Button, ComboBox, Separator
+from rpw.ui.forms.flexform import Label, TextBox, Button, ComboBox, CheckBox
+from rpw.ui.forms.flexform import Separator
 
 # Pre-built, easy to use FlexForms
 from rpw.ui.forms.quickform import SelectFromList, TextInput

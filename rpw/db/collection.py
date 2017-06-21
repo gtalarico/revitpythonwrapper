@@ -43,7 +43,7 @@ class ElementSet(BaseObject):
 
         Args:
             element_reference (`DB.Element`, DB.Element_ids): Iterable Optional
-            
+
         """
         element_ids = to_element_ids(elements_or_ids)
         for eid in element_ids:

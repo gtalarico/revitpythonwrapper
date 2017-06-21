@@ -24,7 +24,6 @@ Revit Python Wrapper
    builtins
    geometry
    forms
-   console
    utils
    dynamo
    revitpythonshell
@@ -55,7 +54,7 @@ It also provides a few convenient shortcuts:
       so you can reuse code across platforms with no change to your import code.
 
     * Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies,
-    and other common .NET types such as ``List``.
+      and other common .NET types such as ``List``.
 
     * Adds Reference the IronPython Standard Library to your ``sys.path`` (for :doc:`dynamo`).
 

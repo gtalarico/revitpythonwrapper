@@ -31,5 +31,3 @@ Implementation
 **************
 
 .. literalinclude:: ../rpw/db/collector.py
-
-.. disqus

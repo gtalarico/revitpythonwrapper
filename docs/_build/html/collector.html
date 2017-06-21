@@ -106,7 +106,6 @@
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="console.html">Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
@@ -557,52 +556,53 @@ Parameter Name instead of parameter Id</p>
 
 
 <span class="k">class</span> <span class="nc">FilterClasses</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; Groups FilterClasses to facilitate discovery.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Groups FilterClasses to facilitate discovery.</span>
 
-<span class="sd">        Implementation Tracker:</span>
-<span class="sd">        Quick</span>
-<span class="sd">            X Revit.DB.ElementCategoryFilter = of_category</span>
-<span class="sd">            X Revit.DB.ElementClassFilter = of_class</span>
-<span class="sd">            X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven</span>
-<span class="sd">            X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type</span>
-<span class="sd">            X Revit.DB.ElementOwnerViewFilter = view</span>
-<span class="sd">            X Revit.DB.FamilySymbolFilter = family</span>
-<span class="sd">            _ Revit.DB.ExclusionFilter = exclude</span>
-<span class="sd">            _ Revit.DB.BoundingBoxContainsPointFilter</span>
-<span class="sd">            _ Revit.DB.BoundingBoxIntersectsFilter</span>
-<span class="sd">            _ Revit.DB.BoundingBoxIsInsideFilter</span>
-<span class="sd">            _ Revit.DB.ElementDesignOptionFilter</span>
-<span class="sd">            _ Revit.DB.ElementMulticategoryFilter</span>
-<span class="sd">            _ Revit.DB.ElementMulticlassFilter</span>
-<span class="sd">            _ Revit.DB.ElementStructuralTypeFilter</span>
-<span class="sd">            _ Revit.DB.ElementWorksetFilter</span>
-<span class="sd">            _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter</span>
-<span class="sd">        Slow</span>
-<span class="sd">            X Revit.DB.ElementLevelFilter</span>
-<span class="sd">            X Revit.DB.FamilyInstanceFilter = symbol</span>
-<span class="sd">            X Revit.DB.ElementParameterFilter</span>
-<span class="sd">            _ Revit.DB.Architecture RoomFilter</span>
-<span class="sd">            _ Revit.DB.Architecture RoomTagFilter</span>
-<span class="sd">            _ Revit.DB.AreaFilter</span>
-<span class="sd">            _ Revit.DB.AreaTagFilter</span>
-<span class="sd">            _ Revit.DB.CurveElementFilter</span>
-<span class="sd">            _ Revit.DB.ElementIntersectsFilter</span>
-<span class="sd">            _ Revit.DB.ElementPhaseStatusFilter</span>
-<span class="sd">            _ Revit.DB.Mechanical SpaceFilter</span>
-<span class="sd">            _ Revit.DB.Mechanical SpaceTagFilter</span>
-<span class="sd">            _ Revit.DB.PrimaryDesignOptionMemberFilter</span>
-<span class="sd">            _ Revit.DB.Structure FamilyStructuralMaterialTypeFilter</span>
-<span class="sd">            _ Revit.DB.Structure StructuralInstanceUsageFilter</span>
-<span class="sd">            _ Revit.DB.Structure StructuralMaterialTypeFilter</span>
-<span class="sd">            _ Revit.DB.Structure StructuralWallUsageFilter</span>
-<span class="sd">            _ Autodesk.Revit.UI.Selection SelectableInViewFilter</span>
+<span class="sd">    Implementation Tracker:</span>
+<span class="sd">    Quick</span>
+<span class="sd">        X Revit.DB.ElementCategoryFilter = of_category</span>
+<span class="sd">        X Revit.DB.ElementClassFilter = of_class</span>
+<span class="sd">        X Revit.DB.ElementIsCurveDrivenFilter = is_curve_driven</span>
+<span class="sd">        X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type</span>
+<span class="sd">        X Revit.DB.ElementOwnerViewFilter = view</span>
+<span class="sd">        X Revit.DB.FamilySymbolFilter = family</span>
+<span class="sd">        _ Revit.DB.ExclusionFilter = exclude</span>
+<span class="sd">        _ Revit.DB.BoundingBoxContainsPointFilter</span>
+<span class="sd">        _ Revit.DB.BoundingBoxIntersectsFilter</span>
+<span class="sd">        _ Revit.DB.BoundingBoxIsInsideFilter</span>
+<span class="sd">        _ Revit.DB.ElementDesignOptionFilter</span>
+<span class="sd">        _ Revit.DB.ElementMulticategoryFilter</span>
+<span class="sd">        _ Revit.DB.ElementMulticlassFilter</span>
+<span class="sd">        _ Revit.DB.ElementStructuralTypeFilter</span>
+<span class="sd">        _ Revit.DB.ElementWorksetFilter</span>
+<span class="sd">        _ Revit.DB.ExtensibleStorage ExtensibleStorageFilter</span>
+<span class="sd">    Slow</span>
+<span class="sd">        X Revit.DB.ElementLevelFilter</span>
+<span class="sd">        X Revit.DB.FamilyInstanceFilter = symbol</span>
+<span class="sd">        X Revit.DB.ElementParameterFilter</span>
+<span class="sd">        _ Revit.DB.Architecture RoomFilter</span>
+<span class="sd">        _ Revit.DB.Architecture RoomTagFilter</span>
+<span class="sd">        _ Revit.DB.AreaFilter</span>
+<span class="sd">        _ Revit.DB.AreaTagFilter</span>
+<span class="sd">        _ Revit.DB.CurveElementFilter</span>
+<span class="sd">        _ Revit.DB.ElementIntersectsFilter</span>
+<span class="sd">        _ Revit.DB.ElementPhaseStatusFilter</span>
+<span class="sd">        _ Revit.DB.Mechanical SpaceFilter</span>
+<span class="sd">        _ Revit.DB.Mechanical SpaceTagFilter</span>
+<span class="sd">        _ Revit.DB.PrimaryDesignOptionMemberFilter</span>
+<span class="sd">        _ Revit.DB.Structure FamilyStructuralMaterialTypeFilter</span>
+<span class="sd">        _ Revit.DB.Structure StructuralInstanceUsageFilter</span>
+<span class="sd">        _ Revit.DB.Structure StructuralMaterialTypeFilter</span>
+<span class="sd">        _ Revit.DB.Structure StructuralWallUsageFilter</span>
+<span class="sd">        _ Autodesk.Revit.UI.Selection SelectableInViewFilter</span>
 
-<span class="sd">        Logical</span>
-<span class="sd">            _ Revit.DB.LogicalAndFilter = and_filter</span>
-<span class="sd">            _ Revit.DB.LogicalOrFilter = or_filter</span>
+<span class="sd">    Logical</span>
+<span class="sd">        _ Revit.DB.LogicalAndFilter = and_filter</span>
+<span class="sd">        _ Revit.DB.LogicalOrFilter = or_filter</span>
 
-<span class="sd">        Others</span>
-<span class="sd">            X Custom where - uses lambda</span>
+<span class="sd">    Others</span>
+<span class="sd">        X Custom where - uses lambda</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@classmethod</span>
@@ -914,7 +914,8 @@ Parameter Name instead of parameter Id</p>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Returns list with all elements instantiated using :any:`Element`</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns list with all elements instantiated using :any:`Element`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">element_id</span> <span class="k">for</span> <span class="n">element_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">ToElementIds</span><span class="p">()]</span>
 
@@ -939,7 +940,8 @@ Parameter Name instead of parameter Id</p>
 
 
 <span class="k">class</span> <span class="nc">ParameterFilter</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Parameter Filter Wrapper.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameter Filter Wrapper.</span>
 <span class="sd">    Used to build a parameter filter to be used with the Collector.</span>
 
 <span class="sd">    Usage:</span>
