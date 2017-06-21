@@ -66,6 +66,10 @@ It also provides a few convenient shortcuts:
     | This library should not be used in complex applications or mission-critical work.
     | API changes are expected.
 
+Got Questions?
+Post them over in the project's `Github Page <http://eirannejad.github.io/pyRevit/>`_ or
+hit me up on `twitter <https://twitter.com/gtalarico>`_.
+
 -------------------------------------------------------------------
 
 **********************************
