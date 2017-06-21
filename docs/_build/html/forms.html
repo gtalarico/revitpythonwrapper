@@ -593,8 +593,8 @@ from should be available.</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">Name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">control_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">Width</span> <span class="o">=</span> <span class="mi">300</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Height</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Width&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
 
         <span class="n">h_align</span> <span class="o">=</span> <span class="n">Enum</span><span class="o">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">HorizontalAlignment</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;h_align&#39;</span><span class="p">,</span> <span class="s1">&#39;Left&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">HorizontalAlignment</span> <span class="o">=</span> <span class="n">h_align</span>
@@ -637,6 +637,8 @@ from should be available.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;Height&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Height</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1162,9 +1164,6 @@ from should be available.</p>
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">clr</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 
-<span class="k">if</span> <span class="n">revit</span><span class="o">.</span><span class="n">host</span> <span class="o">==</span> <span class="s1">&#39;Dynamo&#39;</span><span class="p">:</span>
-    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40&#39;</span><span class="p">)</span>
-
 <span class="c1"># WPF/Form Imports</span>
 <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;PresentationFramework&quot;</span><span class="p">)</span>  <span class="c1"># System.Windows: Controls, ?</span>
 <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s2">&quot;WindowsBase&quot;</span><span class="p">)</span>            <span class="c1"># System.Windows.Input</span>
@@ -1188,9 +1187,17 @@ from should be available.</p>
 <span class="kn">from</span> <span class="nn">System.Windows</span> <span class="k">import</span> <span class="n">Forms</span>
 
 
-<span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython&#39;</span><span class="p">)</span>
-<span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>  <span class="c1"># 2.7clr.AddReference(&#39;IronPython.Modules&#39;)</span>
-<span class="kn">from</span> <span class="nn">IronPython.Modules</span> <span class="k">import</span> <span class="n">Wpf</span> <span class="k">as</span> <span class="n">wpf</span>
+<span class="k">if</span> <span class="n">revit</span><span class="o">.</span><span class="n">host</span> <span class="o">==</span> <span class="s1">&#39;Dynamo&#39;</span><span class="p">:</span>
+    <span class="c1"># IronPython 2.7.3 - Dynamo</span>
+    <span class="c1"># Conflicts with PyRevit. Must Ensure exact path is specified</span>
+    <span class="c1"># https://github.com/architecture-building-systems/revitpythonshell/issues/46</span>
+    <span class="n">clr</span><span class="o">.</span><span class="n">AddReferenceToFileAndPath</span><span class="p">(</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\DLLs\IronPython.Wpf.dll&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">wpf</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># IronPython 2.7.7</span>
+    <span class="c1"># clr.AddReference(&#39;IronPython&#39;)    # Works W/Out</span>
+    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>  <span class="c1"># 2.7</span>
+    <span class="kn">from</span> <span class="nn">IronPython.Modules</span> <span class="k">import</span> <span class="n">Wpf</span> <span class="k">as</span> <span class="n">wpf</span>
 </pre></div>
 </div>
 </div>

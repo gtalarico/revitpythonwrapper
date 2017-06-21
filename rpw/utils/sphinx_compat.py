@@ -60,6 +60,7 @@ class MockImporter(object):
                       'RevitServices',
                       'IronPython',
                       'System',
+                      'wpf',
                       ]
 
     def find_module(self, fullname, path=None):

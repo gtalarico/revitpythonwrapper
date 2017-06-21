@@ -158,7 +158,7 @@ class TextBox(RpwControlMixin, Controls.TextBox):
         self.Name = name
         self.set_attrs(**kwargs)
         if 'Height' not in kwargs:
-            self.Height = 20
+            self.Height = 25
 
     @property
     def value(self):
