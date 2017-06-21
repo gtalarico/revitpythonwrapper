@@ -19,8 +19,9 @@ when passing the element into function where the original Type is expected.
 <RPW_BaseOBjectWrapper:>
 >>> wrapped.unwrap()
 SomeObject
->>> wrapped.SomeOriginalMethod()
-# Method will run.
+>>> wrapped.Pinned
+False
+>>> wrapped.AnyRevitPropertyOrMethod
 
 Warning:
     This class is primarily for internal use. If you plan on creating your
