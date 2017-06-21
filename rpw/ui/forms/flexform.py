@@ -113,8 +113,8 @@ class RpwControlMixin():
         if not self.Name:
             self.Name = kwargs.get('Name', '{}_{}'.format(control_type, self.index))
 
-        self.Width = 300
-        self.Height = 25
+        self.Width = kwargs.get('Width', 300)
+        self.Height = kwargs.get('Height', 25)
 
         h_align = Enum.Parse(HorizontalAlignment, kwargs.get('h_align', 'Left'))
         self.HorizontalAlignment = h_align
@@ -157,6 +157,8 @@ class TextBox(RpwControlMixin, Controls.TextBox):
         """
         self.Name = name
         self.set_attrs(**kwargs)
+        if 'Height' not in kwargs:
+            self.Height = 20
 
     @property
     def value(self):
