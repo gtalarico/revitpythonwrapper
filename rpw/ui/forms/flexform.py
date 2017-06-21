@@ -10,13 +10,13 @@ class FlexForm(Window):
     """
     Flex Form Usage
 
-    >>> components = [Label('Label'),
-                      ComboBox(Name='combobox1'{'Opt 1': 10.0, 'Opt 2', 20.0}),
-                      TextBox(Name='textbox1'),
-                      CheckBox(Name='checkbox1'),
-                      Separator(),
-                      Button('Select')]
-
+    components = [Label('Pick Style:'),
+                  ComboBox('combobox1', {'Opt 1': 10.0, 'Opt 2', 20.0}),
+                  Label('Enter Name:'),
+                  TextBox('textbox1', Text="Default Value"),
+                  CheckBox('checkbox1', 'Check this'),
+                  Separator(),
+                  Button('Select')]
     >>> form = FlexForm('Title', components)
     >>> form.show()
     >>> # User selects `Opt 1`, types 'Wood' in TextBox, and select Checkbox
@@ -110,7 +110,9 @@ class RpwControlMixin():
 
         # Default Values
         control_type = self.__class__.__name__
-        self.Name = kwargs.get('Name', '{}_{}'.format(control_type, self.index))
+        if not self.Name:
+            self.Name = kwargs.get('Name', '{}_{}'.format(control_type, self.index))
+
         self.Width = 300
         self.Height = 25
 
@@ -147,11 +149,13 @@ class TextBox(RpwControlMixin, Controls.TextBox):
 
     >>> TextBox()
     """
-    def __init__(self, **kwargs):
+    def __init__(self, name, **kwargs):
         """
         Args:
+            name (``str``): Name of control. Will be used to return value
             wpf_params (kwargs): Additional WPF attributes
         """
+        self.Name = name
         self.set_attrs(**kwargs)
 
     @property
@@ -182,12 +186,14 @@ class CheckBox(RpwControlMixin, Controls.CheckBox):
 
     >>> CheckBox('Label')
     """
-    def __init__(self, checkbox_text, **kwargs):
+    def __init__(self, name, checkbox_text, **kwargs):
         """
         Args:
-            button_text (``str``): Button Text
+            name (``str``): Name of control. Will be used to return value
+            checkbox_text (``str``): Checkbox label Text
             wpf_params (kwargs): Additional WPF attributes
         """
+        self.Name = name
         self.Content = checkbox_text
         self.set_attrs(top_offset=5, **kwargs)
 
@@ -202,12 +208,14 @@ class ComboBox(RpwControlMixin, Controls.ComboBox):
 
     >>> ComboBox({'Option 1': Element, 'Option 2', 'Elemnet'})
     """
-    def __init__(self, options, **kwargs):
+    def __init__(self, name, options, **kwargs):
         """
         Args:
+            name (``str``): Name of control. Will be used to return value
             options (``list``, ``dict``): If ``dict``, selected value is returned
             wpf_params (kwargs): Additional WPF attributes
         """
+        self.Name = name
         self.set_attrs(**kwargs)
 
         self.options = options
@@ -234,21 +242,15 @@ class Separator(RpwControlMixin, Controls.Separator):
 if __name__ == '__main__':
     """ TESTS """
     components = [
-                  Label('Enter Family Name'),
-                  TextBox(Name='family_name', Text='XXX-XXX'),
-                  Label('Select Tyspe'),
-                  ComboBox({'24x36': 1, '36x48': 2, '48x64': 3}),
+                  Label('Pick Style:'),
+                  ComboBox('combobox1', {'Opt 1': 10.0, 'Opt 2': 20.0}),
+                  Label('Enter Name:'),
+                  TextBox('textbox1', Text="Default Value"),
+                  CheckBox('checkbox1', 'Check this:'),
                   Separator(),
-                  ComboBox(['Z', 'X', 'Y']),
-                  CheckBox('Select Me'),
-                  Label('Option 2'),
-                  CheckBox('Select Me'),
-                  CheckBox('Select Me', IsChecked=True),
-                  Label('Option 2'),
-                  Label('Option 2'),
-                  Button('Press'),
-                  Label('Option 2'),
-                  Button('Press'),
-                  ]
+                  Button('Select')]
 
-    form = FlexForm('Title', components).show()
+    form = FlexForm('Title', components)
+    form.show()
+
+    print(form.values)
