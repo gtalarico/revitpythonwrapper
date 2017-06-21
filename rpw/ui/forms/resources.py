@@ -11,9 +11,6 @@ from rpw import revit
 from rpw.utils.dotnet import clr
 from rpw.utils.logger import logger
 
-if revit.host == 'Dynamo':
-    sys.path.append(r'C:\Program Files (x86)\IronPython 2.7\Platforms\Net40')
-
 # WPF/Form Imports
 clr.AddReference("PresentationFramework")  # System.Windows: Controls, ?
 clr.AddReference("WindowsBase")            # System.Windows.Input
@@ -37,6 +34,14 @@ from System.Windows import HorizontalAlignment, VerticalAlignment, Thickness
 from System.Windows import Forms
 
 
-clr.AddReference('IronPython')
-clr.AddReference('IronPython.Wpf')  # 2.7clr.AddReference('IronPython.Modules')
-from IronPython.Modules import Wpf as wpf
+if revit.host == 'Dynamo':
+    # IronPython 2.7.3 - Dynamo
+    # Conflicts with PyRevit. Must Ensure exact path is specified
+    # https://github.com/architecture-building-systems/revitpythonshell/issues/46
+    clr.AddReferenceToFileAndPath('C:\Program Files (x86)\IronPython 2.7\DLLs\IronPython.Wpf.dll')
+    import wpf
+else:
+    # IronPython 2.7.7
+    # clr.AddReference('IronPython')    # Works W/Out
+    clr.AddReference('IronPython.Wpf')  # 2.7
+    from IronPython.Modules import Wpf as wpf
