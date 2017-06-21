@@ -1,4 +1,4 @@
-<Workspace Version="1.2.0.2690" X="814.085202128033" Y="210.454145570075" zoom="0.933109301829343" Name="Home" Description="" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+<Workspace Version="1.2.1.3083" X="742.428682829997" Y="255.218543372144" zoom="1.03131074066255" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
   <NamespaceResolutionMap />
   <Elements>
     <PythonNodeModels.PythonStringNode guid="6827d2d5-501b-43b3-9426-8ad651a56f5b" type="PythonNodeModels.PythonStringNode" nickname="Python Script From String" x="-247.687347584945" y="-22.0127868520361" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" IsFrozen="false" isPinned="false" inputcount="2">
@@ -10,14 +10,14 @@
     </CoreNodeModels.Watch>
     <CoreNodeModels.Input.Filename guid="4570fd99-0524-460d-832c-1f0021413a31" type="CoreNodeModels.Input.Filename" nickname="File Path" x="-710.493136985876" y="-19.7221482565738" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
       <System.String>.\dynamo_test_runner.py</System.String>
-      <HintPath>D:\Dropbox\Shared\dev\repos\revitpythonwrapper\tests\dynamo_test_runner.py</HintPath>
+      <HintPath>C:\Users\gtalarico\Dropbox\Shared\dev\repos\revitpythonwrapper\revitpythonwrapper.lib\tests\rpw.extension\rpw.tab\rpw.panel\dynamo_test_runner.py</HintPath>
     </CoreNodeModels.Input.Filename>
     <Dynamo.Graph.Nodes.ZeroTouch.DSFunction guid="6b7d58d8-bd1a-405e-af60-84ed91e2ac99" type="Dynamo.Graph.Nodes.ZeroTouch.DSFunction" nickname="File.ReadText" x="-512.413804694976" y="-21.6579812617678" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" IsFrozen="false" isPinned="false" assembly="DSCoreNodes.dll" function="DSCore.IO.File.ReadText@var">
       <PortInfo index="0" default="False" />
     </Dynamo.Graph.Nodes.ZeroTouch.DSFunction>
-    <CoreNodeModels.Input.Directory guid="08a655d5-98a4-4f21-ad8e-fda334402396" type="CoreNodeModels.Input.Directory" nickname="Local Development Path" x="-562.933794598614" y="-190.010563183305" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
-      <System.String>D:\Dropbox\Shared\dev\repos\revitpythonwrapper</System.String>
-      <HintPath>D:\Dropbox\Shared\dev\repos\revitpythonwrapper</HintPath>
+    <CoreNodeModels.Input.Directory guid="08a655d5-98a4-4f21-ad8e-fda334402396" type="CoreNodeModels.Input.Directory" nickname="Local Development Path" x="-705.470853706098" y="-164.79992687858" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" IsFrozen="false" isPinned="false">
+      <System.String>C:\Users\gtalarico\Dropbox\Shared\dev\repos\revitpythonwrapper\revitpythonwrapper.lib\tests\rpw.extension\rpw.tab\rpw.panel</System.String>
+      <HintPath>C:\Users\gtalarico\Dropbox\Shared\dev\repos\revitpythonwrapper\revitpythonwrapper.lib\tests\rpw.extension\rpw.tab\rpw.panel</HintPath>
     </CoreNodeModels.Input.Directory>
   </Elements>
   <Connectors>
@@ -28,7 +28,7 @@
   </Connectors>
   <Notes />
   <Annotations>
-    <Dynamo.Graph.Annotations.AnnotationModel guid="cb2405ba-966b-461f-959b-8f003c8ca363" annotationText="Python Tests" left="-720.493136985876" top="-52.7489701232533" width="1005.9646505065" height="408" fontSize="14" InitialTop="-22.7489701232533" InitialHeight="294.707909786829" TextblockHeight="20" backgrouund="#FFC1D676">
+    <Dynamo.Graph.Annotations.AnnotationModel guid="cb2405ba-966b-461f-959b-8f003c8ca363" annotationText="Python Tests" left="-720.493136985876" top="-52.7489701232533" width="797.964650506498" height="149.736183271217" fontSize="14" InitialTop="-22.7489701232533" InitialHeight="294.707909786829" TextblockHeight="20" backgrouund="#FFC1D676">
       <Models ModelGuid="6827d2d5-501b-43b3-9426-8ad651a56f5b" />
       <Models ModelGuid="ad780655-f0ba-42b9-8b55-0a3512c4742b" />
       <Models ModelGuid="4570fd99-0524-460d-832c-1f0021413a31" />
