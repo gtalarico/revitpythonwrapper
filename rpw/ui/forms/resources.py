@@ -18,6 +18,7 @@ if revit.host == 'Dynamo':
 clr.AddReference("PresentationFramework")  # System.Windows: Controls, ?
 clr.AddReference("WindowsBase")            # System.Windows.Input
 clr.AddReference("System.Drawing")         # FontFamily
+clr.AddReference('System.Windows.Forms') # Forms
 
 import System.Windows
 from System.Windows import Window
@@ -31,6 +32,10 @@ from System.Windows.Input import Key
 # FlexForm Imports
 from System.Windows import Controls, Window
 from System.Windows import HorizontalAlignment, VerticalAlignment, Thickness
+
+# OS Dialogs
+from System.Windows import Forms
+
 
 clr.AddReference('IronPython')
 clr.AddReference('IronPython.Wpf')  # 2.7clr.AddReference('IronPython.Modules')

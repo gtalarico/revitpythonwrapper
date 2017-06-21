@@ -79,3 +79,7 @@ class TaskDialog():
     # }
     #
     # return Autodesk.Revit.UI.Result.Succeeded;
+
+
+if __name__ == '__main__':
+    Alert('Test Aler!')

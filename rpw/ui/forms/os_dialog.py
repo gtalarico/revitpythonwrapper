@@ -4,11 +4,7 @@ Original code by github.com/eirannejad/pyRevit
 
 """
 
-
-import clr
-
-clr.AddReferenceByPartialName('System.Windows.Forms')
-from System.Windows import Forms
+from rpw.ui.forms.resources import *
 
 def select_folder():
     """ Selects a Folder Path using the standard OS Dialog.
@@ -52,5 +48,5 @@ def select_file(extensions='All Files (*.*)|*.*',
 
 # Tests
 if __name__ == '__main__':
-    # select_folder()
+    print(select_folder())
     print(select_file('Python Files|*.py'))
