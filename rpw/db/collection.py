@@ -210,7 +210,8 @@ class XyzCollection(BaseObject):
         point_collection.min
         point_collection.max
     """
-    # TODO: Implement wrapped returns
+    # TODO: Implement wrapped return
+    # TODO: Implement Collection methods (Add, pop, as list, etc)
 
     def __init__(self, points):
         self.points = points if points is not None else []

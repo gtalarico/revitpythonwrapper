@@ -8,6 +8,9 @@ Merge-Review:
 
 --------------------------------------
 
+Core:
+☐ Investigate if possible to fake type so Elements can be passed back.
+
 Base Wrappers:
 ✔ Transaction
 ✔ Collector
