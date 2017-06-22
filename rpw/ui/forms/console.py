@@ -14,6 +14,19 @@ Note:
     loop of the console: the local variables from where the Console was called
     from should be available.
 
+    Inspection of the stack requires `stack frames` to be enabled.
+    If an exception is raised stating ```object has no attribute '_getframe'``
+    it means IronPython stack frames is not enabled.
+    You can enable it by running with the ``-X`` argument:
+    ``ipy.exe -X: FullFrames file.py``.
+
+    If you are trying to use it from within Dynamo, stack inspection is
+    currently not available due to how the engine is setup,
+    but you can still use it by manually passing the context you want to inspect:
+
+    >>> Console(context=locals())  # or
+    >>> Console(context=globals())
+
 """  #
 
 import os
@@ -60,7 +73,7 @@ class Console(Window):
 
     CARET = '>>> '
 
-    def __init__(self, stack_level=1, stack_info=False):
+    def __init__(self, stack_level=1, stack_info=False, context=None):
         """
         Args:
             stack_level (int): Default is 1. 0 Is the Console stack, 1 is the
@@ -68,6 +81,8 @@ class Console(Window):
             stack_info (bool): Display info about where call came from.
                                Will print filename name,  line no. and Caller
                                name.
+            context (dict): Optional Dictionary for when inspection is not
+                            possible.
         """
 
         # History Helper
@@ -75,19 +90,27 @@ class Console(Window):
         filename = 'rpw-history'
         self.history_file = os.path.join(tempdir, filename)
 
-        # Stack Info
-        # stack = inspect.currentframe().f_back
-        stack_frame = inspect.stack()[stack_level][0] # Finds Calling Stack
+        self.stack_locals = {}
+        self.stack_globals = {}
 
-        self.stack_locals = stack_frame.f_locals
-        self.stack_globals = stack_frame.f_globals
-        stack_code = stack_frame.f_code
-        # logger.debug('Local vars: ' + str(self.stack_locals))
-        # logger.debug('Global vars: ' + str(self.stack_globals))
+        if context:
+            self.stack_locals.update(context)
+            # Allows to pass context manually, so it can be used in Dynamo
+            # Where inspection does not work
+        else:
+            # Stack Info
+            # stack = inspect.currentframe().f_back
+            stack_frame = inspect.stack()[stack_level][0] # Finds Calling Stack
 
-        stack_filename = os.path.basename(stack_code.co_filename)
-        stack_lineno = stack_code.co_firstlineno
-        stack_caller = stack_code.co_name
+            self.stack_locals.update(stack_frame.f_locals)
+            self.stack_globals.update(stack_frame.f_locals)
+            # logger.debug('Global vars: ' + str(self.stack_globals))
+            # logger.debug('Local vars: ' + str(self.stack_locals))
+
+            stack_code = stack_frame.f_code
+            stack_filename = os.path.basename(stack_code.co_filename)
+            stack_lineno = stack_code.co_firstlineno
+            stack_caller = stack_code.co_name
 
         # Form Setup
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
@@ -96,7 +119,7 @@ class Console(Window):
 
         # Form Init
         self.ui.tbox.Focus()
-        if stack_info:
+        if not context and stack_info:
             self.write_line('Caller: {} [line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
         else:
             self.tbox.Text = Console.CARET
@@ -289,5 +312,7 @@ class Console(Window):
 if __name__ == '__main__':
     def test():
         x = 1
-        Console()
+        # Console()
+        Console(context=locals())
     test()
+    z =2
