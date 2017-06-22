@@ -386,13 +386,25 @@ Uses Forms.OpenFileDialog
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Stack Frame is automatically injected is the context of the evaluation
-loop of the console: the local variables from where the Console was called
-from should be available.</p>
+<p>The last stack frame is automatically injected is the context of the evaluation
+loop of the console: the local and global variables from where the Console
+was called from should be available.</p>
+<p>Inspection of the stack requires <cite>stack frames</cite> to be enabled.
+If an exception is raised stating <code class="docutils literal"><span class="pre">`object</span> <span class="pre">has</span> <span class="pre">no</span> <span class="pre">attribute</span> <span class="pre">'_getframe'</span></code>
+it means IronPython stack frames is not enabled.
+You can enable it by running with the <code class="docutils literal"><span class="pre">-X</span></code> argument:
+<code class="docutils literal"><span class="pre">ipy.exe</span> <span class="pre">-X:</span> <span class="pre">FullFrames</span> <span class="pre">file.py</span></code>.</p>
+<p>If you are trying to use it from within Dynamo, stack inspection is
+currently not available due to how the engine is setup,
+but you can still use it by manually passing the context you want to inspect:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="nb">locals</span><span class="p">())</span>  <span class="c1"># or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="nb">globals</span><span class="p">())</span>
+</pre></div>
+</div>
 </div>
 <dl class="class">
 <dt id="rpw.ui.forms.Console">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Console" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=False</em>, <em>context=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Console" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -921,14 +933,16 @@ from should be available.</p>
 
     <span class="n">CARET</span> <span class="o">=</span> <span class="s1">&#39;&gt;&gt;&gt; &#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Console</span>
 <span class="sd">        Args:</span>
 <span class="sd">            stack_level (int): Default is 1. 0 Is the Console stack, 1 is the</span>
 <span class="sd">                               caller; 2 is previous to that, etc.</span>
 <span class="sd">            stack_info (bool): Display info about where call came from.</span>
 <span class="sd">                               Will print filename name,  line no. and Caller</span>
 <span class="sd">                               name.</span>
+<span class="sd">            context (dict): Optional Dictionary for when inspection is not</span>
+<span class="sd">                            possible.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># History Helper</span>
@@ -936,19 +950,27 @@ from should be available.</p>
         <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;rpw-history&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">history_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 
-        <span class="c1"># Stack Info</span>
-        <span class="c1"># stack = inspect.currentframe().f_back</span>
-        <span class="n">stack_frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="n">stack_level</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Finds Calling Stack</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_globals</span>
-        <span class="n">stack_code</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_code</span>
-        <span class="c1"># logger.debug(&#39;Local vars: &#39; + str(self.stack_locals))</span>
-        <span class="c1"># logger.debug(&#39;Global vars: &#39; + str(self.stack_globals))</span>
+        <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+            <span class="c1"># Allows to pass context manually, so it can be used in Dynamo</span>
+            <span class="c1"># Where inspection does not work</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Stack Info</span>
+            <span class="c1"># stack = inspect.currentframe().f_back</span>
+            <span class="n">stack_frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="n">stack_level</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Finds Calling Stack</span>
 
-        <span class="n">stack_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">stack_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">)</span>
-        <span class="n">stack_lineno</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_firstlineno</span>
-        <span class="n">stack_caller</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
+            <span class="c1"># logger.debug(&#39;Global vars: &#39; + str(self.stack_globals))</span>
+            <span class="c1"># logger.debug(&#39;Local vars: &#39; + str(self.stack_locals))</span>
+
+            <span class="n">stack_code</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_code</span>
+            <span class="n">stack_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">stack_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">)</span>
+            <span class="n">stack_lineno</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_firstlineno</span>
+            <span class="n">stack_caller</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_name</span>
 
         <span class="c1"># Form Setup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
@@ -957,7 +979,7 @@ from should be available.</p>
 
         <span class="c1"># Form Init</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">stack_info</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span> <span class="ow">and</span> <span class="n">stack_info</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="s1">&#39;Caller: </span><span class="si">{}</span><span class="s1"> [line:</span><span class="si">{}</span><span class="s1">] | File: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack_caller</span><span class="p">,</span> <span class="n">stack_lineno</span><span class="p">,</span> <span class="n">stack_filename</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">Console</span><span class="o">.</span><span class="n">CARET</span>
@@ -1150,8 +1172,10 @@ from should be available.</p>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
         <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">Console</span><span class="p">()</span>
+        <span class="c1"># Console()</span>
+        <span class="n">Console</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="nb">locals</span><span class="p">())</span>
     <span class="n">test</span><span class="p">()</span>
+    <span class="n">z</span> <span class="o">=</span><span class="mi">2</span>
 </pre></div>
 </div>
 <p>Resources</p>
