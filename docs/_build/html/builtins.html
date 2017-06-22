@@ -195,11 +195,11 @@ helpful to others.</p>
 <em class="property">class </em><code class="descclassname">rpw.db.builtins.</code><code class="descname">BiCategory</code><a class="headerlink" href="#rpw.db.builtins.BiCategory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Enumeration Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BiCategory</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.BuiltInCategory.OST_Rooms</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BiCategory</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.ElementId</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="n">furniture</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BiCategory</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="n">furniture</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
 <span class="go">DB.BuiltInCategory.OST_Furniture</span>
 </pre></div>
 </div>
@@ -262,9 +262,9 @@ helpful to others.</p>
 <em class="property">class </em><code class="descclassname">rpw.db.builtins.</code><code class="descname">BiParameter</code><a class="headerlink" href="#rpw.db.builtins.BiParameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>BuiltInParameter Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BiParameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">BipEnum</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BiParameter</span><span class="o">.</span><span class="n">get_id</span><span class="p">(</span><span class="s1">&#39;WALL_LOCATION_LINE&#39;</span><span class="p">)</span>
 <span class="go">Revit.DB.ElementId</span>
 </pre></div>
 </div>
@@ -320,9 +320,9 @@ helpful to others.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    BuiltInParameter Wrapper</span>
 
-<span class="sd">    &gt;&gt;&gt; BipEnum.get(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; BiParameter.get(&#39;WALL_LOCATION_LINE&#39;)</span>
 <span class="sd">    Revit.DB.BuiltInParameter.WALL_LOCATION_LINE</span>
-<span class="sd">    &gt;&gt;&gt; BipEnum.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; BiParameter.get_id(&#39;WALL_LOCATION_LINE&#39;)</span>
 <span class="sd">    Revit.DB.ElementId</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -368,11 +368,11 @@ helpful to others.</p>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enumeration Wrapper</span>
 
-<span class="sd">    &gt;&gt;&gt; BicEnum.get(&#39;OST_Rooms&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; BiCategory.get(&#39;OST_Rooms&#39;)</span>
 <span class="sd">    Revit.DB.BuiltInCategory.OST_Rooms</span>
-<span class="sd">    &gt;&gt;&gt; BicEnum.get_id(&#39;OST_Rooms&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; BiCategory.get_id(&#39;OST_Rooms&#39;)</span>
 <span class="sd">    Revit.DB.ElementId</span>
-<span class="sd">    &gt;&gt;&gt; BicEnum.from_category_id(furniture.Category.Id)</span>
+<span class="sd">    &gt;&gt;&gt; BiCategory.from_category_id(furniture.Category.Id)</span>
 <span class="sd">    DB.BuiltInCategory.OST_Furniture</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

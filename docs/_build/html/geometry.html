@@ -183,8 +183,8 @@
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p><cite>DB.XYZ</cite> Wrapper</p>
 <p>XYZ light wrapper with a few helpful methods:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">some_point</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">some_point</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">XYZ</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">some_point</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">as_tuple</span>
 <span class="go">(0,0,0)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
@@ -298,8 +298,8 @@
 
 <span class="sd">    XYZ light wrapper with a few helpful methods:</span>
 
-<span class="sd">    &gt;&gt;&gt; some_point = XYZ(0,0,0)</span>
-<span class="sd">    &gt;&gt;&gt; pt = rpw.Point(some_point)</span>
+<span class="sd">    &gt;&gt;&gt; from rpw.db import XYZ</span>
+<span class="sd">    &gt;&gt;&gt; pt = XYZ(some_point)</span>
 <span class="sd">    &gt;&gt;&gt; pt.as_tuple</span>
 <span class="sd">    (0,0,0)</span>
 <span class="sd">    &gt;&gt;&gt; pt.x = 10</span>

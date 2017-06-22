@@ -203,10 +203,11 @@ An instance of this class is returned on the <code class="docutils literal"><spa
 attribute of wrapped elements.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Something&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
 </pre></div>
 </div>
+<p>ParameterSet can also be used for setting values:
+&gt;&gt;&gt; element.parameters[‘Comments’].value = ‘Something’</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">Element</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -461,8 +462,10 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">    &gt;&gt;&gt; element.parameters.all()</span>
 <span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value</span>
-<span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value = &#39;Something&#39;</span>
 <span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].type</span>
+
+<span class="sd">    ParameterSet can also be used for setting values:</span>
+<span class="sd">    &gt;&gt;&gt; element.parameters[&#39;Comments&#39;].value = &#39;Something&#39;</span>
 
 <span class="sd">    &gt;&gt;&gt; parameters = ParameterSet(Element)</span>
 

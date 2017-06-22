@@ -295,7 +295,7 @@ from which you can build your own forms.</p>
 <li><strong>message</strong> (<em>str</em>) – TaskDialog Message</li>
 <li><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – TaskDialog Title</li>
 <li><strong>heading</strong> (<em>str</em><em>, </em><em>optional</em>) – TaskDialog Message Heading</li>
-<li><strong>exit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Exit Script after Dialog. Useful for handled Errors.</li>
+<li><strong>exit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Exit Script after Dialog. Useful for displayin Errors. Default is False</li>
 </ul>
 </td>
 </tr>
@@ -370,13 +370,13 @@ Uses Forms.OpenFileDialog
 <h2>Console<a class="headerlink" href="#console" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/console.png" src="_images/console.png" />
 <span class="target" id="module-rpw.ui.forms.console"></span><p>REPL Console for Inspecting Stack</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.ui</span> <span class="k">import</span> <span class="n">Console</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.ui.forms</span> <span class="k">import</span> <span class="n">Console</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Console</span><span class="p">()</span>
-<span class="go"># Console should be launched</span>
+<span class="go"># Console is launched with locally defined variables injected into context.</span>
 </pre></div>
 </div>
 <dl class="docutils">
-<dt>Shortcuts:</dt>
+<dt>Keyboard Shortcuts:</dt>
 <dd><ul class="first last simple">
 <li><code class="docutils literal"><span class="pre">UP</span></code>  Iterate history up</li>
 <li><code class="docutils literal"><span class="pre">Down</span></code>  Iterate history down</li>

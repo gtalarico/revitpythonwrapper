@@ -179,8 +179,8 @@
 <h1>Collector<a class="headerlink" href="#collector" title="Permalink to this headline">¶</a></h1>
 <p>FilteredElementCollector Wrapper</p>
 <span class="target" id="module-rpw.db.collector"></span><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">levels</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s1">&#39;Levels&#39;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span>
-<span class="go">                             where=lambda x: x.parameters[&#39;Length&#39;] &gt; 5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Length&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">desks</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;FamilyInstance&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s1">&#39;Level 1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -459,8 +459,8 @@ Parameter Name instead of parameter Id</p>
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">&gt;&gt;&gt; levels = rpw.db.Collector(of_category=&#39;Levels&#39;, is_type=True)</span>
-<span class="sd">&gt;&gt;&gt; walls = rpw.db.Collector(of_class=&#39;Wall&#39;,</span>
-<span class="sd">                             where=lambda x: x.parameters[&#39;Length&#39;] &gt; 5)</span>
+<span class="sd">&gt;&gt;&gt; walls = rpw.db.Collector(of_class=&#39;Wall&#39;, where=lambda x: x.parameters[&#39;Length&#39;] &gt; 5)</span>
+<span class="sd">&gt;&gt;&gt; desks = rpw.db.Collector(of_class=&#39;FamilyInstance&#39;, level=&#39;Level 1&#39;)</span>
 
 
 

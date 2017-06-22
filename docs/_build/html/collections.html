@@ -320,9 +320,41 @@
 </tbody>
 </table>
 <dl class="method">
+<dt id="rpw.db.ElementCollection.ToString">
+<code class="descname">ToString</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ElementCollection.ToString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show correct repr on Dynamo</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rpw.db.ElementCollection.append">
 <code class="descname">append</code><span class="sig-paren">(</span><em>elements_or_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ElementCollection.append" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds elements or element_ids to set. Handles single or list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.ElementCollection.as_element_id_list">
+<code class="descname">as_element_id_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ElementCollection.as_element_id_list" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">IList&lt;DB.ElementId&gt;</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.ElementCollection.as_element_list">
+<code class="descname">as_element_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ElementCollection.as_element_list" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">IList&lt;DB.Element&gt;</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -343,6 +375,32 @@
 <dd><p><a href="#id5"><span class="problematic" id="id6">**</span></a>Returns* – [DB.Element]* – List of Elements Objects</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="rpw.db.ElementCollection.pop">
+<code class="descname">pop</code><span class="sig-paren">(</span><em>element_id</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ElementCollection.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removed from set using ElementIds</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<cite>DB.ElementId</cite>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.ElementCollection.select">
+<code class="descname">select</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ElementCollection.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects Set in UI</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.ElementCollection.wrapped_elements">
+<code class="descname">wrapped_elements</code><a class="headerlink" href="#rpw.db.ElementCollection.wrapped_elements" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Returns</em> – List of wrapped elements stored in ElementSet</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -354,7 +412,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObject</span></code></p>
 <p>Provides helpful methods for managing a collection(list) of <a class="reference internal" href="geometry.html#rpw.db.XYZ" title="rpw.db.XYZ"><code class="xref any py py-class docutils literal"><span class="pre">XYZ</span></code></a> instances.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p3</span><span class="p">,</span><span class="n">p4</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">point_collection</span> <span class="o">=</span> <span class="n">PointCollection</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">point_collection</span> <span class="o">=</span> <span class="n">XyzCollection</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -661,14 +719,15 @@
 <span class="sd">    Provides helpful methods for managing a collection(list) of :any:`XYZ` instances.</span>
 
 <span class="sd">    &gt;&gt;&gt; points = [p1,p2,p3,p4, ...]</span>
-<span class="sd">    &gt;&gt;&gt; point_collection = PointCollection(points)</span>
+<span class="sd">    &gt;&gt;&gt; point_collection = XyzCollection(points)</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        point_collection.average</span>
 <span class="sd">        point_collection.min</span>
 <span class="sd">        point_collection.max</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: Implement wrapped returns</span>
+    <span class="c1"># TODO: Implement wrapped return</span>
+    <span class="c1"># TODO: Implement Collection methods (Add, pop, as list, etc)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">points</span> <span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>

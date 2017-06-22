@@ -188,12 +188,6 @@
 <span id="element"></span><h2>Element<a class="headerlink" href="#module-rpw.db.element" title="Permalink to this headline">¶</a></h2>
 <p>Element Model Wrappers provide a consitent interface for acccessing parameters and properties
 of commonly used elements.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">These wrappers are located in the module <code class="docutils literal"><span class="pre">rpw.db.elements</span></code>,
-but all of them are imported by into the main module so they can be accessed
-using <code class="docutils literal"><span class="pre">rpw.db.Element</span></code>, <code class="docutils literal"><span class="pre">rpw.db.Instance</span></code>, etc.</p>
-</div>
 <dl class="class">
 <dt id="rpw.db.Element">
 <em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Element</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element" title="Permalink to this definition">¶</a></dt>
@@ -577,8 +571,8 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.Architecture.Room</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">room</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Room</span><span class="p">(</span><span class="n">SomeRoom</span><span class="p">)</span>
-<span class="go">&lt;RPW_Room: Office:122&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">room</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Room</span><span class="p">(</span><span class="n">SomeRoom</span><span class="p">)</span>
+<span class="go">&lt;rpw:Room % DB.Architecture.Room | name:Office number:122&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">room</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;Office&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">room</span><span class="o">.</span><span class="n">number</span>
@@ -628,8 +622,8 @@ Uses result of <code class="docutils literal"><span class="pre">Room.Location</s
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.spatial_element.Room</span></code></p>
 <p><cite>DB.Area</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.db.Room" title="rpw.db.Room"><code class="xref any py py-class docutils literal"><span class="pre">Room</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">area</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Area</span><span class="p">(</span><span class="n">SomeArea</span><span class="p">)</span>
-<span class="go">&lt;RPW_Room: Office:122&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">area</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Area</span><span class="p">(</span><span class="n">SomeArea</span><span class="p">)</span>
+<span class="go">&lt;rpw:Area % DB.Area | name:USF area: 100.0&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">area</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;Rentable&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">area</span><span class="o">.</span><span class="n">is_placed</span>
@@ -669,7 +663,12 @@ Inherits from <a class="reference internal" href="#rpw.db.Room" title="rpw.db.Ro
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.AreaScheme</cite> Wrapper
 Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scheme</span> <span class="o">=</span> <span class="n">wrapped_room</span><span class="o">.</span><span class="n">scheme</span>
+<span class="go">&lt;rwp:AreaScheme % DB.AreaScheme | name:USF&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scheme</span><span class="o">.</span><span class="n">areas</span>
+<span class="go">[ &lt; Autodesk.Revit.DB.Area&gt;, ...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scheme</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;USF&#39;</span>
 </pre></div>
 </div>
 <dl class="docutils">
@@ -1179,8 +1178,8 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">    `DB.Architecture.Room` Wrapper</span>
 <span class="sd">    Inherits from :any:`Element`</span>
 
-<span class="sd">    &gt;&gt;&gt; room = rpw.Room(SomeRoom)</span>
-<span class="sd">    &lt;RPW_Room: Office:122&gt;</span>
+<span class="sd">    &gt;&gt;&gt; room = rpw.db.Room(SomeRoom)</span>
+<span class="sd">    &lt;rpw:Room % DB.Architecture.Room | name:Office number:122&gt;</span>
 <span class="sd">    &gt;&gt;&gt; room.name</span>
 <span class="sd">    &#39;Office&#39;</span>
 <span class="sd">    &gt;&gt;&gt; room.number</span>
@@ -1242,8 +1241,8 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">    `DB.Area` Wrapper</span>
 <span class="sd">    Inherits from :any:`Room`</span>
 
-<span class="sd">    &gt;&gt;&gt; area = rpw.Area(SomeArea)</span>
-<span class="sd">    &lt;RPW_Room: Office:122&gt;</span>
+<span class="sd">    &gt;&gt;&gt; area = rpw.db.Area(SomeArea)</span>
+<span class="sd">    &lt;rpw:Area % DB.Area | name:USF area: 100.0&gt;</span>
 <span class="sd">    &gt;&gt;&gt; area.name</span>
 <span class="sd">    &#39;Rentable&#39;</span>
 <span class="sd">    &gt;&gt;&gt; area.is_placed</span>
@@ -1284,7 +1283,12 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">    `DB.AreaScheme` Wrapper</span>
 <span class="sd">    Inherits from :any:`Element`</span>
 
-<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; scheme = wrapped_room.scheme</span>
+<span class="sd">    &lt;rwp:AreaScheme % DB.AreaScheme | name:USF&gt;</span>
+<span class="sd">    &gt;&gt;&gt; scheme.areas</span>
+<span class="sd">    [ &lt; Autodesk.Revit.DB.Area&gt;, ...]</span>
+<span class="sd">    &gt;&gt;&gt; scheme.name</span>
+<span class="sd">    &#39;USF&#39;</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.AreaScheme): Wrapped ``DB.AreaScheme``</span>
