@@ -2,11 +2,6 @@
 Element Model Wrappers provide a consitent interface for acccessing parameters and properties
 of commonly used elements.
 
-Note:
-    These wrappers are located in the module ``rpw.db.elements``,
-    but all of them are imported by into the main module so they can be accessed
-    using ``rpw.db.Element``, ``rpw.db.Instance``, etc.
-
 """  #
 
 import inspect

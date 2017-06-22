@@ -1,10 +1,10 @@
 """ REPL Console for Inspecting Stack
 
->>> from rpw.ui import Console
+>>> from rpw.ui.forms import Console
 >>> Console()
-# Console should be launched
+# Console is launched with locally defined variables injected into context.
 
-Shortcuts:
+Keyboard Shortcuts:
     * ``UP``  Iterate history up
     * ``Down``  Iterate history down
     * ``Tab``  Iterate possible autocomplete options

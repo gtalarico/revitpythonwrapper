@@ -15,8 +15,8 @@ class Room(Element):
     `DB.Architecture.Room` Wrapper
     Inherits from :any:`Element`
 
-    >>> room = rpw.Room(SomeRoom)
-    <RPW_Room: Office:122>
+    >>> room = rpw.db.Room(SomeRoom)
+    <rpw:Room % DB.Architecture.Room | name:Office number:122>
     >>> room.name
     'Office'
     >>> room.number
@@ -78,8 +78,8 @@ class Area(Room):
     `DB.Area` Wrapper
     Inherits from :any:`Room`
 
-    >>> area = rpw.Area(SomeArea)
-    <RPW_Room: Office:122>
+    >>> area = rpw.db.Area(SomeArea)
+    <rpw:Area % DB.Area | name:USF area: 100.0>
     >>> area.name
     'Rentable'
     >>> area.is_placed
@@ -120,7 +120,12 @@ class AreaScheme(Element):
     `DB.AreaScheme` Wrapper
     Inherits from :any:`Element`
 
-    >>>
+    >>> scheme = wrapped_room.scheme
+    <rwp:AreaScheme % DB.AreaScheme | name:USF>
+    >>> scheme.areas
+    [ < Autodesk.Revit.DB.Area>, ...]
+    >>> scheme.name
+    'USF'
 
     Attribute:
         _revit_object (DB.AreaScheme): Wrapped ``DB.AreaScheme``

@@ -25,9 +25,9 @@ class BiParameter(BaseObjectWrapper):
     """
     BuiltInParameter Wrapper
 
-    >>> BipEnum.get('WALL_LOCATION_LINE')
+    >>> BiParameter.get('WALL_LOCATION_LINE')
     Revit.DB.BuiltInParameter.WALL_LOCATION_LINE
-    >>> BipEnum.get_id('WALL_LOCATION_LINE')
+    >>> BiParameter.get_id('WALL_LOCATION_LINE')
     Revit.DB.ElementId
     """
 
@@ -73,11 +73,11 @@ class BiCategory(BaseObjectWrapper):
     """
     Enumeration Wrapper
 
-    >>> BicEnum.get('OST_Rooms')
+    >>> BiCategory.get('OST_Rooms')
     Revit.DB.BuiltInCategory.OST_Rooms
-    >>> BicEnum.get_id('OST_Rooms')
+    >>> BiCategory.get_id('OST_Rooms')
     Revit.DB.ElementId
-    >>> BicEnum.from_category_id(furniture.Category.Id)
+    >>> BiCategory.from_category_id(furniture.Category.Id)
     DB.BuiltInCategory.OST_Furniture
     """
 

@@ -203,7 +203,7 @@ class XyzCollection(BaseObject):
     Provides helpful methods for managing a collection(list) of :any:`XYZ` instances.
 
     >>> points = [p1,p2,p3,p4, ...]
-    >>> point_collection = PointCollection(points)
+    >>> point_collection = XyzCollection(points)
 
     Attributes:
         point_collection.average

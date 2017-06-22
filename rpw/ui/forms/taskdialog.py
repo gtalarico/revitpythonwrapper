@@ -12,7 +12,7 @@ class Alert():
             message (str): TaskDialog Message
             title (str, optional): TaskDialog Title
             heading (str, optional): TaskDialog Message Heading
-            exit (bool, optional): Exit Script after Dialog. Useful for handled Errors.
+            exit (bool, optional): Exit Script after Dialog. Useful for displayin Errors. Default is False
 
         Usage:
             >>> Alert('Your Message', title="Title", heading="Some Heading")

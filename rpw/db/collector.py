@@ -1,7 +1,7 @@
 """
 >>> levels = rpw.db.Collector(of_category='Levels', is_type=True)
->>> walls = rpw.db.Collector(of_class='Wall',
-                             where=lambda x: x.parameters['Length'] > 5)
+>>> walls = rpw.db.Collector(of_class='Wall', where=lambda x: x.parameters['Length'] > 5)
+>>> desks = rpw.db.Collector(of_class='FamilyInstance', level='Level 1')
 
 
 

@@ -26,8 +26,10 @@ class ParameterSet(BaseObjectWrapper):
 
     >>> element.parameters.all()
     >>> element.parameters['Comments'].value
-    >>> element.parameters['Comments'].value = 'Something'
     >>> element.parameters['Comments'].type
+
+    ParameterSet can also be used for setting values:
+    >>> element.parameters['Comments'].value = 'Something'
 
     >>> parameters = ParameterSet(Element)
 
