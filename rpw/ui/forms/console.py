@@ -10,9 +10,9 @@ Keyboard Shortcuts:
     * ``Tab``  Iterate possible autocomplete options
 
 Note:
-    Stack Frame is automatically injected is the context of the evaluation
-    loop of the console: the local variables from where the Console was called
-    from should be available.
+    The last stack frame is automatically injected is the context of the evaluation
+    loop of the console: the local and global variables from where the Console
+    was called from should be available.
 
     Inspection of the stack requires `stack frames` to be enabled.
     If an exception is raised stating ```object has no attribute '_getframe'``
