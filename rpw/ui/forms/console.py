@@ -103,9 +103,7 @@ class Console(Window):
             stack_frame = inspect.stack()[stack_level][0] # Finds Calling Stack
 
             self.stack_locals.update(stack_frame.f_locals)
-            self.stack_globals.update(stack_frame.f_locals)
-            # logger.debug('Global vars: ' + str(self.stack_globals))
-            # logger.debug('Local vars: ' + str(self.stack_locals))
+            self.stack_globals.update(stack_frame.f_globals)
 
             stack_code = stack_frame.f_code
             stack_filename = os.path.basename(stack_code.co_filename)
