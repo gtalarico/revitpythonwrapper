@@ -13,8 +13,8 @@ from rpw.db.builtins import BipEnum
 
 class View(Element):
     """
-    Inherits base ``Instance`` and overrides symbol attribute to
-    get `Symbol` equivalent of Wall `(GetTypeId)`
+    This is the master View Class. All other View classes inherit
+    from DB.View
     """
 
     _revit_object_category = DB.BuiltInCategory.OST_Views
@@ -33,8 +33,34 @@ class View(Element):
         return super(View, self).__repr__(data={'name': self.Name})
 
 
+class ViewSheet(View):
+    """ View where ``ViewType`` is ViewType.DrawingSheet """
+    _revit_object_class = DB.ViewSheet
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+    
 
-class ViewType(Element):
+class ViewSchedule(View):
+    _revit_object_class = DB.ViewSheet
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+
+
+class ViewFamilyType(Element):
+    _revit_object_class = DB.ViewFamilyType
+    _collector_params = {'of_class': _revit_object_class, 'is_type': True}
+
+
+class ViewType(BaseObjectWrapper):
+    """ View Type Wrapper .
+
+    Can be on of the following types:
+        AreaPlan ,CeilingPlan, ColumnSchedule, CostReport,
+        Detail, DraftingView, DrawingSheet, Elevation,
+        EngineeringPlan, FloorPlan, Internal, Legend,
+        LoadsReport, PanelSchedule, PresureLossReport,
+        ProjectBrowser, Rendering, Report,
+        Schedule, Section, SystemBrowser,
+        ThreeD, Undefined, Walkthrough
+    """
     _revit_object_category = DB.BuiltInCategory.OST_Views
     _revit_object_class = DB.View
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
@@ -46,8 +72,3 @@ class ViewType(Element):
     @property
     def view_family(self):
         return Element(self._revit_object.ViewFamily)
-
-class ViewFamily(BaseObjectWrapper):
-    # _revit_object_category = DB.BuiltInCategory.OST_Views
-    _revit_object_class = DB.ViewFamily
-    _collector_params = {'of_class': _revit_object_class, 'is_type': True}

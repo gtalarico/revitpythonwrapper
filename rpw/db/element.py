@@ -85,7 +85,8 @@ class Element(BaseObjectWrapper):
                 # return new_object
         else:
             # Could Not find a Matching Class, Use Element if related
-            print('Not find a Matching Class, Use Element if related')
+            rpw.ui.forms.Console()
+            print('Did not find a Matching Class, will use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls, element, **kwargs)
         element_class_name = element.__class__.__name__
