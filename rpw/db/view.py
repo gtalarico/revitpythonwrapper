@@ -22,31 +22,67 @@ class View(Element):
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
     @property
-    def siblings(self):
-        raise NotImplemented
+    def name(self):
+        # TODO: Make Mixin
+        return self._revit_object.Name
 
     @property
     def view_type(self):
         return Element(self._revit_object.ViewType)
 
     def __repr__(self):
-        return super(View, self).__repr__(data={'name': self.Name})
+        return super(View, self).__repr__(data={'name': self.Name,
+                                                'type': self.view_type})
 
+
+# ViewPlanType
+class ViewPlan(View):
+    _revit_object_class = DB.ViewPlan
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
 class ViewSheet(View):
     """ View where ``ViewType`` is ViewType.DrawingSheet """
     _revit_object_class = DB.ViewSheet
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
-    
+
 
 class ViewSchedule(View):
-    _revit_object_class = DB.ViewSheet
+    """ View where ``ViewType`` is ViewType.DrawingSheet """
+    _revit_object_class = DB.ViewSchedule
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+
+
+class ViewSection(View):
+    """ View where ``ViewType`` is ViewType.DrawingSheet """
+    _revit_object_class = DB.ViewSection
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+
+
+class ViewSchedule(View):
+    _revit_object_class = DB.ViewSchedule
+    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+
+class View3D(View):
+    _revit_object_class = DB.View3D
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
 
 class ViewFamilyType(Element):
     _revit_object_class = DB.ViewFamilyType
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
+
+    def name(self):
+        return Element.Name.GetValue(self._revit_object)
+
+    def __repr__(self):
+        return super(View, self).__repr__(data={'name': self.Name,
+                                                'type': self.view_type})
+
+class ViewPlanType(BaseObjectWrapper):
+    """
+    Enumerator
+        FloorPlan, CeilingPlan
+    """
 
 
 class ViewType(BaseObjectWrapper):
@@ -68,7 +104,3 @@ class ViewType(BaseObjectWrapper):
     @property
     def views(self):
         return Element(self._revit_object.ViewType)
-
-    @property
-    def view_family(self):
-        return Element(self._revit_object.ViewFamily)
