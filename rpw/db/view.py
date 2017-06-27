@@ -6,13 +6,12 @@ View Wrappers
 import rpw
 from rpw import revit, DB
 from rpw.db import Element
-from rpw.db import FamilyInstance, Symbol, Family, Category
 from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger
 from rpw.db.builtins import BipEnum
 
 
-class ViewInstance(Element):
+class View(Element):
     """
     Inherits base ``Instance`` and overrides symbol attribute to
     get `Symbol` equivalent of Wall `(GetTypeId)`
@@ -29,6 +28,10 @@ class ViewInstance(Element):
     @property
     def view_type(self):
         return Element(self._revit_object.ViewType)
+
+    def __repr__(self):
+        return super(View, self).__repr__(data={'name': self.Name})
+
 
 
 class ViewType(Element):

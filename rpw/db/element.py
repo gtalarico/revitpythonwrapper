@@ -79,13 +79,13 @@ class Element(BaseObjectWrapper):
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
-                # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
+                print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
                 return super(Element, cls).__new__(wrapper_class, element, **kwargs)
                 # new_obj._revit_object = element
                 # return new_object
         else:
             # Could Not find a Matching Class, Use Element if related
-            # print('Not find a Matching Class, Use Element if related')
+            print('Not find a Matching Class, Use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls, element, **kwargs)
         element_class_name = element.__class__.__name__
@@ -231,6 +231,7 @@ class FamilySymbol(Element):
 
     @property
     def name(self):
+        #TODO: Add setter - maybe as a mixin
         """ Returns the name of the Symbol """
         return self.parameters.builtins['SYMBOL_NAME_PARAM'].value
         # return self.parameters.builtins['ALL_MODEL_TYPE_NAME'].value

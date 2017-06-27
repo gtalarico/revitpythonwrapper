@@ -16,6 +16,8 @@ from rpw.db.element import FamilyInstance, FamilySymbol, Family, Category
 from rpw.db.wall import WallInstance, WallSymbol, WallFamily, WallCategory
 from rpw.db.spatial_element import Room, Area, AreaScheme
 
+from rpw.db.view import View, ViewFamily, ViewType
+
 from rpw.db.parameter import Parameter, ParameterSet
 from rpw.db.builtins import BicEnum, BipEnum
 
