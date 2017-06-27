@@ -38,9 +38,16 @@ class View(Element):
     def view_type(self):
         return self._revit_object.ViewType
 
+    @property
+    def view_family_type(self):
+        view_type_id = self._revit_object.GetTypeId()
+        return Element(self.doc.GetElement(view_type_id))
+
     def __repr__(self):
-        return super(View, self).__repr__(data={'name': self.Name,
-                                                'view_type': self.view_type})
+        return super(View, self).__repr__(data={'view_name': self.name,
+                                                'view_family_type': self.view_family_type.name,
+                                                'view_type': self.view_type,
+                                                })
 
 
 # ViewPlanType
@@ -90,13 +97,14 @@ class ViewFamilyType(Element):
 
     @property
     def view_family(self):
+        """ Returns ViewFamily Enumerator """
         # Autodesk.Revit.DB.ViewFamily.FloorPlan
-        return self.revit_object.ViewFamily
+        return self._revit_object.ViewFamily
 
 
     def __repr__(self):
-        return super(View, self).__repr__(data={'name': self.Name,
-                                                'type': self.view_type})
+        return super(ViewFamilyType, self).__repr__(data={'name': self.name,
+                                                          'type': self.view_family})
 
 class ViewFamily (BaseObjectWrapper):
     """ Enumerator for ViewFamily
