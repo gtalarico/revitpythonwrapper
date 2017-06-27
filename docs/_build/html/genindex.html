@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Revit Python Wrapper 1.0.0 documentation</title>
+  <title>Index &mdash; Revit Python Wrapper 1.0.4 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/> 
+    <link rel="top" title="Revit Python Wrapper 1.0.4 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.4
               </div>
             
           
@@ -335,9 +335,9 @@
       <li><a href="element.html#rpw.db.Family.category">category (rpw.db.Family attribute)</a>
 
       <ul>
-        <li><a href="element.html#rpw.db.Instance.category">(rpw.db.Instance attribute)</a>
+        <li><a href="element.html#rpw.db.FamilyInstance.category">(rpw.db.FamilyInstance attribute)</a>
 </li>
-        <li><a href="element.html#rpw.db.Symbol.category">(rpw.db.Symbol attribute)</a>
+        <li><a href="element.html#rpw.db.FamilySymbol.category">(rpw.db.FamilySymbol attribute)</a>
 </li>
       </ul></li>
       <li><a href="forms.html#rpw.ui.forms.CheckBox">CheckBox (class in rpw.ui.forms)</a>
@@ -420,20 +420,24 @@
 </li>
       <li><a href="element.html#rpw.db.Family">Family (class in rpw.db)</a>
 </li>
-      <li><a href="element.html#rpw.db.Instance.family">family (rpw.db.Instance attribute)</a>
+      <li><a href="element.html#rpw.db.FamilyInstance.family">family (rpw.db.FamilyInstance attribute)</a>
 
       <ul>
-        <li><a href="element.html#rpw.db.Symbol.family">(rpw.db.Symbol attribute)</a>
+        <li><a href="element.html#rpw.db.FamilySymbol.family">(rpw.db.FamilySymbol attribute)</a>
 </li>
       </ul></li>
+      <li><a href="element.html#rpw.db.FamilyInstance">FamilyInstance (class in rpw.db)</a>
+</li>
+      <li><a href="element.html#rpw.db.FamilySymbol">FamilySymbol (class in rpw.db)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="collector.html#rpw.db.Collector.first">first (rpw.db.Collector attribute)</a>
 
       <ul>
         <li><a href="collector.html#rpw.db.collector.Collector.collector.first">(rpw.db.collector.Collector.collector attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="forms.html#rpw.ui.forms.FlexForm">FlexForm (class in rpw.ui.forms)</a>
 </li>
       <li><a href="builtins.html#rpw.db.builtins.BiCategory.from_category_id">from_category_id() (rpw.db.builtins.BiCategory method)</a>
@@ -478,14 +482,12 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="element.html#rpw.db.Instance">Instance (class in rpw.db)</a>
-</li>
       <li><a href="element.html#rpw.db.Category.instances">instances (rpw.db.Category attribute)</a>
 
       <ul>
         <li><a href="element.html#rpw.db.Family.instances">(rpw.db.Family attribute)</a>
 </li>
-        <li><a href="element.html#rpw.db.Symbol.instances">(rpw.db.Symbol attribute)</a>
+        <li><a href="element.html#rpw.db.FamilySymbol.instances">(rpw.db.FamilySymbol attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -537,11 +539,11 @@
 </li>
         <li><a href="element.html#rpw.db.Family.name">(rpw.db.Family attribute)</a>
 </li>
+        <li><a href="element.html#rpw.db.FamilySymbol.name">(rpw.db.FamilySymbol attribute)</a>
+</li>
         <li><a href="parameters.html#rpw.db.Parameter.name">(rpw.db.Parameter attribute)</a>
 </li>
         <li><a href="element.html#rpw.db.Room.name">(rpw.db.Room attribute)</a>
-</li>
-        <li><a href="element.html#rpw.db.Symbol.name">(rpw.db.Symbol attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -679,16 +681,14 @@
       <li><a href="element.html#rpw.db.Family.siblings">siblings (rpw.db.Family attribute)</a>
 
       <ul>
-        <li><a href="element.html#rpw.db.Instance.siblings">(rpw.db.Instance attribute)</a>
+        <li><a href="element.html#rpw.db.FamilyInstance.siblings">(rpw.db.FamilyInstance attribute)</a>
 </li>
-        <li><a href="element.html#rpw.db.Symbol.siblings">(rpw.db.Symbol attribute)</a>
+        <li><a href="element.html#rpw.db.FamilySymbol.siblings">(rpw.db.FamilySymbol attribute)</a>
 </li>
       </ul></li>
       <li><a href="collections.html#rpw.db.XyzCollection.sorted_by">sorted_by() (rpw.db.XyzCollection method)</a>
 </li>
-      <li><a href="element.html#rpw.db.Symbol">Symbol (class in rpw.db)</a>
-</li>
-      <li><a href="element.html#rpw.db.Instance.symbol">symbol (rpw.db.Instance attribute)</a>
+      <li><a href="element.html#rpw.db.FamilyInstance.symbol">symbol (rpw.db.FamilyInstance attribute)</a>
 </li>
       <li><a href="element.html#rpw.db.Category.symbols">symbols (rpw.db.Category attribute)</a>
 
@@ -855,7 +855,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'1.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

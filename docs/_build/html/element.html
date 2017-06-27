@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Element Wrappers &mdash; Revit Python Wrapper 1.0.0 documentation</title>
+  <title>Element Wrappers &mdash; Revit Python Wrapper 1.0.4 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.0.4 documentation" href="index.html"/>
         <link rel="next" title="Parameters" href="parameters.html"/>
         <link rel="prev" title="Base Wrapper" href="base.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.4
               </div>
             
           
@@ -213,12 +213,12 @@ so it can provide parameter access.</p>
 exact class. On instantiation, it will attempt to map the type provided,
 if a match is not found, an Element will be used.
 If the element does not inherit from DB.Element, and exception is raised.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall_instance</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeWallInstance</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall_instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeWallInstance</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">wall_instance</span><span class="p">)</span>
-<span class="go">rpw.db.WallInstance</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_symbol</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeWallSymbol</span><span class="p">)</span>
+<span class="go">&#39;rpw.db.WallInstance&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wall_symbol</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeWallSymbol</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">)</span>
-<span class="go">rpw.db.WallSymbol</span>
+<span class="go">&#39;rpw.db.WallSymbol&#39;</span>
 </pre></div>
 </div>
 <dl class="attribute">
@@ -243,7 +243,7 @@ If the element does not inherit from DB.Element, and exception is raised.</p>
 <dt id="rpw.db.Element.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Element.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main Element Instantiation</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeElementId</span><span class="p">)</span>
 <span class="go">&lt;rpw: WallInstance % DB.Wall &gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span>
 <span class="go">10.0</span>
@@ -308,18 +308,18 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <div class="section" id="instance">
 <h2>Instance<a class="headerlink" href="#instance" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="rpw.db.Instance">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Instance</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Instance" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilyInstance">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">FamilyInstance</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.FamilyInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.FamilyInstance</cite> Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Instance</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
-<span class="go">&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
+<span class="go">&lt;rpw:FamilyInstance % DB.FamilyInstance | name:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
 <span class="go">&lt;RPW_Family:desk&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">siblings</span>
-<span class="go">[&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="go">[&lt;rpw:FamilyInstance % DB.FamilyInstance | name:72&quot; x 36&quot;&gt;, ... ]</span>
 </pre></div>
 </div>
 <dl class="docutils">
@@ -327,26 +327,26 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <dd>_revit_object (DB.FamilyInstance): Wrapped <code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code></dd>
 </dl>
 <dl class="attribute">
-<dt id="rpw.db.Instance.category">
-<code class="descname">category</code><a class="headerlink" href="#rpw.db.Instance.category" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilyInstance.category">
+<code class="descname">category</code><a class="headerlink" href="#rpw.db.FamilyInstance.category" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapped <code class="docutils literal"><span class="pre">DB.Category</span></code> of the <code class="docutils literal"><span class="pre">DB.Symbol</span></code></p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Instance.family">
-<code class="descname">family</code><a class="headerlink" href="#rpw.db.Instance.family" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilyInstance.family">
+<code class="descname">family</code><a class="headerlink" href="#rpw.db.FamilyInstance.family" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapped <code class="docutils literal"><span class="pre">DB.Family</span></code> of the <code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code></p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Instance.siblings">
-<code class="descname">siblings</code><a class="headerlink" href="#rpw.db.Instance.siblings" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilyInstance.siblings">
+<code class="descname">siblings</code><a class="headerlink" href="#rpw.db.FamilyInstance.siblings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Other <code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code> of the same <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code></p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Instance.symbol">
-<code class="descname">symbol</code><a class="headerlink" href="#rpw.db.Instance.symbol" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilyInstance.symbol">
+<code class="descname">symbol</code><a class="headerlink" href="#rpw.db.FamilyInstance.symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapped <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> of the <code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code></p>
 </dd></dl>
 
@@ -356,18 +356,18 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <div class="section" id="symbol">
 <h2>Symbol<a class="headerlink" href="#symbol" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="rpw.db.Symbol">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Symbol</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Symbol" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilySymbol">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">FamilySymbol</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.FamilySymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p><cite>DB.FamilySymbol</cite> Wrapper</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbol</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="n">SomeSymbol</span><span class="p">)</span>
-<span class="go">&lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">symbol</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeSymbol</span><span class="p">)</span>
+<span class="go">&lt;rpw:FamilySymbol % DB.FamilySymbol | name:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
-<span class="go">&lt;RPW_Family:desk&gt;</span>
+<span class="go">&lt;rpw:Family % DB.Family | name:desk&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">siblings</span>
-<span class="go">&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="go">&lt;rpw:Family % DB.Family | name:desk&gt;, ... ]</span>
 </pre></div>
 </div>
 <dl class="docutils">
@@ -375,32 +375,32 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <dd>_revit_object (DB.FamilySymbol): Wrapped <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code></dd>
 </dl>
 <dl class="attribute">
-<dt id="rpw.db.Symbol.category">
-<code class="descname">category</code><a class="headerlink" href="#rpw.db.Symbol.category" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilySymbol.category">
+<code class="descname">category</code><a class="headerlink" href="#rpw.db.FamilySymbol.category" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – <a class="reference internal" href="#rpw.db.Category" title="rpw.db.Category"><code class="xref any py py-class docutils literal"><span class="pre">Category</span></code></a> – Wrapped <code class="docutils literal"><span class="pre">DB.Category</span></code> of the symbol</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Symbol.family">
-<code class="descname">family</code><a class="headerlink" href="#rpw.db.Symbol.family" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilySymbol.family">
+<code class="descname">family</code><a class="headerlink" href="#rpw.db.FamilySymbol.family" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – <a class="reference internal" href="#rpw.db.Family" title="rpw.db.Family"><code class="xref any py py-class docutils literal"><span class="pre">Family</span></code></a> – Wrapped <code class="docutils literal"><span class="pre">DB.Family</span></code> of the symbol</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Symbol.instances">
-<code class="descname">instances</code><a class="headerlink" href="#rpw.db.Symbol.instances" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilySymbol.instances">
+<code class="descname">instances</code><a class="headerlink" href="#rpw.db.FamilySymbol.instances" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – [<code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code>] – List of model instances of the symbol (unwrapped)</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Symbol.name">
-<code class="descname">name</code><a class="headerlink" href="#rpw.db.Symbol.name" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilySymbol.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.db.FamilySymbol.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name of the Symbol</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="rpw.db.Symbol.siblings">
-<code class="descname">siblings</code><a class="headerlink" href="#rpw.db.Symbol.siblings" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.FamilySymbol.siblings">
+<code class="descname">siblings</code><a class="headerlink" href="#rpw.db.FamilySymbol.siblings" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Returns</em> – [<code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code>] – List of symbol Types of the same Family (unwrapped)</p>
 </dd></dl>
 
@@ -523,7 +523,7 @@ to retrieve the “symbol” and “family” of a wall using:
 <dl class="class">
 <dt id="rpw.db.WallInstance">
 <em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallInstance</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.WallInstance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Instance</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.FamilyInstance</span></code></p>
 <p>Inherits base <code class="docutils literal"><span class="pre">Instance</span></code> and overrides symbol attribute to
 get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 </dd></dl>
@@ -531,9 +531,9 @@ get <cite>Symbol</cite> equivalent of Wall <cite>(GetTypeId)</cite></p>
 <dl class="class">
 <dt id="rpw.db.WallSymbol">
 <em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">WallSymbol</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.WallSymbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Symbol</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.FamilySymbol</span></code></p>
 <dl class="docutils">
-<dt>Inherits from <a class="reference internal" href="#rpw.db.Symbol" title="rpw.db.Symbol"><code class="xref any py py-class docutils literal"><span class="pre">Symbol</span></code></a> and overrides:</dt>
+<dt>Inherits from <code class="xref any docutils literal"><span class="pre">Symbol</span></code> and overrides:</dt>
 <dd><ul class="first last simple">
 <li><code class="xref py py-func docutils literal"><span class="pre">family()</span></code> to get the <cite>Family</cite> equivalent of Wall <cite>(.Kind)</cite></li>
 <li>Uses a different method to get instances.</li>
@@ -731,12 +731,12 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">    if a match is not found, an Element will be used.</span>
 <span class="sd">    If the element does not inherit from DB.Element, and exception is raised.</span>
 
-<span class="sd">    &gt;&gt;&gt; wall_instance = Element(SomeWallInstance)</span>
+<span class="sd">    &gt;&gt;&gt; wall_instance = rpw.db.Element(SomeWallInstance)</span>
 <span class="sd">    &gt;&gt;&gt; type(wall_instance)</span>
-<span class="sd">    rpw.db.WallInstance</span>
-<span class="sd">    &gt;&gt;&gt; wall_symbol = Element(SomeWallSymbol)</span>
+<span class="sd">    &#39;rpw.db.WallInstance&#39;</span>
+<span class="sd">    &gt;&gt;&gt; wall_symbol = rpw.db.Element(SomeWallSymbol)</span>
 <span class="sd">    &gt;&gt;&gt; type(wall_symbol)</span>
-<span class="sd">    rpw.db.WallSymbol</span>
+<span class="sd">    &#39;rpw.db.WallSymbol&#39;</span>
 
 <span class="sd">    Attributes:</span>
 
@@ -785,7 +785,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Main Element Instantiation</span>
 
-<span class="sd">        &gt;&gt;&gt; wall = Element(SomeElementId)</span>
+<span class="sd">        &gt;&gt;&gt; wall = rpw.db.Element(SomeElementId)</span>
 <span class="sd">        &lt;rpw: WallInstance % DB.Wall &gt;</span>
 <span class="sd">        &gt;&gt;&gt; wall.parameters[&#39;Height&#39;]</span>
 <span class="sd">        10.0</span>
@@ -855,18 +855,18 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Instance</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">FamilyInstance</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    `DB.FamilyInstance` Wrapper</span>
 
-<span class="sd">    &gt;&gt;&gt; instance = rpw.Instance(SomeFamilyInstance)</span>
-<span class="sd">    &lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; instance = rpw.db.Element(SomeFamilyInstance)</span>
+<span class="sd">    &lt;rpw:FamilyInstance % DB.FamilyInstance | name:72&quot; x 36&quot;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.symbol.name</span>
 <span class="sd">    &#39;72&quot; x 36&quot;&#39;</span>
 <span class="sd">    &gt;&gt;&gt; instance.family</span>
 <span class="sd">    &lt;RPW_Family:desk&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.siblings</span>
-<span class="sd">    [&lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="sd">    [&lt;rpw:FamilyInstance % DB.FamilyInstance | name:72&quot; x 36&quot;&gt;, ... ]</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilyInstance): Wrapped ``DB.FamilyInstance``</span>
@@ -879,7 +879,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
     <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance`` &quot;&quot;&quot;</span>
         <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Symbol</span>
-        <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">FamilySymbol</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -897,21 +897,21 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">instances</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Instance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">FamilyInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;symbol&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
 
-<span class="k">class</span> <span class="nc">Symbol</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">FamilySymbol</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    `DB.FamilySymbol` Wrapper</span>
 
-<span class="sd">    &gt;&gt;&gt; symbol = rpw.Symbol(SomeSymbol)</span>
-<span class="sd">    &lt;RPW_Symbol:72&quot; x 36&quot;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; symbol = rpw.db.Element(SomeSymbol)</span>
+<span class="sd">    &lt;rpw:FamilySymbol % DB.FamilySymbol | name:72&quot; x 36&quot;&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.symbol.name</span>
 <span class="sd">    &#39;72&quot; x 36&quot;&#39;</span>
 <span class="sd">    &gt;&gt;&gt; instance.family</span>
-<span class="sd">    &lt;RPW_Family:desk&gt;</span>
+<span class="sd">    &lt;rpw:Family % DB.Family | name:desk&gt;</span>
 <span class="sd">    &gt;&gt;&gt; instance.siblings</span>
-<span class="sd">    &lt;RPW_Instance:72&quot; x 36&quot;&gt;, &lt;RPW_Instance:72&quot; x 36&quot;&gt;, ... ]</span>
+<span class="sd">    &lt;rpw:Family % DB.Family | name:desk&gt;, ... ]</span>
 
 <span class="sd">    Attribute:</span>
 <span class="sd">        _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``</span>
@@ -954,7 +954,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">category</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Symbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">FamilySymbol</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
 
 <span class="k">class</span> <span class="nc">Family</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
@@ -979,7 +979,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
             <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Family [</span><span class="si">{}</span><span class="s1">] has no symbols&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SYMBOL_FAMILY_NAME_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">builtins</span><span class="p">[</span><span class="s1">&#39;SYMBOL_FAMILY_NAME_PARAM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="c1"># Uses generic factory so it can be inherited by others</span>
         <span class="c1"># Alternative: ALL_MODEL_FAMILY_NAME</span>
 
@@ -991,7 +991,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="c1"># There has to be a better way</span>
         <span class="n">instances</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">:</span>
-            <span class="n">symbol_instances</span> <span class="o">=</span> <span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">instances</span>
+            <span class="n">symbol_instances</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">instances</span>
             <span class="n">instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">symbol_instances</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instances</span>
 
@@ -1044,7 +1044,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="n">symbols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbols</span>
         <span class="n">unique_family_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
-            <span class="n">symbol_family</span> <span class="o">=</span> <span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">family</span>
+            <span class="n">symbol_family</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span><span class="o">.</span><span class="n">family</span>
             <span class="n">unique_family_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">symbol_family</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">family_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">family_id</span> <span class="ow">in</span> <span class="n">unique_family_ids</span><span class="p">]</span>
 
@@ -1075,13 +1075,13 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">Element</span>
-<span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Family</span><span class="p">,</span> <span class="n">Category</span>
+<span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">FamilyInstance</span><span class="p">,</span> <span class="n">FamilySymbol</span><span class="p">,</span> <span class="n">Family</span><span class="p">,</span> <span class="n">Category</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.db.builtins</span> <span class="k">import</span> <span class="n">BipEnum</span>
 
 
-<span class="k">class</span> <span class="nc">WallInstance</span><span class="p">(</span><span class="n">Instance</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">WallInstance</span><span class="p">(</span><span class="n">FamilyInstance</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inherits base ``Instance`` and overrides symbol attribute to</span>
 <span class="sd">    get `Symbol` equivalent of Wall `(GetTypeId)`</span>
@@ -1098,7 +1098,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
         <span class="k">return</span> <span class="n">WallSymbol</span><span class="p">(</span><span class="n">wall_type</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">WallSymbol</span><span class="p">(</span><span class="n">Symbol</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">WallSymbol</span><span class="p">(</span><span class="n">FamilySymbol</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inherits from :any:`Symbol` and overrides:</span>
 <span class="sd">        * :func:`family` to get the `Family` equivalent of Wall `(.Kind)`</span>
@@ -1362,7 +1362,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'1.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

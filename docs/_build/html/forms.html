@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Forms &mdash; Revit Python Wrapper 1.0.0 documentation</title>
+  <title>Forms &mdash; Revit Python Wrapper 1.0.4 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.0.0 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.0.4 documentation" href="index.html"/>
         <link rel="next" title="Utilities" href="utils.html"/>
         <link rel="prev" title="Geometry" href="geometry.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0.0
+                1.0.4
               </div>
             
           
@@ -404,7 +404,7 @@ but you can still use it by manually passing the context you want to inspect:</p
 </div>
 <dl class="class">
 <dt id="rpw.ui.forms.Console">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=False</em>, <em>context=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Console" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Console</code><span class="sig-paren">(</span><em>stack_level=1</em>, <em>stack_info=True</em>, <em>context=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Console" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -933,8 +933,8 @@ but you can still use it by manually passing the context you want to inspect:</p
 
     <span class="n">CARET</span> <span class="o">=</span> <span class="s1">&#39;&gt;&gt;&gt; &#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Console</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stack_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            stack_level (int): Default is 1. 0 Is the Console stack, 1 is the</span>
 <span class="sd">                               caller; 2 is previous to that, etc.</span>
@@ -952,6 +952,7 @@ but you can still use it by manually passing the context you want to inspect:</p
 
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stack_level</span> <span class="o">=</span> <span class="n">stack_level</span>
 
         <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -959,13 +960,13 @@ but you can still use it by manually passing the context you want to inspect:</p
             <span class="c1"># Where inspection does not work</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Stack Info</span>
-            <span class="c1"># stack = inspect.currentframe().f_back</span>
+            <span class="c1"># stack_frame = inspect.currentframe().f_back</span>
             <span class="n">stack_frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="n">stack_level</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Finds Calling Stack</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
-            <span class="c1"># logger.debug(&#39;Global vars: &#39; + str(self.stack_globals))</span>
-            <span class="c1"># logger.debug(&#39;Local vars: &#39; + str(self.stack_locals))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">)</span>
+            <span class="c1"># Debug Console</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;stack&#39;</span><span class="p">:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()})</span>
 
             <span class="n">stack_code</span> <span class="o">=</span> <span class="n">stack_frame</span><span class="o">.</span><span class="n">f_code</span>
             <span class="n">stack_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">stack_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">)</span>
@@ -1210,18 +1211,19 @@ but you can still use it by manually passing the context you want to inspect:</p
 <span class="c1"># OS Dialogs</span>
 <span class="kn">from</span> <span class="nn">System.Windows</span> <span class="k">import</span> <span class="n">Forms</span>
 
-
 <span class="k">if</span> <span class="n">revit</span><span class="o">.</span><span class="n">host</span> <span class="o">==</span> <span class="s1">&#39;Dynamo&#39;</span><span class="p">:</span>
-    <span class="c1"># IronPython 2.7.3 - Dynamo</span>
+    <span class="c1"># IronPython 2.7.3 - Dynamo + RPS w/out pyRevit</span>
     <span class="c1"># Conflicts with PyRevit. Must Ensure exact path is specified</span>
     <span class="c1"># https://github.com/architecture-building-systems/revitpythonshell/issues/46</span>
-    <span class="n">clr</span><span class="o">.</span><span class="n">AddReferenceToFileAndPath</span><span class="p">(</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\DLLs\IronPython.Wpf.dll&#39;</span><span class="p">)</span>
+    <span class="n">clr</span><span class="o">.</span><span class="n">AddReferenceToFileAndPath</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Program Files (x86)\IronPython 2.7\Platforms\Net40\IronPython.Wpf.dll&#39;</span><span class="p">)</span>
     <span class="kn">import</span> <span class="nn">wpf</span>
+    <span class="c1"># on 2.7.7 this raises wpf import error</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="c1"># IronPython 2.7.7</span>
+    <span class="c1"># IronPython 2.7.7 - pyRevit</span>
     <span class="c1"># clr.AddReference(&#39;IronPython&#39;)    # Works W/Out</span>
-    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>  <span class="c1"># 2.7</span>
+    <span class="n">clr</span><span class="o">.</span><span class="n">AddReference</span><span class="p">(</span><span class="s1">&#39;IronPython.Wpf&#39;</span><span class="p">)</span>  <span class="c1"># 2.7.</span>
     <span class="kn">from</span> <span class="nn">IronPython.Modules</span> <span class="k">import</span> <span class="n">Wpf</span> <span class="k">as</span> <span class="n">wpf</span>
+    <span class="c1"># on 2.7.7 this works. On 2.7.3 you get a LoadComponent 3 args error</span>
 </pre></div>
 </div>
 </div>
@@ -1271,7 +1273,7 @@ but you can still use it by manually passing the context you want to inspect:</p
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.0',
+            VERSION:'1.0.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

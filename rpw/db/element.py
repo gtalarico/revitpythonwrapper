@@ -41,12 +41,12 @@ class Element(BaseObjectWrapper):
     if a match is not found, an Element will be used.
     If the element does not inherit from DB.Element, and exception is raised.
 
-    >>> wall_instance = Element(SomeWallInstance)
+    >>> wall_instance = rpw.db.Element(SomeWallInstance)
     >>> type(wall_instance)
-    rpw.db.WallInstance
-    >>> wall_symbol = Element(SomeWallSymbol)
+    'rpw.db.WallInstance'
+    >>> wall_symbol = rpw.db.Element(SomeWallSymbol)
     >>> type(wall_symbol)
-    rpw.db.WallSymbol
+    'rpw.db.WallSymbol'
 
     Attributes:
 
@@ -95,7 +95,7 @@ class Element(BaseObjectWrapper):
         """
         Main Element Instantiation
 
-        >>> wall = Element(SomeElementId)
+        >>> wall = rpw.db.Element(SomeElementId)
         <rpw: WallInstance % DB.Wall >
         >>> wall.parameters['Height']
         10.0
@@ -169,7 +169,7 @@ class FamilyInstance(Element):
     """
     `DB.FamilyInstance` Wrapper
 
-    >>> instance = rpw.Instance(SomeFamilyInstance)
+    >>> instance = rpw.db.Element(SomeFamilyInstance)
     <rpw:FamilyInstance % DB.FamilyInstance | name:72" x 36">
     >>> instance.symbol.name
     '72" x 36"'
@@ -214,7 +214,7 @@ class FamilySymbol(Element):
     """
     `DB.FamilySymbol` Wrapper
 
-    >>> symbol = rpw.Symbol(SomeSymbol)
+    >>> symbol = rpw.db.Element(SomeSymbol)
     <rpw:FamilySymbol % DB.FamilySymbol | name:72" x 36">
     >>> instance.symbol.name
     '72" x 36"'
