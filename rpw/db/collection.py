@@ -15,6 +15,7 @@ from rpw.utils.dotnet import List
 class ElementSet(BaseObject):
     """
     Provides helpful methods for managing a set of unique of ``DB.ElementId``
+    Sets are unordered.
 
     >>> element_set = ElementSet([element, element])
     >>> element_set = ElementSet()
@@ -33,7 +34,7 @@ class ElementSet(BaseObject):
 
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
-        self._elements = OrderedDict()
+        self._elements = {}
         if elements_or_ids:
             self.add(elements_or_ids)
 

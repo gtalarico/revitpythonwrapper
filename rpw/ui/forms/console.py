@@ -73,7 +73,7 @@ class Console(Window):
 
     CARET = '>>> '
 
-    def __init__(self, stack_level=1, stack_info=False, context=None):
+    def __init__(self, stack_level=1, stack_info=True, context=None):
         """
         Args:
             stack_level (int): Default is 1. 0 Is the Console stack, 1 is the
@@ -92,6 +92,7 @@ class Console(Window):
 
         self.stack_locals = {}
         self.stack_globals = {}
+        self.stack_level = stack_level
 
         if context:
             self.stack_locals.update(context)
@@ -99,11 +100,13 @@ class Console(Window):
             # Where inspection does not work
         else:
             # Stack Info
-            # stack = inspect.currentframe().f_back
+            # stack_frame = inspect.currentframe().f_back
             stack_frame = inspect.stack()[stack_level][0] # Finds Calling Stack
 
             self.stack_locals.update(stack_frame.f_locals)
             self.stack_globals.update(stack_frame.f_globals)
+            # Debug Console
+            self.stack_globals.update({'stack': inspect.stack()})
 
             stack_code = stack_frame.f_code
             stack_filename = os.path.basename(stack_code.co_filename)
