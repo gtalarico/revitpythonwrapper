@@ -165,18 +165,18 @@ class Element(BaseObjectWrapper):
         return super(Element, self).__repr__(data=data)
 
 
-class Instance(Element):
+class FamilyInstance(Element):
     """
     `DB.FamilyInstance` Wrapper
 
     >>> instance = rpw.Instance(SomeFamilyInstance)
-    <RPW_Symbol:72" x 36">
+    <rpw:FamilyInstance % DB.FamilyInstance | name:72" x 36">
     >>> instance.symbol.name
     '72" x 36"'
     >>> instance.family
     <RPW_Family:desk>
     >>> instance.siblings
-    [<RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
+    [<rpw:FamilyInstance % DB.FamilyInstance | name:72" x 36">, ... ]
 
     Attribute:
         _revit_object (DB.FamilyInstance): Wrapped ``DB.FamilyInstance``
@@ -189,7 +189,7 @@ class Instance(Element):
     def symbol(self):
         """ Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance`` """
         symbol = self._revit_object.Symbol
-        return Symbol(symbol)
+        return FamilySymbol(symbol)
 
     @property
     def family(self):
@@ -207,21 +207,21 @@ class Instance(Element):
         return self.symbol.instances
 
     def __repr__(self):
-        return super(Instance, self).__repr__(data={'symbol': self.symbol.name})
+        return super(FamilyInstance, self).__repr__(data={'symbol': self.symbol.name})
 
 
-class Symbol(Element):
+class FamilySymbol(Element):
     """
     `DB.FamilySymbol` Wrapper
 
     >>> symbol = rpw.Symbol(SomeSymbol)
-    <RPW_Symbol:72" x 36">
+    <rpw:FamilySymbol % DB.FamilySymbol | name:72" x 36">
     >>> instance.symbol.name
     '72" x 36"'
     >>> instance.family
-    <RPW_Family:desk>
+    <rpw:Family % DB.Family | name:desk>
     >>> instance.siblings
-    <RPW_Instance:72" x 36">, <RPW_Instance:72" x 36">, ... ]
+    <rpw:Family % DB.Family | name:desk>, ... ]
 
     Attribute:
         _revit_object (DB.FamilySymbol): Wrapped ``DB.FamilySymbol``
@@ -264,7 +264,7 @@ class Symbol(Element):
         return self.family.category
 
     def __repr__(self):
-        return super(Symbol, self).__repr__(data={'name': self.name})
+        return super(FamilySymbol, self).__repr__(data={'name': self.name})
 
 
 class Family(Element):
@@ -289,7 +289,7 @@ class Family(Element):
             symbol = self.symbols[0]
         except IndexError:
             raise RpwException('Family [{}] has no symbols'.format(self.name))
-        return Element.Factory(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        return Element(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
         # Uses generic factory so it can be inherited by others
         # Alternative: ALL_MODEL_FAMILY_NAME
 
@@ -301,7 +301,7 @@ class Family(Element):
         # There has to be a better way
         instances = []
         for symbol in self.symbols:
-            symbol_instances = Element.Factory(symbol).instances
+            symbol_instances = Element(symbol).instances
             instances.append(symbol_instances)
         return instances
 
@@ -354,7 +354,7 @@ class Category(BaseObjectWrapper):
         symbols = self.symbols
         unique_family_ids = set()
         for symbol in symbols:
-            symbol_family = Element.Factory(symbol).family
+            symbol_family = Element(symbol).family
             unique_family_ids.add(symbol_family.Id)
         return [revit.doc.GetElement(family_id) for family_id in unique_family_ids]
 

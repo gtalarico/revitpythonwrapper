@@ -6,13 +6,13 @@ Wall Wrappers
 import rpw
 from rpw import revit, DB
 from rpw.db import Element
-from rpw.db import Instance, Symbol, Family, Category
+from rpw.db import FamilyInstance, FamilySymbol, Family, Category
 from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger
 from rpw.db.builtins import BipEnum
 
 
-class WallInstance(Instance):
+class WallInstance(FamilyInstance):
     """
     Inherits base ``Instance`` and overrides symbol attribute to
     get `Symbol` equivalent of Wall `(GetTypeId)`
@@ -29,7 +29,7 @@ class WallInstance(Instance):
         return WallSymbol(wall_type)
 
 
-class WallSymbol(Symbol):
+class WallSymbol(FamilySymbol):
     """
     Inherits from :any:`Symbol` and overrides:
         * :func:`family` to get the `Family` equivalent of Wall `(.Kind)`

@@ -23,7 +23,7 @@ Element
 Instance
 ************
 
-.. autoclass:: rpw.db.Instance
+.. autoclass:: rpw.db.FamilyInstance
     :members:
     :private-members:
     :special-members: __init__
@@ -32,7 +32,7 @@ Instance
 Symbol
 ************
 
-.. autoclass:: rpw.db.Symbol
+.. autoclass:: rpw.db.FamilySymbol
     :members:
     :private-members:
     :special-members: __init__

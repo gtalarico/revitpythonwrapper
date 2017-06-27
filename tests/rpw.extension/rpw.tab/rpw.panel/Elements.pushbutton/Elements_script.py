@@ -214,18 +214,18 @@ class InstanceTests(unittest.TestCase):
 
     def setUp(self):
         instance = rpw.db.Collector(of_category='OST_Furniture', is_not_type=True).first
-        self.instance = rpw.db.Instance(instance)
+        self.instance = rpw.db.FamilyInstance(instance)
 
     def tearDown(self):
         logger.debug('SELECTION TEST PASSED')
 
     def test_instance_wrap(self):
-        self.assertIsInstance(self.instance, rpw.db.Instance)
+        self.assertIsInstance(self.instance, rpw.db.FamilyInstance)
         self.assertIsInstance(self.instance.unwrap(), DB.FamilyInstance)
 
     def test_instance_symbol(self):
         symbol = self.instance.symbol
-        self.assertIsInstance(symbol, rpw.db.Symbol)
+        self.assertIsInstance(symbol, rpw.db.FamilySymbol)
         self.assertIsInstance(symbol.unwrap(), DB.FamilySymbol)
         self.assertEqual(symbol.name, '60" x 30"')
         self.assertEqual(len(symbol.instances), 2)
@@ -254,8 +254,8 @@ class InstanceTests(unittest.TestCase):
         symbol = instance.symbol
         family = instance.family
         category = instance.category
-        self.assertIsInstance(rpw.db.Element.Factory(instance.unwrap()), rpw.db.Instance)
-        self.assertIsInstance(rpw.db.Element.Factory(symbol.unwrap()), rpw.db.Symbol)
+        self.assertIsInstance(rpw.db.Element.Factory(instance.unwrap()), rpw.db.FamilyInstance)
+        self.assertIsInstance(rpw.db.Element.Factory(symbol.unwrap()), rpw.db.FamilySymbol)
         self.assertIsInstance(rpw.db.Element.Factory(family.unwrap()), rpw.db.Family)
         self.assertIsInstance(rpw.db.Element.Factory(category.unwrap()), rpw.db.Category)
 
