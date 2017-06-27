@@ -474,7 +474,10 @@ class Collector(BaseObjectWrapper):
 
     def __len__(self):
         """ Returns length of collector.elements """
-        return self._collector.GetElementCount()
+        try:
+            return self._collector.GetElementCount()
+        except AttributeError:
+            return len(self.elements) # Revit 2015
 
     def __repr__(self):
         return super(Collector, self).__repr__(data={'count': len(self)})
