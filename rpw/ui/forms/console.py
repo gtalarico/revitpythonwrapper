@@ -60,7 +60,6 @@ class Console(Window):
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"
-                         KeyDown="OnKeyDownHandler" KeyUp="OnKeyUpHandler"
                          Name="tbox" Margin="6,6,6,6" VerticalAlignment="Stretch"
                          AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                          TextWrapping="Wrap"
@@ -117,11 +116,13 @@ class Console(Window):
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
         self.ui.Title = 'RevitPythonWrapper Console'
         self.PreviewKeyDown += self.KeyPressPreview
+        self.KeyUp += self.OnKeyUpHandler
+        self.is_loaded = False
 
         # Form Init
         self.ui.tbox.Focus()
         if not context and stack_info:
-            self.write_line('Caller: {} [line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
+            self.write_line('Caller: {} [ Line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
         else:
             self.tbox.Text = Console.CARET
 
@@ -167,7 +168,7 @@ class Console(Window):
 
     def OnKeyUpHandler(self, sender, args):
         # Need to use this to be able to override ENTER
-        if self.tbox.LineCount == 1:
+        if not self.is_loaded:
             return
         if args.Key == Key.Enter:
             entered_line = self.get_last_entered_line()
@@ -180,7 +181,6 @@ class Console(Window):
             self.write_line(output)
 
     def evaluate(self, line):
-
         try:
             output = eval(line, self.stack_globals, self.stack_locals)
         except SyntaxError as errmsg:
@@ -200,6 +200,8 @@ class Console(Window):
         self.tbox.CaretIndex = self.tbox.Text.rfind(Console.CARET) + len(Console.CARET)
 
     def KeyPressPreview(self, sender, e):
+        # This Happens before all other key handlers
+        # If e.Handled = True, stops event propagation here.
         e.Handled = False
         if self.tbox.CaretIndex < self.tbox.Text.rfind(Console.CARET):
             self.tbox.CaretIndex = len(self.tbox.Text)
@@ -219,6 +221,7 @@ class Console(Window):
             self.autocomplete()
             e.Handled = True
         if e.Key == Key.Enter:
+            self.is_loaded = True
             self.tbox.CaretIndex = len(self.tbox.Text)
 
 
@@ -255,12 +258,16 @@ class Console(Window):
             self.tbox.CaretIndex = caret_index
 
     def write_line(self, line=None):
+        # Used for Code Output
+        # Writes line with no starting caret, new line + caret
         if line:
             self.tbox.AppendText(line)
             self.tbox.AppendText(NewLine)
         self.tbox.AppendText(Console.CARET)
 
     def write_text(self, line):
+        # Used by Autocomplete and History
+        # Adds text to line, including Caret
         last_new_line = self.tbox.Text.rfind(Console.CARET)
         self.tbox.Text = self.tbox.Text[0:last_new_line]
         self.tbox.AppendText(Console.CARET)
