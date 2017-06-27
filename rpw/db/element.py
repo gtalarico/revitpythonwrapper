@@ -160,6 +160,10 @@ class Element(BaseObjectWrapper):
         logger.warning(msg)
         return Element(element)
 
+    def delete(self):
+        """ Deletes Element from Model """
+        self.doc.Delete(self._revit_object.Id)
+
     def __repr__(self, data={}):
         data = data or {'id': getattr(self._revit_object, 'Id', None)}
         return super(Element, self).__repr__(data=data)
