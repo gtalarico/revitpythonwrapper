@@ -67,17 +67,20 @@ class Element(BaseObjectWrapper):
         and will find one that wraps the corresponding class. If and exact
         match is not found :any:`Element` is used
         """
-
         defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
         # [('Area', '<class Area>'), ... ]
 
         _revit_object_class = cls._revit_object_class
 
-        if cls is not Element and not isinstance(element, _revit_object_class):
+        # Ensure Wrapped Element is instance of Class Wrapper or decendent
+        # Must also check is element because isinstance(Element, Element) is False
+        if not isinstance(element, _revit_object_class) \
+           and cls is not Element:
             raise RpwTypeError(_revit_object_class, type(element))
 
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
+                # rpw.ui.forms.Console()
                 # Found Mathing Class, Use Wrapper
                 # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
                 return super(Element, cls).__new__(wrapper_class, element, **kwargs)
@@ -85,7 +88,6 @@ class Element(BaseObjectWrapper):
                 # return new_object
         else:
             # Could Not find a Matching Class, Use Element if related
-            # rpw.ui.forms.Console()
             # print('Did not find a Matching Class, will use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls, element, **kwargs)
