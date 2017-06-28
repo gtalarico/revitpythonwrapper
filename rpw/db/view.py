@@ -120,7 +120,6 @@ class ViewFamilyType(Element):
     def views(self):
         # Collect All Views, Compare view_family of each view with self
         views = Collector(of_class='View').wrapped_elements
-        rpw.ui.forms.Console()
         return [view for view in views if getattr(view.view_family_type, '_revit_object', None) == self.unwrap()]
 
 
