@@ -29,10 +29,9 @@ class View(Element):
         # TODO: Make Mixin ?
         return self._revit_object.Name
 
-    @property
-    def rename(self):
-        # TODO: Make Mixin ?
-        return self._revit_object.Name
+    @name.setter
+    def name(self, value):
+        self._revit_object.Name == value
 
     @property
     def view_type(self):
@@ -43,11 +42,11 @@ class View(Element):
         view_type_id = self._revit_object.GetTypeId()
         return Element(self.doc.GetElement(view_type_id))
 
-    def __repr__(self):
-        return super(View, self).__repr__(data={'view_name': self.name,
-                                                'view_family_type': self.view_family_type.name,
-                                                'view_type': self.view_type,
-                                                })
+    # def __repr__(self):
+    #     return super(View, self).__repr__(data={'view_name': self.name,
+    #                                             'view_family_type': self.view_family_type.name,
+    #                                             'view_type': self.view_type,
+    #                                             })
 
 
 # ViewPlanType
@@ -102,11 +101,11 @@ class ViewFamilyType(Element):
         return self._revit_object.ViewFamily
 
 
-    def __repr__(self):
-        return super(ViewFamilyType, self).__repr__(data={'name': self.name,
-                                                          'type': self.view_family})
+    # def __repr__(self):
+    #     return super(ViewFamilyType, self).__repr__(data={'name': self.name,
+    #                                                       'type': self.view_family})
 
-class ViewFamily (BaseObjectWrapper):
+class ViewFamily(BaseObjectWrapper):
     """ Enumerator for ViewFamily
 
     This is returned on view.ViewFamily
