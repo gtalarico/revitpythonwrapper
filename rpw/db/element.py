@@ -77,13 +77,13 @@ class Element(BaseObjectWrapper):
 
         # Ensure Wrapped Element is instance of Class Wrapper or decendent
         # Must also check is element because isinstance(Element, Element) is False
-        if not isinstance(element, _revit_object_class) \
-           and cls is not Element:
+        if not isinstance(element, _revit_object_class):
+        #    or cls is not Element:
             raise RpwTypeError(_revit_object_class, type(element))
 
+        # rpw.ui.forms.Console()
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
-                # rpw.ui.forms.Console()
                 # Found Mathing Class, Use Wrapper
                 # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
                 return super(Element, cls).__new__(wrapper_class, element, **kwargs)
