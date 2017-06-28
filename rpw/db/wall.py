@@ -86,11 +86,13 @@ class WallKind(BaseObjectWrapper):
 
     @property
     def name(self):
+        """ Retuns Pretty Name as shown on UI: Basic > Basic Wall """
         # Same method as Family Works, but requires Code duplication
         # Since this should not inherit from Family.
-        # Solution copy code or Mixin. Returning just Enum Name for now
-        # 'Basic'
-        return self._revit_object.ToString()
+        # Solution copy code or Mixin. Or return Enum Name:  'Basic'
+        # return self._revit_object.ToString()
+        wall_type = self.wall_types[0]
+        return wall_type.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
 
     @property
     def symbols(self):
