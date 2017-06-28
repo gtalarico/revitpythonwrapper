@@ -67,17 +67,23 @@ class Element(BaseObjectWrapper):
         and will find one that wraps the corresponding class. If and exact
         match is not found :any:`Element` is used
         """
-
         defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
         # [('Area', '<class Area>'), ... ]
 
         _revit_object_class = cls._revit_object_class
 
-        if cls is not Element and not isinstance(element, _revit_object_class):
+        if element is None:
+            raise RpwTypeError('Element or Element Child', 'None')
+
+        # Ensure Wrapped Element is instance of Class Wrapper or decendent
+        # Must also check is element because isinstance(Element, Element) is False
+        if not isinstance(element, _revit_object_class) \
+           and cls is not Element:
             raise RpwTypeError(_revit_object_class, type(element))
 
         for class_name, wrapper_class in defined_wrapper_classes:
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
+                # rpw.ui.forms.Console()
                 # Found Mathing Class, Use Wrapper
                 # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
                 return super(Element, cls).__new__(wrapper_class, element, **kwargs)
@@ -85,7 +91,7 @@ class Element(BaseObjectWrapper):
                 # return new_object
         else:
             # Could Not find a Matching Class, Use Element if related
-            # print('Not find a Matching Class, Use Element if related')
+            # print('Did not find a Matching Class, will use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls, element, **kwargs)
         element_class_name = element.__class__.__name__
@@ -164,8 +170,10 @@ class Element(BaseObjectWrapper):
         """ Deletes Element from Model """
         self.doc.Delete(self._revit_object.Id)
 
-    def __repr__(self, data={}):
-        data = data or {'id': getattr(self._revit_object, 'Id', None)}
+    def __repr__(self, data=None):
+        if data is None:
+            data = {}
+        data.update({'id': getattr(self._revit_object, 'Id', None)})
         return super(Element, self).__repr__(data=data)
 
 
@@ -235,6 +243,7 @@ class FamilySymbol(Element):
 
     @property
     def name(self):
+        #TODO: Add setter - maybe as a mixin
         """ Returns the name of the Symbol """
         return self.parameters.builtins['SYMBOL_NAME_PARAM'].value
         # return self.parameters.builtins['ALL_MODEL_TYPE_NAME'].value
@@ -289,6 +298,7 @@ class Family(Element):
         # This BIP only exist in symbols, so we retrieve a symbol first.
         # The Alternative is to use Element.Name.GetValue(), but I am
         # avoiding it due to the import bug in ironpython
+        # https://github.com/IronLanguages/ironpython2/issues/79
         try:
             symbol = self.symbols[0]
         except IndexError:
