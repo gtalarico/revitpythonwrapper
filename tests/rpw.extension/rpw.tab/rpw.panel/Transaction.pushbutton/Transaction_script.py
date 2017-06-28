@@ -69,7 +69,7 @@ class TransactionsTest(unittest.TestCase):
 
     def setUp(self):
         wall = DB.FilteredElementCollector(doc).OfClass(DB.Wall).ToElements()[0]
-        self.wall = rpw.db.WallInstance(wall)
+        self.wall = rpw.db.Wall(wall)
         with rpw.db.Transaction('Reset Comment') as t:
             self.wall.parameters['Comments'] = ''
 

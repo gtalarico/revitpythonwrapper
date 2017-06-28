@@ -203,12 +203,12 @@ class BuiltInCollectorTests(unittest.TestCase):
         logger.title('TESTING ELEMENT COLLECTOR...')
 
     def test_element_collector_wall(self):
-        walls = rpw.db.WallInstance.collect()
+        walls = rpw.db.Wall.collect()
         self.assertEqual(len(walls), 1)
         self.assertIsInstance(walls.first, DB.Wall)
 
     def test_element_collector_wallsymbols(self):
-        wallsymbols = rpw.db.WallSymbol.collect()
+        wallsymbols = rpw.db.WallType.collect()
         self.assertEqual(len(wallsymbols), 3)
         self.assertIsInstance(wallsymbols.first, DB.WallType)
 

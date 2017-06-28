@@ -301,7 +301,6 @@ class WallTests(unittest.TestCase):
         self.assertIsInstance(wall_family, rpw.db.wall.WallKind)
         self.assertEqual(wall_family.unwrap(), DB.WallKind.Basic)
         self.assertEqual(wall_family.name, 'Basic Wall')
-        rpw.ui.forms.Console()
         self.assertEqual(len(wall_family.instances), 1)
         self.assertEqual(len(wall_family.symbols), 1)
 
