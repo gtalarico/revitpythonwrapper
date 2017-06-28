@@ -147,8 +147,8 @@ class TestViewRelationships(unittest.TestCase):
     def test_view_type(self):
         wrapped_view = Element(self.view_3d)
         view_type = wrapped_view.view_type
-        self.assertIsInstance(view_type, DB.ViewType)
-        self.assertEqual(view_type, DB.ViewType.ThreeD)
+        self.assertIsInstance(view_type.unwrap(), DB.ViewType)
+        self.assertEqual(view_type.unwrap(), DB.ViewType.ThreeD)
 
     def test_view_plan_level(self):
         wrapped_view = Element(self.view_plan)
@@ -159,6 +159,31 @@ class TestViewRelationships(unittest.TestCase):
         wrapped_view = Element(self.view_3d)
         view_type = wrapped_view.view_family_type
         self.assertIsInstance(view_type.unwrap(), DB.ViewFamilyType)
+
+    def test_view_family(self):
+        wrapped_view = Element(self.view_3d)
+        view_family = wrapped_view.view_family
+        self.assertIsInstance(view_family.unwrap(), DB.ViewFamily)
+
+    def test_view_type_aggregator(self):
+        wrapped_view_plan = Element(self.view_plan)
+        same_view_type_views = wrapped_view_plan.view_type.views
+        for view in same_view_type_views:
+            self.assertEqual(view.view_type.unwrap(), wrapped_view_plan.view_type.unwrap())
+
+    def test_view_family_aggregator(self):
+        wrapped_view_plan = Element(self.view_plan)
+        same_family_views = wrapped_view_plan.view_family.views
+        for view in same_family_views:
+            self.assertEqual(view.view_family.unwrap(), wrapped_view_plan.view_family.unwrap())
+
+    def test_view_family_aggregator(self):
+        wrapped_view_plan = Element(self.view_plan)
+        same_view_family_type_views = wrapped_view_plan.view_family_type.views
+        for view in same_view_family_type_views:
+            self.assertEqual(view.view_family_type.unwrap(), wrapped_view_plan.view_family_type.unwrap())
+
+
 
 
 def run():

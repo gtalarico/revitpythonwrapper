@@ -50,6 +50,10 @@ class View(Element):
         # Some Views don't have a ViewFamilyType
         return getattr(self.view_family_type, 'view_family', None)
 
+    @property
+    def siblings(self):
+        return self.view_type.views
+
     def __repr__(self):
         return super(View, self).__repr__(data={'view_name': self.name,
                                                 'view_family_type': getattr(self.view_family_type, 'name', None),
@@ -112,6 +116,14 @@ class ViewFamilyType(Element):
         # Autodesk.Revit.DB.ViewFamily.FloorPlan
         return ViewFamily(self._revit_object.ViewFamily)
 
+    @property
+    def views(self):
+        # Collect All Views, Compare view_family of each view with self
+        views = Collector(of_class='View').wrapped_elements
+        rpw.ui.forms.Console()
+        return [view for view in views if getattr(view.view_family_type, '_revit_object', None) == self.unwrap()]
+
+
 
     def __repr__(self):
         return super(ViewFamilyType, self).__repr__(data={'name': self.name,
@@ -138,8 +150,9 @@ class ViewFamily(BaseObjectWrapper):
 
     @property
     def views(self):
+        # Collect All Views, Compare view_family of each view with self
         views = Collector(of_class='View').wrapped_elements
-        return [view for view in views if isinstance(view.view_family, type(self))]
+        return [view for view in views if getattr(view.view_family, '_revit_object', None) == self.unwrap()]
 
 
     def __repr__(self):
@@ -169,7 +182,7 @@ class ViewType(BaseObjectWrapper):
     @property
     def views(self):
         views = Collector(of_class='View').wrapped_elements
-        return [view for view in views if isinstance(view.view_type, type(self))]
+        return [view for view in views if view.view_type.unwrap() == self.unwrap()]
 
 
     def __repr__(self):
