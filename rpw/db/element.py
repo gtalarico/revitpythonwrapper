@@ -72,6 +72,9 @@ class Element(BaseObjectWrapper):
 
         _revit_object_class = cls._revit_object_class
 
+        if element is None:
+            raise RpwTypeError('Element or Element Child', 'None')
+
         # Ensure Wrapped Element is instance of Class Wrapper or decendent
         # Must also check is element because isinstance(Element, Element) is False
         if not isinstance(element, _revit_object_class) \
@@ -163,8 +166,10 @@ class Element(BaseObjectWrapper):
         logger.warning(msg)
         return Element(element)
 
-    def __repr__(self, data={}):
-        data = data or {'id': getattr(self._revit_object, 'Id', None)}
+    def __repr__(self, data=None):
+        if data is None:
+            data = {}
+        data.update({'id': getattr(self._revit_object, 'Id', None)})
         return super(Element, self).__repr__(data=data)
 
 
@@ -289,6 +294,7 @@ class Family(Element):
         # This BIP only exist in symbols, so we retrieve a symbol first.
         # The Alternative is to use Element.Name.GetValue(), but I am
         # avoiding it due to the import bug in ironpython
+        # https://github.com/IronLanguages/ironpython2/issues/79
         try:
             symbol = self.symbols[0]
         except IndexError:

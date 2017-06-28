@@ -5,7 +5,7 @@ View Wrappers
 
 import rpw
 from rpw import revit, DB
-from rpw.db import Element
+from rpw.db import Element, Collector
 from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger
 from rpw.utils.dotnet import Enum
@@ -35,18 +35,27 @@ class View(Element):
 
     @property
     def view_type(self):
-        return self._revit_object.ViewType
+        return ViewType(self._revit_object.ViewType)
 
     @property
     def view_family_type(self):
+        # NOTE: This can return Empty, as Some Views like SystemBrowser have no Type
         view_type_id = self._revit_object.GetTypeId()
-        return Element(self.doc.GetElement(view_type_id))
+        view_type = self.doc.GetElement(view_type_id)
+        if view_type:
+            return ViewFamilyType(self.doc.GetElement(view_type_id))
 
-    # def __repr__(self):
-    #     return super(View, self).__repr__(data={'view_name': self.name,
-    #                                             'view_family_type': self.view_family_type.name,
-    #                                             'view_type': self.view_type,
-    #                                             })
+    @property
+    def view_family(self):
+        # Some Views don't have a ViewFamilyType
+        return getattr(self.view_family_type, 'view_family', None)
+
+    def __repr__(self):
+        return super(View, self).__repr__(data={'view_name': self.name,
+                                                'view_family_type': getattr(self.view_family_type, 'name', None),
+                                                'view_type': self.view_type.name,
+                                                'view_family': getattr(self.view_family, 'name', None)
+                                                })
 
 
 # ViewPlanType
@@ -91,22 +100,27 @@ class ViewFamilyType(Element):
     _revit_object_class = DB.ViewFamilyType
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
 
+    @property
     def name(self):
-        return Element.Name.GetValue(self._revit_object)
+        # Could use the line below but would required re-importing element, as per
+        # return DB.Element.Name.GetValue(self._revit_object)
+        return self.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
 
     @property
     def view_family(self):
         """ Returns ViewFamily Enumerator """
         # Autodesk.Revit.DB.ViewFamily.FloorPlan
-        return self._revit_object.ViewFamily
+        return ViewFamily(self._revit_object.ViewFamily)
 
 
-    # def __repr__(self):
-    #     return super(ViewFamilyType, self).__repr__(data={'name': self.name,
-    #                                                       'type': self.view_family})
+    def __repr__(self):
+        return super(ViewFamilyType, self).__repr__(data={'name': self.name,
+                                                          'view_family': self.view_family.name,
+                                                          })
 
 class ViewFamily(BaseObjectWrapper):
-    """ Enumerator for ViewFamily
+    """ ViewFamily Enumerator Wrapper.
+    An enumerated type that corresponds to the type of a Revit view.
 
     This is returned on view.ViewFamily
     AreaPlan, CeilingPlan, CostReport
@@ -116,9 +130,26 @@ class ViewFamily(BaseObjectWrapper):
     Schedule, Section, Sheet, StructuralPlan
     ThreeDimensional, Walkthrough
     """
+    _revit_object_class = DB.ViewFamily
+
+    @property
+    def name(self):
+        return self._revit_object.ToString()
+
+    @property
+    def views(self):
+        views = Collector(of_class='View').wrapped_elements
+        return [view for view in views if isinstance(view.view_family, type(self))]
+
+
+    def __repr__(self):
+        return super(ViewFamily, self).__repr__(data={'family': self.name})
+
+
 
 class ViewType(BaseObjectWrapper):
-    """ View Type Wrapper .
+    """ ViewType Wrapper.
+    An enumerated type listing available view types.
 
     Can be on of the following types:
         AreaPlan ,CeilingPlan, ColumnSchedule, CostReport,
@@ -132,12 +163,23 @@ class ViewType(BaseObjectWrapper):
     _revit_object_class = DB.ViewType
 
     @property
+    def name(self):
+        return self._revit_object.ToString()
+
+    @property
     def views(self):
-        return Element(self._revit_object.ViewType)
+        views = Collector(of_class='View').wrapped_elements
+        return [view for view in views if isinstance(view.view_type, type(self))]
+
+
+    def __repr__(self):
+        return super(ViewType, self).__repr__(data={'view_type': self.name})
+
 
 
 class ViewPlanType(BaseObjectWrapper):
     """
     Enumerator
         FloorPlan, CeilingPlan
+    No Wrapper Need. Only a Enum that is used as arg for ViewPlan
     """
