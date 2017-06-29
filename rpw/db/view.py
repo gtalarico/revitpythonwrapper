@@ -5,7 +5,8 @@ View Wrappers
 
 import rpw
 from rpw import revit, DB
-from rpw.db import Element, Collector
+from rpw.db.element import Element
+from rpw.db.collector import Collector
 from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger
 from rpw.utils.dotnet import Enum

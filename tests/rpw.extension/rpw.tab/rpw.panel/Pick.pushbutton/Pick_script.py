@@ -43,7 +43,10 @@ import rpw
 from rpw import DB, UI
 doc, uidoc = rpw.revit.doc, rpw.revit.uidoc
 from rpw.utils.logger import logger
-from rpw.ui import Selection
+from rpw.ui.selection import Pick
+from rpw.db.reference import Reference
+from rpw.db.xyz import XYZ
+from rpw.db.element import Element
 
 import test_utils
 
@@ -74,63 +77,65 @@ class PickTests(unittest.TestCase):
 
     def setUp(self):
         self.wall = PickTests.wall
-        Selection().clear()
+        # Pick().clear()
 
     def tearDown(self):
-        Selection().clear()
+        # Pick().clear()
         logger.debug('SELECTION TEST PASSED')
 
     def test_pick_element(self):
-        selection = Selection()
+        selection = Pick()
         desk = selection.pick_element('Pick a Desk')
-        self.assertIsInstance(desk, DB.Reference)
-        self.assertEqual(len(selection), 1)
+        self.assertIsInstance(desk, Reference)
 
     def test_pick_elements(self):
-        selection = Selection()
+        selection = Pick()
         desks = selection.pick_element('Pick 2 Desks', multiple=True)
-        self.assertIsInstance(desks[0], DB.Reference)
-        self.assertEqual(len(selection), 2)
-
-    def test_pick_elements(self):
-        selection = Selection()
-        desks = selection.pick_element('Pick 2 Desks', multiple=True)
-        self.assertIsInstance(desks[0], DB.Reference)
-        self.assertEqual(len(selection), 2)
+        self.assertIsInstance(desks[0], Reference)
 
     def test_pick_element_point(self):
-        selection = Selection()
+        selection = Pick()
         rv = selection.pick_pt_on_element('pick_pt_on_element')
-        self.assertIsInstance(rv, DB.Reference)
+        self.assertIsInstance(rv, Reference)
         rv = selection.pick_pt_on_element('pick_pt_on_element', multiple=True)
-        self.assertIsInstance(rv[0], DB.Reference)
+        self.assertIsInstance(rv[0], Reference)
 
     def test_pick_element_edge(self):
-        selection = Selection()
+        selection = Pick()
         rv = selection.pick_edge('pick_edge')
-        self.assertIsInstance(rv, DB.Reference)
+        self.assertIsInstance(rv, Reference)
         rv = selection.pick_edge('pick_edges', multiple=True)
-        self.assertIsInstance(rv[0], DB.Reference)
+        self.assertIsInstance(rv[0], Reference)
 
     def test_pick_element_face(self):
-        selection = Selection()
+        selection = Pick()
         rv = selection.pick_face('pick_face')
-        self.assertIsInstance(rv, DB.Reference)
+        self.assertIsInstance(rv, Reference)
         rv = selection.pick_face('pick_faces', multiple=True)
-        self.assertIsInstance(rv[0], DB.Reference)
+        self.assertIsInstance(rv[0], Reference)
 
     def test_pick_pt(self):
-        selection = Selection()
+        selection = Pick()
         rv = selection.pick_pt('pick_pt')
-        self.assertIsInstance(rv, DB.XYZ)
+        self.assertIsInstance(rv, XYZ)
 
     def test_pick_snaps(self):
-        selection = Selection()
+        selection = Pick()
         rv = selection.pick_pt('pick_pt', snap='endpoints')
-        self.assertIsInstance(rv, DB.XYZ)
+        self.assertIsInstance(rv, XYZ)
+
+    def test_pick_box(self):
+        selection = Pick()
+        rv = selection.pick_box('PickBox')
+        self.assertIsInstance(rv[0], XYZ)
+
+    def test_pick_by_rectangle(self):
+        selection = Pick()
+        rv = selection.pick_by_rectangle('Pick By Rectangle')
+        self.assertIsInstance(rv[0], Element)
 
     # def test_pick_linked(self):
-    #     selection = Selection()
+    #     selection = Pick()
     #     rv = selection.pick_linked_element('pick_linked_element')
     #     rpw.ui.Console()
 
