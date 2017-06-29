@@ -173,7 +173,9 @@ class Element(BaseObjectWrapper):
     def __repr__(self, data=None):
         if data is None:
             data = {}
-        data.update({'id': getattr(self._revit_object, 'Id', None)})
+        element_id = getattr(self._revit_object, 'Id', None)
+        if element_id:
+            data.update({'id': element_id})
         return super(Element, self).__repr__(data=data)
 
 

@@ -28,7 +28,7 @@ from rpw.base import BaseObjectWrapper, BaseObject
 from rpw.exceptions import RpwException, RpwTypeError, RpwCoerceError
 from rpw.db.element import Element
 from rpw.db.builtins import BicEnum, BipEnum
-from rpw.ui import Selection
+from rpw.ui.selection import Selection
 from rpw.utils.coerce import to_element_id, to_element_ids
 from rpw.utils.coerce import to_category, to_class
 from rpw.utils.logger import logger
