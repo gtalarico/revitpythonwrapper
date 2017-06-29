@@ -1,6 +1,13 @@
 """
 Reference Wrappers
 
+>>> pick = rpw.ui.Pick()
+>>> references = pick.pick_element(multiple=True)
+>>> references
+[<rpw:Reference>, <rpw:Reference>]
+>>> references[0].as_global_pt
+<rpw:XYZ>
+
 """
 
 import rpw
@@ -33,12 +40,14 @@ class Reference(Element):
 
     @property
     def as_global_pt(self):
+        """ Returns ``GlobalPoint`` property of Reference """
         pt = self._revit_object.GlobalPoint
         if pt:
             return XYZ(pt)
 
     @property
     def as_uv_pt(self):
+        """ Returns ``UVPoint`` property of Reference - Face references only """
         pt = self._revit_object.UVPoint
         if pt:
             #TODO XYZ needs to handle XYZ
