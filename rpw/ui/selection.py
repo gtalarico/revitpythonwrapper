@@ -115,6 +115,16 @@ class Selection(BaseObjectWrapper, ElementSet):
 
 
 class Pick(BaseObject):
+    """ Pick Class
+
+    Handles all pick* methods in the Seletion Class
+
+    >>> picker = rpw.ui.Pick()
+    >>> pick.pick_element()
+    <rpw:reference>
+    >>> pick.pick_element(multiple=True)
+    [<rpw:reference>, ...]
+    """
 
     def _pick(self, obj_type, msg='Pick:', multiple=False):
         """ Note: Moved Reference Logic to Referenc Wrapper."""
@@ -129,7 +139,12 @@ class Pick(BaseObject):
             return Reference(reference)
 
     def pick_box(self, msg, style='directional'):
-        """ Pick Box Style """
+        """
+        PickBox
+
+        Returns:
+            XYZ Points (``XYZ``): Min and Max Points of Box
+        """
         # This seems kind of usless right now.
         PICK_STYLE = {'crossing': UI.Selection.PickBoxStyle.Crossing,
                       'enclosing': UI.Selection.PickBoxStyle.Enclosing,
@@ -140,7 +155,12 @@ class Pick(BaseObject):
         return (XYZ(pick_box.Min), XYZ(pick_box.Max))
 
     def pick_by_rectangle(self, msg):
-        """ Pick by Rectangle """
+        """
+        PickBox
+
+        Returns:
+            Elements (``List``): List of wrapped Elements
+        """
         # TODO: Implement ISelectFilter overload
         # NOTE: This is the only method that returns elements
         refs = PickElementsByRectangle(msg)
@@ -153,6 +173,9 @@ class Pick(BaseObject):
         Args:
             msg (str): Message to show
             multiple (bool): False to pick single element, True for multiple
+
+        Returns:
+            reference (``Reference``): :any:`Reference` Class
         """
         return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
 
@@ -163,6 +186,9 @@ class Pick(BaseObject):
         Args:
             msg (str): Message to show
             multiple (bool): False to pick single point, True for multiple
+
+        Returns:
+            reference (``Reference``): :any:`Reference` Class
         """
         return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple)
 
@@ -173,6 +199,9 @@ class Pick(BaseObject):
         Args:
             msg (str): Message to show
             multiple (bool): False to pick single edge, True for multiple
+
+        Returns:
+            reference (``Reference``): :any:`Reference` Class
         """
         return self._pick(ObjectType.Edge, msg=msg, multiple=multiple)
 
@@ -183,6 +212,9 @@ class Pick(BaseObject):
         Args:
             msg (str): Message to show
             multiple (bool): False to pick single face, True for multiple
+
+        Returns:
+            reference (``Reference``): :any:`Reference` Class
         """
         return self._pick(ObjectType.Face, msg=msg, multiple=multiple)
 
@@ -193,6 +225,9 @@ class Pick(BaseObject):
         Args:
             msg (str): Message to show
             multiple (bool): False to pick single element, True for multiple
+
+        Returns:
+            reference (``Reference``): :any:`Reference` Class
         """
         return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple)
 
