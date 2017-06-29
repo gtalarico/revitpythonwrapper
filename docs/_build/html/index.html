@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Revit Python Wrapper &mdash; Revit Python Wrapper 1.0.4 documentation</title>
+  <title>Revit Python Wrapper &mdash; Revit Python Wrapper 1.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.0.4 documentation" href="#"/>
+    <link rel="top" title="Revit Python Wrapper 1.1.0 documentation" href="#"/>
         <link rel="next" title="Revit" href="revit.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.0.4
+                1.1.0
               </div>
             
           
@@ -176,7 +176,7 @@
 <div class="toctree-wrapper compound">
 </div>
 <a class="reference internal image-reference" href="_images/logo-tight.png"><img alt="_images/logo-tight.png" src="_images/logo-tight.png" style="width: 242.5px; height: 101.5px;" /></a>
-<p>Version: 1.0.4</p>
+<p>Version: 1.1.0</p>
 <p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a> | <a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p>
 <div class="section" id="a-python-wrapper-for-the-revit-api">
 <h2>A Python Wrapper For the Revit API<a class="headerlink" href="#a-python-wrapper-for-the-revit-api" title="Permalink to this headline">¶</a></h2>
@@ -361,12 +361,12 @@ paired with an example sans-rpw.</p>
 by the <a class="reference internal" href="element.html#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a> wrapper.</p>
 <p>More Specialized Wrappers
 also provide additional features based on its type:
-<code class="docutils literal"><span class="pre">DB.FamilyInstace</span></code> (<code class="xref any docutils literal"><span class="pre">Instance</span></code>), <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> (<code class="xref any docutils literal"><span class="pre">Symbol</span></code>),
+<code class="docutils literal"><span class="pre">DB.FamilyInstance</span></code> (<a class="reference internal" href="element.html#rpw.db.FamilyInstance" title="rpw.db.FamilyInstance"><code class="xref any py py-class docutils literal"><span class="pre">FamilyInstance</span></code></a>), <code class="docutils literal"><span class="pre">DB.FamilySymbol</span></code> (<a class="reference internal" href="element.html#rpw.db.FamilySymbol" title="rpw.db.FamilySymbol"><code class="xref any py py-class docutils literal"><span class="pre">FamilySymbol</span></code></a>),
 <code class="docutils literal"><span class="pre">DB.Family</span></code> (<a class="reference internal" href="element.html#rpw.db.Family" title="rpw.db.Family"><code class="xref any py py-class docutils literal"><span class="pre">Family</span></code></a>), and <code class="docutils literal"><span class="pre">DB.Category</span></code> (<a class="reference internal" href="element.html#rpw.db.Category" title="rpw.db.Category"><code class="xref any py py-class docutils literal"><span class="pre">Category</span></code></a>).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">SomeFamilyInstance</span><span class="p">)</span>
-<span class="go">&lt;rpw:Instance % DB.FamilyInstance symbol:72&quot; x 36&quot;&gt;</span>
+<span class="go">&lt;rpw:FamilyInstance % DB.FamilyInstance symbol:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span>
-<span class="go">&lt;rpw:Symbol % DB.FamilySymbol symbol:72&quot; x 36&quot;&gt;</span>
+<span class="go">&lt;rpw:FamilySymbol % DB.FamilySymbol symbol:72&quot; x 36&quot;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">name</span>
 <span class="go">&#39;72&quot; x 36&quot;&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">instance</span><span class="o">.</span><span class="n">family</span>
@@ -503,7 +503,7 @@ also provide additional features based on its type:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.4',
+            VERSION:'1.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Forms &mdash; Revit Python Wrapper 1.0.4 documentation</title>
+  <title>Forms &mdash; Revit Python Wrapper 1.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.0.4 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.1.0 documentation" href="index.html"/>
         <link rel="next" title="Utilities" href="utils.html"/>
         <link rel="prev" title="Geometry" href="geometry.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.0.4
+                1.1.0
               </div>
             
           
@@ -920,7 +920,6 @@ but you can still use it by manually passing the context you want to inspect:</p
 <span class="s2">                    &lt;RowDefinition Height=&quot;*&quot;&gt;&lt;/RowDefinition&gt;</span>
 <span class="s2">                &lt;/Grid.RowDefinitions&gt;</span>
 <span class="s2">                &lt;TextBox Grid.Column=&quot;1&quot; Grid.Row=&quot;1&quot;  HorizontalAlignment=&quot;Stretch&quot;</span>
-<span class="s2">                         KeyDown=&quot;OnKeyDownHandler&quot; KeyUp=&quot;OnKeyUpHandler&quot;</span>
 <span class="s2">                         Name=&quot;tbox&quot; Margin=&quot;6,6,6,6&quot; VerticalAlignment=&quot;Stretch&quot;</span>
 <span class="s2">                         AcceptsReturn=&quot;True&quot; VerticalScrollBarVisibility=&quot;Auto&quot;</span>
 <span class="s2">                         TextWrapping=&quot;Wrap&quot;</span>
@@ -977,11 +976,13 @@ but you can still use it by manually passing the context you want to inspect:</p
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="s1">&#39;RevitPythonWrapper Console&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">PreviewKeyDown</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">KeyPressPreview</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">KeyUp</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OnKeyUpHandler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># Form Init</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span> <span class="ow">and</span> <span class="n">stack_info</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="s1">&#39;Caller: </span><span class="si">{}</span><span class="s1"> [line:</span><span class="si">{}</span><span class="s1">] | File: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack_caller</span><span class="p">,</span> <span class="n">stack_lineno</span><span class="p">,</span> <span class="n">stack_filename</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="s1">&#39;Caller: </span><span class="si">{}</span><span class="s1"> [ Line:</span><span class="si">{}</span><span class="s1">] | File: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack_caller</span><span class="p">,</span> <span class="n">stack_lineno</span><span class="p">,</span> <span class="n">stack_filename</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">Console</span><span class="o">.</span><span class="n">CARET</span>
 
@@ -1027,7 +1028,7 @@ but you can still use it by manually passing the context you want to inspect:</p
 
     <span class="k">def</span> <span class="nf">OnKeyUpHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="c1"># Need to use this to be able to override ENTER</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">LineCount</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_loaded</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Enter</span><span class="p">:</span>
             <span class="n">entered_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_last_entered_line</span><span class="p">()</span>
@@ -1040,7 +1041,6 @@ but you can still use it by manually passing the context you want to inspect:</p
             <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
-
         <span class="k">try</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
@@ -1060,6 +1060,8 @@ but you can still use it by manually passing the context you want to inspect:</p
         <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">KeyPressPreview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="c1"># This Happens before all other key handlers</span>
+        <span class="c1"># If e.Handled = True, stops event propagation here.</span>
         <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
@@ -1079,6 +1081,7 @@ but you can still use it by manually passing the context you want to inspect:</p
             <span class="bp">self</span><span class="o">.</span><span class="n">autocomplete</span><span class="p">()</span>
             <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Enter</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
 
 
@@ -1115,12 +1118,16 @@ but you can still use it by manually passing the context you want to inspect:</p
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="n">caret_index</span>
 
     <span class="k">def</span> <span class="nf">write_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Used for Code Output</span>
+        <span class="c1"># Writes line with no starting caret, new line + caret</span>
         <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">NewLine</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="c1"># Used by Autocomplete and History</span>
+        <span class="c1"># Adds text to line, including Caret</span>
         <span class="n">last_new_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">last_new_line</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
@@ -1273,7 +1280,7 @@ but you can still use it by manually passing the context you want to inspect:</p
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.4',
+            VERSION:'1.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

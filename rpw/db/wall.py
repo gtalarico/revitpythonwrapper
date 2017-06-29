@@ -14,7 +14,7 @@ from rpw.db.builtins import BipEnum
 
 class Wall(FamilyInstance):
     """
-    Inherits base ``Instance`` and overrides symbol attribute to
+    Inherits base ``FamilyInstance`` and overrides symbol attribute to
     get `Symbol` equivalent of Wall - WallType `(GetTypeId)`
     """
 
@@ -43,7 +43,7 @@ class Wall(FamilyInstance):
 
 class WallType(FamilySymbol):
     """
-    Inherits from :any:`Symbol` and overrides:
+    Inherits from :any:`FamilySymbol` and overrides:
         * :func:`wall_kind` to get the `Family` equivalent of Wall `(.Kind)`
         * Uses a different method to get instances.
     """
