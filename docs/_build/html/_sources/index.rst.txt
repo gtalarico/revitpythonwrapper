@@ -68,7 +68,7 @@ It also provides a few convenient shortcuts:
     | API changes are expected.
 
 Got Questions?
-Post them over in the project's `Github Page <http://eirannejad.github.io/pyRevit/>`_ or
+Post them over in the project's `Github Page <http://www.github.com/gtalarico/revitpythonwrapper>`_ or
 hit me up on `twitter <https://twitter.com/gtalarico>`_.
 
 -------------------------------------------------------------------
