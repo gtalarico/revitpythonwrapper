@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Revit Python Wrapper 1.1.0 documentation</title>
+  <title>Index &mdash; Revit Python Wrapper 1.1.1 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.1.0 documentation" href="index.html"/> 
+    <link rel="top" title="Revit Python Wrapper 1.1.1 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
             
           
@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
@@ -240,7 +241,7 @@
 </li>
       <li><a href="collector.html#rpw.db.Collector._collect">_collect() (rpw.db.Collector method)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection._pick">_pick() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick._pick">_pick() (rpw.ui.Pick method)</a>
 </li>
       <li><a href="parameters.html#rpw.db.parameter.Parameter._revit_object">_revit_object (rpw.db.parameter.Parameter attribute)</a>
 
@@ -278,10 +279,10 @@
 </li>
       <li><a href="element.html#rpw.db.AreaScheme.areas">areas (rpw.db.AreaScheme attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.db.AreaScheme">AreaScheme (class in rpw.db)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="geometry.html#rpw.db.XYZ.as_dict">as_dict (rpw.db.XYZ attribute)</a>
 </li>
       <li><a href="collections.html#rpw.db.ElementCollection.as_element_id_list">as_element_id_list() (rpw.db.ElementCollection method)</a>
@@ -296,7 +297,11 @@
         <li><a href="collections.html#rpw.db.ElementSet.as_element_list">(rpw.db.ElementSet method)</a>
 </li>
       </ul></li>
+      <li><a href="reference.html#rpw.db.Reference.as_global_pt">as_global_pt (rpw.db.Reference attribute)</a>
+</li>
       <li><a href="geometry.html#rpw.db.XYZ.as_tuple">as_tuple (rpw.db.XYZ attribute)</a>
+</li>
+      <li><a href="reference.html#rpw.db.Reference.as_uv_pt">as_uv_pt (rpw.db.Reference attribute)</a>
 </li>
       <li><a href="geometry.html#rpw.db.XYZ.at_z">at_z() (rpw.db.XYZ method)</a>
 </li>
@@ -462,8 +467,12 @@
         <li><a href="builtins.html#rpw.db.builtins._BiParameter.get">(rpw.db.builtins._BiParameter method)</a>
 </li>
       </ul></li>
+      <li><a href="reference.html#rpw.db.Reference.get_element">get_element() (rpw.db.Reference method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference.html#rpw.db.Reference.get_geometry">get_geometry() (rpw.db.Reference method)</a>
+</li>
       <li><a href="builtins.html#rpw.db.builtins._BiCategory.get_id">get_id() (rpw.db.builtins._BiCategory method)</a>
 
       <ul>
@@ -484,6 +493,8 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference.html#rpw.db.Reference.id">id (rpw.db.Reference attribute)</a>
+</li>
       <li><a href="element.html#rpw.db.Category.instances">instances (rpw.db.Category attribute)</a>
 
       <ul>
@@ -574,23 +585,25 @@
 </li>
       <li><a href="parameters.html#rpw.db.ParameterSet">ParameterSet (class in rpw.db)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_box">pick_box() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick">Pick (class in rpw.ui)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_by_rectangle">pick_by_rectangle() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_box">pick_box() (rpw.ui.Pick method)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_edge">pick_edge() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_by_rectangle">pick_by_rectangle() (rpw.ui.Pick method)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_element">pick_element() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_edge">pick_edge() (rpw.ui.Pick method)</a>
+</li>
+      <li><a href="selection.html#rpw.ui.Pick.pick_element">pick_element() (rpw.ui.Pick method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="selection.html#rpw.ui.Selection.pick_face">pick_face() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_face">pick_face() (rpw.ui.Pick method)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_linked_element">pick_linked_element() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_linked_element">pick_linked_element() (rpw.ui.Pick method)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_pt">pick_pt() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_pt">pick_pt() (rpw.ui.Pick method)</a>
 </li>
-      <li><a href="selection.html#rpw.ui.Selection.pick_pt_on_element">pick_pt_on_element() (rpw.ui.Selection method)</a>
+      <li><a href="selection.html#rpw.ui.Pick.pick_pt_on_element">pick_pt_on_element() (rpw.ui.Pick method)</a>
 </li>
       <li><a href="collections.html#rpw.db.ElementCollection.pop">pop() (rpw.db.ElementCollection method)</a>
 
@@ -610,6 +623,8 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="reference.html#rpw.db.Reference">Reference (class in rpw.db)</a>
+</li>
       <li><a href="revit.html#rpw.__revit.Revit">Revit (class in rpw.__revit)</a>
 </li>
       <li><a href="element.html#rpw.db.Room">Room (class in rpw.db)</a>
@@ -628,10 +643,12 @@
 </li>
       <li><a href="parameters.html#module-rpw.db.parameter">rpw.db.parameter (module)</a>
 </li>
-      <li><a href="transaction.html#module-rpw.db.transaction">rpw.db.transaction (module)</a>
+      <li><a href="reference.html#module-rpw.db.reference">rpw.db.reference (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="transaction.html#module-rpw.db.transaction">rpw.db.transaction (module)</a>
+</li>
       <li><a href="exceptions.html#module-rpw.exceptions">rpw.exceptions (module)</a>
 </li>
       <li><a href="forms.html#module-rpw.ui.forms">rpw.ui.forms (module)</a>
@@ -857,7 +874,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.0',
+            VERSION:'1.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
