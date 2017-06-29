@@ -259,13 +259,33 @@ Sets are unordered.</p>
 <dl class="attribute">
 <dt id="rpw.db.ElementSet.element_ids">
 <code class="descname">element_ids</code><a class="headerlink" href="#rpw.db.ElementSet.element_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id1"><span class="problematic" id="id2">**</span></a>Returns* – [DB.ElementId]* – List of ElementIds Objects</p>
+<dd><p>ElementId of Elements in ElementSet</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of ElementIds Objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">ElementIds (<code class="docutils literal"><span class="pre">List</span></code>)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rpw.db.ElementSet.elements">
 <code class="descname">elements</code><a class="headerlink" href="#rpw.db.ElementSet.elements" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Returns</em> – Elements stored in ElementSet</p>
+<dd><p>Elements in ElementSet</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Elements stored in ElementSet</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Elements (<code class="docutils literal"><span class="pre">List</span></code>)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -276,7 +296,7 @@ Sets are unordered.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<cite>DB.ElementId</cite>) – </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<cite>DB.ElementId</cite>) – ElementId</td>
 </tr>
 </tbody>
 </table>
@@ -368,13 +388,23 @@ Sets are unordered.</p>
 <dl class="attribute">
 <dt id="rpw.db.ElementCollection.element_ids">
 <code class="descname">element_ids</code><a class="headerlink" href="#rpw.db.ElementCollection.element_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id3"><span class="problematic" id="id4">**</span></a>Returns* – [DB.ElementId]* – List of ElementIds Objects</p>
+<dd><p><em>Returns</em> – ElementIds (<code class="docutils literal"><span class="pre">List</span></code>) – List of ElementIds Objects</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rpw.db.ElementCollection.elements">
 <code class="descname">elements</code><a class="headerlink" href="#rpw.db.ElementCollection.elements" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id5"><span class="problematic" id="id6">**</span></a>Returns* – [DB.Element]* – List of Elements Objects</p>
+<dd><p>List of Elements in Collection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of Elements Objects</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Elements (<code class="docutils literal"><span class="pre">List</span></code>)</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -385,7 +415,7 @@ Sets are unordered.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<cite>DB.ElementId</cite>) – </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>element_id</strong> (<cite>DB.ElementId</cite>) – ElementId</td>
 </tr>
 </tbody>
 </table>
@@ -573,7 +603,7 @@ Sets are unordered.</p>
 <span class="sd">        Removed from set using ElementIds</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            element_id (`DB.ElementId`)</span>
+<span class="sd">            element_id (`DB.ElementId`): ElementId</span>
 <span class="sd">         &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
 
@@ -588,8 +618,10 @@ Sets are unordered.</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Elements in ElementSet</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            Elements stored in ElementSet</span>
+<span class="sd">            Elements (``List``): Elements stored in ElementSet</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
         <span class="c1"># return [self.doc.GetElement(eid) for eid in self._element_dict.keys()]</span>
@@ -597,8 +629,11 @@ Sets are unordered.</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ElementId of Elements in ElementSet</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            [DB.ElementId]: List of ElementIds Objects &quot;&quot;&quot;</span>
+<span class="sd">            ElementIds (``List``): List of ElementIds Objects</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
         <span class="c1"># return [eid for eid in self._element_dict]</span>
 
@@ -696,8 +731,10 @@ Sets are unordered.</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List of Elements in Collection</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            [DB.Element]: List of Elements Objects</span>
+<span class="sd">            Elements (``List``): List of Elements Objects</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span>
 
@@ -705,7 +742,7 @@ Sets are unordered.</p>
     <span class="k">def</span> <span class="nf">element_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            [DB.ElementId]: List of ElementIds Objects</span>
+<span class="sd">            ElementIds (``List``): List of ElementIds Objects</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">Id</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elements</span><span class="p">]</span>
 

@@ -97,6 +97,8 @@
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#selection-wrapper">Selection Wrapper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pick">Pick</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
@@ -179,6 +181,8 @@
   <div class="section" id="module-rpw.ui.selection">
 <span id="selection"></span><h1>Selection<a class="headerlink" href="#module-rpw.ui.selection" title="Permalink to this headline">¶</a></h1>
 <p><cite>uidoc.Selection</cite> Wrapper</p>
+<div class="section" id="selection-wrapper">
+<h2>Selection Wrapper<a class="headerlink" href="#selection-wrapper" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="rpw.ui.Selection">
 <em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Selection</code><span class="sig-paren">(</span><em>elements_or_ids=None</em>, <em>uidoc=ActiveUIDocument</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Selection" title="Permalink to this definition">¶</a></dt>
@@ -286,6 +290,210 @@ selection handler will be created with selected elements.</p>
 
 </dd></dl>
 
+</div>
+<div class="section" id="pick">
+<h2>Pick<a class="headerlink" href="#pick" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="rpw.ui.Pick">
+<em class="property">class </em><code class="descclassname">rpw.ui.</code><code class="descname">Pick</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObject</span></code></p>
+<p>Pick Class</p>
+<p>Handles all pick* methods in the Seletion Class</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">picker</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Pick</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pick</span><span class="o">.</span><span class="n">pick_element</span><span class="p">()</span>
+<span class="go">&lt;rpw:reference&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pick</span><span class="o">.</span><span class="n">pick_element</span><span class="p">(</span><span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">[&lt;rpw:reference&gt;, ...]</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.ui.Pick._pick">
+<code class="descname">_pick</code><span class="sig-paren">(</span><em>obj_type</em>, <em>msg=’Pick:’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick._pick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note: Moved Reference Logic to Referenc Wrapper.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_box">
+<code class="descname">pick_box</code><span class="sig-paren">(</span><em>msg</em>, <em>style=’directional’</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>PickBox</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Min and Max Points of Box</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">XYZ Points (<code class="docutils literal"><span class="pre">XYZ</span></code>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_by_rectangle">
+<code class="descname">pick_by_rectangle</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_by_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>PickBox</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of wrapped Elements</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Elements (<code class="docutils literal"><span class="pre">List</span></code>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_edge">
+<code class="descname">pick_edge</code><span class="sig-paren">(</span><em>msg=’Pick Edge(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_edge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Edge</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single edge, True for multiple</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="reference.html#rpw.db.Reference" title="rpw.db.Reference"><code class="xref any py py-class docutils literal"><span class="pre">Reference</span></code></a> Class</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">reference (<code class="docutils literal"><span class="pre">Reference</span></code>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_element">
+<code class="descname">pick_element</code><span class="sig-paren">(</span><em>msg=’Pick Element(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single element, True for multiple</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="reference.html#rpw.db.Reference" title="rpw.db.Reference"><code class="xref any py py-class docutils literal"><span class="pre">Reference</span></code></a> Class</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">reference (<code class="docutils literal"><span class="pre">Reference</span></code>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_face">
+<code class="descname">pick_face</code><span class="sig-paren">(</span><em>msg=’Pick Face(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_face" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Face</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single face, True for multiple</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="reference.html#rpw.db.Reference" title="rpw.db.Reference"><code class="xref any py py-class docutils literal"><span class="pre">Reference</span></code></a> Class</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">reference (<code class="docutils literal"><span class="pre">Reference</span></code>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_linked_element">
+<code class="descname">pick_linked_element</code><span class="sig-paren">(</span><em>msg=’Pick Linked Element’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_linked_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Linked Element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single element, True for multiple</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="reference.html#rpw.db.Reference" title="rpw.db.Reference"><code class="xref any py py-class docutils literal"><span class="pre">Reference</span></code></a> Class</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">reference (<code class="docutils literal"><span class="pre">Reference</span></code>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_pt">
+<code class="descname">pick_pt</code><span class="sig-paren">(</span><em>msg=’Pick Point’</em>, <em>snap=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_pt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Point location</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>snap</strong> (<em>str</em>) – Snap Options: [endpoints, midpoints, nearest,
+workplanegrid, intersections,
+centers, perpendicular,
+tangents, quadrants, points]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Rpw XYZ Point</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">XYZ (<cite>Xyz</cite>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.ui.Pick.pick_pt_on_element">
+<code class="descname">pick_pt_on_element</code><span class="sig-paren">(</span><em>msg=’Pick Pt On Element(s)’</em>, <em>multiple=False</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.Pick.pick_pt_on_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pick Point On Element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>msg</strong> (<em>str</em>) – Message to show</li>
+<li><strong>multiple</strong> (<em>bool</em>) – False to pick single point, True for multiple</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><a class="reference internal" href="reference.html#rpw.db.Reference" title="rpw.db.Reference"><code class="xref any py py-class docutils literal"><span class="pre">Reference</span></code></a> Class</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">reference (<code class="docutils literal"><span class="pre">Reference</span></code>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
@@ -406,6 +614,16 @@ selection handler will be created with selected elements.</p>
 
 
 <span class="k">class</span> <span class="nc">Pick</span><span class="p">(</span><span class="n">BaseObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Pick Class</span>
+
+<span class="sd">    Handles all pick* methods in the Seletion Class</span>
+
+<span class="sd">    &gt;&gt;&gt; picker = rpw.ui.Pick()</span>
+<span class="sd">    &gt;&gt;&gt; pick.pick_element()</span>
+<span class="sd">    &lt;rpw:reference&gt;</span>
+<span class="sd">    &gt;&gt;&gt; pick.pick_element(multiple=True)</span>
+<span class="sd">    [&lt;rpw:reference&gt;, ...]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_pick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Pick:&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Note: Moved Reference Logic to Referenc Wrapper.&quot;&quot;&quot;</span>
@@ -420,7 +638,12 @@ selection handler will be created with selected elements.</p>
             <span class="k">return</span> <span class="n">Reference</span><span class="p">(</span><span class="n">reference</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">pick_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;directional&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Pick Box Style &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        PickBox</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            XYZ Points (``XYZ``): Min and Max Points of Box</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># This seems kind of usless right now.</span>
         <span class="n">PICK_STYLE</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;crossing&#39;</span><span class="p">:</span> <span class="n">UI</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">PickBoxStyle</span><span class="o">.</span><span class="n">Crossing</span><span class="p">,</span>
                       <span class="s1">&#39;enclosing&#39;</span><span class="p">:</span> <span class="n">UI</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">PickBoxStyle</span><span class="o">.</span><span class="n">Enclosing</span><span class="p">,</span>
@@ -431,7 +654,12 @@ selection handler will be created with selected elements.</p>
         <span class="k">return</span> <span class="p">(</span><span class="n">XYZ</span><span class="p">(</span><span class="n">pick_box</span><span class="o">.</span><span class="n">Min</span><span class="p">),</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">pick_box</span><span class="o">.</span><span class="n">Max</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">pick_by_rectangle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Pick by Rectangle &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        PickBox</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Elements (``List``): List of wrapped Elements</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Implement ISelectFilter overload</span>
         <span class="c1"># NOTE: This is the only method that returns elements</span>
         <span class="n">refs</span> <span class="o">=</span> <span class="n">PickElementsByRectangle</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
@@ -444,6 +672,9 @@ selection handler will be created with selected elements.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            msg (str): Message to show</span>
 <span class="sd">            multiple (bool): False to pick single element, True for multiple</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            reference (``Reference``): :any:`Reference` Class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Element</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
@@ -454,6 +685,9 @@ selection handler will be created with selected elements.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            msg (str): Message to show</span>
 <span class="sd">            multiple (bool): False to pick single point, True for multiple</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            reference (``Reference``): :any:`Reference` Class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">PointOnElement</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
@@ -464,6 +698,9 @@ selection handler will be created with selected elements.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            msg (str): Message to show</span>
 <span class="sd">            multiple (bool): False to pick single edge, True for multiple</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            reference (``Reference``): :any:`Reference` Class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Edge</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
@@ -474,6 +711,9 @@ selection handler will be created with selected elements.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            msg (str): Message to show</span>
 <span class="sd">            multiple (bool): False to pick single face, True for multiple</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            reference (``Reference``): :any:`Reference` Class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">Face</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 
@@ -484,6 +724,9 @@ selection handler will be created with selected elements.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            msg (str): Message to show</span>
 <span class="sd">            multiple (bool): False to pick single element, True for multiple</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            reference (``Reference``): :any:`Reference` Class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pick</span><span class="p">(</span><span class="n">ObjectType</span><span class="o">.</span><span class="n">LinkedElement</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">)</span>
 

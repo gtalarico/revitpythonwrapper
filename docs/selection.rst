@@ -9,7 +9,7 @@ Selection
 ==================
 
 .. automodule:: rpw.ui.selection
-:undoc-members:
+  :undoc-members:
 
 
 Selection Wrapper
@@ -25,7 +25,6 @@ Pick
 
 .. autoclass:: rpw.ui.Pick
     :members:
-    :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
     :show-inheritance:
 
 ----------------------------------------------

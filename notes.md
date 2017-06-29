@@ -1,5 +1,10 @@
 # Release Notes
 
+### 1.1.1
+* New Reference Wrappers
+* Separated Pick() class
+* Docs
+
 ### 1.1.0
 * Bug Fixes
 * New View Wrappers

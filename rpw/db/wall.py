@@ -43,7 +43,7 @@ class Wall(FamilyInstance):
 
 class WallType(FamilySymbol):
     """
-    Inherits from :any:`Symbol` and overrides:
+    Inherits from :any:`FamilySymbol` and overrides:
         * :func:`wall_kind` to get the `Family` equivalent of Wall `(.Kind)`
         * Uses a different method to get instances.
     """
