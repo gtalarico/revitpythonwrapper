@@ -23,9 +23,6 @@ class Reference(Element):
     """
 
     _revit_object_class = DB.Reference
-    # _revit_object_category = DB.BuiltInCategory.OST_Rooms
-    # _collector_params = {'of_category': _revit_object_category,
-                        #  'is_not_type': True}
 
     def __init__(self, reference, doc=revit.doc):
         super(Reference, self).__init__(reference)
@@ -50,11 +47,15 @@ class Reference(Element):
 
     @property
     def id(self):
+        """ ElementId of Reference """
         return self._revit_object.ElementId
 
     def get_element(self):
+        """ Element of Reference """
+        #TODO: Handle Linked Element
         return self.doc.GetElement(self.id)
 
     def get_geometry(self):
+        """ GeometryObject from Reference """
         ref = self._revit_object
         return self.doc.GetElement(ref).GetGeometryObjectFromReference(ref)

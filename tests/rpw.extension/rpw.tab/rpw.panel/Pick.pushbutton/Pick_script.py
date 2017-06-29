@@ -46,6 +46,7 @@ from rpw.utils.logger import logger
 from rpw.ui.selection import Pick
 from rpw.db.reference import Reference
 from rpw.db.xyz import XYZ
+from rpw.db.element import Element
 
 import test_utils
 
@@ -86,19 +87,11 @@ class PickTests(unittest.TestCase):
         selection = Pick()
         desk = selection.pick_element('Pick a Desk')
         self.assertIsInstance(desk, Reference)
-        self.assertEqual(len(selection), 1)
 
     def test_pick_elements(self):
         selection = Pick()
         desks = selection.pick_element('Pick 2 Desks', multiple=True)
         self.assertIsInstance(desks[0], Reference)
-        self.assertEqual(len(selection), 2)
-
-    def test_pick_elements(self):
-        selection = Pick()
-        desks = selection.pick_element('Pick 2 Desks', multiple=True)
-        self.assertIsInstance(desks[0], Reference)
-        self.assertEqual(len(selection), 2)
 
     def test_pick_element_point(self):
         selection = Pick()
@@ -131,11 +124,16 @@ class PickTests(unittest.TestCase):
         rv = selection.pick_pt('pick_pt', snap='endpoints')
         self.assertIsInstance(rv, XYZ)
 
-
-    def test_pick_pt(self):
+    def test_pick_box(self):
         selection = Pick()
         rv = selection.pick_box('PickBox')
-        self.assertIsInstance(rv, Reference)
+        self.assertIsInstance(rv[0], XYZ)
+
+    def test_pick_by_rectangle(self):
+        selection = Pick()
+        rv = selection.pick_by_rectangle('Pick By Rectangle')
+        self.assertIsInstance(rv[0], Element)
+
     # def test_pick_linked(self):
     #     selection = Pick()
     #     rv = selection.pick_linked_element('pick_linked_element')
