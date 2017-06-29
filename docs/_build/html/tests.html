@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tests &mdash; Revit Python Wrapper 1.0.4 documentation</title>
+  <title>Tests &mdash; Revit Python Wrapper 1.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.0.4 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.1.0 documentation" href="index.html"/>
         <link rel="prev" title="Known Issues" href="known_issues.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.0.4
+                1.1.0
               </div>
             
           
@@ -96,6 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
@@ -481,12 +482,12 @@ examples of how the library is intended to be used.</p>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING ELEMENT COLLECTOR...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_element_collector_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="n">walls</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Wall</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">walls</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">walls</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_element_collector_wallsymbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">wallsymbols</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallSymbol</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="n">wallsymbols</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallType</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wallsymbols</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wallsymbols</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
 
@@ -854,8 +855,7 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">wrapped_param</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wrapped_param</span><span class="o">.</span><span class="n">builtin</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="o">.</span><span class="n">ALL_MODEL_INSTANCE_COMMENTS</span><span class="p">)</span>
 
-<span class="c1">##################################</span>
-<span class="c1"># INSTANCES / Symbols / Families #</span>
+<span class="c1">################################### INSTANCES / Symbols / Families #</span>
 <span class="c1">##################################</span>
 
 <span class="k">class</span> <span class="nc">InstanceTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
@@ -909,7 +909,9 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()),</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">FamilyInstance</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">symbol</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()),</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">FamilySymbol</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">family</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()),</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">category</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()),</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Category</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Move this. Category No Longer Element</span>
+        <span class="c1"># self.assertIsInstance(rpw.db.Element.Factory(category.unwrap()), rpw.db.Category)</span>
 
 
 <span class="c1">##################################################</span>
@@ -924,23 +926,24 @@ examples of how the library is intended to be used.</p>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Wall</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_wall_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wrapped</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
         <span class="n">wrapped</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallSymbol</span><span class="p">)</span>
-        <span class="n">wrapped</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallFamily</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
+        <span class="c1"># TODO: MOVE THESE &gt; No Longer Element</span>
+        <span class="n">wrapped</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallKind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">family</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallKind</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall_symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">symbol</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallSymbol</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_symbol</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Wall 1&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">instances</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
@@ -948,12 +951,11 @@ examples of how the library is intended to be used.</p>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall_family</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">family</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_family</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallFamily</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_family</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallKind</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="o">.</span><span class="n">Basic</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Basic Wall&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">instances</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">symbols</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">siblings</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall_category</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">category</span>
@@ -977,10 +979,10 @@ examples of how the library is intended to be used.</p>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">room</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">os_category</span><span class="o">=</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Wall</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
     <span class="c1">#</span>
     <span class="c1"># def test_wall_instance_wrap(self):</span>
-    <span class="c1">#     self.assertIsInstance(self.wall, rpw.db.wall.WallInstance)</span>
+    <span class="c1">#     self.assertIsInstance(self.wall, rpw.db.wall.Wall)</span>
     <span class="c1">#     self.assertIsInstance(self.wall.unwrap(), DB.Wall)</span>
 
 
@@ -1020,62 +1022,49 @@ examples of how the library is intended to be used.</p>
 <span class="k">class</span> <span class="nc">FormSelectFromListTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">test_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Select From List Test&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Select From List Test&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
                                         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Select A and click select&#39;</span><span class="p">,</span>
                                         <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_get_dict_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Select From List Test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>
-                                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Select A and click select&#39;</span><span class="p">,</span>
-                                        <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Select From List Test&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>
+                                            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Select A and click select&#39;</span><span class="p">,</span>
+                                            <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Cancel&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Test Cancel&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
                                         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE WITHOUT SELECTING&#39;</span><span class="p">,</span>
                                         <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_close_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Text Exit on Close&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemExit</span><span class="p">):</span>
+            <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">SelectFromList</span><span class="p">(</span><span class="s1">&#39;Text Exit on Close&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
                                         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE WITHOUT SELECTING&#39;</span><span class="p">,</span>
                                         <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemExit</span><span class="p">):</span>
-            <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
 <span class="k">class</span> <span class="nc">FormTextInputTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">test_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Text Input&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
-                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;select with letter A&#39;</span><span class="p">,</span>
-                                   <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Text Input&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+                                       <span class="n">description</span><span class="o">=</span><span class="s1">&#39;select with letter A&#39;</span><span class="p">,</span>
+                                       <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Test Cancel&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Test Cancel&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
                                    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE FORM&#39;</span><span class="p">,</span>
                                    <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form_ok</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_close_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Test Exit on Close&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
-                                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE FORM&#39;</span><span class="p">,</span>
-                                   <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemExit</span><span class="p">):</span>
-            <span class="n">form_ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">rpw</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="s1">&#39;Test Exit on Close&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">,</span>
+                                    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;CLOSE FORM&#39;</span><span class="p">,</span>
+                                    <span class="n">exit_on_close</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 </pre></div>
 </div>
@@ -1285,7 +1274,7 @@ examples of how the library is intended to be used.</p>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span><span class="o">.</span><span class="n">ToElements</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallInstance</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Wall</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Transaction</span><span class="p">(</span><span class="s1">&#39;Reset Comment&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
@@ -1507,7 +1496,7 @@ examples of how the library is intended to be used.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.0.4',
+            VERSION:'1.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

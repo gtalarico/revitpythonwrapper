@@ -221,14 +221,14 @@ Without RPW
 
     More Specialized Wrappers
     also provide additional features based on its type:
-    ``DB.FamilyInstace`` (:any:`Instance`), ``DB.FamilySymbol`` (:any:`Symbol`),
+    ``DB.FamilyInstace`` (:any:`FamilyInstance`), ``DB.FamilySymbol`` (:any:`FamilySymbol`),
     ``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
 
 
     >>> instance = db.Element(SomeFamilyInstance)
-    <rpw:Instance % DB.FamilyInstance symbol:72" x 36">
+    <rpw:FamilyInstance % DB.FamilyInstance symbol:72" x 36">
     >>> instance.symbol
-    <rpw:Symbol % DB.FamilySymbol symbol:72" x 36">
+    <rpw:FamilySymbol % DB.FamilySymbol symbol:72" x 36">
     >>> instance.symbol.name
     '72" x 36"'
     >>> instance.family

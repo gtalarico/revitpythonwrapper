@@ -79,21 +79,21 @@ Wall Element Tree Wrappers
     to retrieve the "symbol" and "family" of a wall using:
     `wall.symbol`, and `wall.family`
 
-    >>> wall = rpw.db.WallInstance(SomeWallInstance)
+    >>> wall = rpw.db.Wall(SomeWallInstance)
     >>> wall.symbol
     <rpw: WallSymbol % DB.WallType | type:Wall 1>
     >>> wall.family
     <rpw: WallFamily % DB.WallKind | type:Basic 1>
 
-.. autoclass:: rpw.db.WallInstance
+.. autoclass:: rpw.db.Wall
     :show-inheritance:
     :special-members: __init__
 
-.. autoclass:: rpw.db.WallSymbol
+.. autoclass:: rpw.db.WallType
     :show-inheritance:
     :special-members: __init__
 
-.. autoclass:: rpw.db.WallFamily
+.. autoclass:: rpw.db.WallKind
     :show-inheritance:
     :special-members: __init__
 
