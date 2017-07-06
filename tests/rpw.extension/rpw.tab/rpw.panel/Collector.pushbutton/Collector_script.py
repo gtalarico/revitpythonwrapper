@@ -357,18 +357,28 @@ class ParameterFilterTests(unittest.TestCase):
         self.assertEqual(len(col), 1)
 
 
-# class FilteredCollectorTests(unittest.TestCase):
-#     # TODO: Re-write comparing to Filtered Element Collector
-#
-#     @classmethod
-#     def setUpClass(cls):
-#         logger.title('TESTING COLLECTOR...')
-#
-#     def test_category(self):
-#         fcol = DB.FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels)
-#         col = rpw.db.Collector(of_category="OST_Levels")
-#         self.assertEqual(len(col), fcol.GetElementCount())
+class FilteredCollectorCompareTests(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING COLLECTOR...')
+
+    def test_category(self):
+        rv = DB.FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsElementType()
+        rv2 = rpw.db.Collector(of_category="Levels", is_type=True)
+        self.assertEqual(len(rv), len(rv2))
+
+    def test_category2(self):
+        rv = DB.FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
+        rv2 = rpw.db.Collector(of_category="Levels", is_type=False)
+        self.assertEqual(len(rv), len(rv2))
+
+    def test_class(self):
+        rv = DB.FilteredElementCollector(doc).OfClass(View)
+        rv2 = rpw.db.Collector(of_class="View")
+        self.assertEqual(len(rv), len(rv2))
+
+        #TODO: Fo all FilteredElementCollector
 
 def run():
     logger.verbose(False)
