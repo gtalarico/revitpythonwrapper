@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.1.3
+* Fixed Quick Form Title
+
 ### 1.1.2
 * New default option for ComboBox, CheckBox, and TextBox
 * Added docs for FlexForm Controls Init
