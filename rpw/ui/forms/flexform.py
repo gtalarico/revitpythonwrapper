@@ -209,26 +209,33 @@ class ComboBox(RpwControlMixin, Controls.ComboBox):
     Windows.Controls.ComboBox Wrapper
 
     >>> ComboBox({'Option 1': Element, 'Option 2', 'Elemnet'})
+    >>> ComboBox({'Option 1': Element, 'Option 2', 'Elemnet'}, sort=False)
     """
-    def __init__(self, name, options, **kwargs):
+    def __init__(self, name, options, default=None, sort=True, **kwargs):
         """
         Args:
             name (``str``): Name of control. Will be used to return value
             options (``list``, ``dict``): If ``dict``, selected value is returned
+            default (``str``): Name of option to be preselected [Default: first]
             wpf_params (kwargs): Additional WPF attributes
         """
         self.Name = name
         self.set_attrs(**kwargs)
+        index = 0
 
         self.options = options
         if hasattr(options, 'keys'):
             options = options.keys()
-        if kwargs.get('sort', True):
+        if sort:
             options.sort()
+        if default is None:
+            index = 0
+        else:
+            index = options.index(default)
 
         self.Items.Clear()
         self.ItemsSource = options
-        self.SelectedItem = options[0]
+        self.SelectedItem = options[index]
 
     @property
     def value(self):
