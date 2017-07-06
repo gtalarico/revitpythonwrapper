@@ -75,6 +75,30 @@ class FormTextInputTests(unittest.TestCase):
                                     description='CLOSE FORM',
                                     exit_on_close=True)
 
+
+class FlexFormTests(unittest.TestCase):
+
+    def test_flex_form_launch(self):
+        components = [rpw.ui.forms.Label('Test'), rpw.ui.forms.Button('Click Here')]
+        form = rpw.ui.forms.FlexForm('Text Input', components)
+        form_result = form.show()
+        self.assertTrue(form_result)
+
+    def test_flex_form(self):
+        components = [rpw.ui.forms.Label('Test'),
+                      rpw.ui.forms.TextBox('textbox', default='Default Value'),
+                      rpw.ui.forms.ComboBox('combo', {'A':0, 'B':1}, default='B'),
+                      rpw.ui.forms.CheckBox('checkbox', 'SELECTED', default=True),
+                      rpw.ui.forms.Separator(),
+                      rpw.ui.forms.Button('Click Here'),
+                      ]
+        form = rpw.ui.forms.FlexForm('Text Input', components)
+        form_result = form.show()
+        self.assertTrue(form_result)
+        self.assertEqual(form.values['checkbox'], True)
+        self.assertEqual(form.values['combo'], 1)
+        self.assertEqual(form.values['textbox'], 'Default Value')
+
 def run():
     # logger.verbose(False)
     unittest.main(verbosity=3, buffer=True)

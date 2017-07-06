@@ -589,14 +589,14 @@ and closes form.</p>
 
 <dl class="class">
 <dt id="rpw.ui.forms.Button">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Button</code><span class="sig-paren">(</span><em>button_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Button" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">Button</code><span class="sig-paren">(</span><em>button_text</em>, <em>on_click=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Button" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows.Controls.Button Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="rpw.ui.forms.Button.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>button_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Button.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>button_text</em>, <em>on_click=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.Button.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -801,7 +801,7 @@ and closes form.</p>
 
 <span class="sd">    &gt;&gt;&gt; Button(&#39;Select&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">button_text</span><span class="p">,</span> <span class="n">on_click</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            button_text (``str``): Button Text</span>
@@ -809,7 +809,7 @@ and closes form.</p>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">button_text</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">on_click</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Click&#39;</span><span class="p">,</span> <span class="n">FlexForm</span><span class="o">.</span><span class="n">get_values</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_click</span> <span class="o">=</span> <span class="n">on_click</span> <span class="ow">or</span> <span class="n">FlexForm</span><span class="o">.</span><span class="n">get_values</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
