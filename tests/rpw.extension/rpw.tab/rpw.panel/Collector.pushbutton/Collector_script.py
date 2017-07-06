@@ -364,17 +364,17 @@ class FilteredCollectorCompareTests(unittest.TestCase):
         logger.title('TESTING COLLECTOR...')
 
     def test_category(self):
-        rv = DB.FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsElementType()
+        rv = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Levels).WhereElementIsElementType().ToElements()
         rv2 = rpw.db.Collector(of_category="Levels", is_type=True)
         self.assertEqual(len(rv), len(rv2))
 
     def test_category2(self):
-        rv = DB.FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType()
+        rv = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Levels).WhereElementIsNotElementType().ToElements()
         rv2 = rpw.db.Collector(of_category="Levels", is_type=False)
         self.assertEqual(len(rv), len(rv2))
 
     def test_class(self):
-        rv = DB.FilteredElementCollector(doc).OfClass(View)
+        rv = DB.FilteredElementCollector(doc).OfClass(DB.View).ToElements()
         rv2 = rpw.db.Collector(of_class="View")
         self.assertEqual(len(rv), len(rv2))
 
