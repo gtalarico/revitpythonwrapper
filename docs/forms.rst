@@ -107,7 +107,7 @@ FlexForm Controls
   :special-members: __init__
 .. autoclass:: rpw.ui.forms.Button
   :special-members: __init__
-  .. autoclass:: rpw.ui.forms.Separator
+.. autoclass:: rpw.ui.forms.Separator
 
 
 -------------------------------------------------------------------

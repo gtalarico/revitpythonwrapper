@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tests &mdash; Revit Python Wrapper 1.1.0 documentation</title>
+  <title>Tests &mdash; Revit Python Wrapper 1.1.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.1.0 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.1.1 documentation" href="index.html"/>
         <link rel="prev" title="Known Issues" href="known_issues.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
             
           
@@ -636,18 +636,28 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 
 
-<span class="c1"># class FilteredCollectorTests(unittest.TestCase):</span>
-<span class="c1">#     # TODO: Re-write comparing to Filtered Element Collector</span>
-<span class="c1">#</span>
-<span class="c1">#     @classmethod</span>
-<span class="c1">#     def setUpClass(cls):</span>
-<span class="c1">#         logger.title(&#39;TESTING COLLECTOR...&#39;)</span>
-<span class="c1">#</span>
-<span class="c1">#     def test_category(self):</span>
-<span class="c1">#         fcol = DB.FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels)</span>
-<span class="c1">#         col = rpw.db.Collector(of_category=&quot;OST_Levels&quot;)</span>
-<span class="c1">#         self.assertEqual(len(col), fcol.GetElementCount())</span>
+<span class="k">class</span> <span class="nc">FilteredCollectorCompareTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
 
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING COLLECTOR...&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Levels</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsElementType</span><span class="p">()</span>
+        <span class="n">rv2</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s2">&quot;Levels&quot;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">rv2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">test_category2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfCategory</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Levels</span><span class="p">)</span><span class="o">.</span><span class="n">WhereElementIsNotElementType</span><span class="p">()</span>
+        <span class="n">rv2</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_category</span><span class="o">=</span><span class="s2">&quot;Levels&quot;</span><span class="p">,</span> <span class="n">is_type</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">rv2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">test_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="o">.</span><span class="n">OfClass</span><span class="p">(</span><span class="n">View</span><span class="p">)</span>
+        <span class="n">rv2</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s2">&quot;View&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rv</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">rv2</span><span class="p">))</span>
+
+        <span class="c1">#TODO: Fo all FilteredElementCollector</span>
 
 </pre></div>
 </div>
@@ -1496,7 +1506,7 @@ examples of how the library is intended to be used.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.0',
+            VERSION:'1.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
