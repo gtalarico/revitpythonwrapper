@@ -196,3 +196,9 @@ class ViewPlanType(BaseObjectWrapper):
         FloorPlan, CeilingPlan
     No Wrapper Need. Only a Enum that is used as arg for ViewPlan
     """
+
+
+class OverrideGraphicSettings(BaseObjectWrapper):
+    override_graphic_setttings = DB.OverrideGraphicSettings()
+    # override_graphic_setttings.SetProjectionLineColor(new Color(0,255,0));
+    # using (Transaction t = new Transaction(doc,"Set Element Override"))
