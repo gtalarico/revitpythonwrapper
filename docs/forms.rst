@@ -89,7 +89,8 @@ FlexForm
 ********
 
 .. autoclass:: rpw.ui.forms.FlexForm
-    :special-members: __init__
+  :members:
+  :special-members: __init__
 
 .. image:: _static/forms/flexform.png
 
@@ -98,11 +99,21 @@ FlexForm Controls
 ^^^^^^^^^^^^^^^^^
 
 .. autoclass:: rpw.ui.forms.Label
+  :members:
+  :special-members: __init__
 .. autoclass:: rpw.ui.forms.TextBox
+  :members:
+  :special-members: __init__
 .. autoclass:: rpw.ui.forms.CheckBox
+  :members:
+  :special-members: __init__
 .. autoclass:: rpw.ui.forms.ComboBox
-.. autoclass:: rpw.ui.forms.Separator
+  :members:
+  :special-members: __init__
 .. autoclass:: rpw.ui.forms.Button
+  :members:
+  :special-members: __init__
+.. autoclass:: rpw.ui.forms.Separator
 
 
 -------------------------------------------------------------------

@@ -221,7 +221,7 @@ Without RPW
 
     More Specialized Wrappers
     also provide additional features based on its type:
-    ``DB.FamilyInstance`` (:any:`FamilyInstance`), ``DB.FamilySymbol`` (:any:`FamilySymbol`),
+    ``DB.FamilyInstace`` (:any:`FamilyInstance`), ``DB.FamilySymbol`` (:any:`FamilySymbol`),
     ``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
 
 

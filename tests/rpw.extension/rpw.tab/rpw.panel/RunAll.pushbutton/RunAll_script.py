@@ -28,7 +28,9 @@ import Elements_script as ElementTests
 import Forms_script as FormTests
 import Transaction_script as TransactionTests
 import Selection_script as SelectionTests
+import Collection_script as CollectionTests
 import Utils_script as UtilsTests
+import Pick_script as PickTests
 
 all_tests = [
              GlobalsTests,
@@ -37,6 +39,8 @@ all_tests = [
              ElementTests,
              TransactionTests,
              SelectionTests,
+             CollectionTests,
+             #  PickTests,
              #  FormTests,
              ]
 
