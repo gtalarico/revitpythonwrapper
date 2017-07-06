@@ -507,20 +507,21 @@ and closes form.</p>
 
 <dl class="class">
 <dt id="rpw.ui.forms.TextBox">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">TextBox</code><span class="sig-paren">(</span><em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">TextBox</code><span class="sig-paren">(</span><em>name</em>, <em>default=”</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows.Controls.TextBox Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TextBox</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="rpw.ui.forms.TextBox.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextBox.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>default=”</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.TextBox.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Name of control. Will be used to return value</li>
+<li><strong>default</strong> (<code class="docutils literal"><span class="pre">bool</span></code>) – Sets <code class="docutils literal"><span class="pre">Text</span></code> attribute of textbox [Default: ”]</li>
 <li><strong>wpf_params</strong> (<em>kwargs</em>) – Additional WPF attributes</li>
 </ul>
 </td>
@@ -533,14 +534,14 @@ and closes form.</p>
 
 <dl class="class">
 <dt id="rpw.ui.forms.CheckBox">
-<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>checkbox_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.CheckBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.ui.forms.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>checkbox_text</em>, <em>default=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.CheckBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Windows.Controls.Checkbox Wrapper</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CheckBox</span><span class="p">(</span><span class="s1">&#39;Label&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="rpw.ui.forms.CheckBox.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>checkbox_text</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.CheckBox.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>checkbox_text</em>, <em>default=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.ui.forms.CheckBox.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -548,6 +549,7 @@ and closes form.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Name of control. Will be used to return value</li>
 <li><strong>checkbox_text</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Checkbox label Text</li>
+<li><strong>default</strong> (<code class="docutils literal"><span class="pre">bool</span></code>) – Sets IsChecked state [Default: False]</li>
 <li><strong>wpf_params</strong> (<em>kwargs</em>) – Additional WPF attributes</li>
 </ul>
 </td>
@@ -576,7 +578,7 @@ and closes form.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Name of control. Will be used to return value</li>
 <li><strong>options</strong> (<code class="docutils literal"><span class="pre">list</span></code>, <code class="docutils literal"><span class="pre">dict</span></code>) – If <code class="docutils literal"><span class="pre">dict</span></code>, selected value is returned</li>
-<li><strong>default</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Name of option to be preselected [Default: first]</li>
+<li><strong>default</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Sets SelectedItem attribute [Default: first]</li>
 <li><strong>wpf_params</strong> (<em>kwargs</em>) – Additional WPF attributes</li>
 </ul>
 </td>
@@ -603,7 +605,7 @@ and closes form.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>button_text</strong> (<code class="docutils literal"><span class="pre">str</span></code>) – Button Text</li>
-<li><strong>on_click</strong> (<code class="docutils literal"><span class="pre">func</span></code>) – Click Handling Function [Default: <a class="reference internal" href="#rpw.ui.forms.FlexForm.get_values" title="rpw.ui.forms.FlexForm.get_values"><code class="xref any py py-meth docutils literal"><span class="pre">get_values</span></code></a>]</li>
+<li><strong>on_click</strong> (<code class="docutils literal"><span class="pre">func</span></code>) – Registers Click event Function [Default: <a class="reference internal" href="#rpw.ui.forms.FlexForm.get_values" title="rpw.ui.forms.FlexForm.get_values"><code class="xref any py py-meth docutils literal"><span class="pre">FlexForm.get_values</span></code></a>]</li>
 <li><strong>wpf_params</strong> (<em>kwargs</em>) – Additional WPF attributes</li>
 </ul>
 </td>
@@ -779,13 +781,15 @@ and closes form.</p>
 
 <span class="sd">    &gt;&gt;&gt; TextBox()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            name (``str``): Name of control. Will be used to return value</span>
+<span class="sd">            default (``bool``): Sets ``Text`` attribute of textbox [Default: &#39;&#39;]</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">default</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="s1">&#39;Height&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Height</span> <span class="o">=</span> <span class="mi">25</span>
@@ -805,7 +809,7 @@ and closes form.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            button_text (``str``): Button Text</span>
-<span class="sd">            on_click (``func``): Click Handling Function [Default: :any:`get_values`]</span>
+<span class="sd">            on_click (``func``): Registers Click event Function [Default: :any:`FlexForm.get_values`]</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">button_text</span>
@@ -819,15 +823,17 @@ and closes form.</p>
 
 <span class="sd">    &gt;&gt;&gt; CheckBox(&#39;Label&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">checkbox_text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">checkbox_text</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            name (``str``): Name of control. Will be used to return value</span>
 <span class="sd">            checkbox_text (``str``): Checkbox label Text</span>
+<span class="sd">            default (``bool``): Sets IsChecked state [Default: False]</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Content</span> <span class="o">=</span> <span class="n">checkbox_text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">IsChecked</span> <span class="o">=</span> <span class="n">default</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_attrs</span><span class="p">(</span><span class="n">top_offset</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -847,7 +853,7 @@ and closes form.</p>
 <span class="sd">        Args:</span>
 <span class="sd">            name (``str``): Name of control. Will be used to return value</span>
 <span class="sd">            options (``list``, ``dict``): If ``dict``, selected value is returned</span>
-<span class="sd">            default (``str``): Name of option to be preselected [Default: first]</span>
+<span class="sd">            default (``str``): Sets SelectedItem attribute [Default: first]</span>
 <span class="sd">            wpf_params (kwargs): Additional WPF attributes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
