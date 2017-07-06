@@ -80,7 +80,10 @@ class FlexForm(Window):
 
     @staticmethod
     def get_values(sender, e):
-        """ Default Get Values. Collect values from controls and close """
+        """
+        Default Get Values. Set form.values attribute with values from controls
+        and closes form.
+        """
         component_values = {}
         window = Window.GetWindow(sender)
         for component in window.MainGrid.Children:
@@ -171,14 +174,15 @@ class Button(RpwControlMixin, Controls.Button):
 
     >>> Button('Select')
     """
-    def __init__(self, button_text, **kwargs):
+    def __init__(self, button_text, on_click=None, **kwargs):
         """
         Args:
             button_text (``str``): Button Text
+            on_click (``func``): Click Handling Function [Default: :any:`get_values`]
             wpf_params (kwargs): Additional WPF attributes
         """
         self.Content = button_text
-        self.on_click = kwargs.get('Click', FlexForm.get_values)
+        self.on_click = on_click or FlexForm.get_values
         self.set_attrs(**kwargs)
 
 
