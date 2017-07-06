@@ -1,5 +1,13 @@
 # Release Notes
 
+### 1.1.2
+* New default option for ComboBox, CheckBox, and TextBox
+* Added docs for FlexForm Controls Init
+* Added docs for on_click
+* Added XYZ comparison method
+* New Tests for all Collections classes
+* New Tests for FlexForm
+
 ### 1.1.1
 * New Reference Wrappers
 * Separated Pick() class
