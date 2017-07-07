@@ -185,6 +185,62 @@ class TestViewRelationships(unittest.TestCase):
 
 
 
+class TestViewOverrides(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING View Classes...')
+        cls.view_plan = revit.active_view.unwrap()
+        # cls.view_plan = DB.FilteredElementCollector(revit.doc).OfClass(DB.ViewPlan).FirstElement()
+        cls.wrapped_view = revit.active_view
+        cls.element = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().FirstElement()
+        # cls.original_settings = cls.view_plan.GetElementOverrides(cls.element.Id)
+
+        linepattern = rpw.db.Collector(of_class='LinePatternElement', where=lambda x: x.Name == 'Dash').first
+        cls.line_pattern_id = linepattern.Id
+    #
+    @classmethod
+    def tearDownClass(cls):
+        rpw.ui.Selection(cls.element)
+        rv = cls.view_plan.GetElementOverrides(cls.element.Id)
+        h = rv.Halftone
+        rpw.ui.forms.Console()
+    #     with rpw.db.Transaction():
+    #         cls.view_plan.SetElementOverrides(cls.element.Id, cls.original_settings)
+
+    def test_halftone(self):
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertTrue(rv.Halftone)
+
+    def test_halftone(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone(self.element, True)
+        revit.doc.Regenerate()
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertTrue(rv.Halftone)
+
+    def test_transparence(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.transparency(self.element, 40)
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.Transparency, 40)
+
+    def test_projection_line(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.projection_line(self.element,
+                                                       color=(0,120,255),
+                                                       weight=5,
+                                                       pattern=self.line_pattern_id)
+
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.ProjectionLineColor.Red, 0)
+        self.assertEqual(rv.ProjectionLineColor.Green, 120)
+        self.assertEqual(rv.ProjectionLineColor.Blue, 255)
+        self.assertEqual(rv.ProjectionLineWeight, 5)
+        self.assertEqual(rv.ProjectionLinePatternId, self.line_pattern_id)
+
+
+
 
 def run():
     logger.verbose(True)

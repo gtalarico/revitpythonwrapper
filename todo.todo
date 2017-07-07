@@ -1,7 +1,5 @@
-Merge-Ready:
-☐ Forms *
-
 Merge-Review:
+☐ Forms  - List Form
 ☐ Transaction (Status)
 ☐ Logger
 ☐ AutoCollector
@@ -9,6 +7,8 @@ Merge-Review:
 --------------------------------------
 
 Core:
+☐ Add @ensure to all internal methods that require Transaction
+  Need to merge transaction first to ensure transaction is only started if not already dunning
 ☐ Investigate if possible to fake type so Elements can be passed back.
 
 Base Wrappers:
@@ -26,7 +26,7 @@ Base Element:
 Element Wrappers:
 ☐ Level
 ☐ Reference
-☐ View
+✔ View
 ☐ ViewPort
 ☐ Sheet
 ☐ Floor
@@ -49,6 +49,11 @@ Element Wrappers:
 ✔ Room @done
 ✔ Area @done
 ✔ AreaSchema @done
+
+Graphics:
+✔ OverrideGraphicSettings
+☐ Filters
+☐ Templates
 
 Collector:
 ☐ Add Bounding Box Filter
