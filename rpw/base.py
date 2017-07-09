@@ -42,7 +42,7 @@ class BaseObject(object):
             pass
 
         def ToString(self, *args, **kwargs):
-            """ Show correct repr on Dynamo """
+            # Show correct repr on Dynamo
             return self.__repr__(*args, **kwargs)
 
         # def __dir__(self):

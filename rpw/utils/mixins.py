@@ -9,7 +9,20 @@ class ByNameCollectMixin():
 
     @classmethod
     def by_name(cls, name):
-        """ Mixin to provide instantiating by a name for classes that are collectible """
+        """
+        Mixin to provide instantiating by a name for classes that are collectible.
+        This is a mixin so specifi usage will vary for each for.
+        This method will call the :any:`collect` method of the class,
+        and return the first element with a matching ``Name`` property.
+        See implementation for more details.
+
+        >>> LinePatternElement.by_name('Dash')
+        <rpw:LinePatternElement name:Dash>
+
+        >>> FillPatternElement.by_name('Solid')
+        <rpw:FillPatternElement name:Solid>
+
+        """
         first = cls.collect(where=lambda e: e.Name == name).first
         if first:
             return cls(first)
@@ -18,7 +31,7 @@ class ByNameCollectMixin():
 
 
     @classmethod
-    def by_name_or_element_ref(cls, reference, doc=revit.doc):
+    def by_name_or_element_ref(cls, reference):
         """
         Mixin for collectible elements.
         This is to help cast elements from name, elemente, or element_id

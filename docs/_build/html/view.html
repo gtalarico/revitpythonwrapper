@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.1.2 documentation" href="index.html"/>
-        <link rel="next" title="BuiltIns" href="builtins.html"/>
+        <link rel="next" title="Pattern" href="pattern.html"/>
         <link rel="prev" title="Collections" href="collections.html"/> 
 
   
@@ -124,6 +124,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pattern.html">Pattern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -790,16 +791,17 @@ DB.ViewDetailLevel or its name as a string. The Options are:</p>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Name of ViewFamilyType &quot;&quot;&quot;</span>
         <span class="c1"># return self.parameters.builtins[&#39;SYMBOL_FAMILY_NAME_PARAM&#39;].value</span>
-        <span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">Element</span> <span class="k">as</span> <span class="n">DB_Element</span>
-        <span class="k">return</span> <span class="n">DB_Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Name Property Setter&quot;&quot;&quot;</span>
         <span class="c1"># Requires Re-importing Element due to IronPython Bug:</span>
         <span class="c1"># https://github.com/IronLanguages/ironpython2/issues/79</span>
-        <span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">Element</span> <span class="k">as</span> <span class="n">DB_Element</span>
-        <span class="k">return</span> <span class="n">DB_Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;Not possible due to ironpython bug&#39;</span><span class="p">)</span>
+        <span class="c1"># This works in IronPython but does not work in Pyrevit</span>
+        <span class="n">DB</span><span class="o">.</span><span class="n">Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="fm">__set__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="c1"># DB.Element.Name.SetValue(self._revit_object, value)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">view_family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1102,7 +1104,7 @@ DB.ViewDetailLevel or its name as a string. The Options are:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="builtins.html" class="btn btn-neutral float-right" title="BuiltIns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pattern.html" class="btn btn-neutral float-right" title="Pattern" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="collections.html" class="btn btn-neutral" title="Collections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

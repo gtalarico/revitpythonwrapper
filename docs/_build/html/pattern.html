@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pattern &mdash; Revit Python Wrapper 1.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.1.2 documentation" href="index.html"/>
+        <link rel="next" title="BuiltIns" href="builtins.html"/>
+        <link rel="prev" title="View" href="view.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pattern</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Pattern</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pattern.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rpw.db.pattern">
+<span id="pattern"></span><h1>Pattern<a class="headerlink" href="#module-rpw.db.pattern" title="Permalink to this headline">¶</a></h1>
+<p>Pattern Wrappers</p>
+<dl class="class">
+<dt id="rpw.db.LinePatternElement">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">LinePatternElement</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.LinePatternElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code>, <code class="xref py py-class docutils literal"><span class="pre">rpw.utils.mixins.ByNameCollectMixin</span></code></p>
+<p><cite>DB.LinePatternElement</cite> Wrapper</p>
+<p>Solid, Dash, etc</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.LinePatternElement): Wrapped <code class="docutils literal"><span class="pre">DB.LinePatternElement</span></code></dd>
+</dl>
+<dl class="method">
+<dt id="rpw.db.pattern.LinePatternElement.by_name">
+<code class="descname">by_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.pattern.LinePatternElement.by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixin to provide instantiating by a name for classes that are collectible.
+This is a mixin so specifi usage will vary for each for.
+This method will call the <a class="reference internal" href="element.html#rpw.db.Element.collect" title="rpw.db.Element.collect"><code class="xref any py py-meth docutils literal"><span class="pre">collect</span></code></a> method of the class,
+and return the first element with a matching <code class="docutils literal"><span class="pre">Name</span></code> property.
+See implementation for more details.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LinePatternElement</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s1">&#39;Dash&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:LinePatternElement name:Dash&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FillPatternElement</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s1">&#39;Solid&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:FillPatternElement name:Solid&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.db.FillPatternElement">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">FillPatternElement</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.FillPatternElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.pattern.LinePatternElement</span></code></p>
+<p><cite>DB.FillPatternElement</cite> Wrapper</p>
+<p>Solid, Horizontal, Vertical, Diagonal Down, etc</p>
+<dl class="docutils">
+<dt>Attribute:</dt>
+<dd>_revit_object (DB.FillPatternElement): Wrapped <code class="docutils literal"><span class="pre">DB.FillPatternElement</span></code></dd>
+</dl>
+<dl class="method">
+<dt id="rpw.db.pattern.FillPatternElement.by_name">
+<code class="descname">by_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.pattern.FillPatternElement.by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixin to provide instantiating by a name for classes that are collectible.
+This is a mixin so specifi usage will vary for each for.
+This method will call the <a class="reference internal" href="element.html#rpw.db.Element.collect" title="rpw.db.Element.collect"><code class="xref any py py-meth docutils literal"><span class="pre">collect</span></code></a> method of the class,
+and return the first element with a matching <code class="docutils literal"><span class="pre">Name</span></code> property.
+See implementation for more details.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">LinePatternElement</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s1">&#39;Dash&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:LinePatternElement name:Dash&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FillPatternElement</span><span class="o">.</span><span class="n">by_name</span><span class="p">(</span><span class="s1">&#39;Solid&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:FillPatternElement name:Solid&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Pattern Wrappers &quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span>
+<span class="kn">from</span> <span class="nn">rpw.db.element</span> <span class="k">import</span> <span class="n">Element</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.mixins</span> <span class="k">import</span> <span class="n">ByNameCollectMixin</span>
+
+
+<span class="k">class</span> <span class="nc">LinePatternElement</span><span class="p">(</span><span class="n">Element</span><span class="p">,</span> <span class="n">ByNameCollectMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `DB.LinePatternElement` Wrapper</span>
+
+<span class="sd">    Solid, Dash, etc</span>
+
+<span class="sd">    Attribute:</span>
+<span class="sd">        _revit_object (DB.LinePatternElement): Wrapped ``DB.LinePatternElement``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">LinePatternElement</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LinePatternElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Name</span><span class="p">})</span>
+
+
+<span class="k">class</span> <span class="nc">FillPatternElement</span><span class="p">(</span><span class="n">LinePatternElement</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    `DB.FillPatternElement` Wrapper</span>
+
+<span class="sd">    Solid, Horizontal, Vertical, Diagonal Down, etc</span>
+
+<span class="sd">    Attribute:</span>
+<span class="sd">        _revit_object (DB.FillPatternElement): Wrapped ``DB.FillPatternElement``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FillPatternElement</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">FillPatternElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">Name</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="builtins.html" class="btn btn-neutral float-right" title="BuiltIns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="view.html" class="btn btn-neutral" title="View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
