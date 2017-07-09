@@ -139,7 +139,14 @@ class _BiCategory(BaseObjectWrapper):
         Returns:
             ``DB.BuiltInCategory`` member
         """
-        return Enum.ToObject(DB.BuiltInCategory, category_id.IntegerValue)
+        bic = Enum.ToObject(DB.BuiltInCategory, category_id.IntegerValue)
+        if DB.ElementId(bic).IntegerValue < -1:
+            return bic
+        else:
+            # If you pass a regular element to category_id, it converts it to BIC.
+            # It should fail, because result is not a valid Category Enum
+            raise RpwCoerceError('category_id: {}'.format(category_id),
+                                 DB.BuiltInCategory)
         # Similar to: Category.GetCategory(doc, category.Id).Name
 
     def __repr__(self):
