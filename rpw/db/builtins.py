@@ -68,6 +68,9 @@ class _BiParameter(BaseObjectWrapper):
         enum = self.get(parameter_name)
         return DB.ElementId(enum)
 
+        def __repr__(self):
+            return super(_BiParameter, self).__repr__(to_string='Autodesk.Revit.DB.BuiltInParameter')
+
 
 class _BiCategory(BaseObjectWrapper):
     """
@@ -138,6 +141,9 @@ class _BiCategory(BaseObjectWrapper):
         """
         return Enum.ToObject(DB.BuiltInCategory, category_id.IntegerValue)
         # Similar to: Category.GetCategory(doc, category.Id).Name
+
+    def __repr__(self):
+        return super(_BiCategory, self).__repr__(to_string='Autodesk.Revit.DB.BuiltInCategory')
 
 # Classes should already be instantiated
 BiParameter = _BiParameter()
