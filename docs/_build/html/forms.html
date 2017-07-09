@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a><ul>
@@ -934,7 +935,7 @@ and closes form.</p>
         <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ComboBox</span><span class="p">(</span><span class="s1">&#39;combobox&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">))</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">))</span>
-    <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;SelectFromList&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">exit_on_close</span><span class="o">=</span><span class="n">exit_on_close</span><span class="p">)</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">components</span><span class="p">)</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;combobox&#39;</span><span class="p">]</span>
@@ -960,12 +961,12 @@ and closes form.</p>
     <span class="k">if</span> <span class="n">description</span><span class="p">:</span>
         <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">default</span><span class="p">:</span>
-        <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">,</span> <span class="n">Text</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
+        <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">textbox</span> <span class="o">=</span> <span class="n">TextBox</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">)</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">textbox</span><span class="p">)</span>
     <span class="n">components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Select&#39;</span><span class="p">))</span>
-    <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="s1">&#39;TextInput&#39;</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">)</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">FlexForm</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">components</span><span class="p">)</span>
     <span class="n">ok</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">form</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;textbox&#39;</span><span class="p">]</span>

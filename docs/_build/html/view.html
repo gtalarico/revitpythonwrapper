@@ -1,0 +1,1167 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>View &mdash; Revit Python Wrapper 1.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.1.2 documentation" href="index.html"/>
+        <link rel="next" title="BuiltIns" href="builtins.html"/>
+        <link rel="prev" title="Collections" href="collections.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">View</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#view-classes">View Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewplan">ViewPlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewsheet">ViewSheet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewschedule">ViewSchedule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewsection">ViewSection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view3d">View3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewfamilytype">ViewFamilyType</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#view-enumeration">View Enumeration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#viewfamily">ViewFamily</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#viewtype">ViewType</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#override-wrappers">Override Wrappers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overridegraphicsettings">OverrideGraphicSettings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>View</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/view.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rpw.db.view">
+<span id="view"></span><h1>View<a class="headerlink" href="#module-rpw.db.view" title="Permalink to this headline">¶</a></h1>
+<p>View Wrappers</p>
+<div class="section" id="view-classes">
+<h2>View Classes<a class="headerlink" href="#view-classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>View<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.View">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">View</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.View" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
+<p>This is the main View View Wrapper - wraps <code class="docutils literal"><span class="pre">DB.View</span></code>.
+All other View classes inherit from this class in the same way All
+API View classes inheir from <cite>DB.View</cite></p>
+<p>This class is also used for some View types that do not have a more specific
+class, such as: Legend, ProjectBrowser, SystemBrowser.</p>
+<p>As with other wrapeprs, you can just use the Element() factory class to
+use the best wrapper available.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_view_plan</span><span class="p">)</span>
+<span class="go">&lt;rpw:ViewPlan&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_legend</span><span class="p">)</span>
+<span class="go">&lt;rpw:View&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_schedule</span><span class="p">)</span>
+<span class="go">&lt;rpw:ViewSchedule&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_view_plan</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">view_type</span>
+<span class="go">&lt;rpw:ViewType | view_type: FloorPlan&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">view_family_type</span>
+<span class="go">&lt;rpw:ViewFamilyType % ..DB.ViewFamilyType | view_family:FloorPlan name:Floor Plan id:1312&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">view_family</span>
+<span class="go">&lt;rpw:ViewFamily | family: FloorPlan&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">siblings</span>
+<span class="go">[&lt;rpw:ViewFamilyType % ..DB.ViewFamilyType&gt; ... ]</span>
+</pre></div>
+</div>
+<p>View wrappers classes are collectible:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">ViewPlan</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="go">&lt;rpw:Collector % ..DB.FilteredElementCollector | count:5&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">View3D</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">where</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Name</span><span class="o">=</span><span class="s1">&#39;MyView&#39;</span><span class="p">)</span>
+<span class="go">&lt;rpw:Collector % ..DB.FilteredElementCollector | count:1&gt;</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="rpw.db.View.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.db.View.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name Property</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.View.override">
+<code class="descname">override</code><a class="headerlink" href="#rpw.db.View.override" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access to overrides.</p>
+<p>For more information see <a class="reference internal" href="#rpw.db.view.OverrideGraphicSettings" title="rpw.db.view.OverrideGraphicSettings"><code class="xref any py py-class docutils literal"><span class="pre">OverrideGraphicSettings</span></code></a></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">projection_line</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">cut_line</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.View.siblings">
+<code class="descname">siblings</code><a class="headerlink" href="#rpw.db.View.siblings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect all views of the same <code class="docutils literal"><span class="pre">ViewType</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.View.view_family">
+<code class="descname">view_family</code><a class="headerlink" href="#rpw.db.View.view_family" title="Permalink to this definition">¶</a></dt>
+<dd><p>ViewFamily attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.View.view_family_type">
+<code class="descname">view_family_type</code><a class="headerlink" href="#rpw.db.View.view_family_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>ViewFamilyType attribute</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.View.view_type">
+<code class="descname">view_type</code><a class="headerlink" href="#rpw.db.View.view_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>ViewType attribute</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="viewplan">
+<h3>ViewPlan<a class="headerlink" href="#viewplan" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewPlan">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewPlan</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewPlan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
+<p>ViewPlan Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.FloorPlan or  ViewType.CeilingPlan</p>
+</dd></dl>
+
+</div>
+<div class="section" id="viewsheet">
+<h3>ViewSheet<a class="headerlink" href="#viewsheet" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewSheet">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSheet</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
+<p>ViewSheet Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.DrawingSheet</p>
+</dd></dl>
+
+</div>
+<div class="section" id="viewschedule">
+<h3>ViewSchedule<a class="headerlink" href="#viewschedule" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewSchedule">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSchedule</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
+<p>ViewSchedule Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.Schedule</p>
+</dd></dl>
+
+</div>
+<div class="section" id="viewsection">
+<h3>ViewSection<a class="headerlink" href="#viewsection" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewSection">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSection</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
+<p>DB.ViewSection Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.DrawingSheet</p>
+</dd></dl>
+
+</div>
+<div class="section" id="view3d">
+<h3>View3D<a class="headerlink" href="#view3d" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.View3D">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">View3D</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.View3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
+<p>DB.View3D Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.ThreeD</p>
+</dd></dl>
+
+</div>
+<div class="section" id="viewfamilytype">
+<h3>ViewFamilyType<a class="headerlink" href="#viewfamilytype" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewFamilyType">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewFamilyType</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewFamilyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
+<p>View Family Type Wrapper</p>
+<dl class="attribute">
+<dt id="rpw.db.ViewFamilyType.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.db.ViewFamilyType.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of ViewFamilyType</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.ViewFamilyType.view_family">
+<code class="descname">view_family</code><a class="headerlink" href="#rpw.db.ViewFamilyType.view_family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ViewFamily Enumerator</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.ViewFamilyType.views">
+<code class="descname">views</code><a class="headerlink" href="#rpw.db.ViewFamilyType.views" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect All Views of the same ViewFamilyType</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="view-enumeration">
+<h2>View Enumeration<a class="headerlink" href="#view-enumeration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="viewfamily">
+<h3>ViewFamily<a class="headerlink" href="#viewfamily" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewFamily">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewFamily</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewFamily" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<p>ViewFamily Enumerator Wrapper.
+An enumerated type that corresponds to the type of a Revit view.
+<a class="reference external" href="http://www.revitapidocs.com/2015/916ed7b6-0a2e-c607-5d35-9ff9303b1f46.htm">http://www.revitapidocs.com/2015/916ed7b6-0a2e-c607-5d35-9ff9303b1f46.htm</a></p>
+<p>This is returned on view.ViewFamily
+AreaPlan, CeilingPlan, CostReport
+Detail, Drafting, Elevation
+FloorPlan, GraphicalColumnSchedule, ImageView, Legend
+LoadsReport, PanelSchedule, PressureLossReport
+Schedule, Section, Sheet, StructuralPlan
+ThreeDimensional, Walkthrough</p>
+<dl class="attribute">
+<dt id="rpw.db.ViewFamily.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.db.ViewFamily.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>ToString() of View Family Enumerator</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.ViewFamily.views">
+<code class="descname">views</code><a class="headerlink" href="#rpw.db.ViewFamily.views" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect All Views of the same ViewFamily</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="viewtype">
+<h3>ViewType<a class="headerlink" href="#viewtype" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.ViewType">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewType</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<p>ViewType Wrapper.
+An enumerated type listing available view types.
+<a class="reference external" href="http://www.revitapidocs.com/2015/bf04dabc-05a3-baf0-3564-f96c0bde3400.htm">http://www.revitapidocs.com/2015/bf04dabc-05a3-baf0-3564-f96c0bde3400.htm</a></p>
+<dl class="docutils">
+<dt>Can be on of the following types:</dt>
+<dd>AreaPlan ,CeilingPlan, ColumnSchedule, CostReport,
+Detail, DraftingView, DrawingSheet, Elevation, EngineeringPlan,
+FloorPlan, Internal, Legend,
+LoadsReport, PanelSchedule, PresureLossReport,
+ProjectBrowser, Rendering, Report,
+Schedule, Section, SystemBrowser,
+ThreeD, Undefined, Walkthrough</dd>
+</dl>
+<dl class="attribute">
+<dt id="rpw.db.ViewType.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.db.ViewType.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>ToString() of View Family Enumerator</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.ViewType.views">
+<code class="descname">views</code><a class="headerlink" href="#rpw.db.ViewType.views" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect All Views of the same ViewType</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="override-wrappers">
+<h2>Override Wrappers<a class="headerlink" href="#override-wrappers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overridegraphicsettings">
+<h3>OverrideGraphicSettings<a class="headerlink" href="#overridegraphicsettings" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="rpw.db.view.OverrideGraphicSettings">
+<em class="property">class </em><code class="descclassname">rpw.db.view.</code><code class="descname">OverrideGraphicSettings</code><span class="sig-paren">(</span><em>wrapped_view</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<p>Internal Wrapper for OverrideGraphicSettings - view.override</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_view</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">projection_line</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">projection_fill</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern_id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">cut_line</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="n">weight</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">cut_fill</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">transparency</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">halftone</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span><span class="o">.</span><span class="n">override</span><span class="o">.</span><span class="n">detail_level</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">&#39;Coarse&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Target can be any of the following:</p>
+<ul class="last simple">
+<li>Element</li>
+<li>ElementId</li>
+<li>BuiltInCategory Enum</li>
+<li>BuiltInCategory Fuzzy Name (See <code class="xref py py-func docutils literal"><span class="pre">fuzzy_get()</span></code>)</li>
+<li>Category_id</li>
+<li>An iterable containing any of the above types</li>
+</ul>
+</div>
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.cut_fill">
+<code class="descname">cut_fill</code><span class="sig-paren">(</span><em>target</em>, <em>color=None</em>, <em>pattern=None</em>, <em>visible=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.cut_fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets CutFill overrides</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>color</strong> (<code class="docutils literal"><span class="pre">tuple</span></code>, <code class="docutils literal"><span class="pre">list</span></code>) – RGB Colors [ex. (255, 255, 0)]</li>
+<li><strong>pattern</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) – ElementId of Pattern</li>
+<li><strong>visible</strong> (<code class="docutils literal"><span class="pre">bool</span></code>) – Cut Fill Visibility</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.cut_line">
+<code class="descname">cut_line</code><span class="sig-paren">(</span><em>target</em>, <em>color=None</em>, <em>pattern=None</em>, <em>weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.cut_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets CutLine Overrides</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>color</strong> (<code class="docutils literal"><span class="pre">tuple</span></code>, <code class="docutils literal"><span class="pre">list</span></code>) – RGB Colors [ex. (255, 255, 0)]</li>
+<li><strong>pattern</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) – ElementId of Pattern</li>
+<li><strong>weight</strong> (<code class="docutils literal"><span class="pre">int</span></code>,“None“) – Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.detail_level">
+<code class="descname">detail_level</code><span class="sig-paren">(</span><em>target</em>, <em>detail_level</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.detail_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets DetailLevel Override. DetailLevel can be Enumeration memeber of
+DB.ViewDetailLevel or its name as a string. The Options are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Coarse</li>
+<li>Medium</li>
+<li>Fine</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>detail_level</strong> (<code class="docutils literal"><span class="pre">DB.ViewDetailLevel</span></code>, <code class="docutils literal"><span class="pre">str</span></code>) – Detail Level Enumerator or name</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.halftone">
+<code class="descname">halftone</code><span class="sig-paren">(</span><em>target</em>, <em>halftone</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.halftone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets Halftone Override</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>halftone</strong> (<code class="docutils literal"><span class="pre">bool</span></code>) – Halftone</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.match_element">
+<code class="descname">match_element</code><span class="sig-paren">(</span><em>target</em>, <em>element_to_match</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.match_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matches the settings of another element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>element_to_match</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>) – Element to match</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.projection_fill">
+<code class="descname">projection_fill</code><span class="sig-paren">(</span><em>target</em>, <em>color=None</em>, <em>pattern=None</em>, <em>visible=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.projection_fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets ProjectionFill overrides</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>color</strong> (<code class="docutils literal"><span class="pre">tuple</span></code>, <code class="docutils literal"><span class="pre">list</span></code>) – RGB Colors [ex. (255, 255, 0)]</li>
+<li><strong>pattern</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) – ElementId of Pattern</li>
+<li><strong>visible</strong> (<code class="docutils literal"><span class="pre">bool</span></code>) – Cut Fill Visibility</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.projection_line">
+<code class="descname">projection_line</code><span class="sig-paren">(</span><em>target</em>, <em>color=None</em>, <em>pattern=None</em>, <em>weight=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.projection_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets ProjectionLine overrides</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>color</strong> (<code class="docutils literal"><span class="pre">tuple</span></code>, <code class="docutils literal"><span class="pre">list</span></code>) – RGB Colors [ex. (255, 255, 0)]</li>
+<li><strong>pattern</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) – ElementId of Pattern</li>
+<li><strong>weight</strong> (<code class="docutils literal"><span class="pre">int</span></code>,“None“) – Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.view.OverrideGraphicSettings.transparency">
+<code class="descname">transparency</code><span class="sig-paren">(</span><em>target</em>, <em>transparency</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.view.OverrideGraphicSettings.transparency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets SurfaceTransparency override</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>target</strong> (<code class="docutils literal"><span class="pre">Element</span></code>, <code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">Category</span></code>) – Target Element(s) or Category(ies) to apply override. Can be list.</li>
+<li><strong>transparency</strong> (<code class="docutils literal"><span class="pre">int</span></code>) – Value of the transparency of the projection surface (0 = opaque, 100 = fully transparent)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">View Wrappers</span>
+
+<span class="sd">&quot;&quot;&quot;</span>  <span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">rpw</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
+<span class="kn">from</span> <span class="nn">rpw.db.element</span> <span class="k">import</span> <span class="n">Element</span>
+<span class="kn">from</span> <span class="nn">rpw.db.pattern</span> <span class="k">import</span> <span class="n">LinePatternElement</span><span class="p">,</span> <span class="n">FillPatternElement</span>
+<span class="kn">from</span> <span class="nn">rpw.db.collector</span> <span class="k">import</span> <span class="n">Collector</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_ids</span><span class="p">,</span> <span class="n">to_element_id</span><span class="p">,</span> <span class="n">to_element</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_category_id</span><span class="p">,</span> <span class="n">to_iterable</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwTypeError</span><span class="p">,</span> <span class="n">RpwCoerceError</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+
+
+<span class="k">class</span> <span class="nc">View</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is the main View View Wrapper - wraps ``DB.View``.</span>
+<span class="sd">    All other View classes inherit from this class in the same way All</span>
+<span class="sd">    API View classes inheir from `DB.View`</span>
+
+<span class="sd">    This class is also used for some View types that do not have a more specific</span>
+<span class="sd">    class, such as: Legend, ProjectBrowser, SystemBrowser.</span>
+
+<span class="sd">    As with other wrapeprs, you can just use the Element() factory class to</span>
+<span class="sd">    use the best wrapper available.</span>
+
+<span class="sd">    &gt;&gt;&gt; wrapped_view = rpw.db.Element(some_view_plan)</span>
+<span class="sd">    &lt;rpw:ViewPlan&gt;</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view = rpw.db.Element(some_legend)</span>
+<span class="sd">    &lt;rpw:View&gt;</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view = rpw.db.Element(some_schedule)</span>
+<span class="sd">    &lt;rpw:ViewSchedule&gt;</span>
+
+
+<span class="sd">    &gt;&gt;&gt; wrapped_view = rpw.db.Element(some_view_plan)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.view_type</span>
+<span class="sd">    &lt;rpw:ViewType | view_type: FloorPlan&gt;</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.view_family_type</span>
+<span class="sd">    &lt;rpw:ViewFamilyType % ..DB.ViewFamilyType | view_family:FloorPlan name:Floor Plan id:1312&gt;</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.view_family</span>
+<span class="sd">    &lt;rpw:ViewFamily | family: FloorPlan&gt;</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.siblings</span>
+<span class="sd">    [&lt;rpw:ViewFamilyType % ..DB.ViewFamilyType&gt; ... ]</span>
+
+<span class="sd">    View wrappers classes are collectible:</span>
+
+<span class="sd">    &gt;&gt;&gt; rpw.db.ViewPlan.collect()</span>
+<span class="sd">    &lt;rpw:Collector % ..DB.FilteredElementCollector | count:5&gt;</span>
+<span class="sd">    &gt;&gt;&gt; rpw.db.View3D.collect(where=lambda x: x.Name=&#39;MyView&#39;)</span>
+<span class="sd">    &lt;rpw:Collector % ..DB.FilteredElementCollector | count:1&gt;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_category</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Views</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">View</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Name Property &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Make Mixin ?</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Name</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Name Property Setter &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Name</span> <span class="o">==</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">view_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ViewType attribute &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ViewType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ViewType</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">view_family_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ViewFamilyType attribute &quot;&quot;&quot;</span>
+        <span class="c1"># NOTE: This can return Empty, as Some Views like SystemBrowser have no Type</span>
+        <span class="n">view_type_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">()</span>
+        <span class="n">view_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">view_type_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">view_type</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ViewFamilyType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">view_type_id</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">view_family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ViewFamily attribute &quot;&quot;&quot;</span>
+        <span class="c1"># Some Views don&#39;t have a ViewFamilyType</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_family_type</span><span class="p">,</span> <span class="s1">&#39;view_family&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">siblings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collect all views of the same ``ViewType`` &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_type</span><span class="o">.</span><span class="n">views</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Access to overrides.</span>
+
+<span class="sd">        For more information see :any:`OverrideGraphicSettings`</span>
+
+<span class="sd">        &gt;&gt;&gt; view.override.projection_line(element, color=[0,255,0])</span>
+<span class="sd">        &gt;&gt;&gt; view.override.cut_line(category, weight=5)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">OverrideGraphicSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">change_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_reference</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+        <span class="c1"># self._revit_object.ChangeTypeId(type_reference)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">View</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;view_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                <span class="s1">&#39;view_family_type&#39;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_family_type</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                                <span class="s1">&#39;view_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                <span class="s1">&#39;view_family&#39;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_family</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                                                <span class="p">})</span>
+
+
+<span class="k">class</span> <span class="nc">ViewPlan</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; ViewPlan Wrapper. ``ViewType`` is ViewType.FloorPlan or  ViewType.CeilingPlan&quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewPlan</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GenLevel</span>
+
+<span class="k">class</span> <span class="nc">ViewSheet</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; ViewSheet Wrapper. ``ViewType`` is ViewType.DrawingSheet &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewSheet</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">ViewSchedule</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; ViewSchedule Wrapper. ``ViewType`` is ViewType.Schedule &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewSchedule</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">ViewSection</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; DB.ViewSection Wrapper. ``ViewType`` is ViewType.DrawingSheet &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewSection</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">View3D</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; DB.View3D Wrapper. ``ViewType`` is ViewType.ThreeD &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">View3D</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">ViewFamilyType</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; View Family Type Wrapper &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewFamilyType</span>
+    <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Name of ViewFamilyType &quot;&quot;&quot;</span>
+        <span class="c1"># return self.parameters.builtins[&#39;SYMBOL_FAMILY_NAME_PARAM&#39;].value</span>
+        <span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">Element</span> <span class="k">as</span> <span class="n">DB_Element</span>
+        <span class="k">return</span> <span class="n">DB_Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">GetValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+
+    <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Name Property Setter&quot;&quot;&quot;</span>
+        <span class="c1"># Requires Re-importing Element due to IronPython Bug:</span>
+        <span class="c1"># https://github.com/IronLanguages/ironpython2/issues/79</span>
+        <span class="kn">from</span> <span class="nn">Autodesk.Revit.DB</span> <span class="k">import</span> <span class="n">Element</span> <span class="k">as</span> <span class="n">DB_Element</span>
+        <span class="k">return</span> <span class="n">DB_Element</span><span class="o">.</span><span class="n">Name</span><span class="o">.</span><span class="n">SetValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">view_family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns ViewFamily Enumerator &quot;&quot;&quot;</span>
+        <span class="c1"># Autodesk.Revit.DB.ViewFamily.FloorPlan</span>
+        <span class="k">return</span> <span class="n">ViewFamily</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ViewFamily</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collect All Views of the same ViewFamilyType &quot;&quot;&quot;</span>
+        <span class="n">views</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;View&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">wrapped_elements</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">view</span> <span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">views</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">view_family_type</span><span class="p">,</span> <span class="s1">&#39;_revit_object&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()]</span>
+
+
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ViewFamilyType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                          <span class="s1">&#39;view_family&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_family</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                          <span class="p">})</span>
+
+<span class="k">class</span> <span class="nc">ViewFamily</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; ViewFamily Enumerator Wrapper.</span>
+<span class="sd">    An enumerated type that corresponds to the type of a Revit view.</span>
+<span class="sd">    http://www.revitapidocs.com/2015/916ed7b6-0a2e-c607-5d35-9ff9303b1f46.htm</span>
+
+<span class="sd">    This is returned on view.ViewFamily</span>
+<span class="sd">    AreaPlan, CeilingPlan, CostReport</span>
+<span class="sd">    Detail, Drafting, Elevation</span>
+<span class="sd">    FloorPlan, GraphicalColumnSchedule, ImageView, Legend</span>
+<span class="sd">    LoadsReport, PanelSchedule, PressureLossReport</span>
+<span class="sd">    Schedule, Section, Sheet, StructuralPlan</span>
+<span class="sd">    ThreeDimensional, Walkthrough</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewFamily</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ToString() of View Family Enumerator &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collect All Views of the same ViewFamily &quot;&quot;&quot;</span>
+        <span class="n">views</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;View&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">wrapped_elements</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">view</span> <span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">views</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">view_family</span><span class="p">,</span> <span class="s1">&#39;_revit_object&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()]</span>
+
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ViewFamily</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;family&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+
+
+
+<span class="k">class</span> <span class="nc">ViewType</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; ViewType Wrapper.</span>
+<span class="sd">    An enumerated type listing available view types.</span>
+<span class="sd">    http://www.revitapidocs.com/2015/bf04dabc-05a3-baf0-3564-f96c0bde3400.htm</span>
+
+<span class="sd">    Can be on of the following types:</span>
+<span class="sd">        AreaPlan ,CeilingPlan, ColumnSchedule, CostReport,</span>
+<span class="sd">        Detail, DraftingView, DrawingSheet, Elevation, EngineeringPlan,</span>
+<span class="sd">        FloorPlan, Internal, Legend,</span>
+<span class="sd">        LoadsReport, PanelSchedule, PresureLossReport,</span>
+<span class="sd">        ProjectBrowser, Rendering, Report,</span>
+<span class="sd">        Schedule, Section, SystemBrowser,</span>
+<span class="sd">        ThreeD, Undefined, Walkthrough</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ViewType</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; ToString() of View Family Enumerator &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">views</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Collect All Views of the same ViewType &quot;&quot;&quot;</span>
+        <span class="n">views</span> <span class="o">=</span> <span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;View&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">wrapped_elements</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">view</span> <span class="k">for</span> <span class="n">view</span> <span class="ow">in</span> <span class="n">views</span> <span class="k">if</span> <span class="n">view</span><span class="o">.</span><span class="n">view_type</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()]</span>
+
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ViewType</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;view_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+
+
+
+<span class="k">class</span> <span class="nc">ViewPlanType</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enumerator</span>
+<span class="sd">        ViewPlanType.FloorPlan, ViewPlanType.CeilingPlan</span>
+<span class="sd">    No Wrapper Need. Enum is only used as arg for when creating ViewPlan</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">OverrideGraphicSettings</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot; Internal Wrapper for OverrideGraphicSettings - view.override</span>
+
+
+
+<span class="sd">    &gt;&gt;&gt; wrapped_view = rpw.db.Element(some_view)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.projection_line(target, color=(255,0,0))</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.projection_fill(target, color=(0,0,255), pattern=pattern_id)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.cut_line(target, color=(0,0,255), weight=2)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.cut_fill(target, visible=False)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.transparency(target, 50)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.halftone(target, True)</span>
+<span class="sd">    &gt;&gt;&gt; wrapped_view.override.detail_level(target, &#39;Coarse&#39;)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Target can be any of the following:</span>
+
+<span class="sd">        * Element</span>
+<span class="sd">        * ElementId</span>
+<span class="sd">        * BuiltInCategory Enum</span>
+<span class="sd">        * BuiltInCategory Fuzzy Name (See :func:`fuzzy_get`)</span>
+<span class="sd">        * Category_id</span>
+<span class="sd">        * An iterable containing any of the above types</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO: Pattern: Add pattern_id from name. None sets InvalidElementId</span>
+    <span class="c1"># TODO: Weight: None to set InvalidPenNumber</span>
+    <span class="c1"># TODO: Color: Add color from name util</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">OverrideGraphicSettings</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wrapped_view</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OverrideGraphicSettings</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">OverrideGraphicSettings</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">wrapped_view</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_set_overrides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">to_iterable</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">category_id</span> <span class="o">=</span> <span class="n">to_category_id</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_category_overrides</span><span class="p">(</span><span class="n">category_id</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">RpwTypeError</span><span class="p">,</span> <span class="n">RpwCoerceError</span><span class="p">)</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Not Category, Trying Element Override&#39;</span><span class="p">)</span>
+                <span class="n">element_id</span> <span class="o">=</span> <span class="n">to_element_id</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_element_overrides</span><span class="p">(</span><span class="n">element_id</span><span class="p">)</span>
+
+    <span class="c1"># @rpw.db.Transaction.ensure(&#39;Set OverrideGraphicSettings&#39;)</span>
+    <span class="k">def</span> <span class="nf">_set_element_overrides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">SetElementOverrides</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_category_overrides</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">SetCategoryOverrides</span><span class="p">(</span><span class="n">category_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">match_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">element_to_match</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Matches the settings of another element</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            element_to_match (``Element``, ``ElementId``): Element to match</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element_to_match</span> <span class="o">=</span> <span class="n">to_element_id</span><span class="p">(</span><span class="n">element_to_match</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">GetElementOverrides</span><span class="p">(</span><span class="n">element_to_match</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">projection_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets ProjectionLine overrides</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]</span>
+<span class="sd">            pattern (``DB.ElementId``): ElementId of Pattern</span>
+<span class="sd">            weight (``int``,``None``): Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">color</span><span class="p">:</span>
+            <span class="n">Color</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="o">*</span><span class="n">color</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetProjectionLineColor</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="n">line_pattern</span> <span class="o">=</span> <span class="n">LinePatternElement</span><span class="o">.</span><span class="n">by_name_or_element_ref</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetProjectionLinePatternId</span><span class="p">(</span><span class="n">line_pattern</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetProjectionLineWeight</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">cut_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets CutLine Overrides</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]</span>
+<span class="sd">            pattern (``DB.ElementId``): ElementId of Pattern</span>
+<span class="sd">            weight (``int``,``None``): Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">color</span><span class="p">:</span>
+            <span class="n">Color</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="o">*</span><span class="n">color</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetCutLineColor</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="n">line_pattern</span> <span class="o">=</span> <span class="n">LinePatternElement</span><span class="o">.</span><span class="n">by_name_or_element_ref</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetCutLinePatternId</span><span class="p">(</span><span class="n">line_pattern</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">weight</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetCutLineWeight</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">projection_fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets ProjectionFill overrides</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]</span>
+<span class="sd">            pattern (``DB.ElementId``): ElementId of Pattern</span>
+<span class="sd">            visible (``bool``): Cut Fill Visibility</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">color</span><span class="p">:</span>
+            <span class="n">Color</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="o">*</span><span class="n">color</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetProjectionFillColor</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="n">fill_pattern</span> <span class="o">=</span> <span class="n">FillPatternElement</span><span class="o">.</span><span class="n">by_name_or_element_ref</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetProjectionFillPatternId</span><span class="p">(</span><span class="n">fill_pattern</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">visible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetProjectionFillPatternVisible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">cut_fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets CutFill overrides</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]</span>
+<span class="sd">            pattern (``DB.ElementId``): ElementId of Pattern</span>
+<span class="sd">            visible (``bool``): Cut Fill Visibility</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">color</span><span class="p">:</span>
+            <span class="n">Color</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="o">*</span><span class="n">color</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetCutFillColor</span><span class="p">(</span><span class="n">Color</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pattern</span><span class="p">:</span>
+            <span class="n">fill_pattern</span> <span class="o">=</span> <span class="n">FillPatternElement</span><span class="o">.</span><span class="n">by_name_or_element_ref</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetCutFillPatternId</span><span class="p">(</span><span class="n">fill_pattern</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">visible</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetCutFillPatternVisible</span><span class="p">(</span><span class="n">visible</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transparency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">transparency</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets SurfaceTransparency override</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            transparency (``int``): Value of the transparency of the projection surface (0 = opaque, 100 = fully transparent)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetSurfaceTransparency</span><span class="p">(</span><span class="n">transparency</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">halftone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">halftone</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets Halftone Override</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            halftone (``bool``): Halftone</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetHalftone</span><span class="p">(</span><span class="n">halftone</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">detail_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">detail_level</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets DetailLevel Override. DetailLevel can be Enumeration memeber of</span>
+<span class="sd">        DB.ViewDetailLevel or its name as a string. The Options are:</span>
+
+<span class="sd">            * Coarse</span>
+<span class="sd">            * Medium</span>
+<span class="sd">            * Fine</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.</span>
+<span class="sd">            detail_level (``DB.ViewDetailLevel``, ``str``): Detail Level Enumerator or name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">detail_level</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">detail_level</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">ViewDetailLevel</span><span class="p">,</span> <span class="n">detail_level</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">SetDetailLevel</span><span class="p">(</span><span class="n">detail_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_overrides</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="builtins.html" class="btn btn-neutral float-right" title="BuiltIns" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="collections.html" class="btn btn-neutral" title="Collections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

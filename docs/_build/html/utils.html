@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -199,9 +200,9 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_category</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">to_category</span><span class="p">(</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
 <span class="go">BuiltInCategory.OST_Walls</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">to_class</span><span class="p">(</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_category</span><span class="p">(</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span>
 <span class="go">BuiltInCategory.OST_Walls</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">to_class</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_category</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
 <span class="go">BuiltInCategory.OST_Walls</span>
 </pre></div>
 </div>
@@ -214,6 +215,33 @@
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="rpw.utils.coerce.to_category_id">
+<code class="descclassname">rpw.utils.coerce.</code><code class="descname">to_category_id</code><span class="sig-paren">(</span><em>category_reference</em>, <em>fuzzy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.utils.coerce.to_category_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coerces a category, category name or category id to a Category Id.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_category_id</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_category_id</span><span class="p">(</span><span class="s1">&#39;OST_Walls&#39;</span><span class="p">)</span>
+<span class="go">&lt;ElementId&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_category_id</span><span class="p">(</span><span class="s1">&#39;Wall&#39;</span><span class="p">)</span>
+<span class="go">&lt;ElementId&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_category_id</span><span class="p">(</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span><span class="p">)</span>
+<span class="go">&lt;ElementId&gt;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cateagory_reference</strong> ([<code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code>, <code class="docutils literal"><span class="pre">str</span></code>, <code class="docutils literal"><span class="pre">CategoryId</span></code>]) – Category Reference or Name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">ElementId of Category</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">[<code class="docutils literal"><span class="pre">DB.ElementId</span></code>]</td>
 </tr>
 </tbody>
 </table>
@@ -443,9 +471,9 @@ Remains unchanged if it’s already <code class="docutils literal"><span class="
 <span class="sd">    &gt;&gt;&gt; from rpw.utils.coerce import to_category</span>
 <span class="sd">    &gt;&gt;&gt; to_category(&#39;OST_Walls&#39;)</span>
 <span class="sd">    BuiltInCategory.OST_Walls</span>
-<span class="sd">    &gt;&gt;&gt; to_class(&#39;Wall&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; to_category(&#39;Wall&#39;)</span>
 <span class="sd">    BuiltInCategory.OST_Walls</span>
-<span class="sd">    &gt;&gt;&gt; to_class(BuiltInCategory.OST_Walls)</span>
+<span class="sd">    &gt;&gt;&gt; to_category(BuiltInCategory.OST_Walls)</span>
 <span class="sd">    BuiltInCategory.OST_Walls</span>
 
 <span class="sd">    Args:</span>
@@ -465,6 +493,26 @@ Remains unchanged if it’s already <code class="docutils literal"><span class="
         <span class="k">return</span> <span class="n">BicEnum</span><span class="o">.</span><span class="n">from_category_id</span><span class="p">(</span><span class="n">category_reference</span><span class="p">)</span>
     <span class="k">raise</span> <span class="n">RpwTypeError</span><span class="p">(</span><span class="s1">&#39;Category Type, Category Type Name&#39;</span><span class="p">,</span>
                         <span class="nb">type</span><span class="p">(</span><span class="n">category_reference</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">to_category_id</span><span class="p">(</span><span class="n">category_reference</span><span class="p">,</span> <span class="n">fuzzy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Coerces a category, category name or category id to a Category Id.</span>
+
+<span class="sd">    &gt;&gt;&gt; from rpw.utils.coerce import to_category_id</span>
+<span class="sd">    &gt;&gt;&gt; to_category_id(&#39;OST_Walls&#39;)</span>
+<span class="sd">    &lt;ElementId&gt;</span>
+<span class="sd">    &gt;&gt;&gt; to_category_id(&#39;Wall&#39;)</span>
+<span class="sd">    &lt;ElementId&gt;</span>
+<span class="sd">    &gt;&gt;&gt; to_category_id(BuiltInCategory.OST_Walls)</span>
+<span class="sd">    &lt;ElementId&gt;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cateagory_reference ([``DB.BuiltInCategory``, ``str``, ``CategoryId``]): Category Reference or Name</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [``DB.ElementId``]: ElementId of Category</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">category_enum</span> <span class="o">=</span> <span class="n">to_category</span><span class="p">(</span><span class="n">category_reference</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">category_enum</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">to_iterable</span><span class="p">(</span><span class="n">item_or_iterable</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
