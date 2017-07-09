@@ -101,6 +101,11 @@ class CoerceTests(unittest.TestCase):
         self.assertIs(rpw.utils.coerce.to_category('walls'), DB.BuiltInCategory.OST_Walls)
         self.assertIs(rpw.utils.coerce.to_category('ost_walls'), DB.BuiltInCategory.OST_Walls)
 
+    def test_to_category_id_walls(self):
+        self.assertEqual(rpw.utils.coerce.to_category_id('Walls'), DB.ElementId(DB.BuiltInCategory.OST_Walls))
+        self.assertEqual(rpw.utils.coerce.to_category_id('walls'), DB.ElementId(DB.BuiltInCategory.OST_Walls))
+        self.assertEqual(rpw.utils.coerce.to_category_id('ost_walls'), DB.ElementId(DB.BuiltInCategory.OST_Walls))
+
     def test_to_category_stacked_walls(self):
         self.assertIs(rpw.utils.coerce.to_category('ost_StackedWalls'), DB.BuiltInCategory.OST_StackedWalls)
         self.assertIs(rpw.utils.coerce.to_category('StackedWalls'), DB.BuiltInCategory.OST_StackedWalls)
@@ -118,6 +123,17 @@ class CoerceTests(unittest.TestCase):
 
 
     # TODO: Add BuiltInCategory Tests
+    # CATEGORY COERCE
+    # >>> with rpw.db.Transaction():
+    # ... 	rpw.revit.active_view.override.projection_line(BuiltInCategory.OST_Furniture, color=[255,0,255])
+    # ...
+    # >>> with rpw.db.Transaction():
+    # ... 	rpw.revit.active_view.override.projection_line(ElementId(BuiltInCategory.OST_Furniture), color=[255,0,255])
+    # ...
+    # >>> with rpw.db.Transaction():
+    # ... 	rpw.revit.active_view.override.projection_line(ElementId(BuiltInCategory.OST_Furniture), color=[255,0,120])
+    # ...
+    # >>>
 
 def run():
     logger.verbose(True)

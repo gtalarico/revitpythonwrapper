@@ -49,6 +49,7 @@ class BaseObject(object):
         # TODO: Implement Dir on BaseOBject and BaseObjectWrapper for proper AC
             # return list(self.__dict__)
 
+        # TODO: Clean up repr. remove wraps, add brackets to data
         def __repr__(self, data={}):
             data = ' '.join(['{0}:{1}'.format(k, v) for k, v in data.iteritems()])
             return '<rpw:{class_name} | {data}>'.format(
