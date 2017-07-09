@@ -19,6 +19,8 @@ from rpw.db.view import ViewSchedule, View3D
 from rpw.db.view import ViewFamilyType
 from rpw.db.view import ViewType, ViewPlanType
 
+from rpw.db.pattern import LinePatternElement, FillPatternElement
+
 from rpw.db.parameter import Parameter, ParameterSet
 from rpw.db.builtins import BicEnum, BipEnum
 

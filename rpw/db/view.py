@@ -6,9 +6,10 @@ View Wrappers
 import rpw
 from rpw import revit, DB
 from rpw.db.element import Element
+from rpw.db.pattern import LinePatternElement, FillPatternElement
 from rpw.db.collector import Collector
 from rpw.base import BaseObjectWrapper
-from rpw.utils.coerce import to_element_ids, to_element, to_iterable
+from rpw.utils.coerce import to_element_ids, to_element_id, to_element, to_iterable
 from rpw.utils.logger import logger
 from rpw.utils.dotnet import Enum
 from rpw.db.builtins import BipEnum
@@ -58,7 +59,7 @@ class View(Element):
 
     @property
     def override(self):
-        return OverrideGraphicsSettings(self)
+        return OverrideGraphicSettings(self)
 
     def __repr__(self):
         return super(View, self).__repr__(data={'view_name': self.name,
@@ -203,7 +204,7 @@ class ViewPlanType(BaseObjectWrapper):
     """
 
 
-class OverrideGraphicsSettings(BaseObjectWrapper):
+class OverrideGraphicSettings(BaseObjectWrapper):
 
     """ Internal Wrapper for OverrideGraphicSettings
 
@@ -228,7 +229,7 @@ class OverrideGraphicsSettings(BaseObjectWrapper):
     _revit_object_class = DB.OverrideGraphicSettings
 
     def __init__(self, wrapped_view):
-        super(OverrideGraphicsSettings, self).__init__(DB.OverrideGraphicSettings())
+        super(OverrideGraphicSettings, self).__init__(DB.OverrideGraphicSettings())
         self.view = wrapped_view.unwrap()
 
     # @rpw.db.Transaction.ensure('Set OverrideGraphicSettings')
@@ -266,7 +267,8 @@ class OverrideGraphicsSettings(BaseObjectWrapper):
             Color = DB.Color(*color)
             self._revit_object.SetProjectionLineColor(Color)
         if pattern:
-            self._revit_object.SetProjectionLinePatternId(pattern)
+            line_pattern = LinePatternElement.by_name_or_element_ref(pattern)
+            self._revit_object.SetProjectionLinePatternId(line_pattern.Id)
         if weight:
             self._revit_object.SetProjectionLineWeight(weight)
 
@@ -288,7 +290,8 @@ class OverrideGraphicsSettings(BaseObjectWrapper):
             Color = DB.Color(*color)
             self._revit_object.SetCutLineColor(Color)
         if pattern:
-            self._revit_object.SetCutLinePatternId(pattern)
+            line_pattern = LinePatternElement.by_name_or_element_ref(pattern)
+            self._revit_object.SetCutLinePatternId(line_pattern.Id)
         if weight:
             self._revit_object.SetCutLineWeight(weight)
 
@@ -311,9 +314,10 @@ class OverrideGraphicsSettings(BaseObjectWrapper):
             Color = DB.Color(*color)
             self._revit_object.SetProjectionFillColor(Color)
         if pattern:
-            self._revit_object.SetProjectionFillPatternId(pattern)
-        if visible:
-            self._revit_object.SetProjectionFillVisible(visible)
+            fill_pattern = FillPatternElement.by_name_or_element_ref(pattern)
+            self._revit_object.SetProjectionFillPatternId(fill_pattern.Id)
+        if visible is not None:
+            self._revit_object.SetProjectionFillPatternVisible(visible)
 
         self._set_overrides(element_ids)
 
@@ -333,9 +337,10 @@ class OverrideGraphicsSettings(BaseObjectWrapper):
             Color = DB.Color(*color)
             self._revit_object.SetCutFillColor(Color)
         if pattern:
-            self._revit_object.SetCutFillPatternId(pattern)
+            fill_pattern = FillPatternElement.by_name_or_element_ref(pattern)
+            self._revit_object.SetCutFillPatternId(fill_pattern.Id)
         if visible is not None:
-            self._revit_object.SetCutFillVisible(visible)
+            self._revit_object.SetCutFillPatternVisible(visible)
 
         self._set_overrides(element_ids)
 
@@ -376,10 +381,10 @@ class OverrideGraphicsSettings(BaseObjectWrapper):
             element_references (``Element``, ``ElementId``): Element(s) to apply override
             detail_level (``DB.ViewDetailLevel``, ``str``): Detail Level Enumerator or name
         """
-
         element_ids = to_element_ids(element_references)
-        if isinstance(detail_level, str):
-            defail_level = getattr(DB.ViewDetailLevel, detail_level)
-        self._revit_object.SetSurfaceTransparency(detail_level)
 
+        if isinstance(detail_level, str):
+            detail_level = getattr(DB.ViewDetailLevel, detail_level)
+
+        self._revit_object.SetDetailLevel(detail_level)
         self._set_overrides(element_ids)
