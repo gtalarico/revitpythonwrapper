@@ -149,6 +149,7 @@ class TestViewRelationships(unittest.TestCase):
         view_type = wrapped_view.view_type
         self.assertIsInstance(view_type.unwrap(), DB.ViewType)
         self.assertEqual(view_type.unwrap(), DB.ViewType.ThreeD)
+        self.assertEqual(view_type.name, 'ThreeD')
 
     def test_view_plan_level(self):
         wrapped_view = Element(self.view_plan)
@@ -183,7 +184,19 @@ class TestViewRelationships(unittest.TestCase):
         for view in same_view_family_type_views:
             self.assertEqual(view.view_family_type.unwrap(), wrapped_view_plan.view_family_type.unwrap())
 
+    def test_view_family_type_name(self):
+        wrapped_view = rpw.db.ViewPlan.collect(where=lambda x: x.view_family_type.name == 'Floor Plan').wrapped_elements[0]
+        self.assertEqual(wrapped_view.view_family_type.name, 'Floor Plan')
 
+    # def test_view_family_type_name_get_setter(self):
+    #     wrapped_view = rpw.db.ViewPlan.collect(where=lambda x: x.view_family_type.name == 'My Floor Plan').wrapped_elements[0]
+    #     # self.assertEqual(wrapped_view.view_family_type.name, 'My Floor Plan')
+    #     with rpw.db.Transaction('Set Name'):
+    #         wrapped_view.view_family_type.name = 'ABC'
+    #     self.assertEqual(wrapped_view.view_family_type.name, 'ABC')
+        # with rpw.db.Transaction('Set Name'):
+            # wrapped_view.view_family_type.name = 'My Floor Plan'
+        # rpw.ui.forms.Console()
 
 class TestViewOverrides(unittest.TestCase):
 

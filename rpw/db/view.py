@@ -17,10 +17,41 @@ from rpw.utils.logger import logger
 
 class View(Element):
     """
-    This is the master View Class. All other View classes inherit
-    from DB.View
+    This is the main View View Wrapper - wraps ``DB.View``.
+    All other View classes inherit from this class in the same way All
+    API View classes inheir from `DB.View`
 
-    This is also used for some Types: Legend, ProjectBrowser, SystemBrowser
+    This class is also used for some View types that do not have a more specific
+    class, such as: Legend, ProjectBrowser, SystemBrowser.
+
+    As with other wrapeprs, you can just use the Element() factory class to
+    use the best wrapper available.
+
+    >>> wrapped_view = rpw.db.Element(some_view_plan)
+    <rpw:ViewPlan>
+    >>> wrapped_view = rpw.db.Element(some_legend)
+    <rpw:View>
+    >>> wrapped_view = rpw.db.Element(some_schedule)
+    <rpw:ViewSchedule>
+
+
+    >>> wrapped_view = rpw.db.Element(some_view_plan)
+    >>> wrapped_view.view_type
+    <rpw:ViewType | view_type: FloorPlan>
+    >>> wrapped_view.view_family_type
+    <rpw:ViewFamilyType % ..DB.ViewFamilyType | view_family:FloorPlan name:Floor Plan id:1312>
+    >>> wrapped_view.view_family
+    <rpw:ViewFamily | family: FloorPlan>
+    >>> wrapped_view.siblings
+    [<rpw:ViewFamilyType % ..DB.ViewFamilyType> ... ]
+
+    View wrappers classes are collectible:
+
+    >>> rpw.db.ViewPlan.collect()
+    <rpw:Collector % ..DB.FilteredElementCollector | count:5>
+    >>> rpw.db.View3D.collect(where=lambda x: x.Name='MyView')
+    <rpw:Collector % ..DB.FilteredElementCollector | count:1>
+
     """
 
     _revit_object_category = DB.BuiltInCategory.OST_Views
@@ -29,19 +60,23 @@ class View(Element):
 
     @property
     def name(self):
+        """ Name Property """
         # TODO: Make Mixin ?
         return self._revit_object.Name
 
     @name.setter
     def name(self, value):
+        """ Name Property Setter """
         self._revit_object.Name == value
 
     @property
     def view_type(self):
+        """ ViewType attribute """
         return ViewType(self._revit_object.ViewType)
 
     @property
     def view_family_type(self):
+        """ ViewFamilyType attribute """
         # NOTE: This can return Empty, as Some Views like SystemBrowser have no Type
         view_type_id = self._revit_object.GetTypeId()
         view_type = self.doc.GetElement(view_type_id)
@@ -50,11 +85,13 @@ class View(Element):
 
     @property
     def view_family(self):
+        """ ViewFamily attribute """
         # Some Views don't have a ViewFamilyType
         return getattr(self.view_family_type, 'view_family', None)
 
     @property
     def siblings(self):
+        """ Collect all views of the same ``ViewType`` """
         return self.view_type.views
 
     @property
@@ -69,6 +106,10 @@ class View(Element):
         """
         return OverrideGraphicSettings(self)
 
+    def change_type(self, type_reference):
+        raise NotImplemented
+        # self._revit_object.ChangeTypeId(type_reference)
+
     def __repr__(self):
         return super(View, self).__repr__(data={'view_name': self.name,
                                                 'view_family_type': getattr(self.view_family_type, 'name', None),
@@ -77,8 +118,8 @@ class View(Element):
                                                 })
 
 
-# ViewPlanType
 class ViewPlan(View):
+    """ ViewPlan Wrapper. ``ViewType`` is ViewType.FloorPlan or  ViewType.CeilingPlan"""
     _revit_object_class = DB.ViewPlan
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
@@ -86,30 +127,25 @@ class ViewPlan(View):
     def level(self):
         return self._revit_object.GenLevel
 
-
 class ViewSheet(View):
-    """ View where ``ViewType`` is ViewType.DrawingSheet """
+    """ ViewSheet Wrapper. ``ViewType`` is ViewType.DrawingSheet """
     _revit_object_class = DB.ViewSheet
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
 
 class ViewSchedule(View):
-    """ View where ``ViewType`` is ViewType.DrawingSheet """
+    """ ViewSchedule Wrapper. ``ViewType`` is ViewType.Schedule """
     _revit_object_class = DB.ViewSchedule
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
 
 class ViewSection(View):
-    """ View where ``ViewType`` is ViewType.DrawingSheet """
+    """ DB.ViewSection Wrapper. ``ViewType`` is ViewType.DrawingSheet """
     _revit_object_class = DB.ViewSection
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
-
-class ViewSchedule(View):
-    _revit_object_class = DB.ViewSchedule
-    _collector_params = {'of_class': _revit_object_class, 'is_type': False}
-
 class View3D(View):
+    """ DB.View3D Wrapper. ``ViewType`` is ViewType.ThreeD """
     _revit_object_class = DB.View3D
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
@@ -121,9 +157,19 @@ class ViewFamilyType(Element):
 
     @property
     def name(self):
-        # Could use the line below but would required re-importing element, as per
-        # return DB.Element.Name.GetValue(self._revit_object)
-        return self.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        """ Name of ViewFamilyType """
+        # return self.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        return DB.Element.Name.__get__(self._revit_object)
+
+    @name.setter
+    def name(self, value):
+        """ Name Property Setter"""
+        # Requires Re-importing Element due to IronPython Bug:
+        # https://github.com/IronLanguages/ironpython2/issues/79
+        raise NotImplemented('Not possible due to ironpython bug')
+        # This works in IronPython but does not work in Pyrevit
+        DB.Element.Name.__set__(self._revit_object, value)
+        # DB.Element.Name.SetValue(self._revit_object, value)
 
     @property
     def view_family(self):
@@ -133,7 +179,7 @@ class ViewFamilyType(Element):
 
     @property
     def views(self):
-        # Collect All Views, Compare view_family of each view with self
+        """ Collect All Views of the same ViewFamilyType """
         views = Collector(of_class='View').wrapped_elements
         return [view for view in views if getattr(view.view_family_type, '_revit_object', None) == self.unwrap()]
 
@@ -147,6 +193,7 @@ class ViewFamilyType(Element):
 class ViewFamily(BaseObjectWrapper):
     """ ViewFamily Enumerator Wrapper.
     An enumerated type that corresponds to the type of a Revit view.
+    http://www.revitapidocs.com/2015/916ed7b6-0a2e-c607-5d35-9ff9303b1f46.htm
 
     This is returned on view.ViewFamily
     AreaPlan, CeilingPlan, CostReport
@@ -160,11 +207,12 @@ class ViewFamily(BaseObjectWrapper):
 
     @property
     def name(self):
+        """ ToString() of View Family Enumerator """
         return self._revit_object.ToString()
 
     @property
     def views(self):
-        # Collect All Views, Compare view_family of each view with self
+        """ Collect All Views of the same ViewFamily """
         views = Collector(of_class='View').wrapped_elements
         return [view for view in views if getattr(view.view_family, '_revit_object', None) == self.unwrap()]
 
@@ -177,6 +225,7 @@ class ViewFamily(BaseObjectWrapper):
 class ViewType(BaseObjectWrapper):
     """ ViewType Wrapper.
     An enumerated type listing available view types.
+    http://www.revitapidocs.com/2015/bf04dabc-05a3-baf0-3564-f96c0bde3400.htm
 
     Can be on of the following types:
         AreaPlan ,CeilingPlan, ColumnSchedule, CostReport,
@@ -191,10 +240,12 @@ class ViewType(BaseObjectWrapper):
 
     @property
     def name(self):
+        """ ToString() of View Family Enumerator """
         return self._revit_object.ToString()
 
     @property
     def views(self):
+        """ Collect All Views of the same ViewType """
         views = Collector(of_class='View').wrapped_elements
         return [view for view in views if view.view_type.unwrap() == self.unwrap()]
 
@@ -214,7 +265,7 @@ class ViewPlanType(BaseObjectWrapper):
 
 class OverrideGraphicSettings(BaseObjectWrapper):
 
-    """ Internal Wrapper for OverrideGraphicSettings
+    """ Internal Wrapper for OverrideGraphicSettings - view.override
 
 
 
@@ -233,7 +284,7 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         * Element
         * ElementId
         * BuiltInCategory Enum
-        * BuiltInCategory Fuzzy Name (See :any:`BiCategory.fuzzy_get`)
+        * BuiltInCategory Fuzzy Name (See :func:`fuzzy_get`)
         * Category_id
         * An iterable containing any of the above types
 
@@ -242,7 +293,6 @@ class OverrideGraphicSettings(BaseObjectWrapper):
     # TODO: Pattern: Add pattern_id from name. None sets InvalidElementId
     # TODO: Weight: None to set InvalidPenNumber
     # TODO: Color: Add color from name util
-    # TODO: Add tests
 
     _revit_object_class = DB.OverrideGraphicSettings
 

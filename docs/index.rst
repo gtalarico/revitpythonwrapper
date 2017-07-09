@@ -23,6 +23,7 @@ Revit Python Wrapper
    collector
    collections
    view
+   pattern
    builtins
    geometry
    forms

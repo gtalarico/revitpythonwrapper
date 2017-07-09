@@ -5,13 +5,18 @@
 
 
 ==================
-Reference
+Pattern
 ==================
 
-.. automodule:: rpw.db.reference
+.. automodule:: rpw.db.pattern
     :undoc-members:
 
-.. autoclass:: rpw.db.Reference
+.. autoclass:: rpw.db.LinePatternElement
+    :members:
+    :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
+    :show-inheritance:
+
+.. autoclass:: rpw.db.FillPatternElement
     :members:
     :special-members: __init__, __getattr__, __getitem__, __len__, __bool__
     :show-inheritance:
