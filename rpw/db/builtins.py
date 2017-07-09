@@ -107,6 +107,22 @@ class _BiCategory(BaseObjectWrapper):
         return enum
 
     def fuzzy_get(self, loose_category_name):
+        """ Gets Built In Category by Fuzzy Name.
+        Similar to get() but ignores case, and does not require OST_ prefix.
+
+        >>> BiCategory.fuzzy_get('OST_Rooms')
+        < BuiltInCategory >
+        >>> BiCategory.fuzzy_get('Rooms')
+        < BuiltInCategory >
+        >>> BiCategory.fuzzy_get('rooms')
+        < BuiltInCategory >
+
+        Args:
+            ``str``: Name of Category
+
+        Returns:
+            ``DB.BuiltInCategory``: BuiltInCategory Enumeration Member
+        """
         loose_category_name = loose_category_name.replace(' ', '').lower()
         loose_category_name = loose_category_name.replace('ost_', '')
         for category_name in dir(DB.BuiltInCategory):
