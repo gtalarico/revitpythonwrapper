@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Revit Python Wrapper 1.1.2 documentation" href="index.html"/>
         <link rel="next" title="Geometry" href="geometry.html"/>
-        <link rel="prev" title="Collections" href="collections.html"/> 
+        <link rel="prev" title="View" href="view.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BuiltIns</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
@@ -215,6 +216,33 @@ helpful to others.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>category_id</strong> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>) – ElementId reference of a category</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code> member</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.builtins._BiCategory.fuzzy_get">
+<code class="descname">fuzzy_get</code><span class="sig-paren">(</span><em>loose_category_name</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.builtins._BiCategory.fuzzy_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets Built In Category by Fuzzy Name.
+Similar to get() but ignores case, and does not require <a href="#id1"><span class="problematic" id="id2">OST_</span></a> prefix.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">BiCategory</span><span class="o">.</span><span class="n">fuzzy_get</span><span class="p">(</span><span class="s1">&#39;OST_Rooms&#39;</span><span class="p">)</span>
+<span class="go">&lt; BuiltInCategory &gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BiCategory</span><span class="o">.</span><span class="n">fuzzy_get</span><span class="p">(</span><span class="s1">&#39;Rooms&#39;</span><span class="p">)</span>
+<span class="go">&lt; BuiltInCategory &gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BiCategory</span><span class="o">.</span><span class="n">fuzzy_get</span><span class="p">(</span><span class="s1">&#39;rooms&#39;</span><span class="p">)</span>
+<span class="go">&lt; BuiltInCategory &gt;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>str</strong> – Name of Category</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">BuiltInCategory Enumeration Member</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><code class="docutils literal"><span class="pre">DB.BuiltInCategory</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -364,6 +392,9 @@ helpful to others.</p>
         <span class="n">enum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
 
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BiParameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">to_string</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB.BuiltInParameter&#39;</span><span class="p">)</span>
+
 
 <span class="k">class</span> <span class="nc">_BiCategory</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -400,6 +431,22 @@ helpful to others.</p>
         <span class="k">return</span> <span class="n">enum</span>
 
     <span class="k">def</span> <span class="nf">fuzzy_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loose_category_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Gets Built In Category by Fuzzy Name.</span>
+<span class="sd">        Similar to get() but ignores case, and does not require OST_ prefix.</span>
+
+<span class="sd">        &gt;&gt;&gt; BiCategory.fuzzy_get(&#39;OST_Rooms&#39;)</span>
+<span class="sd">        &lt; BuiltInCategory &gt;</span>
+<span class="sd">        &gt;&gt;&gt; BiCategory.fuzzy_get(&#39;Rooms&#39;)</span>
+<span class="sd">        &lt; BuiltInCategory &gt;</span>
+<span class="sd">        &gt;&gt;&gt; BiCategory.fuzzy_get(&#39;rooms&#39;)</span>
+<span class="sd">        &lt; BuiltInCategory &gt;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``str``: Name of Category</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ``DB.BuiltInCategory``: BuiltInCategory Enumeration Member</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">loose_category_name</span> <span class="o">=</span> <span class="n">loose_category_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="n">loose_category_name</span> <span class="o">=</span> <span class="n">loose_category_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ost_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">category_name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">):</span>
@@ -432,8 +479,18 @@ helpful to others.</p>
 <span class="sd">        Returns:</span>
 <span class="sd">            ``DB.BuiltInCategory`` member</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Enum</span><span class="o">.</span><span class="n">ToObject</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+        <span class="n">bic</span> <span class="o">=</span> <span class="n">Enum</span><span class="o">.</span><span class="n">ToObject</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span> <span class="n">category_id</span><span class="o">.</span><span class="n">IntegerValue</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">bic</span><span class="p">)</span><span class="o">.</span><span class="n">IntegerValue</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bic</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If you pass a regular element to category_id, it converts it to BIC.</span>
+            <span class="c1"># It should fail, because result is not a valid Category Enum</span>
+            <span class="k">raise</span> <span class="n">RpwCoerceError</span><span class="p">(</span><span class="s1">&#39;category_id: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">category_id</span><span class="p">),</span>
+                                 <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">)</span>
         <span class="c1"># Similar to: Category.GetCategory(doc, category.Id).Name</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BiCategory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">to_string</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB.BuiltInCategory&#39;</span><span class="p">)</span>
 
 <span class="c1"># Classes should already be instantiated</span>
 <span class="n">BiParameter</span> <span class="o">=</span> <span class="n">_BiParameter</span><span class="p">()</span>
@@ -459,7 +516,7 @@ helpful to others.</p>
         <a href="geometry.html" class="btn btn-neutral float-right" title="Geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="collections.html" class="btn btn-neutral" title="Collections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="view.html" class="btn btn-neutral" title="View" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

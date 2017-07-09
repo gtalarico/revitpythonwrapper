@@ -100,6 +100,8 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pattern.html">Pattern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -333,14 +335,20 @@
 </li>
       <li><a href="parameters.html#rpw.db.Parameter.builtin">builtin (rpw.db.Parameter attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="parameters.html#rpw.db.Parameter.builtin_id">builtin_id (rpw.db.Parameter attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="element.html#rpw.db.element.Element.parameters.builtins">builtins (rpw.db.element.Element.parameters attribute)</a>
 </li>
       <li><a href="forms.html#rpw.ui.forms.Button">Button (class in rpw.ui.forms)</a>
 </li>
+      <li><a href="pattern.html#rpw.db.pattern.FillPatternElement.by_name">by_name() (rpw.db.pattern.FillPatternElement method)</a>
+
+      <ul>
+        <li><a href="pattern.html#rpw.db.pattern.LinePatternElement.by_name">(rpw.db.pattern.LinePatternElement method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -379,6 +387,10 @@
 </li>
       <li><a href="forms.html#rpw.ui.forms.Console">Console (class in rpw.ui.forms)</a>
 </li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.cut_fill">cut_fill() (rpw.db.view.OverrideGraphicSettings method)</a>
+</li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.cut_line">cut_line() (rpw.db.view.OverrideGraphicSettings method)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -388,6 +400,8 @@
       <li><a href="revit.html#rpw.DB">DB (in module rpw)</a>
 </li>
       <li><a href="element.html#rpw.db.Element.delete">delete() (rpw.db.Element method)</a>
+</li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.detail_level">detail_level() (rpw.db.view.OverrideGraphicSettings method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -451,6 +465,8 @@
 </li>
       <li><a href="element.html#rpw.db.FamilySymbol">FamilySymbol (class in rpw.db)</a>
 </li>
+      <li><a href="pattern.html#rpw.db.FillPatternElement">FillPatternElement (class in rpw.db)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="collector.html#rpw.db.Collector.first">first (rpw.db.Collector attribute)</a>
@@ -468,6 +484,8 @@
       <li><a href="element.html#rpw.db.Element.from_id">from_id() (rpw.db.Element static method)</a>
 </li>
       <li><a href="element.html#rpw.db.Element.from_int">from_int() (rpw.db.Element static method)</a>
+</li>
+      <li><a href="builtins.html#rpw.db.builtins._BiCategory.fuzzy_get">fuzzy_get() (rpw.db.builtins._BiCategory method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -500,6 +518,10 @@
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.halftone">halftone() (rpw.db.view.OverrideGraphicSettings method)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="revit.html#rpw.__revit.Revit.host">host (rpw.__revit.Revit attribute)</a>
 </li>
@@ -534,11 +556,17 @@
       <li><a href="forms.html#rpw.ui.forms.Label">Label (class in rpw.ui.forms)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pattern.html#rpw.db.LinePatternElement">LinePatternElement (class in rpw.db)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.match_element">match_element() (rpw.db.view.OverrideGraphicSettings method)</a>
+</li>
       <li><a href="collections.html#rpw.db.collection.XyzCollection.point_collection.max">max (rpw.db.collection.XyzCollection.point_collection attribute)</a>
 
       <ul>
@@ -574,6 +602,14 @@
 </li>
         <li><a href="element.html#rpw.db.Room.name">(rpw.db.Room attribute)</a>
 </li>
+        <li><a href="view.html#rpw.db.View.name">(rpw.db.View attribute)</a>
+</li>
+        <li><a href="view.html#rpw.db.ViewFamily.name">(rpw.db.ViewFamily attribute)</a>
+</li>
+        <li><a href="view.html#rpw.db.ViewFamilyType.name">(rpw.db.ViewFamilyType attribute)</a>
+</li>
+        <li><a href="view.html#rpw.db.ViewType.name">(rpw.db.ViewType attribute)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -586,6 +622,12 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="revit.html#rpw.__revit.Revit.open">open() (rpw.__revit.Revit method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="view.html#rpw.db.View.override">override (rpw.db.View attribute)</a>
+</li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings">OverrideGraphicSettings (class in rpw.db.view)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -611,10 +653,10 @@
 </li>
       <li><a href="selection.html#rpw.ui.Pick.pick_element">pick_element() (rpw.ui.Pick method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="selection.html#rpw.ui.Pick.pick_face">pick_face() (rpw.ui.Pick method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="selection.html#rpw.ui.Pick.pick_linked_element">pick_linked_element() (rpw.ui.Pick method)</a>
 </li>
       <li><a href="selection.html#rpw.ui.Pick.pick_pt">pick_pt() (rpw.ui.Pick method)</a>
@@ -632,6 +674,10 @@
       <li><a href="revit.html#rpw.__revit.Revit.process_id">process_id (rpw.__revit.Revit attribute)</a>
 </li>
       <li><a href="revit.html#rpw.__revit.Revit.process_name">process_name (rpw.__revit.Revit attribute)</a>
+</li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.projection_fill">projection_fill() (rpw.db.view.OverrideGraphicSettings method)</a>
+</li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.projection_line">projection_line() (rpw.db.view.OverrideGraphicSettings method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -659,11 +705,15 @@
 </li>
       <li><a href="parameters.html#module-rpw.db.parameter">rpw.db.parameter (module)</a>
 </li>
+      <li><a href="pattern.html#module-rpw.db.pattern">rpw.db.pattern (module)</a>
+</li>
       <li><a href="reference.html#module-rpw.db.reference">rpw.db.reference (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="transaction.html#module-rpw.db.transaction">rpw.db.transaction (module)</a>
+</li>
+      <li><a href="view.html#module-rpw.db.view">rpw.db.view (module)</a>
 </li>
       <li><a href="exceptions.html#module-rpw.exceptions">rpw.exceptions (module)</a>
 </li>
@@ -709,10 +759,10 @@
 </li>
       <li><a href="selection.html#rpw.ui.Selection">Selection (class in rpw.ui)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="forms.html#rpw.ui.forms.Separator">Separator (class in rpw.ui.forms)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="forms.html#rpw.ui.forms.FlexForm.show">show() (rpw.ui.forms.FlexForm method)</a>
 </li>
       <li><a href="element.html#rpw.db.Family.siblings">siblings (rpw.db.Family attribute)</a>
@@ -721,6 +771,8 @@
         <li><a href="element.html#rpw.db.FamilyInstance.siblings">(rpw.db.FamilyInstance attribute)</a>
 </li>
         <li><a href="element.html#rpw.db.FamilySymbol.siblings">(rpw.db.FamilySymbol attribute)</a>
+</li>
+        <li><a href="view.html#rpw.db.View.siblings">(rpw.db.View attribute)</a>
 </li>
       </ul></li>
       <li><a href="collections.html#rpw.db.XyzCollection.sorted_by">sorted_by() (rpw.db.XyzCollection method)</a>
@@ -745,6 +797,8 @@
 </li>
       <li><a href="utils.html#rpw.utils.coerce.to_category">to_category() (in module rpw.utils.coerce)</a>
 </li>
+      <li><a href="utils.html#rpw.utils.coerce.to_category_id">to_category_id() (in module rpw.utils.coerce)</a>
+</li>
       <li><a href="utils.html#rpw.utils.coerce.to_class">to_class() (in module rpw.utils.coerce)</a>
 </li>
       <li><a href="utils.html#rpw.utils.coerce.to_element_ids">to_element_ids() (in module rpw.utils.coerce)</a>
@@ -760,6 +814,8 @@
       <li><a href="collections.html#rpw.db.ElementCollection.ToString">ToString() (rpw.db.ElementCollection method)</a>
 </li>
       <li><a href="transaction.html#rpw.db.Transaction">Transaction (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.view.OverrideGraphicSettings.transparency">transparency() (rpw.db.view.OverrideGraphicSettings method)</a>
 </li>
       <li><a href="parameters.html#rpw.db.Parameter.type">type (rpw.db.Parameter attribute)</a>
 </li>
@@ -793,11 +849,47 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="parameters.html#rpw.db.Parameter.value">value (rpw.db.Parameter attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="forms.html#rpw.ui.forms.console.FlexForm.values">values (rpw.ui.forms.console.FlexForm attribute)</a>
 </li>
       <li><a href="revit.html#rpw.__revit.Revit.version">version (rpw.__revit.Revit attribute)</a>
+</li>
+      <li><a href="view.html#rpw.db.View">View (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.View3D">View3D (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.View.view_family">view_family (rpw.db.View attribute)</a>
+
+      <ul>
+        <li><a href="view.html#rpw.db.ViewFamilyType.view_family">(rpw.db.ViewFamilyType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="view.html#rpw.db.View.view_family_type">view_family_type (rpw.db.View attribute)</a>
+</li>
+      <li><a href="view.html#rpw.db.View.view_type">view_type (rpw.db.View attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="view.html#rpw.db.ViewFamily">ViewFamily (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.ViewFamilyType">ViewFamilyType (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.ViewPlan">ViewPlan (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.ViewFamily.views">views (rpw.db.ViewFamily attribute)</a>
+
+      <ul>
+        <li><a href="view.html#rpw.db.ViewFamilyType.views">(rpw.db.ViewFamilyType attribute)</a>
+</li>
+        <li><a href="view.html#rpw.db.ViewType.views">(rpw.db.ViewType attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="view.html#rpw.db.ViewSchedule">ViewSchedule (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.ViewSection">ViewSection (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.ViewSheet">ViewSheet (class in rpw.db)</a>
+</li>
+      <li><a href="view.html#rpw.db.ViewType">ViewType (class in rpw.db)</a>
 </li>
   </ul></td>
 </tr></table>

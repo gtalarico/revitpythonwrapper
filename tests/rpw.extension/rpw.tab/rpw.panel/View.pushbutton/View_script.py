@@ -149,6 +149,7 @@ class TestViewRelationships(unittest.TestCase):
         view_type = wrapped_view.view_type
         self.assertIsInstance(view_type.unwrap(), DB.ViewType)
         self.assertEqual(view_type.unwrap(), DB.ViewType.ThreeD)
+        self.assertEqual(view_type.name, 'ThreeD')
 
     def test_view_plan_level(self):
         wrapped_view = Element(self.view_plan)
@@ -183,7 +184,177 @@ class TestViewRelationships(unittest.TestCase):
         for view in same_view_family_type_views:
             self.assertEqual(view.view_family_type.unwrap(), wrapped_view_plan.view_family_type.unwrap())
 
+    def test_view_family_type_name(self):
+        wrapped_view = rpw.db.ViewPlan.collect(where=lambda x: x.view_family_type.name == 'Floor Plan').wrapped_elements[0]
+        self.assertEqual(wrapped_view.view_family_type.name, 'Floor Plan')
 
+    # def test_view_family_type_name_get_setter(self):
+    #     wrapped_view = rpw.db.ViewPlan.collect(where=lambda x: x.view_family_type.name == 'My Floor Plan').wrapped_elements[0]
+    #     # self.assertEqual(wrapped_view.view_family_type.name, 'My Floor Plan')
+    #     with rpw.db.Transaction('Set Name'):
+    #         wrapped_view.view_family_type.name = 'ABC'
+    #     self.assertEqual(wrapped_view.view_family_type.name, 'ABC')
+        # with rpw.db.Transaction('Set Name'):
+            # wrapped_view.view_family_type.name = 'My Floor Plan'
+        # rpw.ui.forms.Console()
+
+class TestViewOverrides(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        logger.title('TESTING View Classes...')
+        cls.view_plan = revit.active_view.unwrap()
+        # cls.view_plan = DB.FilteredElementCollector(revit.doc).OfClass(DB.ViewPlan).FirstElement()
+        cls.wrapped_view = revit.active_view
+        cls.element = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().FirstElement()
+
+        linepattern = rpw.db.Collector(of_class='LinePatternElement', where=lambda x: x.Name == 'Dash').first
+        cls.line_pattern_id = linepattern.Id
+        fillpattern = rpw.db.Collector(of_class='FillPatternElement', where=lambda x: x.Name == 'Horizontal').first
+        cls.fillpattern_id = fillpattern.Id
+
+    def tearDown(cls):
+        """ Resets Element after each test """
+        with rpw.db.Transaction():
+            cls.view_plan.SetElementOverrides(cls.element.Id, DB.OverrideGraphicSettings())
+
+    def test_match(self):
+        e1 = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().ToElements()[0]
+        e2 = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().ToElements()[1]
+        o = DB.OverrideGraphicSettings()
+        o.SetHalftone(True)
+        o.SetSurfaceTransparency(30)
+        with rpw.db.Transaction():
+            self.view_plan.SetElementOverrides(e1.Id, o)
+
+        with rpw.db.Transaction():
+            self.wrapped_view.override.match_element(e2, e1)
+        rv = self.view_plan.GetElementOverrides(e2.Id)
+        self.assertTrue(rv.Halftone)
+        self.assertEqual(rv.Transparency, 30)
+
+    def test_halftone(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone(self.element, True)
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertTrue(rv.Halftone)
+
+    def test_halftone(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone(self.element, True)
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertTrue(rv.Halftone)
+
+    def test_transparency(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.transparency(self.element, 40)
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.Transparency, 40)
+
+    def test_detail_level_by_enum(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.detail_level(self.element, DB.ViewDetailLevel.Fine)
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.DetailLevel, DB.ViewDetailLevel.Fine)
+
+    def test_detail_level_by_name(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.detail_level(self.element, 'Fine')
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.DetailLevel, DB.ViewDetailLevel.Fine)
+
+    def test_projection_line(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.projection_line(self.element,
+                                                       color=(0,120,255),
+                                                       weight=5,
+                                                       pattern=self.line_pattern_id)
+
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.ProjectionLineColor.Red, 0)
+        self.assertEqual(rv.ProjectionLineColor.Green, 120)
+        self.assertEqual(rv.ProjectionLineColor.Blue, 255)
+        self.assertEqual(rv.ProjectionLineWeight, 5)
+        self.assertEqual(rv.ProjectionLinePatternId, self.line_pattern_id)
+
+    def test_projection_line_pattern_by_name(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.projection_line(self.element, pattern='Dash')
+            rv = self.view_plan.GetElementOverrides(self.element.Id)
+            self.assertEqual(rv.ProjectionLinePatternId, self.line_pattern_id)
+
+    def test_cut_line(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.cut_line(self.element,
+                                                color=(0,80,150),
+                                                weight=7,
+                                                pattern=self.line_pattern_id)
+
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.CutLineColor.Red, 0)
+        self.assertEqual(rv.CutLineColor.Green, 80)
+        self.assertEqual(rv.CutLineColor.Blue, 150)
+        self.assertEqual(rv.CutLineWeight, 7)
+        self.assertEqual(rv.CutLinePatternId, self.line_pattern_id)
+
+    def test_cut_line_pattern_by_name(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.cut_line(self.element, pattern='Dash')
+            rv = self.view_plan.GetElementOverrides(self.element.Id)
+            self.assertEqual(rv.CutLinePatternId, self.line_pattern_id)
+
+    def test_projection_fill(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.projection_fill(self.element,
+                                                       color=(0,40,190),
+                                                       pattern=self.fillpattern_id,
+                                                       visible=False)
+
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.ProjectionFillColor.Red, 0)
+        self.assertEqual(rv.ProjectionFillColor.Green, 40)
+        self.assertEqual(rv.ProjectionFillColor.Blue, 190)
+        self.assertEqual(rv.IsProjectionFillPatternVisible, False)
+        self.assertEqual(rv.ProjectionFillPatternId, self.fillpattern_id)
+
+    def test_projection_fill_pattern_by_name(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.projection_fill(self.element, pattern='Horizontal')
+            rv = self.view_plan.GetElementOverrides(self.element.Id)
+            self.assertEqual(rv.ProjectionFillPatternId, self.fillpattern_id)
+
+    def test_cut_fill(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.cut_fill(self.element,
+                                                color=(0,30,200),
+                                                pattern=self.fillpattern_id,
+                                                visible=False)
+
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertEqual(rv.CutFillColor.Red, 0)
+        self.assertEqual(rv.CutFillColor.Green, 30)
+        self.assertEqual(rv.CutFillColor.Blue, 200)
+        self.assertEqual(rv.IsCutFillPatternVisible, False)
+        self.assertEqual(rv.CutFillPatternId, self.fillpattern_id)
+
+
+    def test_cut_fill_pattern_by_name(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.cut_fill(self.element, pattern='Horizontal')
+            rv = self.view_plan.GetElementOverrides(self.element.Id)
+            self.assertEqual(rv.CutFillPatternId, self.fillpattern_id)
+
+    def test_halftone_category(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone('Furniture', True)
+        rv = self.view_plan.GetCategoryOverrides(DB.ElementId(DB.BuiltInCategory.OST_Furniture))
+        self.assertTrue(rv.Halftone)
+
+    def test_halftone_category_bi(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone(DB.BuiltInCategory.OST_Furniture, True)
+        rv = self.view_plan.GetCategoryOverrides(DB.ElementId(DB.BuiltInCategory.OST_Furniture))
+        self.assertTrue(rv.Halftone)
 
 
 def run():

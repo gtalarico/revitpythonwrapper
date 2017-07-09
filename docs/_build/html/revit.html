@@ -105,6 +105,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -352,7 +353,7 @@ libraries right away, and skip the typical:</p>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rpw</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.dotnet</span> <span class="k">import</span> <span class="n">clr</span><span class="p">,</span> <span class="n">Process</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObject</span>
@@ -425,7 +426,7 @@ libraries right away, and skip the typical:</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">active_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns: uidoc.ActiveView &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span>
+        <span class="k">return</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">ActiveView</span><span class="p">)</span>
 
     <span class="nd">@active_view</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">active_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_reference</span><span class="p">):</span>
