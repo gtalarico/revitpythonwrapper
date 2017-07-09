@@ -246,7 +246,7 @@ class OverrideGraphicSettings(BaseObjectWrapper):
             element_to_match (``Element``, ``ElementId``): Element to match
         """
         element_ids = to_element_ids(element_references)
-        element_to_match = to_element(element_to_match)
+        element_to_match = to_element_id(element_to_match)
 
         self._revit_object = self.view.GetElementOverrides(element_to_match)
         self._set_overrides(element_ids)

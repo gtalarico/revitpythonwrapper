@@ -199,16 +199,26 @@ class TestViewOverrides(unittest.TestCase):
         cls.line_pattern_id = linepattern.Id
         fillpattern = rpw.db.Collector(of_class='FillPatternElement', where=lambda x: x.Name == 'Horizontal').first
         cls.fillpattern_id = fillpattern.Id
-    #
 
     def tearDown(cls):
         """ Resets Element after each test """
         with rpw.db.Transaction():
             cls.view_plan.SetElementOverrides(cls.element.Id, DB.OverrideGraphicSettings())
 
-    def test_halftone(self):
-        rv = self.view_plan.GetElementOverrides(self.element.Id)
+    def test_match(self):
+        e1 = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().ToElements()[0]
+        e2 = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().ToElements()[1]
+        o = DB.OverrideGraphicSettings()
+        o.SetHalftone(True)
+        o.SetSurfaceTransparency(30)
+        with rpw.db.Transaction():
+            self.view_plan.SetElementOverrides(e1.Id, o)
+
+        with rpw.db.Transaction():
+            self.wrapped_view.override.match(e2, e1)
+        rv = self.view_plan.GetElementOverrides(e2.Id)
         self.assertTrue(rv.Halftone)
+        self.assertEqual(rv.Transparency, 30)
 
     def test_halftone(self):
         with rpw.db.Transaction():
