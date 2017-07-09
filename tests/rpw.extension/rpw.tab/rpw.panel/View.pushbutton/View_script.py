@@ -215,7 +215,7 @@ class TestViewOverrides(unittest.TestCase):
             self.view_plan.SetElementOverrides(e1.Id, o)
 
         with rpw.db.Transaction():
-            self.wrapped_view.override.match(e2, e1)
+            self.wrapped_view.override.match_element(e2, e1)
         rv = self.view_plan.GetElementOverrides(e2.Id)
         self.assertTrue(rv.Halftone)
         self.assertEqual(rv.Transparency, 30)
@@ -226,7 +226,13 @@ class TestViewOverrides(unittest.TestCase):
         rv = self.view_plan.GetElementOverrides(self.element.Id)
         self.assertTrue(rv.Halftone)
 
-    def test_transparence(self):
+    def test_halftone(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone(self.element, True)
+        rv = self.view_plan.GetElementOverrides(self.element.Id)
+        self.assertTrue(rv.Halftone)
+
+    def test_transparency(self):
         with rpw.db.Transaction():
             self.wrapped_view.override.transparency(self.element, 40)
         rv = self.view_plan.GetElementOverrides(self.element.Id)
@@ -325,7 +331,17 @@ class TestViewOverrides(unittest.TestCase):
             rv = self.view_plan.GetElementOverrides(self.element.Id)
             self.assertEqual(rv.CutFillPatternId, self.fillpattern_id)
 
+    def test_halftone_category(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone('Furniture', True)
+        rv = self.view_plan.GetCategoryOverrides(DB.ElementId(DB.BuiltInCategory.OST_Furniture))
+        self.assertTrue(rv.Halftone)
 
+    def test_halftone_category_bi(self):
+        with rpw.db.Transaction():
+            self.wrapped_view.override.halftone(DB.BuiltInCategory.OST_Furniture, True)
+        rv = self.view_plan.GetCategoryOverrides(DB.ElementId(DB.BuiltInCategory.OST_Furniture))
+        self.assertTrue(rv.Halftone)
 
 
 def run():

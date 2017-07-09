@@ -9,10 +9,10 @@ from rpw.db.element import Element
 from rpw.db.pattern import LinePatternElement, FillPatternElement
 from rpw.db.collector import Collector
 from rpw.base import BaseObjectWrapper
-from rpw.utils.coerce import to_element_ids, to_element_id, to_element, to_iterable
+from rpw.utils.coerce import to_element_ids, to_element_id, to_element
+from rpw.utils.coerce import to_category_id, to_iterable
+from rpw.exceptions import RpwTypeError, RpwCoerceError
 from rpw.utils.logger import logger
-from rpw.utils.dotnet import Enum
-from rpw.db.builtins import BipEnum
 
 
 class View(Element):
@@ -59,6 +59,14 @@ class View(Element):
 
     @property
     def override(self):
+        """ Access to overrides.
+
+        For more information see :any:`OverrideGraphicSettings`
+
+        >>> view.override.projection_line(element, color=[0,255,0])
+        >>> view.override.cut_line(category, weight=5)
+
+        """
         return OverrideGraphicSettings(self)
 
     def __repr__(self):
@@ -208,17 +216,27 @@ class OverrideGraphicSettings(BaseObjectWrapper):
 
     """ Internal Wrapper for OverrideGraphicSettings
 
-    >>> wrapped_view = rpw.db.Element(some_view)
-    >>> wrapped_view.override.projection_line(element, color=(255,0,0))
-    >>> wrapped_view.override.projection_fill(element, color=(0,0,255), pattern=pattern_id)
-    >>> wrapped_view.override.cut_line(element, color=(0,0,255), weight=2)
-    >>> wrapped_view.override.cut_fill(element, visible=False)
-    >>> wrapped_view.override.transparency(element, 50)
-    >>> wrapped_view.override.halftone(element, True)
-    >>> wrapped_view.override.detail_level(element, 'Coarse')
 
-    WIP NOTE: This could be embeded into View Class. Leaving it here as it
-    could be re-used by other overrides (filters, templates, etc)
+
+    >>> wrapped_view = rpw.db.Element(some_view)
+    >>> wrapped_view.override.projection_line(target, color=(255,0,0))
+    >>> wrapped_view.override.projection_fill(target, color=(0,0,255), pattern=pattern_id)
+    >>> wrapped_view.override.cut_line(target, color=(0,0,255), weight=2)
+    >>> wrapped_view.override.cut_fill(target, visible=False)
+    >>> wrapped_view.override.transparency(target, 50)
+    >>> wrapped_view.override.halftone(target, True)
+    >>> wrapped_view.override.detail_level(target, 'Coarse')
+
+    Note:
+        Target can be any of the following:
+
+        * Element
+        * ElementId
+        * BuiltInCategory Enum
+        * BuiltInCategory Fuzzy Name (See :any:`BiCategory.fuzzy_get`)
+        * Category_id
+        * An iterable containing any of the above types
+
     """
 
     # TODO: Pattern: Add pattern_id from name. None sets InvalidElementId
@@ -232,37 +250,47 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         super(OverrideGraphicSettings, self).__init__(DB.OverrideGraphicSettings())
         self.view = wrapped_view.unwrap()
 
-    # @rpw.db.Transaction.ensure('Set OverrideGraphicSettings')
-    def _set_overrides(self, element_ids):
-        for element_id in element_ids:
-            self.view.SetElementOverrides(element_id, self._revit_object)
+    def _set_overrides(self, target):
+        targets = to_iterable(target)
+        for target in targets:
+            try:
+                category_id = to_category_id(target)
+                self._set_category_overrides(category_id)
+            except (RpwTypeError, RpwCoerceError) as errmsg:
+                logger.debug('Not Category, Trying Element Override')
+                element_id = to_element_id(target)
+                self._set_element_overrides(element_id)
 
-    def match(self, element_references, element_to_match):
+    # @rpw.db.Transaction.ensure('Set OverrideGraphicSettings')
+    def _set_element_overrides(self, element_id):
+        self.view.SetElementOverrides(element_id, self._revit_object)
+
+    def _set_category_overrides(self, category_id):
+        self.view.SetCategoryOverrides(category_id, self._revit_object)
+
+    def match_element(self, target, element_to_match):
         """
-        Matches the settings of another object
+        Matches the settings of another element
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             element_to_match (``Element``, ``ElementId``): Element to match
         """
-        element_ids = to_element_ids(element_references)
         element_to_match = to_element_id(element_to_match)
 
         self._revit_object = self.view.GetElementOverrides(element_to_match)
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def projection_line(self, element_references, color=None, pattern=None, weight=None):
+    def projection_line(self, target, color=None, pattern=None, weight=None):
         """
         Sets ProjectionLine overrides
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
             weight (``int``,``None``): Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)
         """
-        element_ids = to_element_ids(element_references)
-
         if color:
             Color = DB.Color(*color)
             self._revit_object.SetProjectionLineColor(Color)
@@ -272,20 +300,18 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         if weight:
             self._revit_object.SetProjectionLineWeight(weight)
 
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def cut_line(self, element_references, color=None, pattern=None, weight=None):
+    def cut_line(self, target, color=None, pattern=None, weight=None):
         """
         Sets CutLine Overrides
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
             weight (``int``,``None``): Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)
         """
-        element_ids = to_element_ids(element_references)
-
         if color:
             Color = DB.Color(*color)
             self._revit_object.SetCutLineColor(Color)
@@ -295,21 +321,18 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         if weight:
             self._revit_object.SetCutLineWeight(weight)
 
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def projection_fill(self, element_references, color=None, pattern=None, visible=None):
+    def projection_fill(self, target, color=None, pattern=None, visible=None):
         """
         Sets ProjectionFill overrides
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
             visible (``bool``): Cut Fill Visibility
         """
-
-        element_ids = to_element_ids(element_references)
-
         if color:
             Color = DB.Color(*color)
             self._revit_object.SetProjectionFillColor(Color)
@@ -319,19 +342,18 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         if visible is not None:
             self._revit_object.SetProjectionFillPatternVisible(visible)
 
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def cut_fill(self, element_references, color=None, pattern=None, visible=None):
+    def cut_fill(self, target, color=None, pattern=None, visible=None):
         """
         Sets CutFill overrides
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
             visible (``bool``): Cut Fill Visibility
         """
-        element_ids = to_element_ids(element_references)
 
         if color:
             Color = DB.Color(*color)
@@ -342,33 +364,31 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         if visible is not None:
             self._revit_object.SetCutFillPatternVisible(visible)
 
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def transparency(self, element_references, transparency):
+    def transparency(self, target, transparency):
         """
         Sets SurfaceTransparency override
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             transparency (``int``): Value of the transparency of the projection surface (0 = opaque, 100 = fully transparent)
         """
-        element_ids = to_element_ids(element_references)
         self._revit_object.SetSurfaceTransparency(transparency)
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def halftone(self, element_references, halftone):
+    def halftone(self, target, halftone):
         """
         Sets Halftone Override
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             halftone (``bool``): Halftone
         """
-        element_ids = to_element_ids(element_references)
         self._revit_object.SetHalftone(halftone)
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
 
-    def detail_level(self, element_references, detail_level):
+    def detail_level(self, target, detail_level):
         """
         Sets DetailLevel Override. DetailLevel can be Enumeration memeber of
         DB.ViewDetailLevel or its name as a string. The Options are:
@@ -378,13 +398,12 @@ class OverrideGraphicSettings(BaseObjectWrapper):
             * Fine
 
         Args:
-            element_references (``Element``, ``ElementId``): Element(s) to apply override
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
             detail_level (``DB.ViewDetailLevel``, ``str``): Detail Level Enumerator or name
         """
-        element_ids = to_element_ids(element_references)
 
         if isinstance(detail_level, str):
             detail_level = getattr(DB.ViewDetailLevel, detail_level)
 
         self._revit_object.SetDetailLevel(detail_level)
-        self._set_overrides(element_ids)
+        self._set_overrides(target)
