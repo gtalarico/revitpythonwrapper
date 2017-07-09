@@ -22,6 +22,7 @@ Revit Python Wrapper
    transaction
    collector
    collections
+   view
    builtins
    geometry
    forms
