@@ -37,7 +37,7 @@ from collections import defaultdict
 
 from rpw.ui.forms.resources import Window
 from rpw.ui.forms.resources import *
-# logger.verbose(True)
+logger.verbose(True)
 
 
 class Console(Window):
@@ -199,14 +199,26 @@ class Console(Window):
     def OnKeyDownHandler(self, sender, args):
         pass
 
+    @property
+    def last_caret_start_index(self):
+        return self.tbox.Text.rfind(Console.CARET)
+
+    @property
+    def last_caret_end_index(self):
+        return self.last_caret_start_index + len(Console.CARET)
+
+    @property
+    def last_caret_line_start_index(self):
+        return self.last_caret_start_index - len(Console.CARET)
+
     def reset_caret(self):
-        self.tbox.CaretIndex = self.tbox.Text.rfind(Console.CARET) + len(Console.CARET)
+        self.tbox.CaretIndex = self.last_caret_end_index
 
     def KeyPressPreview(self, sender, e):
         # This Happens before all other key handlers
         # If e.Handled = True, stops event propagation here.
         e.Handled = False
-        if self.tbox.CaretIndex < self.tbox.Text.rfind(Console.CARET):
+        if self.tbox.CaretIndex < self.last_caret_start_index:
             self.tbox.CaretIndex = len(self.tbox.Text)
         if e.Key == Key.Up:
             self.history_up()
@@ -215,7 +227,7 @@ class Console(Window):
             self.history_down()
             e.Handled = True
         if e.Key == Key.Left or e.Key == Key.Back:
-            if self.ui.tbox.CaretIndex == self.tbox.Text.rfind(Console.CARET) + len(Console.CARET):
+            if self.ui.tbox.CaretIndex == self.last_caret_end_index:
                 e.Handled = True
         if e.Key == Key.Home:
             self.reset_caret()
@@ -230,9 +242,10 @@ class Console(Window):
     def autocomplete(self):
         # TODO: Add recursive dir() attribute suggestions
 
-        last_line = self.get_last_line()
-        cursor_line_index = self.tbox.CaretIndex - self.tbox.Text.rfind(Console.CARET) - len(Console.CARET)
-        text = last_line[0:cursor_line_index]
+        # last_line = self.get_last_line()
+        # cursor_line_index = self.tbox.CaretIndex - self.last_caret_line_start_index
+        # text = last_line[0:cursor_line_index]
+        text = self.tbox.Text[self.last_caret_end_index:self.tbox.CaretIndex]
         possibilities = set(self.stack_locals.keys() +
                             self.stack_globals.keys() +
                             ['locals', 'globals', 'vars'] +
@@ -253,6 +266,7 @@ class Console(Window):
             self.ac_options[text] = 0
             suggestion = suggestions[0]
         self.ac_options[text] += 1
+        logger.debug('ac_options: {}'.format(self.ac_options))
 
         if suggestion is not None:
             caret_index = self.tbox.CaretIndex
@@ -270,8 +284,7 @@ class Console(Window):
     def write_text(self, line):
         # Used by Autocomplete and History
         # Adds text to line, including Caret
-        last_new_line = self.tbox.Text.rfind(Console.CARET)
-        self.tbox.Text = self.tbox.Text[0:last_new_line]
+        self.tbox.Text = self.tbox.Text[0:self.last_caret_start_index]
         self.tbox.AppendText(Console.CARET)
         self.tbox.AppendText(line)
         self.ui.tbox.CaretIndex = len(self.ui.tbox.Text)
