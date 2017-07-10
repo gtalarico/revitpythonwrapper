@@ -67,8 +67,7 @@ class Element(BaseObjectWrapper):
         and will find one that wraps the corresponding class. If and exact
         match is not found :any:`Element` is used
         """
-        defined_wrapper_classes = inspect.getmembers(rpw.db, inspect.isclass)
-        # [('Area', '<class Area>'), ... ]
+        defined_wrapper_classes = rpw.db.__all__
 
         _revit_object_class = cls._revit_object_class
 
@@ -82,7 +81,8 @@ class Element(BaseObjectWrapper):
             raise RpwTypeError(_revit_object_class, type(element))
 
         # rpw.ui.forms.Console()
-        for class_name, wrapper_class in defined_wrapper_classes:
+        for wrapper_class in defined_wrapper_classes:
+            class_name = wrapper_class.__name__
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
                 # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))

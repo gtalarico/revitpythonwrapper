@@ -209,7 +209,7 @@ class BuiltInCollectorTests(unittest.TestCase):
 
     def test_element_collector_wallsymbols(self):
         wallsymbols = rpw.db.WallType.collect()
-        self.assertEqual(len(wallsymbols), 3)
+        self.assertEqual(len(wallsymbols), 4)
         self.assertIsInstance(wallsymbols.first, DB.WallType)
 
     def test_element_collector_Room(self):
