@@ -39,7 +39,7 @@ from collections import defaultdict
 
 from rpw.ui.forms.resources import Window
 from rpw.ui.forms.resources import *
-logger.verbose(True)
+# logger.verbose(True)
 
 
 class Console(Window):
