@@ -9,6 +9,10 @@ Keyboard Shortcuts:
     * ``Down``  Iterate history down
     * ``Tab``  Iterate possible autocomplete options (works for dotted lookup)
 
+Warning:
+    Becareful with `Force Quit`. Under certain circumstances, it can crash Revit.
+    It crashes Dynamo very consistently.
+
 Note:
     The last stack frame is automatically injected is the context of the evaluation
     loop of the console: the local and global variables from where the Console
@@ -30,13 +34,12 @@ Note:
 """  #
 
 import os
-import sys
 import inspect
-import rlcompleter
 import logging
 import tempfile
 from collections import defaultdict
 
+from rpw.utils.rlcompleter import Completer
 from rpw.ui.forms.resources import Window
 from rpw.ui.forms.resources import *
 # logger.verbose(True)
@@ -69,9 +72,10 @@ class Console(Window):
                              TextWrapping="Wrap"
                              FontFamily="Consolas" FontSize="12.0"
                              />
-                     <Button Content="Terminate" Margin="6,6,6,6" Height="30"
+                     <Button Content="Force Quit" Margin="6,6,6,6" Height="30"
                              Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"
-                             Click="terminate"></Button>
+                             ToolTip="Might Crash Revit. Will Crash Dynamo"
+                             Click="force_quit"></Button>
                 </Grid>
                 </Window>
     """
@@ -144,15 +148,15 @@ class Console(Window):
 
         self.ShowDialog()
 
-    def terminate(self, sender, e):
-        sys.exit(1)
+    def force_quit(self, sender, e):
+        raise SystemExit('Force Quit')
 
     def _update_completer(self):
         # Updates Completer. Used at start, and after each exec loop
         context = self.stack_locals.copy()
         context.update(self.stack_globals)
         # context.update(vars(__builtins__))
-        self.completer = rlcompleter.Completer(context)
+        self.completer = Completer(context)
 
     def get_line(self, index):
         line = self.tbox.GetLineText(index).replace('\r\n', '')
