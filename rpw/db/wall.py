@@ -9,7 +9,9 @@ from rpw.db import Element
 from rpw.db import FamilyInstance, FamilySymbol, Family, Category
 from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger
+from rpw.utils.coerce import to_element_id
 from rpw.db.builtins import BipEnum
+from rpw.exceptions import RpwTypeError, RpwCoerceError
 
 
 class Wall(FamilyInstance):
@@ -21,6 +23,23 @@ class Wall(FamilyInstance):
     _revit_object_category = DB.BuiltInCategory.OST_Walls
     _revit_object_class = DB.Wall
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+
+    def change_type(self, wall_type_reference):
+        """
+        Change Wall Type
+
+        Args:
+            wall_type_reference (``ElementId``, ``WallType``, ``str``): Wall Type Reference
+        """
+        if isinstance(wall_type_reference, str):
+            wall_type = WallType.collect(where=lambda x:x.name == wall_type_reference).first
+            if wall_type:
+                wall_type_id = wall_type.Id
+            else:
+                raise RpwCoerceError('name: {}'.format(wall_type_reference), WallType)
+        else:
+            wall_type_id = to_element_id(wall_type_reference)
+        self._revit_object.ChangeTypeId(wall_type_id)
 
     @property
     def symbol(self):

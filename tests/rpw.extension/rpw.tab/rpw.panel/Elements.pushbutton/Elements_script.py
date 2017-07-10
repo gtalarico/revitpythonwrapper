@@ -272,8 +272,13 @@ class WallTests(unittest.TestCase):
         logger.title('TESTING WALL...')
 
     def setUp(self):
+        test_utils.delete_all_walls()
+        test_utils.make_wall()
         wall = rpw.db.Collector(of_class='Wall', is_not_type=True).first
         self.wall = rpw.db.wall.Wall(wall)
+
+    def tearDown(self):
+        test_utils.delete_all_walls()
 
     def test_wall_instance_wrap(self):
         self.assertIsInstance(self.wall, rpw.db.wall.Wall)
@@ -294,7 +299,7 @@ class WallTests(unittest.TestCase):
         self.assertIsInstance(wall_symbol.unwrap(), DB.WallType)
         self.assertEqual(wall_symbol.name, 'Wall 1')
         self.assertEqual(len(wall_symbol.instances), 1)
-        self.assertEqual(len(wall_symbol.siblings), 1)
+        self.assertEqual(len(wall_symbol.siblings), 2)
 
     def test_wall_instance_family(self):
         wall_family = self.wall.family
@@ -302,7 +307,7 @@ class WallTests(unittest.TestCase):
         self.assertEqual(wall_family.unwrap(), DB.WallKind.Basic)
         self.assertEqual(wall_family.name, 'Basic Wall')
         self.assertEqual(len(wall_family.instances), 1)
-        self.assertEqual(len(wall_family.symbols), 1)
+        self.assertEqual(len(wall_family.symbols), 2)
 
     def test_wall_instance_category(self):
         wall_category = self.wall.category
@@ -310,6 +315,24 @@ class WallTests(unittest.TestCase):
         self.assertIsInstance(wall_category.unwrap(), DB.Category)
         self.assertEqual(wall_category.name, 'Walls')
 
+    def test_wall_instance_category(self):
+        wall_category = self.wall.category
+        self.assertIsInstance(wall_category, rpw.db.wall.WallCategory)
+        self.assertIsInstance(wall_category.unwrap(), DB.Category)
+        self.assertEqual(wall_category.name, 'Walls')
+
+    def test_wall_change_type_by_name(self):
+        wall = self.wall
+        with rpw.db.Transaction():
+            wall.change_type('Wall 2')
+        self.assertEqual(wall.wall_type.name, 'Wall 2')
+
+    def test_wall_change_type(self):
+        wall = self.wall
+        wall_type = rpw.db.Collector(of_class='WallType', where=lambda w: w.name == 'Wall 2').first
+        with rpw.db.Transaction():
+            wall.change_type('Wall 2')
+        self.assertEqual(wall.wall_type.name, 'Wall 2')
 
 ##################
 # Rooms / Areas  #

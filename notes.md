@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.2.1
+* New Wall.change_type method
+
 ### 1.2.0
 * New View Wrappers
 * New OverrideGraphicSettings Wrapper by Element and Category
