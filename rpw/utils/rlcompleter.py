@@ -7,6 +7,15 @@ rlcompleter from native library. Modified for Dynamo Compatibility
 
 __all__ = ["Completer"]
 
+try:
+    import __builtin__
+    import keyword
+    builtin_dir = __builtin__.__dict__
+except:
+    builtin_dir = {}
+    keyword = []
+    pass
+
 class Completer:
     def __init__(self, namespace):
         """Create a new completer for the command line.
@@ -57,15 +66,15 @@ class Completer:
         defined in self.namespace that match.
 
         """
-        import keyword
         matches = []
         seen = {"__builtins__"}
         n = len(text)
-        for word in keyword.kwlist:
-            if word[:n] == text:
-                seen.add(word)
-                matches.append(word)
-        for nspace in [self.namespace, __builtin__.__dict__]:
+        if keyword:
+            for word in keyword.kwlist:
+                if word[:n] == text:
+                    seen.add(word)
+                    matches.append(word)
+        for nspace in [self.namespace, builtin_dir]:
             for word, val in nspace.items():
                 if word[:n] == text and word not in seen:
                     seen.add(word)
@@ -120,10 +129,3 @@ def get_class_members(klass):
         for base in klass.__bases__:
             ret = ret + get_class_members(base)
     return ret
-
-try:
-    import readline
-except ImportError:
-    pass
-else:
-    readline.set_completer(Completer().complete)
