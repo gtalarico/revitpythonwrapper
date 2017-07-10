@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Element Wrappers &mdash; Revit Python Wrapper 1.1.2 documentation</title>
+  <title>Element Wrappers &mdash; Revit Python Wrapper 1.2.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.1.2 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.2.0 documentation" href="index.html"/>
         <link rel="next" title="Parameters" href="parameters.html"/>
         <link rel="prev" title="Base Wrapper" href="base.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.1.2
+                1.2.0
               </div>
             
           
@@ -112,6 +112,7 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pattern.html">Pattern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -534,6 +535,20 @@ to retrieve the “symbol” and “family” of a wall using:
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.FamilyInstance</span></code></p>
 <p>Inherits base <code class="docutils literal"><span class="pre">FamilyInstance</span></code> and overrides symbol attribute to
 get <cite>Symbol</cite> equivalent of Wall - WallType <cite>(GetTypeId)</cite></p>
+<dl class="method">
+<dt id="rpw.db.Wall.change_type">
+<code class="descname">change_type</code><span class="sig-paren">(</span><em>wall_type_reference</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Wall.change_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change Wall Type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wall_type_reference</strong> (<code class="docutils literal"><span class="pre">ElementId</span></code>, <code class="docutils literal"><span class="pre">WallType</span></code>, <code class="docutils literal"><span class="pre">str</span></code>) – Wall Type Reference</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -548,6 +563,18 @@ get <cite>Symbol</cite> equivalent of Wall - WallType <cite>(GetTypeId)</cite></
 </ul>
 </dd>
 </dl>
+<dl class="attribute">
+<dt id="rpw.db.WallType.instances">
+<code class="descname">instances</code><a class="headerlink" href="#rpw.db.WallType.instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all Instances of this Wall Types</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.WallType.wall_kind">
+<code class="descname">wall_kind</code><a class="headerlink" href="#rpw.db.WallType.wall_kind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal"><span class="pre">DB.Family</span></code> of the Symbol</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -556,6 +583,18 @@ get <cite>Symbol</cite> equivalent of Wall - WallType <cite>(GetTypeId)</cite></
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p>Equivalent of <code class="docutils literal"><span class="pre">Family</span></code> but is Enumerator for Walls.</p>
 <p>Can be Basic, Stacked, Curtain, Unknown</p>
+<dl class="attribute">
+<dt id="rpw.db.WallKind.instances">
+<code class="descname">instances</code><a class="headerlink" href="#rpw.db.WallKind.instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all Wall instances of this given Wall Kind</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.WallKind.name">
+<code class="descname">name</code><a class="headerlink" href="#rpw.db.WallKind.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Retuns Pretty Name as shown on UI</em> – Basic &gt; Basic Wall</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -567,6 +606,12 @@ get <cite>Symbol</cite> equivalent of Wall - WallType <cite>(GetTypeId)</cite></
 <dt>Attribute:</dt>
 <dd>_revit_object (DB.Family): Wrapped <code class="docutils literal"><span class="pre">DB.Category</span></code></dd>
 </dl>
+<dl class="attribute">
+<dt id="rpw.db.WallCategory.families">
+<code class="descname">families</code><a class="headerlink" href="#rpw.db.WallCategory.families" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal"><span class="pre">DB.WallKind</span></code> elements in the category</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1103,7 +1148,9 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="kn">from</span> <span class="nn">rpw.db</span> <span class="k">import</span> <span class="n">FamilyInstance</span><span class="p">,</span> <span class="n">FamilySymbol</span><span class="p">,</span> <span class="n">Family</span><span class="p">,</span> <span class="n">Category</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.coerce</span> <span class="k">import</span> <span class="n">to_element_id</span>
 <span class="kn">from</span> <span class="nn">rpw.db.builtins</span> <span class="k">import</span> <span class="n">BipEnum</span>
+<span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwTypeError</span><span class="p">,</span> <span class="n">RpwCoerceError</span>
 
 
 <span class="k">class</span> <span class="nc">Wall</span><span class="p">(</span><span class="n">FamilyInstance</span><span class="p">):</span>
@@ -1115,6 +1162,23 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
     <span class="n">_revit_object_category</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="o">.</span><span class="n">OST_Walls</span>
     <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Wall</span>
     <span class="n">_collector_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;of_class&#39;</span><span class="p">:</span> <span class="n">_revit_object_class</span><span class="p">,</span> <span class="s1">&#39;is_type&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">change_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wall_type_reference</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change Wall Type</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            wall_type_reference (``ElementId``, ``WallType``, ``str``): Wall Type Reference</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">wall_type_reference</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">wall_type</span> <span class="o">=</span> <span class="n">WallType</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">where</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">wall_type_reference</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+            <span class="k">if</span> <span class="n">wall_type</span><span class="p">:</span>
+                <span class="n">wall_type_id</span> <span class="o">=</span> <span class="n">wall_type</span><span class="o">.</span><span class="n">Id</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">RpwCoerceError</span><span class="p">(</span><span class="s1">&#39;name: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">wall_type_reference</span><span class="p">),</span> <span class="n">WallType</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wall_type_id</span> <span class="o">=</span> <span class="n">to_element_id</span><span class="p">(</span><span class="n">wall_type_reference</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">ChangeTypeId</span><span class="p">(</span><span class="n">wall_type_id</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1429,7 +1493,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.2',
+            VERSION:'1.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

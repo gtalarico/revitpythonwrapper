@@ -86,18 +86,22 @@ Wall Element Tree Wrappers
     <rpw: WallKind % DB.WallKind | type:Basic 1>
 
 .. autoclass:: rpw.db.Wall
+    :members:
     :show-inheritance:
     :special-members: __init__
 
 .. autoclass:: rpw.db.WallType
+    :members:
     :show-inheritance:
     :special-members: __init__
 
 .. autoclass:: rpw.db.WallKind
+    :members:
     :show-inheritance:
     :special-members: __init__
 
 .. autoclass:: rpw.db.WallCategory
+    :members:
     :show-inheritance:
     :special-members: __init__
 

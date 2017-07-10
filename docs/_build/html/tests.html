@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tests &mdash; Revit Python Wrapper 1.1.2 documentation</title>
+  <title>Tests &mdash; Revit Python Wrapper 1.2.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.1.2 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.2.0 documentation" href="index.html"/>
         <link rel="prev" title="Known Issues" href="known_issues.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                1.1.2
+                1.2.0
               </div>
             
           
@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
 <li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pattern.html">Pattern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
@@ -936,8 +937,13 @@ examples of how the library is intended to be used.</p>
         <span class="n">logger</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;TESTING WALL...&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">make_wall</span><span class="p">()</span>
         <span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;Wall&#39;</span><span class="p">,</span> <span class="n">is_not_type</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wall</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Wall</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">test_utils</span><span class="o">.</span><span class="n">delete_all_walls</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">Wall</span><span class="p">)</span>
@@ -958,7 +964,7 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Wall 1&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">instances</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">siblings</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_symbol</span><span class="o">.</span><span class="n">siblings</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_family</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall_family</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">family</span>
@@ -966,7 +972,7 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallKind</span><span class="o">.</span><span class="n">Basic</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Basic Wall&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">instances</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">symbols</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wall_family</span><span class="o">.</span><span class="n">symbols</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_wall_instance_category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wall_category</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">category</span>
@@ -974,6 +980,24 @@ examples of how the library is intended to be used.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Category</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Walls&#39;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">test_wall_instance_category</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall_category</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">category</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_category</span><span class="p">,</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">wall</span><span class="o">.</span><span class="n">WallCategory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">DB</span><span class="o">.</span><span class="n">Category</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall_category</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Walls&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_wall_change_type_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Transaction</span><span class="p">():</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">change_type</span><span class="p">(</span><span class="s1">&#39;Wall 2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall</span><span class="o">.</span><span class="n">wall_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Wall 2&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_wall_change_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">wall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wall</span>
+        <span class="n">wall_type</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Collector</span><span class="p">(</span><span class="n">of_class</span><span class="o">=</span><span class="s1">&#39;WallType&#39;</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">w</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Wall 2&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+        <span class="k">with</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Transaction</span><span class="p">():</span>
+            <span class="n">wall</span><span class="o">.</span><span class="n">change_type</span><span class="p">(</span><span class="s1">&#39;Wall 2&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">wall</span><span class="o">.</span><span class="n">wall_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Wall 2&#39;</span><span class="p">)</span>
 
 <span class="c1">##################</span>
 <span class="c1"># Rooms / Areas  #</span>
@@ -1547,7 +1571,7 @@ examples of how the library is intended to be used.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.2',
+            VERSION:'1.2.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
