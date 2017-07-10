@@ -10,6 +10,8 @@ class ByNameCollectMixin():
     """ Adds name, by_name(), and by_name_or_element_ref() methods.
     This is for class inheritance only, used to reduce duplication
     """
+
+    @property
     def name(self):
         """ Returns object's Name attribute """
         return self._revit_object.Name
@@ -35,7 +37,6 @@ class ByNameCollectMixin():
             return cls(first)
         else:
             raise RpwCoerceError('by_name({})'.format(name), cls)
-
 
     @classmethod
     def by_name_or_element_ref(cls, reference):

@@ -65,7 +65,6 @@ class WallType(FamilySymbol, ByNameCollectMixin):
     _revit_object_class = DB.WallType
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
 
-
     @property
     def family(self):
         return self.wall_kind

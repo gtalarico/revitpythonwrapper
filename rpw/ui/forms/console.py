@@ -39,12 +39,14 @@ from rpw.ui.forms.resources import Window
 from rpw.ui.forms.resources import *
 # logger.verbose(True)
 
+
 class Console(Window):
     LAYOUT = """
                 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         Title="DeployWindow" Height="400" Width="800" SnapsToDevicePixels="True"
-                        UseLayoutRounding="True" WindowState="Normal" WindowStartupLocation="CenterScreen">
+                        UseLayoutRounding="True" WindowState="Normal"
+                        WindowStartupLocation="CenterScreen">
                 <Window.Resources>
                     <Style TargetType="{x:Type MenuItem}">
                         <Setter Property="FontFamily" Value="Consolas"/>
@@ -68,7 +70,6 @@ class Console(Window):
                 </Grid>
                 </Window>
     """
-    # <Button Grid.Column="1" Content="Deploy" Height="30" Width="100" HorizontalAlignment="Left" Margin="10,10,10,10" Name="deployButton" Cursor="Hand" />
 
     CARET = '>>> '
 
@@ -100,7 +101,7 @@ class Console(Window):
         else:
             # Stack Info
             # stack_frame = inspect.currentframe().f_back
-            stack_frame = inspect.stack()[stack_level][0] # Finds Calling Stack
+            stack_frame = inspect.stack()[stack_level][0]  # Finds Calling Stack
 
             self.stack_locals.update(stack_frame.f_locals)
             self.stack_globals.update(stack_frame.f_globals)
@@ -122,7 +123,9 @@ class Console(Window):
         # Form Init
         self.ui.tbox.Focus()
         if not context and stack_info:
-            self.write_line('Caller: {} [ Line:{}] | File: {}'.format(stack_caller, stack_lineno, stack_filename))
+            self.write_line('Caller: {} [ Line:{}] | File: {}'.format(stack_caller,
+                                                                      stack_lineno,
+                                                                      stack_filename))
         else:
             self.tbox.Text = Console.CARET
 
@@ -135,7 +138,7 @@ class Console(Window):
         self.ShowDialog()
 
     def get_line(self, index):
-        line = self.tbox.GetLineText(index).replace('\r\n','')
+        line = self.tbox.GetLineText(index).replace('\r\n', '')
         if line.startswith(Console.CARET):
             line = line[len(Console.CARET):]
         logger.debug('Get Line: {}'.format(line))
@@ -224,7 +227,6 @@ class Console(Window):
             self.is_loaded = True
             self.tbox.CaretIndex = len(self.tbox.Text)
 
-
     def autocomplete(self):
         # TODO: Add recursive dir() attribute suggestions
 
@@ -234,7 +236,7 @@ class Console(Window):
         possibilities = set(self.stack_locals.keys() +
                             self.stack_globals.keys() +
                             ['locals', 'globals', 'vars'] +
-                            self.get_all_history()[::-1][0:20] # Last 20 cmds
+                            self.get_all_history()[::-1][0:20]  # Last 20 cmds
                             )
         suggestions = [p for p in possibilities if p.lower().startswith(text.lower())]
 
@@ -277,8 +279,8 @@ class Console(Window):
     def get_all_history(self):
         # TODO: Add clean up when history > X
         with open(self.history_file) as fp:
-            lines = [l for l in fp.read().split('\n') if l != '']
-            return lines
+            lines = fp.read().split('\n')
+            return [line for line in lines if line != '']
 
     def history_up(self):
         self.history_index += 1
@@ -301,7 +303,7 @@ class Console(Window):
         lines = self.get_all_history()
         logger.debug('Lines: {}'.format(lines))
         try:
-            line = lines[::-1][self.history_index -1]
+            line = lines[::-1][self.history_index - 1]
         # Wrap around lines to loop and up down infinetly.
         except IndexError:
             if len(lines) == 0:
@@ -323,4 +325,4 @@ if __name__ == '__main__':
         # Console()
         Console(context=locals())
     test()
-    z =2
+    z = 2

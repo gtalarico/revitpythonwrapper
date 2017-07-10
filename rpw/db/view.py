@@ -217,7 +217,8 @@ class ViewFamily(BaseObjectWrapper):
     def views(self):
         """ Collect All Views of the same ViewFamily """
         views = Collector(of_class='View').wrapped_elements
-        return [view for view in views if getattr(view.view_family, '_revit_object', None) == self.unwrap()]
+        return [view for view in views if
+                getattr(view.view_family, '_revit_object', None) == self.unwrap()]
 
     def __repr__(self):
         return super(ViewFamily, self).__repr__(data={'family': self.name})
@@ -322,7 +323,8 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Matches the settings of another element
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             element_to_match (``Element``, ``ElementId``): Element to match
         """
         element_to_match = to_element_id(element_to_match)
@@ -335,10 +337,12 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Sets ProjectionLine overrides
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
-            weight (``int``,``None``): Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)
+            weight (``int``,``None``): Line weight must be a positive integer less than 17 or
+                                       None(sets invalidPenNumber)
         """
         if color:
             Color = DB.Color(*color)
@@ -356,10 +360,12 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Sets CutLine Overrides
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
-            weight (``int``,``None``): Line weight must be a positive integer less than 17 or None(sets invalidPenNumber)
+            weight (``int``,``None``): Line weight must be a positive integer less than 17 or
+                                       None(sets invalidPenNumber)
         """
         if color:
             Color = DB.Color(*color)
@@ -377,7 +383,8 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Sets ProjectionFill overrides
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
             visible (``bool``): Cut Fill Visibility
@@ -398,7 +405,8 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Sets CutFill overrides
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             color (``tuple``, ``list``): RGB Colors [ex. (255, 255, 0)]
             pattern (``DB.ElementId``): ElementId of Pattern
             visible (``bool``): Cut Fill Visibility
@@ -420,8 +428,10 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Sets SurfaceTransparency override
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
-            transparency (``int``): Value of the transparency of the projection surface (0 = opaque, 100 = fully transparent)
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
+            transparency (``int``): Value of the transparency of the projection surface
+                                    (0 = opaque, 100 = fully transparent)
         """
         self._revit_object.SetSurfaceTransparency(transparency)
         self._set_overrides(target)
@@ -431,7 +441,8 @@ class OverrideGraphicSettings(BaseObjectWrapper):
         Sets Halftone Override
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             halftone (``bool``): Halftone
         """
         self._revit_object.SetHalftone(halftone)
@@ -447,7 +458,8 @@ class OverrideGraphicSettings(BaseObjectWrapper):
             * Fine
 
         Args:
-            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to apply override. Can be list.
+            target (``Element``, ``ElementId``, ``Category``): Target Element(s) or Category(ies) to
+                                                               apply override. Can be list.
             detail_level (``DB.ViewDetailLevel``, ``str``): Detail Level Enumerator or name
         """
 
