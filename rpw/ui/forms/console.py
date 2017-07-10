@@ -31,6 +31,7 @@ Note:
 
 import os
 import inspect
+import rlcompleter
 import logging
 import tempfile
 from collections import defaultdict
@@ -113,6 +114,8 @@ class Console(Window):
             stack_lineno = stack_code.co_firstlineno
             stack_caller = stack_code.co_name
 
+        self.update_completer()
+
         # Form Setup
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
         self.ui.Title = 'RevitPythonWrapper Console'
@@ -136,6 +139,12 @@ class Console(Window):
         self.ac_options = defaultdict(int)
 
         self.ShowDialog()
+
+    def update_completer(self):
+        context = self.stack_locals.copy()
+        context.update(self.stack_globals)
+        # context.update(vars(__builtins__))
+        self.completer = rlcompleter.Completer(context)
 
     def get_line(self, index):
         line = self.tbox.GetLineText(index).replace('\r\n', '')
@@ -182,6 +191,7 @@ class Console(Window):
             self.append_history(entered_line)
             self.history_index = 0
             self.write_line(output)
+            self.tbox.ScrollToEnd()
 
     def evaluate(self, line):
         try:
@@ -189,6 +199,7 @@ class Console(Window):
         except SyntaxError as errmsg:
             try:
                 exec(line, self.stack_globals, self.stack_locals)
+                self.update_completer()  # Update completer with new locals
                 return
             except Exception as errmsg:
                 output = errmsg
@@ -240,33 +251,22 @@ class Console(Window):
             self.tbox.CaretIndex = len(self.tbox.Text)
 
     def autocomplete(self):
-        # TODO: Add recursive dir() attribute suggestions
-
-        # last_line = self.get_last_line()
-        # cursor_line_index = self.tbox.CaretIndex - self.last_caret_line_start_index
-        # text = last_line[0:cursor_line_index]
         text = self.tbox.Text[self.last_caret_end_index:self.tbox.CaretIndex]
-        possibilities = set(self.stack_locals.keys() +
-                            self.stack_globals.keys() +
-                            ['locals', 'globals', 'vars'] +
-                            self.get_all_history()[::-1][0:20]  # Last 20 cmds
-                            )
-        suggestions = [p for p in possibilities if p.lower().startswith(text.lower())]
-
         logger.debug('Text: {}'.format(text))
-        logger.debug('Sug: {}'.format(suggestions))
 
-        if not suggestions:
-            return None
         # Create Dictionary to Track iteration over suggestion
         index = self.ac_options[text]
-        try:
-            suggestion = suggestions[index]
-        except IndexError:
-            self.ac_options[text] = 0
-            suggestion = suggestions[0]
-        self.ac_options[text] += 1
+        suggestion = self.completer.complete(text, index)
+
         logger.debug('ac_options: {}'.format(self.ac_options))
+        logger.debug('Sug: {}'.format(suggestion))
+
+        if not suggestion:
+            self.ac_options[text] = 0
+        else:
+            self.ac_options[text] += 1
+            if suggestion.endswith('('):
+                suggestion = suggestion[:-1]
 
         if suggestion is not None:
             caret_index = self.tbox.CaretIndex
