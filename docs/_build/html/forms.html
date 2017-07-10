@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Forms &mdash; Revit Python Wrapper 1.2.0 documentation</title>
+  <title>Forms &mdash; Revit Python Wrapper 1.2.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.2.0 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.2.1 documentation" href="index.html"/>
         <link rel="next" title="Utilities" href="utils.html"/>
         <link rel="prev" title="Geometry" href="geometry.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.2.0
+                1.2.1
               </div>
             
           
@@ -383,7 +383,7 @@ Uses Forms.OpenFileDialog
 <dd><ul class="first last simple">
 <li><code class="docutils literal"><span class="pre">UP</span></code>  Iterate history up</li>
 <li><code class="docutils literal"><span class="pre">Down</span></code>  Iterate history down</li>
-<li><code class="docutils literal"><span class="pre">Tab</span></code>  Iterate possible autocomplete options</li>
+<li><code class="docutils literal"><span class="pre">Tab</span></code>  Iterate possible autocomplete options (works for dotted lookup)</li>
 </ul>
 </dd>
 </dl>
@@ -1044,21 +1044,25 @@ and closes form.</p>
 <p>Console</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">rlcompleter</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
 
 <span class="kn">from</span> <span class="nn">rpw.ui.forms.resources</span> <span class="k">import</span> <span class="n">Window</span>
 <span class="kn">from</span> <span class="nn">rpw.ui.forms.resources</span> <span class="k">import</span> <span class="o">*</span>
-<span class="c1"># logger.verbose(True)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">verbose</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
 
 <span class="k">class</span> <span class="nc">Console</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
     <span class="n">LAYOUT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">                &lt;Window xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span>
 <span class="s2">                        xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
 <span class="s2">                        Title=&quot;DeployWindow&quot; Height=&quot;400&quot; Width=&quot;800&quot; SnapsToDevicePixels=&quot;True&quot;</span>
-<span class="s2">                        UseLayoutRounding=&quot;True&quot; WindowState=&quot;Normal&quot; WindowStartupLocation=&quot;CenterScreen&quot;&gt;</span>
+<span class="s2">                        UseLayoutRounding=&quot;True&quot; WindowState=&quot;Normal&quot;</span>
+<span class="s2">                        WindowStartupLocation=&quot;CenterScreen&quot;&gt;</span>
 <span class="s2">                &lt;Window.Resources&gt;</span>
 <span class="s2">                    &lt;Style TargetType=&quot;{x:Type MenuItem}&quot;&gt;</span>
 <span class="s2">                        &lt;Setter Property=&quot;FontFamily&quot; Value=&quot;Consolas&quot;/&gt;</span>
@@ -1069,20 +1073,22 @@ and closes form.</p>
 <span class="s2">                    &lt;Grid.ColumnDefinitions&gt;</span>
 <span class="s2">                        &lt;ColumnDefinition Width=&quot;*&quot;&gt;&lt;/ColumnDefinition&gt;</span>
 <span class="s2">                    &lt;/Grid.ColumnDefinitions&gt;</span>
-<span class="s2">                &lt;Grid.RowDefinitions&gt;</span>
-<span class="s2">                    &lt;RowDefinition Height=&quot;0&quot;&gt;&lt;/RowDefinition&gt;</span>
-<span class="s2">                    &lt;RowDefinition Height=&quot;*&quot;&gt;&lt;/RowDefinition&gt;</span>
-<span class="s2">                &lt;/Grid.RowDefinitions&gt;</span>
-<span class="s2">                &lt;TextBox Grid.Column=&quot;1&quot; Grid.Row=&quot;1&quot;  HorizontalAlignment=&quot;Stretch&quot;</span>
-<span class="s2">                         Name=&quot;tbox&quot; Margin=&quot;6,6,6,6&quot; VerticalAlignment=&quot;Stretch&quot;</span>
-<span class="s2">                         AcceptsReturn=&quot;True&quot; VerticalScrollBarVisibility=&quot;Auto&quot;</span>
-<span class="s2">                         TextWrapping=&quot;Wrap&quot;</span>
-<span class="s2">                         FontFamily=&quot;Consolas&quot; FontSize=&quot;12.0&quot;</span>
-<span class="s2">                         /&gt;</span>
+<span class="s2">                    &lt;Grid.RowDefinitions&gt;</span>
+<span class="s2">                        &lt;RowDefinition Height=&quot;0&quot;&gt;&lt;/RowDefinition&gt;</span>
+<span class="s2">                        &lt;RowDefinition Height=&quot;*&quot;&gt;&lt;/RowDefinition&gt;</span>
+<span class="s2">                    &lt;/Grid.RowDefinitions&gt;</span>
+<span class="s2">                    &lt;TextBox Grid.Column=&quot;1&quot; Grid.Row=&quot;1&quot;  HorizontalAlignment=&quot;Stretch&quot;</span>
+<span class="s2">                             Name=&quot;tbox&quot; Margin=&quot;6,6,6,42&quot; VerticalAlignment=&quot;Stretch&quot;</span>
+<span class="s2">                             AcceptsReturn=&quot;True&quot; VerticalScrollBarVisibility=&quot;Auto&quot;</span>
+<span class="s2">                             TextWrapping=&quot;Wrap&quot;</span>
+<span class="s2">                             FontFamily=&quot;Consolas&quot; FontSize=&quot;12.0&quot;</span>
+<span class="s2">                             /&gt;</span>
+<span class="s2">                     &lt;Button Content=&quot;Terminate&quot; Margin=&quot;6,6,6,6&quot; Height=&quot;30&quot;</span>
+<span class="s2">                             Grid.Column=&quot;1&quot; Grid.Row=&quot;1&quot; VerticalAlignment=&quot;Bottom&quot;</span>
+<span class="s2">                             Click=&quot;terminate&quot;&gt;&lt;/Button&gt;</span>
 <span class="s2">                &lt;/Grid&gt;</span>
 <span class="s2">                &lt;/Window&gt;</span>
 <span class="s2">    &quot;&quot;&quot;</span>
-    <span class="c1"># &lt;Button Grid.Column=&quot;1&quot; Content=&quot;Deploy&quot; Height=&quot;30&quot; Width=&quot;100&quot; HorizontalAlignment=&quot;Left&quot; Margin=&quot;10,10,10,10&quot; Name=&quot;deployButton&quot; Cursor=&quot;Hand&quot; /&gt;</span>
 
     <span class="n">CARET</span> <span class="o">=</span> <span class="s1">&#39;&gt;&gt;&gt; &#39;</span>
 
@@ -1114,7 +1120,7 @@ and closes form.</p>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Stack Info</span>
             <span class="c1"># stack_frame = inspect.currentframe().f_back</span>
-            <span class="n">stack_frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="n">stack_level</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Finds Calling Stack</span>
+            <span class="n">stack_frame</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="n">stack_level</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Finds Calling Stack</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_locals</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stack_frame</span><span class="o">.</span><span class="n">f_globals</span><span class="p">)</span>
@@ -1126,6 +1132,8 @@ and closes form.</p>
             <span class="n">stack_lineno</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_firstlineno</span>
             <span class="n">stack_caller</span> <span class="o">=</span> <span class="n">stack_code</span><span class="o">.</span><span class="n">co_name</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_completer</span><span class="p">()</span>
+
         <span class="c1"># Form Setup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">wpf</span><span class="o">.</span><span class="n">LoadComponent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">StringReader</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">LAYOUT</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Title</span> <span class="o">=</span> <span class="s1">&#39;RevitPythonWrapper Console&#39;</span>
@@ -1136,7 +1144,9 @@ and closes form.</p>
         <span class="c1"># Form Init</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Focus</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span> <span class="ow">and</span> <span class="n">stack_info</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="s1">&#39;Caller: </span><span class="si">{}</span><span class="s1"> [ Line:</span><span class="si">{}</span><span class="s1">] | File: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack_caller</span><span class="p">,</span> <span class="n">stack_lineno</span><span class="p">,</span> <span class="n">stack_filename</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="s1">&#39;Caller: </span><span class="si">{}</span><span class="s1"> [ Line:</span><span class="si">{}</span><span class="s1">] | File: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stack_caller</span><span class="p">,</span>
+                                                                      <span class="n">stack_lineno</span><span class="p">,</span>
+                                                                      <span class="n">stack_filename</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">Console</span><span class="o">.</span><span class="n">CARET</span>
 
@@ -1148,8 +1158,18 @@ and closes form.</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
 
+    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_completer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Updates Completer. Used at start, and after each exec loop</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="p">)</span>
+        <span class="c1"># context.update(vars(__builtins__))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">completer</span> <span class="o">=</span> <span class="n">rlcompleter</span><span class="o">.</span><span class="n">Completer</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">get_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">GetLineText</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">GetLineText</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Get Line: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
@@ -1193,6 +1213,7 @@ and closes form.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">append_history</span><span class="p">(</span><span class="n">entered_line</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">write_line</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">ScrollToEnd</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -1200,6 +1221,7 @@ and closes form.</p>
         <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">exec</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_completer</span><span class="p">()</span>  <span class="c1"># Update completer with new locals</span>
                 <span class="k">return</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
                 <span class="n">output</span> <span class="o">=</span> <span class="n">errmsg</span>
@@ -1210,14 +1232,26 @@ and closes form.</p>
     <span class="k">def</span> <span class="nf">OnKeyDownHandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="k">pass</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_caret_start_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_caret_end_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_caret_start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_caret_line_start_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_caret_start_index</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">reset_caret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_caret_end_index</span>
 
     <span class="k">def</span> <span class="nf">KeyPressPreview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
         <span class="c1"># This Happens before all other key handlers</span>
         <span class="c1"># If e.Handled = True, stops event propagation here.</span>
         <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_caret_start_index</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Up</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">history_up</span><span class="p">()</span>
@@ -1226,7 +1260,7 @@ and closes form.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">history_down</span><span class="p">()</span>
             <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Left</span> <span class="ow">or</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Back</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_caret_end_index</span><span class="p">:</span>
                 <span class="n">e</span><span class="o">.</span><span class="n">Handled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">Key</span> <span class="o">==</span> <span class="n">Key</span><span class="o">.</span><span class="n">Home</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_caret</span><span class="p">()</span>
@@ -1238,33 +1272,23 @@ and closes form.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
 
-
     <span class="k">def</span> <span class="nf">autocomplete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO: Add recursive dir() attribute suggestions</span>
-
-        <span class="n">last_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_last_line</span><span class="p">()</span>
-        <span class="n">cursor_line_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">last_line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">cursor_line_index</span><span class="p">]</span>
-        <span class="n">possibilities</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="o">+</span>
-                            <span class="p">[</span><span class="s1">&#39;locals&#39;</span><span class="p">,</span> <span class="s1">&#39;globals&#39;</span><span class="p">,</span> <span class="s1">&#39;vars&#39;</span><span class="p">]</span> <span class="o">+</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">get_all_history</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span> <span class="c1"># Last 20 cmds</span>
-                            <span class="p">)</span>
-        <span class="n">suggestions</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">possibilities</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())]</span>
-
+        <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">last_caret_end_index</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span><span class="p">]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Text: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Sug: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">suggestions</span><span class="p">))</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">suggestions</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
         <span class="c1"># Create Dictionary to Track iteration over suggestion</span>
         <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">suggestion</span> <span class="o">=</span> <span class="n">suggestions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">suggestion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">completer</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;ac_options: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Sug: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">suggestion</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">suggestion</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">suggestion</span> <span class="o">=</span> <span class="n">suggestions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ac_options</span><span class="p">[</span><span class="n">text</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">suggestion</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">):</span>
+                <span class="n">suggestion</span> <span class="o">=</span> <span class="n">suggestion</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">suggestion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">caret_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span>
@@ -1282,8 +1306,7 @@ and closes form.</p>
     <span class="k">def</span> <span class="nf">write_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="c1"># Used by Autocomplete and History</span>
         <span class="c1"># Adds text to line, including Caret</span>
-        <span class="n">last_new_line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">last_new_line</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">last_caret_start_index</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">Console</span><span class="o">.</span><span class="n">CARET</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">AppendText</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">CaretIndex</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">Text</span><span class="p">)</span>
@@ -1291,8 +1314,8 @@ and closes form.</p>
     <span class="k">def</span> <span class="nf">get_all_history</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># TODO: Add clean up when history &gt; X</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">history_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">lines</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">line</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">history_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1315,7 +1338,7 @@ and closes form.</p>
         <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_history</span><span class="p">()</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Lines: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">history_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
         <span class="c1"># Wrap around lines to loop and up down infinetly.</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1337,7 +1360,7 @@ and closes form.</p>
         <span class="c1"># Console()</span>
         <span class="n">Console</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="nb">locals</span><span class="p">())</span>
     <span class="n">test</span><span class="p">()</span>
-    <span class="n">z</span> <span class="o">=</span><span class="mi">2</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span>
 </pre></div>
 </div>
 <p>Resources</p>
@@ -1434,7 +1457,7 @@ and closes form.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.2.0',
+            VERSION:'1.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

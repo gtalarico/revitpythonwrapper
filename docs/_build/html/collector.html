@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Collector &mdash; Revit Python Wrapper 1.2.0 documentation</title>
+  <title>Collector &mdash; Revit Python Wrapper 1.2.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.2.0 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.2.1 documentation" href="index.html"/>
         <link rel="next" title="Collections" href="collections.html"/>
         <link rel="prev" title="Transaction" href="transaction.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.2.0
+                1.2.1
               </div>
             
           
@@ -257,7 +257,8 @@
 <dl class="attribute">
 <dt id="rpw.db.collector.Collector.collector.wrapped_elements">
 <code class="descclassname">collector.</code><code class="descname">wrapped_elements</code><a class="headerlink" href="#rpw.db.collector.Collector.collector.wrapped_elements" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns list with all elements wrapped. Elements will be instantiated using <a class="reference internal" href="element.html#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
+<dd><p>Returns list with all elements wrapped.
+Elements will be instantiated using <a class="reference internal" href="element.html#rpw.db.Element" title="rpw.db.Element"><code class="xref any py py-class docutils literal"><span class="pre">Element</span></code></a></p>
 </dd></dl>
 
 <dl class="docutils">
@@ -298,15 +299,35 @@ only one will be applied, in this order <code class="docutils literal"><span cla
 <dd><ul class="first last simple">
 <li><code class="docutils literal"><span class="pre">is_type</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): Same as <code class="docutils literal"><span class="pre">WhereElementIsElementType</span></code></li>
 <li><code class="docutils literal"><span class="pre">is_not_type</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): Same as <code class="docutils literal"><span class="pre">WhereElementIsNotElementType</span></code></li>
-<li><code class="docutils literal"><span class="pre">of_class</span></code> (<code class="docutils literal"><span class="pre">Type</span></code>): Same as <code class="docutils literal"><span class="pre">OfClass</span></code>. Type can be <code class="docutils literal"><span class="pre">DB.SomeType</span></code> or string: <code class="docutils literal"><span class="pre">DB.Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></li>
-<li><code class="docutils literal"><span class="pre">of_category</span></code> (<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>): Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Can be <code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">of_class</span></code> (<code class="docutils literal"><span class="pre">Type</span></code>): Same as <code class="docutils literal"><span class="pre">OfClass</span></code>. Type can be <code class="docutils literal"><span class="pre">DB.SomeType</span></code> or</dt>
+<dd>string: <code class="docutils literal"><span class="pre">DB.Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">of_category</span></code> (<code class="docutils literal"><span class="pre">BuiltInCategory</span></code>): Same as <code class="docutils literal"><span class="pre">OfCategory</span></code>. Can be</dt>
+<dd><code class="docutils literal"><span class="pre">DB.BuiltInCategory.OST_Wall</span></code> or <code class="docutils literal"><span class="pre">'Wall'</span></code></dd>
+</dl>
+</li>
 <li><code class="docutils literal"><span class="pre">owner_view</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId,</span> <span class="pre">View`):</span> <span class="pre">``WhereElementIsViewIndependent(True)</span></code></li>
 <li><code class="docutils literal"><span class="pre">is_view_independent</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): <code class="docutils literal"><span class="pre">WhereElementIsViewIndependent(True)</span></code></li>
 <li><code class="docutils literal"><span class="pre">family</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">DB.Element</span></code>)`: Element or ElementId of Family</li>
 <li><code class="docutils literal"><span class="pre">symbol</span></code> (<code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">DB.Element</span></code>)`: Element or ElementId of Symbol</li>
-<li><code class="docutils literal"><span class="pre">level</span></code> (<code class="docutils literal"><span class="pre">DB.Level</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">Level</span> <span class="pre">Name</span></code>)`: Level, ElementId of Level, or Level Name</li>
-<li><code class="docutils literal"><span class="pre">not_level</span></code> (<code class="docutils literal"><span class="pre">DB.Level</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">Level</span> <span class="pre">Name</span></code>)`: Level, ElementId of Level, or Level Name</li>
-<li><code class="docutils literal"><span class="pre">parameter_filter</span></code> (<a class="reference internal" href="#rpw.db.ParameterFilter" title="rpw.db.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a>): Similar to <code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">level</span></code> (<code class="docutils literal"><span class="pre">DB.Level</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">Level</span> <span class="pre">Name</span></code>)`: Level, ElementId</dt>
+<dd>of Level, or Level Name</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">not_level</span></code> (<code class="docutils literal"><span class="pre">DB.Level</span></code>, <code class="docutils literal"><span class="pre">DB.ElementId</span></code>, <code class="docutils literal"><span class="pre">Level</span> <span class="pre">Name</span></code>)`: Level, ElementId of</dt>
+<dd>Level, or Level Name</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">parameter_filter</span></code> (<a class="reference internal" href="#rpw.db.ParameterFilter" title="rpw.db.ParameterFilter"><code class="xref any py py-class docutils literal"><span class="pre">ParameterFilter</span></code></a>): Similar to</dt>
+<dd><code class="docutils literal"><span class="pre">ElementParameterFilter</span></code> Class</dd>
+</dl>
+</li>
 <li><code class="docutils literal"><span class="pre">where</span></code> (<cite>function</cite>): function to test your elements against</li>
 </ul>
 </dd>
@@ -737,11 +758,10 @@ Parameter Name instead of parameter Id</p>
 <span class="sd">        By default, function will test against wrapped elements for easier</span>
 <span class="sd">        parameter access</span>
 
-<span class="sd">        &gt;&gt;&gt; rpw.db.Collector(of_class=&#39;FamilyInstance&#39;, where=lambda x: &#39;Desk&#39; in x.name)</span>
-<span class="sd">        &gt;&gt;&gt; rpw.db.Collector(of_class=&#39;Wall&#39;, where=lambda x: &#39;Desk&#39; in x.parameters[&#39;Length&#39;] &gt; 5.0)</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_class=&#39;FamilyInstance&#39;, where=lambda x: &#39;Desk&#39; in x.name)</span>
+<span class="sd">        &gt;&gt;&gt; Collector(of_class=&#39;Wall&#39;, where=lambda x: &#39;Desk&#39; in x.parameters[&#39;Length&#39;] &gt; 5.0)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">keyword</span> <span class="o">=</span> <span class="s1">&#39;where&#39;</span>
-
 
         <span class="nd">@classmethod</span>
         <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">collector</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
@@ -794,7 +814,8 @@ Parameter Name instead of parameter Id</p>
 <span class="sd">    Attributes:</span>
 <span class="sd">        collector.elements: Returns list of all `collected` elements</span>
 <span class="sd">        collector.first: Returns first found element, or ``None``</span>
-<span class="sd">        collector.wrapped_elements: Returns list with all elements wrapped. Elements will be instantiated using :any:`Element`</span>
+<span class="sd">        collector.wrapped_elements: Returns list with all elements wrapped.</span>
+<span class="sd">                                    Elements will be instantiated using :any:`Element`</span>
 
 <span class="sd">    Wrapped Element:</span>
 <span class="sd">        self._revit_object = ``Revit.DB.FilteredElementCollector``</span>
@@ -823,15 +844,20 @@ Parameter Name instead of parameter Id</p>
 <span class="sd">        Filter Options:</span>
 <span class="sd">            * ``is_type`` (``bool``): Same as ``WhereElementIsElementType``</span>
 <span class="sd">            * ``is_not_type`` (``bool``): Same as ``WhereElementIsNotElementType``</span>
-<span class="sd">            * ``of_class`` (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``&#39;Wall&#39;``</span>
-<span class="sd">            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Can be ``DB.BuiltInCategory.OST_Wall`` or ``&#39;Wall&#39;``</span>
+<span class="sd">            * ``of_class`` (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or</span>
+<span class="sd">                                       string: ``DB.Wall`` or ``&#39;Wall&#39;``</span>
+<span class="sd">            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Can be</span>
+<span class="sd">                                                     ``DB.BuiltInCategory.OST_Wall`` or ``&#39;Wall&#39;``</span>
 <span class="sd">            * ``owner_view`` (``DB.ElementId, View`): ``WhereElementIsViewIndependent(True)``</span>
 <span class="sd">            * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``</span>
 <span class="sd">            * ``family`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Family</span>
 <span class="sd">            * ``symbol`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Symbol</span>
-<span class="sd">            * ``level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId of Level, or Level Name</span>
-<span class="sd">            * ``not_level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId of Level, or Level Name</span>
-<span class="sd">            * ``parameter_filter`` (:any:`ParameterFilter`): Similar to ``ElementParameterFilter`` Class</span>
+<span class="sd">            * ``level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId</span>
+<span class="sd">                                                                           of Level, or Level Name</span>
+<span class="sd">            * ``not_level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId of</span>
+<span class="sd">                                                                               Level, or Level Name</span>
+<span class="sd">            * ``parameter_filter`` (:any:`ParameterFilter`): Similar to</span>
+<span class="sd">                                                            ``ElementParameterFilter`` Class</span>
 <span class="sd">            * ``where`` (`function`): function to test your elements against</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -845,7 +871,7 @@ Parameter Name instead of parameter Id</p>
         <span class="k">elif</span> <span class="s1">&#39;elements&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
             <span class="n">elements</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;elements&#39;</span><span class="p">)</span>
             <span class="n">element_ids</span> <span class="o">=</span> <span class="n">to_element_ids</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
-            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">,</span><span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
         <span class="k">elif</span> <span class="s1">&#39;element_ids&#39;</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
             <span class="n">element_ids</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;element_ids&#39;</span><span class="p">)</span>
             <span class="n">collector</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">FilteredElementCollector</span><span class="p">(</span><span class="n">collector_doc</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">](</span><span class="n">element_ids</span><span class="p">))</span>
@@ -939,7 +965,7 @@ Parameter Name instead of parameter Id</p>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collector</span><span class="o">.</span><span class="n">GetElementCount</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span> <span class="c1"># Revit 2015</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>  <span class="c1"># Revit 2015</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Collector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)})</span>
@@ -1127,7 +1153,7 @@ Parameter Name instead of parameter Id</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.2.0',
+            VERSION:'1.2.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
