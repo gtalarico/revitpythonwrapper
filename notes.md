@@ -2,6 +2,12 @@
 
 ### 1.2.1
 * New Wall.change_type method
+* New Console Tab autocompletion (works for dotted members)
+* Added Terminate button to Console
+* Pep8 Fixes (Line Max=100)
+* But Fixes
+* Moved FamilyInstance and related from element.py to family.py
+* Improved Element.__new__ by adding db.__all__
 
 ### 1.2.0
 * New View Wrappers
