@@ -111,10 +111,11 @@ class View(Element):
         # self._revit_object.ChangeTypeId(type_reference)
 
     def __repr__(self):
-        return super(View, self).__repr__(data={'view_name': self.name,
-                                                'view_family_type': getattr(self.view_family_type, 'name', None),
-                                                'view_type': self.view_type.name,
-                                                'view_family': getattr(self.view_family, 'name', None)
+        return super(View, self).__repr__(data={
+                                'view_name': self.name,
+                                'view_family_type': getattr(self.view_family_type, 'name', None),
+                                'view_type': self.view_type.name,
+                                'view_family': getattr(self.view_family, 'name', None)
                                                 })
 
 
@@ -126,6 +127,7 @@ class ViewPlan(View):
     @property
     def level(self):
         return self._revit_object.GenLevel
+
 
 class ViewSheet(View):
     """ ViewSheet Wrapper. ``ViewType`` is ViewType.DrawingSheet """
@@ -143,6 +145,7 @@ class ViewSection(View):
     """ DB.ViewSection Wrapper. ``ViewType`` is ViewType.DrawingSheet """
     _revit_object_class = DB.ViewSection
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
+
 
 class View3D(View):
     """ DB.View3D Wrapper. ``ViewType`` is ViewType.ThreeD """
@@ -181,14 +184,14 @@ class ViewFamilyType(Element):
     def views(self):
         """ Collect All Views of the same ViewFamilyType """
         views = Collector(of_class='View').wrapped_elements
-        return [view for view in views if getattr(view.view_family_type, '_revit_object', None) == self.unwrap()]
-
-
+        return [view for view in views if
+                getattr(view.view_family_type, '_revit_object', None) == self.unwrap()]
 
     def __repr__(self):
         return super(ViewFamilyType, self).__repr__(data={'name': self.name,
                                                           'view_family': self.view_family.name,
                                                           })
+
 
 class ViewFamily(BaseObjectWrapper):
     """ ViewFamily Enumerator Wrapper.
@@ -216,10 +219,8 @@ class ViewFamily(BaseObjectWrapper):
         views = Collector(of_class='View').wrapped_elements
         return [view for view in views if getattr(view.view_family, '_revit_object', None) == self.unwrap()]
 
-
     def __repr__(self):
         return super(ViewFamily, self).__repr__(data={'family': self.name})
-
 
 
 class ViewType(BaseObjectWrapper):
@@ -249,10 +250,8 @@ class ViewType(BaseObjectWrapper):
         views = Collector(of_class='View').wrapped_elements
         return [view for view in views if view.view_type.unwrap() == self.unwrap()]
 
-
     def __repr__(self):
         return super(ViewType, self).__repr__(data={'view_type': self.name})
-
 
 
 class ViewPlanType(BaseObjectWrapper):
