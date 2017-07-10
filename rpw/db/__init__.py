@@ -8,7 +8,7 @@ wrapper classes stay available in rpw.db
 import rpw.db
 
 from rpw.db.element import Element
-from rpw.db.element import FamilyInstance, FamilySymbol, Family, Category
+from rpw.db.family import FamilyInstance, FamilySymbol, Family, Category
 
 from rpw.db.wall import Wall, WallType, WallKind, WallCategory
 
