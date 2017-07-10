@@ -7,7 +7,7 @@
 Keyboard Shortcuts:
     * ``UP``  Iterate history up
     * ``Down``  Iterate history down
-    * ``Tab``  Iterate possible autocomplete options
+    * ``Tab``  Iterate possible autocomplete options (works for dotted lookup)
 
 Note:
     The last stack frame is automatically injected is the context of the evaluation
@@ -30,6 +30,7 @@ Note:
 """  #
 
 import os
+import sys
 import inspect
 import rlcompleter
 import logging
@@ -58,16 +59,19 @@ class Console(Window):
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"
-                         Name="tbox" Margin="6,6,6,6" VerticalAlignment="Stretch"
-                         AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
-                         TextWrapping="Wrap"
-                         FontFamily="Consolas" FontSize="12.0"
-                         />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"
+                             Name="tbox" Margin="6,6,6,42" VerticalAlignment="Stretch"
+                             AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                             TextWrapping="Wrap"
+                             FontFamily="Consolas" FontSize="12.0"
+                             />
+                     <Button Content="Terminate" Margin="6,6,6,6" Height="30"
+                             Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"
+                             Click="terminate"></Button>
                 </Grid>
                 </Window>
     """
@@ -114,7 +118,7 @@ class Console(Window):
             stack_lineno = stack_code.co_firstlineno
             stack_caller = stack_code.co_name
 
-        self.update_completer()
+        self._update_completer()
 
         # Form Setup
         self.ui = wpf.LoadComponent(self, StringReader(Console.LAYOUT))
@@ -140,7 +144,11 @@ class Console(Window):
 
         self.ShowDialog()
 
-    def update_completer(self):
+    def terminate(self, sender, e):
+        sys.exit(1)
+
+    def _update_completer(self):
+        # Updates Completer. Used at start, and after each exec loop
         context = self.stack_locals.copy()
         context.update(self.stack_globals)
         # context.update(vars(__builtins__))
@@ -199,7 +207,7 @@ class Console(Window):
         except SyntaxError as errmsg:
             try:
                 exec(line, self.stack_globals, self.stack_locals)
-                self.update_completer()  # Update completer with new locals
+                self._update_completer()  # Update completer with new locals
                 return
             except Exception as errmsg:
                 output = errmsg
