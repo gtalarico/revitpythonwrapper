@@ -77,7 +77,7 @@ class Element(BaseObjectWrapper):
         # Ensure Wrapped Element is instance of Class Wrapper or decendent
         # Must also check is element because isinstance(Element, Element) is False
         if not isinstance(element, _revit_object_class):
-        #    or cls is not Element:
+            # or cls is not Element:
             raise RpwTypeError(_revit_object_class, type(element))
 
         # rpw.ui.forms.Console()
@@ -128,7 +128,7 @@ class Element(BaseObjectWrapper):
     def collect(cls, **kwargs):
         """ Collect all elements of the wrapper, using the default collector.
 
-        Collector will use default params for that Element (ie: Room ``{'of_category': 'OST_rooms'}``).
+        Collector will use default params (ie: Room ``{'of_category': 'OST_rooms'}``).
         These can be overriden by passing keyword args to the collectors call.
 
         >>> rooms = rpw.Rooms.collect()
