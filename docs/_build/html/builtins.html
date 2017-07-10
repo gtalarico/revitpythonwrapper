@@ -360,7 +360,7 @@ Similar to get() but ignores case, and does not require <a href="#id1"><span cla
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_BiParameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInParameter</span><span class="p">,</span>
-                                          <span class="n">enforce_type</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                           <span class="n">enforce_type</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
@@ -393,8 +393,8 @@ Similar to get() but ignores case, and does not require <a href="#id1"><span cla
         <span class="n">enum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BiParameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">to_string</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB.BuiltInParameter&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BiParameter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">to_string</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB.BuiltInParameter&#39;</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">_BiCategory</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
@@ -413,7 +413,7 @@ Similar to get() but ignores case, and does not require <a href="#id1"><span cla
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_BiCategory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">BuiltInCategory</span><span class="p">,</span>
-                                         <span class="n">enforce_type</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                                          <span class="n">enforce_type</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets Built In Category by Name</span>
@@ -457,7 +457,6 @@ Similar to get() but ignores case, and does not require <a href="#id1"><span cla
         <span class="c1"># If not Found Try regular method, handle error</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">loose_category_name</span><span class="p">)</span>
 
-
     <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets ElementId of Category by name</span>
 
@@ -492,6 +491,7 @@ Similar to get() but ignores case, and does not require <a href="#id1"><span cla
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BiCategory</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">to_string</span><span class="o">=</span><span class="s1">&#39;Autodesk.Revit.DB.BuiltInCategory&#39;</span><span class="p">)</span>
+
 
 <span class="c1"># Classes should already be instantiated</span>
 <span class="n">BiParameter</span> <span class="o">=</span> <span class="n">_BiParameter</span><span class="p">()</span>

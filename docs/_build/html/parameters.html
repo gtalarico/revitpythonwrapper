@@ -424,7 +424,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 <ul class="last simple">
 <li>Storage is <code class="docutils literal"><span class="pre">str</span></code> and value is <code class="docutils literal"><span class="pre">None</span></code>; value is converted to <code class="docutils literal"><span class="pre">blank_string</span></code></li>
 <li>Storage is <code class="docutils literal"><span class="pre">str</span></code> and value is <code class="docutils literal"><span class="pre">any</span></code>; value is converted to <code class="docutils literal"><span class="pre">string</span></code></li>
-<li>Storage is <code class="docutils literal"><span class="pre">ElementId</span></code> and value is <code class="docutils literal"><span class="pre">None</span></code>; value is converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidElementId</span></code></li>
+<li>Storage is <code class="docutils literal"><span class="pre">ElementId</span></code> and value is <code class="docutils literal"><span class="pre">None</span></code>; value is
+converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidElementId</span></code></li>
 <li>Storage is <code class="docutils literal"><span class="pre">int</span></code> and value is <code class="docutils literal"><span class="pre">float</span></code>; value is converted to <code class="docutils literal"><span class="pre">int</span></code></li>
 <li>Storage is <code class="docutils literal"><span class="pre">float</span></code> and value is <code class="docutils literal"><span class="pre">int</span></code>; value is converted to <code class="docutils literal"><span class="pre">float</span></code></li>
 </ul>
@@ -666,7 +667,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 
 <span class="sd">            * Storage is ``str`` and value is ``None``; value is converted to ``blank_string``</span>
 <span class="sd">            * Storage is ``str`` and value is ``any``; value is converted to ``string``</span>
-<span class="sd">            * Storage is ``ElementId`` and value is ``None``; value is converted to ``ElemendId.InvalidElementId``</span>
+<span class="sd">            * Storage is ``ElementId`` and value is ``None``; value is</span>
+<span class="sd">              converted to ``ElemendId.InvalidElementId``</span>
 <span class="sd">            * Storage is ``int`` and value is ``float``; value is converted to ``int``</span>
 <span class="sd">            * Storage is ``float`` and value is ``int``; value is converted to ``float``</span>
 
@@ -685,7 +687,8 @@ Same as DB.Parameter.Definition.BuiltIn</p>
     <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">IsReadOnly</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Parameter is Read Only: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span><span class="p">))</span>
+            <span class="n">definition_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Definition</span><span class="o">.</span><span class="n">Name</span>
+            <span class="k">raise</span> <span class="n">RpwException</span><span class="p">(</span><span class="s1">&#39;Parameter is Read Only: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">definition_name</span><span class="p">))</span>
 
         <span class="c1"># Check if value provided matches storage type</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">):</span>

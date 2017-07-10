@@ -490,7 +490,7 @@ examples of how the library is intended to be used.</p>
 
     <span class="k">def</span> <span class="nf">test_element_collector_wallsymbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">wallsymbols</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallType</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wallsymbols</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wallsymbols</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">wallsymbols</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">WallType</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">test_element_collector_Room</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
