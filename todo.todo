@@ -1,14 +1,12 @@
-Merge-Ready:
-☐ Forms *
+Forms:
 ☐ Add Form Wrapper for exit_on_close FlexForm + Console
-
-Merge-Review:
 ☐ Forms  - List Form
+☐ Merge Ehsan's Forms
+
+Others Merge:
 ☐ Transaction (Status)
 ☐ Logger
 ☐ AutoCollector
-
---------------------------------------
 
 Core:
 ☐ Add @ensure to all internal methods that require Transaction
@@ -16,10 +14,10 @@ Core:
 ☐ Investigate if possible to fake type so Elements can be passed back.
 
 Base Wrappers:
-✔ Transaction
-✔ Collector
-✔ Selection
-✔ Parameters
+✔ Transaction @done
+✔ Collector @done
+✔ Selection @done
+✔ Parameters @done
 ☐ Document
 
 Base Element:
@@ -29,18 +27,16 @@ Base Element:
 
 Element Wrappers:
 ☐ Level
-☐ Reference
-✔ View
 ☐ ViewPort
-☐ Sheet
 ☐ Floor
 ☐ Door
 ☐ Window
 ☐ Schedule
 ☐ Worksets
 ☐ Links
-✔ Reference
-✔ View
+✔ Sheet @done
+✔ Reference @done
+✔ View @done
 ✔ BaseObject @done
 ✔ BaseObjectWrapper @done
 ✔ Element @done
@@ -57,25 +53,25 @@ Element Wrappers:
 ✔ AreaSchema @done
 
 Graphics:
-✔ OverrideGraphicSettings
+✔ OverrideGraphicSettings @done
 ☐ Filters
 ☐ Templates
 
 Collector:
 ☐ Add Bounding Box Filter
-✔ Clean up filter
-✔ Add Slow Filters
-✔ Add Quick Filters
-✔ Add Where Lambda
+✔ Clean up filter @done
+✔ Add Slow Filters @done
+✔ Add Quick Filters @done
+✔ Add Where Lambda @done
 ✔ Add Level Filter @done
 
 Geometry:
 ☐ BoundingBox
-✔ Point
+✔ Point @done
 ✔ PointCollection @done
 
 Tests Debt:
-✔ Clean up + Separate
+✔ Clean up + Separate @done
 ☐ Room
 ☐ Area
 ☐ Geometry
@@ -93,4 +89,4 @@ Geometry:
 ☐ Data Types
 
 Fix:
-✔ Fix `enforce_type` params in Element Wrappers
+✔ Fix `enforce_type` params in Element Wrappers @done

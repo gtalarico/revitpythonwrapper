@@ -7,6 +7,13 @@ from rpw.exceptions import RpwCoerceError
 
 class ByNameCollectMixin():
 
+    """ Adds name, by_name(), and by_name_or_element_ref() methods.
+    This is for class inheritance only, used to reduce duplication
+    """
+    def name(self):
+        """ Returns object's Name attribute """
+        return self._revit_object.Name
+
     @classmethod
     def by_name(cls, name):
         """
@@ -23,7 +30,7 @@ class ByNameCollectMixin():
         <rpw:FillPatternElement name:Solid>
 
         """
-        first = cls.collect(where=lambda e: e.Name == name).first
+        first = cls.collect(where=lambda e: e.name == name).first
         if first:
             return cls(first)
         else:

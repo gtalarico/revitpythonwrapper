@@ -12,6 +12,7 @@ from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_id
 from rpw.db.builtins import BipEnum
 from rpw.exceptions import RpwTypeError, RpwCoerceError
+from rpw.utils.mixins import ByNameCollectMixin
 
 
 class Wall(FamilyInstance):
@@ -31,14 +32,8 @@ class Wall(FamilyInstance):
         Args:
             wall_type_reference (``ElementId``, ``WallType``, ``str``): Wall Type Reference
         """
-        if isinstance(wall_type_reference, str):
-            wall_type = WallType.collect(where=lambda x:x.name == wall_type_reference).first
-            if wall_type:
-                wall_type_id = wall_type.Id
-            else:
-                raise RpwCoerceError('name: {}'.format(wall_type_reference), WallType)
-        else:
-            wall_type_id = to_element_id(wall_type_reference)
+        wall_type = WallType.by_name_or_element_ref(wall_type_reference)
+        wall_type_id = to_element_id(wall_type)
         self._revit_object.ChangeTypeId(wall_type_id)
 
     @property
@@ -60,7 +55,7 @@ class Wall(FamilyInstance):
         return self.wall_kind
 
 
-class WallType(FamilySymbol):
+class WallType(FamilySymbol, ByNameCollectMixin):
     """
     Inherits from :any:`FamilySymbol` and overrides:
         * :func:`wall_kind` to get the `Family` equivalent of Wall `(.Kind)`
