@@ -78,7 +78,7 @@ class Console(Window):
 
     CARET = '>>> '
 
-    def __init__(self, stack_level=1, stack_info=True, context=None):
+    def __init__(self, stack_level=1, stack_info=True, context=None, frame=None, msg=None):
         """
         Args:
             stack_level (int): Default is 1. 0 Is the Console stack, 1 is the
@@ -106,7 +106,9 @@ class Console(Window):
         else:
             # Stack Info
             # stack_frame = inspect.currentframe().f_back
-            stack_frame = inspect.stack()[stack_level][0]  # Finds Calling Stack
+
+            # If frame is passed, use that
+            stack_frame = frame or inspect.stack()[stack_level][0]  # Finds Calling Stack
 
             self.stack_locals.update(stack_frame.f_locals)
             self.stack_globals.update(stack_frame.f_globals)
@@ -129,10 +131,17 @@ class Console(Window):
 
         # Form Init
         self.ui.tbox.Focus()
+
+        if msg:
+            self.write_line(msg, caret=False)
+
+        # When context, stack_info is not valid.
         if not context and stack_info:
-            self.write_line('Caller: {} [ Line:{}] | File: {}'.format(stack_caller,
-                                                                      stack_lineno,
-                                                                      stack_filename))
+            self.write_line('stack_info: {} [ Line:{}] | File: {}'.format(
+                                                                stack_caller,
+                                                                stack_lineno,
+                                                                stack_filename))
+        # Custom Msg to Print
         else:
             self.tbox.Text = Console.CARET
 
@@ -281,13 +290,14 @@ class Console(Window):
             self.write_text(suggestion)
             self.tbox.CaretIndex = caret_index
 
-    def write_line(self, line=None):
+    def write_line(self, line=None, caret=True):
         # Used for Code Output
         # Writes line with no starting caret, new line + caret
         if line:
             self.tbox.AppendText(line)
             self.tbox.AppendText(NewLine)
-        self.tbox.AppendText(Console.CARET)
+        if caret:
+            self.tbox.AppendText(Console.CARET)
 
     def write_text(self, line):
         # Used by Autocomplete and History
@@ -339,6 +349,22 @@ class Console(Window):
     def __repr__(self):
         '<rpw:Console stack_level={}>'.format(self.stack_level)
 
+
+def run_on_exception():
+
+    def on_exception(type_, value, tb):
+        # Console(context=locals())
+        import traceback
+        traceback_msg = ''.join(traceback.format_exception(type_, value, tb))
+        Console(frame=tb.tb_frame, msg=traceback_msg)
+
+        print(traceback_msg)
+
+        import sys
+        sys.__excepthook__(type_, value, traceback)
+
+    import sys
+    sys.excepthook = on_exception
 
 if __name__ == '__main__':
     def test():
