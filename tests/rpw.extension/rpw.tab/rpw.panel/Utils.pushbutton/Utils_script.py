@@ -136,7 +136,7 @@ class CoerceTests(unittest.TestCase):
     # >>>
 
 def run():
-    logger.verbose(True)
+    logger.verbose(False)
     suite = unittest.TestLoader().discover('tests')
     unittest.main(verbosity=3, buffer=True)
 

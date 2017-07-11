@@ -42,7 +42,7 @@ from collections import defaultdict
 from rpw.utils.rlcompleter import Completer
 from rpw.ui.forms.resources import Window
 from rpw.ui.forms.resources import *
-# logger.verbose(True)
+# logger.verbose(False)
 
 
 class Console(Window):
