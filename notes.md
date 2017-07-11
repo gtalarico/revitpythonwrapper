@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.2.2
+* Fixes For pyRevit Zero State Doc
+
 ### 1.2.1
 * New Wall.change_type method
 * New Console Tab autocompletion (works for dotted members)
