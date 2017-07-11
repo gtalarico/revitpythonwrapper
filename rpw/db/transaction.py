@@ -1,3 +1,4 @@
+import traceback
 from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException
@@ -35,19 +36,18 @@ class Transaction(BaseObjectWrapper):
         self.transaction.Start()
         return self
 
-    def __exit__(self, exception, exception_value, traceback):
+    def __exit__(self, exception, exception_msg, tb):
         if exception:
             self.transaction.RollBack()
             logger.error('Error in Transaction Context: has rolled back.')
-            logger.error('{}:{}'.format(exception, exception_value))
-            raise exception(exception_value, '')
+            raise
         else:
             try:
                 self.transaction.Commit()
-            except Exception as errmsg:
+            except Exception as exc:
                 self.transaction.RollBack()
                 logger.error('Error in Transaction Commit: has rolled back.')
-                logger.error('Error: {}'.format(errmsg))
+                logger.error(exc)
                 raise
 
     @staticmethod
@@ -112,21 +112,22 @@ class TransactionGroup(BaseObjectWrapper):
         self.transaction_group.Start()
         return self.transaction_group
 
-    def __exit__(self, exception, exception_value, traceback):
+    def __exit__(self, exception, exception_msg, tb):
         if exception:
             self.transaction_group.RollBack()
             logger.error('Error in TransactionGroup Context: has rolled back.')
-            logger.error('{}:{}'.format(exception, exception_value))
+            raise
         else:
             try:
                 if self.assimilate:
                     self.transaction_group.Assimilate()
                 else:
                     self.transaction_group.Commit()
-            except Exception as errmsg:
+            except Exception as exc:
                 self.transaction_group.RollBack()
                 logger.error('Error in TransactionGroup Commit: has rolled back.')
-                logger.error('Error: {}'.format(errmsg))
+                logger.error(exc)
+                raise
 
 
 class DynamoTransaction(object):
@@ -141,7 +142,7 @@ class DynamoTransaction(object):
     # def __enter__(self):
     #     self.transaction.EnsureInTransaction(doc)
     #
-    # def __exit__(self, exception, exception_value, traceback):
+    # def __exit__(self, exception, exception_msg, traceback):
     #     if exception:
     #         pass # self.transaction.RollBack()
     #     else:
