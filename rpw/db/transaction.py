@@ -40,7 +40,8 @@ class Transaction(BaseObjectWrapper):
         if exception:
             self.transaction.RollBack()
             logger.error('Error in Transaction Context: has rolled back.')
-            raise
+            # traceback.print_tb(tb)
+            # raise exception # Let exception through
         else:
             try:
                 self.transaction.Commit()
@@ -116,7 +117,6 @@ class TransactionGroup(BaseObjectWrapper):
         if exception:
             self.transaction_group.RollBack()
             logger.error('Error in TransactionGroup Context: has rolled back.')
-            raise
         else:
             try:
                 if self.assimilate:
@@ -127,7 +127,7 @@ class TransactionGroup(BaseObjectWrapper):
                 self.transaction_group.RollBack()
                 logger.error('Error in TransactionGroup Commit: has rolled back.')
                 logger.error(exc)
-                raise
+                raise exc
 
 
 class DynamoTransaction(object):
