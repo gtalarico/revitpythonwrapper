@@ -6,6 +6,7 @@ from rpw import revit, DB
 from rpw.base import BaseObjectWrapper
 from rpw.db.element import Element
 from rpw.db.xyz import XYZ
+from rpw.utils.mixins import ByNameCollectMixin
 
 
 class Curve(BaseObjectWrapper):
@@ -31,7 +32,7 @@ class Line(Curve):
     """
 
     >>> line = rpw.db.Line([-10,0], [10,0])
-    >>> line.create()
+    >>> line.create_detail()
 
     """
     _revit_object_class = DB.Line
@@ -49,11 +50,10 @@ class Line(Curve):
 
 
 class Ellipse(Curve):
-
     """
 
     >>> ellipse = rpw.db.Ellipse([-10,0], [10,0])
-    >>> ellipse.create()
+    >>> ellipse.create_detail()
 
     """
     _revit_object_class = DB.Ellipse
@@ -77,12 +77,29 @@ class Ellipse(Curve):
         ellipse = DB.Ellipse.Create(center, x_radius, y_radius, x_axis, y_axis, start_param, end_param)
         super(Ellipse, self).__init__(ellipse)
 
+class Cicle(Ellipse):
+    """
 
-class DetailCurve():
-    """ """
+    >>> circle = rpw.db.Circle([-10,0], 2)
+    >>> circle.create_detail()
 
-    def __init__():
-        raise NotImplemented
+    """
 
-    def get_curve():
-        return self._revit_object.GeometryCurve
+    def __init__(self, center,
+                 radius,
+                 x_axis=None, y_axis=None,
+                 start_param=0.0, end_param=2*PI):
+        """
+        Args:
+            point1 (``point``): Point like object. See :any:`XYZ`
+            point2 (``point``): Point like object. See :any:`XYZ`
+        """
+        center = XYZ(center).unwrap()
+        x_axis = DB.XYZ(1,0,0) if x_axis is None else XYZ(x_axis).unwrap().Normalize()
+        y_axis = DB.XYZ(0,1,0) if y_axis is None else XYZ(y_axis).unwrap().Normalize()
+
+        start_param = start_param or 0.0
+        end_param = start_param or PI*2
+
+        circle = DB.Ellipse.Create(center, radius, radius, x_axis, y_axis, start_param, end_param)
+        super(Curve, self).__init__(circle)
