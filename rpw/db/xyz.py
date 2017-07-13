@@ -121,22 +121,18 @@ class XYZ(BaseObjectWrapper):
         """
         return {'x': self.x, 'y': self.y, 'z': self.z}
 
-    # TODO: Needs Tests
     def __mul__(self, value):
         """ Multiplication Method """
         return XYZ(self.unwrap() * value)
 
-    # TODO: Needs Tests
     def __add__(self, point):
         """ Addition Method """
         return XYZ(self.unwrap() + XYZ(point).unwrap())
 
-    # TODO: Needs Tests
     def __sub__(self, point):
         """ Subtraction Method """
         return XYZ(self.unwrap() - XYZ(point).unwrap())
 
-    # TODO: Needs Tests
     def __eq__(self, other):
         """ Equality Method """
         return self.as_dict == other.as_dict

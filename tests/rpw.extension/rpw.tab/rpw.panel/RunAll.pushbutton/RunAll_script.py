@@ -30,6 +30,7 @@ import Transaction_script as TransactionTests
 import Selection_script as SelectionTests
 import Collection_script as CollectionTests
 import View_script as ViewTests
+import XYZ_script as XYZTests
 import Utils_script as UtilsTests
 import Pick_script as PickTests
 
@@ -42,6 +43,7 @@ all_tests = [
              SelectionTests,
              CollectionTests,
              ViewTests,
+             XYZTests,
              #  PickTests,
              #  FormTests,
              ]
