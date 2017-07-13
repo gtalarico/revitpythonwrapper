@@ -64,17 +64,17 @@ class Console(Window):
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBox Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch"
-                             Name="tbox" Margin="6,6,6,42" VerticalAlignment="Stretch"
+                             Name="tbox" Margin="6,6,6,6" VerticalAlignment="Stretch"
                              AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                              TextWrapping="Wrap"
                              FontFamily="Consolas" FontSize="12.0"
                              />
-                     <Button Content="Terminate" Margin="6,6,6,6" Height="30"
-                             Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"
-                             Click="terminate"></Button>
                 </Grid>
                 </Window>
     """
+    # <Button Content="Terminate" Margin="6,6,6,6" Height="30"
+    #     Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom"
+    #     Click="terminate"></Button>
 
     CARET = '>>> '
 
