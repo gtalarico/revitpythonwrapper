@@ -1,5 +1,17 @@
 # Release Notes
 
+### 1.3.0
+* Removed Terminate button from Console
+* Fixed Element() Exception Msg
+* XYZ: Improved Instantiation methods
+* XYZ: Added __mul__, __add__, __sub__
+* XYZ: Full test suite
+* XYZ: New Line Class
+* XYZ: New Line Curve
+* XYZ: New Line Ellipse
+* XYZ: New Line Circle
+* XYZ: New Line Transform, Transform.rotate_vector
+
 ### 1.2.1
 * New Wall.change_type method
 * New Console Tab autocompletion (works for dotted members)
