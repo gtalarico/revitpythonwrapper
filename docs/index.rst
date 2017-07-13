@@ -26,6 +26,7 @@ Revit Python Wrapper
    pattern
    builtins
    geometry
+   curve
    forms
    utils
    dynamo
