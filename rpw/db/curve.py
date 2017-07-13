@@ -10,7 +10,15 @@ from rpw.utils.mixins import ByNameCollectMixin
 
 
 class Curve(BaseObjectWrapper):
-    """ Curve Wrapper """
+    """
+    DB.Curve Wrapper
+
+    >>> curve = rpw.db.Curve.new(ExistingCurveObject)
+    >>> curve.create_detail()
+
+    """
+
+    _revit_object_class = DB.Curve
 
     def create_detail(self, view=None, doc=revit.doc):
         """
@@ -30,14 +38,18 @@ class Curve(BaseObjectWrapper):
 class Line(Curve):
 
     """
+    DB.Line Wrapper
 
-    >>> line = rpw.db.Line([-10,0], [10,0])
+    >>> line = rpw.db.Line.new([-10,0], [10,0])
+    >>> # or
+    >>> line = rpw.db.Line.new(ExistingLineObject)
     >>> line.create_detail()
 
     """
     _revit_object_class = DB.Line
 
-    def __init__(self, pt1, pt2):
+    @classmethod
+    def new(cls, pt1, pt2):
         """
         Args:
             point1 (``point``): Point like object. See :any:`XYZ`
@@ -46,26 +58,31 @@ class Line(Curve):
         pt1 = XYZ(pt1)
         pt2 = XYZ(pt2)
         line = DB.Line.CreateBound(pt1.unwrap(), pt2.unwrap())
-        super(Line, self).__init__(line)
-
+        return cls(line)
 
 class Ellipse(Curve):
     """
 
-    >>> ellipse = rpw.db.Ellipse([-10,0], [10,0])
+    >>> ellipse = rpw.db.Ellipse.new([-10,0], [10,0])
+    >>> # or
+    >>> ellipse = rpw.db.Ellipse.new(ExistingEllipseObject)
     >>> ellipse.create_detail()
 
     """
     _revit_object_class = DB.Ellipse
 
-    def __init__(self, center,
-                 x_radius, y_radius,
-                 x_axis=None, y_axis=None,
-                 start_param=0.0, end_param=2*PI):
+    @classmethod
+    def new(cls, center, x_radius, y_radius, x_axis=None, y_axis=None,
+            start_param=0.0, end_param=2*PI):
         """
         Args:
-            point1 (``point``): Point like object. See :any:`XYZ`
-            point2 (``point``): Point like object. See :any:`XYZ`
+            center (``point``): Center of Ellipse
+            x_radius (``float``): X Radius
+            y_radius (``float``): Y Radius
+            x_axis (``point``): X Axis
+            y_axis (``point``): Y Axis
+            start_param (``float``): Start Parameter
+            end_param (``float``): End Parameter
         """
         center = XYZ(center).unwrap()
         x_axis = DB.XYZ(1,0,0) if x_axis is None else XYZ(x_axis).unwrap().Normalize()
@@ -75,24 +92,31 @@ class Ellipse(Curve):
         end_param = start_param or PI*2
 
         ellipse = DB.Ellipse.Create(center, x_radius, y_radius, x_axis, y_axis, start_param, end_param)
-        super(Ellipse, self).__init__(ellipse)
+        return cls(ellipse)
 
-class Cicle(Ellipse):
+class Circle(Ellipse):
     """
 
-    >>> circle = rpw.db.Circle([-10,0], 2)
+    >>> circle = rpw.db.Circle.new([-10,0], 2)
+    >>> # or
+    >>> circle = rpw.db.Circle.new(ExistingCircleObject)
     >>> circle.create_detail()
 
     """
 
-    def __init__(self, center,
-                 radius,
-                 x_axis=None, y_axis=None,
-                 start_param=0.0, end_param=2*PI):
+    @classmethod
+    def new(cls, center,
+            radius,
+            x_axis=None, y_axis=None,
+            start_param=0.0, end_param=2*PI):
         """
         Args:
-            point1 (``point``): Point like object. See :any:`XYZ`
-            point2 (``point``): Point like object. See :any:`XYZ`
+            center (``point``): Center of Ellipse
+            x_radius (``float``): X Radius
+            x_axis (``point``): X Axis
+            y_axis (``point``): Y Axis
+            start_param (``float``): Start Parameter
+            end_param (``float``): End Parameter
         """
         center = XYZ(center).unwrap()
         x_axis = DB.XYZ(1,0,0) if x_axis is None else XYZ(x_axis).unwrap().Normalize()
@@ -102,4 +126,34 @@ class Cicle(Ellipse):
         end_param = start_param or PI*2
 
         circle = DB.Ellipse.Create(center, radius, radius, x_axis, y_axis, start_param, end_param)
-        super(Curve, self).__init__(circle)
+        return cls(circle)
+
+
+class Arc(Curve):
+    """
+
+    >>> arc = rpw.db.Arc.new([0,0], [0,0], [0,0])
+    >>> # or
+    >>> arc = rpw.db.Arc.new(ExistingArcObject)
+    >>> arc.create_detail()
+
+    """
+
+    @classmethod
+    def new(cls, *args):
+            # http://www.revitapidocs.com/2017.1/19c3ba08-5443-c9d4-3a3f-0e78901fe6d4.htm
+            # XYZ, XYZ, XYZ
+            # Plane, Double, Double, Double (Plane, Radius, startAngle, endAngle)
+            # XYZ, Double, Double, Double ,XYZ, XYZ (Center, radius, vectors, angles)
+        """
+        Args:
+            start_pt (``point``): Start Point
+            mid_pt (``point``): End Point
+            end_pt (``point``): Mid Point
+        """
+        if len(args) == 3:
+            start_pt, end_pt, mid_pt = [XYZ(pt).unwrap() for pt in args]
+            arc = DB.Arc.Create(start_pt, end_pt, mid_pt)
+        else:
+            raise NotImplemented('only arc by 3 pts available')
+        return cls(arc)

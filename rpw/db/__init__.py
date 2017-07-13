@@ -25,7 +25,7 @@ from rpw.db.parameter import Parameter, ParameterSet
 from rpw.db.builtins import BicEnum, BipEnum
 
 from rpw.db.xyz import XYZ
-from rpw.db.curve import Line, Ellipse
+from rpw.db.curve import Line, Ellipse, Circle, Arc
 from rpw.db.transform import Transform
 from rpw.db.bounding_box import BoundingBox
 

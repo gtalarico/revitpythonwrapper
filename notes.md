@@ -10,6 +10,7 @@
 * XYZ: New Line Curve
 * XYZ: New Line Ellipse
 * XYZ: New Line Circle
+* XYZ: New Line Arc
 * XYZ: New Line Transform, Transform.rotate_vector
 
 ### 1.2.1
