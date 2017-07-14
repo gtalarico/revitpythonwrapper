@@ -60,6 +60,27 @@ class Line(Curve):
         line = DB.Line.CreateBound(pt1.unwrap(), pt2.unwrap())
         return cls(line)
 
+    @property
+    def start_point(self):
+        """ Start Point of line """
+        return XYZ(self._revit_object.GetEndPoint(0))
+
+    @property
+    def end_point(self):
+        """ End Point of line """
+        return XYZ(self._revit_object.GetEndPoint(1))
+
+    @property
+    def mid_point(self):
+        """ Mid Point of line """
+        return XYZ(self._revit_object.GetEndPoint(0.5))
+
+    @property
+    def end_points(self):
+        """ End Points of line """
+        return (XYZ(self.start_point), XYZ(self.end_point))
+
+
 class Ellipse(Curve):
     """
 
