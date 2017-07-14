@@ -112,13 +112,13 @@ class XYZUsageTests(unittest.TestCase):
         cls.pt = XYZ(1,2,3)
         cls.pt2 = XYZ(4,5,6)
 
-    def test_get_properties(self):
+    def test_xyz_get_properties(self):
         pt = XYZ(1,2,3)
         self.assertEqual(pt.x, 1)
         self.assertEqual(pt.y, 2)
         self.assertEqual(pt.z, 3)
 
-    def test_set_properties(self):
+    def test_xyz_set_properties(self):
         pt = XYZ(1,2,3)
         pt.x = 5
         pt.y = 6
@@ -127,40 +127,44 @@ class XYZUsageTests(unittest.TestCase):
         self.assertEqual(pt.y, 6)
         self.assertEqual(pt.z, 7)
 
-    def test_at_z(self):
+    def test_xyz_at_z(self):
         pt = XYZ(1,2,3).at_z(10)
         self.assertEqual(pt.z, 10)
 
-    def test_as_tuple(self):
+    def test_xyz_as_tuple(self):
         pt_tuple = XYZ(1,2,3).as_tuple
         self.assertEqual(pt_tuple, (1,2,3))
         self.assertIsInstance(pt_tuple, tuple)
 
-    def test_as_dict(self):
+    def test_xyz_as_dict(self):
         pt_dict = XYZ(1,2,3).as_dict
         self.assertIsInstance(pt_dict, dict)
         self.assertEqual(pt_dict, {'x':1, 'y':2, 'z':3})
 
-    def test_repr(self):
+    def test_xyz_repr(self):
         self.assertIn('<rpw:XYZ', XYZ(0,0,0).__repr__())
 
-    def test_add(self):
+    def test_xyz_add(self):
         pt = XYZ(1,2,3) + XYZ(4,5,6)
         self.assertEqual(pt.x, 5)
         self.assertEqual(pt.y, 7)
         self.assertEqual(pt.z, 9)
 
-    def test_sub(self):
+    def test_xyz_sub(self):
         pt = XYZ(1,2,3) - XYZ(1,1,1)
         self.assertEqual(pt.x, 0)
         self.assertEqual(pt.y, 1)
         self.assertEqual(pt.z, 2)
 
-    def test_mul(self):
+    def test_xyz_mul(self):
         pt = XYZ(1,2,3) * 2
         self.assertEqual(pt.x, 2)
         self.assertEqual(pt.y, 4)
         self.assertEqual(pt.z, 6)
+
+    def test_xyz_eq(self):
+        self.assertEqual(XYZ(1,2,3), XYZ(1,2,3))
+        self.assertNotEqual(XYZ(1,2,3), XYZ(2,2,3))
 
 
 def run():
