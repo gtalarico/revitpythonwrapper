@@ -135,7 +135,7 @@ class XYZ(BaseObjectWrapper):
 
     def __eq__(self, other):
         """ Equality Method """
-        return self.as_dict == other.as_dict
+        return self._revit_object.IsAlmostEqualTo(XYZ(other).unwrap())
 
     def __repr__(self):
         return super(XYZ, self).__repr__(data=self.as_dict,
