@@ -99,7 +99,7 @@ class Revit(BaseObject):
     @property
     def uidoc(self):
         """ Returns: uiapp.ActiveUIDocument """
-        return self.uiapp.ActiveUIDocument
+        return getattr(self.uiapp, 'ActiveUIDocument', None)
 
     @property
     def active_view(self):

@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Curve &mdash; Revit Python Wrapper 1.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.3.0 documentation" href="index.html"/>
+        <link rel="next" title="Forms" href="forms.html"/>
+        <link rel="prev" title="Geometry" href="geometry.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Revit Python Wrapper
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Revit Python Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revit.html">Revit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">Base Wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element.html">Element Wrappers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transaction.html">Transaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collector.html">Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">Collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pattern.html">Pattern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Curve</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Revit Python Wrapper</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Curve</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/curve.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-rpw.db.curve">
+<span id="curve"></span><h1>Curve<a class="headerlink" href="#module-rpw.db.curve" title="Permalink to this headline">¶</a></h1>
+<p>Curve Wrappers</p>
+<dl class="class">
+<dt id="rpw.db.Curve">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Curve</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
+<p>DB.Curve Wrapper</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">curve</span> <span class="o">=</span> <span class="n">Curve</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">ExistingCurveObject</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">curve</span><span class="o">.</span><span class="n">create_detail</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.db.Curve.create_detail">
+<code class="descname">create_detail</code><span class="sig-paren">(</span><em>view=None</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Curve.create_detail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>view</strong> (<code class="docutils literal"><span class="pre">DB.View</span></code>) – Optional View. Default: <code class="docutils literal"><span class="pre">uidoc.ActiveView</span></code></li>
+<li><strong>doc</strong> (<code class="docutils literal"><span class="pre">DB.Document</span></code>) – Optional Document. Default: <code class="docutils literal"><span class="pre">doc</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.db.Line">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Line</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.curve.Curve</span></code></p>
+<p>DB.Line Wrapper</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">line</span> <span class="o">=</span> <span class="n">Line</span><span class="o">.</span><span class="n">new</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">line</span> <span class="o">=</span> <span class="n">Line</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">ExistingLineObject</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">line</span><span class="o">.</span><span class="n">create_detail</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.db.curve.Line.create_detail">
+<code class="descname">create_detail</code><span class="sig-paren">(</span><em>view=None</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.curve.Line.create_detail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>view</strong> (<code class="docutils literal"><span class="pre">DB.View</span></code>) – Optional View. Default: <code class="docutils literal"><span class="pre">uidoc.ActiveView</span></code></li>
+<li><strong>doc</strong> (<code class="docutils literal"><span class="pre">DB.Document</span></code>) – Optional Document. Default: <code class="docutils literal"><span class="pre">doc</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.Line.end_point">
+<code class="descname">end_point</code><a class="headerlink" href="#rpw.db.Line.end_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>End Point of line</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.Line.end_points">
+<code class="descname">end_points</code><a class="headerlink" href="#rpw.db.Line.end_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>End Points of line</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.Line.mid_point">
+<code class="descname">mid_point</code><a class="headerlink" href="#rpw.db.Line.mid_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mid Point of line</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.db.Line.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Line.new" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>point1</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – Point like object. See <a class="reference internal" href="geometry.html#rpw.db.XYZ" title="rpw.db.XYZ"><code class="xref any py py-class docutils literal"><span class="pre">XYZ</span></code></a></li>
+<li><strong>point2</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – Point like object. See <a class="reference internal" href="geometry.html#rpw.db.XYZ" title="rpw.db.XYZ"><code class="xref any py py-class docutils literal"><span class="pre">XYZ</span></code></a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.Line.start_point">
+<code class="descname">start_point</code><a class="headerlink" href="#rpw.db.Line.start_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start Point of line</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.db.Ellipse">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Ellipse</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.curve.Curve</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ellipse</span> <span class="o">=</span> <span class="n">Ellipse</span><span class="o">.</span><span class="n">new</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ellipse</span> <span class="o">=</span> <span class="n">Ellipse</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">ExistingEllipseObject</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ellipse</span><span class="o">.</span><span class="n">create_detail</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.db.curve.Ellipse.create_detail">
+<code class="descname">create_detail</code><span class="sig-paren">(</span><em>view=None</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.curve.Ellipse.create_detail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>view</strong> (<code class="docutils literal"><span class="pre">DB.View</span></code>) – Optional View. Default: <code class="docutils literal"><span class="pre">uidoc.ActiveView</span></code></li>
+<li><strong>doc</strong> (<code class="docutils literal"><span class="pre">DB.Document</span></code>) – Optional Document. Default: <code class="docutils literal"><span class="pre">doc</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.db.Ellipse.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>center</em>, <em>x_radius</em>, <em>y_radius</em>, <em>x_axis=None</em>, <em>y_axis=None</em>, <em>start_param=0.0</em>, <em>end_param=6.283185307179586</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Ellipse.new" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>center</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – Center of Ellipse</li>
+<li><strong>x_radius</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – X Radius</li>
+<li><strong>y_radius</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – Y Radius</li>
+<li><strong>x_axis</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – X Axis</li>
+<li><strong>y_axis</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – Y Axis</li>
+<li><strong>start_param</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – Start Parameter</li>
+<li><strong>end_param</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – End Parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="rpw.db.Circle">
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">Circle</code><span class="sig-paren">(</span><em>revit_object</em>, <em>enforce_type=True</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.curve.Ellipse</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="o">.</span><span class="n">new</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">ExistingCircleObject</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circle</span><span class="o">.</span><span class="n">create_detail</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="rpw.db.curve.Circle.create_detail">
+<code class="descname">create_detail</code><span class="sig-paren">(</span><em>view=None</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.curve.Circle.create_detail" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>view</strong> (<code class="docutils literal"><span class="pre">DB.View</span></code>) – Optional View. Default: <code class="docutils literal"><span class="pre">uidoc.ActiveView</span></code></li>
+<li><strong>doc</strong> (<code class="docutils literal"><span class="pre">DB.Document</span></code>) – Optional Document. Default: <code class="docutils literal"><span class="pre">doc</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="rpw.db.Circle.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>center</em>, <em>radius</em>, <em>x_axis=None</em>, <em>y_axis=None</em>, <em>start_param=0.0</em>, <em>end_param=6.283185307179586</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Circle.new" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>center</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – Center of Ellipse</li>
+<li><strong>x_radius</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – X Radius</li>
+<li><strong>x_axis</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – X Axis</li>
+<li><strong>y_axis</strong> (<code class="docutils literal"><span class="pre">point</span></code>) – Y Axis</li>
+<li><strong>start_param</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – Start Parameter</li>
+<li><strong>end_param</strong> (<code class="docutils literal"><span class="pre">float</span></code>) – End Parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<div class="section" id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot; Curve Wrappers &quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span> <span class="k">as</span> <span class="n">PI</span>
+
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
+<span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
+<span class="kn">from</span> <span class="nn">rpw.db.element</span> <span class="k">import</span> <span class="n">Element</span>
+<span class="kn">from</span> <span class="nn">rpw.db.xyz</span> <span class="k">import</span> <span class="n">XYZ</span>
+<span class="kn">from</span> <span class="nn">rpw.utils.mixins</span> <span class="k">import</span> <span class="n">ByNameCollectMixin</span>
+
+
+<span class="k">class</span> <span class="nc">Curve</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DB.Curve Wrapper</span>
+
+<span class="sd">    &gt;&gt;&gt; curve = Curve.new(ExistingCurveObject)</span>
+<span class="sd">    &gt;&gt;&gt; curve.create_detail()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Curve</span>
+
+    <span class="k">def</span> <span class="nf">create_detail</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            view (``DB.View``): Optional View. Default: ``uidoc.ActiveView``</span>
+<span class="sd">            doc (``DB.Document``): Optional Document. Default: ``doc``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Accept Detail Type (GraphicStyle)</span>
+        <span class="n">view</span> <span class="o">=</span> <span class="n">view</span> <span class="ow">or</span> <span class="n">revit</span><span class="o">.</span><span class="n">active_view</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">doc</span><span class="o">.</span><span class="n">Create</span><span class="o">.</span><span class="n">NewDetailCurve</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="p">):</span>
+        <span class="c1"># http://www.revitapidocs.com/2017.1/b880c4d7-9841-e44e-2a1c-36fefe274e2e.htm</span>
+        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+
+
+<span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="n">Curve</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DB.Line Wrapper</span>
+
+<span class="sd">    &gt;&gt;&gt; line = Line.new([-10,0], [10,0])</span>
+<span class="sd">    &gt;&gt;&gt; # or</span>
+<span class="sd">    &gt;&gt;&gt; line = Line.new(ExistingLineObject)</span>
+<span class="sd">    &gt;&gt;&gt; line.create_detail()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Line</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            point1 (``point``): Point like object. See :any:`XYZ`</span>
+<span class="sd">            point2 (``point``): Point like object. See :any:`XYZ`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pt1</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">pt1</span><span class="p">)</span>
+        <span class="n">pt2</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">pt2</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Line</span><span class="o">.</span><span class="n">CreateBound</span><span class="p">(</span><span class="n">pt1</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span> <span class="n">pt2</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Start Point of line &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetEndPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">end_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; End Point of line &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetEndPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mid_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Mid Point of line &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetEndPoint</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">end_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; End Points of line &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_point</span><span class="p">),</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_point</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">Ellipse</span><span class="p">(</span><span class="n">Curve</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &gt;&gt;&gt; ellipse = Ellipse.new([-10,0], [10,0])</span>
+<span class="sd">    &gt;&gt;&gt; # or</span>
+<span class="sd">    &gt;&gt;&gt; ellipse = Ellipse.new(ExistingEllipseObject)</span>
+<span class="sd">    &gt;&gt;&gt; ellipse.create_detail()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Ellipse</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">start_param</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end_param</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">PI</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            center (``point``): Center of Ellipse</span>
+<span class="sd">            x_radius (``float``): X Radius</span>
+<span class="sd">            y_radius (``float``): Y Radius</span>
+<span class="sd">            x_axis (``point``): X Axis</span>
+<span class="sd">            y_axis (``point``): Y Axis</span>
+<span class="sd">            start_param (``float``): Start Parameter</span>
+<span class="sd">            end_param (``float``): End Parameter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">center</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
+        <span class="n">x_axis</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">x_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">x_axis</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span><span class="o">.</span><span class="n">Normalize</span><span class="p">()</span>
+        <span class="n">y_axis</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span><span class="o">.</span><span class="n">Normalize</span><span class="p">()</span>
+
+        <span class="n">start_param</span> <span class="o">=</span> <span class="n">start_param</span> <span class="ow">or</span> <span class="mf">0.0</span>
+        <span class="n">end_param</span> <span class="o">=</span> <span class="n">start_param</span> <span class="ow">or</span> <span class="n">PI</span><span class="o">*</span><span class="mi">2</span>
+
+        <span class="n">ellipse</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Ellipse</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">,</span> <span class="n">start_param</span><span class="p">,</span> <span class="n">end_param</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ellipse</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Ellipse</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &gt;&gt;&gt; circle = Circle.new([-10,0], 2)</span>
+<span class="sd">    &gt;&gt;&gt; # or</span>
+<span class="sd">    &gt;&gt;&gt; circle = Circle.new(ExistingCircleObject)</span>
+<span class="sd">    &gt;&gt;&gt; circle.create_detail()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span>
+            <span class="n">radius</span><span class="p">,</span>
+            <span class="n">x_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">start_param</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end_param</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">PI</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            center (``point``): Center of Ellipse</span>
+<span class="sd">            x_radius (``float``): X Radius</span>
+<span class="sd">            x_axis (``point``): X Axis</span>
+<span class="sd">            y_axis (``point``): Y Axis</span>
+<span class="sd">            start_param (``float``): Start Parameter</span>
+<span class="sd">            end_param (``float``): End Parameter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">center</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
+        <span class="n">x_axis</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">x_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">x_axis</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span><span class="o">.</span><span class="n">Normalize</span><span class="p">()</span>
+        <span class="n">y_axis</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">y_axis</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span><span class="o">.</span><span class="n">Normalize</span><span class="p">()</span>
+
+        <span class="n">start_param</span> <span class="o">=</span> <span class="n">start_param</span> <span class="ow">or</span> <span class="mf">0.0</span>
+        <span class="n">end_param</span> <span class="o">=</span> <span class="n">start_param</span> <span class="ow">or</span> <span class="n">PI</span><span class="o">*</span><span class="mi">2</span>
+
+        <span class="n">circle</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Ellipse</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">x_axis</span><span class="p">,</span> <span class="n">y_axis</span><span class="p">,</span> <span class="n">start_param</span><span class="p">,</span> <span class="n">end_param</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Arc</span><span class="p">(</span><span class="n">Curve</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    &gt;&gt;&gt; arc = Arc.new([0,0], [0,0], [0,0])</span>
+<span class="sd">    &gt;&gt;&gt; # or</span>
+<span class="sd">    &gt;&gt;&gt; arc = Arc.new(ExistingArcObject)</span>
+<span class="sd">    &gt;&gt;&gt; arc.create_detail()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+            <span class="c1"># http://www.revitapidocs.com/2017.1/19c3ba08-5443-c9d4-3a3f-0e78901fe6d4.htm</span>
+            <span class="c1"># XYZ, XYZ, XYZ</span>
+            <span class="c1"># Plane, Double, Double, Double (Plane, Radius, startAngle, endAngle)</span>
+            <span class="c1"># XYZ, Double, Double, Double ,XYZ, XYZ (Center, radius, vectors, angles)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            start_pt (``point``): Start Point</span>
+<span class="sd">            mid_pt (``point``): End Point</span>
+<span class="sd">            end_pt (``point``): Mid Point</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">start_pt</span><span class="p">,</span> <span class="n">end_pt</span><span class="p">,</span> <span class="n">mid_pt</span> <span class="o">=</span> <span class="p">[</span><span class="n">XYZ</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+            <span class="n">arc</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">Arc</span><span class="o">.</span><span class="n">Create</span><span class="p">(</span><span class="n">start_pt</span><span class="p">,</span> <span class="n">end_pt</span><span class="p">,</span> <span class="n">mid_pt</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;only arc by 3 pts available&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">arc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="forms.html" class="btn btn-neutral float-right" title="Forms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="geometry.html" class="btn btn-neutral" title="Geometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Gui Talarico.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

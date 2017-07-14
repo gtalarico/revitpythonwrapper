@@ -10,7 +10,7 @@ Geometry
 
 .. autoclass:: rpw.db.XYZ
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__, __add__, __sub__, __mul__, __eq__
     :private-members:
     :show-inheritance:
 

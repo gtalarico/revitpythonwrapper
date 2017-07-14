@@ -1,5 +1,19 @@
 # Release Notes
 
+### 1.3.0
+* Removed Terminate button from Console
+* Curve: New Line Class
+* Curve: New Line Curve
+* Curve: New Line Ellipse
+* Curve: New Line Circle
+* Curve: New Line Arc
+* Curve: New Line Transform, Transform.rotate_vector
+* Curve : Started Test Suite
+* XYZ: Improved Instantiation methods
+* XYZ: Added __mul__, __add__, __sub__
+* XYZ: Full test suite
+* XYZ: Fixed XYZ __eq__ method
+
 ### 1.2.2
 * Fixes For pyRevit Zero State Doc
 

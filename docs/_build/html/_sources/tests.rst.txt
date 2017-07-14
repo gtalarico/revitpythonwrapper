@@ -31,19 +31,34 @@ Test Suite
 .. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Collector.pushbutton/Collector_script.py
     :end-before: run()
 
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Collection.pushbutton/Collection_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Curve.pushbutton/Curve_script.py
+    :end-before: run()
+
 .. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Elements.pushbutton/Elements_script.py
     :end-before: run()
 
-.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Forms.pushbutton/Forms_script.py
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Selection.pushbutton/Selection_script.py
     :end-before: run()
 
-.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Selection.pushbutton/Selection_script.py
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/View.pushbutton/View_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/XYZ.pushbutton/XYZ_script.py
     :end-before: run()
 
 .. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Transaction.pushbutton/Transaction_script.py
     :end-before: run()
 
 .. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Utils.pushbutton/Utils_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Pick.pushbutton/Pick_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Forms.pushbutton/Forms_script.py
     :end-before: run()
 
 .. disqus
