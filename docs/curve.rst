@@ -8,29 +8,37 @@
 Curve
 ==================
 
+.. automodule:: rpw.db.curve
+
 .. autoclass:: rpw.db.Curve
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__
     :private-members:
     :show-inheritance:
 
 .. autoclass:: rpw.db.Line
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__
     :private-members:
     :show-inheritance:
+
+    .. automethod:: create_detail
 
 .. autoclass:: rpw.db.Ellipse
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__, create_detail
     :private-members:
     :show-inheritance:
 
+    .. automethod:: create_detail
+
 .. autoclass:: rpw.db.Circle
     :members:
-    :special-members: __init__, __getattr__, __getitem__
+    :special-members: __init__, create_detail
     :private-members:
     :show-inheritance:
+
+    .. automethod:: create_detail
 
 ----------------------------------------------
 

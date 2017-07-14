@@ -1,4 +1,4 @@
-""" Line Wrapper """
+""" Curve Wrappers """
 
 from math import pi as PI
 
@@ -13,7 +13,7 @@ class Curve(BaseObjectWrapper):
     """
     DB.Curve Wrapper
 
-    >>> curve = rpw.db.Curve.new(ExistingCurveObject)
+    >>> curve = Curve.new(ExistingCurveObject)
     >>> curve.create_detail()
 
     """
@@ -40,9 +40,9 @@ class Line(Curve):
     """
     DB.Line Wrapper
 
-    >>> line = rpw.db.Line.new([-10,0], [10,0])
+    >>> line = Line.new([-10,0], [10,0])
     >>> # or
-    >>> line = rpw.db.Line.new(ExistingLineObject)
+    >>> line = Line.new(ExistingLineObject)
     >>> line.create_detail()
 
     """
@@ -63,9 +63,9 @@ class Line(Curve):
 class Ellipse(Curve):
     """
 
-    >>> ellipse = rpw.db.Ellipse.new([-10,0], [10,0])
+    >>> ellipse = Ellipse.new([-10,0], [10,0])
     >>> # or
-    >>> ellipse = rpw.db.Ellipse.new(ExistingEllipseObject)
+    >>> ellipse = Ellipse.new(ExistingEllipseObject)
     >>> ellipse.create_detail()
 
     """
@@ -97,9 +97,9 @@ class Ellipse(Curve):
 class Circle(Ellipse):
     """
 
-    >>> circle = rpw.db.Circle.new([-10,0], 2)
+    >>> circle = Circle.new([-10,0], 2)
     >>> # or
-    >>> circle = rpw.db.Circle.new(ExistingCircleObject)
+    >>> circle = Circle.new(ExistingCircleObject)
     >>> circle.create_detail()
 
     """
@@ -132,9 +132,9 @@ class Circle(Ellipse):
 class Arc(Curve):
     """
 
-    >>> arc = rpw.db.Arc.new([0,0], [0,0], [0,0])
+    >>> arc = Arc.new([0,0], [0,0], [0,0])
     >>> # or
-    >>> arc = rpw.db.Arc.new(ExistingArcObject)
+    >>> arc = Arc.new(ExistingArcObject)
     >>> arc.create_detail()
 
     """

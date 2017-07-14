@@ -2,8 +2,9 @@
 
 import math
 import rpw
-from rpw import db, DB
+from rpw import DB
 from rpw.base import BaseObjectWrapper
+from rpw.db.xyz import XYZ
 
 class Transform(BaseObjectWrapper):
     """
@@ -22,21 +23,21 @@ class Transform(BaseObjectWrapper):
     def rotate_vector(cls, vector, rotation, center=None, axis=None):
         """ Rotate a Vector by Degrees """
 
-        vector = db.XYZ(vector)
+        vector = XYZ(vector)
         angle_rad = math.radians(rotation)
-        axis =  db.XYZ(DB.XYZ(0,0,1)) if not axis else db.XYZ(axis)
-        center =  db.XYZ(DB.XYZ(0,0,0)) if not center else db.XYZ(center)
+        axis =  XYZ(DB.XYZ(0,0,1)) if not axis else XYZ(axis)
+        center =  XYZ(DB.XYZ(0,0,0)) if not center else XYZ(center)
         transform = cls._revit_object_class.CreateRotationAtPoint(
                                                         axis.unwrap(),
                                                         angle_rad,
                                                         center.unwrap())
 
-        return db.XYZ(transform.OfVector(vector.unwrap()))
+        return XYZ(transform.OfVector(vector.unwrap()))
 
     @classmethod
     def move(cls, vector, object):
         """ Rotate a Vector by Degrees """
 
         raise NotImplemented
-        # vector = db.XYZ(vector)
+        # vector = XYZ(vector)
         # transform = cls._revit_object_class.CreateTranslation(vector)
