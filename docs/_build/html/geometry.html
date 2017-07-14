@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Geometry &mdash; Revit Python Wrapper 1.2.1 documentation</title>
+  <title>Geometry &mdash; Revit Python Wrapper 1.3.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.2.1 documentation" href="index.html"/>
-        <link rel="next" title="Forms" href="forms.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.3.0 documentation" href="index.html"/>
+        <link rel="next" title="Curve" href="curve.html"/>
         <link rel="prev" title="BuiltIns" href="builtins.html"/> 
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.2.1
+                1.3.0
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="curve.html">Curve</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
@@ -182,7 +183,7 @@
 <h1>Geometry<a class="headerlink" href="#geometry" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="rpw.db.XYZ">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">XYZ</code><span class="sig-paren">(</span><em>*xyz_or_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">XYZ</code><span class="sig-paren">(</span><em>*point_reference</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base.html#rpw.base.BaseObjectWrapper" title="rpw.base.BaseObjectWrapper"><code class="xref py py-class docutils literal"><span class="pre">rpw.base.BaseObjectWrapper</span></code></a></p>
 <p><cite>DB.XYZ</cite> Wrapper</p>
 <p>XYZ light wrapper with a few helpful methods:</p>
@@ -205,16 +206,48 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="rpw.db.XYZ.__add__">
+<code class="descname">__add__</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Addition Method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.XYZ.__eq__">
+<code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equality Method</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="rpw.db.XYZ.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>*xyz_or_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*point_reference</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>XYZ Supports a wide variety of instantiation overloads:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">XYZ</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">XYZ</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">XYZ</span><span class="p">(</span><span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instance</strong> (<code class="docutils literal"><span class="pre">DB.XYZ</span></code>) – Instance of XYZ to be wrapped</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>point_reference</strong> (<code class="docutils literal"><span class="pre">DB.XYZ</span></code>,“iterable“, <code class="docutils literal"><span class="pre">args</span></code>) – Point like data</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.XYZ.__mul__">
+<code class="descname">__mul__</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ.__mul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplication Method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="rpw.db.XYZ.__sub__">
+<code class="descname">__sub__</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.XYZ.__sub__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subtraction Method</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -318,23 +351,39 @@
 
     <span class="n">_revit_object_class</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">xyz_or_tuple</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">point_reference</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        XYZ Supports a wide variety of instantiation overloads:</span>
+
+<span class="sd">        &gt;&gt;&gt; XYZ(0,0)</span>
+<span class="sd">        &gt;&gt;&gt; XYZ(0,0,0)</span>
+<span class="sd">        &gt;&gt;&gt; XYZ([0,0])</span>
+<span class="sd">        &gt;&gt;&gt; XYZ([0,0,0])</span>
+<span class="sd">        &gt;&gt;&gt; XYZ(DB.XYZ(0,0,0))</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            instance (``DB.XYZ``): Instance of XYZ to be wrapped</span>
+<span class="sd">            point_reference (``DB.XYZ``,``iterable``, ``args``): Point like data</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">xyz</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="o">*</span><span class="n">xyz_or_tuple</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">xyz</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xyz_or_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+        <span class="c1"># XYZ(0,0,0)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_reference</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="o">*</span><span class="n">point_reference</span><span class="p">)</span>
+        <span class="c1"># XYZ(0,0)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_reference</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point_reference</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># XYZ([0,0,0]) or # XYZ([0,0])</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_reference</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="c1"># Assumes one arg, tuple</span>
-            <span class="n">xyz</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="o">*</span><span class="n">xyz_or_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="o">*</span><span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">(</span><span class="o">*</span><span class="n">xyz</span><span class="o">.</span><span class="n">as_tuple</span><span class="p">)</span>
+        <span class="c1"># XYZ(DB.XYZ(0,0,0))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_reference</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">DB</span><span class="o">.</span><span class="n">XYZ</span><span class="p">):</span>
             <span class="c1"># Assumes one arg, DB.XYZ</span>
-            <span class="n">xyz</span> <span class="o">=</span> <span class="n">xyz_or_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_reference</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">XYZ</span><span class="p">):</span>
+            <span class="c1"># Assumes one arg, DB.XYZ</span>
+            <span class="n">xyz</span> <span class="o">=</span> <span class="n">point_reference</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">RpwCoerceError</span><span class="p">(</span><span class="n">xyz_or_tuple</span><span class="p">,</span> <span class="s1">&#39;point-like object&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">RpwCoerceError</span><span class="p">(</span><span class="n">point_reference</span><span class="p">,</span> <span class="s1">&#39;point-like object&#39;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">XYZ</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -397,8 +446,21 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">}</span>
 
+    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Multiplication Method &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Addition Method &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span> <span class="o">+</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Subtraction Method &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">XYZ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">()</span> <span class="o">-</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
+
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">as_dict</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">as_dict</span>
+        <span class="sd">&quot;&quot;&quot; Equality Method &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">IsAlmostEqualTo</span><span class="p">(</span><span class="n">XYZ</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="n">unwrap</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">XYZ</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">as_dict</span><span class="p">,</span>
@@ -418,7 +480,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="forms.html" class="btn btn-neutral float-right" title="Forms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="curve.html" class="btn btn-neutral float-right" title="Curve" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="builtins.html" class="btn btn-neutral" title="BuiltIns" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -452,7 +514,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.2.1',
+            VERSION:'1.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

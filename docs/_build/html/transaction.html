@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Transaction &mdash; Revit Python Wrapper 1.2.1 documentation</title>
+  <title>Transaction &mdash; Revit Python Wrapper 1.3.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Revit Python Wrapper 1.2.1 documentation" href="index.html"/>
+    <link rel="top" title="Revit Python Wrapper 1.3.0 documentation" href="index.html"/>
         <link rel="next" title="Collector" href="collector.html"/>
         <link rel="prev" title="Reference" href="reference.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.2.1
+                1.3.0
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pattern.html">Pattern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="builtins.html">BuiltIns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="curve.html">Curve</a></li>
 <li class="toctree-l1"><a class="reference internal" href="forms.html">Forms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
@@ -230,7 +231,8 @@ and the funciton will run within a Transaction Context.</p>
 <hr class="docutils" />
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwException</span>
 <span class="kn">from</span> <span class="nn">rpw.utils.logger</span> <span class="k">import</span> <span class="n">logger</span>
@@ -267,19 +269,19 @@ and the funciton will run within a Transaction Context.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">exception_msg</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error in Transaction Context: has rolled back.&#39;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">))</span>
-            <span class="k">raise</span> <span class="n">exception</span><span class="p">(</span><span class="n">exception_value</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="c1"># traceback.print_tb(tb)</span>
+            <span class="c1"># raise exception # Let exception through</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error in Transaction Commit: has rolled back.&#39;</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">errmsg</span><span class="p">))</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
                 <span class="k">raise</span>
 
     <span class="nd">@staticmethod</span>
@@ -344,21 +346,21 @@ and the funciton will run within a Transaction Context.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">transaction_group</span><span class="o">.</span><span class="n">Start</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transaction_group</span>
 
-    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">,</span> <span class="n">exception_msg</span><span class="p">,</span> <span class="n">tb</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">exception</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">transaction_group</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error in TransactionGroup Context: has rolled back.&#39;</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="n">exception_value</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assimilate</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">transaction_group</span><span class="o">.</span><span class="n">Assimilate</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">transaction_group</span><span class="o">.</span><span class="n">Commit</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">errmsg</span><span class="p">:</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">transaction_group</span><span class="o">.</span><span class="n">RollBack</span><span class="p">()</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error in TransactionGroup Commit: has rolled back.&#39;</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">errmsg</span><span class="p">))</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">exc</span>
 
 
 <span class="k">class</span> <span class="nc">DynamoTransaction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -373,7 +375,7 @@ and the funciton will run within a Transaction Context.</p>
     <span class="c1"># def __enter__(self):</span>
     <span class="c1">#     self.transaction.EnsureInTransaction(doc)</span>
     <span class="c1">#</span>
-    <span class="c1"># def __exit__(self, exception, exception_value, traceback):</span>
+    <span class="c1"># def __exit__(self, exception, exception_msg, traceback):</span>
     <span class="c1">#     if exception:</span>
     <span class="c1">#         pass # self.transaction.RollBack()</span>
     <span class="c1">#     else:</span>
@@ -433,7 +435,7 @@ and the funciton will run within a Transaction Context.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.2.1',
+            VERSION:'1.3.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
