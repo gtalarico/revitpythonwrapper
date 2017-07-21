@@ -19,13 +19,13 @@ class View(Element):
     """
     This is the main View View Wrapper - wraps ``DB.View``.
     All other View classes inherit from this class in the same way All
-    API View classes inheir from `DB.View`
+    API View classes inheir from ``DB.View``.
 
-    This class is also used for some View types that do not have a more specific
-    class, such as: Legend, ProjectBrowser, SystemBrowser.
+    This class is also used for view types that do not have more specific
+    class, such as ``DB.Legend``, ``DB.ProjectBrowser``, ``DB.SystemBrowser``.
 
-    As with other wrapeprs, you can just use the Element() factory class to
-    use the best wrapper available.
+    As with other wrappers, you can use the Element() factory class to
+    use the best wrapper available:
 
     >>> wrapped_view = rpw.db.Element(some_view_plan)
     <rpw:ViewPlan>
