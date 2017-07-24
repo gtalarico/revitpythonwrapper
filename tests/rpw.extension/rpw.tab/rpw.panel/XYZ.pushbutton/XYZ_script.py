@@ -166,6 +166,35 @@ class XYZUsageTests(unittest.TestCase):
         self.assertEqual(XYZ(1,2,3), XYZ(1,2,3))
         self.assertNotEqual(XYZ(1,2,3), XYZ(2,2,3))
 
+    def test_xyz_rotate_90(self):
+        pt = XYZ(1,0,0)
+        rotate_pt = (0,1,0)
+        self.assertEqual(pt.rotate(90), rotate_pt)
+
+    def test_xyz_rotate_180(self):
+        pt = XYZ(1,0,0)
+        rotate_pt = (-1,0,0)
+        self.assertEqual(pt.rotate(180), rotate_pt)
+
+    def test_xyz_rotate_radians(self):
+        import math
+        pt = XYZ(1,0,0)
+        rotate_pt = (-1,0,0)
+        self.assertEqual(pt.rotate(math.pi, radians=True), rotate_pt)
+
+    def test_xyz_rotate_radians(self):
+        import math
+        pt = XYZ(1,0,0)
+        rotate_pt = (-1,0,0)
+        self.assertEqual(pt.rotate(math.pi, radians=True), rotate_pt)
+
+    def test_xyz_rotate_axis(self):
+        import math
+        pt = XYZ(1,0,0)
+        axis = XYZ(0,-1,0)
+        rotate_pt = (0,0,1)
+        self.assertEqual(pt.rotate(90, axis=axis), rotate_pt)
+
 
 def run():
     logger.verbose(False)
