@@ -130,6 +130,7 @@ class Family(Element):
     def name(self):
         """ Returns:
             ``str``: name of the Family """
+        return self._revit_object.Name
         # This BIP only exist in symbols, so we retrieve a symbol first.
         # The Alternative is to use Element.Name.GetValue(), but I am
         # avoiding it due to the import bug in ironpython
@@ -139,8 +140,6 @@ class Family(Element):
         except IndexError:
             raise RpwException('Family [{}] has no symbols'.format(self.name))
         return Element(symbol).parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
-        # Uses generic factory so it can be inherited by others
-        # Alternative: ALL_MODEL_FAMILY_NAME
 
     @property
     def instances(self):
