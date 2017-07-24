@@ -112,9 +112,11 @@ class WallKind(BaseObjectWrapper):
         # Same method as Family Works, but requires Code duplication
         # Since this should not inherit from Family.
         # Solution copy code or Mixin. Or return Enum Name:  'Basic'
-        # return self._revit_object.ToString()
-        wall_type = self.wall_types[0]
-        return wall_type.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        # This works but requires Lookup.
+        # wall_type = self.wall_types[0]
+        # return wall_type.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
+        # return '{} Wall'.format(self._revit_object.ToString())
+        return self._revit_object.ToString()
 
     @property
     def symbols(self):
@@ -141,6 +143,8 @@ class WallKind(BaseObjectWrapper):
         # wall_type = rpw.db.Collector(of_class=DB.WallType, is_type=True).first
         # return WallCategory(wall_type.Category)
 
+    def __repr__(self):
+        return super(WallKind, self).__repr__({'name': self.name})
 
 class WallCategory(Category):
     """
