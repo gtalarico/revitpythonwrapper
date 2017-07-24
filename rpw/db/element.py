@@ -97,7 +97,7 @@ class Element(BaseObjectWrapper):
         element_class_name = element.__class__.__name__
         raise RpwException('Factory does not support type: {}'.format(element_class_name))
 
-    def __init__(self, element, doc=revit.doc):
+    def __init__(self, element, doc=None):
         """
         Main Element Instantiation
 
@@ -117,7 +117,7 @@ class Element(BaseObjectWrapper):
         """
 
         super(Element, self).__init__(element)
-        self.doc = doc
+        self.doc = element.Document if doc is None else revit.doc
         if isinstance(element, DB.Element):
             # WallKind Inherits from Family/Element, but is not Element,
             # so ParameterSet fails. Parameters are only added if Element
@@ -148,15 +148,15 @@ class Element(BaseObjectWrapper):
             raise RpwException('Wrapper cannot collect by class: {}'.format(cls.__name__))
 
     @staticmethod
-    def from_int(id_int):
+    def from_int(id_int, doc=revit.doc):
         """ Instantiate Element from an Integer representing and Id """
-        element = revit.doc.GetElement(DB.ElementId(id_int))
+        element = doc.GetElement(DB.ElementId(id_int))
         return Element(element)
 
     @staticmethod
-    def from_id(element_id):
+    def from_id(element_id, doc=revit.doc):
         """ Instantiate Element from an ElementId """
-        element = revit.doc.GetElement(element_id)
+        element = doc.GetElement(element_id)
         return Element(element)
 
     @staticmethod
