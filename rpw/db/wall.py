@@ -54,6 +54,10 @@ class Wall(FamilyInstance):
     def family(self):
         return self.wall_kind
 
+    @property
+    def category(self):
+        """ Wrapped ``DB.Category`` of the ``DB.Wall`` """
+        return WallCategory(self._revit_object.Category)
 
 class WallType(FamilySymbol, ByNameCollectMixin):
     """
@@ -85,6 +89,11 @@ class WallType(FamilySymbol, ByNameCollectMixin):
     @property
     def siblings(self):
         return self.wall_kind.wall_types
+
+    @property
+    def category(self):
+        """ Wrapped ``DB.Category`` of the ``DB.Wall`` """
+        return WallCategory(self._revit_object.Category)
 
 
 # class WallKind(Family):
@@ -127,8 +136,10 @@ class WallKind(BaseObjectWrapper):
 
     @property
     def category(self):
-        wall_type = rpw.db.Collector(of_class=DB.WallType, is_type=True).first
-        return WallCategory(wall_type.Category)
+        cat = DB.Category.GetCategory(revit.doc, DB.BuiltInCategory.OST_Walls)
+        return WallCategory(cat)
+        # wall_type = rpw.db.Collector(of_class=DB.WallType, is_type=True).first
+        # return WallCategory(wall_type.Category)
 
 
 class WallCategory(Category):
@@ -147,5 +158,6 @@ class WallCategory(Category):
         wall_kinds = []
         for member in dir(DB.WallKind):
             if type(getattr(DB.WallKind, member)) is DB.WallKind:
-                wall_kinds.append(getattr(DB.WallKind, member))
+                wall_kind = WallKind(getattr(DB.WallKind, member))
+                wall_kinds.append(wall_kind)
         return wall_kinds

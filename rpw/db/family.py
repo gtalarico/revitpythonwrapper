@@ -46,7 +46,7 @@ class FamilyInstance(Element):
     @property
     def category(self):
         """ Wrapped ``DB.Category`` of the ``DB.Symbol`` """
-        return self.family.category
+        return Category(self._revit_object.Category)
 
     @property
     def siblings(self):
@@ -102,14 +102,14 @@ class FamilySymbol(Element):
             [``DB.FamilySymbol``]: List of symbol Types of the same Family (unwrapped)
         """
         symbols_ids = self._revit_object.GetSimilarTypes()
-        return [revit.doc.GetElement(i) for i in symbols_ids]
+        return [self.doc.GetElement(i) for i in symbols_ids]
         # Same as: return self.family.symbols
 
     @property
     def category(self):
         """Returns:
         :any:`Category`: Wrapped ``DB.Category`` of the symbol """
-        return self.family.category
+        return Category(self._revit_object.Category)
 
     def __repr__(self):
         return super(FamilySymbol, self).__repr__(data={'name': self.name})
@@ -160,7 +160,7 @@ class Family(Element):
             [``DB.FamilySymbol``]: List of Symbol Types in the family (unwrapped)
         """
         symbols_ids = self._revit_object.GetFamilySymbolIds()
-        return [revit.doc.GetElement(i) for i in symbols_ids]
+        return [self.doc.GetElement(i) for i in symbols_ids]
 
     @property
     def category(self):
