@@ -1,5 +1,10 @@
 # Release Notes
 
+### 1.3.1
+* Improved Category Lookup for instance and wall wrappers
+* Fixed Element() doc initialization
+* Added XYZ.rotate()
+
 ### 1.3.0
 * Removed Terminate button from Console
 * Curve: New Line Class

@@ -148,14 +148,28 @@ class Element(BaseObjectWrapper):
             raise RpwException('Wrapper cannot collect by class: {}'.format(cls.__name__))
 
     @staticmethod
-    def from_int(id_int, doc=revit.doc):
-        """ Instantiate Element from an Integer representing and Id """
-        element = doc.GetElement(DB.ElementId(id_int))
-        return Element(element)
+    def from_int(id_int, doc=None):
+        """
+        Instantiate Element from an Integer representing and Id
+
+        Args:
+            id (``int``): ElementId of Element to wrap
+            doc (``DB.Document``, optional): Document of Element [default: revit.doc]
+        """
+        element_id = DB.ElementId(id_int)
+        return Element.from_id(element_id, doc=doc)
 
     @staticmethod
-    def from_id(element_id, doc=revit.doc):
-        """ Instantiate Element from an ElementId """
+    def from_id(element_id, doc=None):
+        """
+        Instantiate Element from an ElementId
+
+        Args:
+            id (``ElementId``): ElementId of Element to wrap
+            doc (``DB.Document``, optional): Document of Element [default: revit.doc]
+
+        """
+        doc = revit.doc if doc is None else doc
         element = doc.GetElement(element_id)
         return Element(element)
 
