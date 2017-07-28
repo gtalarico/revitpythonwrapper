@@ -271,6 +271,10 @@ class Parameter(BaseObjectWrapper):
         param = self._revit_object.Set(value)
         return param
 
+    @property
+    def value_string(self):
+        return self._revit_object.AsValueString()
+
     def __eq__(self, other):
         """ Equal Parameter Value Comparison """
         return self.value == other
@@ -331,5 +335,8 @@ class Parameter(BaseObjectWrapper):
 
     def __repr__(self):
         """ Adds data to Base __repr__ to add selection count"""
-        return super(Parameter, self).__repr__(data={'name': self.name,
-                                                     'value': self.value})
+        return super(Parameter, self).__repr__(data={
+                                            'name': self.name,
+                                            'value': self.value,
+                                            'type': self.type.__name__
+                                            })
