@@ -155,6 +155,9 @@ class Element(BaseObjectWrapper):
         Args:
             id (``int``): ElementId of Element to wrap
             doc (``DB.Document``, optional): Document of Element [default: revit.doc]
+
+        Returns:
+            (``list``): List of ``rpw.db.Element`` instances
         """
         element_id = DB.ElementId(id_int)
         return Element.from_id(element_id, doc=doc)
@@ -168,10 +171,28 @@ class Element(BaseObjectWrapper):
             id (``ElementId``): ElementId of Element to wrap
             doc (``DB.Document``, optional): Document of Element [default: revit.doc]
 
+        Returns:
+            (``list``): List of ``rpw.db.Element`` instances
+
         """
         doc = revit.doc if doc is None else doc
         element = doc.GetElement(element_id)
         return Element(element)
+
+    @staticmethod
+    def from_list(elements, doc=None):
+        """
+        Instantiate Elements from a list of DB.Element instances
+
+        Args:
+            elements (``[DB.Element,]``): List of elements
+
+        Returns:
+            (``list``): List of ``rpw.db.Element`` instances
+
+        """
+        doc = revit.doc if doc is None else doc
+        return [Element(element) for element in elements]
 
     @staticmethod
     def Factory(element):
