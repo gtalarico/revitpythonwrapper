@@ -273,7 +273,8 @@ class Parameter(BaseObjectWrapper):
 
     @property
     def value_string(self):
-        return self._revit_object.AsValueString()
+        """ Ensure Human Readable String Value """
+        return self._revit_object.AsValueString() or self._revit_object.AsString()
 
     def __eq__(self, other):
         """ Equal Parameter Value Comparison """
