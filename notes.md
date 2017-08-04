@@ -4,6 +4,9 @@
 * Improved Category Lookup for instance and wall wrappers
 * Fixed Element() doc initialization
 * Added XYZ.rotate()
+* Added db.Element.from_list() factory
+* Added db.Parameter.value_string
+
 
 ### 1.3.0
 * Removed Terminate button from Console
