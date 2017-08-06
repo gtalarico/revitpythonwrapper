@@ -388,6 +388,11 @@ Uses Forms.OpenFileDialog
 </ul>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Becareful with <cite>Force Quit</cite>. Under certain circumstances, it can crash Revit.
+It crashes Dynamo very consistently.</p>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>The last stack frame is automatically injected is the context of the evaluation
@@ -1045,16 +1050,15 @@ and closes form.</p>
 <p>Console</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">rlcompleter</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span>
 
+<span class="kn">from</span> <span class="nn">rpw.utils.rlcompleter</span> <span class="k">import</span> <span class="n">Completer</span>
 <span class="kn">from</span> <span class="nn">rpw.ui.forms.resources</span> <span class="k">import</span> <span class="n">Window</span>
 <span class="kn">from</span> <span class="nn">rpw.ui.forms.resources</span> <span class="k">import</span> <span class="o">*</span>
-<span class="c1"># logger.verbose(True)</span>
+<span class="c1"># logger.verbose(False)</span>
 
 
 <span class="k">class</span> <span class="nc">Console</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
@@ -1159,15 +1163,15 @@ and closes form.</p>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">ShowDialog</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">force_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="s1">&#39;Force Quit&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_update_completer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Updates Completer. Used at start, and after each exec loop</span>
         <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stack_locals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stack_globals</span><span class="p">)</span>
         <span class="c1"># context.update(vars(__builtins__))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">completer</span> <span class="o">=</span> <span class="n">rlcompleter</span><span class="o">.</span><span class="n">Completer</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">completer</span> <span class="o">=</span> <span class="n">Completer</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
         <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tbox</span><span class="o">.</span><span class="n">GetLineText</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>

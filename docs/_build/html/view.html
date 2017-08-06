@@ -207,15 +207,15 @@
 <h3>View<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.View">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">View</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.View" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">View</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.View" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p>This is the main View View Wrapper - wraps <code class="docutils literal"><span class="pre">DB.View</span></code>.
 All other View classes inherit from this class in the same way All
-API View classes inheir from <cite>DB.View</cite></p>
-<p>This class is also used for some View types that do not have a more specific
-class, such as: Legend, ProjectBrowser, SystemBrowser.</p>
-<p>As with other wrapeprs, you can just use the Element() factory class to
-use the best wrapper available.</p>
+API View classes inheir from <code class="docutils literal"><span class="pre">DB.View</span></code>.</p>
+<p>This class is also used for view types that do not have more specific
+class, such as <code class="docutils literal"><span class="pre">DB.Legend</span></code>, <code class="docutils literal"><span class="pre">DB.ProjectBrowser</span></code>, <code class="docutils literal"><span class="pre">DB.SystemBrowser</span></code>.</p>
+<p>As with other wrappers, you can use the Element() factory class to
+use the best wrapper available:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_view_plan</span><span class="p">)</span>
 <span class="go">&lt;rpw:ViewPlan&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wrapped_view</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="n">some_legend</span><span class="p">)</span>
@@ -290,7 +290,7 @@ use the best wrapper available.</p>
 <h3>ViewPlan<a class="headerlink" href="#viewplan" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.ViewPlan">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewPlan</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewPlan" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewPlan</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewPlan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
 <p>ViewPlan Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.FloorPlan or  ViewType.CeilingPlan</p>
 </dd></dl>
@@ -300,7 +300,7 @@ use the best wrapper available.</p>
 <h3>ViewSheet<a class="headerlink" href="#viewsheet" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.ViewSheet">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSheet</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSheet" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSheet</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSheet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
 <p>ViewSheet Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.DrawingSheet</p>
 </dd></dl>
@@ -310,7 +310,7 @@ use the best wrapper available.</p>
 <h3>ViewSchedule<a class="headerlink" href="#viewschedule" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.ViewSchedule">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSchedule</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSchedule" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSchedule</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSchedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
 <p>ViewSchedule Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.Schedule</p>
 </dd></dl>
@@ -320,7 +320,7 @@ use the best wrapper available.</p>
 <h3>ViewSection<a class="headerlink" href="#viewsection" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.ViewSection">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSection</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSection" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewSection</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewSection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
 <p>DB.ViewSection Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.DrawingSheet</p>
 </dd></dl>
@@ -330,7 +330,7 @@ use the best wrapper available.</p>
 <h3>View3D<a class="headerlink" href="#view3d" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.View3D">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">View3D</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.View3D" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">View3D</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.View3D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.view.View</span></code></p>
 <p>DB.View3D Wrapper. <code class="docutils literal"><span class="pre">ViewType</span></code> is ViewType.ThreeD</p>
 </dd></dl>
@@ -340,7 +340,7 @@ use the best wrapper available.</p>
 <h3>ViewFamilyType<a class="headerlink" href="#viewfamilytype" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="rpw.db.ViewFamilyType">
-<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewFamilyType</code><span class="sig-paren">(</span><em>element</em>, <em>doc=Document</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewFamilyType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">rpw.db.</code><code class="descname">ViewFamilyType</code><span class="sig-paren">(</span><em>element</em>, <em>doc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ViewFamilyType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">rpw.db.element.Element</span></code></p>
 <p>View Family Type Wrapper</p>
 <dl class="attribute">
@@ -663,13 +663,13 @@ apply override. Can be list.</li>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the main View View Wrapper - wraps ``DB.View``.</span>
 <span class="sd">    All other View classes inherit from this class in the same way All</span>
-<span class="sd">    API View classes inheir from `DB.View`</span>
+<span class="sd">    API View classes inheir from ``DB.View``.</span>
 
-<span class="sd">    This class is also used for some View types that do not have a more specific</span>
-<span class="sd">    class, such as: Legend, ProjectBrowser, SystemBrowser.</span>
+<span class="sd">    This class is also used for view types that do not have more specific</span>
+<span class="sd">    class, such as ``DB.Legend``, ``DB.ProjectBrowser``, ``DB.SystemBrowser``.</span>
 
-<span class="sd">    As with other wrapeprs, you can just use the Element() factory class to</span>
-<span class="sd">    use the best wrapper available.</span>
+<span class="sd">    As with other wrappers, you can use the Element() factory class to</span>
+<span class="sd">    use the best wrapper available:</span>
 
 <span class="sd">    &gt;&gt;&gt; wrapped_view = rpw.db.Element(some_view_plan)</span>
 <span class="sd">    &lt;rpw:ViewPlan&gt;</span>

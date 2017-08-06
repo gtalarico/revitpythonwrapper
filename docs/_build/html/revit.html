@@ -419,12 +419,12 @@ libraries right away, and skip the typical:</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns: uiapp.ActiveUIDocument.Document &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="o">.</span><span class="n">Document</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">ActiveUIDocument</span><span class="p">,</span> <span class="s1">&#39;Document&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">uidoc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns: uiapp.ActiveUIDocument &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="o">.</span><span class="n">ActiveUIDocument</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uiapp</span><span class="p">,</span> <span class="s1">&#39;ActiveUIDocument&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">active_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -443,7 +443,7 @@ libraries right away, and skip the typical:</p>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">docs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns: uidoc.Application.Documents &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">Application</span><span class="o">.</span><span class="n">Documents</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">doc</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">Documents</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

@@ -326,7 +326,7 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
 <span class="kn">from</span> <span class="nn">rpw.exceptions</span> <span class="k">import</span> <span class="n">RpwCoerceError</span>
-
+<span class="kn">from</span> <span class="nn">rpw.db.transform</span> <span class="k">import</span> <span class="n">Transform</span>
 
 <span class="k">class</span> <span class="nc">XYZ</span><span class="p">(</span><span class="n">BaseObjectWrapper</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -445,6 +445,14 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">radians</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">rotated_xyz</span> <span class="o">=</span> <span class="n">Transform</span><span class="o">.</span><span class="n">rotate_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(),</span>
+                                              <span class="n">rotation</span><span class="p">,</span>
+                                              <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                              <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+                                              <span class="n">radians</span><span class="o">=</span><span class="n">radians</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rotated_xyz</span>
 
     <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Multiplication Method &quot;&quot;&quot;</span>

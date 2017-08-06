@@ -516,7 +516,7 @@ tangents, quadrants, points]</li>
 <span class="kn">from</span> <span class="nn">rpw.db.xyz</span> <span class="k">import</span> <span class="n">XYZ</span>
 <span class="kn">from</span> <span class="nn">rpw.db.element</span> <span class="k">import</span> <span class="n">Element</span>
 
-<span class="k">if</span> <span class="n">revit</span><span class="o">.</span><span class="n">host</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">revit</span><span class="o">.</span><span class="n">host</span> <span class="ow">and</span> <span class="n">revit</span><span class="o">.</span><span class="n">doc</span><span class="p">:</span>
     <span class="n">ObjectType</span> <span class="o">=</span> <span class="n">UI</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">ObjectType</span>
     <span class="n">ObjectSnapTypes</span> <span class="o">=</span> <span class="n">UI</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">ObjectSnapTypes</span>
     <span class="n">PickObjects</span> <span class="o">=</span> <span class="n">revit</span><span class="o">.</span><span class="n">uidoc</span><span class="o">.</span><span class="n">Selection</span><span class="o">.</span><span class="n">PickObjects</span>
