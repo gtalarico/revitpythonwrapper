@@ -80,20 +80,19 @@ class Element(BaseObjectWrapper):
             # or cls is not Element:
             raise RpwTypeError('DB.Element child', element.__class__.__name__)
 
-        # rpw.ui.forms.Console()
+        # TODO: OPtimize so if its right type, no need to iterate: rpw.db.Wall(wall)
         for wrapper_class in defined_wrapper_classes:
             class_name = wrapper_class.__name__
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
                 # Found Mathing Class, Use Wrapper
                 # print('Found Mathing Class, Use Wrapper: {}'.format(class_name))
                 return super(Element, cls).__new__(wrapper_class, element, **kwargs)
-                # new_obj._revit_object = element
-                # return new_object
         else:
             # Could Not find a Matching Class, Use Element if related
-            # print('Did not find a Matching Class, will use Element if related')
             if DB.Element in inspect.getmro(element.__class__):
                 return super(Element, cls).__new__(cls, element, **kwargs)
+
+        # No early return. Should not reach this point
         element_class_name = element.__class__.__name__
         raise RpwException('Factory does not support type: {}'.format(element_class_name))
 
@@ -122,6 +121,7 @@ class Element(BaseObjectWrapper):
             # WallKind Inherits from Family/Element, but is not Element,
             # so ParameterSet fails. Parameters are only added if Element
             # inherits from element
+            # NOTE: This is no longer the case. Verify if it can be removed
             self.parameters = ParameterSet(element)
 
     @classmethod

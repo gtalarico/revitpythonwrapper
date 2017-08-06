@@ -59,6 +59,7 @@ class Wall(FamilyInstance):
         """ Wrapped ``DB.Category`` of the ``DB.Wall`` """
         return WallCategory(self._revit_object.Category)
 
+
 class WallType(FamilySymbol, ByNameCollectMixin):
     """
     Inherits from :any:`FamilySymbol` and overrides:
