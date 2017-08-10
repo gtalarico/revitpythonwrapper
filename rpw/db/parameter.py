@@ -7,7 +7,7 @@ Parameter Wrapper
 5.0
 
 """  #
-
+import json
 from rpw import revit, DB
 from rpw.db.builtins import BipEnum
 from rpw.base import BaseObjectWrapper
@@ -48,6 +48,12 @@ class ParameterSet(BaseObjectWrapper):
         super(ParameterSet, self).__init__(element)
         self.builtins = _BuiltInParameterSet(self._revit_object)
 
+    def get_value(self, param_name, default_value=None):
+        try:
+            return self.__getitem__(param_name).value
+        except RpwParameterNotFound:
+            return default_value
+
     def __getitem__(self, param_name):
         """ Get's parameter by name.
 
@@ -79,6 +85,14 @@ class ParameterSet(BaseObjectWrapper):
         """ Returns: Flat list of wrapped parameter elements
         """
         return [Parameter(parameter) for parameter in self._revit_object.Parameters]
+
+    @property
+    def jsonable(self):
+        return [p.jsonable for p in self.all]
+
+    def to_json(self):
+        return json.dumps(self.jsonable)
+
 
     def __len__(self):
         return len(self.all)
@@ -274,7 +288,25 @@ class Parameter(BaseObjectWrapper):
     @property
     def value_string(self):
         """ Ensure Human Readable String Value """
-        return self._revit_object.AsValueString() or self._revit_object.AsString()
+        return self._revit_object.AsValueString() or \
+               self._revit_object.AsString()
+
+    @property
+    def jsonable(self):
+        value = self.value if not isinstance(self.value, DB.ElementId) \
+                           else self.value.IntegerValue
+        return {
+                'name': self.name,
+                'type':self.type.__name__,
+                'value': value,
+                'value_string': self.value_string
+                }
+
+    def to_json(self):
+        return json.dumps(self.jsonable)
+
+    def __bool__(self):
+        return bool(self.value)
 
     def __eq__(self, other):
         """ Equal Parameter Value Comparison """
