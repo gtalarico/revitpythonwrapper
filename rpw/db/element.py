@@ -124,6 +124,31 @@ class Element(BaseObjectWrapper):
             # NOTE: This is no longer the case. Verify if it can be removed
             self.parameters = ParameterSet(element)
 
+    @property
+    def type(self):
+        """
+        Get's Element Type using the default GetTypeId() Method.
+        For some Elements, this is the same as element.Symbol
+
+        Args:
+            doc (``DB.Document``, optional): Document of Element [default: revit.doc]
+
+        Returns:
+            (``Element``): Wrapped ``rpw.db.Element`` element type
+
+        """
+        element_type_id = self._revit_object.GetTypeId()
+        element_type = self._revit_object.Document.GetElement(element_type_id)
+        return Element(element_type)
+
+    @property
+    def in_assembly(self):
+        """ Returns True if element is inside an AssemblyInstance """
+        if self._revit_object.AssemblyInstanceId.IntegerValue == -1:
+            return False
+        else:
+            return True
+
     @classmethod
     def collect(cls, **kwargs):
         """ Collect all elements of the wrapper, using the default collector.
@@ -131,11 +156,11 @@ class Element(BaseObjectWrapper):
         Collector will use default params (ie: Room ``{'of_category': 'OST_rooms'}``).
         These can be overriden by passing keyword args to the collectors call.
 
-        >>> rooms = rpw.Rooms.collect()
+        >>> rooms = rpw.db.Rooms.collect()
         [<rpw:Room % DB.Room | Room:1>]
-        >>> rooms = rpw.Area.collect()
+        >>> rooms = rpw.db.Area.collect()
         [<rpw:Area % DB.Area | Rentable:30.2>]
-        >>> rooms = rpw.WallInstance.collect(level="Level 1")
+        >>> rooms = rpw.db.WallInstance.collect(level="Level 1")
         [<rpw:WallInstance % DB.Wall symbol:Basic Wall>]
 
         """
@@ -157,8 +182,9 @@ class Element(BaseObjectWrapper):
             doc (``DB.Document``, optional): Document of Element [default: revit.doc]
 
         Returns:
-            (``list``): List of ``rpw.db.Element`` instances
+            (``Element``): Wrapped ``rpw.db.Element`` instance
         """
+        doc = revit.doc if doc is None else doc
         element_id = DB.ElementId(id_int)
         return Element.from_id(element_id, doc=doc)
 
@@ -172,7 +198,7 @@ class Element(BaseObjectWrapper):
             doc (``DB.Document``, optional): Document of Element [default: revit.doc]
 
         Returns:
-            (``list``): List of ``rpw.db.Element`` instances
+            (``Element``): Wrapped ``rpw.db.Element`` instance
 
         """
         doc = revit.doc if doc is None else doc
