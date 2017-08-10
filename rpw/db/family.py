@@ -1,6 +1,23 @@
 """
 Family Model Wrappers
 
+Relevant remarks from the API Documentation:
+
+Note:
+    Custom families within the Revit API represented by three objects -
+    Family, FamilySymbol and FamilyInstance .
+    Each object plays a significant part in the structure of families.
+    The Family element represents the entire family that consists of a
+    collection of types, such as an 'I Beam'.
+    You can think of that object as representing the entire family file.
+    The Family object contains a number of FamilySymbol elements.
+    The FamilySymbol object represents a specific set of family settings
+    within that Family and represents what is known in the Revit user
+    interface as a Type, such as 'W14x32'.
+    The FamilyInstance object represents an actual instance of that type
+    placed the Autodesk Revit project. For example the FamilyInstance
+    would be a single instance of a W14x32 column within the project.
+
 """  #
 
 import rpw
