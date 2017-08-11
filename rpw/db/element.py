@@ -128,7 +128,7 @@ class Element(BaseObjectWrapper):
     def type(self):
         """
         Get's Element Type using the default GetTypeId() Method.
-        For some Elements, this is the same as element.Symbol
+        For some Elements, this is the same as ``element.Symbol`` or ``wall.WallType``
 
         Args:
             doc (``DB.Document``, optional): Document of Element [default: revit.doc]
