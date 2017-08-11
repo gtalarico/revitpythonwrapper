@@ -30,6 +30,7 @@ class AssemblyInstance(Element):
     def __repr__(self):
         return Element.__repr__(self, data={'name': self.Name})
 
+
 class AssemblyType(Element):
     """
     `DB.AssemblyType` Wrapper

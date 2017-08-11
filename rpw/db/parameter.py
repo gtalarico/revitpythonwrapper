@@ -86,13 +86,9 @@ class ParameterSet(BaseObjectWrapper):
         """
         return [Parameter(parameter) for parameter in self._revit_object.Parameters]
 
-    @property
-    def jsonable(self):
-        return [p.jsonable for p in self.all]
-
     def to_json(self):
-        return json.dumps(self.jsonable)
-
+        """ WIP: Returns a Serializable Dictionary """
+        return [p.to_json() for p in self.all]
 
     def __len__(self):
         return len(self.all)
@@ -291,19 +287,16 @@ class Parameter(BaseObjectWrapper):
         return self._revit_object.AsValueString() or \
                self._revit_object.AsString()
 
-    @property
-    def jsonable(self):
+    def to_json(self):
+        """ WIP: Returns a Serializable Dictionary """
         value = self.value if not isinstance(self.value, DB.ElementId) \
                            else self.value.IntegerValue
         return {
                 'name': self.name,
-                'type':self.type.__name__,
+                'type': self.type.__name__,
                 'value': value,
                 'value_string': self.value_string
                 }
-
-    def to_json(self):
-        return json.dumps(self.jsonable)
 
     def __bool__(self):
         return bool(self.value)

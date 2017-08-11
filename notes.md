@@ -1,10 +1,10 @@
 # Release Notes
 
-### 1.4.1
+### 1.4.0
 * Added Element.get_type
 * Added in_assembly() to Element
 * Added ParameterSet.get() for fail safe dictionary-style access
-* Started ParameterSet and Parameter to_json() and to_jsonable()
+* Started ParameterSet and Parameter: to_jsonable()
 * Fixed RpwParameterNotFound exception message
 * Added API Notes on Family/Symbol/Instance
 * Added bool() evaluation to Parameter
