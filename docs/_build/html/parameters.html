@@ -268,6 +268,12 @@ This is a shorcut to using <cite>parameters[‘Name’].value = value</cite></p>
 <dd><p><em>Returns</em> – Flat list of wrapped parameter elements</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="rpw.db.ParameterSet.to_json">
+<code class="descname">to_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>WIP: Returns a Serializable Dictionary</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -373,52 +379,51 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="rpw.db.Parameter.to_json">
+<code class="descname">to_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Parameter.to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>WIP: Returns a Serializable Dictionary</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="rpw.db.Parameter.type">
 <code class="descname">type</code><a class="headerlink" href="#rpw.db.Parameter.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Python Type of the Parameter</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&lt;type: float&gt;</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Python Built in type</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.db.Parameter.type" title="rpw.db.Parameter.type">type</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(<code class="docutils literal"><span class="pre">type</span></code>)</td>
 </tr>
 </tbody>
 </table>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span>
-<span class="go">&lt;type: float&gt;</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="rpw.db.Parameter.value">
 <code class="descname">value</code><a class="headerlink" href="#rpw.db.Parameter.value" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>Gets Parameter Value</em> –</p>
+<dd><p><em>Gets Parameter Value</em> – &gt;&gt;&gt; desk.parameters[‘Height’].value
+&gt;&gt;&gt; 3.0</p>
+<p>Sets Parameter Value (must be in Transaction Context):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">parameter value in python type</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#rpw.db.Parameter.type" title="rpw.db.Parameter.type">type</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(<code class="docutils literal"><span class="pre">type</span></code>)</td>
 </tr>
 </tbody>
 </table>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mf">3.0</span>
-</pre></div>
-</div>
-<p>Sets Parameter Value (must be in Transaction Context):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">desk</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;Height&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">3</span>
-</pre></div>
-</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p><cite>Parameter</cite> value setter automatically handles a few type castings:</p>
@@ -454,7 +459,7 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
 <span class="sd">5.0</span>
 
 <span class="sd">&quot;&quot;&quot;</span>  <span class="c1">#</span>
-
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.db.builtins</span> <span class="k">import</span> <span class="n">BipEnum</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
@@ -495,6 +500,12 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
         <span class="nb">super</span><span class="p">(</span><span class="n">ParameterSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">builtins</span> <span class="o">=</span> <span class="n">_BuiltInParameterSet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="n">RpwParameterNotFound</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default_value</span>
+
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Get&#39;s parameter by name.</span>
 
@@ -526,6 +537,10 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
         <span class="sd">&quot;&quot;&quot; Returns: Flat list of wrapped parameter elements</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Parameters</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; WIP: Returns a Serializable Dictionary &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
@@ -632,12 +647,12 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
     <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Returns the Python Type of the Parameter</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            type: Python Built in type</span>
+<span class="sd">        &gt;&gt;&gt; element.parameters[&#39;Height&#39;].type</span>
+<span class="sd">        &lt;type: float&gt;</span>
 
-<span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; element.parameters[&#39;Height&#39;].type</span>
-<span class="sd">            &lt;type: float&gt;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            (``type``): Python Built in type</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">storage_type_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">StorageType</span><span class="o">.</span><span class="n">ToString</span><span class="p">()</span>
         <span class="n">python_type</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">STORAGE_TYPES</span><span class="p">[</span><span class="n">storage_type_name</span><span class="p">]</span>
@@ -658,15 +673,16 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets Parameter Value:</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            type: parameter value in python type</span>
-
 <span class="sd">        &gt;&gt;&gt; desk.parameters[&#39;Height&#39;].value</span>
 <span class="sd">        &gt;&gt;&gt; 3.0</span>
 
 <span class="sd">        Sets Parameter Value (must be in Transaction Context):</span>
 
 <span class="sd">        &gt;&gt;&gt; desk.parameters[&#39;Height&#39;].value = 3</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (``type``): parameter value in python type</span>
+
 
 <span class="sd">        Note:</span>
 
@@ -721,7 +737,22 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">value_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Ensure Human Readable String Value &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsValueString</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsString</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsValueString</span><span class="p">()</span> <span class="ow">or</span> \
+               <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsString</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; WIP: Returns a Serializable Dictionary &quot;&quot;&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> \
+                           <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">IntegerValue</span>
+        <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+                <span class="s1">&#39;value_string&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_string</span>
+                <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Equal Parameter Value Comparison &quot;&quot;&quot;</span>

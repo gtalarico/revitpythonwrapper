@@ -284,11 +284,11 @@ match is not found <a class="reference internal" href="#rpw.db.Element" title="r
 <dd><p>Collect all elements of the wrapper, using the default collector.</p>
 <p>Collector will use default params (ie: Room <code class="docutils literal"><span class="pre">{'of_category':</span> <span class="pre">'OST_rooms'}</span></code>).
 These can be overriden by passing keyword args to the collectors call.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Rooms</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Rooms</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="go">[&lt;rpw:Room % DB.Room | Room:1&gt;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">Area</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">Area</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
 <span class="go">[&lt;rpw:Area % DB.Area | Rentable:30.2&gt;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;Level 1&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rooms</span> <span class="o">=</span> <span class="n">rpw</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">WallInstance</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;Level 1&quot;</span><span class="p">)</span>
 <span class="go">[&lt;rpw:WallInstance % DB.Wall symbol:Basic Wall&gt;]</span>
 </pre></div>
 </div>
@@ -314,10 +314,10 @@ These can be overriden by passing keyword args to the collectors call.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> instances</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Wrapped <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> instance</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<code class="docutils literal"><span class="pre">list</span></code>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<code class="docutils literal"><span class="pre">Element</span></code>)</p>
 </td>
 </tr>
 </tbody>
@@ -338,10 +338,10 @@ These can be overriden by passing keyword args to the collectors call.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> instances</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Wrapped <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> instance</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<code class="docutils literal"><span class="pre">list</span></code>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<code class="docutils literal"><span class="pre">Element</span></code>)</p>
 </td>
 </tr>
 </tbody>
@@ -361,6 +361,31 @@ These can be overriden by passing keyword args to the collectors call.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> instances</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<code class="docutils literal"><span class="pre">list</span></code>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.Element.in_assembly">
+<code class="descname">in_assembly</code><a class="headerlink" href="#rpw.db.Element.in_assembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if element is inside an AssemblyInstance</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="rpw.db.Element.type">
+<code class="descname">type</code><a class="headerlink" href="#rpw.db.Element.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get’s Element Type using the default GetTypeId() Method.
+For some Elements, this is the same as <code class="docutils literal"><span class="pre">element.Symbol</span></code> or <code class="docutils literal"><span class="pre">wall.WallType</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>doc</strong> (<code class="docutils literal"><span class="pre">DB.Document</span></code>, optional) – Document of Element [default: revit.doc]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Wrapped <code class="docutils literal"><span class="pre">rpw.db.Element</span></code> element type</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<code class="docutils literal"><span class="pre">Element</span></code>)</td>
 </tr>
 </tbody>
 </table>
@@ -935,6 +960,31 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
             <span class="c1"># NOTE: This is no longer the case. Verify if it can be removed</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get&#39;s Element Type using the default GetTypeId() Method.</span>
+<span class="sd">        For some Elements, this is the same as ``element.Symbol`` or ``wall.WallType``</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            doc (``DB.Document``, optional): Document of Element [default: revit.doc]</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            (``Element``): Wrapped ``rpw.db.Element`` element type</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">element_type_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">GetTypeId</span><span class="p">()</span>
+        <span class="n">element_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Document</span><span class="o">.</span><span class="n">GetElement</span><span class="p">(</span><span class="n">element_type_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="n">element_type</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">in_assembly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns True if element is inside an AssemblyInstance &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AssemblyInstanceId</span><span class="o">.</span><span class="n">IntegerValue</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Collect all elements of the wrapper, using the default collector.</span>
@@ -942,11 +992,11 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">        Collector will use default params (ie: Room ``{&#39;of_category&#39;: &#39;OST_rooms&#39;}``).</span>
 <span class="sd">        These can be overriden by passing keyword args to the collectors call.</span>
 
-<span class="sd">        &gt;&gt;&gt; rooms = rpw.Rooms.collect()</span>
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.db.Rooms.collect()</span>
 <span class="sd">        [&lt;rpw:Room % DB.Room | Room:1&gt;]</span>
-<span class="sd">        &gt;&gt;&gt; rooms = rpw.Area.collect()</span>
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.db.Area.collect()</span>
 <span class="sd">        [&lt;rpw:Area % DB.Area | Rentable:30.2&gt;]</span>
-<span class="sd">        &gt;&gt;&gt; rooms = rpw.WallInstance.collect(level=&quot;Level 1&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; rooms = rpw.db.WallInstance.collect(level=&quot;Level 1&quot;)</span>
 <span class="sd">        [&lt;rpw:WallInstance % DB.Wall symbol:Basic Wall&gt;]</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -968,8 +1018,9 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">            doc (``DB.Document``, optional): Document of Element [default: revit.doc]</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            (``list``): List of ``rpw.db.Element`` instances</span>
+<span class="sd">            (``Element``): Wrapped ``rpw.db.Element`` instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">revit</span><span class="o">.</span><span class="n">doc</span> <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">doc</span>
         <span class="n">element_id</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">(</span><span class="n">id_int</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Element</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="n">doc</span><span class="p">)</span>
 
@@ -983,7 +1034,7 @@ Inherits from <a class="reference internal" href="#rpw.db.Element" title="rpw.db
 <span class="sd">            doc (``DB.Document``, optional): Document of Element [default: revit.doc]</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            (``list``): List of ``rpw.db.Element`` instances</span>
+<span class="sd">            (``Element``): Wrapped ``rpw.db.Element`` instance</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">doc</span> <span class="o">=</span> <span class="n">revit</span><span class="o">.</span><span class="n">doc</span> <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">doc</span>

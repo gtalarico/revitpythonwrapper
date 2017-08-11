@@ -195,12 +195,12 @@ class Parameter(BaseObjectWrapper):
     def type(self):
         """ Returns the Python Type of the Parameter
 
-        Returns:
-            type: Python Built in type
+        >>> element.parameters['Height'].type
+        <type: float>
 
-        Usage:
-            >>> element.parameters['Height'].type
-            <type: float>
+        Returns:
+            (``type``): Python Built in type
+
         """
         storage_type_name = self._revit_object.StorageType.ToString()
         python_type = Parameter.STORAGE_TYPES[storage_type_name]
@@ -221,15 +221,16 @@ class Parameter(BaseObjectWrapper):
         """
         Gets Parameter Value:
 
-        Returns:
-            type: parameter value in python type
-
         >>> desk.parameters['Height'].value
         >>> 3.0
 
         Sets Parameter Value (must be in Transaction Context):
 
         >>> desk.parameters['Height'].value = 3
+
+        Returns:
+            (``type``): parameter value in python type
+
 
         Note:
 
