@@ -31,6 +31,8 @@ __maintainer__ = ['Gui Talarico', 'Ehsan Iran-Nejad']
 __license__ = 'MIT'
 __contact__ = 'github.com/gtalarico/revitpythonwrapper'
 
+import rpw.__main__
+
 from rpw.utils.logger import logger
 from rpw.__revit import revit, DB, UI
 import rpw.db
