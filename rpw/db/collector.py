@@ -494,7 +494,7 @@ class ParameterFilter(BaseObjectWrapper):
     Used to build a parameter filter to be used with the Collector.
 
     Usage:
-        >>> param_id = DB.ElemendId(DB.BuiltInParameter.TYPE_NAME)
+        >>> param_id = DB.ElementId(DB.BuiltInParameter.TYPE_NAME)
         >>> parameter_filter = ParameterFilter(param_id, equals='Wall 1')
         >>> collector = Collector(parameter_filter=parameter_filter)
 
@@ -534,7 +534,7 @@ class ParameterFilter(BaseObjectWrapper):
         >>> param_rule = ParameterFilter(param_id, not_equals=3, reverse=True)
 
         Args:
-            param_id(DB.ElementID): ElemendId of parameter
+            param_id(DB.ElementID): ElementId of parameter
             **conditions: Filter Rule Conditions and options.
 
             conditions:
