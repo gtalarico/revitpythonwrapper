@@ -1,10 +1,14 @@
 # Release Notes
 
+### 1.4.1
+* Addded Rhino3dmIO binary and examples
+* Renamed parameters `to_json` to `to_dict`
+
 ### 1.4.0
-* Added Element.get_type
+* Added Element.type property
 * Added in_assembly() to Element
-* Added ParameterSet.get() for fail safe dictionary-style access
-* Started ParameterSet and Parameter: to_jsonable()
+* Added ParameterSet.get_value() for fail safe dictionary-style access
+* Started ParameterSet and Parameter: to_json()
 * Fixed RpwParameterNotFound exception message
 * Added API Notes on Family/Symbol/Instance
 * Added bool() evaluation to Parameter
