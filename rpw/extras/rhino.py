@@ -1,5 +1,5 @@
-""" 
-Rhino Importer 
+"""
+Rhino Importer
 
 Usage:
     >>> from rpw.extras.rhino import Rhino
