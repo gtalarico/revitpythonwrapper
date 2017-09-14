@@ -115,6 +115,7 @@
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dynamo.html">Dynamo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="revitpythonshell.html">RevitPythonShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extras.html">Extras</a></li>
 <li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a></li>
@@ -269,8 +270,8 @@ This is a shorcut to using <cite>parameters[‘Name’].value = value</cite></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.db.ParameterSet.to_json">
-<code class="descname">to_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet.to_json" title="Permalink to this definition">¶</a></dt>
+<dt id="rpw.db.ParameterSet.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.ParameterSet.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>WIP: Returns a Serializable Dictionary</p>
 </dd></dl>
 
@@ -380,9 +381,17 @@ Same as DB.Parameter.Definition.BuiltIn</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="rpw.db.Parameter.to_json">
-<code class="descname">to_json</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Parameter.to_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>WIP: Returns a Serializable Dictionary</p>
+<dt id="rpw.db.Parameter.to_dict">
+<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#rpw.db.Parameter.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Parameter as a dictionary. Included properties are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>name: Parameter.Definition.Name</li>
+<li>type: Parameter.StorageType.Name</li>
+<li>value: Uses best parameter method based on StorageType</li>
+<li>value_string: Parameter.AsValueString</li>
+</ul>
+</div></blockquote>
 </dd></dl>
 
 <dl class="attribute">
@@ -459,7 +468,6 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
 <span class="sd">5.0</span>
 
 <span class="sd">&quot;&quot;&quot;</span>  <span class="c1">#</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">rpw</span> <span class="k">import</span> <span class="n">revit</span><span class="p">,</span> <span class="n">DB</span>
 <span class="kn">from</span> <span class="nn">rpw.db.builtins</span> <span class="k">import</span> <span class="n">BipEnum</span>
 <span class="kn">from</span> <span class="nn">rpw.base</span> <span class="k">import</span> <span class="n">BaseObjectWrapper</span>
@@ -538,9 +546,9 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">Parameters</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; WIP: Returns a Serializable Dictionary &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">)</span>
@@ -740,8 +748,15 @@ converted to <code class="docutils literal"><span class="pre">ElemendId.InvalidE
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsValueString</span><span class="p">()</span> <span class="ow">or</span> \
                <span class="bp">self</span><span class="o">.</span><span class="n">_revit_object</span><span class="o">.</span><span class="n">AsString</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; WIP: Returns a Serializable Dictionary &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns Parameter as a dictionary. Included properties are:</span>
+
+<span class="sd">            * name: Parameter.Definition.Name</span>
+<span class="sd">            * type: Parameter.StorageType.Name</span>
+<span class="sd">            * value: Uses best parameter method based on StorageType</span>
+<span class="sd">            * value_string: Parameter.AsValueString</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">DB</span><span class="o">.</span><span class="n">ElementId</span><span class="p">)</span> \
                            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">IntegerValue</span>
         <span class="k">return</span> <span class="p">{</span>
