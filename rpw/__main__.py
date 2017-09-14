@@ -24,3 +24,10 @@ OTHER DEALINGS IN THE SOFTWARE.
 Copyright 2017 Gui Talarico
 
 """
+
+import sys
+import os.path as op
+
+bin_directory = op.join(op.dirname(__file__), 'bin')
+
+sys.path.append(bin_directory)
