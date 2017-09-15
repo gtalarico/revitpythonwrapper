@@ -126,17 +126,18 @@ class Pick(BaseObject):
     [<rpw:reference>, ...]
     """
 
-    def _pick(self, obj_type, msg='Pick:', multiple=False):
+    def _pick(self, obj_type, msg='Pick:', multiple=False, linked=False):
         """ Note: Moved Reference Logic to Referenc Wrapper."""
+
         if multiple:
             references = PickObjects(obj_type, msg)
         else:
             reference = PickObject(obj_type, msg)
 
         if multiple:
-            return [Reference(ref) for ref in references]
+            return [Reference(ref, linked=linked) for ref in references]
         else:
-            return Reference(reference)
+            return Reference(reference, linked=linked)
 
     def pick_box(self, msg, style='directional'):
         """
@@ -229,7 +230,7 @@ class Pick(BaseObject):
         Returns:
             reference (``Reference``): :any:`Reference` Class
         """
-        return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple)
+        return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple, linked=True)
 
     def pick_pt(self, msg='Pick Point', snap=None):
         """

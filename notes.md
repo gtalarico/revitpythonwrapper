@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.4.2
+* Picker and References now work with Linked Elements
+
 ### 1.4.1
 * Addded Rhino3dmIO binary and examples
 * Renamed parameters `to_json` to `to_dict`
