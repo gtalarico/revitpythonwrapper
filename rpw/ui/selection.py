@@ -119,14 +119,14 @@ class Pick(BaseObject):
 
     Handles all pick* methods in the Seletion Class
 
-    >>> picker = rpw.ui.Pick()
     >>> pick.pick_element()
     <rpw:reference>
     >>> pick.pick_element(multiple=True)
     [<rpw:reference>, ...]
     """
 
-    def _pick(self, obj_type, msg='Pick:', multiple=False, linked=False):
+    @classmethod
+    def _pick(cls, obj_type, msg='Pick:', multiple=False, linked=False):
         """ Note: Moved Reference Logic to Referenc Wrapper."""
 
         if multiple:
@@ -139,7 +139,8 @@ class Pick(BaseObject):
         else:
             return Reference(reference, linked=linked)
 
-    def pick_box(self, msg, style='directional'):
+    @classmethod
+    def pick_box(cls, msg, style='directional'):
         """
         PickBox
 
@@ -155,7 +156,8 @@ class Pick(BaseObject):
         pick_box = PickBox(PICK_STYLE[style])
         return (XYZ(pick_box.Min), XYZ(pick_box.Max))
 
-    def pick_by_rectangle(self, msg):
+    @classmethod
+    def pick_by_rectangle(cls, msg):
         """
         PickBox
 
@@ -167,7 +169,8 @@ class Pick(BaseObject):
         refs = PickElementsByRectangle(msg)
         return [Element(ref) for ref in refs]
 
-    def pick_element(self, msg='Pick Element(s)', multiple=False):
+    @classmethod
+    def pick_element(cls, msg='Pick Element(s)', multiple=False):
         """
         Pick Element
 
@@ -178,9 +181,10 @@ class Pick(BaseObject):
         Returns:
             reference (``Reference``): :any:`Reference` Class
         """
-        return self._pick(ObjectType.Element, msg=msg, multiple=multiple)
+        return cls._pick(ObjectType.Element, msg=msg, multiple=multiple)
 
-    def pick_pt_on_element(self, msg='Pick Pt On Element(s)', multiple=False):
+    @classmethod
+    def pick_pt_on_element(cls, msg='Pick Pt On Element(s)', multiple=False):
         """
         Pick Point On Element
 
@@ -191,9 +195,10 @@ class Pick(BaseObject):
         Returns:
             reference (``Reference``): :any:`Reference` Class
         """
-        return self._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple)
+        return cls._pick(ObjectType.PointOnElement, msg=msg, multiple=multiple)
 
-    def pick_edge(self, msg='Pick Edge(s)', multiple=False):
+    @classmethod
+    def pick_edge(cls, msg='Pick Edge(s)', multiple=False):
         """
         Pick Edge
 
@@ -204,9 +209,10 @@ class Pick(BaseObject):
         Returns:
             reference (``Reference``): :any:`Reference` Class
         """
-        return self._pick(ObjectType.Edge, msg=msg, multiple=multiple)
+        return cls._pick(ObjectType.Edge, msg=msg, multiple=multiple)
 
-    def pick_face(self, msg='Pick Face(s)', multiple=False):
+    @classmethod
+    def pick_face(cls, msg='Pick Face(s)', multiple=False):
         """
         Pick Face
 
@@ -217,9 +223,10 @@ class Pick(BaseObject):
         Returns:
             reference (``Reference``): :any:`Reference` Class
         """
-        return self._pick(ObjectType.Face, msg=msg, multiple=multiple)
+        return cls._pick(ObjectType.Face, msg=msg, multiple=multiple)
 
-    def pick_linked_element(self, msg='Pick Linked Element', multiple=False):
+    @classmethod
+    def pick_linked_element(cls, msg='Pick Linked Element', multiple=False):
         """
         Pick Linked Element
 
@@ -230,9 +237,10 @@ class Pick(BaseObject):
         Returns:
             reference (``Reference``): :any:`Reference` Class
         """
-        return self._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple, linked=True)
+        return cls._pick(ObjectType.LinkedElement, msg=msg, multiple=multiple, linked=True)
 
-    def pick_pt(self, msg='Pick Point', snap=None):
+    @classmethod
+    def pick_pt(cls, msg='Pick Point', snap=None):
         """
         Pick Point location
 

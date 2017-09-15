@@ -1,6 +1,7 @@
 # Release Notes
 
 ### 1.4.2
+* Converted all Pick class methods to Class Methods
 * Picker and References now work with Linked Elements
 
 ### 1.4.1

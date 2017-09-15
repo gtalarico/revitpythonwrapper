@@ -9,6 +9,11 @@ Others Merge:
 ☐ AutoCollector
 
 Core:
+☐ CRITICAL: Write down Rules for how element vs wrapped elements are returned
+> Sometimes are wrapped, sometimes are unwrapped. That's bad!
+> Collector uses .wrapped_elements
+> Ideally, it would all be wrapped, but since not all elements have working wrappers, that would creat an inconsistency
+
 ☐ Add @ensure to all internal methods that require Transaction
   Need to merge transaction first to ensure transaction is only started if not already dunning
 ☐ Investigate if possible to fake type so Elements can be passed back.
@@ -18,7 +23,6 @@ Base Wrappers:
 ✔ Collector @done
 ✔ Selection @done
 ✔ Parameters @done
-☐ Document
 
 Base Element:
 ✔ Abstraction Wrapper @done
@@ -26,6 +30,7 @@ Base Element:
 ✔ Collection @done
 
 Element Wrappers:
+☐ Document
 ☐ Level
 ☐ ViewPort
 ☐ Floor
