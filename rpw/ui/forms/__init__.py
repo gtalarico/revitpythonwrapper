@@ -20,3 +20,7 @@ from rpw.ui.forms.console import Console
 
 # Out-of-the Box TaskDialogs
 from rpw.ui.forms.os_dialog import select_file, select_folder
+
+# FlexForm + Componets
+from rpw.ui.forms.template import TemplateForm
+from rpw.ui.forms.datagrid import DataGrid

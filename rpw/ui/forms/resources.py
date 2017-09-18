@@ -15,20 +15,24 @@ from rpw.utils.logger import logger
 clr.AddReference("PresentationFramework")  # System.Windows: Controls, ?
 clr.AddReference("WindowsBase")            # System.Windows.Input
 clr.AddReference("System.Drawing")         # FontFamily
-clr.AddReference('System.Windows.Forms') # Forms
+clr.AddReference('System.Windows.Forms')   # Forms
+clr.AddReference('System.Data')            # System.Data
 
 import System.Windows
 from System.Windows import Window
 from System.IO import StringReader
 
 # Console
-from System.Environment import Exit, NewLine
 from System.Drawing import FontFamily
+from System.Environment import Exit, NewLine
 from System.Windows.Input import Key
 
 # FlexForm Imports
 from System.Windows import Controls, Window
 from System.Windows import HorizontalAlignment, VerticalAlignment, Thickness
+
+# DataGrid
+from System.Data import DataTable, DataColumn, DataRow, DataView
 
 # OS Dialogs
 from System.Windows import Forms
