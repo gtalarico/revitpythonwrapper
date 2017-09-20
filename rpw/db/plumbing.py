@@ -2,69 +2,48 @@
 """
 Plumbing Wrapper
 """
-from rpw.base import BaseObjectWrapper
-from rpw import revit, DB, doc
+from rpw.db import Element
+from rpw import revit, DB
 
 
-class FluidType(BaseObjectWrapper):
+class FluidType(Element):
     """
-    Allow you to treat fluids as dictionnary
-    >>> # TODO: make an example
+    Based on rpw.db.Element
+    Allow you to retrieve all fluids (not currently possible with rpw.db.Collector)
+    >>> from rpw.db.plumbing import FluidType
+    >>> FluidType.all() # return a list of all FluidType in document
+    Or a dictionnary of fluids used by system
+    >>> FluidType.in_use_dict() # return format: {system.name:{'name':fluid.name, 'temperature':temperature}
+    A list of existing temperatures
+    >>> fluid_type.temperatures
     """
-    _revit_object_class = DB.Plumbing.FluidType
-
-    def __init__(self, fluidtype):
-        super(FluidType, self).__init__(fluidtype)
-
-    # def __repr__(self):
-    #     """ Adds data to Base __repr__ to add Parameter List Name """
-    #     name = self.name
-    #     return super(FluidType, self).__repr__(data={'name':name})
+    def __repr__(self, data=None):
+        """ Adds data to Base __repr__ to add Parameter List Name """
+        if not data:
+            data = {}
+        data['name'] = self.name
+        return super(FluidType, self).__repr__(data=data)
 
     @staticmethod
-    def all(document=doc):
-        return [FluidType(fluid) for fluid in DB.FilteredElementCollector(document).OfClass(DB.Plumbing.FluidType)]
-
-    def all_name_dict(self, document=doc):
-        return {fluidtype.name:fluidtype for fluidtype in self.all(document)}
-
-    @property
-    def name(self):
-        return DB.Element.Name.GetValue(self._revit_object)
-
-    @property
-    def all_names(self):
-        return [DB.Element.Name.GetValue(fluid) for fluid in self.all()]
+    def all(doc=revit.doc):
+        return [FluidType(fluid) for fluid in DB.FilteredElementCollector(doc).OfClass(DB.Plumbing.FluidType)]
+    
+    @staticmethod
+    def in_use_dict(doc=revit.doc):
+        result = {}
+        for system in DB.FilteredElementCollector(doc).OfClass(DB.Plumbing.PipingSystemType):
+            rpw_system = Element(system)
+            rpw_fluid_type = Element.from_id(system.FluidType)
+            result[rpw_system.name]={'name':rpw_fluid_type.name, 'temperature':rpw_system.FluidTemperature}
+        return result
 
     @property
-    def fluid_dict(self):
-        return {DB.Element.Name.GetValue(fluid):FluidType(fluid) for fluid in self.all()}
-
-    @property
-    def revit_temperatures(self):
+    def fluid_temperatures(self):
         """
         :return: temperatures of fluid
         """
-        return list(self.revit_fluid.GetFluidTemperatureSetIterator())
+        return list(self.GetFluidTemperatureSetIterator())
 
     @property
-    def temperatures_dict(self):
-        d = {}
-        for temp in self.revit_fluid.GetFluidTemperatureSetIterator():
-            d[temp.Temperature]=temp
-        return d
-
-    @property
-    def viscosity_dict(self):
-        d = {}
-        for temp in self.revit_fluid.GetFluidTemperatureSetIterator():
-            d[temp.Viscosity]=temp
-        return d
-
-    @property
-    def density_dict(self):
-        d = {}
-        for temp in self.revit_fluid.GetFluidTemperatureSetIterator():
-            d[temp.Density]=temp
-        return d
-
+    def temperatures(self):
+        return sorted([temp.Temperature for temp in self.fluid_temperatures])
