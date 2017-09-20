@@ -382,7 +382,7 @@ class FilteredCollectorCompareTests(unittest.TestCase):
 
 def run():
     logger.verbose(False)
-    suite = unittest.TestLoader().discover('tests')
+    suite = unittest.TestLoader().discover(os.path.dirname(__file__))
     unittest.main(verbosity=3, buffer=True)
 
 

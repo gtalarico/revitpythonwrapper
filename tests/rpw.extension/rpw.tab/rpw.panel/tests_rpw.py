@@ -756,7 +756,7 @@ def run():
     logger.verbose(False)
 
     from tests.tests_forms import *
-    suite = unittest.TestLoader().discover('tests')
+    suite = unittest.TestLoader().discover(os.path.dirname(__file__))
 
     # suite = unittest.TestLoader().loadTestsFromTestCase(WallTests)
     # suite.addTest(unittest.TestLoader().loadTestsFromTestCase(FormTextInputTests))

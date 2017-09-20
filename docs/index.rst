@@ -31,6 +31,7 @@ Revit Python Wrapper
    utils
    dynamo
    revitpythonshell
+   extras
    exceptions
    known_issues
    tests

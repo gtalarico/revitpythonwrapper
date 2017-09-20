@@ -124,7 +124,7 @@ class TransactionsTest(unittest.TestCase):
 def run():
     # logger.verbose(False)
     logger.disable()
-    suite = unittest.TestLoader().discover('tests')
+    suite = unittest.TestLoader().discover(os.path.dirname(__file__))
     unittest.main(verbosity=3, buffer=True)
 
 
