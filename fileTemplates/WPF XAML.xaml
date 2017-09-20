@@ -1,0 +1,5 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Choose a renaming pattern" Height="850" Width="1000" ShowInTaskbar="False" Topmost="True"
+        WindowStartupLocation="CenterScreen" Left="0" Top="180" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center">
+</Window>

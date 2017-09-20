@@ -1,0 +1,151 @@
+<application>
+  <component name="ProjectJdkTable">
+    <jdk version="2">
+      <name value="IronPython 2.7 (C:\Program Files (x86)\IronPython 2.7\ipy.exe)" />
+      <type value="Python SDK" />
+      <version value="IronPython 2.7" />
+      <homePath value="C:\Program Files (x86)\IronPython 2.7\ipy.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7/Lib" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7/DLLs" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7/Lib/site-packages" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-2136665193" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="IronPython 2.7 (C:\Program Files (x86)\IronPython 2.7\ipy64.exe)" />
+      <type value="Python SDK" />
+      <version value="IronPython 2.7" />
+      <homePath value="C:\Program Files (x86)\IronPython 2.7\ipy64.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/syspath.py" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7/Lib" />
+            <root type="simple" url="file://C:/Python36" />
+            <root type="simple" url="file://C:/Python35" />
+            <root type="simple" url="file://C:/Python35/Lib/site-packages" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7/DLLs" />
+            <root type="simple" url="file://C:/Program Files (x86)/IronPython 2.7/Lib/site-packages" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-159303019" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6.2 (C:\Python36\python.exe)" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.2" />
+      <homePath value="C:\Python36\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://C:/Python36/DLLs" />
+            <root type="simple" url="file://C:/Python36/Lib" />
+            <root type="simple" url="file://C:/Python36" />
+            <root type="simple" url="file://C:/Python36/Lib/site-packages" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/-1184660488" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.6" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.5" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.4" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6.2 virtualenv at E:\HubicSync\CyrilAtWork\BIM_Revit\ScriptsPython\Python_PostGreSQL\intro-to-databases\venv" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.2" />
+      <homePath value="E:\HubicSync\CyrilAtWork\BIM_Revit\ScriptsPython\Python_PostGreSQL\intro-to-databases\venv\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://C:/Python36/DLLs" />
+            <root type="simple" url="file://C:/Python36/Lib" />
+            <root type="simple" url="file://C:/Python36" />
+            <root type="simple" url="file://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/intro-to-databases/venv" />
+            <root type="simple" url="file://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/intro-to-databases/venv/Lib/site-packages" />
+            <root type="simple" url="file://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/intro-to-databases/venv/Lib/site-packages/pip-9.0.1-py3.6.egg" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/1318842399" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.6" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.5" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.4" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/intro-to-databases/project" />
+    </jdk>
+    <jdk version="2">
+      <name value="Python 3.6.2 virtualenv at E:\HubicSync\CyrilAtWork\BIM_Revit\ScriptsPython\Python_PostGreSQL\section10_twitter app\venv" />
+      <type value="Python SDK" />
+      <version value="Python 3.6.2" />
+      <homePath value="E:\HubicSync\CyrilAtWork\BIM_Revit\ScriptsPython\Python_PostGreSQL\section10_twitter app\venv\Scripts\python.exe" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root type="simple" url="file://C:/Python36/DLLs" />
+            <root type="simple" url="file://C:/Python36/Lib" />
+            <root type="simple" url="file://C:/Python36" />
+            <root type="simple" url="file://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/section10_twitter app/venv" />
+            <root type="simple" url="file://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/section10_twitter app/venv/Lib/site-packages" />
+            <root type="simple" url="jar://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/section10_twitter app/venv/Lib/site-packages/setuptools-28.8.0-py3.6.egg!/" />
+            <root type="simple" url="file://E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/section10_twitter app/venv/Lib/site-packages/pip-9.0.1-py3.6.egg" />
+            <root type="simple" url="file://$USER_HOME$/.PyCharmCE2017.2/system/python_stubs/1647022785" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/python-skeletons" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.6" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.5" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.4" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3.3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/3" />
+            <root type="simple" url="file://$APPLICATION_HOME_DIR$/helpers/typeshed/third_party/2and3" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="E:/HubicSync/CyrilAtWork/BIM_Revit/ScriptsPython/Python_PostGreSQL/section10_twitter app/project" />
+    </jdk>
+  </component>
+</application>
