@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.5.0
+* Added wrapped kwarg to Reference.get_element()
+
 ### 1.4.2
 * Converted all Pick class methods to Class Methods
 * Picker and References now work with Linked Elements
