@@ -142,6 +142,16 @@ class Element(BaseObjectWrapper):
         return Element(element_type)
 
     @property
+    def name(self):
+        """ Name Property """
+        return DB.Element.Name.__get__(self.unwrap())
+
+    @name.setter
+    def name(self, value):
+        """ Name Property Setter """
+        return DB.Element.Name.__set__(self.unwrap(), value)
+
+    @property
     def in_assembly(self):
         """ Returns True if element is inside an AssemblyInstance """
         if self._revit_object.AssemblyInstanceId.IntegerValue == -1:
