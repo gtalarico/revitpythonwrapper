@@ -8,11 +8,17 @@ class RpwException(Exception):
 
 
 class RpwTypeError(TypeError):
-    """ Revit Python Wrapper Base Exception """
-    def __init__(self, type_expected, type_received=None):
-        type_received = type_received or 'not reported'
+    """ Revit Python Wrapper Type Exception """
+    def __init__(self, type_expected, type_received='not reported'):
         msg = 'expected [{}], got [{}]'.format(type_expected, type_received)
         super(RpwTypeError, self).__init__(msg)
+
+
+class RpwValueError(ValueError):
+    """ Revit Python Wrapper Value Error Exception """
+    def __init__(self, value_expected, value_received='not reported'):
+        msg = 'expected [{}], got [{}]'.format(value_expected, value_received)
+        super(RpwValueError, self).__init__(msg)
 
 
 class RpwParameterNotFound(RpwException, KeyError):
