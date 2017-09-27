@@ -60,12 +60,20 @@ class TaskDialog(BaseObjectWrapper):
     """
     Task Dialog Wrapper
 
-    >>> commands= [
-    ...             CommandLink('Open Dialog', return_value='Open'),
-    ...             CommandLink('Another Command', return_value=call_back_func)
-    ...            ]
-    >>> dialog = TaskDialog(command_links=commands, buttons='Yes')
-    >>> result = dialog.show()
+    >>> commands= [CommandLink('Open Dialog', return_value='Open'),
+    >>> ...           CommandLink('Command', return_value=lambda: True)]
+    >>> ...
+    >>> dialog = TaskDialog('This TaskDialog has Buttons ',
+    >>> ...                 title_prefix=False,
+    >>> ...                 content="Further Instructions",
+    >>> ...                 commands=commands,
+    >>> ...                 buttons=['Cancel', 'OK', 'RETRY'],
+    >>> ...                 footer='It has a footer',
+    >>> ...                 # verification_text='Add Verification Checkbox',
+    >>> ...                 # expanded_content='Add Expanded Content',
+    >>> ...                 show_close=True)
+    >>> dialog.show()
+    'Open'
 
     Wrapped Element:
         self._revit_object = `Revit.UI.TaskDialog`
