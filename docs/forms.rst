@@ -145,6 +145,11 @@ QuickForm
 .. literalinclude:: ../rpw/ui/forms/quickform.py
     :start-after: """  #
 
+TaskDialog
+
+.. literalinclude:: ../rpw/ui/forms/taskdialog.py
+    :start-after: """  #
+
 OS Dialogs
 
 .. literalinclude:: ../rpw/ui/forms/os_dialog.py

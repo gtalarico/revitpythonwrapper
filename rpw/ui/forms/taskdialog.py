@@ -15,14 +15,12 @@ class Alert():
 
     Args:
         message (str): TaskDialog Content
-
-    Kwargs:
         title (str, optional): TaskDialog Title
         header (str, optional): TaskDialog content header
         exit (bool, optional): Exit Script after Dialog.
             Useful for displayin Errors. Default is False
-    """
 
+    """
     def __init__(self, content, title='Alert', header='', exit=False):
         dialog = UI.TaskDialog(title)
         dialog.MainInstruction = header
@@ -74,14 +72,15 @@ class TaskDialog(BaseObjectWrapper):
 
     Args:
         content (str): Main text of TaskDialog.
-    Kwargs:
-        commands (list): List of CommandLink Instances.
-        buttons (list): List of TaskDialogCommonButtons names (['Yes']).
-        title (str, optional): Title of TaskDialog. Default is 'Task Dialog'.
+        commands (list, optional): List of CommandLink Instances.
+            Default is no buttons.
+        buttons (list, optional): List of TaskDialogCommonButtons names.
+            Default is no buttons. 'Close' is shown if no commands are passed.
+        title (str, optional): Title of TaskDialog. Default is 'Task Dialog'.p
         instruction (str, optional): Main Instruction.
-        footer (str, optional): Footer Text. Default is ''.
-        expanded_content (str, optional): Expandable Text. Default is ''.
-        verification_text (str, optional): Checkbox text. Default is ''.
+        footer (str, optional): Footer Text. Default is ``blank``.
+        expanded_content (str, optional): Expandable Text. Default is ``blank``.
+        verification_text (str, optional): Checkbox text. Default is ``blank``.
         title_prefix (bool, optional): Prefix Title with app name.
             Default is ``True``
         show_close (bool, optional): Show X to close. Default is False.
@@ -147,7 +146,7 @@ class TaskDialog(BaseObjectWrapper):
         """
         Show TaskDialog
 
-        Kwargs:
+        Args:
             exit (bool, optional): Exit Script after Dialog.
                 Useful for displayin Errors. Default is False
 

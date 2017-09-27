@@ -13,7 +13,7 @@ from rpw.ui.forms.flexform import Separator
 from rpw.ui.forms.quickform import SelectFromList, TextInput
 
 # Out-of-the Box TaskDialogs
-from rpw.ui.forms.taskdialog import Alert
+from rpw.ui.forms.taskdialog import Alert, TaskDialog, CommandLink
 
 # RPW Interactive Console
 from rpw.ui.forms.console import Console
