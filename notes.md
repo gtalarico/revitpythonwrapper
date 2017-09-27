@@ -3,6 +3,8 @@
 ### 1.6.0
 * Fixed: Console Traceback Printing. Now shows full exception
 * Fixed: BaseObject repr
+* Added TaskDialog
+* Revised Alert
 
 ### 1.5.0
 * Added wrapped kwarg to Reference.get_element()

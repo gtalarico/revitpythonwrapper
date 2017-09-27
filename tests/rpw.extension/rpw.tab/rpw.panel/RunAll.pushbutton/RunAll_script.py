@@ -34,6 +34,7 @@ import XYZ_script as XYZTests
 import Curve_script as CurveTests
 import Utils_script as UtilsTests
 import Pick_script as PickTests
+import TaskDialog_script as TaskDialogTests
 
 all_tests = [
              GlobalsTests,
@@ -46,6 +47,7 @@ all_tests = [
              ViewTests,
              XYZTests,
              CurveTests,
+             TaskDialogTests,
              #  PickTests,
              #  FormTests,
              ]

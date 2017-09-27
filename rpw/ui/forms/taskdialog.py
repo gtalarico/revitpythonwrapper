@@ -10,21 +10,23 @@ class Alert():
     A Simple Revit TaskDialog for displaying quick messages
 
     Usage:
-        >>> Alert('Your Message', title="Title", heading="Some Heading")
+        >>> Alert('Your Message', title="Title", header="Header Text")
         >>> Alert('You need to select Something', exit=True)
 
     Args:
-        message (str): TaskDialog Message
+        message (str): TaskDialog Content
+
+    Kwargs:
         title (str, optional): TaskDialog Title
-        heading (str, optional): TaskDialog Message Heading
+        header (str, optional): TaskDialog content header
         exit (bool, optional): Exit Script after Dialog.
             Useful for displayin Errors. Default is False
     """
 
-    def __init__(self, message, title='Alert', heading='', exit=False):
+    def __init__(self, content, title='Alert', header='', exit=False):
         dialog = UI.TaskDialog(title)
-        dialog.MainInstruction = heading
-        dialog.MainContent = message
+        dialog.MainInstruction = header
+        dialog.MainContent = content
         self.result = dialog.Show()
 
         if exit:
@@ -76,7 +78,7 @@ class TaskDialog(BaseObjectWrapper):
         commands (list): List of CommandLink Instances.
         buttons (list): List of TaskDialogCommonButtons names (['Yes']).
         title (str, optional): Title of TaskDialog. Default is 'Task Dialog'.
-        heading (str, optional): Title of TaskDialog
+        instruction (str, optional): Main Instruction.
         footer (str, optional): Footer Text. Default is ''.
         expanded_content (str, optional): Expandable Text. Default is ''.
         verification_text (str, optional): Checkbox text. Default is ''.
@@ -86,9 +88,9 @@ class TaskDialog(BaseObjectWrapper):
 
     """
     _revit_object_class = UI.TaskDialog
-    _common_buttons = ['None', 'Ok', 'Yes', 'No', 'Cancel', 'Retry', 'Close']
+    _common_buttons = ['Ok', 'Yes', 'No', 'Cancel', 'Retry', 'Close']
 
-    def __init__(self, heading, commands=None, buttons=None,
+    def __init__(self, instruction, commands=None, buttons=None,
                  title='Task Dialog', content='',
                  title_prefix=True, show_close=False,
                  footer='', expanded_content='', verification_text=''
@@ -103,7 +105,7 @@ class TaskDialog(BaseObjectWrapper):
 
         # Properties
         self.dialog.Title = title
-        self.dialog.MainInstruction = heading
+        self.dialog.MainInstruction = instruction
         self.dialog.MainContent = content
         self.dialog.FooterText = footer
         self.dialog.ExpandedContent = expanded_content
@@ -123,9 +125,8 @@ class TaskDialog(BaseObjectWrapper):
             common_buttons = eval('|'.join(common_buttons_names))
             self.dialog.CommonButtons = common_buttons
 
-        # TODO:
-        # Default Buttons
-        # self.dialog.DefaultButton = UI.TaskDialogResult.Ok
+        # Set Default Button
+        self.dialog.DefaultButton = UI.TaskDialogResult.None
 
         # Validate Commands
         commands = commands or []
@@ -142,12 +143,12 @@ class TaskDialog(BaseObjectWrapper):
                                        command_link.text,
                                        command_link.subtext)
 
-    def show(self, exit_on_close=False):
+    def show(self, exit=False):
         """
         Show TaskDialog
 
         Kwargs:
-            exit_on_close (bool, optional): Exit Script after Dialog.
+            exit (bool, optional): Exit Script after Dialog.
                 Useful for displayin Errors. Default is False
 
         Returns:
@@ -163,9 +164,9 @@ class TaskDialog(BaseObjectWrapper):
 
         # Handle Cancel
         if self.result == UI.TaskDialogResult.Cancel:
-            if self.exit_on_close:
+            if exit:
                 sys.exit(1)
-            return False
+            return None
 
         # If result is a CommandLink, return Return Value else Result
         command_link = self.commands.get(str(self.result))
