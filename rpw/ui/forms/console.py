@@ -38,6 +38,7 @@ import inspect
 import logging
 import tempfile
 from collections import defaultdict
+import traceback
 
 from rpw.utils.rlcompleter import Completer
 from rpw.ui.forms.resources import Window
@@ -204,18 +205,26 @@ class Console(Window):
             self.write_line(output)
             self.tbox.ScrollToEnd()
 
+    def format_exception(self):
+        """ Formats Last Exception"""
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        tb = traceback.format_exception(exc_type, exc_value, exc_traceback)
+        last_exception = tb[-1]
+        output = 'Traceback:\n' + last_exception[:-1]
+        return output
+
     def evaluate(self, line):
         try:
             output = eval(line, self.stack_globals, self.stack_locals)
-        except SyntaxError as errmsg:
+        except SyntaxError as exc:
             try:
                 exec(line, self.stack_globals, self.stack_locals)
                 self._update_completer()  # Update completer with new locals
                 return
-            except Exception as errmsg:
-                output = errmsg
-        except Exception as errmsg:
-            output = errmsg
+            except Exception as exc:
+                output = self.format_exception()
+        except Exception as exc:
+            output = self.format_exception()
         return str(output)
 
     def OnKeyDownHandler(self, sender, args):
@@ -283,6 +292,10 @@ class Console(Window):
             caret_index = self.tbox.CaretIndex
             self.write_text(suggestion)
             self.tbox.CaretIndex = caret_index
+
+    def write(self, text):
+        """ Make Console usable as File Object """
+        self.write_line(line=text)
 
     def write_line(self, line=None):
         # Used for Code Output
