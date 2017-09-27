@@ -72,9 +72,10 @@ class Reference(Element):
         """ ElementId of Reference """
         return self._revit_object.ElementId if not self.linked else self._revit_object.LinkedElementId
 
-    def get_element(self):
+    def get_element(self, wrapped=True):
         """ Element of Reference """
-        return self.doc.GetElement(self.id)
+        element = self.doc.GetElement(self.id)
+        return element if not wrapped else Element(element)
 
     def get_geometry(self):
         """ GeometryObject from Reference """
