@@ -36,6 +36,19 @@ TextInput
 TaskDialogs
 ***********
 
+TaskDialog
+^^^^^^^^^^
+
+.. image:: _static/forms/taskdialog.png
+
+.. autoclass:: rpw.ui.forms.TaskDialog
+    :members:
+    :special-members: __init__
+
+.. autoclass:: rpw.ui.forms.CommandLink
+    :members:
+    :special-members: __init__
+
 Alert
 ^^^^^
 

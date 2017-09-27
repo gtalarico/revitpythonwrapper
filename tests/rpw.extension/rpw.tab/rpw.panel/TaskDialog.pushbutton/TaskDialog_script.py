@@ -116,6 +116,17 @@ class TaskDialogTests(unittest.TestCase):
                 result = dialog.show(exit=True)
 
 
+    # def test_close_for_docs(self):
+    #         dialog = TaskDialog('This TaskDialog has Buttons ',
+    #                             title_prefix=False,
+    #                             content="Further Instructions",
+    #                             buttons=['Cancel', 'OK', 'RETRY'],
+    #                             footer='It has a footer',
+    #                             # verification_text='And Verification Text',
+    #                             # expanded_content='And Expanded Content',
+    #                             show_close=True)
+    #         dialog.show()
+
 class AlertTests(unittest.TestCase):
 
     def test_alert(self):
