@@ -91,7 +91,7 @@ class TaskDialog(BaseObjectWrapper):
         expanded_content (str, optional): Expandable Text. Default is ``blank``.
         verification_text (str, optional): Checkbox text. Default is ``blank``.
         title_prefix (bool, optional): Prefix Title with app name.
-            Default is ``True``
+            Default is ``False``
         show_close (bool, optional): Show X to close. Default is False.
 
     """
@@ -100,7 +100,7 @@ class TaskDialog(BaseObjectWrapper):
 
     def __init__(self, instruction, commands=None, buttons=None,
                  title='Task Dialog', content='',
-                 title_prefix=True, show_close=False,
+                 title_prefix=False, show_close=False,
                  footer='', expanded_content='', verification_text=''
                  ):
 
