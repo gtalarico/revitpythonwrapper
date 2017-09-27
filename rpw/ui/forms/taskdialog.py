@@ -1,4 +1,4 @@
-""" Wrappers for Default Revit TaskDialogs """
+""" TaskDialogs Wrappers"""  #
 
 import sys
 from rpw import UI
@@ -23,6 +23,7 @@ class Alert():
     """
     def __init__(self, content, title='Alert', header='', exit=False):
         dialog = UI.TaskDialog(title)
+        dialog.TitleAutoPrefix = False
         dialog.MainInstruction = header
         dialog.MainContent = content
         self.result = dialog.Show()
@@ -155,12 +156,15 @@ class TaskDialog(BaseObjectWrapper):
         Show TaskDialog
 
         Args:
-            exit (bool, optional): Exit Script after Dialog.
-                Useful for displayin Errors. Default is False
+            exit (bool, optional): Exit Script after Dialog. Useful for
+            displaying Errors. Default is False.
 
         Returns:
-            False if Cancelled, ``CommandLink.return_value`` if clicked
-                otherwise returns TaskDialog.TaskDialogResult
+            Returns is ``False`` if dialog is Cancelled (X or Cancel button).
+            If CommandLink button is clicked, ``CommandLink.return_value``
+            is returned - if one was not provided, ``CommandLink.text`` is used.
+            If CommonButtons are clicked ``TaskDialog.TaskDialogResult`` name is
+            returned ie('Close', 'Retry', 'Yes', etc).
         """
         self.result = self.dialog.Show()
 
