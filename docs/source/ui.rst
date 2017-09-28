@@ -1,13 +1,11 @@
 =============================
-Installation
+rpw.ui
 =============================
 
-Platforms
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Autodesk.Revit.UI Wrappers
 
 .. toctree::
    :maxdepth: 3
 
-   pyrevit
-   dynamo
-   revitpythonshell
+   ui/forms
+   ui/selection

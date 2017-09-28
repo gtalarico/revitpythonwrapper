@@ -8,6 +8,7 @@ LOG_REC_FORMAT = "%(levelname)s: [%(name)s] %(message)s"
 
 
 class LoggerWrapper(logging.Logger):
+
     def __init__(self, *args):
         logging.Logger.__init__(self, *args)
         self._has_errors = False
@@ -77,7 +78,6 @@ logging.setLoggerClass(LoggerWrapper)
 
 
 loggers = {}
-
 
 def get_logger(logger_name):
     if loggers.get(logger_name):

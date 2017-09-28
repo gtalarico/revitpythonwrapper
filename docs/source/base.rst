@@ -5,30 +5,26 @@
 
 
 ==================
-Pattern
+rpw.base
 ==================
 
-.. automodule:: rpw.db.pattern
+Base Wrappers
+^^^^^^^^^^^^^
 
-.. autoclass:: rpw.db.LinePatternElement
-    :show-inheritance:
+.. automodule:: rpw.base
+    :undoc-members:
+
+.. autoclass:: rpw.base.BaseObjectWrapper
     :members:
-
-    .. automethod:: by_name
-
-
-.. autoclass:: rpw.db.FillPatternElement
+    :special-members: __init__
+    :private-members:
     :show-inheritance:
-    :members:
-
-    .. automethod:: by_name
-
 
 ----------------------------------------------
 
 Implementation
 **************
 
-.. literalinclude:: ../rpw/db/pattern.py
+.. literalinclude:: ../../rpw/base.py
 
 .. disqus

@@ -5,17 +5,13 @@
 
 
 ==================
-Assembly
+BuiltIns
 ==================
 
-.. automodule:: rpw.db.assembly
-
-.. autoclass:: rpw.db.AssemblyInstance
+.. automodule:: rpw.db.builtins
     :members:
-    :show-inheritance:
-
-.. autoclass:: rpw.db.AssemblyType
-    :members:
+    :special-members: __init__, __getattr__, __getitem__
+    :private-members:
     :show-inheritance:
 
 ----------------------------------------------
@@ -23,6 +19,7 @@ Assembly
 Implementation
 **************
 
-.. literalinclude:: ../rpw/db/assembly.py
+.. literalinclude:: ../../../rpw/db/builtins.py
+    :start-after: ###
 
 .. disqus

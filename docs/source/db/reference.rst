@@ -21,6 +21,6 @@ Reference
 Implementation
 **************
 
-.. literalinclude:: ../rpw/db/reference.py
+.. literalinclude:: ../../../rpw/db/reference.py
 
 .. disqus
