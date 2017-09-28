@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.7.0
+* Reorganized Entire Doc Structure to nest and group by module.
+
 ### 1.6.0
 * Added TaskDialog, Tests, Docs
 * Revised Alert
