@@ -16,6 +16,7 @@ Revit Python Wrapper
    revit
    base
    element
+   assembly
    parameters
    selection
    reference

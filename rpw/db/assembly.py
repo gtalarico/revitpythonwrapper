@@ -8,7 +8,6 @@ from rpw.utils.mixins import ByNameCollectMixin
 
 
 # TODO: Tests
-# TODO: Docs
 
 class AssemblyInstance(Element):
     """
