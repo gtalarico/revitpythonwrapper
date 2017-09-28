@@ -157,7 +157,7 @@ class TaskDialog(BaseObjectWrapper):
 
         Args:
             exit (bool, optional): Exit Script after Dialog. Useful for
-            displaying Errors. Default is False.
+                displaying Errors. Default is False.
 
         Returns:
             Returns is ``False`` if dialog is Cancelled (X or Cancel button).
