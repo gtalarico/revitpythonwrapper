@@ -8,6 +8,12 @@
 Known Issues
 ==================
 
+* Inconsisten Returns
+    The library is not consistent with its return types. Sometimes a wrapped
+    element is returned, sometimes is unwrapped.
+    Since fixing this would be a breaking change, I am panning on
+    fixing this on the next major release (2.0)
+
 * Case Sensitive ElementParameterFilter
 
     | The boolean argument for case_sensitive string comparison has no effect

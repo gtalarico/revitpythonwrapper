@@ -9,6 +9,7 @@ Exceptions
 ==================
 
 Revit Python Wrapper Exceptions
+*******************************
 
 .. automodule:: rpw.exceptions
     :members:

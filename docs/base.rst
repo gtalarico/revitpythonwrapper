@@ -5,10 +5,11 @@
 
 
 ==================
-Base Wrapper
+rpw.base
 ==================
 
-Base Wrapper
+Base Wrappers
+^^^^^^^^^^^^^
 
 .. automodule:: rpw.base
     :undoc-members:

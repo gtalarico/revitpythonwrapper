@@ -15,7 +15,7 @@ been executed without failures on:
     * Revit 2015
     * Revit 2016
     * Revit 2017
-    * Dynamo 1.2
+    * Dynamo 1.2 / 1.3
 
 The Test Suite also provides a many
 examples of how the library is intended to be used.
@@ -26,6 +26,9 @@ Test Suite
 **************
 
 .. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Globals.pushbutton/Globals_script.py
+    :end-before: run()
+
+.. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/TaskDialog.pushbutton/TaskDialog_script.py
     :end-before: run()
 
 .. literalinclude:: ../tests/rpw.extension/rpw.tab/rpw.panel/Collector.pushbutton/Collector_script.py

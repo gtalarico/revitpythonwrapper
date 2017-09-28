@@ -4,15 +4,11 @@
    contain the root `toctree` directive.
 
 
-===============
-rpw.extras
-===============
+================
+pyRevit
+================
 
-The Extras module allow you to conveniently load 3rd party .NET assemblies.
+RevitPythonWrapper now ships with pyRevit. No installation is required.
 
-**********
-Rhino
-**********
 
-.. automodule:: rpw.extras.rhino
-    :undoc-members:
+.. disqus

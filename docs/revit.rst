@@ -5,8 +5,11 @@
 
 
 ==================
-Revit
+rpw.revit
 ==================
+
+Revit Wrapper
+******************
 
 .. automodule:: rpw.__revit
     :undoc-members:
@@ -73,5 +76,5 @@ Implementation
 
 .. literalinclude:: ../rpw/__revit.py
     :start-after: """  #
-    
+
 .. disqus

@@ -9,30 +9,19 @@ Revit Python Wrapper
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
 
    self
    revit
+   db
+   ui
    base
-   element
-   assembly
-   parameters
-   selection
-   reference
-   transaction
-   collector
-   collections
-   view
-   pattern
-   builtins
-   geometry
-   curve
-   forms
    utils
-   dynamo
-   revitpythonshell
    extras
+
+   installation
+
    exceptions
    known_issues
    tests
@@ -103,8 +92,8 @@ Compatibility
     RevitPythonWrapper has been tested on the following platforms:
 
     * RevitPythonShell + Revit: 2015, 2016, 2017
-    * pyRevit on 2015, 2016, 2017
-    * Dynamo: 1.2
+    * pyRevit 4.4+ on 2015, 2016, 2017, 2017.1
+    * Dynamo: 1.2, 1.3
 
 Contribute
 ^^^^^^^^^^

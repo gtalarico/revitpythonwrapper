@@ -5,12 +5,21 @@
 
 
 ==================
-Utilities
+rpw.utils
 ==================
 
 Coerce / Type Casting
+*********************
 
 .. automodule:: rpw.utils.coerce
+    :members:
+    :special-members: __init__
+    :private-members:
+    :show-inheritance:
+
+Mixins
+*********************
+.. automodule:: rpw.utils.mixins
     :members:
     :special-members: __init__
     :private-members:
