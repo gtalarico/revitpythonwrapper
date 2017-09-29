@@ -5,6 +5,7 @@
 * Add Autodesk.Revit.Exceptions module to rpw.revit namespace
 * Optimized db.Element() class discovery for explicit constructor
 * Handle Pick exception
+* Remove inspect.getmro check for element wrapping - was not needed
 
 ### 1.6.0
 * Added TaskDialog, Tests, Docs

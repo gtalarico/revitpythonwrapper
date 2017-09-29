@@ -4,8 +4,6 @@ of commonly used elements.
 
 """  #
 
-import inspect
-
 import rpw
 from rpw import revit, DB
 from rpw.db.parameter import Parameter, ParameterSet
@@ -94,8 +92,7 @@ class Element(BaseObjectWrapper):
                 return super(Element, cls).__new__(wrapper_class, element, **kwargs)
         else:
             # Could Not find a Matching Class, Use Element if related
-            if DB.Element in inspect.getmro(element.__class__):
-                return super(Element, cls).__new__(cls, element, **kwargs)
+            return super(Element, cls).__new__(cls, element, **kwargs)
 
         # No early return. Should not reach this point
         element_class_name = element.__class__.__name__
