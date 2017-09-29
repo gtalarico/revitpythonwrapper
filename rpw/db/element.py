@@ -77,10 +77,12 @@ class Element(BaseObjectWrapper):
         # Ensure Wrapped Element is instance of Class Wrapper or decendent
         # Must also check is element because isinstance(Element, Element) is False
         if not isinstance(element, _revit_object_class):
-            # or cls is not Element:
-            raise RpwTypeError('DB.Element child', element.__class__.__name__)
+            raise RpwTypeError(_revit_object_class, element.__class__)
 
-        # TODO: OPtimize so if its right type, no need to iterate: rpw.db.Wall(wall)
+        # If explicit constructor was called, use that and skip discovery
+        if type(element) is _revit_object_class:
+            return super(Element, cls).__new__(cls, element, **kwargs)
+
         for wrapper_class in defined_wrapper_classes:
             class_name = wrapper_class.__name__
             if type(element) is getattr(wrapper_class, '_revit_object_class', None):
