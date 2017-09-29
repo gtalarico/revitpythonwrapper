@@ -22,14 +22,15 @@
 
 import sys
 import os
-doc_dir = os.path.dirname(__file__)
+source_dir = os.path.dirname(__file__)
+print('SOURCE_DIR: {}'.format(source_dir))
+doc_dir = os.path.dirname(source_dir)
 print('DOC_DIR: {}'.format(doc_dir))
 root_dir = os.path.dirname(doc_dir)
 print('ROOT_DIR: {}'.format(root_dir))
-source_dir = os.path.join(doc_dir, 'source')
-print('SOURCE_DIR: {}'.format(source_dir))
 
 sys.path.append(source_dir)
+sys.path.append(doc_dir)
 sys.path.append(root_dir)
 
 # sys.path.append(r'D:\\Dropbox\\Shared\\dev\\repos\\revitpythonwrapper\\rpw')
