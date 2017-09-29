@@ -74,8 +74,11 @@ class Element(BaseObjectWrapper):
         if element is None:
             raise RpwTypeError('Element or Element Child', 'None')
 
+        # TODO: Handle double wrapping
+        # if hasattr(element, 'unwrap'):
+            # element = element.unwrap()
+
         # Ensure Wrapped Element is instance of Class Wrapper or decendent
-        # Must also check is element because isinstance(Element, Element) is False
         if not isinstance(element, _revit_object_class):
             raise RpwTypeError(_revit_object_class, element.__class__)
 
@@ -116,7 +119,7 @@ class Element(BaseObjectWrapper):
             :class:`Element`: Instance of Wrapped Element.
 
         """
-
+        # rpw.ui.forms.Console(context=locals())
         super(Element, self).__init__(element)
         self.doc = element.Document if doc is None else revit.doc
         if isinstance(element, DB.Element):
