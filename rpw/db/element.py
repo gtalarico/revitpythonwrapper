@@ -73,8 +73,13 @@ class Element(BaseObjectWrapper):
             raise RpwTypeError('Element or Element Child', 'None')
 
         # TODO: Handle double wrapping
-        # if hasattr(element, 'unwrap'):
-            # element = element.unwrap()
+        if hasattr(element, 'unwrap'):
+            raise RpwTypeError('revit element', 'wrapped element: {}'.format(element))
+
+        # Ensure Wrapped Element is instance of Class Wrapper or decendent
+        if not isinstance(element, _revit_object_class):
+            raise RpwTypeError(_revit_object_class.__name__,
+                               element.__class__.__name__)
 
         # Ensure Wrapped Element is instance of Class Wrapper or decendent
         if not isinstance(element, _revit_object_class):
