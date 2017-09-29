@@ -1,12 +1,13 @@
 """
 `uidoc.Selection` Wrapper
 """
+import sys
 
 import rpw
 from rpw import revit, DB, UI
 from rpw.utils.dotnet import List
 from rpw.base import BaseObjectWrapper, BaseObject
-from rpw.exceptions import RpwTypeError
+from rpw.exceptions import RpwTypeError, RevitExceptions
 from rpw.utils.logger import logger
 from rpw.utils.coerce import to_element_ids, to_elements, to_iterable
 from rpw.db.collection import ElementSet
@@ -129,10 +130,14 @@ class Pick(BaseObject):
     def _pick(cls, obj_type, msg='Pick:', multiple=False, linked=False):
         """ Note: Moved Reference Logic to Referenc Wrapper."""
 
-        if multiple:
-            references = PickObjects(obj_type, msg)
-        else:
-            reference = PickObject(obj_type, msg)
+        try:
+            if multiple:
+                references = PickObjects(obj_type, msg)
+            else:
+                reference = PickObject(obj_type, msg)
+        except RevitExceptions.OperationCanceledException:
+            logger.debug('ui.Pick aborted by user')
+            sys.exit(0)
 
         if multiple:
             return [Reference(ref, linked=linked) for ref in references]

@@ -2,6 +2,9 @@
 
 ### 1.7.0
 * Reorganized Entire Doc Structure to nest and group by module.
+* Add Autodesk.Revit.Exceptions module to rpw.revit namespace
+* Optimized db.Element() class discovery for explicit constructor
+* Handle Pick exception
 
 ### 1.6.0
 * Added TaskDialog, Tests, Docs

@@ -1,7 +1,7 @@
 """ Custom RPW exceptions """  #
 
 from rpw.utils.logger import logger
-
+from Autodesk.Revit import Exceptions as RevitExceptions
 
 class RpwException(Exception):
     """ Revit Python Wrapper Base Exception """
@@ -41,3 +41,5 @@ class RpwCoerceError(RpwException, ValueError):
     def __init__(self, value, target_type):
         msg = 'Could not cast value:{} to target_type:{}'.format(value, target_type)
         super(RpwCoerceError, self).__init__(msg)
+
+
