@@ -1,12 +1,18 @@
-Forms:
-☐ Add Form Wrapper for exit_on_close FlexForm + Console
-☐ Forms  - List Form
-☐ Merge Ehsan's Forms
+Misc:
+☐ Make db.Element ignore if element already wrapped
+☐ Add Erro Handling to Pick. methods
+☐ rename method to Pick.element
+☐ rename method to Pick.points, etc
 
 Others Merge:
 ☐ Transaction (Status)
 ☐ Logger
 ☐ AutoCollector
+
+Forms:
+☐ Add Form Wrapper for exit_on_close FlexForm + Console
+☐ Forms  - List Form
+☐ Merge Ehsan's Forms
 
 Core:
 ☐ CRITICAL: Write down Rules for how element vs wrapped elements are returned
