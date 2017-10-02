@@ -18,6 +18,9 @@ Note:
     | ``FamilySymbolFilter`` = ``family``
     | ``FamilyInstanceFilter`` = ``symbol``
     | ``ElementParameterFilter`` = ``parameter_filter``
+    | ``Exclusion`` = ``exclude``
+    | ``UnionWith`` = ``or_collector``
+    | ``IntersectWith`` = ``and_collector``
     | ``Custom`` = where
 
 """
@@ -96,9 +99,9 @@ class SuperSlowFilter(BaseFilter):
     """ Leave it for Last. Must unpack results """
     priority_group = 3
 
-# class LogicalFilter(BaseFilter):
-#     """ Leave it after Last as it must be completed """
-#     priority_group = 4
+class LogicalFilter(BaseFilter):
+    """ Leave it after Last as it must be completed """
+    priority_group = 4
 
 class FilterClasses():
     """
@@ -112,7 +115,9 @@ class FilterClasses():
         X Revit.DB.ElementIsElementTypeFilter = is_type / is_not_type
         X Revit.DB.ElementOwnerViewFilter = view
         X Revit.DB.FamilySymbolFilter = family
-        _ Revit.DB.ExclusionFilter = exclude
+        X Revit.DB.ExclusionFilter = exclude
+        X Revit.DB.IntersectWidth = and_collector
+        X Revit.DB.UnionWidth = or_collector
         _ Revit.DB.BoundingBoxContainsPointFilter
         _ Revit.DB.BoundingBoxIntersectsFilter
         _ Revit.DB.BoundingBoxIsInsideFilter
@@ -305,6 +310,28 @@ class FilterClasses():
             element_set = ElementSet(element_references)
             return DB.ExclusionFilter(element_set.as_element_id_list)
 
+    class InteresectFilter(LogicalFilter):
+        keyword = 'and_collector'
+
+        @classmethod
+        def process_value(cls, collector):
+            if hasattr(collector, 'unwrap'):
+                collector = collector.unwrap()
+            return collector
+
+        @classmethod
+        def apply(cls, doc, collector, value):
+            new_collector = cls.process_value(value)
+            return collector.IntersectWith(new_collector)
+
+    class UnionFilter(InteresectFilter):
+        keyword = 'or_collector'
+
+        @classmethod
+        def apply(cls, doc, collector, value):
+            new_collector = cls.process_value(value)
+            return collector.UnionWith(new_collector)
+
 
 class Collector(BaseObjectWrapper):
     """
@@ -371,25 +398,21 @@ class Collector(BaseObjectWrapper):
             only one will be applied, in this order ``view`` > ``elements`` > ``element_ids``
 
         Filter Options:
-            * ``is_type`` (``bool``): Same as ``WhereElementIsElementType``
-            * ``is_not_type`` (``bool``): Same as ``WhereElementIsNotElementType``
-            * ``of_class`` (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or
-                                       string: ``DB.Wall`` or ``'Wall'``
-            * ``of_category`` (``BuiltInCategory``): Same as ``OfCategory``. Can be
-                                                     ``DB.BuiltInCategory.OST_Wall`` or ``'Wall'``
-            * ``owner_view`` (``DB.ElementId, View`): ``WhereElementIsViewIndependent(True)``
-            * ``is_view_independent`` (``bool``): ``WhereElementIsViewIndependent(True)``
-            * ``family`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Family
-            * ``symbol`` (``DB.ElementId``, ``DB.Element``)`: Element or ElementId of Symbol
-            * ``level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId
-                                                                           of Level, or Level Name
-            * ``not_level`` (``DB.Level``, ``DB.ElementId``, ``Level Name``)`: Level, ElementId of
-                                                                               Level, or Level Name
-            * ``parameter_filter`` (:any:`ParameterFilter`): Similar to
-                                                            ``ElementParameterFilter`` Class
-            * ``exclude`` (`element_references`): Element(s) or ElementId(s)
-                to exlude from result
-            * ``where`` (`function`): function to test your elements against
+            * is_type (``bool``): Same as ``WhereElementIsElementType``
+            * is_not_type (``bool``): Same as ``WhereElementIsNotElementType``
+            * of_class (``Type``): Same as ``OfClass``. Type can be ``DB.SomeType`` or string: ``DB.Wall`` or ``'Wall'``
+            * of_category (``BuiltInCategory``): Same as ``OfCategory``. Can be ``DB.BuiltInCategory.OST_Wall`` or ``'Wall'``
+            * owner_view (``DB.ElementId, View`): ``WhereElementIsViewIndependent(True)``
+            * is_view_independent (``bool``): ``WhereElementIsViewIndependent(True)``
+            * family (``DB.ElementId``, ``DB.Element``): Element or ElementId of Family
+            * symbol (``DB.ElementId``, ``DB.Element``): Element or ElementId of Symbol
+            * level (``DB.Level``, ``DB.ElementId``, ``Level Name``): Level, ElementId of Level, or Level Name
+            * not_level (``DB.Level``, ``DB.ElementId``, ``Level Name``): Level, ElementId of Level, or Level Name
+            * parameter_filter (:any:`ParameterFilter`): Applies ``ElementParameterFilter``
+            * exclude (`element_references`): Element(s) or ElementId(s) to exlude from result
+            * and_collector (``collector``): Collector to intersect with. Elements must be present in both
+            * or_collector (``collector``): Collector to Union with. Elements must be present on of the two.
+            * where (`function`): function to test your elements against
 
         """
         # Define Filtered Element Collector Scope + Doc

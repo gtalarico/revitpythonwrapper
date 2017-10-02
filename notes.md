@@ -1,6 +1,9 @@
 # Release Notes
 
 ### 1.7.0
+* Feature: Added Collector Exclusion Filter
+* Feature: Added Collector UnionWith
+* Feature: Added Collector IntersectWith
 * Feature: Add Autodesk.Revit.Exceptions module to rpw.revit namespace for easier access
 * Feature: Added get_assembly() method to element
 * Docs: Reorganized Entire Doc Structure to nest and group by module.
@@ -13,10 +16,10 @@
 * Cleanup: New Category Mixin with
 * Cleanup: Moved Category into its own file
 * Cleanup: Delete Family.Name and FamilySymbol.Name Replaced by Element.name
-* Feature/Cleanup: Add get_attribute(wrapped) + depracate warning to several attributes:
+* Cleanup: Moved in_assembly and get_assembly to FamilyInstance
+* Feature/Cleanup: Add get_attribute(wrapped) + deprecate warning to several attributes:
   including: FamilyInstance, FamilySymbol, Family, and Category.
   Attributes like FamilyInstance.symbol should now be accessed using FamilyInstance.get_symbol()
-* Cleanup: Moved in_assembly and get_assembly to FamilyInstance
 
 ### 1.6.0
 * Added TaskDialog, Tests, Docs

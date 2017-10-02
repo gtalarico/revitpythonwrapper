@@ -398,7 +398,33 @@ class FilteredCollectorCompareTests(unittest.TestCase):
         self.assertEqual(len(rv), len(rv6))
         self.assertEqual(len(rv), len(rv7))
 
-        # TODO: Fo all FilteredElementCollector
+    def test_and(self):
+        col1 = DB.FilteredElementCollector(doc).OfClass(DB.FamilySymbol)
+        col2 = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Furniture).IntersectWith(col1)
+        rv = col2.ToElements()
+
+        e = rpw.db.Collector(of_class="FamilySymbol")
+        rv2 = rpw.db.Collector(of_category='Furniture', and_collector=e)
+
+        self.assertEqual(len(rv), len(rv2))
+        self.assertEqual(rv[0].Id, rv2[0].Id)
+        self.assertEqual(rv[1].Id, rv2[1].Id)
+        self.assertEqual(rv[2].Id, rv2[2].Id)
+
+    def test_or(self):
+        col1 = DB.FilteredElementCollector(doc).OfClass(DB.View)
+        col2 = DB.FilteredElementCollector(doc).OfCategory(DB.BuiltInCategory.OST_Furniture).UnionWith(col1)
+        rv = col2.ToElements()
+
+        e = rpw.db.Collector(of_class="View")
+        rv2 = rpw.db.Collector(of_category='Furniture', or_collector=e)
+
+        self.assertEqual(len(rv), len(rv2))
+        self.assertEqual(rv[0].Id, rv2[0].Id)
+        self.assertEqual(rv[1].Id, rv2[1].Id)
+        self.assertEqual(rv[2].Id, rv2[2].Id)
+
+    # TODO: Fo all FilteredElementCollector
 
 def run():
     logger.verbose(False)

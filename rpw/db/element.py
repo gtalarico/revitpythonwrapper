@@ -172,9 +172,9 @@ class Element(BaseObjectWrapper):
 
         >>> wall_types_collector = rpw.db.WallType.collect()
         <rpw:Collector % FilteredElementCollector [count:4]>
-        >>> wall_types_collector.wrapped_elements # All Wall Types
+        >>> wall_types_collector.wrapped_elements  # All Wall Types
         [<rpw:WallType [name:Wall 1] [id:1557]>, ... ]
-        >>> rooms = rpw.db.Area.collect().wrapped_elements
+        >>> wall_types_collector.wrapped_elements
         [<rpw:Area % DB.Area | Rentable:30.2>]
         >>> rooms = rpw.db.WallInstance.collect(level="Level 1")
         [<rpw:WallInstance % DB.Wall symbol:Basic Wall>]
