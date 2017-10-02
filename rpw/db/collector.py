@@ -29,6 +29,7 @@ from rpw.exceptions import RpwException, RpwTypeError, RpwCoerceError
 from rpw.db.element import Element
 from rpw.db.builtins import BicEnum, BipEnum
 from rpw.ui.selection import Selection
+from rpw.db.collection import ElementSet
 from rpw.utils.coerce import to_element_id, to_element_ids
 from rpw.utils.coerce import to_category, to_class
 from rpw.utils.logger import logger
@@ -95,6 +96,9 @@ class SuperSlowFilter(BaseFilter):
     """ Leave it for Last. Must unpack results """
     priority_group = 3
 
+# class LogicalFilter(BaseFilter):
+#     """ Leave it after Last as it must be completed """
+#     priority_group = 4
 
 class FilterClasses():
     """
@@ -292,6 +296,14 @@ class FilterClasses():
                 return collector.Excluding(excluded_elements)
             else:
                 return collector
+
+    class ExclusionFilter(QuickFilter):
+        keyword = 'excluding'
+
+        @classmethod
+        def process_value(cls, element_references):
+            element_set = ElementSet(element_references)
+            return DB.ExclusionFilter(element_set.as_element_id_list)
 
 
 class Collector(BaseObjectWrapper):
