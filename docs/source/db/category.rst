@@ -4,32 +4,14 @@
    contain the root `toctree` directive.
 
 ============================
-Family
+Category
 ============================
 
 
-Instance
+Category
 ************
 
-.. autoclass:: rpw.db.FamilyInstance
-    :members:
-    :private-members:
-    :special-members: __init__
-    :show-inheritance:
-
-Symbol
-************
-
-.. autoclass:: rpw.db.FamilySymbol
-    :members:
-    :private-members:
-    :special-members: __init__
-    :show-inheritance:
-
-Family
-************
-
-.. autoclass:: rpw.db.Family
+.. autoclass:: rpw.db.Category
     :members:
     :private-members:
     :special-members: __init__
@@ -40,7 +22,7 @@ Family
 Implementation
 **************
 
-.. literalinclude:: ../../../rpw/db/family.py
+.. literalinclude:: ../../../rpw/db/category.py
     :start-after: """  #
 
 .. disqus

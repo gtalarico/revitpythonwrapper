@@ -1,4 +1,25 @@
-""" Custom RPW exceptions """  #
+"""
+Custom RPW exceptions
+
+Use these exceptions to _try_ against specific Rpw Exceptions.
+
+>>> from rpw.exceptions import RpwWrongStorageType
+>>> try:
+...     element.parameters['Height'].value = 'String'
+... except RpwWrongStorageType:
+...     print('Height Parameter cannot be a string')
+...     raise
+
+This module also provides easy access to the Autodesk.Revit.Exceptions
+namespaces:
+
+>>> from rpw.exceptions import OperationCanceledException
+>>> try:
+...     doc.Delete(ElementId)
+... except InvalidObjectException:
+...     print('This element is no longer valid ')
+
+"""  #
 
 from rpw.utils.logger import logger
 from Autodesk.Revit import Exceptions as RevitExceptions

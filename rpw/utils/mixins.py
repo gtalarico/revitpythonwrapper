@@ -2,7 +2,9 @@
 
 from rpw import revit, DB
 from rpw.db.element import Element
+from rpw.db.category import Category
 from rpw.exceptions import RpwCoerceError
+from rpw.utils.logger import depracate_warning
 
 
 class ByNameCollectMixin():
@@ -50,3 +52,28 @@ class ByNameCollectMixin():
             return Element.from_id(reference)
         else:
             return cls(reference)
+
+
+
+class CategoryMixin():
+
+    """ Adds category and get_category methods.
+    """
+
+    @property
+    def _category(self):
+        """
+        Default Category Access Parameter. Overwrite on wrapper as needed.
+        See Family Wrapper for an example.
+        """
+        return self._revit_object.Category
+
+    @property
+    def category(self):
+        """ Wrapped ``DB.Category`` """
+        depracate_warning('.category', 'get_category()')
+        return Category(self._category)
+
+    def get_category(self, wrapped=True):
+        """ Wrapped ``DB.Category``"""
+        return Category(self._category) if wrapped else self._category

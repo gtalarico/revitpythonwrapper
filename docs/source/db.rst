@@ -8,6 +8,7 @@ Autodesk.Revit.DB Wrappers
    :maxdepth: 3
 
    db/element
+   db/category
    db/geometry
    db/reference
    db/transaction

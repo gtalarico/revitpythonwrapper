@@ -47,7 +47,7 @@ all_tests = [
              ViewTests,
              XYZTests,
              CurveTests,
-             TaskDialogTests,
+             # TaskDialogTests,
              #  PickTests,
              #  FormTests,
              ]

@@ -10,7 +10,7 @@ from rpw.db.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException, RpwWrongStorageType
 from rpw.exceptions import RpwParameterNotFound, RpwTypeError
-from rpw.utils.logger import logger
+from rpw.utils.logger import logger, depracate_warning
 from rpw.db.builtins import BicEnum, BipEnum
 
 
@@ -166,6 +166,20 @@ class Element(BaseObjectWrapper):
         else:
             return True
 
+    @property
+    def get_assembly(self, wrapped=True):
+        """
+        Returns:
+            (bool, DB.Element) ``None`` if element not in Assembly, else
+                returns Element
+        """
+        if self.in_assembly:
+            assembly_id = self._revit_object.AssemblyInstanceId
+            assembly = self.doc.GetElement()
+            return  Element(assembly) if wrapped else assembly
+        else:
+            return None
+
     @classmethod
     def collect(cls, **kwargs):
         """ Collect all elements of the wrapper, using the default collector.
@@ -239,9 +253,7 @@ class Element(BaseObjectWrapper):
 
     @staticmethod
     def Factory(element):
-        # Depracated - For Compatibility Only
-        msg = 'Element.Factory() has been depracated. Use Element()'
-        logger.warning(msg)
+        depracate_warning('Element.Factory()', replaced_by='Element()')
         return Element(element)
 
     def delete(self):
