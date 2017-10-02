@@ -158,28 +158,6 @@ class Element(BaseObjectWrapper):
         """ Name Property Setter """
         return DB.Element.Name.__set__(self.unwrap(), value)
 
-    @property
-    def in_assembly(self):
-        """ Returns True if element is inside an AssemblyInstance """
-        if self._revit_object.AssemblyInstanceId.IntegerValue == -1:
-            return False
-        else:
-            return True
-
-    @property
-    def get_assembly(self, wrapped=True):
-        """
-        Returns:
-            (bool, DB.Element) ``None`` if element not in Assembly, else
-                returns Element
-        """
-        if self.in_assembly:
-            assembly_id = self._revit_object.AssemblyInstanceId
-            assembly = self.doc.GetElement()
-            return  Element(assembly) if wrapped else assembly
-        else:
-            return None
-
     @classmethod
     def collect(cls, **kwargs):
         """ Collect all elements of the wrapper, using the default collector.

@@ -21,7 +21,7 @@ Note:
 """  #
 
 import rpw
-from rpw import revit, DB, db
+from rpw import revit, DB
 from rpw.db.element import Element
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException
@@ -85,6 +85,31 @@ class FamilyInstance(Element, CategoryMixin):
                           'FamilyInstance.get_siblings(wrapped=True)')
         return self.get_siblings(wrapped=True)
 
+    @property
+    def in_assembly(self):
+        """
+        Returns:
+            (bool): True if element is inside an AssemblyInstance
+        """
+        if self._revit_object.AssemblyInstanceId.IntegerValue == -1:
+            return False
+        else:
+            return True
+
+    @property
+    def get_assembly(self, wrapped=True):
+        """
+        Returns:
+            (bool, DB.Element) ``None`` if element not in Assembly, else
+                returns Element
+        """
+        if self.in_assembly:
+            assembly_id = self._revit_object.AssemblyInstanceId
+            assembly = self.doc.GetElement()
+            return  Element(assembly) if wrapped else assembly
+        else:
+            return None
+
     def __repr__(self):
         return super(FamilyInstance, self).__repr__(data={'symbol': self.symbol.name})
 
@@ -126,15 +151,18 @@ class FamilySymbol(Element, CategoryMixin):
         return self.get_family(wrapped=True)
 
     def get_instances(self, wrapped=True):
-        """Returns:
-            [``DB.FamilyInstance``]: List of model instances of the symbol (unwrapped)
         """
-        collector = db.Collector(symbol=self._revit_object.Id, is_not_type=True)
+        Returns:
+            [``DB.FamilyInstance``]: List of model instances of
+                the symbol (unwrapped)
+        """
+        collector = rpw.db.Collector(symbol=self._revit_object.Id, is_not_type=True)
         return collector.wrapped_elements if wrapped else collector.elements
 
     @property
     def instances(self):
-        """Returns:
+        """
+        Returns:
             [``DB.FamilyInstance``]: List of model instances
                 of the symbol (unwrapped)
         """
@@ -143,7 +171,8 @@ class FamilySymbol(Element, CategoryMixin):
         return self.get_instances(wrapped=True)
 
     def get_siblings(self, wrapped=True):
-        """Returns:
+        """
+        Returns:
             [``DB.FamilySymbol``]: List of symbol Types
                 of the same Family (unwrapped)
         """
