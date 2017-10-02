@@ -15,6 +15,8 @@ AssemblyInstance
 .. autoclass:: rpw.db.AssemblyInstance
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 AssemblyType
 *****************
@@ -22,6 +24,8 @@ AssemblyType
 .. autoclass:: rpw.db.AssemblyType
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ----------------------------------------------
 

@@ -36,7 +36,6 @@ Element-based Wrappers
    :maxdepth: 2
 
    assembly
-   curve
    family
    pattern
    spatial_element

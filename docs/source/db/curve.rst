@@ -15,42 +15,37 @@ Curve
 
 .. autoclass:: rpw.db.Curve
     :members:
-    :special-members: __init__
-    :private-members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 Line
 ************
 
 .. autoclass:: rpw.db.Line
     :members:
-    :special-members: __init__
-    :private-members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
-    .. automethod:: create_detail
 
 Ellipse
 ************
 
 .. autoclass:: rpw.db.Ellipse
     :members:
-    :special-members: __init__, create_detail
-    :private-members:
     :show-inheritance:
-
-    .. automethod:: create_detail
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 Circle
 ************
 
 .. autoclass:: rpw.db.Circle
     :members:
-    :special-members: __init__, create_detail
-    :private-members:
     :show-inheritance:
-
-    .. automethod:: create_detail
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ----------------------------------------------
 

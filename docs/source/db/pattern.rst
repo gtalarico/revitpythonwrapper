@@ -13,15 +13,16 @@ Pattern
 .. autoclass:: rpw.db.LinePatternElement
     :show-inheritance:
     :members:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
-    .. automethod:: by_name
 
 
 .. autoclass:: rpw.db.FillPatternElement
     :show-inheritance:
     :members:
-
-    .. automethod:: by_name
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 
 ----------------------------------------------

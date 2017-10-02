@@ -13,27 +13,30 @@ Instance
 
 .. autoclass:: rpw.db.FamilyInstance
     :members:
-    :private-members:
     :special-members: __init__
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 Symbol
 ************
 
 .. autoclass:: rpw.db.FamilySymbol
     :members:
-    :private-members:
     :special-members: __init__
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 Family
 ************
 
 .. autoclass:: rpw.db.Family
     :members:
-    :private-members:
     :special-members: __init__
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ----------------------------------------------
 

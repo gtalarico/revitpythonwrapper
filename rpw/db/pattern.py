@@ -19,7 +19,7 @@ class LinePatternElement(Element, ByNameCollectMixin):
     _collector_params = {'of_class': _revit_object_class, 'is_type': False}
 
     def __repr__(self):
-        return Element.__repr__(self, data={'name': self.Name})
+        return Element.__repr__(self, data={'name': self.name})
 
 
 class FillPatternElement(LinePatternElement):

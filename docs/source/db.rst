@@ -9,6 +9,7 @@ Autodesk.Revit.DB Wrappers
 
    db/element
    db/category
+   db/curve
    db/geometry
    db/reference
    db/transaction

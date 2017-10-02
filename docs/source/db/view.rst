@@ -20,9 +20,10 @@ View
 
 .. autoclass:: rpw.db.View
     :members:
-    :private-members:
     :special-members: __init__
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ViewPlan
 ********
@@ -30,6 +31,8 @@ ViewPlan
 .. autoclass:: rpw.db.ViewPlan
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ViewSheet
 *********
@@ -37,6 +40,8 @@ ViewSheet
 .. autoclass:: rpw.db.ViewSheet
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ViewSchedule
 ************
@@ -44,6 +49,8 @@ ViewSchedule
 .. autoclass:: rpw.db.ViewSchedule
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ViewSection
 ***********
@@ -51,6 +58,8 @@ ViewSection
 .. autoclass:: rpw.db.ViewSection
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 View3D
 ******
@@ -58,6 +67,8 @@ View3D
 .. autoclass:: rpw.db.View3D
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ViewFamilyType
 **************
@@ -65,6 +76,8 @@ ViewFamilyType
 .. autoclass:: rpw.db.ViewFamilyType
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 View Enumeration
 ^^^^^^^^^^^^^^^^
@@ -75,6 +88,8 @@ ViewFamily
 .. autoclass:: rpw.db.ViewFamily
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 ViewType
 ********
@@ -82,6 +97,8 @@ ViewType
 .. autoclass:: rpw.db.ViewType
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 
 Override Wrappers
@@ -93,6 +110,8 @@ OverrideGraphicSettings
 .. autoclass:: rpw.db.view.OverrideGraphicSettings
     :members:
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 
 ----------------------------------------------

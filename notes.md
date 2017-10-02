@@ -16,6 +16,7 @@
 * Feature/Cleanup: Add get_attribute(wrapped) + depracate warning to several attributes:
   including: FamilyInstance, FamilySymbol, Family, and Category.
   Attributes like FamilyInstance.symbol should now be accessed using FamilyInstance.get_symbol()
+* Cleanup: Moved in_assembly and get_assembly to FamilyInstance
 
 ### 1.6.0
 * Added TaskDialog, Tests, Docs

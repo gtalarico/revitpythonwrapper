@@ -16,6 +16,8 @@ Room Wrapper
     :private-members:
     :special-members: __init__
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 Area Wrapper
 ************
@@ -25,6 +27,8 @@ Area Wrapper
     :private-members:
     :special-members: __init__
     :show-inheritance:
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 Area Scheme Wrapper
 ********************

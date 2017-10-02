@@ -36,21 +36,29 @@ Wall Wrappers
     :members:
     :show-inheritance:
     :special-members: __init__
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 .. autoclass:: rpw.db.WallType
     :members:
     :show-inheritance:
     :special-members: __init__
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 .. autoclass:: rpw.db.WallKind
     :members:
     :show-inheritance:
     :special-members: __init__
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 .. autoclass:: rpw.db.WallCategory
     :members:
     :show-inheritance:
     :special-members: __init__
+    :inherited-members:
+    :exclude-members: from_id, from_int, from_list
 
 
 ----------------------------------------------

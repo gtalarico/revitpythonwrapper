@@ -21,11 +21,11 @@ class ByNameCollectMixin():
     @classmethod
     def by_name(cls, name):
         """
-        Mixin to provide instantiating by a name for classes that are collectible.
-        This is a mixin so specifi usage will vary for each for.
-        This method will call the :any:`collect` method of the class,
-        and return the first element with a matching ``Name`` property.
-        See implementation for more details.
+        Mixin to provide instantiating by a name for classes that are
+        collectible. This is a mixin so specifi usage will vary for each for.
+        This method will call the :any:`rpw.db.Element.collect`
+        method of the class, and return the first element with a
+        matching ``.name`` property.
 
         >>> LinePatternElement.by_name('Dash')
         <rpw:LinePatternElement name:Dash>
