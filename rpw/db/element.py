@@ -160,14 +160,21 @@ class Element(BaseObjectWrapper):
 
     @classmethod
     def collect(cls, **kwargs):
-        """ Collect all elements of the wrapper, using the default collector.
+        """
+        Collect all elements of the wrapper using the default collector.
+        This method is defined on the main Element wrapper, but the
+        collector parameters are defined in each wrapper. For example,
+        :any:`WallType` uses the `_collector_params`:
+        {'of_class': DB.WallType, 'is_type': True}
 
-        Collector will use default params (ie: Room ``{'of_category': 'OST_rooms'}``).
-        These can be overriden by passing keyword args to the collectors call.
+        These default collector parameters can be overriden by passing keyword
+        args to the collectors call.
 
-        >>> rooms = rpw.db.Rooms.collect()
-        [<rpw:Room % DB.Room | Room:1>]
-        >>> rooms = rpw.db.Area.collect()
+        >>> wall_types_collector = rpw.db.WallType.collect()
+        <rpw:Collector % FilteredElementCollector [count:4]>
+        >>> wall_types_collector.wrapped_elements # All Wall Types
+        [<rpw:WallType [name:Wall 1] [id:1557]>, ... ]
+        >>> rooms = rpw.db.Area.collect().wrapped_elements
         [<rpw:Area % DB.Area | Rentable:30.2>]
         >>> rooms = rpw.db.WallInstance.collect(level="Level 1")
         [<rpw:WallInstance % DB.Wall symbol:Basic Wall>]
