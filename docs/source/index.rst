@@ -58,12 +58,15 @@ It also provides a few convenient shortcuts:
 
 
 .. caution::
-    | This library should not be used in complex applications or mission-critical work.
-    | API changes are expected.
+    | Breaking Changes are API changes are expected on 2.0 release (Q4 2017)
 
-Got Questions?
-Post them over in the project's `Github Page <http://www.github.com/gtalarico/revitpythonwrapper>`_ or
+Questions? Post them over in the project's `Github Page <http://www.github.com/gtalarico/revitpythonwrapper>`_ or
 hit me up on `twitter <https://twitter.com/gtalarico>`_.
+
+Release Notes
+^^^^^^^^^^^^^
+
+`Release Notes On Github Repository <https://github.com/gtalarico/revitpythonwrapper/blob/master/notes.md>`_
 
 -------------------------------------------------------------------
 
@@ -84,7 +87,7 @@ Benefits
 
     * Normalizes Document and Application handlers for Revit + Dynamo
     * Increase code re-use across platforms (ie. :doc:`revit`)
-    * Implements patterns to reduce repetitive tasks (ie. :class:`rpw.db.transaction`)
+    * Implements patterns to reduce repetitive tasks (ie. :class:`rpw.db.Transaction`, :class:`rpw.db.Collector`)
     * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.db.Parameter`)
     * Normalizes API calls for different Revit Versions
 
@@ -106,6 +109,31 @@ License
     `MIT License <https://opensource.org/licenses/MIT>`_
 
 ---------------------------------------------------------------------------------
+**********************************
+Before We start
+**********************************
+
+To make it easier to users, Rpw attempts to maintain close fidelity to names and terms use by the Revit Api.
+So if you know the Revit API, it should feel familiar.
+Alternative names are only used where Revit Api names are inconvenient or inadequate.
+For example, the rpw :doc:`db/transaction` wrapper is also called ``Transaction``, however, the
+FilteredElementCollector wrapper, is called ``Collector``.
+
+To minimize namespace collision, the patterns below are highly recommended:
+
+1. Avoid ``from Something import *`` . This is generally not a good idea anyway.
+2. Use rpw imports instead of `import clr` and `from Autodesk.Revit ...` See :doc:`revit` for more details.
+:any:`rpw.utils.dotnet` has .NET classes such as List and Enum ready to go.
+3. Keep rpw namespaces isolated from Revit Namespaces. See example below:
+
+>>> from rpw import revit, db, ui, DB, UI
+>>> # For rpw wrappers, especially those in rpw.db, keep them inside db, ui (or forms):
+>>> doors = db.Collector(of_category='Doors')
+>>> with db.Transaction('Delete'):
+...     [revit.doc.Delete(id) for id in doors.element_ids]
+>>> # For Revit Namespaces, keep them under DB and UI:
+>>> invalid_id = DB.ElementId(-1)
+
 
 **********************************
 Basic Components
@@ -130,12 +158,12 @@ Without RPW
     >>> clr.AddReference('RevitAPIUI')
     >>> from Autodesk.Revit.DB import *
     >>> from Autodesk.Revit.UI import *
-    >>>
+    >>> # RevitServices
     >>> clr.AddReference("RevitServices")
     >>> import RevitServices
     >>> from RevitServices.Persistence import DocumentManager
     >>> from RevitServices.Transactions import TransactionManager
-    >>>
+    >>> # doc and uiapp
     >>> doc = DocumentManager.Instance.CurrentDBDocument
     >>> uiapp = DocumentManager.Instance.CurrentUIApplication
     >>> app = uiapp.Application
@@ -148,7 +176,7 @@ Without RPW
     >>> # Using Wrapper - Same code for RevitPythonShell, and Dynamo
     >>> from rpw import revit, db
     >>> with db.Transaction('Delete Object'):
-    >>>     revit.doc.Remove(SomeElementId)
+    ...     revit.doc.Remove(SomeElementId)
 
 Without RPW
 
@@ -168,15 +196,14 @@ Without RPW
     >>> clr.AddReference('RevitAPI')
     >>> from Autodesk.Revit.DB import Transaction
     >>> doc = __revit__.ActiveUIDocument.Document
-    >>>
     >>> transaction = Transaction(doc, 'Delete Object')
     >>> transaction.Start()
     >>> try:
-    >>>     doc.Remove(SomeElementId)
+    ...     doc.Remove(SomeElementId)
     >>> except:
-    >>>     transaction.RollBack()
+    ...     transaction.RollBack()
     >>> else:
-    >>>     transaction.Commit()
+    ...     transaction.Commit()
 
 
 :doc:`ui/selection`
@@ -203,8 +230,7 @@ Without RPW
     >>> from rpw import revit, db
     >>> element = db.Element(SomeRevitElement)
     >>> with db.Transaction('Set Comment Parameter'):
-    >>>     element.parameters['Comments'].value = 'Some String'
-
+    ...     element.parameters['Comments'].value = 'Some String'
     >>> element.parameters['some value'].type
     <type: string>
     >>> element.parameters['some value'].value
@@ -212,13 +238,13 @@ Without RPW
     >>> element.parameters.builtins['WALL_LOCATION_LINE'].value
     1
 
-    Access to original attributes, and parameters are provided
-    by the :any:`Element` wrapper.
+Access to original attributes, and parameters are provided
+by the :any:`Element` wrapper.
 
-    More Specialized Wrappers
-    also provide additional features based on its type:
-    ``DB.FamilyInstace`` (:any:`FamilyInstance`), ``DB.FamilySymbol`` (:any:`FamilySymbol`),
-    ``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
+More Specialized Wrappers
+also provide additional features based on its type:
+``DB.FamilyInstace`` (:any:`FamilyInstance`), ``DB.FamilySymbol`` (:any:`FamilySymbol`),
+``DB.Family`` (:any:`Family`), and ``DB.Category`` (:any:`Category`).
 
 
     >>> instance = db.Element(SomeFamilyInstance)

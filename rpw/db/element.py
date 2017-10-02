@@ -25,11 +25,12 @@ class Element(BaseObjectWrapper):
     Most importantly, all other `Element-related` classes inhert from this class
     so it can provide parameter access.
 
-    >>> element = rpw.db.Element(SomeElement)
-    >>> element = rpw.db.Element.from_id(ElementId)
-    >>> element = rpw.db.Element.from_int(Integer)
+    >>> from rpw import db
+    >>> element = db.Element(SomeElement)
+    >>> element = db.Element.from_id(ElementId)
+    >>> element = db.Element.from_int(Integer)
 
-    >>> wall = rpw.db.Element(RevitWallElement)
+    >>> wall = db.Element(RevitWallElement)
     >>> wall.Id
     >>> wall.parameters['Height'].value
     10.0
@@ -39,10 +40,10 @@ class Element(BaseObjectWrapper):
     if a match is not found, an Element will be used.
     If the element does not inherit from DB.Element, and exception is raised.
 
-    >>> wall_instance = rpw.db.Element(SomeWallInstance)
+    >>> wall_instance = db.Element(SomeWallInstance)
     >>> type(wall_instance)
     'rpw.db.WallInstance'
-    >>> wall_symbol = rpw.db.Element(SomeWallSymbol)
+    >>> wall_symbol = db.Element(SomeWallSymbol)
     >>> type(wall_symbol)
     'rpw.db.WallSymbol'
 
@@ -107,7 +108,8 @@ class Element(BaseObjectWrapper):
         """
         Main Element Instantiation
 
-        >>> wall = rpw.db.Element(SomeElementId)
+        >>> from rpw import db
+        >>> wall = db.Element(SomeElementId)
         <rpw: WallInstance % DB.Wall >
         >>> wall.parameters['Height']
         10.0
@@ -170,13 +172,14 @@ class Element(BaseObjectWrapper):
         These default collector parameters can be overriden by passing keyword
         args to the collectors call.
 
-        >>> wall_types_collector = rpw.db.WallType.collect()
+        >>> from rpw import db
+        >>> wall_types_collector = db.WallType.collect()
         <rpw:Collector % FilteredElementCollector [count:4]>
         >>> wall_types_collector.wrapped_elements  # All Wall Types
         [<rpw:WallType [name:Wall 1] [id:1557]>, ... ]
         >>> wall_types_collector.wrapped_elements
         [<rpw:Area % DB.Area | Rentable:30.2>]
-        >>> rooms = rpw.db.WallInstance.collect(level="Level 1")
+        >>> rooms = db.WallInstance.collect(level="Level 1")
         [<rpw:WallInstance % DB.Wall symbol:Basic Wall>]
 
         """

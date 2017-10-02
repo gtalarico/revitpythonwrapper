@@ -10,6 +10,7 @@ class Alert():
     A Simple Revit TaskDialog for displaying quick messages
 
     Usage:
+        >>> from rpw.ui.forms import Alert
         >>> Alert('Your Message', title="Title", header="Header Text")
         >>> Alert('You need to select Something', exit=True)
 
@@ -36,6 +37,7 @@ class CommandLink(BaseObject):
     Command Link Helper Class
 
     Usage:
+        >>> from rpw.ui.forms import CommandLink, TaskDialog
         >>> CommandLink('Open Dialog', return_value=func_to_open)
         >>> TaskDialog('Title', commands=[CommandLink])
 
@@ -61,6 +63,7 @@ class TaskDialog(BaseObjectWrapper):
     """
     Task Dialog Wrapper
 
+    >>> from rpw.ui.forms import CommandLink, TaskDialog
     >>> commands= [CommandLink('Open Dialog', return_value='Open'),
     >>> ...           CommandLink('Command', return_value=lambda: True)]
     >>> ...

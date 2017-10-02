@@ -35,6 +35,14 @@ Logger
     :private-members:
     :show-inheritance:
 
+.Net
+*********************
+.. automodule:: rpw.utils.dotnet
+    :members:
+    :special-members: __init__
+    :private-members:
+    :show-inheritance:
+
 ----------------------------------------------
 
 Implementation
@@ -51,5 +59,9 @@ Mixins
 Logger
 
 .. literalinclude:: ../../rpw/utils/logger.py
+
+.NET
+
+.. literalinclude:: ../../rpw/utils/dotnet.py
 
 .. disqus

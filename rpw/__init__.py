@@ -37,5 +37,6 @@ import rpw.db
 import rpw.ui
 import rpw.extras
 
-# For Compatibility. Use revit.doc instead?
+# For Compatibility. Use `from rpw import revit; revit.doc` instead.doc
+# This module import will be disable on rpw 2.0
 doc, uidoc = revit.doc, revit.uidoc

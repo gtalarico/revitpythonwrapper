@@ -2,23 +2,28 @@
 
 Revit Application Wrapper.
 
-All common global variables and namespaces accessible a single import
+The main rpw namespace and rpw.revit provide you with most of the imports will
+need.
 
-    >>> from rpw import revit, DB, UI
-    >>> revit.doc.Delete(SomeElementId)
-    >>> revit.uidoc.ActiveView
-    >>> revit.username
-    gtalarico
-    >>> revit.host
-    'Dynamo'
-    >>> revit.active_view
-    < Autodesk.Revit.DB.View >
+>>> from rpw import revit, db, ui
+>>> db.Element(SomeElement)
+>>> ui.Selection()
+>>> revit.uidoc.ActiveView
+>>> revit.username
+gtalarico
+>>> revit.host
+'Dynamo'
 
-Namespaces:
+Revit Namespaces are also available:
 
-    >>> from rpw import DB, UI
-    >>> DB.ElementId(00000)
-    >>> UI.TaskDialog
+>>> from rpw import DB, UI
+>>> DB.ElementId(00000)
+>>> UI.TaskDialog
+
+In summary, if you use rpw, this could potentially be the only import line
+you would need:
+
+>>> from rpw import revit, db, ui, DB, UI
 
 Note:
     The module path for the Revit Wrapper and its namespaces is ``rpw.__revit.Revit``.
@@ -26,7 +31,8 @@ Note:
     and is stored along with the ``DB`` and ``UI`` namespaces in the
     root of rpw module.
 
-    In other words, to use this wrapper all you need is to import ``from rpw import revit``
+    In other words, to use this wrapper all you need is to import
+    ``from rpw import revit``
 
 
 """  #

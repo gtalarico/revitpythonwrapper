@@ -27,7 +27,8 @@ if revit.host and revit.doc:
 
 class Selection(BaseObjectWrapper, ElementSet):
     """
-    >>> selection = rpw.ui.Selection()
+    >>> from rpw import ui
+    >>> selection = ui.Selection()
     >>> selection[0]
     FirstElement
     >>> selection.element_ids
@@ -120,9 +121,10 @@ class Pick(BaseObject):
 
     Handles all pick* methods in the Seletion Class
 
-    >>> pick.pick_element()
+    >>> from rpw import ui
+    >>> ui.Pick.pick_element()
     <rpw:reference>
-    >>> pick.pick_element(multiple=True)
+    >>> ui.Pick.pick_element(multiple=True)
     [<rpw:reference>, ...]
     """
 

@@ -9,8 +9,8 @@ class XYZ(BaseObjectWrapper):
 
     XYZ light wrapper with a few helpful methods:
 
-    >>> from rpw.db import XYZ
-    >>> pt = XYZ(some_point)
+    >>> from rpw.db import db
+    >>> pt = db.XYZ(some_point)
     >>> pt.as_tuple
     (0,0,0)
     >>> pt.x = 10

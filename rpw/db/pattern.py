@@ -13,6 +13,7 @@ class LinePatternElement(Element, ByNameCollectMixin):
 
     Attribute:
         _revit_object (DB.LinePatternElement): Wrapped ``DB.LinePatternElement``
+
     """
 
     _revit_object_class = DB.LinePatternElement

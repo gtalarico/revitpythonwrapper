@@ -2,6 +2,10 @@
 The forms module provide several pre-build forms as well as a framework
 from which you can build your own forms.
 
+All classes documented in this section can be imported as such:
+
+>>> from rpw.ui.forms import Console
+
 """
 
 # FlexForm + Componets
