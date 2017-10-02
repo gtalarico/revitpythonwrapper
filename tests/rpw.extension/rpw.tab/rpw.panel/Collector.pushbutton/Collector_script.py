@@ -378,7 +378,27 @@ class FilteredCollectorCompareTests(unittest.TestCase):
         rv2 = rpw.db.Collector(of_class="View")
         self.assertEqual(len(rv), len(rv2))
 
-        #TODO: Fo all FilteredElementCollector
+    def test_excludes(self):
+        e = DB.FilteredElementCollector(doc).OfClass(DB.View).FirstElement()
+        e = List[DB.ElementId]([e.Id])
+        rv = DB.FilteredElementCollector(doc).OfClass(DB.View).Excluding(e).ToElements()
+
+        e = rpw.db.Collector(of_class="View").wrapped_elements[0]
+        rv2 = rpw.db.Collector(of_class="View", exclude=e)
+        rv3 = rpw.db.Collector(of_class="View", exclude=[e])
+        rv4 = rpw.db.Collector(of_class="View", exclude=e.unwrap())
+        rv5 = rpw.db.Collector(of_class="View", exclude=[e.unwrap()])
+        rv6 = rpw.db.Collector(of_class="View", exclude=e.Id)
+        rv7 = rpw.db.Collector(of_class="View", exclude=[e.Id])
+
+        self.assertEqual(len(rv), len(rv2))
+        self.assertEqual(len(rv), len(rv3))
+        self.assertEqual(len(rv), len(rv4))
+        self.assertEqual(len(rv), len(rv5))
+        self.assertEqual(len(rv), len(rv6))
+        self.assertEqual(len(rv), len(rv7))
+
+        # TODO: Fo all FilteredElementCollector
 
 def run():
     logger.verbose(False)

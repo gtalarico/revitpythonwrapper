@@ -298,7 +298,7 @@ class FilterClasses():
                 return collector
 
     class ExclusionFilter(QuickFilter):
-        keyword = 'excluding'
+        keyword = 'exclude'
 
         @classmethod
         def process_value(cls, element_references):
@@ -387,6 +387,8 @@ class Collector(BaseObjectWrapper):
                                                                                Level, or Level Name
             * ``parameter_filter`` (:any:`ParameterFilter`): Similar to
                                                             ``ElementParameterFilter`` Class
+            * ``exclude`` (`element_references`): Element(s) or ElementId(s)
+                to exlude from result
             * ``where`` (`function`): function to test your elements against
 
         """
