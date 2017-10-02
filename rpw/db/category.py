@@ -4,7 +4,7 @@ Category Wrapper
 """  #
 
 import rpw
-from rpw import revit, DB, db
+from rpw import revit, DB
 from rpw.db.element import Element
 from rpw.base import BaseObjectWrapper
 from rpw.utils.logger import logger, depracate_warning
@@ -29,8 +29,9 @@ class Category(BaseObjectWrapper):
     def get_families(self, wrapped=True, doc=None):
         """
         Returns:
-            [``DB.Family``]: List of Family elements
-                in this same category (unwrapped)
+            Families (``DB.Family``): List of Family elements in this
+            same category
+
         """
         # There has to be a better way, but perhaps not: https://goo.gl/MqdzWg
         unique_family_ids = set()
@@ -47,10 +48,11 @@ class Category(BaseObjectWrapper):
         return self.get_families(wrapped=True)
 
     def get_symbols(self, wrapped=True):
-        """Returns:
-            [``DB.FamilySymbol``]: List of Symbol Types in the Category (unwrapped)
         """
-        collector = db.Collector(of_category=self.builtin, is_type=True)
+        Returns:
+            Symbols (``DB.FamilySymbol``): List of Symbol Types in the Category
+        """
+        collector = rpw.db.Collector(of_category=self.builtin, is_type=True)
         return collector.wrapped_elements if wrapped else collector.elements
 
     @property
@@ -60,10 +62,11 @@ class Category(BaseObjectWrapper):
         return self.get_symbols(wrapped=True)
 
     def get_instances(self, wrapped=True):
-        """Returns:
-            [``DB.FamilyInstance``]: List of Symbol Instances in the Category (unwrapped)
         """
-        collector = db.Collector(of_category=self.builtin, is_not_type=True)
+        Returns:
+            (``DB.FamilyInstance``): List of Symbol Instances in the Category.
+        """
+        collector = rpw.db.Collector(of_category=self.builtin, is_not_type=True)
         return collector.wrapped_elements if wrapped else collector.elements
 
     @property
