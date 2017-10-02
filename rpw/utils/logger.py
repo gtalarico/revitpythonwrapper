@@ -128,7 +128,7 @@ class LoggerWrapper():
     def setLevel(self, level):
         self._logger.setLevel(level)
 
-def depracate_warning(depracated, replaced_by=None):
+def deprecate_warning(depracated, replaced_by=None):
     msg = '{} has been depracated and will be removed soon.'.format(depracated)
     if replaced_by:
         msg += ' Use {} instead'.format(replaced_by)

@@ -4,7 +4,7 @@ from rpw import revit, DB
 from rpw.db.element import Element
 from rpw.db.category import Category
 from rpw.exceptions import RpwCoerceError
-from rpw.utils.logger import depracate_warning
+from rpw.utils.logger import deprecate_warning
 
 
 class ByNameCollectMixin():
@@ -71,7 +71,7 @@ class CategoryMixin():
     @property
     def category(self):
         """ Wrapped ``DB.Category`` """
-        depracate_warning('.category', 'get_category()')
+        deprecate_warning('.category', 'get_category()')
         return Category(self._category)
 
     def get_category(self, wrapped=True):

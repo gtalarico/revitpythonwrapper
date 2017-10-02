@@ -7,7 +7,7 @@ import rpw
 from rpw import revit, DB
 from rpw.db.element import Element
 from rpw.base import BaseObjectWrapper
-from rpw.utils.logger import logger, depracate_warning
+from rpw.utils.logger import logger, deprecate_warning
 from rpw.db.builtins import BicEnum
 
 
@@ -43,7 +43,7 @@ class Category(BaseObjectWrapper):
 
     @property
     def families(self):
-        depracate_warning('Category.families',
+        deprecate_warning('Category.families',
                           'Category.get_families(wrapped=True')
         return self.get_families(wrapped=True)
 
@@ -57,7 +57,7 @@ class Category(BaseObjectWrapper):
 
     @property
     def symbols(self):
-        depracate_warning('Category.symbols',
+        deprecate_warning('Category.symbols',
                           'Category.get_symbols(wrapped=True')
         return self.get_symbols(wrapped=True)
 
@@ -71,7 +71,7 @@ class Category(BaseObjectWrapper):
 
     @property
     def instances(self):
-        depracate_warning('Category.instances',
+        deprecate_warning('Category.instances',
                           'Category.get_instances(wrapped=True')
         return self.get_instances(wrapped=True)
 
@@ -82,7 +82,7 @@ class Category(BaseObjectWrapper):
 
     @property
     def _builtin_enum(self):
-        depracate_warning('Category._builtin_enum()', 'Category.builtin')
+        deprecate_warning('Category._builtin_enum()', 'Category.builtin')
         return self.builtin
 
     def __repr__(self):

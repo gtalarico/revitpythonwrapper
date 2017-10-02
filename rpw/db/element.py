@@ -10,7 +10,7 @@ from rpw.db.parameter import Parameter, ParameterSet
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException, RpwWrongStorageType
 from rpw.exceptions import RpwParameterNotFound, RpwTypeError
-from rpw.utils.logger import logger, depracate_warning
+from rpw.utils.logger import logger, deprecate_warning
 from rpw.db.builtins import BicEnum, BipEnum
 
 
@@ -238,7 +238,7 @@ class Element(BaseObjectWrapper):
 
     @staticmethod
     def Factory(element):
-        depracate_warning('Element.Factory()', replaced_by='Element()')
+        deprecate_warning('Element.Factory()', replaced_by='Element()')
         return Element(element)
 
     def delete(self):

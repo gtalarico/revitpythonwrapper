@@ -25,7 +25,7 @@ from rpw import revit, DB
 from rpw.db.element import Element
 from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException
-from rpw.utils.logger import logger, depracate_warning
+from rpw.utils.logger import logger, deprecate_warning
 from rpw.utils.mixins import CategoryMixin
 from rpw.db.builtins import BicEnum
 from rpw.db.category import Category
@@ -59,7 +59,7 @@ class FamilyInstance(Element, CategoryMixin):
     @property
     def symbol(self):
         """ Wrapped ``DB.FamilySymbol`` of the ``DB.FamilyInstance`` """
-        depracate_warning('FamilyInstance.symbol',
+        deprecate_warning('FamilyInstance.symbol',
                           'FamilyInstance.get_symbol(wrapped=True)')
         return self.get_symbol(wrapped=True)
 
@@ -70,7 +70,7 @@ class FamilyInstance(Element, CategoryMixin):
     @property
     def family(self):
         """ Wrapped ``DB.Family`` of the ``DB.FamilyInstance`` """
-        depracate_warning('FamilyInstance.family',
+        deprecate_warning('FamilyInstance.family',
                           'FamilyInstance.get_family(wrapped=True)')
         return self.get_family(wrapped=True)
 
@@ -81,7 +81,7 @@ class FamilyInstance(Element, CategoryMixin):
     @property
     def siblings(self):
         """ Other ``DB.FamilyInstance`` of the same ``DB.FamilySymbol`` """
-        depracate_warning('FamilyInstance.siblings',
+        deprecate_warning('FamilyInstance.siblings',
                           'FamilyInstance.get_siblings(wrapped=True)')
         return self.get_siblings(wrapped=True)
 
@@ -147,7 +147,7 @@ class FamilySymbol(Element, CategoryMixin):
     def family(self):
         """Returns:
             :any:`Family`: Wrapped ``DB.Family`` of the symbol """
-        depracate_warning('FamilySymbol.family',
+        deprecate_warning('FamilySymbol.family',
                           'FamilySymbol.get_family(wrapped=True)')
         return self.get_family(wrapped=True)
 
@@ -167,7 +167,7 @@ class FamilySymbol(Element, CategoryMixin):
             [``DB.FamilyInstance``]: List of model instances
                 of the symbol (unwrapped)
         """
-        depracate_warning('FamilySymbol.instances',
+        deprecate_warning('FamilySymbol.instances',
                           'FamilySymbol.get_instances(wrapped=True)')
         return self.get_instances(wrapped=True)
 
@@ -183,7 +183,7 @@ class FamilySymbol(Element, CategoryMixin):
 
     @property
     def siblings(self):
-        depracate_warning('FamilySymbol.siblings',
+        deprecate_warning('FamilySymbol.siblings',
                           'FamilySymbol.get_siblings(wrapped=True)')
         return self.get_siblings(wrapped=True)
 
@@ -216,7 +216,7 @@ class Family(Element, CategoryMixin):
 
     @property
     def instances(self):
-        depracate_warning('Family.instances',
+        deprecate_warning('Family.instances',
                           'Family.get_instances(wrapped=True)')
         return self.get_instances(wrapped=True)
 
@@ -230,7 +230,7 @@ class Family(Element, CategoryMixin):
 
     @property
     def symbols(self):
-        depracate_warning('Family.symbols',
+        deprecate_warning('Family.symbols',
                           'Family.get_symbols(wrapped=True)')
         return self.get_symbols(wrapped=True)
 
