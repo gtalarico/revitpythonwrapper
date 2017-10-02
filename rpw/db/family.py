@@ -111,7 +111,8 @@ class FamilyInstance(Element, CategoryMixin):
             return None
 
     def __repr__(self):
-        return super(FamilyInstance, self).__repr__(data={'symbol': self.symbol.name})
+        symbol_name = self.get_symbol(wrapped=True).name
+        return super(FamilyInstance, self).__repr__(data={'symbol': symbol_name})
 
 
 class FamilySymbol(Element, CategoryMixin):
