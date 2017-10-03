@@ -146,10 +146,10 @@ class ElementSet(BaseObject):
         for element in self._elements.values():
             yield Element(element)
 
-    def __getitem__(self, index):
+    def __getitem__(self, key):
         """ Getter: Wrapped """
-        for n, element in enumerate(self):
-            if n == index:
+        for element in self:
+            if element == key:
                 return element
         raise IndexError('IndexError in ElementSet: {}'.format(index))
 

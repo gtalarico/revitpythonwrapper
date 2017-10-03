@@ -3,7 +3,8 @@
 ### 1.7.2
 * Fixed: Collector.get_element_ids() Typo
 * Feature: Added deprecated methods to collections
-* Fix XYZ can now take regular DB.XYZ
+* Fix: XYZ can now take regular DB.XYZ
+* Fix: ElementSet.__getitem__
 
 ### 1.7.1
 * Fix: Autodesk.Revit.Exceptions Circular Import (Dynamo)
