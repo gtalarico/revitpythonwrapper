@@ -88,7 +88,7 @@ class XYZ(BaseObjectWrapper):
     def z(self, value):
         self._revit_object = DB.XYZ(self.x, self.y, value)
 
-    def at_z(self, z):
+    def at_z(self, z, wrapped=True):
         """ Returns a new point at the passed Z value
 
         Args:
@@ -97,7 +97,7 @@ class XYZ(BaseObjectWrapper):
         Returns:
             (:any:`XYZ`): New Points
         """
-        return XYZ(self.x, self.y, z)
+        return XYZ(self.x, self.y, z) if wrapped else DB.XYZ(self.x, self.y, z)
 
     @property
     def as_tuple(self):

@@ -1,12 +1,13 @@
 2.0 Breaking Changes:
 ☐ Rename Pick methods to to Pick.element, etc
-☐ move TaskDialog to ui.TaskDialog
-☐ move forms out of ui? Seems very inconsisten
+☐ (?) Move TaskDialog to ui.TaskDialog; move forms out of ui?
 ☐ remove doc and ui from rpw.doc, rpw.uidoc
 
 Core:
-☐ CRITICAL: Complete Deprecated methods for optional wrapping: family.symbols > family.get_symbols
-☐ CRITICAL: Complete Deprecated methods for optional wrapping for collector, collections, etc
+☐ CRITICAL: Complete Deprecated methods for optional wrapping for Views
+☐ CRITICAL: Complete Deprecated methods for optional wrapping for Collection and Selection
+✔ CRITICAL: Complete Deprecated methods for optional wrapping: family.symbols > family.get_symbols @done (17-10-02 20:52)
+✔ CRITICAL: Complete Deprecated methods for optional wrapping for collector @done (17-10-02 20:53)
 > Sometimes are wrapped, sometimes are unwrapped. That's bad! Collector uses .wrapped_elements
 > Ideally, it would all be wrapped, but since not all elements have working wrappers, that would creat an inconsistency
 ✔ Add Erro Handling to Pick. methods @done (17-10-02 19:32)
