@@ -124,15 +124,15 @@ class ElementSetTests(unittest.TestCase):
 
     def test_element_set_first(self):
         rv = rpw.db.ElementSet(self.views)
-        self.assertEqual(rv.first.Id, self.views[0].Id)
+        self.assertEqual(rv.first(wrapped=False).Id, self.views[0].Id)
 
     def test_element_set_get_item(self):
         rv = rpw.db.ElementSet(self.views)
-        self.assertIsInstance(rv[0], DB.View)
+        self.assertIsInstance(rv[0].unwrap(), DB.View)
 
     def test_element_set_iter(self):
         rv = rpw.db.ElementSet(self.views)
-        self.assertTrue(all([isinstance(v, DB.View) for v in rv]))
+        self.assertTrue(all([isinstance(v.unwrap(), DB.View) for v in rv]))
 
     def test_element_set_pop(self):
         rv = rpw.db.ElementSet(self.views)
@@ -175,7 +175,7 @@ class ElementCollectionTests(unittest.TestCase):
 
     def test_element_collection_elements(self):
         x = rpw.db.ElementCollection(self.views)
-        self.assertIsInstance(x.elements[0], DB.View)
+        self.assertIsInstance(x.elements[0].unwrap(), DB.View)
 
     def test_element_collection_element_ids(self):
         x = rpw.db.ElementCollection(self.views)
@@ -208,20 +208,20 @@ class ElementCollectionTests(unittest.TestCase):
 
     def test_element_collection_first(self):
         rv = rpw.db.ElementCollection(self.views)
-        self.assertEqual(rv.first.Id, self.views[0].Id)
+        self.assertEqual(rv.first(wrapped=False).Id, self.views[0].Id)
 
     def test_element_collection_get_item(self):
         rv = rpw.db.ElementCollection(self.views)
-        self.assertIsInstance(rv[0], DB.View)
+        self.assertIsInstance(rv[0].unwrap(), DB.View)
 
     def test_element_collection_iter(self):
         rv = rpw.db.ElementCollection(self.views)
-        self.assertTrue(all([isinstance(v, DB.View) for v in rv]))
+        self.assertTrue(all([isinstance(v.unwrap(), DB.View) for v in rv]))
 
     def test_element_collection_pop(self):
         col = rpw.db.ElementCollection(self.views)
         size = len(col)
-        e = col.pop(0)
+        e = col.pop(0, wrapped=False)
 
         self.assertIsInstance(e, DB.View)
         self.assertEqual(len(col), size - 1)

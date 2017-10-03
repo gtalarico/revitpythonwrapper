@@ -158,7 +158,7 @@ class FamilySymbol(Element, CategoryMixin):
                 the symbol (unwrapped)
         """
         collector = rpw.db.Collector(symbol=self._revit_object.Id, is_not_type=True)
-        return collector.wrapped_elements if wrapped else collector.elements
+        return collector.get_elements(wrapped)
 
     @property
     def instances(self):

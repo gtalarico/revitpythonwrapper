@@ -32,11 +32,10 @@ class ByNameCollectMixin():
         <rpw:FillPatternElement name:Solid>
 
         """
-        first = cls.collect(where=lambda e: e.name == name).first
-        if first:
-            return cls(first)
-        else:
-            raise RpwCoerceError('by_name({})'.format(name), cls)
+        e = cls.collect(where=lambda e: e.name.lower() == name.lower()).first()
+        if e:
+            return e
+        raise RpwCoerceError('by_name({})'.format(name), cls)
 
     @classmethod
     def by_name_or_element_ref(cls, reference):

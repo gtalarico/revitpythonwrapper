@@ -1,5 +1,11 @@
 # Release Notes
 
+### 1.8.0
+* Fixed: Collector.get_element_ids() Typo
+* Feature: Added deprecated methods to collections
+* Fix XYZ can now take regular DB.XYZ
+
+
 ### 1.7.1
 * Fix: Autodesk.Revit.Exceptions Circular Import (Dynamo)
 * Fix: + Docs Fixes

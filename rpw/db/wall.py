@@ -204,8 +204,6 @@ class WallKind(BaseObjectWrapper):
     def get_category(self, wrapped=True):
         cat = DB.Category.GetCategory(revit.doc, DB.BuiltInCategory.OST_Walls)
         return WallCategory(cat) if wrapped else cat
-        # wall_type = rpw.db.Collector(of_class=DB.WallType, is_type=True).first
-        # return WallCategory(wall_type.Category)
 
     @property
     def category(self):

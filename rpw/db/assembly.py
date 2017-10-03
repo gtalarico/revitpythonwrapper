@@ -59,9 +59,9 @@ class AssemblyType(FamilySymbol, CategoryMixin):
         """ Returns all assembly types """
         return [Element.from_id(t) for t in self._revit_object.GetSimilarTypes()]
 
-    # @property
-    # def instances(self):
-    #     raise NotImplemented
+    @property
+    def instances(self):
+        raise NotImplemented
         """ Returns all Instances of the assembly type """
         # bip = BipEnum.get_id('AREA_SCHEME_ID')
         # param_filter = rpw.db.Collector.ParameterFilter(bip, equals=self._revit_object.Id)

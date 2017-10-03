@@ -111,7 +111,7 @@ class CollectorTests(unittest.TestCase):
 
     def test_collector_first(self):
         x = self.collector_helper({'of_class': DB.View})
-        assert isinstance(x.first, DB.View)
+        assert isinstance(x.first(wrapped=False), DB.View)
 
     def test_collector_caster(self):
         x = self.collector_helper({'of_class': DB.Wall}).elements[0]
@@ -157,18 +157,18 @@ class CollectorTests(unittest.TestCase):
     def tests_collect_rooms(self):
         collector = rpw.db.Collector(of_category='OST_Rooms')
         if collector:
-            self.assertIsInstance(collector.first, DB.SpatialElement)
+            self.assertIsInstance(collector.first(wrapped=False), DB.SpatialElement)
             collector = rpw.db.Collector(of_class='SpatialElement')
-            self.assertIsInstance(collector.first, DB.Architecture.Room)
+            self.assertIsInstance(collector.first(wrapped=False), DB.Architecture.Room)
 
     def test_collector_scope_elements(self):
         """ If Collector scope is list of elements, should not find View"""
-        wall = rpw.db.Collector(of_class='Wall').first
+        wall = rpw.db.Collector(of_class='Wall').first(wrapped=False)
         collector = rpw.db.Collector(elements=[wall], of_class='View')
         self.assertEqual(len(collector), 0)
 
     def test_collector_scope_element_ids(self):
-        wall = rpw.db.Collector(of_class='Wall').first
+        wall = rpw.db.Collector(of_class='Wall').first(wrapped=False)
         collector = rpw.db.Collector(element_ids=[wall.Id], of_class='View')
         self.assertEqual(len(collector), 0)
 
@@ -205,27 +205,27 @@ class BuiltInCollectorTests(unittest.TestCase):
     def test_element_collector_wall(self):
         walls = rpw.db.Wall.collect()
         self.assertEqual(len(walls), 1)
-        self.assertIsInstance(walls.first, DB.Wall)
+        self.assertIsInstance(walls.first(wrapped=False), DB.Wall)
 
     def test_element_collector_wallsymbols(self):
         wallsymbols = rpw.db.WallType.collect()
         self.assertEqual(len(wallsymbols), 4)
-        self.assertIsInstance(wallsymbols.first, DB.WallType)
+        self.assertIsInstance(wallsymbols.first(wrapped=False), DB.WallType)
 
     def test_element_collector_Room(self):
         rooms = rpw.db.Room.collect()
         self.assertEqual(len(rooms), 2)
-        self.assertIsInstance(rooms.first, DB.Architecture.Room)
+        self.assertIsInstance(rooms.first(wrapped=False), DB.Architecture.Room)
 
     def test_element_collector_Area(self):
         areas = rpw.db.Area.collect()
         self.assertEqual(len(areas), 1)
-        self.assertIsInstance(areas.first, DB.Area)
+        self.assertIsInstance(areas.first(wrapped=False), DB.Area)
 
     def test_element_collector_AreaScheme(self):
         areas = rpw.db.AreaScheme.collect()
         self.assertEqual(len(areas), 2)
-        self.assertIsInstance(areas.first, DB.AreaScheme)
+        self.assertIsInstance(areas.first(wrapped=False), DB.AreaScheme)
 
 
 ############################
@@ -239,7 +239,7 @@ class ParameterFilterTests(unittest.TestCase):
         logger.title('TESTING PARAMETER FILTER...')
 
     def setUp(self):
-        self.wall = rpw.db.Collector(of_class='Wall').first
+        self.wall = rpw.db.Collector(of_class='Wall').first(wrapped=False)
         self.wrapped_wall = rpw.db.Element(self.wall)
         with rpw.db.Transaction('Set Comment'):
             self.wrapped_wall.parameters['Comments'].value = 'Tests'
@@ -351,7 +351,7 @@ class ParameterFilterTests(unittest.TestCase):
 
     def test_from_parameter_name(self):
         """ Uses LooksUp Parameter from sample element """
-        level = rpw.db.Collector(of_category="OST_Levels", is_type=False).first
+        level = rpw.db.Collector(of_category="OST_Levels", is_type=False).first(wrapped=False)
         parameter_filter = rpw.db.ParameterFilter.from_element_and_parameter(level, 'Name', ends='1')
         col = rpw.db.Collector(of_category="OST_Levels", parameter_filter=parameter_filter)
         self.assertEqual(len(col), 1)

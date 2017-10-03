@@ -53,7 +53,7 @@ class Category(BaseObjectWrapper):
             Symbols (``DB.FamilySymbol``): List of Symbol Types in the Category
         """
         collector = rpw.db.Collector(of_category=self.builtin, is_type=True)
-        return collector.wrapped_elements if wrapped else collector.elements
+        return collector.get_elements(wrapped)
 
     @property
     def symbols(self):
@@ -67,7 +67,7 @@ class Category(BaseObjectWrapper):
             (``DB.FamilyInstance``): List of Symbol Instances in the Category.
         """
         collector = rpw.db.Collector(of_category=self.builtin, is_not_type=True)
-        return collector.wrapped_elements if wrapped else collector.elements
+        return collector.get_elements(wrapped)
 
     @property
     def instances(self):

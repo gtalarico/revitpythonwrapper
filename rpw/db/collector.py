@@ -109,6 +109,8 @@ class FilterClasses():
     """
     Groups FilterClasses to facilitate discovery.
 
+    # TODO: Move Filter doc to Filter Classes
+
     Implementation Tracker:
     Quick
         X Revit.DB.ElementCategoryFilter = of_category
@@ -341,7 +343,7 @@ class Collector(BaseObjectWrapper):
 
     Usage:
         >>> collector = Collector(of_class='View')
-        >>> elements = collector.elements
+        >>> elements = collector.get_elements()
 
         Multiple Filters:
 
@@ -370,9 +372,9 @@ class Collector(BaseObjectWrapper):
         >>> Collector(owner_view=None)
 
     Attributes:
-        collector.elements: Returns list of all `collected` elements
-        collector.first: Returns first found element, or ``None``
-        collector.wrapped_elements: Returns list with all elements wrapped.
+        collector.get_elements(): Returns list of all `collected` elements
+        collector.get_first(): Returns first found element, or ``None``
+        collector.get_elements(): Returns list with all elements wrapped.
                                     Elements will be instantiated using :any:`Element`
 
     Wrapped Element:
@@ -496,7 +498,7 @@ class Collector(BaseObjectWrapper):
         """ Selects Collector Elements on the UI """
         Selection(self.element_ids)
 
-    def get_first(self, wrapped=True):
+    def first(self, wrapped=True):
         """
         Returns first element or `None`
 
@@ -510,10 +512,10 @@ class Collector(BaseObjectWrapper):
             return None
 
 
-    @property
-    def first(self):
-        deprecate_warning('Collector.first', 'Collector.get_first()')
-        return self.get_first(wrapped=False)
+    # @property
+    # def first(self):
+    #     deprecate_warning('Collector.first', 'Collector.get_first()')
+    #     return self.get_first(wrapped=False)
 
     def get_element_ids(self):
         """
@@ -525,7 +527,7 @@ class Collector(BaseObjectWrapper):
     def element_ids(self):
         deprecate_warning('Collector.element_ids',
                           'Collector.get_element_ids()')
-        return self.get_first()
+        return self.get_element_ids()
 
     def __getitem__(self, index):
         # TODO: Depracate or Make return Wrapped ?
@@ -538,14 +540,14 @@ class Collector(BaseObjectWrapper):
 
     def __bool__(self):
         """ Evaluates to `True` if Collector.elements is not empty [] """
-        return bool(self.elements)
+        return bool(self.get_elements(wrapped=False))
 
     def __len__(self):
-        """ Returns length of collector.elements """
+        """ Returns length of collector.get_elements() """
         try:
             return self._collector.GetElementCount()
         except AttributeError:
-            return len(self.elements)  # Revit 2015
+            return len(self.get_elements(wrapped=False))  # Revit 2015
 
     def __repr__(self):
         return super(Collector, self).__repr__(data={'count': len(self)})

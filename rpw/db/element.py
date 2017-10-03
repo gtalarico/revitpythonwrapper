@@ -176,9 +176,9 @@ class Element(BaseObjectWrapper, CategoryMixin):
         >>> from rpw import db
         >>> wall_types_collector = db.WallType.collect()
         <rpw:Collector % FilteredElementCollector [count:4]>
-        >>> wall_types_collector.wrapped_elements  # All Wall Types
+        >>> wall_types_collector.get_elements()  # All Wall Types
         [<rpw:WallType [name:Wall 1] [id:1557]>, ... ]
-        >>> wall_types_collector.wrapped_elements
+        >>> wall_types_collector.get_elements()
         [<rpw:Area % DB.Area | Rentable:30.2>]
         >>> rooms = db.WallInstance.collect(level="Level 1")
         [<rpw:WallInstance % DB.Wall symbol:Basic Wall>]

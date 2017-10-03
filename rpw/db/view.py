@@ -164,7 +164,7 @@ class ViewFamilyType(Element):
     @property
     def views(self):
         """ Collect All Views of the same ViewFamilyType """
-        views = Collector(of_class='View').wrapped_elements
+        views = Collector(of_class='View').get_elements(wrapped=True)
         return [view for view in views if
                 getattr(view.view_family_type, '_revit_object', None) == self.unwrap()]
 
@@ -197,7 +197,7 @@ class ViewFamily(BaseObjectWrapper):
     @property
     def views(self):
         """ Collect All Views of the same ViewFamily """
-        views = Collector(of_class='View').wrapped_elements
+        views = Collector(of_class='View').get_elements(wrapped=True)
         return [view for view in views if
                 getattr(view.view_family, '_revit_object', None) == self.unwrap()]
 
@@ -229,7 +229,7 @@ class ViewType(BaseObjectWrapper):
     @property
     def views(self):
         """ Collect All Views of the same ViewType """
-        views = Collector(of_class='View').wrapped_elements
+        views = Collector(of_class='View').get_elements(wrapped=True)
         return [view for view in views if view.view_type.unwrap() == self.unwrap()]
 
     def __repr__(self):
@@ -275,6 +275,8 @@ class OverrideGraphicSettings(BaseObjectWrapper):
     # TODO: Pattern: Add pattern_id from name. None sets InvalidElementId
     # TODO: Weight: None to set InvalidPenNumber
     # TODO: Color: Add color from name util
+    # ISSUE: Cannot set LinePatterns to Solid because it's not collectible:
+    # https://forums.autodesk.com/t5/revit-api-forum/solid-linepattern/td-p/4651067
 
     _revit_object_class = DB.OverrideGraphicSettings
 

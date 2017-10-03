@@ -10,6 +10,7 @@ from rpw.db.element import Element
 from rpw.base import BaseObject
 from rpw.utils.coerce import to_elements, to_element_ids, to_element_id
 from rpw.utils.dotnet import List
+from rpw.utils.logger import deprecate_warning
 
 
 class ElementSet(BaseObject):
@@ -50,48 +51,50 @@ class ElementSet(BaseObject):
         for eid in element_ids:
             self._elements[eid] = self.doc.GetElement(eid)
 
-    def pop(self, element_id):
+    def pop(self, element_id, wrapped=True):
         """
         Removed from set using ElementIds
 
         Args:
             element_id (`DB.ElementId`): ElementId
          """
-        return self._elements.pop(element_id)
-
-    @property
-    def wrapped_elements(self):
-        """
-        Returns:
-            List of wrapped elements stored in ElementSet
-        """
-        return [Element(x) for x in self.elements]
-
-    @property
-    def elements(self):
-        """
-        Elements in ElementSet
-
-        Returns:
-            Elements (``List``): Elements stored in ElementSet
-        """
-        return [e for e in self._elements.values()]
-        # return [self.doc.GetElement(eid) for eid in self._element_dict.keys()]
-
-    @property
-    def element_ids(self):
-        """
-        ElementId of Elements in ElementSet
-
-        Returns:
-            ElementIds (``List``): List of ElementIds Objects
-        """
-        return [e for e in self._elements.keys()]
-        # return [eid for eid in self._element_dict]
+        element = self._elements.pop(element_id)
+        return Element(element) if wrapped else element
 
     def clear(self):
         """ Clears Set """
         self._elements = OrderedDict()
+
+    def get_elements(self, wrapped=True, as_list=False):
+        """
+        Elements in ElementSet
+
+        Args:
+            wrapped(bool): True for wrapped Elements. Default is True.
+            as_list(bool): True if you want list as List[DB.Element], False
+                for regular python list. Default is False.
+                If ``as_list`` is True, ``wrapped`` will be set to False.
+
+        Returns:
+            Elements (``List``): Elements stored in ElementSet
+        """
+        if as_list or not wrapped:
+            elements = [e for e in self._elements.values()]
+            return List[DB.Element](elements) if as_list else elements
+        else:
+            return [Element(e) for e in self._elements.values()]
+
+    @property
+    def wrapped_elements(self):
+        deprecate_warning('ElementSet.wrapped_elements',
+                          'ElementSet.get_elements(wrapped=True)')
+        return self.get_elements(wrapped=True)
+
+    @property
+    def elements(self):
+        deprecate_warning('ElementSet.wrapped_elements',
+                          'ElementSet.get_elements(wrapped=False)')
+        return self.get_elements(wrapped=False)
 
     @property
     def as_element_list(self):
@@ -99,15 +102,37 @@ class ElementSet(BaseObject):
         Returns:
             IList<DB.Element>
         """
-        return List[DB.Element](self.elements)
+        return self.get_element_ids(as_list=True)
+
+    def get_element_ids(self, as_list=True):
+        """
+        ElementId of Elements in ElementSet
+
+        Args:
+            as_list(bool): True if you want list as List[DB.ElementId], False
+                for regular python list. Default is True
+
+        Returns:
+            ElementIds (List, List[DB.ElementId]): List of ElementIds Objects
+
+        """
+        ids = [e for e in self._elements.keys()]
+        if as_list:
+            return List[DB.ElementId](ids)
+        else:
+            return ids
+
+    @property
+    def element_ids(self):
+        deprecate_warning('ElementSet.element_ids',
+                          'ElementSet.get_element_ids(as_list=False)')
+        return self.get_element_ids(as_list=False)
 
     @property
     def as_element_id_list(self):
-        """
-        Returns:
-            IList<DB.ElementId>
-        """
-        return List[DB.ElementId](self.element_ids)
+        deprecate_warning('ElementSet.as_element_id_list',
+                          'ElementSet.get_element_ids(as_list=True)')
+        return self.get_element_ids(as_list=True)
 
     def select(self):
         """ Selects Set in UI """
@@ -117,10 +142,16 @@ class ElementSet(BaseObject):
         return len(self._elements)
 
     def __iter__(self):
-        return iter(self._elements.values())
+        """ Iterator: Wrapped """
+        for element in self._elements.values():
+            yield Element(element)
 
     def __getitem__(self, index):
-        return self.elements[index]
+        """ Getter: Wrapped """
+        for n, element in enumerate(self):
+            if n == index:
+                return element
+        raise IndexError('IndexError in ElementSet: {}'.format(index))
 
     def __contains__(self, element_or_id):
         """
@@ -134,7 +165,7 @@ class ElementSet(BaseObject):
         """
         # TODO Write Tests
         element_id = to_element_id(element_or_id)
-        return bool(element_id in self.element_ids)
+        return bool(element_id in self.get_element_ids(as_list=False))
 
     def __bool__(self):
         return bool(self._elements)
@@ -142,12 +173,13 @@ class ElementSet(BaseObject):
     def __repr__(self, data=None):
         return super(ElementSet, self).__repr__(data={'count': len(self)})
 
-    @property
-    def first(self):
+    def first(self, wrapped=True):
         try:
-            return self[0]
+            first = self[0]
         except IndexError:
             return None
+        else:
+            return self[0] if wrapped else self[0].unwrap()
 
 
 class ElementCollection(ElementSet):
@@ -183,6 +215,19 @@ class ElementCollection(ElementSet):
     def add(self, *args):
         raise AttributeError('Use ElementCollection .append instead')
 
+    def get_elements(self, wrapped=True):
+        """
+        List of Elements in Collection
+
+        Args:
+            wrapped(bool): True for wrapped Elements. Default is True.
+
+        Returns:
+            Elements (``List``): List of Elements Objects
+        """
+        elements = self._elements
+        return [Element(e) for e in elements] if wrapped else elements
+
     @property
     def elements(self):
         """
@@ -191,7 +236,27 @@ class ElementCollection(ElementSet):
         Returns:
             Elements (``List``): List of Elements Objects
         """
-        return self._elements
+        deprecate_warning('ElementCollection.elements',
+                          'ElementCollection.get_elements()')
+        return self.get_elements(wrapped=True)
+
+    def get_element_ids(self, as_list=True):
+        """
+        ElementId of Elements in ElementCollection
+
+        Args:
+            as_list(bool): True if you want list as List[DB.ElementId], False
+                for regular python list. Default is True
+
+        Returns:
+            ElementIds (List, List[DB.ElementId]): List of ElementIds Objects
+
+        """
+        ids = [e.Id for e in self._elements]
+        if as_list:
+            return List[DB.ElementId](ids)
+        else:
+            return ids
 
     @property
     def element_ids(self):
@@ -205,22 +270,25 @@ class ElementCollection(ElementSet):
         """ Clears Set """
         self._elements = []
 
-    def pop(self, index=0):
+    def pop(self, index=0, wrapped=True):
         """
         Removed from set using ElementIds
 
         Args:
             index (``int``): Index of Element [Default: 0]
-         """
-        return self._elements.pop(index)
+        """
+        element = self._elements.pop(index)
+        return Element(element) if wrapped else element
 
     def __iter__(self):
-        return iter(self._elements)
-
+        """ Iterator: Wrapped """
+        for element in self._elements:
+            yield Element(element)
 
 class XyzCollection(BaseObject):
     """
-    Provides helpful methods for managing a collection(list) of :any:`XYZ` instances.
+    Provides helpful methods for managing a
+    collection(list) of :any:`XYZ` instances.
 
     >>> points = [p1,p2,p3,p4, ...]
     >>> point_collection = XyzCollection(points)
@@ -230,7 +298,7 @@ class XyzCollection(BaseObject):
         point_collection.min
         point_collection.max
     """
-    # TODO: Implement wrapped return
+    # TODO: Implement unwrapped return.
     # TODO: Implement Collection methods (Add, pop, as list, etc)
 
     def __init__(self, points):
@@ -251,9 +319,9 @@ class XyzCollection(BaseObject):
             XYZ (`DB.XYZ`): Average of point collection.
 
         """
-        x_values = [point.x for point in self.points]
-        y_values = [point.y for point in self.points]
-        z_values = [point.z for point in self.points]
+        x_values = [point.X for point in self.points]
+        y_values = [point.Y for point in self.points]
+        z_values = [point.Z for point in self.points]
         x_avg = sum(x_values) / len(x_values)
         y_avg = sum(y_values) / len(y_values)
         z_avg = sum(z_values) / len(z_values)
@@ -271,9 +339,9 @@ class XyzCollection(BaseObject):
             XYZ (`DB.XYZ`): Max of point collection.
 
         """
-        x_values = [point.x for point in self.points]
-        y_values = [point.y for point in self.points]
-        z_values = [point.z for point in self.points]
+        x_values = [point.X for point in self.points]
+        y_values = [point.Y for point in self.points]
+        z_values = [point.Z for point in self.points]
         x_max = max(x_values)
         y_max = max(y_values)
         z_max = max(z_values)
@@ -289,9 +357,9 @@ class XyzCollection(BaseObject):
             XYZ (`DB.XYZ`): Min of point collection.
 
         """
-        x_values = [point.x for point in self.points]
-        y_values = [point.y for point in self.points]
-        z_values = [point.z for point in self.points]
+        x_values = [point.X for point in self.points]
+        y_values = [point.Y for point in self.points]
+        z_values = [point.Z for point in self.points]
         x_min = min(x_values)
         y_min = min(y_values)
         z_min = min(z_values)
@@ -308,7 +376,7 @@ class XyzCollection(BaseObject):
             axis (`str`): Axist to sort by.
         """
         sorted_points = self.points[:]
-        sorted_points.sort(key=lambda p: getattr(p, x_y_z))
+        sorted_points.sort(key=lambda p: getattr(p, x_y_z.upper()))
         return sorted_points
 
     def __len__(self):

@@ -94,7 +94,8 @@ class SelectionTests(unittest.TestCase):
 
     def test_selection_by_index(self):
         wall = self.selection[0]
-        self.assertIsInstance(wall, DB.Wall)
+        self.assertIsInstance(wall.unwrap(), DB.Wall)
+        self.assertIsInstance(wall, rpw.db.Wall)
 
     def test_selection_length(self):
         self.assertEqual(len(self.selection), 1)
@@ -114,7 +115,8 @@ class SelectionTests(unittest.TestCase):
     def test_selection_add(self):
         selection = rpw.ui.Selection()
         selection.add([self.wall])
-        self.assertIsInstance(selection[0], DB.Wall)
+        self.assertIsInstance(selection[0], rpw.db.Wall)
+        self.assertIsInstance(selection[0].unwrap(), DB.Wall)
 
     def test_selection_contains(self):
         selection = rpw.ui.Selection()
