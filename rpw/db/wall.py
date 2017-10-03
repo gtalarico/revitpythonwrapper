@@ -38,7 +38,7 @@ class Wall(FamilyInstance):
 
     def get_symbol(self, wrapped=True):
         """ Get Wall Type Alias """
-        return self.wall_type
+        return self.get_wall_type(wrapped)
 
     @property
     def symbol(self):
@@ -57,7 +57,8 @@ class Wall(FamilyInstance):
         return self.get_wall_type(wrapped=True)
 
     def get_wall_kind(self, wrapped=True):
-        return self.wall_type.get_wall_kind(wrapped=wrapped)
+        wall_type = self.get_wall_type(wrapped=True)
+        return wall_type.get_wall_kind(wrapped=wrapped)
 
     @property
     def wall_kind(self):
@@ -66,7 +67,7 @@ class Wall(FamilyInstance):
 
     def get_family(self, wrapped=True):
         """ Get WallKind Alias """
-        return self.wall_kind
+        return self.get_wall_kind(wrapped=wrapped)
 
     @property
     def family(self):
@@ -127,7 +128,8 @@ class WallType(FamilySymbol, ByNameCollectMixin):
         return self.get_instances(wrapped=True)
 
     def get_siblings(self, wrapped=True):
-        return self.wall_kind.get_wall_types(wrapped=wrapped)
+        wall_kind = self.get_wall_kind(wrapped=True)
+        return wall_kind.get_wall_types(wrapped=wrapped)
 
     @property
     def siblings(self):
@@ -162,7 +164,7 @@ class WallKind(BaseObjectWrapper):
         # Since this should not inherit from Family.
         # Solution copy code or Mixin. Or return Enum Name:  'Basic'
         # This works but requires Lookup.
-        # wall_type = self.wall_types[0]
+        # wall_type = self.get_wall_types()[0]
         # return wall_type.parameters.builtins['SYMBOL_FAMILY_NAME_PARAM'].value
         # return '{} Wall'.format(self._revit_object.ToString())
         return self._revit_object.ToString()
@@ -191,7 +193,7 @@ class WallKind(BaseObjectWrapper):
     def get_instances(self, wrapped=True):
         """ Returns all Wall instances of this given Wall Kind"""
         instances = []
-        for wall_type in self.wall_types:
+        for wall_type in self.get_wall_types(wrapped=True):
             instances.extend(wall_type.get_instances(wrapped=wrapped))
         return instances
 

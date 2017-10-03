@@ -37,11 +37,11 @@ class FamilyInstance(Element, CategoryMixin):
 
     >>> instance = rpw.db.Element(SomeFamilyInstance)
     <rpw:FamilyInstance % DB.FamilyInstance | name:72" x 36">
-    >>> instance.symbol.name
+    >>> instance.get_symbol().name
     '72" x 36"'
-    >>> instance.family
+    >>> instance.get_family()
     <RPW_Family:desk>
-    >>> instance.siblings
+    >>> instance.get_siblings()
     [<rpw:FamilyInstance % DB.FamilyInstance | name:72" x 36">, ... ]
 
     Attribute:
@@ -65,7 +65,8 @@ class FamilyInstance(Element, CategoryMixin):
 
     def get_family(self, wrapped=True):
         """ Wrapped ``DB.Family`` of the ``DB.FamilyInstance`` """
-        return self.symbol.get_family(wrapped=wrapped)
+        symbol = self.get_symbol()
+        return symbol.get_family(wrapped=wrapped)
 
     @property
     def family(self):
@@ -76,7 +77,8 @@ class FamilyInstance(Element, CategoryMixin):
 
     def get_siblings(self, wrapped=True):
         """ Other ``DB.FamilyInstance`` of the same ``DB.FamilySymbol`` """
-        return self.symbol.get_instances(wrapped=wrapped)
+        symbol = self.get_symbol()
+        return symbol.get_instances(wrapped=wrapped)
 
     @property
     def siblings(self):
@@ -121,7 +123,7 @@ class FamilySymbol(Element, CategoryMixin):
 
     >>> symbol = rpw.db.Element(SomeSymbol)
     <rpw:FamilySymbol % DB.FamilySymbol | name:72" x 36">
-    >>> instance.symbol.name
+    >>> instance.get_symbol().name
     '72" x 36"'
     >>> instance.family
     <rpw:Family % DB.Family | name:desk>
