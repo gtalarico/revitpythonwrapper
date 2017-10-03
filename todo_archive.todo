@@ -1,5 +1,0 @@
---- ✄ -----------------------
-Archived (17-10-02 19:32):
-☐ Add @ensure to all internal methods that require Transaction
-  Need to merge transaction first to ensure transaction is only started if not already dunning
-
