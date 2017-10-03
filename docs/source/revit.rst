@@ -5,11 +5,11 @@
 
 
 ==================
-rpw.revit
+rpw and rpw.revit
 ==================
 
-Revit Wrapper
-******************
+Revit Python Wrapper
+*********************
 
 .. automodule:: rpw.__revit
     :undoc-members:
@@ -21,6 +21,9 @@ Revit Wrapper
 .. data:: DB
     :module: rpw
     :annotation:   Revit.DB Namespace
+
+Revit Wrapper
+*********************
 
 .. autoclass:: rpw.__revit.Revit
     :members:

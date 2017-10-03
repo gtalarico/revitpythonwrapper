@@ -38,27 +38,15 @@ Version: |version|
 A Python Wrapper For the Revit API
 **********************************
 
+`Python Revit Api code that looks like Python`
+
 Revit Python Wrapper was created to help Python programmers write Revit API code.
 
 Wrapper classes make the interaction with API objects less repetitive,
 and more consistent with Python's conventions.
 
-It also provides a few convenient shortcuts:
-
-    * Initializes all common variables such as document handling variables (``doc`` and ``uidoc``)
-      so you can reuse code across platforms with no change to your import code.
-
-    * Imports ``clr``, and adds ``RevitAPI.dll`` + ``RevitAPIUI.dll`` assemblies,
-      and other common .NET types such as ``List``.
-
-    * Adds Reference the IronPython Standard Library to your ``sys.path`` (useful for Dynamo scripts).
-
-    * Easy to use WPF :doc:`ui/forms` so you can request additional user input
-      with little effort.
-
-
 .. caution::
-    | Breaking Changes are API changes are expected on 2.0 release (Q4 2017)
+    | Rpw 1.0 has taught use many lessons. Some API breaking changes are expected on 2.0 release (Q4 2017)
 
 Questions? Post them over in the project's `Github Page <http://www.github.com/gtalarico/revitpythonwrapper>`_ or
 hit me up on `twitter <https://twitter.com/gtalarico>`_.
@@ -67,6 +55,14 @@ Release Notes
 ^^^^^^^^^^^^^
 
 `Release Notes On Github Repository <https://github.com/gtalarico/revitpythonwrapper/blob/master/notes.md>`_
+
+Contribute
+^^^^^^^^^^
+    https://www.github.com/gtalarico/revitpythonwrapper
+
+License
+^^^^^^^
+    `MIT License <https://opensource.org/licenses/MIT>`_
 
 -------------------------------------------------------------------
 
@@ -90,6 +86,12 @@ Benefits
     * Implements patterns to reduce repetitive tasks (ie. :class:`rpw.db.Transaction`, :class:`rpw.db.Collector`)
     * Handles some data-type casting for speed and flexibility (ie. :any:`rpw.db.Parameter`)
     * Normalizes API calls for different Revit Versions
+    * Rpw Initializes all common variables such as document handling variables (``doc`` and ``uidoc``)
+      so you can reuse code across platforms with no change to your import code. See :doc:`revit`.
+    * Preloads ``clr``, and the required Revit assemblies such as ``RevitAPI.dll`` and ``RevitAPIUI.dll`` as well as .NET types such as ``List`` as ``Enum``. See :any:`rpw.utils.dotnet`
+    * Adds IronPython Standard Library to your ``sys.path`` (useful for Dynamo scripts).
+    * Easy to use WPF :doc:`ui/forms` and :any:`TaskDialog` wrapper makes it easy to request additional user input
+      with little effort.
 
 Compatibility
 ^^^^^^^^^^^^^
@@ -100,17 +102,10 @@ Compatibility
     * pyRevit 4.4+ on 2015, 2016, 2017, 2017.1
     * Dynamo: 1.2, 1.3
 
-Contribute
-^^^^^^^^^^
-    https://www.github.com/gtalarico/revitpythonwrapper
-
-License
-^^^^^^^
-    `MIT License <https://opensource.org/licenses/MIT>`_
-
 ---------------------------------------------------------------------------------
+
 **********************************
-Before We start
+Before You start
 **********************************
 
 To make it easier to users, Rpw attempts to maintain close fidelity to names and terms use by the Revit Api.
@@ -119,19 +114,18 @@ Alternative names are only used where Revit Api names are inconvenient or inadeq
 For example, the rpw :doc:`db/transaction` wrapper is also called ``Transaction``, however, the
 FilteredElementCollector wrapper, is called ``Collector``.
 
-To minimize namespace collision, the patterns below are highly recommended:
+To minimize namespace collisions, the patterns below are highly recommended:
 
 1. Avoid ``from Something import *`` . This is generally not a good idea anyway.
-2. Use rpw imports instead of `import clr` and `from Autodesk.Revit ...` See :doc:`revit` for more details.
-:any:`rpw.utils.dotnet` has .NET classes such as List and Enum ready to go.
+2. Use rpw imports instead of `import clr` and `from Autodesk.Revit ...` See :doc:`revit` for more details. :any:`rpw.utils.dotnet` has .NET classes such as List and Enum ready to go.
 3. Keep rpw namespaces isolated from Revit Namespaces. See example below:
 
 >>> from rpw import revit, db, ui, DB, UI
->>> # For rpw wrappers, especially those in rpw.db, keep them inside db, ui (or forms):
+>>> # For rpw wrappers, especially those in rpw.db, keep them inside db:
 >>> doors = db.Collector(of_category='Doors')
 >>> with db.Transaction('Delete'):
 ...     [revit.doc.Delete(id) for id in doors.element_ids]
->>> # For Revit Namespaces, keep them under DB and UI:
+>>> # Keep Revit namespaces them under DB:
 >>> invalid_id = DB.ElementId(-1)
 
 
@@ -147,8 +141,8 @@ paired with an example sans-rpw.
 
     >>> # Handles Document Manager and namespace imports for RevitPythonShell and Dynamo
     >>> import rpw
-    >>> from rpw import revit, DB, UI
-    # That's pretty much all you need!
+    >>> from rpw import revit, db, ui, DB, UI
+    # That's pretty much all you need
 
 Without RPW
 
@@ -288,7 +282,7 @@ Without RPW
     >>> collector = FilteredElementCollector()
     >>> walls = FilteredElementCollector.OfClass(WallType).ToElements()
 
-:any:`ParameterFilter`
+:doc:`db/parameters`
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
     >>> import rpw

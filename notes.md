@@ -8,6 +8,7 @@
 * Feature: Added get_assembly() method to element
 * Docs: Reorganized Entire Doc Structure to nest and group by module.
 * Fixed: re-enabled TaskDialog Tests
+* Fixed: Lot's of Doc Fixes
 * Improvement: Optimized db.Element() class discovery for explicit constructor
 * Improvement: Handle Pick exception
 * Improvement: Remove inspect.getmro check for element wrapping - was :wqnot needed
@@ -20,6 +21,8 @@
 * Feature/Cleanup: Add get_attribute(wrapped) + deprecate warning to several attributes:
   including: FamilyInstance, FamilySymbol, Family, and Category.
   Attributes like FamilyInstance.symbol should now be accessed using FamilyInstance.get_symbol()
+  These are being added in preparation to 2.0.0
+
 
 ### 1.6.0
 * Added TaskDialog, Tests, Docs

@@ -1,28 +1,28 @@
-Misc:
-☐ Make db.Element ignore if element already wrapped
-☐ Add Erro Handling to Pick. methods
-☐ rename method to Pick.element
-☐ rename method to Pick.points, etc
+2.0 Breaking Changes:
+☐ Rename Pick methods to to Pick.element, etc
+☐ move TaskDialog to ui.TaskDialog
+☐ move forms out of ui? Seems very inconsisten
+☐ remove doc and ui from rpw.doc, rpw.uidoc
 
-Others Merge:
-☐ Transaction (Status)
-☐ Logger
-☐ AutoCollector
+Core:
+☐ CRITICAL: Complete Deprecated methods for optional wrapping: family.symbols > family.get_symbols
+☐ CRITICAL: Complete Deprecated methods for optional wrapping for collector, collections, etc
+> Sometimes are wrapped, sometimes are unwrapped. That's bad! Collector uses .wrapped_elements
+> Ideally, it would all be wrapped, but since not all elements have working wrappers, that would creat an inconsistency
+✔ Add Erro Handling to Pick. methods @done (17-10-02 19:32)
+
+✘ Add @ensure to all internal methods that require Transaction @cancelled (17-10-02 19:32)
+✘ Investigate if possible to fake type so Elements can be passed back. @cancelled (17-10-02 19:32)
 
 Forms:
 ☐ Add Form Wrapper for exit_on_close FlexForm + Console
 ☐ Forms  - List Form
 ☐ Merge Ehsan's Forms
 
-Core:
-☐ CRITICAL: Write down Rules for how element vs wrapped elements are returned
-> Sometimes are wrapped, sometimes are unwrapped. That's bad!
-> Collector uses .wrapped_elements
-> Ideally, it would all be wrapped, but since not all elements have working wrappers, that would creat an inconsistency
-
-☐ Add @ensure to all internal methods that require Transaction
-  Need to merge transaction first to ensure transaction is only started if not already dunning
-☐ Investigate if possible to fake type so Elements can be passed back.
+Others Merge:
+☐ Transaction (Status)
+☐ Combine/Adapt Logger to coexist with pyrevit
+☐ AutoCollector
 
 Base Wrappers:
 ✔ Transaction @done
@@ -46,12 +46,13 @@ Element Wrappers:
 ☐ Worksets
 ☐ Links
 ☐ Material
+☐ BoundingBox
+✔ AssemblyInstance + AssemblyType @done (17-10-02 19:36)
+✔ Curve, Line, Ellipse, Circle
+✔ LinePatternElement
 ✔ Sheet @done
 ✔ Reference @done
 ✔ View @done
-✔ BaseObject @done
-✔ BaseObjectWrapper @done
-✔ Element @done
 ✔ Instance @done
 ✔ Symbol @done
 ✔ Family @done
@@ -63,21 +64,25 @@ Element Wrappers:
 ✔ Room @done
 ✔ Area @done
 ✔ AreaSchema @done
-
-Tests Debt:
-✔ Clean up + Separate @done
-☐ Room
-☐ Area
-☐ Geometry
-☐ wrapped_elements
+✔ BaseObject @done
+✔ BaseObjectWrapper @done
+✔ Element @done
 
 Graphics:
 ✔ OverrideGraphicSettings @done
 ☐ Filters
 ☐ Templates
 
+Tests Debt:
+✔ Clean up + Separate @done
+☐ Room
+☐ Area
+☐ Geometry
+
 Collector:
-☐ Add Bounding Box Filter
+☐ Add Missing Filters
+✔ Add Exclusion Filter
+✔ Add And Or Filters
 ✔ Clean up filter @done
 ✔ Add Slow Filters @done
 ✔ Add Quick Filters @done
@@ -85,7 +90,6 @@ Collector:
 ✔ Add Level Filter @done
 
 Geometry:
-☐ BoundingBox
 ✔ Point @done
 ✔ PointCollection @done
 

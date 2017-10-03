@@ -8,11 +8,9 @@ need.
 >>> from rpw import revit, db, ui
 >>> db.Element(SomeElement)
 >>> ui.Selection()
+>>> revit.doc
 >>> revit.uidoc.ActiveView
->>> revit.username
-gtalarico
->>> revit.host
-'Dynamo'
+
 
 Revit Namespaces are also available:
 
@@ -25,16 +23,6 @@ you would need:
 
 >>> from rpw import revit, db, ui, DB, UI
 
-Note:
-    The module path for the Revit Wrapper and its namespaces is ``rpw.__revit.Revit``.
-    However, the ``Revit()`` is always instantiated on the initialization of rpw,
-    and is stored along with the ``DB`` and ``UI`` namespaces in the
-    root of rpw module.
-
-    In other words, to use this wrapper all you need is to import
-    ``from rpw import revit``
-
-
 """  #
 import rpw
 from rpw.utils.dotnet import clr, Process
@@ -43,7 +31,27 @@ from rpw.base import BaseObject
 
 
 class Revit(BaseObject):
-    """Revit Application Wrapper """
+    """
+    Revit Application Wrapper
+
+    Note:
+        The module path for the Revit Wrapper and its namespaces is ``rpw.__revit.Revit``.
+        However, the ``Revit()`` is always instantiated on the initialization of rpw,
+        and is stored along with the ``DB`` and ``UI`` namespaces in the
+        root of rpw module.
+
+        In other words, to use this wrapper all you need is to import
+        ``from rpw import revit``
+
+    >>> from rpw import revit
+    >>> revit.doc
+    <Autodesk.Revit.DB.Document>
+    >>> revit.username
+    gtalarico
+    >>> revit.host
+    'Dynamo'
+
+    """
 
     class HOSTS():
         RPS = 'RPS'
