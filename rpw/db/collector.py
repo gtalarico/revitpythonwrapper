@@ -498,7 +498,7 @@ class Collector(BaseObjectWrapper):
         """ Selects Collector Elements on the UI """
         Selection(self.element_ids)
 
-    def first(self, wrapped=True):
+    def get_first(self, wrapped=True):
         """
         Returns first element or `None`
 
@@ -513,7 +513,7 @@ class Collector(BaseObjectWrapper):
 
 
     # @property
-    # def first(self):
+    # def get_first(self):
     #     deprecate_warning('Collector.first', 'Collector.get_first()')
     #     return self.get_first(wrapped=False)
 

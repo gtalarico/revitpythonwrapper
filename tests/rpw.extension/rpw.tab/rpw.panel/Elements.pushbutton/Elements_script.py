@@ -212,7 +212,7 @@ class InstanceTests(unittest.TestCase):
         logger.title('TESTING INSTANCES...')
 
     def setUp(self):
-        instance = rpw.db.Collector(of_category='OST_Furniture', is_not_type=True).first(wrapped=False)
+        instance = rpw.db.Collector(of_category='OST_Furniture', is_not_type=True).get_first(wrapped=False)
         self.instance = rpw.db.FamilyInstance(instance)
 
     def tearDown(self):
@@ -274,7 +274,7 @@ class WallTests(unittest.TestCase):
     def setUp(self):
         test_utils.delete_all_walls()
         test_utils.make_wall()
-        wall = rpw.db.Collector(of_class='Wall', is_not_type=True).first(wrapped=False)
+        wall = rpw.db.Collector(of_class='Wall', is_not_type=True).get_first(wrapped=False)
         self.wall = rpw.db.wall.Wall(wall)
 
     def tearDown(self):
@@ -329,7 +329,7 @@ class WallTests(unittest.TestCase):
 
     def test_wall_change_type(self):
         wall = self.wall
-        wall_type = rpw.db.Collector(of_class='WallType', where=lambda w: w.name == 'Wall 2').first(wrapped=False)
+        wall_type = rpw.db.Collector(of_class='WallType', where=lambda w: w.name == 'Wall 2').get_first(wrapped=False)
         with rpw.db.Transaction():
             wall.change_type('Wall 2')
         self.assertEqual(wall.wall_type.name, 'Wall 2')
@@ -348,7 +348,7 @@ class RoomTests(unittest.TestCase):
 
 
     def setUp(self):
-        room = rpw.db.Collector(os_category='OST_Rooms', is_not_type=True).first(wrapped=False)
+        room = rpw.db.Collector(os_category='OST_Rooms', is_not_type=True).get_first(wrapped=False)
         self.wall = rpw.db.wall.Wall(wall)
     #
     # def test_wall_instance_wrap(self):

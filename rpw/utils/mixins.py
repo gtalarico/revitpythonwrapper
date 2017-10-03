@@ -32,7 +32,7 @@ class ByNameCollectMixin():
         <rpw:FillPatternElement name:Solid>
 
         """
-        e = cls.collect(where=lambda e: e.name.lower() == name.lower()).first()
+        e = cls.collect(where=lambda e: e.name.lower() == name.lower()).get_first()
         if e:
             return e
         raise RpwCoerceError('by_name({})'.format(name), cls)

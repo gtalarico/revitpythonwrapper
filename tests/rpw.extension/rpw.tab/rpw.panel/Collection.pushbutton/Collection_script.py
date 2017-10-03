@@ -124,7 +124,7 @@ class ElementSetTests(unittest.TestCase):
 
     def test_element_set_first(self):
         rv = rpw.db.ElementSet(self.views)
-        self.assertEqual(rv.first(wrapped=False).Id, self.views[0].Id)
+        self.assertEqual(rv.get_first(wrapped=False).Id, self.views[0].Id)
 
     def test_element_set_get_item(self):
         rv = rpw.db.ElementSet(self.views)
@@ -208,7 +208,7 @@ class ElementCollectionTests(unittest.TestCase):
 
     def test_element_collection_first(self):
         rv = rpw.db.ElementCollection(self.views)
-        self.assertEqual(rv.first(wrapped=False).Id, self.views[0].Id)
+        self.assertEqual(rv.get_first(wrapped=False).Id, self.views[0].Id)
 
     def test_element_collection_get_item(self):
         rv = rpw.db.ElementCollection(self.views)

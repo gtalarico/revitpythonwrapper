@@ -173,7 +173,7 @@ class ElementSet(BaseObject):
     def __repr__(self, data=None):
         return super(ElementSet, self).__repr__(data={'count': len(self)})
 
-    def first(self, wrapped=True):
+    def get_first(self, wrapped=True):
         try:
             first = self[0]
         except IndexError:

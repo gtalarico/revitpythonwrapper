@@ -208,9 +208,9 @@ class TestViewOverrides(unittest.TestCase):
         cls.wrapped_view = revit.active_view
         cls.element = DB.FilteredElementCollector(revit.doc).OfClass(DB.FamilyInstance).WhereElementIsNotElementType().FirstElement()
 
-        linepattern = rpw.db.Collector(of_class='LinePatternElement', where=lambda x: x.Name == 'Dash').first()
+        linepattern = rpw.db.Collector(of_class='LinePatternElement', where=lambda x: x.Name == 'Dash').get_first()
         cls.line_pattern_id = linepattern.Id
-        fillpattern = rpw.db.Collector(of_class='FillPatternElement', where=lambda x: x.Name == 'Horizontal').first()
+        fillpattern = rpw.db.Collector(of_class='FillPatternElement', where=lambda x: x.Name == 'Horizontal').get_first()
         cls.fillpattern_id = fillpattern.Id
 
     def tearDown(cls):
