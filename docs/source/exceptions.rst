@@ -5,10 +5,15 @@
 
 
 ==================
-Exceptions
+rpw.exceptions
 ==================
 
-Revit Python Wrapper Exceptions
+Overview
+*******************************
+
+.. automodule:: rpw.exceptions
+
+Custom Exceptions
 *******************************
 
 .. automodule:: rpw.exceptions

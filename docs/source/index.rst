@@ -7,26 +7,6 @@
 Revit Python Wrapper
 ====================
 
-
-.. toctree::
-   :maxdepth: 3
-   :hidden:
-
-   self
-   revit
-   db
-   ui
-   base
-   utils
-   extras
-
-   installation
-
-   exceptions
-   known_issues
-   tests
-
-
 .. image:: ../_static/logo/logo-tight.png
   :scale: 50%
 
@@ -46,7 +26,7 @@ Wrapper classes make the interaction with API objects less repetitive,
 and more consistent with Python's conventions.
 
 .. caution::
-    | Rpw 1.0 has taught use many lessons. Some API breaking changes are expected on 2.0 release (Q4 2017)
+    | API breaking changes are expected on 2.0 release (Q4 2017)
 
 Questions? Post them over in the project's `Github Page <http://www.github.com/gtalarico/revitpythonwrapper>`_ or
 hit me up on `twitter <https://twitter.com/gtalarico>`_.
@@ -130,7 +110,32 @@ To minimize namespace collisions, the patterns below are highly recommended:
 
 
 **********************************
-Basic Components
+Contents
+**********************************
+
+:ref:`genindex` | :ref:`modindex`
+
+.. toctree::
+   :maxdepth: 2
+
+   self
+   installation
+
+   revit
+   db
+   ui
+   base
+   utils
+   extras
+   exceptions
+
+   known_issues
+   tests
+
+---------------------------------------------------------------------------------
+
+**********************************
+Quick Overview and Comparison
 **********************************
 
 The examples below give a basic overview of how the library is used,
@@ -308,22 +313,3 @@ Without RPW
     >>> form = SelectFromList('Window Title', options)
     >>> form.show()
     >>> selected_item = form.selected
-
-
-:doc:`utils`
-^^^^^^^^^^^^^^^^^^^
-
-    >>> # Handy Batch Converters to and from Element / ElementIds
-    >>> rpw.utils.to_elements(DB.ElementId)
-    [ DB.Element ]
-    >>> rpw.utils.to_elements(20001)
-    [ DB.Element ]
-    >>> rpw.utils.to_elements([20001, 20003])
-    [ DB.Element, DB.Element ]
-
-    >>> rpw.utils.to_element_ids(DB.Element)
-    [ DB.ElementId ]
-    >>> rpw.utils.to_element_ids(20001)
-    [ DB.ElementId ]
-    >>> rpw.utils.to_element_ids([20001, 20003])
-    [ DB.ElementId, DB.ElementId ]

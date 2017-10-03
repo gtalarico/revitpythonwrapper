@@ -70,9 +70,12 @@ class BaseObjectWrapper(BaseObject):
 
         Warning:
             Any Wrapper that inherits and overrides __init__ class MUST
-            super to ensure _revit_object is created by calling super().__init__
-            BaseObjectWrapper must define a class variable _revit_object_class
-            to define the object being wrapped.
+            ensure ``_revit_object`` is created by calling super().__init__
+            before setting any self attributes. Not doing so will
+            cause recursion errors and Revit will crash.
+            BaseObjectWrapper should define a class variable _revit_object_class
+            to define the object class being wrapped.
+
         """
         _revit_object_class = self.__class__._revit_object_class
 

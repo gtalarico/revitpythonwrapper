@@ -1,7 +1,5 @@
 """
-Custom RPW exceptions
-
-Use these exceptions to _try_ against specific Rpw Exceptions.
+Use these exceptions to `try` against specific Rpw Exceptions.
 
 >>> from rpw.exceptions import RpwWrongStorageType
 >>> try:
@@ -10,10 +8,10 @@ Use these exceptions to _try_ against specific Rpw Exceptions.
 ...     print('Height Parameter cannot be a string')
 ...     raise
 
-This module also provides easy access to the Autodesk.Revit.Exceptions
+This module also provides easy access to the ``Autodesk.Revit.Exceptions``
 namespaces:
 
->>> from rpw.exceptions import OperationCanceledException
+>>> from rpw.exceptions import InvalidObjectException
 >>> try:
 ...     doc.Delete(ElementId)
 ... except InvalidObjectException:

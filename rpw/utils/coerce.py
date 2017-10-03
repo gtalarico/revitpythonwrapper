@@ -61,6 +61,7 @@ def to_element_ids(element_references):
 
 # TODO: Add case to unwrap rpw elements
 def to_element(element_reference, doc=revit.doc):
+    """ Same as to_elements but for a single object """
     if isinstance(element_reference, DB.ElementId):
         element = doc.GetElement(element_reference)
     elif isinstance(element_reference, DB.Reference):

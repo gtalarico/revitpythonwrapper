@@ -13,6 +13,13 @@ Known Issues
     element is returned, sometimes is unwrapped.
     Since fixing this would be a breaking change, I am panning on
     fixing this on the next major release (2.0)
+    The main change will be that attributes that were previously properties,
+    will become a get method with an optional kwarg for wrapped:
+
+    >>> # Previous
+    >>> instance.family
+    >>> # 2.0
+    >>> instance.get_family()
 
 * Case Sensitive ElementParameterFilter
 

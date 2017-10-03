@@ -1,7 +1,4 @@
 """
-
-Revit Application Wrapper.
-
 The main rpw namespace and rpw.revit provide you with most of the imports will
 need.
 
