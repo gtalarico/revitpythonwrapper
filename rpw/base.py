@@ -32,7 +32,6 @@ Warning:
 """
 
 import rpw
-from rpw.exceptions import RpwTypeError, RpwException
 from rpw.utils.logger import logger
 
 
@@ -80,7 +79,7 @@ class BaseObjectWrapper(BaseObject):
         _revit_object_class = self.__class__._revit_object_class
 
         if enforce_type and not isinstance(revit_object, _revit_object_class):
-            raise RpwTypeError(_revit_object_class, type(revit_object))
+            raise rpw.exceptions.RpwTypeError(_revit_object_class, type(revit_object))
 
         object.__setattr__(self, '_revit_object', revit_object)
 
@@ -100,7 +99,7 @@ class BaseObjectWrapper(BaseObject):
             # attr_pascal_case = rpw.utils.coerce.to_pascal_case(attr)
             # return getattr(self.__dict__['_revit_object'], attr_pascal_case)
         except KeyError:
-            raise RpwException('BaseObjectWrapper is missing _revit_object')
+            raise rpw.exceptions.RpwException('BaseObjectWrapper is missing _revit_object')
 
     def __setattr__(self, attr, value):
         """

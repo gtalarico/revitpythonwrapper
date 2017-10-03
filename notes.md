@@ -1,5 +1,8 @@
 # Release Notes
 
+### 1.7.1
+* Fix: Autodesk.Revit.Exceptions Circular Import (Dynamo)
+
 ### 1.7.0
 * Feature: Added Collector Exclusion Filter
 * Feature: Added Collector UnionWith
