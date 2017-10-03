@@ -206,12 +206,12 @@ def to_pascal_case(snake_str):
     return "".join(x.title() for x in components)
 
 
-def dictioary_to_string(dictionary):
-    """ Makes a string with key:value pairs from a dictionary
+# def dictioary_to_string(dictionary):
+#     """ Makes a string with key:value pairs from a dictionary
 
-    >>> dictionary_to_string({'name': 'value'})
-    'name:value'
-    >>> dictionary_to_string({'name': 'value', 'id':5})
-    'name:value id:5'
-    """
-    return ' '.join(['{0}:{1}'.format(k, v) for k, v in dictionary.iteritems()])
+#     >>> dictionary_to_string({'name': 'value'})
+#     'name:value'
+#     >>> dictionary_to_string({'name': 'value', 'id':5})
+#     'name:value id:5'
+#     """
+#     return ' '.join(['{0}:{1}'.format(k, v) for k, v in dictionary.iteritems()])
