@@ -11,7 +11,7 @@ Use these exceptions to `try` against specific Rpw Exceptions.
 This module also provides easy access to the ``Autodesk.Revit.Exceptions``
 namespaces:
 
->>> from rpw.exceptions import InvalidObjectException
+>>> from rpw.exceptions.RevitExceptions import InvalidObjectException
 >>> try:
 ...     doc.Delete(ElementId)
 ... except InvalidObjectException:

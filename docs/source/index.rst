@@ -98,7 +98,7 @@ To minimize namespace collisions, the patterns below are highly recommended:
 
 1. Avoid ``from Something import *`` . This is generally not a good idea anyway.
 2. Use rpw imports instead of `import clr` and `from Autodesk.Revit ...` See :doc:`revit` for more details. :any:`rpw.utils.dotnet` has .NET classes such as List and Enum ready to go.
-3. Keep rpw namespaces isolated from Revit Namespaces. See example below:
+3. Keep rpw namespaces isolated from Revit Namespaces. Rpw's wrappers are lowercase the lowercase counterpart of their Revit equivalents, such as db, and ui. Revit Namespaces are DB, UI (``from Autodesk.Revit import DB` and ``from Autodesk.Revit import UI`)
 
 >>> from rpw import revit, db, ui, DB, UI
 >>> # For rpw wrappers, especially those in rpw.db, keep them inside db:
