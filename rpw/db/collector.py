@@ -36,6 +36,7 @@ from rpw.db.collection import ElementSet
 from rpw.utils.coerce import to_element_id, to_element_ids
 from rpw.utils.coerce import to_category, to_class
 from rpw.utils.logger import logger
+from rpw.utils.logger import deprecate_warning
 
 # More Info on Performance and ElementFilters:
 # http://thebuildingcoder.typepad.com/blog/2015/12/quick-slow-and-linq-element-filtering.html
@@ -463,27 +464,38 @@ class Collector(BaseObjectWrapper):
 
     def __iter__(self):
         """ Uses iterator to reduce unecessary memory usage """
+        # TODO: Depracate or Make return Wrapped ?
         for element in self._collector:
             yield element
 
-    @property
-    def elements(self):
+    def get_elements(self, wrapped=True):
         """
         Returns list with all elements instantiated using :any:`Element`
         """
-        return [element for element in self.__iter__()]
+        if wrapped:
+            return [Element(el) for el in self.__iter__()]
+        else:
+            return [element for element in self.__iter__()]
+
+    @property
+    def elements(self):
+        """ Returns list with all elements """
+        deprecate_warning('Collector.elements',
+                          'Collector.get_elements(wrapped=True)')
+        return self.get_elements(wrapped=False)
 
     @property
     def wrapped_elements(self):
-        """ Returns list with all elements instantiated using :any:`Element` """
-        return [Element(el) for el in self.__iter__()]
+        """ Returns list with all elements instantiated using :any:`Element`"""
+        deprecate_warning('Collector.wrapped_elements',
+                          'Collector.get_elements(wrapped=True)')
+        return self.get_elements(wrapped=True)
 
     def select(self):
         """ Selects Collector Elements on the UI """
         Selection(self.element_ids)
 
-    @property
-    def first(self):
+    def get_first(self, wrapped=True):
         """
         Returns first element or `None`
 
@@ -491,18 +503,31 @@ class Collector(BaseObjectWrapper):
             Element (`DB.Element`, `None`): First element or None
         """
         try:
-            return self[0]
+            element = self[0]
+            return Element(element) if wrapped else element
         except IndexError:
             return None
 
+
     @property
-    def element_ids(self):
+    def first(self):
+        deprecate_warning('Collector.first', 'Collector.get_first()')
+        return self.get_first(wrapped=False)
+
+    def get_element_ids(self):
         """
         Returns list with all elements instantiated using :any:`Element`
         """
         return [element_id for element_id in self._collector.ToElementIds()]
 
+    @property
+    def element_ids(self):
+        deprecate_warning('Collector.element_ids',
+                          'Collector.get_element_ids()')
+        return self.get_first()
+
     def __getitem__(self, index):
+        # TODO: Depracate or Make return Wrapped ?
         for n, element in enumerate(self.__iter__()):
             if n == index:
                 return element
