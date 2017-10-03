@@ -8,16 +8,23 @@
 Collector
 ==================
 
-FilteredElementCollector Wrapper
+Overview
+********
 
 .. automodule:: rpw.db.collector
     :undoc-members:
+
+FilteredElementCollector
+************************
 
 .. autoclass:: rpw.db.Collector
     :members:
     :special-members: __init__, __getattr__
     :private-members:
     :show-inheritance:
+
+ParameterFilter
+************************
 
 .. autoclass:: rpw.db.ParameterFilter
     :members:

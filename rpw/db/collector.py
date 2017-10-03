@@ -1,9 +1,10 @@
 """
->>> levels = rpw.db.Collector(of_category='Levels', is_type=True)
->>> walls = rpw.db.Collector(of_class='Wall', where=lambda x: x.parameters['Length'] > 5)
->>> desks = rpw.db.Collector(of_class='FamilyInstance', level='Level 1')
+Usage
 
-
+>>> from rpw import db
+>>> levels = db.Collector(of_category='Levels', is_type=True)
+>>> walls = db.Collector(of_class='Wall', where=lambda x: x.parameters['Length'] > 5)
+>>> desks = db.Collector(of_class='FamilyInstance', level='Level 1')
 
 Note:
     As of June 2017, these are the filters that have been implemented:
