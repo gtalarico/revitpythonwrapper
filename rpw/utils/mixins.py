@@ -1,8 +1,6 @@
 """ Collection of Class Mixins """
 
-from rpw import revit, DB
-from rpw.db.element import Element
-from rpw.db.category import Category
+from rpw import revit, db, DB
 from rpw.exceptions import RpwCoerceError
 from rpw.utils.logger import deprecate_warning
 
@@ -49,7 +47,7 @@ class ByNameCollectMixin():
         if isinstance(reference, str):
             return cls.by_name(reference)
         elif isinstance(reference, DB.ElementId):
-            return Element.from_id(reference)
+            return db.Element.from_id(reference)
         else:
             return cls(reference)
 
@@ -72,8 +70,8 @@ class CategoryMixin():
     def category(self):
         """ Wrapped ``DB.Category`` """
         deprecate_warning('.category', 'get_category()')
-        return Category(self._category)
+        return db.Category(self._category)
 
     def get_category(self, wrapped=True):
         """ Wrapped ``DB.Category``"""
-        return Category(self._category) if wrapped else self._category
+        return db.Category(self._category) if wrapped else self._category

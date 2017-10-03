@@ -11,10 +11,11 @@ from rpw.base import BaseObjectWrapper
 from rpw.exceptions import RpwException, RpwWrongStorageType
 from rpw.exceptions import RpwParameterNotFound, RpwTypeError
 from rpw.utils.logger import logger, deprecate_warning
+from rpw.utils.mixins import CategoryMixin
 from rpw.db.builtins import BicEnum, BipEnum
 
 
-class Element(BaseObjectWrapper):
+class Element(BaseObjectWrapper, CategoryMixin):
     """
     Inheriting from element extends wrapped elements with a new :class:`parameters`
     attribute, well as the :func:`unwrap` method inherited from the :any:`BaseObjectWrapper` class.

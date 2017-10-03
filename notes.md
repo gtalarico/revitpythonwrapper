@@ -2,6 +2,8 @@
 
 ### 1.7.1
 * Fix: Autodesk.Revit.Exceptions Circular Import (Dynamo)
+* Fix: + Docs Fixes
+* Feature: Added Category Mixin to Element()
 
 ### 1.7.0
 * Feature: Added Collector Exclusion Filter
