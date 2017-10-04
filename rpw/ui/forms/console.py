@@ -82,7 +82,7 @@ class Console(Window):
 
     CARET = '>>> '
 
-    def __init__(self, stack_level=1, stack_info=True, context=None):
+    def __init__(self, stack_level=1, stack_info=True, context=None, msg=''):
         """
         Args:
             stack_level (int): Default is 1. 0 Is the Console stack, 1 is the
@@ -90,6 +90,8 @@ class Console(Window):
             stack_info (bool): Display info about where call came from.
                                Will print filename name,  line no. and Caller
                                name.
+           msg (str): Message to display on start.
+                      Only available if using context
             context (dict): Optional Dictionary for when inspection is not
                             possible.
         """
@@ -134,9 +136,12 @@ class Console(Window):
         # Form Init
         self.ui.tbox.Focus()
         if not context and stack_info:
-            self.write_line('Caller: {} [ Line:{}] | File: {}'.format(stack_caller,
-                                                                      stack_lineno,
-                                                                      stack_filename))
+            self.write_line('Caller: {} [ Line:{}] | File: {}'.format(
+                                                              stack_caller,
+                                                              stack_lineno,
+                                                              stack_filename))
+        elif msg:
+            self.write_line(msg)
         else:
             self.tbox.Text = Console.CARET
 
