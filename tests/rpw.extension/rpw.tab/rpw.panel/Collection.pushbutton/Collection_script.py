@@ -122,13 +122,10 @@ class ElementSetTests(unittest.TestCase):
         rv = rpw.db.ElementSet(self.views)
         rv.select()
 
-    def test_element_set_first(self):
-        rv = rpw.db.ElementSet(self.views)
-        self.assertEqual(rv.get_first(wrapped=False).Id, self.views[0].Id)
-
     def test_element_set_get_item(self):
         rv = rpw.db.ElementSet(self.views)
-        self.assertIsInstance(rv[0].unwrap(), DB.View)
+        key = self.views[0]
+        self.assertIsInstance(rv[key].unwrap(), DB.View)
 
     def test_element_set_iter(self):
         rv = rpw.db.ElementSet(self.views)
@@ -136,9 +133,11 @@ class ElementSetTests(unittest.TestCase):
 
     def test_element_set_pop(self):
         rv = rpw.db.ElementSet(self.views)
-        first_id = rv.element_ids[0]
-        rv.pop(first_id)
-        self.assertNotIn(first_id, rv)
+        id_ = self.views[0].Id
+        poped = rv.pop(id_)
+        self.assertNotIn(id_, rv)
+        self.assertEqual(poped.Id, id_)
+        self.assertIsInstance(poped.unwrap(), DB.View)
 
     def test_element_set_wrapped_elements(self):
         rv = rpw.db.ElementSet(self.views).wrapped_elements

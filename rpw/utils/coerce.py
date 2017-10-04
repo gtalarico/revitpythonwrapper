@@ -62,14 +62,16 @@ def to_element_ids(element_references):
 # TODO: Add case to unwrap rpw elements
 def to_element(element_reference, doc=revit.doc):
     """ Same as to_elements but for a single object """
-    if isinstance(element_reference, DB.ElementId):
+    if isinstance(element_reference, DB.Element):
+        element = element_reference
+    elif isinstance(element_reference, DB.ElementId):
         element = doc.GetElement(element_reference)
     elif isinstance(element_reference, DB.Reference):
         element = doc.GetElement(element_reference)
     elif isinstance(element_reference, int):
         element = doc.GetElement(DB.ElementId(element_reference))
-    elif isinstance(element_reference, DB.Element):
-        element = element_reference
+    elif hasattr(element_reference, 'unwrap'):
+        element = element_reference.unwrap()
     else:
         raise RpwTypeError('Element, ElementId, or int', type(element_reference))
     return element

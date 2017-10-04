@@ -5,9 +5,10 @@
 
 Core:
 ☐ CRITICAL: Complete Deprecated methods for optional wrapping for Views
-☐ CRITICAL: Complete Deprecated methods for optional wrapping for Collection and Selection
+✔ CRITICAL: Complete Deprecated methods for optional wrapping for Collection and Selection @done (17-10-04 18:08)
 ☐ CRITICAL: Complete Deprecated methods for Tests!
 ☐ See if collector could inherit from ElementSet
+☐ Make SelectableMix in for .select() (retrieves ._selectable attribute)
 ✔ CRITICAL: Complete Deprecated methods for optional wrapping: family.symbols > family.get_symbols @done (17-10-02 20:52)
 ✔ CRITICAL: Complete Deprecated methods for optional wrapping for collector @done (17-10-02 20:53)
 > Sometimes are wrapped, sometimes are unwrapped. That's bad! Collector uses .wrapped_elements

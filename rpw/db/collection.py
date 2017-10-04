@@ -35,7 +35,7 @@ class ElementSet(BaseObject):
 
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
-        self._elements = {}
+        self._element_id_set = set()
         if elements_or_ids:
             self.add(elements_or_ids)
 
@@ -48,22 +48,36 @@ class ElementSet(BaseObject):
 
         """
         element_ids = to_element_ids(elements_or_ids)
-        for eid in element_ids:
-            self._elements[eid] = self.doc.GetElement(eid)
+        for id_ in element_ids:
+            self._element_id_set.add(id_)
 
-    def pop(self, element_id, wrapped=True):
+    def pop(self, element_reference, wrapped=True):
         """
         Removed from set using ElementIds
 
         Args:
-            element_id (`DB.ElementId`): ElementId
-         """
-        element = self._elements.pop(element_id)
-        return Element(element) if wrapped else element
+            element_reference (DB.ElementId, DB.Element)
+
+        Returns:
+            (DB.Element, db.Element)
+
+        """
+        element_id = to_element_id(element_reference)
+        element = self.__getitem__(element_id)
+        self._element_id_set.remove(element_id)
+        return element if wrapped else element.unwrap()
 
     def clear(self):
         """ Clears Set """
-        self._elements = OrderedDict()
+        self._element_id_set = set()
+
+    @property
+    def _elements(self):
+        return [self.doc.GetElement(e) for e in self._element_id_set]
+
+    @property
+    def _wrapped_elements(self):
+        return Element.from_list(self._element_id_set)
 
     def get_elements(self, wrapped=True, as_list=False):
         """
@@ -79,10 +93,10 @@ class ElementSet(BaseObject):
             Elements (``List``): Elements stored in ElementSet
         """
         if as_list or not wrapped:
-            elements = [e for e in self._elements.values()]
+            elements = self._elements
             return List[DB.Element](elements) if as_list else elements
         else:
-            return [Element(e) for e in self._elements.values()]
+            return self._wrapped_elements
 
     @property
     def wrapped_elements(self):
@@ -116,11 +130,10 @@ class ElementSet(BaseObject):
             ElementIds (List, List[DB.ElementId]): List of ElementIds Objects
 
         """
-        ids = [e for e in self._elements.keys()]
         if as_list:
-            return List[DB.ElementId](ids)
+            return List[DB.ElementId](self._element_id_set)
         else:
-            return ids
+            return list(self._element_id_set)
 
     @property
     def element_ids(self):
@@ -136,22 +149,31 @@ class ElementSet(BaseObject):
 
     def select(self):
         """ Selects Set in UI """
-        return rpw.ui.Selection(self.element_ids)
+        return rpw.ui.Selection(self._element_id_set)
 
     def __len__(self):
-        return len(self._elements)
+        return len(self._element_id_set)
 
     def __iter__(self):
         """ Iterator: Wrapped """
-        for element in self._elements.values():
-            yield Element(element)
+        for element in self._element_id_set:
+            yield Element.from_id(element)
 
-    def __getitem__(self, key):
-        """ Getter: Wrapped """
-        for element in self:
-            if element == key:
+    def __getitem__(self, element_reference):
+        """
+        Get Element from set
+
+        Args:
+            element_reference (DB.Element, DB.ElementID)
+
+        Returns:
+            (wrapped_element): Wrapped Element. Raises Key Error if not found.
+        """
+        eid_key = to_element_id(element_reference)
+        for element in self.__iter__():
+            if element.Id == eid_key:
                 return element
-        raise IndexError('IndexError in ElementSet: {}'.format(index))
+        raise KeyError(eid_key)
 
     def __contains__(self, element_or_id):
         """
@@ -165,24 +187,16 @@ class ElementSet(BaseObject):
         """
         # TODO Write Tests
         element_id = to_element_id(element_or_id)
-        return bool(element_id in self.get_element_ids(as_list=False))
+        return bool(element_id in self._element_id_set)
 
     def __bool__(self):
-        return bool(self._elements)
+        return bool(self._element_id_set)
 
     def __repr__(self, data=None):
         return super(ElementSet, self).__repr__(data={'count': len(self)})
 
-    def get_first(self, wrapped=True):
-        try:
-            first = self[0]
-        except IndexError:
-            return None
-        else:
-            return self[0] if wrapped else self[0].unwrap()
 
-
-class ElementCollection(ElementSet):
+class ElementCollection(BaseObject):
     """
     List Collection for managing a list of ``DB.Element``.
 
@@ -206,65 +220,9 @@ class ElementCollection(ElementSet):
 
     def append(self, elements_or_ids):
         """ Adds elements or element_ids to set. Handles single or list """
-        if not hasattr(elements_or_ids, '__iter__'):
-            elements_or_ids = [elements_or_ids]
         elements = to_elements(elements_or_ids)
         for element in elements:
             self._elements.append(element)
-
-    def add(self, *args):
-        raise AttributeError('Use ElementCollection .append instead')
-
-    def get_elements(self, wrapped=True):
-        """
-        List of Elements in Collection
-
-        Args:
-            wrapped(bool): True for wrapped Elements. Default is True.
-
-        Returns:
-            Elements (``List``): List of Elements Objects
-        """
-        elements = self._elements
-        return [Element(e) for e in elements] if wrapped else elements
-
-    @property
-    def elements(self):
-        """
-        List of Elements in Collection
-
-        Returns:
-            Elements (``List``): List of Elements Objects
-        """
-        deprecate_warning('ElementCollection.elements',
-                          'ElementCollection.get_elements()')
-        return self.get_elements(wrapped=True)
-
-    def get_element_ids(self, as_list=True):
-        """
-        ElementId of Elements in ElementCollection
-
-        Args:
-            as_list(bool): True if you want list as List[DB.ElementId], False
-                for regular python list. Default is True
-
-        Returns:
-            ElementIds (List, List[DB.ElementId]): List of ElementIds Objects
-
-        """
-        ids = [e.Id for e in self._elements]
-        if as_list:
-            return List[DB.ElementId](ids)
-        else:
-            return ids
-
-    @property
-    def element_ids(self):
-        """
-        Returns:
-            ElementIds (``List``): List of ElementIds Objects
-        """
-        return [e.Id for e in self._elements]
 
     def clear(self):
         """ Clears Set """
@@ -280,10 +238,134 @@ class ElementCollection(ElementSet):
         element = self._elements.pop(index)
         return Element(element) if wrapped else element
 
+    @property
+    def _element_ids(self):
+        return [e.Id for e in self._elements]
+
+    @property
+    def _wrapped_elements(self):
+        return Element.from_list(self._elements)
+
+    def get_elements(self, wrapped=True, as_list=False):
+        """
+        List of Elements in Collection
+
+        Args:
+            wrapped(bool): True for wrapped Elements. Default is True.
+            as_list(bool): True if you want list as List[DB.ElementId], False
+                for regular python list. Default is True
+
+        Returns:
+            Elements (``List``): List of Elements Objects or List[DB.Element]
+        """
+        elements = self._elements
+
+        if as_list or not wrapped:
+            elements = self._elements
+            return List[DB.Element](elements) if as_list else elements
+        else:
+            return self._wrapped_elements
+
+    @property
+    def elements(self):
+        deprecate_warning('ElementCollection.elements',
+                          'ElementCollection.get_elements()')
+        return self.get_elements(wrapped=True)
+
+    @property
+    def as_element_list(self):
+        return self.get_elements(as_list=True)
+
+    def select(self):
+        """ Selects Set in UI """
+        return rpw.ui.Selection(self._elements)
+
+    def get_element_ids(self, as_list=True):
+        """
+        ElementId of Elements in ElementCollection
+
+        Args:
+            as_list(bool): True if you want list as List[DB.ElementId], False
+                for regular python list. Default is True
+
+        Returns:
+            ElementIds (List, List[DB.ElementId]): List of ElementIds Objects
+
+        """
+        if as_list:
+            return List[DB.ElementId](self._element_ids)
+        else:
+            return self._element_ids
+
+    @property
+    def element_ids(self):
+        """
+        Returns:
+            ElementIds (``List``): List of ElementIds Objects
+        """
+        deprecate_warning('ElementCollection.element_ids',
+                          'ElementCollection.get_element_ids()')
+        return self.get_element_ids(as_list=False)
+
+    @property
+    def as_element_id_list(self):
+        """
+        Returns:
+            IList<DB.Element>
+        """
+        deprecate_warning('ElementCollection.as_element_id_list',
+                          'ElementCollection.get_element_ids()')
+        return self.get_element_ids(as_list=True)
+
+    def get_first(self, wrapped=True):
+        """ Get First Item in Collection
+
+        Args:
+            wrapped (bool): True for wrapped. Default is True.
+
+        Returns:
+            (db.Element, DB.Element): First Element, or None if empty.
+        """
+        try:
+            element = self._elements[0]
+        except IndexError:
+            return None
+        else:
+            return Element(element) if wrapped else element
+
     def __iter__(self):
         """ Iterator: Wrapped """
-        for element in self._elements:
-            yield Element(element)
+        for wrapped_element in self._wrapped_elements:
+            yield wrapped_element
+
+    def __len__(self):
+        return len(self._elements)
+
+    def __getitem__(self, index):
+        """ Getter: Wrapped """
+        for n, wrapped_element in enumerate(self.__iter__()):
+            if n == index:
+                return wrapped_element
+        raise IndexError(index)
+
+    def __contains__(self, element_or_id):
+        """
+        Checks if selection contains the element Reference.
+
+        Args:
+            Reference: Element, ElementId, or Integer
+
+        Returns:
+            bool: ``True`` or ``False``
+        """
+        element_id = to_element_id(element_or_id)
+        return bool(element_id in self.get_element_ids(as_list=False))
+
+    def __bool__(self):
+        return bool(self._elements)
+
+    def __repr__(self, data=None):
+        return super(ElementCollection, self).__repr__(data={'count': len(self)})
 
 class XyzCollection(BaseObject):
     """

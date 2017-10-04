@@ -93,9 +93,10 @@ class SelectionTests(unittest.TestCase):
                         ))
 
     def test_selection_by_index(self):
-        wall = self.selection[0]
-        self.assertIsInstance(wall.unwrap(), DB.Wall)
-        self.assertIsInstance(wall, rpw.db.Wall)
+        wall = self.selection.get_elements(wrapped=False)[0]
+        self.assertIsInstance(wall, DB.Wall)
+        wall2 = self.selection.get_elements(wrapped=True)[0]
+        self.assertTrue(hasattr(wall2, 'unwrap'))
 
     def test_selection_length(self):
         self.assertEqual(len(self.selection), 1)
@@ -115,8 +116,8 @@ class SelectionTests(unittest.TestCase):
     def test_selection_add(self):
         selection = rpw.ui.Selection()
         selection.add([self.wall])
-        self.assertIsInstance(selection[0], rpw.db.Wall)
-        self.assertIsInstance(selection[0].unwrap(), DB.Wall)
+        wall = self.selection.get_elements(wrapped=False)[0]
+        self.assertIsInstance(wall, DB.Wall)
 
     def test_selection_contains(self):
         selection = rpw.ui.Selection()
@@ -124,10 +125,10 @@ class SelectionTests(unittest.TestCase):
         self.assertIn(self.wall, selection)
 
     def test_selection_updates_does_not_lose(self):
-        selection = rpw.ui.Selection()
-        selection2 = rpw.ui.Selection()
+        selection = rpw.ui.Selection([self.wall])
+        selection2 = rpw.ui.Selection([self.wall])
         selection2.update()
-        self.assertEqual(selection[0].Id, selection2[0].Id)
+        self.assertEqual(selection.elements[0].Id, selection2.elements[0].Id)
 
     def test_selection_update(self):
         selection = rpw.ui.Selection()

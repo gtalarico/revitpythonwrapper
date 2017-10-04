@@ -13,6 +13,7 @@ from rpw.exceptions import RpwParameterNotFound, RpwTypeError
 from rpw.utils.logger import logger, deprecate_warning
 from rpw.utils.mixins import CategoryMixin
 from rpw.db.builtins import BicEnum, BipEnum
+from rpw.utils.coerce import to_element_ids
 
 
 class Element(BaseObjectWrapper, CategoryMixin):
@@ -221,24 +222,33 @@ class Element(BaseObjectWrapper, CategoryMixin):
             (``Element``): Wrapped ``rpw.db.Element`` instance
 
         """
-        doc = revit.doc if doc is None else doc
+        doc = doc or revit.doc
         element = doc.GetElement(element_id)
         return Element(element)
 
     @staticmethod
-    def from_list(elements, doc=None):
+    def from_list(element_references, doc=None):
         """
         Instantiate Elements from a list of DB.Element instances
 
         Args:
-            elements (``[DB.Element,]``): List of elements
+            elements (``[DB.Element, DB.ElementId]``): List of element references
 
         Returns:
             (``list``): List of ``rpw.db.Element`` instances
 
         """
-        doc = revit.doc if doc is None else doc
-        return [Element(element) for element in elements]
+        doc = doc or revit.doc
+        try:
+            return [Element(e) for e in element_references]
+        except RpwTypeError:
+            pass
+        try:
+            element_ids = to_element_ids(element_references)
+            return [Element.from_id(id_, doc=doc) for id_ in element_ids]
+        except RpwTypeError:
+            raise
+
 
     @staticmethod
     def Factory(element):
