@@ -9,10 +9,6 @@ Keyboard Shortcuts:
     * ``Down``  Iterate history down
     * ``Tab``  Iterate possible autocomplete options (works for dotted lookup)
 
-Warning:
-    Becareful with `Force Quit`. Under certain circumstances, it can crash Revit.
-    It crashes Dynamo very consistently.
-
 Note:
     The last stack frame is automatically injected is the context of the evaluation
     loop of the console: the local and global variables from where the Console
