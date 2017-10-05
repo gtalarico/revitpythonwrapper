@@ -9,6 +9,7 @@ from rpw.utils.mixins import CategoryMixin
 
 
 # TODO: Tests
+# TODO: Inherit from FamilyInstance Instead
 
 class AssemblyInstance(Element, CategoryMixin):
     """
