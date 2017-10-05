@@ -8,17 +8,11 @@
 rpw.exceptions
 ==================
 
-Overview
-*******************************
-
-.. automodule:: rpw.exceptions
-
-Custom Exceptions
+Exceptions
 *******************************
 
 .. automodule:: rpw.exceptions
     :members:
-    :special-members: __init__, __getattr__, __getitem__
     :private-members:
     :show-inheritance:
 
