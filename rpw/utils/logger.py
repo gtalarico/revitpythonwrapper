@@ -129,7 +129,7 @@ class LoggerWrapper():
         self._logger.setLevel(level)
 
 def deprecate_warning(depracated, replaced_by=None):
-    msg = '{} has been depracated and will be removed soon.'.format(depracated)
+    msg = '{} has been deprecated and will be removed soon.'.format(depracated)
     if replaced_by:
         msg += ' Use {} instead'.format(replaced_by)
     logger.warning(msg)
