@@ -39,4 +39,6 @@ from rpw.db.collection import XyzCollection
 from rpw.db.collector import Collector, ParameterFilter
 from rpw.db.transaction import Transaction, TransactionGroup
 
+from rpw.db.plumbing import FluidType
+
 __all__ = [cls for cls in locals().values() if isinstance(cls, type)]
