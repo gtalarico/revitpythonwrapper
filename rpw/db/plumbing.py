@@ -9,27 +9,17 @@ from rpw import revit, DB
 
 
 class FluidType(Element):
-    """
-    Autodesk.Revit.DB.Plumbing.FluidType wrapper Based on rpw.db.Element
+    """ Autodesk.Revit.DB.Plumbing.FluidType wrapper
+    Inherits from rpw.db.Element
     >>> from rpw.db import FluidType
 
-    Or a dictionnary of fluids used by system
+    Example to return a dictionary of fluids in use with system as key
     >>> FluidType.in_use_dict() # return format: {system.name:{'name':fluid.name, 'temperature':temperature}
     {'Hydronic Return': {'name': 'Water', 'temperature': 283.15000000000003}, ...}
-
-    An iterable of all FluidTemperature in current FluidType as native GetFluidTemperatureSetIterator method is not
-    very intuitive
-    >>> fluid_type.fluid_temperatures
-
-    A sorted list of existing temperatures in current FluidType
-    >>> fluid_type.temperatures
-    [272.15000000000003, 277.59444444444449, 283.15000000000003, 288.70555555555563, ...]
 
     FluidType wrapper is collectible:
     >>> FluidType.collect()
     <rpw:Collector % FilteredElementCollector [count:19]>
-
-
     """
     _revit_object_class = DB.Plumbing.FluidType
     _collector_params = {'of_class': _revit_object_class, 'is_type': True}
@@ -43,19 +33,34 @@ class FluidType(Element):
 
     @staticmethod
     def in_use_dict(doc=revit.doc):
+        """ Return a dictionary of fluids in use with system as key
+        >>> FluidType.in_use_dict() # return format: {system.name:{'name':fluid.name, 'temperature':temperature}
+        {'Hydronic Return': {'name': 'Water', 'temperature': 283.15000000000003}, ...}
+        """
         result = {}
         for system in DB.FilteredElementCollector(doc).OfClass(DB.Plumbing.PipingSystemType):
             rpw_system = Element(system)
             rpw_fluid_type = Element.from_id(system.FluidType)
-            result[rpw_system.name]={'name':rpw_fluid_type.name, 'temperature':rpw_system.FluidTemperature}
+            result[rpw_system.name] = {'name': rpw_fluid_type.name, 'temperature': rpw_system.FluidTemperature}
         return result
 
     @property
     def fluid_temperatures(self):
-        """ return an iterable of all FluidTemperature in current FluidType """
+        """ Return an iterable of all FluidTemperature in current FluidType as native GetFluidTemperatureSetIterator
+        method is not very intuitive
+        >>> fluid_type.fluid_temperatures
+        <Autodesk.Revit.DB.Plumbing.FluidTemperatureSetIterator object at 0x00000000000002E9...
+        >>> for fluid_temperature in fluid_type.fluid_temperatures:
+        >>>     fluid_temperature
+        <Autodesk.Revit.DB.Plumbing.FluidTemperature object at 0x00000000000002EC...
+        <Autodesk.Revit.DB.Plumbing.FluidTemperature object at 0x00000000000002ED...
+        ...
+        """
         return self.GetFluidTemperatureSetIterator()
 
     @property
     def temperatures(self):
-        """ return (list) a sorted list of temperatures (double) in current FluidType """
+        """ Return (list) a sorted list of temperatures (double) in current FluidType
+        [272.15000000000003, 277.59444444444449, 283.15000000000003, 288.70555555555563, ...]
+        """
         return sorted([temp.Temperature for temp in self.fluid_temperatures])
