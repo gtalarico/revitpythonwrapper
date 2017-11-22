@@ -11,10 +11,10 @@ Use these exceptions to `try` against specific Rpw Exceptions.
 This module also provides easy access to the ``Autodesk.Revit.Exceptions``
 namespaces:
 
->>> from rpw.exceptions.RevitExceptions import InvalidObjectException
+>>> from rpw.exceptions import RevitExceptions
 >>> try:
 ...     doc.Delete(ElementId)
-... except InvalidObjectException:
+... except RevitExceptions.InvalidObjectException:
 ...     print('This element is no longer valid ')
 
 """  #
