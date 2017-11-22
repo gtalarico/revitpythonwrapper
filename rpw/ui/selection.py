@@ -100,6 +100,18 @@ class Selection(BaseObjectWrapper, ElementSet):
         ElementSet.clear(self)
         self.update()
 
+    def __getitem__(self, index):
+        """
+        Overrides ElementSet __getitem__ to retrieve from selection
+        based on index.
+        """
+        # https://github.com/gtalarico/revitpythonwrapper/issues/32
+        for n, element in enumerate(self.__iter__()):
+            if n ==index:
+                return element
+        else:
+            raise IndexError('Index is out of range')
+
     def __bool__(self):
         """
         Returns:

@@ -35,7 +35,7 @@ class ElementSet(BaseObject):
 
     def __init__(self, elements_or_ids=None, doc=revit.doc):
         self.doc = doc
-        self._element_id_set = set()
+        self._element_id_set = []
         if elements_or_ids:
             self.add(elements_or_ids)
 
@@ -49,7 +49,8 @@ class ElementSet(BaseObject):
         """
         element_ids = to_element_ids(elements_or_ids)
         for id_ in element_ids:
-            self._element_id_set.add(id_)
+            if id_ not in self._element_id_set:
+                self._element_id_set.append(id_)
 
     def pop(self, element_reference, wrapped=True):
         """
@@ -69,7 +70,7 @@ class ElementSet(BaseObject):
 
     def clear(self):
         """ Clears Set """
-        self._element_id_set = set()
+        self._element_id_set = []
 
     @property
     def _elements(self):
@@ -161,7 +162,7 @@ class ElementSet(BaseObject):
 
     def __getitem__(self, element_reference):
         """
-        Get Element from set
+        Get Element from set from an element ElementId
 
         Args:
             element_reference (DB.Element, DB.ElementID)
@@ -206,8 +207,6 @@ class ElementCollection(BaseObject):
     >>> SomeElement in element_set
     True
     >>> element_set.clear()
-
-    NOTE: Similar to DB.ElementCollection, doesnt wrap since there is no advantage
 
     Args:
         (`DB.Element`, `DB.ElementID`, optional): Elements or Element Ids.
@@ -365,7 +364,9 @@ class ElementCollection(BaseObject):
         return bool(self._elements)
 
     def __repr__(self, data=None):
-        return super(ElementCollection, self).__repr__(data={'count': len(self)})
+        return super(ElementCollection, self).__repr__(
+                                                    data={'count': len(self)})
+
 
 class XyzCollection(BaseObject):
     """

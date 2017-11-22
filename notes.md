@@ -1,5 +1,9 @@
 # Release Notes
 
+### 1.7.3
+* Added Get by Index to Selection (issues #32)
+* Converted ElementSet internal storage to list instead of set to allow ordered sequence
+
 ### 1.7.2
 * Fixed: Collector.get_element_ids() Typo
 * Fix: XYZ can now take regular DB.XYZ
