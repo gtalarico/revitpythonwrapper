@@ -17,8 +17,8 @@ class Transaction(BaseObjectWrapper):
 
     >>> with db.Transaction('Move Wall') as t:
     >>>     wall.DoSomething()
-    >>>     assert t == DB.TransactionStatus.Started  # True
-    >>> assert t == DB.TransactionStatus.Committed    # True
+    >>>     assert t.HasStarted() is True
+    >>> assert t.HasEnded() is True
 
     Wrapped Element:
         self._revit_object = `Revit.DB.Transaction`
@@ -107,7 +107,8 @@ class TransactionGroup(BaseObjectWrapper):
         """
             Args:
                 name (str): Name of the Transaction
-                assimilate (bool): If assimilates is ``True``, transaction history is `squashed`.
+                assimilate (bool): If assimilates is ``True``,
+                    transaction history is `squashed`.
         """
         if name is None:
             name = 'RPW Transaction Group'
@@ -131,7 +132,8 @@ class TransactionGroup(BaseObjectWrapper):
                     self.transaction_group.Commit()
             except Exception as exc:
                 self.transaction_group.RollBack()
-                logger.error('Error in TransactionGroup Commit: has rolled back.')
+                logger.error('Error in TransactionGroup Commit: \
+                              has rolled back.')
                 logger.error(exc)
                 raise exc
 
