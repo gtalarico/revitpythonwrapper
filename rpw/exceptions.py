@@ -22,6 +22,7 @@ namespaces:
 from rpw.utils.logger import logger
 from Autodesk.Revit import Exceptions as RevitExceptions
 
+
 class RpwException(Exception):
     """ Revit Python Wrapper Base Exception """
 
@@ -43,7 +44,8 @@ class RpwValueError(ValueError):
 class RpwParameterNotFound(RpwException, KeyError):
     """ Revit Python Wrapper Parameter Error """
     def __init__(self, element, param_name):
-        msg = 'parameter not found [element:{}]:[param_name:{}]'.format(element.Id, param_name)
+        msg = 'parameter not found [element:{}]:[param_name:{}]'.format(
+                                                        element.Id, param_name)
         super(RpwParameterNotFound, self).__init__(msg)
 
 
@@ -58,7 +60,6 @@ class RpwWrongStorageType(RpwException, TypeError):
 class RpwCoerceError(RpwException, ValueError):
     """ Coerce Error """
     def __init__(self, value, target_type):
-        msg = 'Could not cast value:{} to target_type:{}'.format(value, target_type)
+        msg = 'Could not cast value:{} to target_type:{}'.format(value,
+                                                                 target_type)
         super(RpwCoerceError, self).__init__(msg)
-
-
