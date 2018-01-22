@@ -42,8 +42,7 @@ def select_file(extensions='All Files (*.*)|*.*',
         restore_directory (bool): Restores the directory to the previously selected directory before closing
 
     Returns:
-        filepath (list, string): filepath string if ``multiple=False`` otherwise
-            list of filepath strings
+        filepath (list, string): filepath string if ``multiple=False`` otherwise list of filepath strings
 
     """
     form = Forms.OpenFileDialog()
