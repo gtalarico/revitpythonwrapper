@@ -20,6 +20,7 @@ namespaces:
 """  #
 
 from rpw.utils.logger import logger
+# Added on 1.7.4
 # Since adding Autodesk.Revit, it became impossible to run any non-revit
 # tools such as forms.os_forms, etc using run_forms.BaseException
 # This needs clean up

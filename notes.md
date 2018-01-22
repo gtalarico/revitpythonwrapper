@@ -1,5 +1,10 @@
 # Release Notes
 
+### 1.7.4
+* Fixed os_forms.select_file(multiple=True) - Issue #35
+* Fixed Autodesk.Revit.Exceptions import when running rpw from ipy console (ig. run_tests.bat)
+
+
 ### 1.7.3
 * Added Get by Index to Selection (issues #32)
 * Converted ElementSet internal storage to list instead of set to allow ordered sequence
