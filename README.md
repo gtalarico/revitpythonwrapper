@@ -1,5 +1,5 @@
 ### Revit Python Wrapper
-
+Note: This project is no longer actively maintained. Please see pyrevit which is actively maintained
 For more information please see the official documentation:
 http://revitpythonwrapper.readthedocs.io/
 
